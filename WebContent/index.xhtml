@@ -53,25 +53,11 @@
 			<div class="logo"></div>
 		</div>
 
-
-
-		<div id="wrapper">
-
-			<div id="content">
-
-				<p:panel id="OrtaSayfa">
-					<ui:include src="#{anaSayfaBean.formPath}" />
-				</p:panel>
-
-			</div>
-
-
-
 			<div id="sidebar">
 				<h:form>
 					<p:growl id="messages" showDetail="false" />
 
-					<p:menu toggleable="true" style="width:270px">
+				 <p:menubar>
 
 						<p:submenu label="HIZLI ERİŞİM" expanded="true">
 
@@ -494,12 +480,26 @@
 						</p:submenu>
 
 
-					</p:menu>
+					</p:menubar>
 				</h:form>
 
 
 
 			</div>
+
+
+		<div id="wrapper">
+
+			<div id="content">
+
+				<p:panel id="OrtaSayfa">
+					<ui:include src="#{anaSayfaBean.formPath}" />
+				</p:panel>
+
+			</div>
+
+
+
 			<div id="cleared"></div>
 		</div>
 

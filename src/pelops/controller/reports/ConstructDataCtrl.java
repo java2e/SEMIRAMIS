@@ -39,6 +39,7 @@ public class ConstructDataCtrl {
 
 	public ArrayList<ReportGenel> init(ArrayList<ReportGenel> genels)
 			throws Exception {
+		//s
 		ArrayList<ReportGenel> sendList = new ArrayList<ReportGenel>();
 		for (ReportGenel reportGenel : genels) { 
 			reportGenel = setBarkod(reportGenel);

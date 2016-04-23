@@ -61,7 +61,50 @@ public class HaczeEsasMalBilgisiDAO extends DBConnection {
 		}
 		return kaydedildi;
 	}
+	public boolean egmkaydet(HaczeEsasMalBilgisi haczeEsasMalBilgisi)
+			throws Exception {
 
+		boolean kaydedildi = false;
+
+		SQL = "INSERT INTO tbl_hacze_esas_mal_bilgisi("
+				+ " borclu_id, menkul_bilgisi, tapu_il_adi, tapu_ilce_adi, tapu_mahalle_adi, "
+				+ "tapu_mulk_tipi, tapu_parsel, tapu_sayfa_no, tapu_cilt_no, "
+				+ "arac_plaka_no, arac_aractipi, banka_hesap_no, muhatap_adi, muhatap_adresi, diger_bilgiler,"
+				+ " mal_tutari, icra_dosyasi_id, mal_tipi, mevduat_bilgisi)"
+				+ " VALUES ( ?, ?, ?, ?, ?, " + "?, ?, ?, ?, ?, "
+				+ " ?, ?, ?, ?, ?,  ?, ?, ?, ?);";
+
+		newConnectDB();
+
+		pstm = conn.prepareStatement(SQL);
+
+		pstm.setInt(1, haczeEsasMalBilgisi.getBorcluId());
+		pstm.setString(2, haczeEsasMalBilgisi.getMenkulBilgisi());
+		pstm.setString(3, haczeEsasMalBilgisi.getIlAdi());
+		pstm.setString(4, haczeEsasMalBilgisi.getIlceAdi());
+		pstm.setString(5, haczeEsasMalBilgisi.getTapuMahalleAdi());
+		pstm.setString(6, haczeEsasMalBilgisi.getTapuMulkTipi());
+		pstm.setString(7, haczeEsasMalBilgisi.getTapuParsel());
+		pstm.setString(8, haczeEsasMalBilgisi.getTapuSayfaNo());
+		pstm.setString(9, haczeEsasMalBilgisi.getTapuCiltNo());
+		pstm.setString(10, haczeEsasMalBilgisi.getAracPlakaNo());
+		pstm.setString(11, haczeEsasMalBilgisi.getAracAracTipi());
+		pstm.setString(12, haczeEsasMalBilgisi.getBankaHesapNo());
+		pstm.setString(13, haczeEsasMalBilgisi.getMuhatapAdi());
+		pstm.setString(14, haczeEsasMalBilgisi.getMuhatapAdresi());
+		pstm.setString(15, haczeEsasMalBilgisi.getDigerBilgiler());
+		pstm.setInt(16, haczeEsasMalBilgisi.getMalTutari());
+		pstm.setInt(17, haczeEsasMalBilgisi.getIcraDosyaId());
+		pstm.setString(18, haczeEsasMalBilgisi.getMalTipi());
+		pstm.setString(19, haczeEsasMalBilgisi.getMevduatBilgisi());
+
+		int sonuc = pstm.executeUpdate();
+		disconnectDB();
+		if (sonuc == 1) {
+			kaydedildi = true;
+		}
+		return kaydedildi;
+	}
 	public ArrayList<HaczeEsasMalBilgisi> getAllListFromIcraDosyaID(int id)
 			throws Exception {
 
@@ -74,7 +117,7 @@ public class HaczeEsasMalBilgisiDAO extends DBConnection {
 				+ " arac_aractipi, banka_hesap_no, muhatap_adi, muhatap_adresi, "
 				+ "diger_bilgiler,"
 				+ " mal_tutari, icra_dosyasi_id, mal_tipi, mevduat_bilgisi"
-				+ " FROM tbl_hacze_esas_mal_bilgisi where icra_dosyasi_id ="
+				+ " FROM tbl_hacze_esas_mal_bilgisi where borclu_id ="
 				+ id + " ;";
 
 		newConnectDB();

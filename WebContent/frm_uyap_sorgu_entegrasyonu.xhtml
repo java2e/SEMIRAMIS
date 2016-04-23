@@ -30,12 +30,13 @@
 		<p:panel header="EGM(ARAÇ BİLGİLERİ) EXCEL VERİLERİNİ SİSTEME AKTAR">
 		<p:panelGrid columns="8" style=" border-style: hidden !important;">
 			<p:fileUpload label="ECXEL Dosyasını Seç "
-						fileUploadListener="#{excellParserBean.XLSDosyaAl}"
+						fileUploadListener="#{uyapsorguentegrasyonu.XLSDosyaAl}"
 						mode="advanced" allowTypes="/(\.|\/)(xls|xlsx)$/"
 						sizeLimit="10000000" skinSimple="true" />
-				<p:commandButton value="EXCEL KAYITLARINI SİSTEME AKTAR" action="#" update="growlMesaj" disabled="true"/>		
+				<p:commandButton value="EXCEL KAYITLARINI SİSTEME AKTAR" action="#{uyapsorguentegrasyonu.XLSEMGSistemeAktar}" update="growlMesaj" />		
 			</p:panelGrid>
 		</p:panel>
+
 
 		<p:spacer height="15"/>
 

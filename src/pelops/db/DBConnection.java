@@ -2,7 +2,7 @@ package pelops.db;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-
+import java.util.Date;
 
 public class DBConnection {
 
@@ -27,6 +27,15 @@ public class DBConnection {
 		public void disconnectDB() throws Exception
 		{
 			conn.close();
+		}
+		
+		
+		public java.sql.Date convertFromJAVADateToSQLDate(java.util.Date javaDate) {
+			java.sql.Date sqlDate = null;
+			if (javaDate != null) {
+				sqlDate = (java.sql.Date) new Date(javaDate.getTime());
+			}
+			return sqlDate;
 		}
 		
 //		public static void main(String args[])

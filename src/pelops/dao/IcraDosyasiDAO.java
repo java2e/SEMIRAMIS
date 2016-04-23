@@ -376,7 +376,7 @@ public class IcraDosyasiDAO extends DBConnection {
 	public int MalSayisi(String malAdi, int id) throws Exception {
 		DBConnection DB = new DBConnection();
 		DB.newConnectDB();
-		String SQL = "SELECT COUNT(*) as Adet FROM tbl_hacze_esas_mal_bilgisi where icra_dosyasi_id = "
+		String SQL = "SELECT COUNT(*) as Adet FROM tbl_hacze_esas_mal_bilgisi where borclu_id = "
 				+ id + " and mal_tipi= '" + malAdi + "';";
 		Statement stmt;
 		ResultSet rs;

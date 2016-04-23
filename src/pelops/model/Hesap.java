@@ -3,178 +3,139 @@ package pelops.model;
 public class Hesap {
 
 	private int id, icra_dosyasi;
-	 
-	private double  
-	  asil_alacak ,
-	  gecikme_faizi ,
-	  temerrut_faizi ,
-	  faiz_gider_vergisi ,
-	  faiz_gider_vergisi2 ,
-	  	  noter_masrafi ,
-	  takip_alacagi ,
-	  vekalet_ucreti ,
-	  takip_faizi ,
-	  indirim_faiz_orani ,
-	  takip_faiz_gider_vergi ,
-	  diger_harclar ,
-	  masraf_tutari ,
-	  tahsil_harci ,
-	  toplam_alacak ,
-	  tahsilat_tutari ,
-	  indirim_tutari ,
-	  akdi_faiz_orani,
-	  temerrut_faiz_orani,
-	  kalan_alacak
-	
-	  ;
-	  
-String   alacak_kalemi2_kalem_kod_turu,
-alacak_kalemi2_kalem_kod_aciklama,
-alacak_kalemi2_alacak_kalem_adi,
-alacak_kalemi3_kalem_kod_turu,
-alacak_kalemi3_kalem_kod,
-alacak_kalemi3_kalem_kod_aciklama,
-alacak_kalemi3_alacak_kalem_adi,
-alacak_kalemi4_kalem_kod_turu,
-alacak_kalemi4_kalem_kod_aciklama,
-alacak_kalemi4_alacak_kalem_adi,
-alacak_kalemi4_kalem_kod,
-alacak_kalemi5_kalem_kod_turu,
-alacak_kalemi5_kalem_kod_aciklama,
-alacak_kalemi5_alacak_kalem_adi,
-alacak_kalemi5_kalem_kod;
+
+	private double asil_alacak, gecikme_faizi, temerrut_faizi, faiz_gider_vergisi, faiz_gider_vergisi2, noter_masrafi,
+			takip_alacagi, vekalet_ucreti, takip_faizi, indirim_faiz_orani, takip_faiz_gider_vergi, diger_harclar,
+			masraf_tutari, tahsil_harci, toplam_alacak, tahsilat_tutari, indirim_tutari, akdi_faiz_orani,
+			temerrut_faiz_orani, kalan_alacak, harcoranTL, basvuruHarciTL, vekaletHarciTL, pesinHarcTL
+
+	;
+
+	String alacak_kalemi2_kalem_kod_turu, alacak_kalemi2_kalem_kod_aciklama, alacak_kalemi2_alacak_kalem_adi,
+			alacak_kalemi3_kalem_kod_turu, alacak_kalemi3_kalem_kod, alacak_kalemi3_kalem_kod_aciklama,
+			alacak_kalemi3_alacak_kalem_adi, alacak_kalemi4_kalem_kod_turu, alacak_kalemi4_kalem_kod_aciklama,
+			alacak_kalemi4_alacak_kalem_adi, alacak_kalemi4_kalem_kod, alacak_kalemi5_kalem_kod_turu,
+			alacak_kalemi5_kalem_kod_aciklama, alacak_kalemi5_alacak_kalem_adi, alacak_kalemi5_kalem_kod;
 
 	public String getAlacak_kalemi2_kalem_kod_turu() {
-	return alacak_kalemi2_kalem_kod_turu;
-}
+		return alacak_kalemi2_kalem_kod_turu;
+	}
 
-public void setAlacak_kalemi2_kalem_kod_turu(
-		String alacak_kalemi2_kalem_kod_turu) {
-	this.alacak_kalemi2_kalem_kod_turu = alacak_kalemi2_kalem_kod_turu;
-}
+	public void setAlacak_kalemi2_kalem_kod_turu(String alacak_kalemi2_kalem_kod_turu) {
+		this.alacak_kalemi2_kalem_kod_turu = alacak_kalemi2_kalem_kod_turu;
+	}
 
-public String getAlacak_kalemi2_kalem_kod_aciklama() {
-	return alacak_kalemi2_kalem_kod_aciklama;
-}
+	public String getAlacak_kalemi2_kalem_kod_aciklama() {
+		return alacak_kalemi2_kalem_kod_aciklama;
+	}
 
-public void setAlacak_kalemi2_kalem_kod_aciklama(
-		String alacak_kalemi2_kalem_kod_aciklama) {
-	this.alacak_kalemi2_kalem_kod_aciklama = alacak_kalemi2_kalem_kod_aciklama;
-}
+	public void setAlacak_kalemi2_kalem_kod_aciklama(String alacak_kalemi2_kalem_kod_aciklama) {
+		this.alacak_kalemi2_kalem_kod_aciklama = alacak_kalemi2_kalem_kod_aciklama;
+	}
 
-public String getAlacak_kalemi2_alacak_kalem_adi() {
-	return alacak_kalemi2_alacak_kalem_adi;
-}
+	public String getAlacak_kalemi2_alacak_kalem_adi() {
+		return alacak_kalemi2_alacak_kalem_adi;
+	}
 
-public void setAlacak_kalemi2_alacak_kalem_adi(
-		String alacak_kalemi2_alacak_kalem_adi) {
-	this.alacak_kalemi2_alacak_kalem_adi = alacak_kalemi2_alacak_kalem_adi;
-}
+	public void setAlacak_kalemi2_alacak_kalem_adi(String alacak_kalemi2_alacak_kalem_adi) {
+		this.alacak_kalemi2_alacak_kalem_adi = alacak_kalemi2_alacak_kalem_adi;
+	}
 
-public String getAlacak_kalemi3_kalem_kod_turu() {
-	return alacak_kalemi3_kalem_kod_turu;
-}
+	public String getAlacak_kalemi3_kalem_kod_turu() {
+		return alacak_kalemi3_kalem_kod_turu;
+	}
 
-public void setAlacak_kalemi3_kalem_kod_turu(
-		String alacak_kalemi3_kalem_kod_turu) {
-	this.alacak_kalemi3_kalem_kod_turu = alacak_kalemi3_kalem_kod_turu;
-}
+	public void setAlacak_kalemi3_kalem_kod_turu(String alacak_kalemi3_kalem_kod_turu) {
+		this.alacak_kalemi3_kalem_kod_turu = alacak_kalemi3_kalem_kod_turu;
+	}
 
-public String getAlacak_kalemi3_kalem_kod() {
-	return alacak_kalemi3_kalem_kod;
-}
+	public String getAlacak_kalemi3_kalem_kod() {
+		return alacak_kalemi3_kalem_kod;
+	}
 
-public void setAlacak_kalemi3_kalem_kod(String alacak_kalemi3_kalem_kod) {
-	this.alacak_kalemi3_kalem_kod = alacak_kalemi3_kalem_kod;
-}
+	public void setAlacak_kalemi3_kalem_kod(String alacak_kalemi3_kalem_kod) {
+		this.alacak_kalemi3_kalem_kod = alacak_kalemi3_kalem_kod;
+	}
 
-public String getAlacak_kalemi3_kalem_kod_aciklama() {
-	return alacak_kalemi3_kalem_kod_aciklama;
-}
+	public String getAlacak_kalemi3_kalem_kod_aciklama() {
+		return alacak_kalemi3_kalem_kod_aciklama;
+	}
 
-public void setAlacak_kalemi3_kalem_kod_aciklama(
-		String alacak_kalemi3_kalem_kod_aciklama) {
-	this.alacak_kalemi3_kalem_kod_aciklama = alacak_kalemi3_kalem_kod_aciklama;
-}
+	public void setAlacak_kalemi3_kalem_kod_aciklama(String alacak_kalemi3_kalem_kod_aciklama) {
+		this.alacak_kalemi3_kalem_kod_aciklama = alacak_kalemi3_kalem_kod_aciklama;
+	}
 
-public String getAlacak_kalemi3_alacak_kalem_adi() {
-	return alacak_kalemi3_alacak_kalem_adi;
-}
+	public String getAlacak_kalemi3_alacak_kalem_adi() {
+		return alacak_kalemi3_alacak_kalem_adi;
+	}
 
-public void setAlacak_kalemi3_alacak_kalem_adi(
-		String alacak_kalemi3_alacak_kalem_adi) {
-	this.alacak_kalemi3_alacak_kalem_adi = alacak_kalemi3_alacak_kalem_adi;
-}
+	public void setAlacak_kalemi3_alacak_kalem_adi(String alacak_kalemi3_alacak_kalem_adi) {
+		this.alacak_kalemi3_alacak_kalem_adi = alacak_kalemi3_alacak_kalem_adi;
+	}
 
-public String getAlacak_kalemi4_kalem_kod_turu() {
-	return alacak_kalemi4_kalem_kod_turu;
-}
+	public String getAlacak_kalemi4_kalem_kod_turu() {
+		return alacak_kalemi4_kalem_kod_turu;
+	}
 
-public void setAlacak_kalemi4_kalem_kod_turu(
-		String alacak_kalemi4_kalem_kod_turu) {
-	this.alacak_kalemi4_kalem_kod_turu = alacak_kalemi4_kalem_kod_turu;
-}
+	public void setAlacak_kalemi4_kalem_kod_turu(String alacak_kalemi4_kalem_kod_turu) {
+		this.alacak_kalemi4_kalem_kod_turu = alacak_kalemi4_kalem_kod_turu;
+	}
 
-public String getAlacak_kalemi4_kalem_kod_aciklama() {
-	return alacak_kalemi4_kalem_kod_aciklama;
-}
+	public String getAlacak_kalemi4_kalem_kod_aciklama() {
+		return alacak_kalemi4_kalem_kod_aciklama;
+	}
 
-public void setAlacak_kalemi4_kalem_kod_aciklama(
-		String alacak_kalemi4_kalem_kod_aciklama) {
-	this.alacak_kalemi4_kalem_kod_aciklama = alacak_kalemi4_kalem_kod_aciklama;
-}
+	public void setAlacak_kalemi4_kalem_kod_aciklama(String alacak_kalemi4_kalem_kod_aciklama) {
+		this.alacak_kalemi4_kalem_kod_aciklama = alacak_kalemi4_kalem_kod_aciklama;
+	}
 
-public String getAlacak_kalemi4_alacak_kalem_adi() {
-	return alacak_kalemi4_alacak_kalem_adi;
-}
+	public String getAlacak_kalemi4_alacak_kalem_adi() {
+		return alacak_kalemi4_alacak_kalem_adi;
+	}
 
-public void setAlacak_kalemi4_alacak_kalem_adi(
-		String alacak_kalemi4_alacak_kalem_adi) {
-	this.alacak_kalemi4_alacak_kalem_adi = alacak_kalemi4_alacak_kalem_adi;
-}
+	public void setAlacak_kalemi4_alacak_kalem_adi(String alacak_kalemi4_alacak_kalem_adi) {
+		this.alacak_kalemi4_alacak_kalem_adi = alacak_kalemi4_alacak_kalem_adi;
+	}
 
-public String getAlacak_kalemi4_kalem_kod() {
-	return alacak_kalemi4_kalem_kod;
-}
+	public String getAlacak_kalemi4_kalem_kod() {
+		return alacak_kalemi4_kalem_kod;
+	}
 
-public void setAlacak_kalemi4_kalem_kod(String alacak_kalemi4_kalem_kod) {
-	this.alacak_kalemi4_kalem_kod = alacak_kalemi4_kalem_kod;
-}
+	public void setAlacak_kalemi4_kalem_kod(String alacak_kalemi4_kalem_kod) {
+		this.alacak_kalemi4_kalem_kod = alacak_kalemi4_kalem_kod;
+	}
 
-public String getAlacak_kalemi5_kalem_kod_turu() {
-	return alacak_kalemi5_kalem_kod_turu;
-}
+	public String getAlacak_kalemi5_kalem_kod_turu() {
+		return alacak_kalemi5_kalem_kod_turu;
+	}
 
-public void setAlacak_kalemi5_kalem_kod_turu(
-		String alacak_kalemi5_kalem_kod_turu) {
-	this.alacak_kalemi5_kalem_kod_turu = alacak_kalemi5_kalem_kod_turu;
-}
+	public void setAlacak_kalemi5_kalem_kod_turu(String alacak_kalemi5_kalem_kod_turu) {
+		this.alacak_kalemi5_kalem_kod_turu = alacak_kalemi5_kalem_kod_turu;
+	}
 
-public String getAlacak_kalemi5_kalem_kod_aciklama() {
-	return alacak_kalemi5_kalem_kod_aciklama;
-}
+	public String getAlacak_kalemi5_kalem_kod_aciklama() {
+		return alacak_kalemi5_kalem_kod_aciklama;
+	}
 
-public void setAlacak_kalemi5_kalem_kod_aciklama(
-		String alacak_kalemi5_kalem_kod_aciklama) {
-	this.alacak_kalemi5_kalem_kod_aciklama = alacak_kalemi5_kalem_kod_aciklama;
-}
+	public void setAlacak_kalemi5_kalem_kod_aciklama(String alacak_kalemi5_kalem_kod_aciklama) {
+		this.alacak_kalemi5_kalem_kod_aciklama = alacak_kalemi5_kalem_kod_aciklama;
+	}
 
-public String getAlacak_kalemi5_alacak_kalem_adi() {
-	return alacak_kalemi5_alacak_kalem_adi;
-}
+	public String getAlacak_kalemi5_alacak_kalem_adi() {
+		return alacak_kalemi5_alacak_kalem_adi;
+	}
 
-public void setAlacak_kalemi5_alacak_kalem_adi(
-		String alacak_kalemi5_alacak_kalem_adi) {
-	this.alacak_kalemi5_alacak_kalem_adi = alacak_kalemi5_alacak_kalem_adi;
-}
+	public void setAlacak_kalemi5_alacak_kalem_adi(String alacak_kalemi5_alacak_kalem_adi) {
+		this.alacak_kalemi5_alacak_kalem_adi = alacak_kalemi5_alacak_kalem_adi;
+	}
 
-public String getAlacak_kalemi5_kalem_kod() {
-	return alacak_kalemi5_kalem_kod;
-}
+	public String getAlacak_kalemi5_kalem_kod() {
+		return alacak_kalemi5_kalem_kod;
+	}
 
-public void setAlacak_kalemi5_kalem_kod(String alacak_kalemi5_kalem_kod) {
-	this.alacak_kalemi5_kalem_kod = alacak_kalemi5_kalem_kod;
-}
+	public void setAlacak_kalemi5_kalem_kod(String alacak_kalemi5_kalem_kod) {
+		this.alacak_kalemi5_kalem_kod = alacak_kalemi5_kalem_kod;
+	}
 
 	public double getAkdi_faiz_orani() {
 		return akdi_faiz_orani;
@@ -192,25 +153,10 @@ public void setAlacak_kalemi5_kalem_kod(String alacak_kalemi5_kalem_kod) {
 		this.temerrut_faiz_orani = temerrut_faiz_orani;
 	}
 
-	private String 
-	  asil_alacak_tl ,
-	  gecikme_faizi_tl ,
-	  temerrut_faizi_tl ,
-	  faiz_gider_vergisi_tl ,
-	  faiz_gider_vergisi2_tl ,
-	  noter_masrafi_tl ,
-	  takip_alacagi_tl ,
-	  vekalet_ucreti_tl ,
-	  takip_faizi_tl ,
-	  indirim_faiz_orani_tl ,
-	  takip_faiz_gider_vergi_tl ,
-	  diger_harclar_tl ,
-	  masraf_tutari_tl ,
-	  tahsil_harci_tl ,
-	  toplam_alacak_tl ,
-	  tahsilat_tutari_tl ,
-	  indirim_tutari_tl ,
-	  kalan_alacak_tl ;
+	private String asil_alacak_tl, gecikme_faizi_tl, temerrut_faizi_tl, faiz_gider_vergisi_tl, faiz_gider_vergisi2_tl,
+			noter_masrafi_tl, takip_alacagi_tl, vekalet_ucreti_tl, takip_faizi_tl, indirim_faiz_orani_tl,
+			takip_faiz_gider_vergi_tl, diger_harclar_tl, masraf_tutari_tl, tahsil_harci_tl, toplam_alacak_tl,
+			tahsilat_tutari_tl, indirim_tutari_tl, kalan_alacak_tl;
 
 	public String getAsil_alacak_tl() {
 		return asil_alacak_tl;
@@ -515,6 +461,37 @@ public void setAlacak_kalemi5_kalem_kod(String alacak_kalemi5_kalem_kod) {
 	public void setKalan_alacak(double kalan_alacak) {
 		this.kalan_alacak = kalan_alacak;
 	}
-	  
-	  
+
+	public double getHarcoranTL() {
+		return harcoranTL;
+	}
+
+	public void setHarcoranTL(double harcoranTL) {
+		this.harcoranTL = harcoranTL;
+	}
+
+	public double getBasvuruHarciTL() {
+		return basvuruHarciTL;
+	}
+
+	public void setBasvuruHarciTL(double basvuruHarciTL) {
+		this.basvuruHarciTL = basvuruHarciTL;
+	}
+
+	public double getVekaletHarciTL() {
+		return vekaletHarciTL;
+	}
+
+	public void setVekaletHarciTL(double vekaletHarciTL) {
+		this.vekaletHarciTL = vekaletHarciTL;
+	}
+
+	public double getPesinHarcTL() {
+		return pesinHarcTL;
+	}
+
+	public void setPesinHarcTL(double pesinHarcTL) {
+		this.pesinHarcTL = pesinHarcTL;
+	}
+
 }

@@ -931,8 +931,8 @@ public class IcraDosyaIslemleriBean {
 	
 	public void plakaGetir() throws Exception{
 		IcraDosyasiDAO icd = new IcraDosyasiDAO();
-		AracSayisi = icd.MalSayisi("Araç", AktifBean.getIcraDosyaID());
-		EvSayisi = icd.MalSayisi("Ev", AktifBean.getIcraDosyaID());
+		AracSayisi = icd.MalSayisi("Araç", AktifBean.getBorcluId());
+		EvSayisi = icd.MalSayisi("Ev", AktifBean.getBorcluId());
 		
 		if(EvSayisi==0){
 			Ev="img/acikgri.png";

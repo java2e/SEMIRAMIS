@@ -71,10 +71,10 @@
 						<p:column>
 							<p:panel header="BEKLEMEDEKİ İŞLEMLER" style="width:450px; height:350px; text-align:center;">
 						
-						<p:commandButton style="width:150px;height:95px; top:25px" value="HİTAM"/>
-						<p:commandButton style="width:150px;height:95px; top:25px" value="REDDİYAT"/>
-						<p:commandButton style="width:150px;height:95px; top:65px" value="TAHSİLAT MAKBUZU"/>
-						<p:commandButton style="width:150px;height:95px; top:74px" value="İNDİRİM"/>
+						<p:commandButton style="width:150px;height:95px; top:25px" value="HİTAM" onclick="PF('hitambekleme').show();"/>
+						<p:commandButton style="width:150px;height:95px; top:25px" value="REDDİYAT" onclick="PF('reddiyatbekleme').show();"/>
+						<p:commandButton style="width:150px;height:95px; top:65px" value="TAHSİLAT MAKBUZU" onclick="PF('tahsilatmakbuzbekleme').show();"/>
+						<p:commandButton style="width:150px;height:95px; top:74px" value="İNDİRİM" onclick="PF('indirimbekleme').show();"/>
 							</p:panel>
 						</p:column>
 						<p:column rowspan="2">
@@ -152,10 +152,10 @@
 				<p:row>
 						<p:column>
 						 	<p:panel header="ONAYDAN GELENLER" style="min-width:300px; min-height:350px; text-align:center;">
-							<p:commandButton style="width:120px;height:95px; top:25px" value="HİTAM"/>
-						<p:commandButton style="width:120px;height:95px; top:25px" value="REDDİYAT"/>
-						<p:commandButton style="width:120px;height:95px; top:65px" value="TAHSİLAT MAKBUZU"/>
-						<p:commandButton style="width:120px;height:95px; top:74px" value="İNDİRİM"/>
+							<p:commandButton style="width:120px;height:95px; top:25px" value="HİTAM" onclick="PF('hitamonaylanan').show();"/>
+						<p:commandButton style="width:120px;height:95px; top:25px" value="REDDİYAT" onclick="PF('reddiyatonaylanan').show();"/>
+						<p:commandButton style="width:120px;height:95px; top:65px" value="TAHSİLAT MAKBUZU" onclick="PF('tahsilatmakbuzonaylanan').show();"/>
+						<p:commandButton style="width:120px;height:95px; top:74px" value="İNDİRİM" onclick="PF('indirimonaylanan').show();"/>
 							</p:panel>
 						</p:column>
 						<p:column>
@@ -213,6 +213,62 @@
 				<ui:include src="frm_tahsilat_paneli.xhtml" />
 			</p:dialog>
 		</h:form>
+		
+	<h:form id="tahsilatmakbuzbekle">
+			<p:dialog header="TAHSİLAT MAKBUZU BEKLEME" widgetVar="tahsilatmakbuzbekleme"
+				minHeight="340" >
+				<ui:include src="KasaForm/tahsilat_makbuzu_bekleme.xhtml" />
+			</p:dialog>
+		</h:form>	
+		
+		<h:form id="hitambekle">
+			<p:dialog header="HİTAM BEKLEME" widgetVar="hitambekleme"
+				minHeight="340" >
+				<ui:include src="KasaForm/hitam_bekleme.xhtml" />
+			</p:dialog>
+		</h:form>	
+		
+		<h:form id="reddiyatbekle">
+			<p:dialog header="REDDİYAT BEKLEME" widgetVar="reddiyatbekleme"
+				minHeight="340">
+				<ui:include src="KasaForm/reddiyat_bekleme.xhtml" />
+			</p:dialog>
+		</h:form>	
+
+        <h:form id="indirimbekle">
+			<p:dialog header="İNDİRİM BEKLEME" widgetVar="indirimbekleme"
+				minHeight="340" height="%100" width="%100">
+				<ui:include src="KasaForm/indirim_bekleme.xhtml" />
+			</p:dialog>
+		</h:form>	
+		
+		<h:form id="tahsilatmakbuzonaylanan">
+			<p:dialog header="TAHSİLAT MAKBUZU ONAYDAN GELEN" widgetVar="tahsilatmakbuzonaylanan"
+				minHeight="340" >
+				<ui:include src="KasaForm/tahsilat_makbuzu_onaydan_gelen.xhtml" />
+			</p:dialog>
+		</h:form>	
+		
+		<h:form id="hitamonaylanan">
+			<p:dialog header="HİTAM ONAYDAN GELEN" widgetVar="hitamonaylanan"
+				minHeight="340" >
+				<ui:include src="KasaForm/hitam_onaydan_gelen.xhtml" />
+			</p:dialog>
+		</h:form>	
+		
+		<h:form id="reddiyatonaylanan">
+			<p:dialog header="REDDİYAT ONAYDAN GELEN" widgetVar="reddiyatonaylanan"
+				minHeight="340">
+				<ui:include src="KasaForm/reddiyat_onaydan_gelen.xhtml" />
+			</p:dialog>
+		</h:form>	
+
+        <h:form id="indirimonaylanan">
+			<p:dialog header="İNDİRİM ONAYDAN GELEN" widgetVar="indirimonaylanan"
+				minHeight="340" height="%100" width="%100">
+				<ui:include src="KasaForm/indirim_onaydan_gelen.xhtml" />
+			</p:dialog>
+		</h:form>	
 
 
 

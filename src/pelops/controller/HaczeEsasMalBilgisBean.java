@@ -105,7 +105,7 @@ public class HaczeEsasMalBilgisBean {
 
 	public ArrayList<HaczeEsasMalBilgisi> getHemList() throws Exception {
 
-		return dao.getAllListFromIcraDosyaID(AktifBean.icraDosyaID);
+		return dao.getAllListFromIcraDosyaID(AktifBean.borcluId);
 	}
 
 	public void setHemList(ArrayList<HaczeEsasMalBilgisi> hemList) {
@@ -198,7 +198,7 @@ public class HaczeEsasMalBilgisBean {
 					context.addMessage(null, new FacesMessage("Gıncelleme işlemi baıarısız!"));
 				}
 				status = 0;
-				hemList = dao.getAllListFromIcraDosyaID(AktifBean.icraDosyaID);
+				hemList = dao.getAllListFromIcraDosyaID(AktifBean.borcluId);
 			}
 
 			PanelClose();
@@ -212,7 +212,7 @@ public class HaczeEsasMalBilgisBean {
 
 		status = 1;
 
-		ArrayList<HaczeEsasMalBilgisi> list = dao.getAllListFromIcraDosyaID(AktifBean.icraDosyaID);
+		ArrayList<HaczeEsasMalBilgisi> list = dao.getAllListFromIcraDosyaID(AktifBean.borcluId);
 
 		int id = Integer.parseInt(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap()
 				.get("duzenle").toString());
@@ -222,7 +222,7 @@ public class HaczeEsasMalBilgisBean {
 				haczeEsasMalBilgisi = hem;
 			}
 		}
-		hemList = dao.getAllListFromIcraDosyaID(AktifBean.icraDosyaID);
+		hemList = dao.getAllListFromIcraDosyaID(AktifBean.borcluId);
 		PanelOpen();
 		ButtonClose();
 

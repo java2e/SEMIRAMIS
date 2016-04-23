@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fcore="http://java.sun.com/jsf/core">
+
+<h:body>
+	<div id="wrapper">
+		<div id="content">
+		<p:panel>
+				<p:dataTable 	value=""
+					emptyMessage="Aradığınız Kritere Uygun Sonuç Bulunamamıştır."
+					var="tmb" id="tbltahsilatmakbuzbekleme" style="width:100% "
+					rowStyleClass="green" rows="10" paginator="true"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="5,10,25,50,100,1000">
+
+					<p:column headerText="Borçlu Adı" width="30%">
+						<h:outputText value="" />
+					</p:column>
+					
+					<p:column headerText="İcra Dosya No" width="30%">
+						<h:outputText value="" />
+					</p:column>
+					
+					<p:column headerText="TC Kimlik No" width="30%">
+						<h:outputText value="" />
+					</p:column>
+					
+					<p:column headerText="Tarih" width="30%">
+						<h:outputText value="" />
+					</p:column>
+
+				</p:dataTable>
+				
+			</p:panel>
+		</div>
+	</div>
+</h:body>
+</html>

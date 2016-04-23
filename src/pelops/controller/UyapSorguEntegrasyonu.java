@@ -3,7 +3,7 @@ package pelops.controller;
 
 import java.io.File;
 import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
+
 
 
 import javax.faces.application.FacesMessage;
@@ -21,8 +21,10 @@ import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
 import pelops.dao.BorcluBilgisiDAO;
-
+import pelops.dao.HaczeEsasMalBilgisiDAO;
 import pelops.model.BorcluBilgisi;
+import pelops.model.EgmSorgu;
+import pelops.model.HaczeEsasMalBilgisi;
 
 @ManagedBean(name="uyapsorguentegrasyonu")
 @SessionScoped
@@ -156,5 +158,58 @@ public class UyapSorguEntegrasyonu {
 		}
 
 	 
-	 
+	 public void XLSEMGSistemeAktar() throws Exception{
+		 EgmSorgu sorgu=new EgmSorgu();
+		 BorcluBilgisiDAO btc=new BorcluBilgisiDAO();
+		 HaczeEsasMalBilgisi hem=new HaczeEsasMalBilgisi();
+		 HaczeEsasMalBilgisiDAO hemb=new HaczeEsasMalBilgisiDAO();
+		 for (int i = 1; i < 5000; i++) {
+			Row satir=xlsTablo.getRow(i);
+			if (satir==null) {
+				
+			}
+			else {
+				try {
+				BigDecimal bdm = new BigDecimal(satir.getCell(29)
+						.getNumericCellValue());
+				long lonValm = bdm.longValue();
+				
+				
+					BigDecimal bd1 = new BigDecimal(satir.getCell(0)
+							.getNumericCellValue());
+					long lonVal1 = bd1.longValue();
+					
+					if (btc.tcSorgulama(Long.toString(lonVal1))==0) {
+					
+					}
+					else {			
+					
+					sorgu.setId(btc.tcSorgulama(Long.toString(lonVal1)));					
+					sorgu.setAracTipi(satir.getCell(28).getStringCellValue());
+					if (Long.toString(lonValm)==null) {
+						
+					}
+					else {
+						sorgu.setAracModel(Long.toString(lonValm));
+					}
+					
+					sorgu.setAracPlaka(satir.getCell(30).getStringCellValue());
+					sorgu.setAracMarka(satir.getCell(31).getStringCellValue());
+					hem.setMalTipi("Araç");
+					hem.setBorcluId(sorgu.getId());
+					hem.setAracAracTipi(sorgu.getAracTipi());
+					hem.setAracPlakaNo(sorgu.getAracPlaka());
+					hem.setDigerBilgiler("Araç Markası :"+sorgu.getAracMarka()+" - Araç Model Yılı :"+sorgu.getAracModel());
+					hemb.egmkaydet(hem);
+					
+					}
+					
+				} catch (Exception e) {
+					
+				}
+				
+			}
+		}
+		 
+	 }
 }

@@ -312,6 +312,30 @@ public class BorcluBilgisiDAO extends DBConnection {
 
 	}
 	
+	public int tcSorgulama(String tcno) throws Exception {
+
+		newConnectDB();
+
+		int id = 0;
+
+		String sorgu = "SELECT id FROM tbl_borclu where tc_no = '"
+				+ tcno + "';";
+
+		Statement stm = conn.createStatement();
+
+		ResultSet rs = stm.executeQuery(sorgu);
+
+		while (rs.next()) {
+
+			id = rs.getInt("id");
+		}
+
+		disconnectDB();
+
+		return id;
+
+	}
+	
 	
 
 	public ArrayList<Integer> getBorcluIDList() throws Exception {

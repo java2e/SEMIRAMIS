@@ -1,0 +1,183 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fcore="http://java.sun.com/jsf/core">
+
+
+
+<h:body>
+
+	<p:panel id="panelPG" header="İCRA BORÇ SES KAYIT PANELİ"
+		style="text-align:left;min-height:500px;">
+
+		<p:ajaxStatus onstart="PF('statusDialog').show()"
+			onsuccess="PF('statusDialog').hide()" />
+
+		<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+			closable="false" resizable="false" showHeader="false"
+			style="position: absolute; background-color: rgba(0, 0, 0, 0.6); height: 256px; width: 256px; left:0%; top:0%; z-index:2; height: 100%; width: 100%">
+			<p:graphicImage value="img/yukleme.gif" height="80" width="80" />
+		</p:dialog>
+
+
+		<h:form id="sesKaydi" enctype="multipart/form-data">
+
+
+			<p:panel rendered="#{icraBorcluSesKayitBean.panelRender}">
+				<p:panelGrid columns="2" style="margin-bottom:10px;margin-top:10px">
+
+					<p:outputLabel style="width: 150px">İcra Dosya No :</p:outputLabel>
+
+					<p:inputText id="icraDosyaNo"
+						value="#{icraBorcluSesKayitBean.icraDosyaNo}" style="width: 250px"
+						readonly="true"></p:inputText>
+
+					<p:outputLabel style="width: 150px"> Müvekkil Adı :</p:outputLabel>
+
+					<p:inputText id="müvekkilAdi" readonly="true"
+						value="#{icraBorcluSesKayitBean.muvekkilAdi}" style="width: 250px">
+					</p:inputText>
+
+
+
+					<h:outputLabel>Borçlu Adı :</h:outputLabel>
+
+					<p:inputText id="borcluAdi" readonly="true"
+						value="#{icraBorcluSesKayitBean.borcluAdi}" style="width: 250px">
+					</p:inputText>
+
+
+
+					<p:outputLabel>Tarih :</p:outputLabel>
+					<p:calendar id="date" pattern="dd/MM/yyyy"
+						value="#{icraBorcluSesKayitBean.seskaydi.tarihsaat}" mask="true"
+						size="39">
+					</p:calendar>
+
+
+					<p:outputLabel>Konu :</p:outputLabel>
+					<p:inputText id="inputTextSubject"
+						value="#{icraBorcluSesKayitBean.seskaydi.konu}" required="false"
+						requiredMessage="Bu alanı doldurunuz" style="width: 250px"></p:inputText>
+
+
+
+
+
+					<p:outputLabel>Açıklama :</p:outputLabel>
+					<p:inputTextarea id="inputTextAciklama" required="false"
+						requiredMessage="Bu alanı doldurunuz" rows="10" cols="50"
+						value="#{icraBorcluSesKayitBean.seskaydi.aciklama}"
+						style="width: 250px"></p:inputTextarea>
+
+					<p:outputLabel>Ses Dosyası :</p:outputLabel>
+					<p:fileUpload fileUploadListener="#{icraBorcluSesKayitBean.SesAl}"
+						allowTypes="/(\.|\/)(mp3|mp4?g|wav|wma)$/" sizeLimit="100000"
+						description="Select Images" />
+
+
+				</p:panelGrid>
+
+
+				<p:growl id="growl" showDetail="true" />
+
+				<p:commandButton id="cmdButtonVAZGEC" style="margin-top:10px"
+					action="#{icraBorcluSesKayitBean.Vazgec}" value="Vazgeç"
+					update=":sesKaydi"></p:commandButton>
+
+				<p:commandButton id="cmdButtonKAYDET"
+					action="#{icraBorcluSesKayitBean.Kaydet}" update="growl,:sesKaydi"
+					value="Kaydet"></p:commandButton>
+			</p:panel>
+
+			<p:commandButton value="Yeni Kayıt" style="float:left"
+				disabled="#{icraBorcluSesKayitBean.buttonDisabled}"
+				action="#{icraBorcluSesKayitBean.YeniKayit}" update=":sesKaydi" />
+
+			<p:commandButton value="Listeyi Yenile" style="float:left"
+				disabled="#{icraBorcluSesKayitBean.buttonDisabled}"
+				update=":sesKaydi" />
+
+			<p:dataTable
+				value="#{icraBorcluSesKayitBean.icraBorcluSesKayitListesi}" var="mb"
+				id="tblMasrafBilgisi" style="width:1200px ">
+
+				<p:column headerText="Düzenle" width="145">
+
+					<p:commandButton icon="ui-icon-disk" value="Düzenle"
+						action="#{icraBorcluSesKayitBean.Duzenle}" update=":sesKaydi"
+						disabled="#{icraBorcluSesKayitBean.buttonDisabled}">
+						<f:param name="duzenle" value="#{mb.id}" />
+
+
+					</p:commandButton>
+
+				</p:column>
+
+				<p:column headerText="SİL" width="115">
+
+					<p:commandButton icon="ui-icon-cancel" value="Sil"
+						action="#{icraBorcluSesKayitBean.Sil}"
+						disabled="#{icraBorcluSesKayitBean.buttonDisabled}"
+						update=":sesKaydi">
+						<f:param name="sil" value="#{mb.id}" />
+
+					</p:commandButton>
+
+				</p:column>
+
+				<p:column headerText="Ses Kayıt Tarihi">
+					<h:outputText value="#{mb.tarihsaat}" />
+				</p:column>
+
+				<p:column headerText="Konu">
+					<h:outputText value="#{mb.konu}" />
+				</p:column>
+
+				<p:column headerText="Açıklama">
+					<h:outputText value="#{mb.aciklama}" />
+				</p:column>
+
+											
+			  <p:column headerText="Kayıt Dinleme">
+				<p:commandButton style="width:200px" value="Oynat" update=":panelPG"  action="#{icraBorcluSesKayitBean.Ses()}">
+				
+						<f:param name="oynat" value="#{mb.path}" />
+				</p:commandButton>
+				</p:column>
+
+
+			</p:dataTable>
+
+
+		</h:form>
+		
+		
+		<h:form id="dlgoynatma">
+		<p:dialog header="KAYIT YÜRÜTME" widgetVar="dlgOynat" minHeight="340" height="90" >
+    		    		   			
+		   
+    		
+    		 <p:media value="#{icraBorcluSesKayitBean.oynatPath}" width="200" height="20" player="quicktime" >
+    		 <f:param name="autoplay" value="false"/>
+    		</p:media>
+			
+				
+		</p:dialog>
+		</h:form>	
+
+
+
+	</p:panel>
+
+
+
+
+</h:body>
+</html>

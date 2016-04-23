@@ -1,0 +1,174 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fcore="http://java.sun.com/jsf/core">
+
+
+<h:body>
+
+	<p:panel id="panelPG" header="TAHSİLAT KAYIT PANELİ"
+		style="text-align:left;min-height:500px;border-style: hidden !important">
+	<p:growl id="growl" showDetail="true" />
+		<p:ajaxStatus onstart="PF('statusDialog').show()"
+			onsuccess="PF('statusDialog').hide()" />
+
+		<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+			closable="false" resizable="false" showHeader="false"
+			style="position: absolute; background-color: rgba(0, 0, 0, 0.6); height: 256px; width: 256px; left:0%; top:0%; z-index:2; height: 100%; width: 100%">
+			<p:graphicImage value="img/yukleme.gif" height="80" width="80" />
+		</p:dialog>
+
+		<h:form id="TahsilatKaydi">
+
+
+			<p:panel rendered="#{tahsilatBean.panelRender}"
+				style="border-style: hidden !important">
+				<p:panelGrid columns="8"
+					style="margin-top:10px;border-style: hidden !important">
+
+					<p:outputLabel style="width: 150px">İcra Dosya No :</p:outputLabel>
+
+					<p:inputText id="icraDosyaNo"
+						value="#{tahsilatBean.tahsilat.icra_dosya_no}"
+						style="width: 150px" readonly="true"></p:inputText>
+
+
+					<p:outputLabel style="width: 150px"> Müvekkil Adı :</p:outputLabel>
+
+					<p:inputText id="müvekkilAdi" readonly="true"
+						value="#{tahsilatBean.tahsilat.muvekkil_adi}"
+						style="width: 150px"
+						converterMessage="Eksik veya Fazla Giriş Yaptınız.">
+					</p:inputText>
+
+
+					<h:outputLabel>Borçlu Adı :</h:outputLabel>
+
+					<p:inputText id="borcluAdi"
+						value="#{tahsilatBean.tahsilat.borclu_adi}" style="width: 150px"
+						readonly="true"></p:inputText>
+
+									
+
+					<p:outputLabel value="Tahsilat Statüsü" />
+					<p:selectOneMenu style="width: 150px"
+						id="tahsilatstatusu"
+						
+						value="#{tahsilatBean.tahsilat.tahsilat_statusu}" >
+						<f:selectItem itemLabel="" itemValue=""/>
+						<f:selectItems value="#{geneltanimbean.ListeGetir('tbl_tahsilat_statusu')}"
+									var="listeler" itemLabel="#{listeler.adi}"
+									itemValue="#{listeler.adi}"/>
+					</p:selectOneMenu>
+					
+					<p:outputLabel value="Tahsilat Tipi"/>
+					<p:selectOneMenu style="width: 150px"
+						id="tahsilat"
+						value="#{tahsilatBean.tahsilat.tahsilat_tipi}"	>
+						<f:selectItem itemLabel="" itemValue=""/>
+						<f:selectItems value="#{geneltanimbean.ListeGetir('tbl_tahsilat_tipi')}" 
+						var="item"	itemValue="#{item.adi}" itemLabel="#{item.adi}" />
+					</p:selectOneMenu>
+	
+					<p:outputLabel value="Tahsilat Tarihi"/>
+					<p:calendar id="tahsilatmask1" value="#{tahsilatBean.tahsilat.tahsilat_tarihi}" pattern="dd-MM-yyyy" mask="true" style="width: 150px" />
+					
+					<p:outputLabel value="Tahsilat Miktarı"/>
+					<p:inputText value="#{tahsilatBean.tahsilat.tahsilat_miktari}" size="15"/>
+				</p:panelGrid>
+
+				
+				<p:spacer height="20px"/>
+
+				<p:commandButton id="cmdButtonVAZGEC" value="Vazgeç"
+					action="#{tahsilatBean.Vazgec}"
+					update=":TahsilatKaydi" image="true"></p:commandButton>
+
+				<p:commandButton id="cmdButtonKAYDET"
+					update=":growl,:TahsilatKaydi" value="Kaydet"
+					action="#{tahsilatBean.Kaydet}"></p:commandButton>
+			</p:panel>
+
+
+			<p:commandButton value="Yeni Kayıt" style="float:left"
+				disabled="#{tahsilatBean.buttonDisabled}"
+				action="#{tahsilatBean.YeniKayit}"
+				update=":TahsilatKaydi" />
+
+
+			<p:commandButton value="Listeyi Yenile" style="float:left"
+				disabled="#{tahsilatBean.buttonDisabled}"
+				update="tblTahsilat" action="#{tahsilatBean.Listele()}" />
+
+
+			<p:dataTable value="#{tahsilatBean.tahsilatListesi}" var="tList"
+				id="tblTahsilat" style="width:900px ">
+
+				<p:column headerText="Düzenle" width="115">
+
+					<p:commandButton icon="ui-icon-disk" value="Düzenle"
+						action="#{tahsilatBean.Duzenle()}"
+						update=":TahsilatKaydi"
+						disabled="#{tahsilatBean.buttonDisabled}">
+						<f:param name="duzenle" value="#{tList.id}" />
+					</p:commandButton>
+
+				</p:column>
+
+				<p:column headerText="SİL" width="115">
+
+					<p:commandButton icon="ui-icon-cancel" value="Sil"
+						action="#{tahsilatBean.Sil}"
+						disabled="#{tahsilatBean.buttonDisabled}"
+						update=":TahsilatKaydi">
+						<f:param name="sil" value="#{tList.id}" />
+
+					</p:commandButton>
+
+				</p:column>
+
+				<p:column headerText="İcra Dosya No"  width="145">
+					<h:outputText value="#{tList.icra_dosya_no}" />
+				</p:column>
+
+				<p:column headerText="Müvekkil Adı"  width="145">
+					<h:outputText value="#{tList.muvekkil_adi}" />
+				</p:column>
+
+				<p:column headerText="Borçlu Adı"  width="145">
+					<h:outputText value="#{tList.borclu_adi}" />
+				</p:column>
+
+				<p:column headerText="Tahsilat Statüsü"  width="145">
+					<h:outputText value="#{tList.tahsilat_statusu}" />
+				</p:column>
+
+
+				<p:column headerText="Tahsilat Tipi"  width="145">
+					<h:outputText value="#{tList.tahsilat_tipi}" />
+				</p:column>
+
+				<p:column headerText="Tahsilat Tarihi"  width="145">
+					<h:outputText value="#{tList.tahsilat_tarihi}" />
+				</p:column>
+
+				<p:column headerText="Tahsilat Miktarı"  width="145">
+					<h:outputText value="#{tList.tahsilat_miktari_tl}" />
+				</p:column>
+
+			</p:dataTable>
+
+
+
+		</h:form>
+	</p:panel>
+
+</h:body>
+
+</html>

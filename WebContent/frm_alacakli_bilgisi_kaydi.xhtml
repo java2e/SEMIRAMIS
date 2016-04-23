@@ -1,0 +1,237 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<h:body>
+
+	<p:panel id="panelPG" header="ALACAKLI BİLGİSİ KAYIT PANELİ"
+		style="text-align:left;min-height:500px;">
+
+		<p:ajaxStatus onstart="PF('statusDialog').show()"
+			onsuccess="PF('statusDialog').hide()" />
+
+		<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+			closable="false" resizable="false" showHeader="false"
+			style="position: absolute; background-color: rgba(0, 0, 0, 0.6); height: 256px; width: 256px; left:0%; top:0%; z-index:2; height: 100%; width: 100%">
+			<p:graphicImage value="img/yukleme.gif" height="80" width="80" />
+		</p:dialog>
+
+		<h:form id="alacakliForm">
+
+			<p:panel id="girisPaneli" header="Alacaklı Bilgisi" 
+				rendered="#{alacakliBean.panelRender}">
+				<p:panelGrid columns="4" style="margin-top:10px;border-style: hidden !important">
+
+					<p:outputLabel style="width: 150px">İcra Dosya No :</p:outputLabel>
+
+					<p:inputText id="icraDosyaNo"
+						value="#{alacakliBean.alacakliBilgisi.icraDosyasiNo}"
+						style="width: 250px" readonly="true"></p:inputText>
+
+					<p:outputLabel style="width: 150px"> Müvekkil Adı :</p:outputLabel>
+
+					<p:inputText id="müvekkilAdi" readonly="true"
+						value="#{alacakliBean.alacakliBilgisi.muvekkilAdi}"
+						style="width: 250px"
+						converterMessage="Eksik veya Fazla Giriş Yaptınız.">
+					</p:inputText>
+
+
+
+					<p:outputLabel style="width: 250px">Müvekkil Tipi :</p:outputLabel>
+
+					<p:selectOneMenu id="müvekkilTipi"
+						value="#{alacakliBean.alacakliBilgisi.muvekkilTipiId}"
+						style="width:260px">
+						<f:selectItems
+							value="#{geneltanimbean.ListeGetir('tbl_muvekkil_tipi')}"
+							var="list" itemLabel="#{list.adi}" itemValue="#{list.id}"></f:selectItems>
+					</p:selectOneMenu>
+
+					<p:outputLabel style="width: 150px"> Müvekkil Şube Adı :</p:outputLabel>
+
+					<p:inputText id="müvekkilSubeAdi"
+						value="#{alacakliBean.alacakliBilgisi.muvekkilSubeAdi}"
+						style="width: 250px"
+						converterMessage="Eksik veya Fazla Giriş Yaptınız.">
+					</p:inputText>
+
+
+					<p:outputLabel style="width: 150px">Şube Adı :</p:outputLabel>
+
+					<p:selectOneMenu id="subeAdi"
+						value="#{alacakliBean.alacakliBilgisi.subeTipiId}"
+						style="width:260px">
+						<f:selectItems
+							value="#{geneltanimbean.ListeGetir('tbl_sube_adi')}" var="list"
+							itemLabel="#{list.adi}" itemValue="#{list.id}"></f:selectItems>
+					</p:selectOneMenu>
+
+					<p:outputLabel style="width:150px">Ticaret Sicil No:</p:outputLabel>
+
+					<p:inputText id="ticaretSicilNo"
+						value="#{alacakliBean.alacakliBilgisi.ticaretSicilNo}"
+						style="width: 250px">
+
+					</p:inputText>
+
+
+
+					<p:outputLabel style="width: 150px">Müsteri No :</p:outputLabel>
+
+					<p:inputText id="musteriNo"
+						value="#{alacakliBean.alacakliBilgisi.musteriNo}"
+						style="width: 250px">
+
+					</p:inputText>
+
+					<p:outputLabel style="width: 150px">Vergi No :</p:outputLabel>
+
+					<p:inputText id="vergiNo"
+						value="#{alacakliBean.alacakliBilgisi.vergiNo}"
+						style="width: 250px">
+
+					</p:inputText>
+
+
+					<p:outputLabel style="width: 150px">Vergi Dairesi :</p:outputLabel>
+
+					<p:inputText id="vergiDairesi"
+						value="#{alacakliBean.alacakliBilgisi.vergiDairesi}"
+						style="width: 250px">
+					</p:inputText>
+
+					<p:outputLabel style="width: 150px">E-Posta :</p:outputLabel>
+
+					<p:inputText id="eposta"
+						value="#{alacakliBean.alacakliBilgisi.ePosta}"
+						style="width: 250px">
+					</p:inputText>
+
+				</p:panelGrid>
+
+
+
+				<h4 style="font-family: sans-serif;">Adres ve İletişim Bilgisi</h4>
+
+
+				<p:panelGrid columns="4" style="margin-bottom:10px;border-style: hidden !important">
+
+					<p:outputLabel style="width: 150px;padding-right:18px">Adres Türü :</p:outputLabel>
+
+					<p:selectOneMenu id="adrestipi"
+						value="#{alacakliBean.alacakliBilgisi.adresTuruId}"
+						style="width:260px">
+						<f:selectItems
+							value="#{geneltanimbean.ListeGetir('tbl_adres_turu')}" var="list"
+							itemLabel="#{list.adi}" itemValue="#{list.id}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel style="width: 150px">Telefon Tipi :</p:outputLabel>
+
+					<p:selectOneMenu id="telefon_tipi"
+						value="#{alacakliBean.alacakliBilgisi.telefonTipiId}"
+						style="width: 260px">
+						<f:selectItems
+							value="#{geneltanimbean.ListeGetir('tbl_telefon_tipi')}"
+							var="list" itemLabel="#{list.adi}" itemValue="#{list.id}">
+						</f:selectItems>
+					</p:selectOneMenu>
+
+					<p:outputLabel style="width: 150px">İl :</p:outputLabel>
+
+					<p:selectOneMenu id="il"
+						value="#{alacakliBean.alacakliBilgisi.ilId}" style="width: 260px">
+						<p:ajax listener="#{alacakliBean.ilceListeEkle()}" update="ilce" />
+						<f:selectItems value="#{genelSehirlerBean.ListeGetirForIl()}"
+							var="iller" itemLabel="#{iller.il_adi}"
+							itemValue="#{iller.il_kodu}">
+						</f:selectItems>
+					</p:selectOneMenu>
+
+					<p:outputLabel style="width: 150px">Telefon No :</p:outputLabel>
+					<p:inputText id="telefonNo"
+						value="#{alacakliBean.alacakliBilgisi.telefonNo}"
+						style="width: 250px">
+					</p:inputText>
+
+
+
+					<p:outputLabel style="width: 150px">İlçe :</p:outputLabel>
+
+					<p:selectOneMenu id="ilce"
+						value="#{alacakliBean.alacakliBilgisi.ilceId}"
+						style="width: 260px">
+						<f:selectItems value="#{alacakliBean.ilceList}" var="ilceler"
+							itemLabel="#{ilceler.ilce_adi}" itemValue="#{ilceler.id}"></f:selectItems>
+					</p:selectOneMenu>
+
+					<p:outputLabel style="width: 150px">Telefon Statüsü :</p:outputLabel>
+
+					<p:inputText id="telefonStatusu"
+						value="#{alacakliBean.alacakliBilgisi.telefonStatusu}"
+						style="width: 250px">
+					</p:inputText>
+
+					<p:outputLabel style="width: 150px">Semt Adı :</p:outputLabel>
+
+					<p:inputText id="semtAdi"
+						value="#{alacakliBean.alacakliBilgisi.semtAdi}"
+						style="width: 250px">
+					</p:inputText>
+
+					<p:outputLabel style="width: 150px">Adres Statüsü:</p:outputLabel>
+					<p:selectOneMenu id="adresStatusu"
+						value="#{alacakliBean.alacakliBilgisi.adresStatusuId}"
+						style="width: 260px">
+						<f:selectItems
+							value="#{geneltanimbean.ListeGetir('tbl_adres_statusu')}"
+							var="list" itemLabel="#{list.adi}" itemValue="#{list.id}"></f:selectItems>
+					</p:selectOneMenu>
+
+					<p:outputLabel style="width: 150px">Adres :</p:outputLabel>
+					<p:inputTextarea id="adres" rows="6" cols="30"
+						value="#{alacakliBean.alacakliBilgisi.adres}" style="width: 250px"></p:inputTextarea>
+
+
+					<p:outputLabel style="width:150px"> Notlar :</p:outputLabel>
+					<p:inputTextarea id="notlar" rows="4" cols="30"
+						value="#{alacakliBean.alacakliBilgisi.notlar}" style="width:250px"></p:inputTextarea>
+
+
+				</p:panelGrid>
+
+
+				<p:growl id="errorMessage" showDetail="true" sticky="false" />
+
+
+
+				<p:commandButton id="cmdButtonVazgec" style="margin-top:10px"
+					value="Vazgeç" update=":alacakliForm" immediate="true"
+					action="#{alacakliBean.Vazgec}"></p:commandButton>
+
+				<p:commandButton id="cmdButtonKaydet" value="Güncelle"
+					update="errorMessage,:alacakliForm"
+					action="#{alacakliBean.Guncelle()}">
+				</p:commandButton>
+
+			</p:panel>
+
+
+
+
+
+
+		</h:form>
+
+
+
+	</p:panel>
+</h:body>
+</html>

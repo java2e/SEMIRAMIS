@@ -1,0 +1,47 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+
+</h:head>
+
+
+<h:body>
+
+
+	<h:form>
+		<p:growl id="growlMesaj" showDetail="true" sticky="false" />
+
+
+		<p:panel id="pilot" header="Otomatik Pilot">
+
+			<p:panelGrid columns="2">
+
+				<p:commandButton value="Esas ile Arama" 
+					ajax="false" actionListener="#{robotBean.getEsasArama()}"
+					update="growlMesaj" />
+
+
+				<p:commandButton value="Takip Açma" ajax="false"
+					actionListener="#" update="growlMesaj" />
+
+
+			</p:panelGrid>
+		</p:panel>
+
+
+
+	</h:form>
+
+
+
+</h:body>
+
+
+</html>

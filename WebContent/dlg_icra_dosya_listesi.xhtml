@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+
+<h:body>
+<div id="wrapper">
+
+	<div id="content">
+
+	
+		<p:dataTable 	
+					value="#{kasaBean.detayliAramaListesi}"
+					filteredValue="#{kasaBean.detayliAramaListesi}"
+					emptyMessage="Aradığınız Kritere Uygun Sonuç Bulunamamıştır."
+					var="hb"		
+					id="tbldetayliarama" style="width:700px "
+					rowStyleClass="green"
+					rows="20"
+					paginator="true"
+                    paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                    rowsPerPageTemplate="5,10,25,50,100,1000"
+					
+					>
+
+				<p:column headerText="İcra Dosya No" width="105" filterBy="#{hb.icraDosyaNo}" filterMatchMode="contains" sortBy="#{hb.icraDosyaNo}">
+				<h:outputText value="#{hb.icraDosyaNo}" />
+				</p:column>
+
+				<p:column headerText="İcra Müdürlüğü" width="195" filterBy="#{hb.icraMudurlugu}" filterMatchMode="contains" sortBy="#{hb.icraMudurlugu}" >
+					<h:outputText value="#{hb.icraMudurlugu}" />
+				</p:column>
+	
+				<p:column headerText="Borçlu Adı" width="195" filterBy="#{hb.borcluAdi}" filterMatchMode="contains" sortBy="#{hb.borcluAdi}">
+					<h:outputText value="#{hb.borcluAdi}" />
+				</p:column>
+		
+				<p:column headerText="Seç" width="42" >
+									
+                <p:commandButton value="Seç" type="Button"/>
+				
+			                      
+				</p:column>
+				
+			</p:dataTable>
+
+
+
+</div>
+</div>
+
+
+
+
+</h:body>
+</html>

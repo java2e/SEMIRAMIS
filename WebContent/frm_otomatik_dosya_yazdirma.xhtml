@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<body>
+
+	<p:panel id="panelPG" header="OTOMATİK DOSYA YAZDIRMA PANELİ"
+		style="text-align:left;min-height:500px; ">
+
+
+
+		<h:form id="Form">
+
+
+			<p:panel>
+				<p:panelGrid columns="7" style="width:870px;">
+					<p:outputLabel>Takip Talebi:</p:outputLabel>
+					<p:selectBooleanCheckbox value="#{genelYazdirBean.takTalebi}">
+						<p:ajax update=":Form:tblReport"></p:ajax>
+					</p:selectBooleanCheckbox>
+
+					<p:outputLabel>Ödeme Emri:</p:outputLabel>
+					<p:selectBooleanCheckbox value="#{genelYazdirBean.oEmri}">
+						<p:ajax update=":Form:tblReport"></p:ajax>
+
+					</p:selectBooleanCheckbox>
+
+					<p:outputLabel>Tebligat Zarfı:</p:outputLabel>
+					<p:selectBooleanCheckbox value="#{genelYazdirBean.tebZarfi}">
+						<p:ajax update=":Form:tblReport"></p:ajax>
+					</p:selectBooleanCheckbox>
+
+
+
+					<p:commandButton icon="ui-icon-disk" value="Hepsini Yazdır"
+						action="#{genelYazdirBean.printAll}" ajax="false" update="form">
+					
+					</p:commandButton>
+
+
+				</p:panelGrid>
+
+				<p:panelGrid columns="3" style="width:870px; margin-top: 20px">
+
+					<p:outputLabel value="Takip Tarihi" />
+					<p:calendar id="detay_mask5" value="#{genelYazdirBean.tarih1}"
+						pattern="dd-MM-yyyy" mask="true" style="width: 180px" />
+					<p:calendar id="detay_mask6" value="#{genelYazdirBean.tarih2}"
+						pattern="dd-MM-yyyy" mask="true" style="width: 180px" />
+
+				</p:panelGrid>
+
+				<p:commandButton value="Listele"
+					actionListener="#{genelYazdirBean.Listele}" update="Form,tblReport"
+					style=" margin-top: 20px; margin-left:400px" />
+				<p:commandButton value="Tebligat Listesi Çıktı Al"
+					actionListener="#{genelYazdirBean.printTebligatListesi}"
+					ajax="false" style=" margin-top: 20px; " />
+
+			</p:panel>
+
+
+
+			<p:growl id="grow"></p:growl>
+			<p:panel>
+				<p:dataTable value="#{genelYazdirBean.rgList}" var="rl"
+					id="tblReport" style="width:900px; margin-top:10px; " reflow="true"
+					rows="10" paginator="true">
+
+					<p:column headerText="Yazdır" width="145">
+
+						<p:commandButton icon="ui-icon-disk" value="Yazdır"
+							action="#{genelYazdirBean.getPDF}" ajax="false"
+							update=":Form:tblReport">
+							<f:param name="pdf" value="#{rl.id}" />
+						</p:commandButton>
+
+					</p:column>
+
+					<p:column headerText="Kayıt">
+						<p:commandButton icon="ui-icon-disk" value="Sisteme Kaydet"
+							action="#{genelYazdirBean.kaydet}" ajax="false"
+							update="grow, Form">
+							<f:param name="save" value="#{rl.id}" />
+						</p:commandButton>
+					</p:column>
+
+
+					<p:column headerText="İcra Dosya No">
+						<h:outputText value="#{rl.icraDosyaNo}" />
+					</p:column>
+
+					<p:column headerText="Borçlu Adı">
+						<h:outputText value="#{rl.borclu}" />
+					</p:column>
+
+					<p:column headerText="İcra Md.lüğü">
+						<h:outputText value="#{rl.icraBilgi}" />
+					</p:column>
+					<p:column headerText="Barkod">
+						<h:outputText value="#{rl.barkot}" />
+					</p:column>
+
+
+				</p:dataTable>
+
+			</p:panel>
+		</h:form>
+
+
+	</p:panel>
+
+</body>
+</html>

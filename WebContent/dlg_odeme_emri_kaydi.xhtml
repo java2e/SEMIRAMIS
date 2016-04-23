@@ -1,0 +1,150 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<body>
+
+		<p:ajaxStatus onstart="PF('statusDialog').show()"
+			onsuccess="PF('statusDialog').hide()" />
+
+		<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+			closable="false" resizable="false" showHeader="false"
+			style="position: absolute; background-color: rgba(0, 0, 0, 0.6); height: 256px; width: 256px; left:0%; top:0%; z-index:2; height: 100%; width: 100%">
+			<p:graphicImage value="img/yukleme.gif" height="80" width="80" />
+		</p:dialog>
+
+		<h:form id="odemeEmriForm">
+			<p:panel rendered="#{odemeEmriKaydiBean.panelRender}">
+				<p:panelGrid columns="2" style="margin-top:10px">
+
+					<p:outputLabel style="width: 150px">İcra Dosya No :</p:outputLabel>
+					<p:inputText id="icraDosyaNo"
+						value="#{odemeEmriKaydiBean.icradosyaNo}" style="width: 250px"
+						readonly="true">
+					</p:inputText>
+
+					<h:outputLabel>İcra Müdürlüğü :</h:outputLabel>
+					<p:inputText id="icraMd" style="width: 250px" readonly="true">
+					</p:inputText>
+
+					<h:outputLabel>Borçlu Adı :</h:outputLabel>
+
+					<p:inputText id="borcluAdi" value="#{odemeEmriKaydiBean.borcluAdi}"
+						style="width: 250px" readonly="true">
+					</p:inputText>
+
+
+
+					<p:outputLabel for="inputTextDate">Ödeme Tarihi :</p:outputLabel>
+					<p:calendar id="inputTextDate" size="39"
+						value="#{odemeEmriKaydiBean.odemeEmri.odemeTarihi}"
+						pattern="dd/MM/yyyy" mask="true" />
+
+
+					<p:outputLabel>Ödeme Miktarı:</p:outputLabel>
+					<p:inputMask id="odemeMiktari"
+						value="#{odemeEmriKaydiBean.odemeEmri.odemeMiktari}"
+						required="false" requiredMessage="Bu alanı doldurunuz"
+						style="width: 250px"></p:inputMask>
+
+					<p:outputLabel>Ödeme Sonucu:</p:outputLabel>
+					<p:inputText id="odemeSonucu"
+						value="#{odemeEmriKaydiBean.odemeEmri.odemeSonucu}"
+						required="false" requiredMessage="Bu alanı doldurunuz"
+						style="width: 250px"></p:inputText>
+
+
+					<p:outputLabel>Açıklama :</p:outputLabel>
+					<p:inputTextarea id="inputTextAciklama" required="false"
+						requiredMessage="Bu alanı doldurunuz" rows="10" cols="50"
+						value="#{odemeEmriKaydiBean.odemeEmri.aciklama}"
+						style="width: 250px"></p:inputTextarea>
+
+
+				</p:panelGrid>
+
+				<p:growl id="growl" showDetail="true" sticky="true" />
+
+
+
+
+				<p:commandButton id="cmdButtonVAZGEC" value="Vazgeç"
+					style="margin-top:10px" action="#{odemeEmriKaydiBean.dlgVazgec()}"
+					update=":#{p:component('dlgOdemeEmri')}"></p:commandButton>
+
+				<p:commandButton id="cmdButtonKAYDET" value="Kaydet"
+					actionListener="#{odemeEmriKaydiBean.dlgKaydet()}"
+					update=":#{p:component('dlgOdemeEmri')}"></p:commandButton>
+
+
+
+			</p:panel>
+
+
+
+
+
+			<p:dataTable value="#{odemeEmriKaydiBean.listOdeme}" var="oe"
+				id="tblOdemeEmri" style="width:900px ">
+				<f:facet name="header">
+					<p:panelGrid>
+						<p:commandButton value="Yeni Kayıt" style="float:left"
+							disabled="#{odemeEmriKaydiBean.buttonDisabled}"
+							action="#{odemeEmriKaydiBean.dlgYeniKayit}"
+							update=":#{p:component('dlgOdemeEmri')}" />
+						<h:outputText value="ÖDEME EMRİ KAYIT LİSTESİ" />
+					</p:panelGrid>
+				</f:facet>
+
+				<p:column headerText="Düzenle" width="145">
+
+					<p:commandButton icon="ui-icon-disk" value="Düzenle"
+						action="#{odemeEmriKaydiBean.dlgDuzenle}"
+						update=":#{p:component('dlgOdemeEmri')}"
+						disabled="#{odemeEmriKaydiBean.buttonDisabled}">
+						<f:param name="duzenle" value="#{oe.id}" />
+
+
+					</p:commandButton>
+
+				</p:column>
+
+				<p:column headerText="SİL" width="115">
+
+					<p:commandButton icon="ui-icon-cancel" value="Sil"
+						action="#{odemeEmriKaydiBean.dlgSil}"
+						disabled="#{odemeEmriKaydiBean.buttonDisabled}"
+						update=":#{p:component('dlgOdemeEmri')}">
+						<f:param name="sil" value="#{oe.id}" />
+
+					</p:commandButton>
+
+				</p:column>
+
+				<p:column headerText="Ödeme Tarihi">
+					<h:outputText value="#{oe.odemeTarihi}" />
+				</p:column>
+
+				<p:column headerText="Ödeme Miktarı">
+					<h:outputText value="#{oe.odemeMiktari}" />
+				</p:column>
+
+				<p:column headerText="Ödeme Sonucu">
+					<h:outputText value="#{oe.odemeSonucu}" />
+				</p:column>
+
+
+			</p:dataTable>
+
+
+		</h:form>
+
+
+
+</body>
+</html>

@@ -1,0 +1,274 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+
+
+
+
+
+
+	<p:ajaxStatus onstart="PF('statusDialog').show()"
+		onsuccess="PF('statusDialog').hide()" />
+
+	<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+		closable="false" resizable="false" showHeader="false"
+		style="position: absolute; background-color: rgba(0, 0, 0, 0.6); height: 256px; width: 256px; left:0%; top:0%; z-index:2; height: 100%; width: 100%">
+		<p:graphicImage value="img/yukleme.gif" height="80" width="80" />
+	</p:dialog>
+
+	<h:form id="formMsgs">
+		<p:growl id="msgs" showDetail="true" />
+	</h:form>
+
+
+	<p:panel rendered="#{muameleislemlerbean.duzenlesilrender}">
+		<p:panel id="girisPaneli" header="Muamele İşlem"
+			style="margin-bottom:10px">
+
+
+			<p:panelGrid columns="2" styleClass="panelGridStyle">
+
+				<p:outputLabel value="İcra Dosya No" />
+				<p:inputText value="#{muameleislemlerbean.icra_dosya_no}"
+					style="font-size:16px; font-weight:bold" readonly="true" size="20" />
+
+				<p:outputLabel value="Borçlu Adı" />
+				<p:inputText value="#{muameleislemlerbean.muameleIslm.borclu_adi}"
+					style="font-size:16px; font-weight:bold" readonly="true" size="20" />
+
+
+				<p:outputLabel value="Muamele Tarihi" />
+				<p:calendar id="mask"
+					value="#{muameleislemlerbean.muameleIslm.muamele_tarihi}"
+					pattern="dd-MM-yyyy" mask="true" />
+
+
+				<p:outputLabel value="Müzekkere Adı" />
+				<p:selectOneMenu id="muzekkereAdi" styleClass="selectMenu"
+					value="#{muameleislemlerbean.muameleIslm.muzekkere_adi}"
+					required="true" requiredMessage="Bu Alanı Boş Bırakamazsınız"
+					style="width: 250px">
+					<f:selectItem itemLabel="" itemValue="1" />
+					<f:selectItem itemLabel="Ödeme Emri (TK 35' e göre)" itemValue="2" />
+					<f:selectItem itemLabel="Diğer" itemValue="3" />
+					<!-- 			<f:selectItems 	value="#{geneltanimbean.ListeGetir('tbl_icra_mudurlugu')}"	var="list" itemLabel="#{list.adi}" itemValue="#{list.id}" /> -->
+				</p:selectOneMenu>
+
+
+				<p:outputLabel value="Talep İfadesi" />
+				<p:inputTextarea rows="7" cols="61" queryDelay="750"
+					minQueryLength="4"
+					value="#{muameleislemlerbean.muameleIslm.talep_ifadesi}" />
+
+
+				<p:outputLabel value="Masraf Tipi" />
+				<p:selectOneMenu id="masrafTipi" styleClass="selectMenu"
+					value="#{muameleislemlerbean.muameleIslm.masraf_tipi_id}"
+					required="true" requiredMessage="Bu Alanı Boş Bırakamazsınız"
+					style="width: 250px">
+					<f:selectItem itemLabel="" itemValue="1" />
+					<f:selectItems
+						value="#{geneltanimbean.ListeGetir('tbl_masraf_tipi')}" var="list"
+						itemLabel="#{list.adi}" itemValue="#{list.id}" />
+				</p:selectOneMenu>
+
+
+				<p:outputLabel value="Masraf Miktarı" />
+				<p:inputText
+					value="#{muameleislemlerbean.muameleIslm.masraf_miktari}" />
+
+				<p:outputLabel value="Mal Tipi" />
+				<p:selectOneMenu id="malTipi" styleClass="selectMenu"
+					value="#{muameleislemlerbean.muameleIslm.mal_tipi_id}"
+					required="true" requiredMessage="Bu Alanı Boş Bırakamazsınız"
+					style="width: 250px">
+					<f:selectItem itemLabel="" itemValue="1" />
+
+					<f:selectItems value="#{geneltanimbean.ListeGetir('tbl_mal_tipi')}"
+						var="list" itemLabel="#{list.adi}" itemValue="#{list.id}" />
+				</p:selectOneMenu>
+
+
+				<p:outputLabel value="Mal Bilgisi" />
+				<p:inputText value="#{muameleislemlerbean.muameleIslm.mal_bilgisi}"
+					style="width: 450px" />
+			</p:panelGrid>
+
+			<p:spacer height="15" />
+
+			<p:panelGrid columns="4" styleClass="panelGridStyle">
+
+				<p:outputLabel value="Muhatap Adı" />
+				<p:inputText value="#{muameleislemlerbean.muameleIslm.muhatap_adi}"
+					style="width: 450px" />
+
+				<p:outputLabel value="Muamele Statüsü" />
+				<p:selectOneMenu id="muameleStatusu" styleClass="selectMenu"
+					value="#{muameleislemlerbean.muameleIslm.muamele_statusu}"
+					required="true" requiredMessage="Bu Alanı Boş Bırakamazsınız"
+					style="width: 191px">
+					<f:selectItem itemLabel="" itemValue="1" />
+					<f:selectItem itemLabel="Statü -1" itemValue="2" />
+					<f:selectItem itemLabel="Statü -2" itemValue="3" />
+					<f:selectItems
+						value="#{geneltanimbean.ListeGetir('tbl_muamele_statusu')}"
+						var="list" itemLabel="#{list.adi}" itemValue="#{list.id}" />
+				</p:selectOneMenu>
+
+				<p:outputLabel value="Muhatap Adresi" />
+				<p:inputTextarea rows="2" cols="62" queryDelay="750"
+					minQueryLength="4"
+					value="#{muameleislemlerbean.muameleIslm.muhatap_adresi}" />
+
+				<p:outputLabel value="Haciz Sırası" />
+				<p:spinner min="0" max="100"
+					value="#{muameleislemlerbean.muameleIslm.haciz_sirasi}" />
+
+				<p:outputLabel value="Tebligat Tarihi" />
+				<p:calendar id="mask1"
+					value="#{muameleislemlerbean.muameleIslm.tabligat_tarihi}"
+					pattern="dd-MM-yyyy" mask="true" />
+
+				<p:outputLabel value="Haciz Başlangıç Tarihi" />
+				<p:calendar id="mask2"
+					value="#{muameleislemlerbean.muameleIslm.haciz_baslangic_tarihi}"
+					pattern="dd-MM-yyyy" mask="true" size="23" />
+
+				<p:outputLabel value="Tebligat Sonucu" />
+				<p:inputText
+					value="#{muameleislemlerbean.muameleIslm.tebligat_sonucu}"
+					style="width: 450px" />
+
+				<p:outputLabel value="Haciz Miktarı" />
+				<p:inputText
+					value="#{muameleislemlerbean.muameleIslm.haciz_miktari}"
+					style="width: 191px" />
+
+				<p:commandLink />
+				<p:commandLink />
+
+				<p:outputLabel value="Maaş Muvafakat" />
+				<p:inputText
+					value="#{muameleislemlerbean.muameleIslm.maas_muvafakat}"
+					style="width: 191px" />
+
+				<p:outputLabel value="Personel Adı" />
+				<p:selectOneMenu id="personelAdi" styleClass="selectMenu"
+					value="#{muameleislemlerbean.muameleIslm.personel_id}"
+					required="true" requiredMessage="Bu Alanı Boş Bırakamazsınız"
+					style="width: 450px">
+					<f:selectItem itemLabel="" itemValue="1" />
+					<f:selectItems value="#{userbean.ListeGetir()}" var="item"
+						itemValue="#{item.id}" itemLabel="#{item.adSoyad}" />
+				</p:selectOneMenu>
+
+				<p:outputLabel value="Açıklama" />
+				<p:inputTextarea rows="3" cols="61" queryDelay="750"
+					minQueryLength="4"
+					value="#{muameleislemlerbean.muameleIslm.aciklama}" />
+
+			</p:panelGrid>
+
+
+
+			<p:commandButton value="İşlemi Tamamla"
+				action="#{muameleislemlerbean.dlgKaydet()}"
+				update=":#{p:component('dlgMuameleBilgisi')}" />
+			<p:spacer width="66" />
+			<p:commandButton value="Vazgeç"
+				action="#{muameleislemlerbean.dlgVazgec}"
+				update=":#{p:component('dlgMuameleBilgisi')}" />
+
+
+		</p:panel>
+	</p:panel>
+
+	<p:dataTable value="#{muameleislemlerbean.Liste()}" var="Adr"
+		id="tblMuamele">
+
+		<f:facet name="header">
+			<p:panelGrid>
+
+
+
+				<p:commandButton value="Yeni Kayıt" style="float:left"
+					disabled="#{muameleislemlerbean.duzenlesilrender}"
+					action="#{muameleislemlerbean.dlgYeniKayit()}"
+					update=":#{p:component('dlgMuameleBilgisi')}" />
+
+
+				<h:outputText value="MUAMELE KAYITLARI LİSTESİ" />
+
+
+			</p:panelGrid>
+		</f:facet>
+
+		<p:column headerText="Düzenle" width="92">
+
+			<p:commandButton icon="ui-icon-disk" value="Düzenle"
+				disabled="#{muameleislemlerbean.duzenlesilrender}"
+				action="#{muameleislemlerbean.dlgDuzenle()}"
+				update=":#{p:component('dlgMuameleBilgisi')}">
+				<f:param name="duzenle" value="#{Adr.id}" />
+			</p:commandButton>
+
+		</p:column>
+
+		<p:column headerText="SİL" width="65">
+
+			<p:commandButton icon="ui-icon-cancel" value="Sil"
+				disabled="#{muameleislemlerbean.duzenlesilrender}"
+				action="#{muameleislemlerbean.dlgSil()}"
+				update=":#{p:component('dlgMuameleBilgisi')}">
+				<f:param name="sil" value="#{Adr.id}" />
+				<p:confirm header="Uyarı Mesajı"
+					message="Silmek istediğinize emin misiniz ?" icon="ui-icon-alert" />
+			</p:commandButton>
+
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+				<p:commandButton value="Evet" type="button"
+					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+				<p:commandButton value="Hayır" type="button"
+					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			</p:confirmDialog>
+
+
+
+		</p:column>
+
+
+		<p:column headerText="Borçlu Adı" width="450px">
+			<h:outputText value="#{Adr.borclu_adi}" />
+		</p:column>
+		<p:column headerText="Muhatap Adı" width="450px">
+			<h:outputText value="#{Adr.muhatap_adi}" />
+		</p:column>
+		<p:column headerText="Muamele Tarihi" width="450px">
+			<h:outputText value="#{Adr.muamele_tarihi}" />
+		</p:column>
+		<p:column headerText="Zükekere Adı" width="450px">
+			<h:outputText value="#{Adr.muzekkere_adi}" />
+		</p:column>
+		<p:column headerText="Mal Tipi" width="450px">
+			<h:outputText value="#{Adr.mal_tipi_adi}" />
+		</p:column>
+		<p:column headerText="Mal Bilgisi" width="450px">
+			<h:outputText value="#{Adr.mal_bilgisi}" />
+		</p:column>
+
+
+
+
+
+	</p:dataTable>
+
+</h:body>
+
+</html>

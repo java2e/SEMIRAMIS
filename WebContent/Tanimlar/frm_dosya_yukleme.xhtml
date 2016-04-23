@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+<p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+ 
+<p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false" 
+style="position: absolute; background-color: rgba(0, 0, 0, 0.6); height: 256px; width: 256px; left:0%; top:0%; z-index:2; height: 100%; width: 100%">
+    <p:graphicImage value="img/yukleme.gif" height="80" width="80" />
+</p:dialog>
+
+<h:form id="dosyaYukleme">
+
+<p:panel header="DOSYA YÜKLEME">
+
+<p:panelGrid columns="4">
+
+<p:outputLabel value="Tarih"/>    <p:calendar id="effect" value="#{evrakEkle.evrak.tarih}" effect="fold" size="20"/> 
+
+<p:outputLabel value="Müvekkil "/> 
+<p:selectOneMenu id="detay_muvekkil" 	
+					 						
+					 effect="fold" 
+					 filter="true" filterMatchMode="startsWith"
+					 value="#{evrakEkle.muvekkilAdi}"
+					 style="width: 180px">
+					 <f:selectItem itemLabel="" itemValue=""/>
+									<f:selectItems value="#{alacakliBean.Liste()}" var="listeler" itemLabel="#{listeler.muvekkilAdi}"	itemValue="#{listeler.muvekkilAdi}" />
+					</p:selectOneMenu>
+
+<p:outputLabel value="Evrak Türü"/> 
+<p:selectOneMenu value="#{evrakEkle.evrak.dosya_tur_id}" style="width:125px" >
+ <f:selectItem itemLabel="Vekaletname" itemValue="1"/>
+  <f:selectItem itemLabel="Diğer" itemValue="7"/>
+  
+</p:selectOneMenu>
+
+<p:outputLabel>Eklenecak Dosya :</p:outputLabel>
+<p:fileUpload fileUploadListener="#{evrakEkle.dosyaAktarGenel}" allowTypes="/(\.|\/)(doc|docx|xls|xlsx|pdf|png|jpg)$/" sizeLimit="100000000" description="Select Images" />
+
+
+</p:panelGrid>
+<p:spacer height="15"/>
+<p:commandButton value="EKLE" action="#{evrakEkle.GenelEvrakKayıt}"  update="pnlEvrakListesi" />
+</p:panel>
+
+<p:panel header="Evrak Listesi" id="pnlEvrakListesi">
+
+<p:dataTable value="#{evrakEkle.listGenelEvrak()}" var="mb"	id="tblDosyaBilgisi">
+
+			<p:column headerText="Düzenle" width="145">
+				<p:commandButton icon="ui-icon-disk" value="Düzenle" 	action="#"	disabled="#">
+						<f:param name="duzenle" value="#{mb.id}" />
+				</p:commandButton>
+			</p:column>
+			<p:column headerText="SİL" width="115">
+				<p:commandButton icon="ui-icon-cancel" value="Sil"	action="#"	disabled="#" update="">
+				<f:param name="sil" value="#{mb.id}" />
+				</p:commandButton>
+ 			</p:column>
+			<p:column headerText="Muvekkil Adı"  width="175">
+				<h:outputText value="#{mb.muvekkil}" />
+			</p:column>
+			<p:column headerText="Dosya Türü"  width="175">
+				<h:outputText value="#{mb.dosya_turu}" />
+			</p:column>
+			<p:column headerText="Dosya Yolu">
+				<h:outputText value="#{mb.dosya_yolu}"  width="615"/>
+			</p:column>
+</p:dataTable>
+
+
+</p:panel>
+
+</h:form>
+</h:body>
+</html>

@@ -1,0 +1,230 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+
+<h:body>
+<div id="wrapper">
+
+	<div id="content">
+
+
+<p:panel>
+	<p:panelGrid columns="2">
+	
+	<p:panel id="tahsilat" header="TAHSİLAT GİRİŞ PANELİ" style="width:100%; min-width:800px; margin-top: -300px">
+	
+	<p:panelGrid columns="2" style=" border-style: hidden !important;">
+	
+	<p:outputLabel value="İcra Dosya No"/>
+	<p:outputLabel>
+	
+	<p:inputText size="30"/>
+	  ||
+	  <p:commandButton icon="ui-icon-search" style="color:red" value="Ara !" onclick="PF('dlgdetayliarama').show();"/>
+	</p:outputLabel>
+	
+	<p:outputLabel value="Müvekkil Adı"/>
+	<p:inputText size="30"/>
+	
+	<p:outputLabel value="Borçlu Adı"/>
+	<p:outputLabel>
+	
+	<p:inputText size="30"/>
+	  ||
+	  <p:commandButton icon="ui-icon-search" style="color:red"/>
+	</p:outputLabel>
+	
+	<p:outputLabel value="Tahsilat Miktarı"/>
+	<p:inputText size="30"/>
+	
+	<p:outputLabel value="Tahsilat Tarihi"/>
+	<p:inputText size="30"/>
+	
+	<p:outputLabel value="Tahsilat Statüsü"/>
+	<p:selectOneMenu
+								id="tstatu" 	
+					 		    
+					 			style="width: 250px">
+					 			<f:selectItem itemLabel="Seçiniz..........." itemValue="9999"/>
+								<f:selectItems
+										value="#{kasaBean.tahsilatStatuListesi}"
+										var="list" itemLabel="#{list.adi}" itemValue="#{list.id}" />
+								</p:selectOneMenu>
+								
+	
+	<p:outputLabel value="Ödeme Yapılan Yer"/>
+	<p:selectOneMenu
+								id="odemeyeri" 	
+					 		    
+					 			style="width: 250px">
+					 			<f:selectItem itemLabel="Seçiniz..........." itemValue="9999"/>
+								<f:selectItems
+										value="#{kasaBean.odemeYeriListesi}"
+										var="list" itemLabel="#{list.adi}" itemValue="#{list.id}" />
+								</p:selectOneMenu>
+	
+	<p:outputLabel value="Tahsilatı Yapan Kişi"/>
+	<p:inputText size="30" disabled="true"/>
+	
+	<p:outputLabel value="Kasa İşlemini Yapan Kişi"/>
+	<p:inputText size="30" disabled="true"/>
+	
+	</p:panelGrid>
+	
+	</p:panel>
+
+
+			<h:form id="frmhesapbilgisi">
+				<p:panel header="HESAP BİLGİSİ" id="hesapbilgisi" style="width:100%">
+						<p:panelGrid columns="2" style=" border-style: hidden !important;">
+							
+								
+								<p:outputLabel value="Asıl Alacak        " style="font-weight:bold" />
+								
+			 					<p:inputText style="width: 100px; font-weight:bold;font-size:15px; background-color:GhostWhite  !important" value="#{icradosyaislemleribean.hesaplistesi.asil_alacak_tl}"  >
+			 					
+			 					</p:inputText>     
+								
+								<p:outputLabel value="Gecikme Faizi" >
+																	      
+								</p:outputLabel> 
+								  
+								<p:inputText style="width: 100px" value="#{icradosyaislemleribean.hesaplistesi.gecikme_faizi}" />
+								
+							
+								
+								<p:outputLabel value="Temerrüt Faizi" >
+								
+								
+								</p:outputLabel> 
+								    
+								<p:inputText style="width: 100px" value="#{icradosyaislemleribean.hesaplistesi.temerrut_faizi}" />
+						
+															
+								<p:outputLabel value="Faiz' in %5 Gider Vergisi" />  
+								<p:inputText style="width: 100px" value="#{icradosyaislemleribean.hesaplistesi.faiz_gider_vergisi}" />
+								
+								
+								<p:outputLabel value="Masraf Tutarı" />  
+								<p:inputText style="width: 100px" value="#{icradosyaislemleribean.hesaplistesi.masraf_tutari}" />
+								
+								
+								
+								<p:outputLabel value="Takip Alacağı" style="font-weight:bold" /> 
+			 					<p:inputText style="width: 100px; font-weight:bold;font-size:15px; background-color:GhostWhite  !important" value="#{icradosyaislemleribean.hesaplistesi.takip_alacagi_tl}" readonly="true" >
+			 					
+								</p:inputText>
+								     
+								
+								<p:outputLabel value="Vekalet Ücreti"/> 
+			 					<p:inputText style="width: 100px; background-color:Gainsboro  !important" value="#{icradosyaislemleribean.hesaplistesi.vekalet_ucreti_tl}" readonly="true" >
+			 					
+								</p:inputText>
+								     
+								
+								<p:outputLabel value="Takip Faizi"/> 
+			 					<p:inputText style="width: 100px; background-color:Gainsboro  !important" value="#{icradosyaislemleribean.hesaplistesi.takip_faizi_tl}" readonly="true" >
+			 					<f:convertNumber pattern="#0.00"/>
+								</p:inputText>
+								     
+								
+								<p:outputLabel value="İndirimli Faiz Oranı"/> 
+			 					<p:inputText style="width: 100px; background-color:Gainsboro  !important" value="#{icradosyaislemleribean.hesaplistesi.indirim_faiz_orani_tl}" readonly="true" >
+			 					<f:convertNumber pattern="#0.00"/>
+								</p:inputText>
+								     
+								
+								<p:outputLabel value="Faiz' in %5 Gider Vergisi"/> 
+			 					<p:inputText style="width: 100px; background-color:Gainsboro  !important" value="#{icradosyaislemleribean.hesaplistesi.faiz_gider_vergisi2_tl}" readonly="true" >
+			 					<f:convertNumber pattern="#0.00"/>
+			 					</p:inputText>     
+								
+													
+								
+								<p:outputLabel value="Başvuru Harcı"/> 
+			 					<p:inputText style="width: 100px; background-color:Gainsboro  !important" value="#{icradosyaislemleribean.basvuruHarciTL}" readonly="true" >
+			 					<f:convertNumber pattern="#0.00"/>
+								</p:inputText>
+								
+								<p:outputLabel value="Vekalet Harcı"/> 
+			 					<p:inputText style="width: 100px; background-color:Gainsboro  !important" value="#{icradosyaislemleribean.vekaletHarciTL}" readonly="true" >
+			 					<f:convertNumber pattern="#0.00"/>
+								</p:inputText>
+								
+								<p:outputLabel value="Peşin Harç"/> 
+			 					<p:inputText style="width: 100px; background-color:Gainsboro  !important" value="#{icradosyaislemleribean.pesinHarcTL}" readonly="true" >
+			 					<f:convertNumber pattern="#0.00"/>
+								</p:inputText>
+								
+															
+								<p:outputLabel value="Diğer Harçlar"/> 
+			 					<p:inputText style="width: 100px; background-color:Gainsboro  !important" value="#{icradosyaislemleribean.hesaplistesi.diger_harclar_tl}" readonly="true" >
+			 					<f:convertNumber pattern="#0.00"/>
+								</p:inputText>
+								     
+								
+								<p:outputLabel value="Masraf Tutarı"/> 
+			 					<p:inputText style="width: 100px; background-color:Gainsboro  !important" value="#{icradosyaislemleribean.hesaplistesi.masraf_tutari_tl}" readonly="true" >
+			 					<f:convertNumber pattern="#0.00"/>
+								</p:inputText>
+								     
+								
+								<p:outputLabel value="Tahsil Harcı  : ">
+								
+								</p:outputLabel> 
+			 					<p:inputText style="width: 100px; background-color:Gainsboro  !important" value="#{icradosyaislemleribean.hesaplistesi.tahsil_harci_tl}" readonly="true" >
+			 					
+								</p:inputText>
+								     
+								
+								<p:outputLabel value="Toplam Alacak" style="font-weight:bold"/> 
+			 					<p:inputText style="width: 100px;font-weight:bold;font-size:15px; background-color:GhostWhite  !important" value="#{icradosyaislemleribean.hesaplistesi.toplam_alacak_tl}" readonly="true" >
+			 					
+								</p:inputText>
+								     
+								
+								<p:outputLabel value="Tahsilat Tutarı" style="font-weight:bold"/> 
+			 					<p:inputText style="width: 100px;font-weight:bold;font-size:15px; background-color:GhostWhite  !important" value="#{icradosyaislemleribean.hesaplistesi.tahsilat_tutari_tl}" readonly="true" >
+			 					
+								</p:inputText>
+								     
+								
+								<p:outputLabel value="İndirim Tutarı" style="font-weight:bold"/> 
+			 					<p:inputText style="width: 100px;font-weight:bold;font-size:15px; background-color:GhostWhite  !important" value="#{icradosyaislemleribean.hesaplistesi.indirim_tutari_tl}" readonly="true" >
+			 					
+								</p:inputText>
+								     
+								
+								<p:outputLabel value="Kalan Alacak" style="font-weight:bold"/> 
+			 					<p:inputText style="width: 100px;font-weight:bold;font-size:15px; background-color:GhostWhite  !important" value="#{icradosyaislemleribean.hesaplistesi.kalan_alacak_tl}" readonly="true" >
+			 					
+								</p:inputText>
+								     
+								
+								
+						</p:panelGrid>
+				</p:panel>
+			</h:form>
+
+</p:panelGrid>
+</p:panel>
+
+</div>
+</div>
+
+	<h:form id="detayliArama">
+		<p:dialog header="DETAYLI ARAMA" widgetVar="dlgdetayliarama" minHeight="340" height="690" >
+     
+     	    <ui:include  src="dlg_icra_dosya_listesi.xhtml" />
+				</p:dialog>
+		</h:form>			
+		
+</h:body>
+</html>

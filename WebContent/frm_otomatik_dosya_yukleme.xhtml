@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+<p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+ 
+<p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false" 
+style="position: absolute; background-color: rgba(0, 0, 0, 0.6); height: 256px; width: 256px; left:0%; top:0%; z-index:2; height: 100%; width: 100%">
+    <p:graphicImage value="img/yukleme.gif" height="80" width="80" />
+</p:dialog>
+
+<h:form id="dosyaYukleme">
+
+<p:panel header="DOSYA YÜKLEME">
+
+<p:panelGrid columns="4">
+
+<p:outputLabel value="Tarih"/>    <p:calendar id="effect" value="#{evrakEkle.evrak.tarih}" effect="fold" size="20"/> 
+<p:outputLabel value="Semiramis Dosya Numarası"/>  <p:inputText value="#{evrakEkle.evrak.icra_dosyasi_no}" size="20"/>
+<p:outputLabel value="Müvekkil Adı"/>  <p:inputText value="#{evrakEkle.muvekkilAdi}" readonly="true" size="20"/>
+<p:outputLabel value="Borçlu Adı"/>  <p:inputText value="#{evrakEkle.borcluAdi}" readonly="true" size="20"/>
+<p:outputLabel value="Evrak Türü"/> 
+<p:selectOneMenu value="#{evrakEkle.evrak.dosya_tur_id}" style="width:125px" >
+ <f:selectItem itemLabel="Vekaletname" itemValue="1"/>
+  <f:selectItem itemLabel="Müzekkere" itemValue="2"/>
+   <f:selectItem itemLabel="Dilekçe" itemValue="4"/>
+    <f:selectItem itemLabel="Yetki Belgesi" itemValue="5"/>
+     <f:selectItem itemLabel="Azilname" itemValue="6"/>
+       <f:selectItem itemLabel="Diğer" itemValue="7"/>
+         <f:selectItem itemLabel="Sözleşme" itemValue="8"/>
+           <f:selectItem itemLabel="Hitam Belgesi" itemValue="9"/>
+</p:selectOneMenu>
+
+<p:outputLabel>Eklenecak Dosya :</p:outputLabel>
+<p:fileUpload fileUploadListener="#{evrakEkle.dosyaAktar}" allowTypes="/(\.|\/)(doc|docx|xls|xlsx|pdf)$/" sizeLimit="100000000" description="Select Images" />
+
+
+</p:panelGrid>
+<p:spacer height="15"/>
+<p:commandButton value="EKLE" action="#{evrakEkle.Kaydet}"  update="pnlEvrakListesi" />
+</p:panel>
+
+<p:panel header="Evrak Listesi" id="pnlEvrakListesi">
+
+<p:dataTable value="#{evrakEkle.listEvrak()}" var="mb"	id="tblDosyaBilgisi">
+
+			<p:column headerText="Düzenle" width="145">
+				<p:commandButton icon="ui-icon-disk" value="Düzenle" 	action="#"	disabled="#">
+						<f:param name="duzenle" value="#{mb.id}" />
+				</p:commandButton>
+			</p:column>
+			<p:column headerText="SİL" width="115">
+				<p:commandButton icon="ui-icon-cancel" value="Sil"	action="#"	disabled="#" update="">
+				<f:param name="sil" value="#{mb.id}" />
+				</p:commandButton>
+ 			</p:column>
+			<p:column headerText="Evrak Kayıt Tarihi">
+				<h:outputText value="#{mb.tarih}" />
+			</p:column>
+			<p:column headerText="Dosya Türü">
+				<h:outputText value="#{mb.dosya_turu}" />
+			</p:column>
+			<p:column headerText="Dosya Yolu">
+				<h:outputText value="#{mb.dosya_yolu}" />
+			</p:column>
+</p:dataTable>
+
+
+</p:panel>
+
+</h:form>
+</h:body>
+</html>

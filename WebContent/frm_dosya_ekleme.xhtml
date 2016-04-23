@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<h:body>
+	<p:panel header="İCRA KLASÖRÜ PANELİ">
+		<h:form id="form" enctype="multipart/form-data">
+			<p:panel id="panel1">
+				<p:panelGrid columns="2">
+					<p:outputLabel style="width: 150px">İcra Dosya No :</p:outputLabel>
+					<p:inputText id="icraDosyaNo"
+						value="#{DosyaYuklemeBean.icraDosyaNo}" style="width: 250px"
+						readonly="true"></p:inputText>
+
+					<h:outputLabel>Belge Adı :</h:outputLabel>
+					<p:inputText id="belgeAdi" style="width: 250px"
+						value="#{DosyaYuklemeBean.dosyaYukleme.belgeAdi}">
+					</p:inputText>
+
+					<p:outputLabel style="width: 150px">Belgenin Yönü :</p:outputLabel>
+
+					<p:selectOneMenu id="belgeYonu" required="false"
+						value="#{DosyaYuklemeBean.dosyaYukleme.belgeYonu}"
+						style="width:260px">
+						<f:selectItem itemValue="Gelen" itemLabel="Gelen"></f:selectItem>
+						<f:selectItem itemValue="Giden" itemLabel="Giden"></f:selectItem>
+					</p:selectOneMenu>
+
+					<p:outputLabel>Belgenin Yüklenme Tarihi :</p:outputLabel>
+					<p:calendar pattern="dd/MM/yyyy" mask="true"
+						value="#{DosyaYuklemeBean.dosyaYukleme.belgeTarihi}" size="39">
+					</p:calendar>
+
+					<p:outputLabel>Dosya :</p:outputLabel>
+					<p:fileUpload
+						fileUploadListener="#{DosyaYuklemeBean.handleFileUpload}"
+						allowTypes="/(\.|\/)(doc|docx|xls|xlsx|pdf)$/"
+						sizeLimit="10000000" />
+
+				</p:panelGrid>
+			</p:panel>
+			<p:growl id="growl" showDetail="true" sticky="true" />
+
+			<p:commandButton id="cmdButtonVAZGEC" style="margin-top:10px"
+				action="#{DosyaYuklemeBean.Vazgec}" value="Vazgeç" update="form"></p:commandButton>
+
+			<p:commandButton id="cmdButtonKAYDET"
+				action="#{DosyaYuklemeBean.Kaydet}" value="Kaydet" update="form,growl"></p:commandButton>
+
+
+			<p:dataTable value="#{DosyaYuklemeBean.dosyaList}" var="dy"
+				id="tblDosya" style="width:900px; margin-top:20px;">
+
+
+				<p:column headerText="SİL" width="115">
+
+					<p:commandButton icon="ui-icon-cancel" value="Sil"
+						actionListener="#{DosyaYuklemeBean.Sil()}" update=":form:tblDosya">
+						<f:param name="sil" value="#{dy.id}" />
+
+					</p:commandButton>
+
+				</p:column>
+
+				<p:column headerText="Tarih">
+					<h:outputText value="#{dy.belgeTarihi}" />
+				</p:column>
+
+				<p:column headerText="Dosya Adı">
+					<h:outputText value="#{dy.belgeAdi}" />
+				</p:column>
+
+				<p:column headerText="Dosya Yönü">
+					<h:outputText value="#{dy.belgeYonu}" />
+				</p:column>
+
+			</p:dataTable>
+
+		</h:form>
+	</p:panel>
+</h:body>
+</html>

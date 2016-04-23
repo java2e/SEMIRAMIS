@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"	>
+ 
+    <h:body >
+
+ <h:form>
+    <script type="text/javascript"
+			src="amcharts/amcharts.js"></script>
+		<script type="text/javascript"
+			src="amcharts/serial.js"></script>
+		<script type="text/javascript"
+			src="amcharts/pie.js"></script>
+		<script type="text/javascript"
+			src="amcharts/themes/none.js"></script>
+		<script type="text/javascript">
+			//<![CDATA[
+			           
+        
+            var chart;
+            var legend;
+
+            var chartData = [#{dashBean.testVeri}];
+
+            AmCharts.ready(function () {
+                // PIE CHART
+                chart = new AmCharts.AmPieChart();
+                chart.dataProvider = chartData;
+                chart.titleField = "Muvekkil";
+                chart.valueField = "DosyaSayisi";
+                chart.outlineColor = "#FFFFFF";
+                chart.outlineAlpha = 0.8;
+                chart.outlineThickness = 2;
+
+                // WRITE
+                chart.write("chartdiv");
+            });
+            
+            
+            var chart = AmCharts.makeChart("chartdiv2", {
+                "type": "serial",
+                "theme": "light",
+                "marginRight":30,
+                "legend": {
+                    "equalWidths": false,
+                    "periodValueText": "Toplam: [[value.sum]]",
+                    "position": "top",
+                    "valueAlign": "left",
+                    "valueWidth": 100
+                },
+                "dataProvider": [{
+                    "year": "Ocak",
+                    "cars": 1587,
+                    "motorcycles": 650,
+                    "bicycles": 121
+                }, {
+                    "year": "Şubat",
+                    "cars": 1567,
+                    "motorcycles": 683,
+                    "bicycles": 146
+                }, {
+                    "year":"Mart",
+                    "cars": 1617,
+                    "motorcycles": 691,
+                    "bicycles": 138
+                }, {
+                    "year": "Nisan",
+                    "cars": 1630,
+                    "motorcycles": 642,
+                    "bicycles": 127
+                }, {
+                    "year": "Mayıs",
+                    "cars": 1660,
+                    "motorcycles": 699,
+                    "bicycles": 105
+                }, {
+                    "year":"Haziran",
+                    "cars": 1683,
+                    "motorcycles": 721,
+                    "bicycles": 109
+                }, {
+                    "year": "Temmuz",
+                    "cars": 1691,
+                    "motorcycles": 737,
+                    "bicycles": 112
+                }, {
+                    "year": "Ağustos",
+                    "cars": 1298,
+                    "motorcycles": 680,
+                    "bicycles": 101
+                }, {
+                    "year": "Eylül",
+                    "cars": 1275,
+                    "motorcycles": 664,
+                    "bicycles": 97
+                }, {
+                    "year": "Ekim",
+                    "cars": 1246,
+                    "motorcycles": 648,
+                    "bicycles": 93
+                }, {
+                    "year":"Kasım",
+                    "cars": 1318,
+                    "motorcycles": 697,
+                    "bicycles": 111
+                }, {
+                    "year": "Aralık",
+                    "cars": 1213,
+                    "motorcycles": 633,
+                    "bicycles": 87
+                }, 
+                ],
+                "valueAxes": [{
+                    "stackType": "regular",
+                    "gridAlpha": 0.07,
+                    "position": "left",
+                    "title": "Türk Lirası"
+                }],
+                "graphs": [{
+                    "fillAlphas": 0.6,
+                    "lineAlpha": 0.4,
+                    "title": "AKBANK",
+                    "valueField": "cars"
+                }, {
+                    "fillAlphas": 0.6,
+                    "lineAlpha": 0.4,
+                    "title": "HSBC",
+                    "valueField": "motorcycles"
+                }, {
+                    "fillAlphas": 0.6,
+                    "lineAlpha": 0.4,
+                    "title": "ING BANK",
+                    "valueField": "bicycles"
+                }],
+                "plotAreaBorderAlpha": 0,
+                "marginTop": 10,
+                "marginLeft": 0,
+                "marginBottom": 0,
+                "chartScrollbar": {},
+                "chartCursor": {
+                    "cursorAlpha": 0
+                },
+                "categoryField": "year",
+                "categoryAxis": {
+                    "startOnAxis": true,
+                    "axisColor": "#DADADA",
+                    "gridAlpha": 0.07,
+                   
+                },
+                "export": {
+                	"enabled": true
+                 }
+            });
+            
+
+          //]]>
+
+        </script>
+        
+
+	
+        	
+        	<div id="chartdiv" style="width:100%; height:400px;"></div>
+        	<div id="chartdiv2" style="width:100%; height:400px;"></div>		
+</h:form>        
+</h:body>
+</html>

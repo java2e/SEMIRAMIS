@@ -1,0 +1,236 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<h:body>
+
+	<p:panel id="alacakbilgisi" header="ALACAK BİLGİSİ KAYDI"
+		style="text-align:left;min-height:715px;">
+
+		<p:growl id="errorMessage" showDetail="true" sticky="false" />
+
+		<p:ajaxStatus onstart="PF('statusDialog').show()"
+			onsuccess="PF('statusDialog').hide()" />
+
+		<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+			closable="false" resizable="false" showHeader="false"
+			style="position: absolute; background-color: rgba(0, 0, 0, 0.6); height: 256px; width: 256px; left:0%; top:0%; z-index:2; height: 100%; width: 100%">
+			<p:graphicImage value="img/yukleme.gif" height="80" width="80" />
+		</p:dialog>
+
+
+
+		<h:form id="alacakForm">
+
+			<p:panel id="girisPaneli" header="Alacak Bilgisi"
+				style="margin-bottom:10px" rendered="#{alacakBean.panelRender}">
+
+				<p:panelGrid columns="2" styleClass="panelGridStyle"
+					style="border-style: hidden !important">
+
+					<p:outputLabel>İcra Dosyası No :</p:outputLabel>
+					<p:inputText id="icradosya" value="#{alacakBean.icraDosyaNo}"
+						style="width: 250px" readonly="true"></p:inputText>
+
+
+					<p:outputLabel value="Belge Tipi" />
+					<p:selectOneMenu id="belgeTipi" requiredMessage="bos gecilemez"
+						value="#{alacakBean.alacakKayit.belge_tipi_id}"
+						style="width: 260px">
+						<f:selectItem itemLabel="" itemValue="" />
+						<f:selectItems
+							value="#{geneltanimbean.ListeGetir('tbl_belge_tipi')}" var="list"
+							itemLabel="#{list.adi}" itemValue="#{list.id}" />
+					</p:selectOneMenu>
+
+
+
+
+					<p:outputLabel>Belge Statüsü :</p:outputLabel>
+					<p:inputText id="belgeStatusu"
+						value="#{alacakBean.alacakKayit.belge_statusu}"
+						style="width: 250px" readonly="false"></p:inputText>
+
+
+
+
+					<p:outputLabel>Döviz Tipi :</p:outputLabel>
+					<p:selectOneMenu id="dovizTipi" requiredMessage="bos gecilemez"
+						value="#{alacakBean.alacakKayit.doviz_tipi}" style="width: 260px">
+
+						<f:selectItem itemLabel="" itemValue="" />
+						<f:selectItem itemLabel="Tl" itemValue="Tl" />
+						<f:selectItem itemLabel="Dolar" itemValue="Dolar" />
+						<f:selectItem itemLabel="Euro" itemValue="Euro" />
+
+					</p:selectOneMenu>
+
+
+
+					<p:outputLabel value="Tanzim Tarihi" />
+					<p:calendar id="mask" size="32"
+						value="#{alacakBean.alacakKayit.tanzim_tarihi}"
+						pattern="dd/MM/yyyy" mask="true" />
+
+
+
+					<p:outputLabel value="Vade Tarihi" />
+					<p:calendar id="mask1"
+						value="#{alacakBean.alacakKayit.vade_tarihi}" pattern="dd/MM/yyyy"
+						mask="true" size="32" />
+
+
+					<p:outputLabel value="İhtarname Tarihi" />
+					<p:calendar id="mask2"
+						value="#{alacakBean.alacakKayit.ihtarname_tarihi}"
+						pattern="dd/MM/yyyy" mask="true" size="32" />
+
+
+
+					<p:outputLabel value="Belge Miktarı" />
+					<p:inputText id="belgeMiktari" style="width: 250px" required="true"
+						requiredMessage="Sayısal bir değer giriniz"
+						value="#{alacakBean.alacakKayit.belge_miktari}">
+
+						<f:validateDoubleRange minimum="0.0" />
+					</p:inputText>
+
+
+
+					<p:outputLabel value="Ödenen Tutar" />
+					<p:inputText id="odenenMiktar" style="width: 250px" required="true"
+						requiredMessage="Sayısal bir değer giriniz"
+						value="#{alacakBean.alacakKayit.odenen_miktar}">
+						<f:validateDoubleRange minimum="0.0" />
+					</p:inputText>
+
+
+
+					<p:outputLabel value="Faiz Tipi" />
+					<p:selectOneMenu id="faizTipi" required="true"
+						requiredMessage="Faiz Tipi alanı zorunlu alandır"
+						value="#{alacakBean.alacakKayit.faiz_tipi_id}"
+						style="width: 260px">
+						<f:selectItem itemLabel="" itemValue="" />
+						<f:selectItems
+							value="#{geneltanimbean.ListeGetir('tbl_faiz_tipi')}" var="list"
+							itemLabel="#{list.adi}" itemValue="#{list.id}" />
+					</p:selectOneMenu>
+
+				</p:panelGrid>
+
+				<p:commandButton value="Vazgeç" action="#{alacakBean.Vazgec}"
+					update=":alacakForm" immediate="true"></p:commandButton>
+
+				<p:commandButton value="Kaydet" update=":alacakForm,:errorMessage"
+					actionListener="#{alacakBean.Kaydet}"
+					style="margin-top:10px;margin-right:5px"></p:commandButton>
+
+
+			</p:panel>
+
+
+
+			<p:commandButton value="Yeni Kayıt" style="float:left"
+				disabled="#{alacakBean.buttonDisabled}"
+				action="#{alacakBean.YeniKayit}" update=":alacakForm" />
+
+			<p:commandButton value="Listeyi Yenile" style="float:left"
+				disabled="#{alacakBean.buttonDisabled}" update=":alacakForm" />
+
+
+			<p:dataTable value="#{alacakBean.alacakbilgisiarrayList}" var="list"
+				rows="10" paginator="true"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="5,10,25,50,100,1000" id="tableAlacak"
+				update="tableAlacak">
+
+				<p:column headerText="Düzenle" width="145">
+
+					<p:commandButton icon="ui-icon-disk" value="Düzenle"
+						disabled="#{alacakBean.buttonDisabled}"
+						action="#{alacakBean.Duzenle}" update=":alacakForm">
+						<f:param name="buttonDuzenle" value="#{list.id}" />
+					</p:commandButton>
+
+				</p:column>
+
+				<p:column headerText="SİL" width="115">
+
+					<p:commandButton icon="ui-icon-cancel" value="Sil"
+						disabled="#{alacakBean.buttonDisabled}" action="#{alacakBean.Sil}"
+						update=":alacakForm,:errorMessage">
+						<f:param name="buttonSil" value="#{list.id}" />
+						<p:confirm header="Uyarı Mesajı"
+							message="Silmek istediğinize emin misiniz ?" icon="ui-icon-alert" />
+					</p:commandButton>
+
+
+					<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+
+						<p:commandButton value="Evet" type="button"
+							styleClass="ui-confirmdialog-yes" icon="ui-icon-check">
+
+
+						</p:commandButton>
+
+						<p:commandButton value="Hayır" type="button"
+							styleClass="ui-confirmdialog-no" icon="ui-icon-close">
+
+						</p:commandButton>
+
+					</p:confirmDialog>
+
+
+				</p:column>
+
+				<p:column headerText="BELGE TİPİ">
+					<h:outputText value="#{list.belge_tipi}" />
+				</p:column>
+
+				<p:column headerText="BELGE STATÜSÜ">
+					<h:outputText value="#{list.belge_statusu}" />
+				</p:column>
+
+				<p:column headerText="DÖVİZ TİPİ">
+					<h:outputText value="#{list.doviz_tipi}" />
+				</p:column>
+
+				<p:column headerText="TANZİM TARİHİ">
+					<h:outputText value="#{list.tanzim_tarihi}" />
+				</p:column>
+
+				<p:column headerText="VADE TARİHİ">
+					<h:outputText value="#{list.vade_tarihi}" />
+				</p:column>
+
+				<p:column headerText="İHTARNAME TARİHİ">
+					<h:outputText value="#{list.ihtarname_tarihi}" />
+				</p:column>
+
+				<p:column headerText="BELGE MİKTARI">
+					<h:outputText value="#{list.belgeMiktariTL}" />
+				</p:column>
+
+				<p:column headerText="BELGE TUTARI">
+					<h:outputText value="#{list.odenen_miktar}" />
+				</p:column>
+
+			</p:dataTable>
+
+
+
+
+		</h:form>
+
+	</p:panel>
+
+</h:body>
+
+</html>

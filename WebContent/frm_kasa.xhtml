@@ -1,0 +1,221 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fcore="http://java.sun.com/jsf/core">
+<h:head>
+	<meta name="viewport" content="width=980,initial-scale=0.5"></meta>
+	<link href="kasaStyle.css" rel="stylesheet" type="text/css" media="screen" />
+
+</h:head>	
+<h:body>
+	<div id="main">
+
+		<div id="header" style="background-image: url('img/back_2.png');">
+
+			<div id="header2" style="background-image: url('img/back_1.png');">
+				<img src="img/sasa_duvar.png" height="80" width="400"
+					style="margin-top: 10px; margin-left: 50px;" />
+			</div>
+			<div id="message" style="background-color: transparent !important">
+
+
+				<div style="width: 50px; height: 70px; float: right;">
+				
+				</div>
+
+
+				<div style="margin-left: 20px; float: right;">
+					<h3>Yetkili Kullanıcı</h3>
+					<h4>ALİ</h4>
+				</div>
+
+				<div style="width: 70px; height: 70px; float: right;">
+					<img src="img/SasaUser.png" width="70" height="70" />
+				</div>
+
+
+			</div>
+			<div class="saat">
+				<p:clock pattern="HH:mm:ss dd.MM.yyyy" mode="server" autoSync="true"
+					syncInterval="600000" />
+			</div>
+			<div class="logo"></div>
+		</div>
+
+
+
+
+<div id="wrapper">
+
+	<div id="content">
+
+		<p:panel id="OrtaSayfa" style=" border-style: hidden !important;">
+			<p:panelGrid style=" border-style: hidden !important;" >
+				<p:row>
+						<p:column>
+							<p:panel header="KASA İŞLEMLERİ" style="min-width:300px; min-height:350px;  text-align:center">
+						
+						<p:commandButton style="width:250px;height:95px; top:25px" value="TAHSİLAT YAP" onclick="PF('frmtahsilatyap').show();"/>
+						
+						<p:commandButton style="width:250px;height:95px; top:65px" value="REDDİYAT YAP"/>
+						
+					 
+							</p:panel>
+							
+						</p:column>
+						<p:column>
+							<p:panel header="BEKLEMEDEKİ İŞLEMLER" style="width:450px; height:350px; text-align:center;">
+						
+						<p:commandButton style="width:150px;height:95px; top:25px" value="HİTAM"/>
+						<p:commandButton style="width:150px;height:95px; top:25px" value="REDDİYAT"/>
+						<p:commandButton style="width:150px;height:95px; top:65px" value="TAHSİLAT MAKBUZU"/>
+						<p:commandButton style="width:150px;height:95px; top:74px" value="İNDİRİM"/>
+							</p:panel>
+						</p:column>
+						<p:column rowspan="2">
+						
+							<p:panel header="KASA İŞLEMLERİ LİSTESİ" style="min-width:900px; min-height:700px; border-style: hidden !important;text-align:center;">
+							<p:outputLabel value="TARİH :"/> <p:calendar id="multi"  pages="3" />
+						
+						<p:tabView>
+						<p:tab title="Aktif Ödeme Sözleri">
+							
+							<p:dataTable 	
+					value="#{kasaBean.kasaListesi}"
+					filteredValue="#{kasaBean.kasaListesi}"
+					emptyMessage="Aradığınız Kritere Uygun Sonuç Bulunamamıştır."
+					var="hb"		
+					id="tbldetayliarama" style="width:100% "
+					rowStyleClass="green"
+					rows="15"
+					paginator="true"
+                    paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                    rowsPerPageTemplate="5,10,25,50,100,1000"
+					
+					>
+				
+					<p:column headerText="Seç" width="10%" >
+					  <p:commandButton value="Seç" type="Button" />
+					</p:column>
+				
+				<p:column headerText="Borçlu Adı" width="30%" >
+					<h:outputText value="#{hb.borcluAdi}" />
+				</p:column>
+
+				<p:column headerText="İcra Dosya No" width="10%">
+					<h:outputText value="#{hb.icraDosyaNo}" />
+				</p:column>
+
+				<p:column headerText="Tarih" width="15%" >
+				<h:outputText value="#{hb.izlemeTarihi}" />
+				</p:column>
+
+				<p:column headerText="Personel" width="25%"  >
+					<h:outputText value="#{hb.personelAdi}" />
+				</p:column>
+				
+				<p:column headerText="Ödenecek Tutar" width="10%" >
+				<h:outputText value="#{hb.izlemeFiyat}" />
+				</p:column>
+
+				
+				
+			
+				
+			</p:dataTable>
+							
+							
+						</p:tab>
+						<p:tab title="Tahsilatı Yapılmış">
+						
+						
+						</p:tab>
+						<p:tab title="Reddiyatı Yapılmış">
+						
+						</p:tab>
+						<p:tab title="Pasif Ödeme Sözleri">
+						
+						</p:tab>
+						
+						</p:tabView>
+							
+							
+							</p:panel>
+						</p:column>
+								
+				</p:row>
+				<p:row>
+						<p:column>
+						 	<p:panel header="ONAYDAN GELENLER" style="min-width:300px; min-height:350px; text-align:center;">
+							<p:commandButton style="width:120px;height:95px; top:25px" value="HİTAM"/>
+						<p:commandButton style="width:120px;height:95px; top:25px" value="REDDİYAT"/>
+						<p:commandButton style="width:120px;height:95px; top:65px" value="TAHSİLAT MAKBUZU"/>
+						<p:commandButton style="width:120px;height:95px; top:74px" value="İNDİRİM"/>
+							</p:panel>
+						</p:column>
+						<p:column>
+							<p:panel header="REDDİYAT BEKLEYENLER" style="min-width:400px; min-height:350px; text-align:center;">
+							
+						<p:dataTable value="#{kasaBean.kasaListesi}" var="kasa"
+						id="tbldetayliarama" style="width:100% "
+					rowStyleClass="green"
+					rows="5"
+					paginator="true"
+                    paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                    rowsPerPageTemplate="5,10,25,50,100,1000"
+						>
+							
+							<p:column headerText="Seç" width="10%" >
+					 			 <p:commandButton value="Seç" type="Button" />
+							</p:column>
+						
+							<p:column headerText="İcra Dosya No" width="10%">
+							<h:outputText value="#{kasa.icraDosyaNo}" />
+							</p:column>
+						
+							<p:column headerText="Reddiyat Türü" width="10%">
+							<h:outputText value="#{kasa.icraDosyaNo}" />
+							</p:column>
+						
+							<p:column headerText="Tarih" width="10%">
+							<h:outputText value="#{kasa.izlemeTarihi}" />
+							</p:column>
+							
+						
+						</p:dataTable>
+							
+							
+							</p:panel>
+						</p:column>
+						
+				
+				</p:row>
+			</p:panelGrid>
+		</p:panel>
+
+</div>
+
+
+
+			
+<div id="cleared"></div>
+</div>
+
+
+	<h:form id="tahsilatyap">
+			<p:dialog header="TAHSİLAT İŞLEMİ KAYIT PANELİ" widgetVar="frmtahsilatyap"
+				minHeight="340" height="%100" width="%100">
+				<ui:include src="frm_tahsilat_paneli.xhtml" />
+			</p:dialog>
+		</h:form>
+
+
+
+</div>
+</h:body>
+</html>

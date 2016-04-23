@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.2.0.final using JasperReports Library version 6.2.0  -->
+<!-- 2015-12-20T01:17:26 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Liste" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="06aed5c4-0571-4de3-8e18-000cd58016d0">
+	<property name="ireport.zoom" value="3.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="net.sf.jasperreports.export.html.white.page.background" value="false"/>
+	<property name="net.sf.jasperreports.export.xls.ignore.cell.background" value="true"/>
+	<field name="icraDosyaId" class="java.lang.Integer"/>
+	<field name="takipAlacagi" class="java.lang.Double"/>
+	<field name="icraMudurlugu" class="java.lang.String"/>
+	<field name="icraDosyaNo" class="java.lang.String"/>
+	<field name="borcluAdi" class="java.lang.String"/>
+	<field name="muvekkilAdi" class="java.lang.String"/>
+	<columnHeader>
+		<band height="20">
+			<staticText>
+				<reportElement isPrintRepeatedValues="false" x="-21" y="0" width="70" height="20" isPrintInFirstWholeBand="true" uuid="f723eb99-8dd8-4607-b3ff-d7dda8ea9649"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[İcra Dosya ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement isPrintRepeatedValues="false" x="49" y="0" width="70" height="20" isPrintInFirstWholeBand="true" uuid="f1653209-22b3-49eb-920f-2a78d2c7a925"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[Takip Alacağı]]></text>
+			</staticText>
+			<staticText>
+				<reportElement isPrintRepeatedValues="false" x="119" y="0" width="100" height="20" isPrintInFirstWholeBand="true" uuid="42bac8ae-90cd-4843-bb6d-326dc74df25f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[İcra Müdürlüğü]]></text>
+			</staticText>
+			<staticText>
+				<reportElement isPrintRepeatedValues="false" x="219" y="0" width="80" height="20" isPrintInFirstWholeBand="true" uuid="50e59436-7754-4529-889f-7a941a7a820e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[İcra Dosya No]]></text>
+			</staticText>
+			<staticText>
+				<reportElement isPrintRepeatedValues="false" x="299" y="0" width="80" height="20" isPrintInFirstWholeBand="true" uuid="97308b90-93b2-48ef-b684-5ec800b5fcbf"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[Borçlu Adı]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="" isPrintRepeatedValues="false" x="379" y="0" width="80" height="20" isPrintInFirstWholeBand="true" uuid="bb11a8d1-6d26-4317-83db-3b6ebe911a69"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[Müvekkil Adı]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20">
+			<textField>
+				<reportElement x="-21" y="0" width="70" height="20" uuid="279380b1-419a-42ec-8fcb-687fa8f79d86"/>
+				<textElement verticalAlignment="Middle">
+					<font pdfEncoding="Cp1254"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{icraDosyaId}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="49" y="0" width="70" height="20" uuid="50880336-3b60-41fa-b556-20ab2db3be16"/>
+				<textElement verticalAlignment="Middle">
+					<font pdfEncoding="Cp1254"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{takipAlacagi}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="119" y="0" width="100" height="20" uuid="55ab6b54-97ac-4b1c-92b9-bbdc0c28bfdc"/>
+				<textElement verticalAlignment="Middle">
+					<font pdfEncoding="Cp1254"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{icraMudurlugu}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="219" y="0" width="80" height="20" uuid="e31c378d-26e5-4e08-bb3f-54a1da6c08a2"/>
+				<textElement verticalAlignment="Middle">
+					<font pdfEncoding="Cp1254"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{icraDosyaNo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="299" y="0" width="80" height="20" uuid="efef460c-5d8e-4d82-9e4c-12364a817ed0"/>
+				<textElement verticalAlignment="Middle">
+					<font pdfEncoding="Cp1254"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{borcluAdi}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="379" y="0" width="80" height="20" uuid="c6d54652-5799-4a6a-a33a-f05fbb4fa38d"/>
+				<textElement verticalAlignment="Middle">
+					<font pdfEncoding="Cp1254"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{muvekkilAdi}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

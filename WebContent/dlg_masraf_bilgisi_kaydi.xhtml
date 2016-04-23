@@ -112,10 +112,10 @@
 
 				<p:commandButton id="cmdButtonVazgec" style="margin-top:10px"
 					value="Vazgeç" action="#{masrafBilgisiBean.dlgVazgec}"
-					update=":#{p:component('dlgMasrafBilgisi')}"></p:commandButton>
+					update=":#{p:component('dialog')}"></p:commandButton>
 				<p:commandButton id="cmdButtonKaydet" value="Kaydet"
 					actionListener="#{masrafBilgisiBean.dlgKaydet}"
-					update=":#{p:component('dlgMasrafBilgisi')}"></p:commandButton>
+					update=":#{p:component('dialog')}"></p:commandButton>
 
 			</p:panel>
 
@@ -128,7 +128,7 @@
 						<p:commandButton value="Yeni Kayıt" style="float:left"
 							disabled="#{masrafBilgisiBean.buttonDisabled}"
 							actionListener="#{masrafBilgisiBean.dlgYeniKayit}"
-							update=":#{p:component('dlgMasrafBilgisi')}" />
+							update=":#{p:component('dialog')}" />
 						<h:outputText value="MASRAF BİLGİSİ LİSTESİ" />
 					</p:panelGrid>
 				</f:facet>
@@ -137,7 +137,7 @@
 
 					<p:commandButton icon="ui-icon-disk" value="Düzenle"
 						action="#{masrafBilgisiBean.dlgDuzenle}"
-						update=":#{p:component('dlgMasrafBilgisi')}"
+						update=":#{p:component('dialog')}"
 						disabled="#{masrafBilgisiBean.buttonDisabled}">
 						<f:param name="duzenle" value="#{mb.id}" />
 
@@ -151,7 +151,7 @@
 					<p:commandButton icon="ui-icon-cancel" value="Sil"
 						action="#{masrafBilgisiBean.dlgSil}"
 						disabled="#{masrafBilgisiBean.buttonDisabled}"
-						update=":#{p:component('dlgMasrafBilgisi')}">
+						update=":#{p:component('dialog')}">
 						<f:param name="sil" value="#{mb.id}" />
 
 					</p:commandButton>

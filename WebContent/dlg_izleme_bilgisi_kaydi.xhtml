@@ -90,11 +90,11 @@
 				<p:commandButton value="Kaydet"
 					style="margin-top:10px;margin-right:5px"
 					action="#{izlemebilgisibean.dlgKaydet()}"
-					update=":#{p:component('dlgIzlemeKaydi')}" />
+					update=":#{p:component('dialog')}" />
 
 				<p:commandButton value="Vazgeç"
 					action="#{izlemebilgisibean.dlgVazgec()}"
-					update=":#{p:component('dlgIzlemeKaydi')}" />
+					update=":#{p:component('dialog')}" />
 
 
 			</p:panel>
@@ -108,7 +108,7 @@
 						<p:commandButton value="Yeni Kayıt" style="float:left"
 							disabled="#{izlemebilgisibean.buttonDisabled}"
 							action="#{izlemebilgisibean.dlgPanelOpen}"
-							update=":#{p:component('dlgIzlemeKaydi')}" />
+							update=":#{p:component('dialog')}" />
 						<h:outputText value="İZLEME BİLGİSİ LİSTESİ" />
 					</p:panelGrid>
 				</f:facet>
@@ -118,7 +118,7 @@
 					<p:commandButton icon="ui-icon-disk" value="Düzenle"
 						disabled="#{izlemebilgisibean.buttonDisabled}"
 						action="#{izlemebilgisibean.dlgDuzenle()}"
-						update=":#{p:component('dlgIzlemeKaydi')}">
+						update=":#{p:component('dialog')}">
 						<f:param name="buttonDuzenle" value="#{list.id}" />
 					</p:commandButton>
 
@@ -129,7 +129,7 @@
 					<p:commandButton icon="ui-icon-cancel" value="Sil"
 						action="#{izlemebilgisibean.dlgSil()}"
 						disabled="#{izlemebilgisibean.buttonDisabled}"
-						update=":#{p:component('dlgIzlemeKaydi')}">
+						update=":#{p:component('dialog')}">
 						<f:param name="buttonSil" value="#{list.id}" />
 					</p:commandButton>
 

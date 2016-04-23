@@ -89,11 +89,11 @@
 
 				<p:commandButton id="cmdButtonVAZGEC" value="Vazgeç"
 					style="margin-top:10px" action="#{vizitBilgisiKaydiBean.dlgVazgec()}"
-					update=":#{p:component('dlgVizitBilgisi')}"></p:commandButton>
+					update=":#{p:component('dialog')}"></p:commandButton>
 
 				<p:commandButton id="cmdButtonKAYDET" value="Kaydet"
 					actionListener="#{vizitBilgisiKaydiBean.dlgKaydet()}"
-					update=":#{p:component('dlgVizitBilgisi')}"></p:commandButton>
+					update=":#{p:component('dialog')}"></p:commandButton>
 
 
 
@@ -108,7 +108,7 @@
 						<p:commandButton value="Yeni Kayıt" style="float:left"
 							disabled="#{vizitBilgisiKaydiBean.buttonDisabled}"
 							action="#{vizitBilgisiKaydiBean.dlgYeniKayit}"
-							update=":#{p:component('dlgVizitBilgisi')}" />
+							update=":#{p:component('dialog')}" />
 						<h:outputText value="VİZİT BİLGİSİ LİSTESİ" />
 					</p:panelGrid>
 				</f:facet>
@@ -116,7 +116,7 @@
 
 					<p:commandButton icon="ui-icon-disk" value="Düzenle"
 						action="#{vizitBilgisiKaydiBean.dlgDuzenle}"
-						update=":#{p:component('dlgVizitBilgisi')}"
+						update=":#{p:component('dialog')}"
 						disabled="#{vizitBilgisiKaydiBean.buttonDisabled}">
 						<f:param name="duzenle" value="#{vb.id}" />
 
@@ -130,7 +130,7 @@
 					<p:commandButton icon="ui-icon-cancel" value="Sil"
 						action="#{vizitBilgisiKaydiBean.Sil}"
 						disabled="#{vizitBilgisiKaydiBean.buttonDisabled}"
-						update=":#{p:component('dlgVizitBilgisi')}">
+						update=":#{p:component('dialog')}">
 						<f:param name="sil" value="#{vb.id}" />
 
 					</p:commandButton>

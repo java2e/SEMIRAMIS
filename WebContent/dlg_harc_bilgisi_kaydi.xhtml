@@ -80,21 +80,21 @@
 				<p:growl id="growl" showDetail="true" />
 
 				<p:commandButton id="cmdButtonVAZGEC" style="margin-top:10px"
-					action="#{harcBean.dlgVazgec}" value="Vazgeç" update=":#{p:component('dlgHarcBilgisi')}"></p:commandButton>
+					action="#{harcBean.dlgVazgec}" value="Vazgeç" update=":#{p:component('dialog')}"></p:commandButton>
 
 				<p:commandButton id="cmdButtonKAYDET" action="#{harcBean.dlgKaydet}"
-					update="growl, :#{p:component('dlgHarcBilgisi')}" value="Kaydet"></p:commandButton>
+					update="growl, :#{p:component('dialog')}" value="Kaydet"></p:commandButton>
 
 			</p:panel>
 
 			<p:commandButton value="Yeni Kayıt" style="float:left"
 				disabled="#{harcBean.buttonDisabled}"
-				action="#{harcBean.dlgYeniKayit}" update=":#{p:component('dlgHarcBilgisi')}" />
+				action="#{harcBean.dlgYeniKayit}" update=":#{p:component('dialog')}" />
 
 
 			<p:commandButton value="Listeyi Yenile" style="float:left"
 				disabled="#{harcBean.buttonDisabled}"
-				update=":#{p:component('dlgHarcBilgisi')}" />
+				update=":#{p:component('dialog')}" />
 
 			<p:dataTable value="#{harcBean.harcList}" var="hb"
 				id="tblharc" style="width:900px ">
@@ -102,7 +102,7 @@
 				<p:column headerText="Düzenle" width="145">
 
 					<p:commandButton icon="ui-icon-disk" value="Düzenle"
-						action="#{harcBean.dlgDuzenle}" update=":#{p:component('dlgHarcBilgisi')}"
+						action="#{harcBean.dlgDuzenle}" update=":#{p:component('dialog')}"
 						disabled="#{harcBean.buttonDisabled}">
 						<f:param name="duzenle" value="#{hb.id}" />
 					</p:commandButton>
@@ -114,7 +114,7 @@
 					<p:commandButton icon="ui-icon-cancel" value="Sil"
 						action="#{harcBean.dlgSil}"
 						disabled="#{harcBean.buttonDisabled}"
-						update=":#{p:component('dlgHarcBilgisi')}">
+						update=":#{p:component('dialog')}">
 						<f:param name="sil" value="#{hb.id}" />
 
 					</p:commandButton>

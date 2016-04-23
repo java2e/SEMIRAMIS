@@ -41,8 +41,37 @@ public class IcraDosyaIslemleriBean {
 	
 	private int HesapTumId;
 	
+	private String dialogUrl="dlg_common";
 	
 	
+	public void setDialogPage(String arg)
+	{
+		setDialogUrl(arg);
+	}
+	
+	
+	
+	
+	
+	
+	public String getDialogUrl() {
+		return dialogUrl;
+	}
+
+
+
+
+
+
+	public void setDialogUrl(String dialogUrl) {
+		this.dialogUrl = dialogUrl;
+	}
+
+
+
+
+
+
 	public int getHesapTumId() {
 		return HesapTumId;
 	}

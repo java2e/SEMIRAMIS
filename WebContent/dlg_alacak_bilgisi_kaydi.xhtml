@@ -97,10 +97,10 @@
 
 
 			<p:commandButton value="Vazgeç" action="#{alacakBean.dlgVazgec}"
-				update=":#{p:component('dlgAlacakBilgisi')}"></p:commandButton>
+				update=":#{p:component('dialog')}"></p:commandButton>
 
 			<p:commandButton value="Kaydet"
-				update=":#{p:component('dlgAlacakBilgisi')}"
+				update=":#{p:component('dialog')}"
 				actionListener="#{alacakBean.dlgKaydet}"
 				style="margin-top:10px;margin-right:5px"></p:commandButton>
 
@@ -111,22 +111,22 @@
 		<p:commandButton value="Yeni Kayıt" style="float:left"
 			disabled="#{alacakBean.buttonDisabled}"
 			action="#{alacakBean.dlgYeniKayit}"
-			update=":#{p:component('dlgAlacakBilgisi')}" />
+			update=":#{p:component('dialog')}" />
 
 		<p:commandButton value="Listeyi Yenile" style="float:left"
 			disabled="#{alacakBean.buttonDisabled}"
-			update=":#{p:component('dlgAlacakBilgisi')}" />
+			update=":#{p:component('dialog')}" />
 
 
 		<p:dataTable value="#{alacakBean.alacakbilgisiarrayList}" var="list"
-			id="tableAlacak" update=":#{p:component('dlgAlacakBilgisi')}">
+			id="tableAlacak" update=":#{p:component('dialog')}">
 
 			<p:column headerText="Düzenle" width="145">
 
 				<p:commandButton icon="ui-icon-disk" value="Düzenle"
 					disabled="#{alacakBean.buttonDisabled}"
 					action="#{alacakBean.dlgDuzenle}"
-					update=":#{p:component('dlgAlacakBilgisi')}">
+					update=":#{p:component('dialog')}">
 					<f:param name="buttonDuzenle" value="#{list.id}" />
 				</p:commandButton>
 
@@ -137,7 +137,7 @@
 				<p:commandButton icon="ui-icon-cancel" value="Sil"
 					disabled="#{alacakBean.buttonDisabled}"
 					action="#{alacakBean.dlgSil}"
-					update=":#{p:component('dlgAlacakBilgisi')}">
+					update=":#{p:component('dialog')}">
 					<f:param name="buttonSil" value="#{list.id}" />
 				</p:commandButton>
 

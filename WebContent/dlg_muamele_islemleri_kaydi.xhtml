@@ -180,11 +180,11 @@
 
 			<p:commandButton value="İşlemi Tamamla"
 				action="#{muameleislemlerbean.dlgKaydet()}"
-				update=":#{p:component('dlgMuameleBilgisi')}" />
+				update=":#{p:component('dialog)}" />
 			<p:spacer width="66" />
 			<p:commandButton value="Vazgeç"
 				action="#{muameleislemlerbean.dlgVazgec}"
-				update=":#{p:component('dlgMuameleBilgisi')}" />
+				update=":#{p:component('dialog)}" />
 
 
 		</p:panel>
@@ -201,7 +201,7 @@
 				<p:commandButton value="Yeni Kayıt" style="float:left"
 					disabled="#{muameleislemlerbean.duzenlesilrender}"
 					action="#{muameleislemlerbean.dlgYeniKayit()}"
-					update=":#{p:component('dlgMuameleBilgisi')}" />
+					update=":#{p:component('dialog)}" />
 
 
 				<h:outputText value="MUAMELE KAYITLARI LİSTESİ" />
@@ -215,7 +215,7 @@
 			<p:commandButton icon="ui-icon-disk" value="Düzenle"
 				disabled="#{muameleislemlerbean.duzenlesilrender}"
 				action="#{muameleislemlerbean.dlgDuzenle()}"
-				update=":#{p:component('dlgMuameleBilgisi')}">
+				update=":#{p:component('dialog)}">
 				<f:param name="duzenle" value="#{Adr.id}" />
 			</p:commandButton>
 
@@ -226,7 +226,7 @@
 			<p:commandButton icon="ui-icon-cancel" value="Sil"
 				disabled="#{muameleislemlerbean.duzenlesilrender}"
 				action="#{muameleislemlerbean.dlgSil()}"
-				update=":#{p:component('dlgMuameleBilgisi')}">
+				update=":#{p:component('dialog)}">
 				<f:param name="sil" value="#{Adr.id}" />
 				<p:confirm header="Uyarı Mesajı"
 					message="Silmek istediğinize emin misiniz ?" icon="ui-icon-alert" />

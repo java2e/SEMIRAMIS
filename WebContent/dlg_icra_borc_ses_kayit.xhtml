@@ -88,11 +88,11 @@
 
 				<p:commandButton id="cmdButtonVAZGEC" style="margin-top:10px"
 					action="#{icraBorcluSesKayitBean.dlgVazgec}" value="Vazgeç"
-					update=":#{p:component('dlgSesKaydi')}"></p:commandButton>
+					update=":#{p:component('dialog')('dlgSesKaydi')}"></p:commandButton>
 
 				<p:commandButton id="cmdButtonKAYDET"
 					action="#{icraBorcluSesKayitBean.dlgKaydet}"
-					update=":#{p:component('dlgSesKaydi')}" value="Kaydet">
+					update=":#{p:component('dialog')}" value="Kaydet">
 				</p:commandButton>
 			</p:panel>
 
@@ -107,7 +107,7 @@
 						<p:commandButton value="Yeni Kayıt" style="float:left"
 							disabled="#{icraBorcluSesKayitBean.buttonDisabled}"
 							action="#{icraBorcluSesKayitBean.dlgYeniKayit}"
-							update=":#{p:component('dlgSesKaydi')}" />
+							update=":#{p:component('dialog')}" />
 
 						<h:outputText value="SSES KAYIT BİLGİSİ LİSTESİ" />
 					</p:panelGrid>
@@ -117,7 +117,7 @@
 
 					<p:commandButton icon="ui-icon-disk" value="Düzenle"
 						action="#{icraBorcluSesKayitBean.dlgDuzenle}"
-						update=":#{p:component('dlgSesKaydi')}"
+						update=":#{p:component('dialog')}"
 						disabled="#{icraBorcluSesKayitBean.buttonDisabled}">
 						<f:param name="duzenle" value="#{mb.id}" />
 
@@ -131,7 +131,7 @@
 					<p:commandButton icon="ui-icon-cancel" value="Sil"
 						action="#{icraBorcluSesKayitBean.dlgSil}"
 						disabled="#{icraBorcluSesKayitBean.buttonDisabled}"
-						update=":#{p:component('dlgSesKaydi')}">
+						update=":#{p:component('dialog')}">
 						<f:param name="sil" value="#{mb.id}" />
 
 					</p:commandButton>

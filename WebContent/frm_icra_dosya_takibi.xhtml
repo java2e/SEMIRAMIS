@@ -33,39 +33,40 @@ style="position: absolute; background-color: rgba(0, 0, 0, 0.6); height: 256px; 
 		
 		<p:panelGrid columns="7" style=" border-style: hidden !important;">
 		
+		
+		<p:commandButton style="width:160px" value="Haciz Bilgisi"  actionListener="#{icradosyaislemleribean.setDialogPage('dlg_haciz_bilgisi_kaydi')}"  oncomplete="PF('dialogWidget').show();" update="dialog"/>
+				<p:commandButton style="width:160px" value="Harç Bilgisi"  actionListener="#{icradosyaislemleribean.setDialogPage('dlg_harc_bilgisi_kaydi')}"  oncomplete="PF('dialogWidget').show();" update="dialog"/>
+		
+				<p:commandButton style="width:160px" value="Masraf Bilgisi"  actionListener="#{icradosyaislemleribean.setDialogPage('dlg_masraf_bilgisi_kaydi')}"  oncomplete="PF('dialogWidget').show();" update="dialog"/>
+		
+				<p:commandButton style="width:160px" value="Muamele İşlemleri"  actionListener="#{icradosyaislemleribean.setDialogPage('dlg_muamele_islemleri_kaydi')}"  oncomplete="PF('dialogWidget').show();" update="dialog"/>
+		
+				<p:commandButton style="width:160px" value="Ödeme Emri"  actionListener="#{icradosyaislemleribean.setDialogPage('dlg_odeme_emri_kaydi')}"  oncomplete="PF('dialogWidget').show();" update="dialog"/>
+		
+				<p:commandButton style="width:160px" value="Vizit Bilgisi"  actionListener="#{icradosyaislemleribean.setDialogPage('dlg_vizit_bilgisi_kaydi')}"  oncomplete="PF('dialogWidget').show();" update="dialog"/>
+		
+				<p:commandButton style="width:160px" value="Ses Kaydı"  actionListener="#{icradosyaislemleribean.setDialogPage('dlg_icra_borc_ses_kayit')}"  oncomplete="PF('dialogWidget').show();" update="dialog"/>
+		
+				<p:commandButton style="width:160px" value="İzleme Bilgisi"  actionListener="#{icradosyaislemleribean.setDialogPage('dlg_izleme_bilgisi_kaydi')}"  oncomplete="PF('dialogWidget').show();" update="dialog"/>
+				<p:commandButton style="width:160px" value="Alacak Bilgisi"  actionListener="#{icradosyaislemleribean.setDialogPage('dlg_alacak_bilgisi_kaydi')}"  oncomplete="PF('dialogWidget').show();" update="dialog"/>
+				<p:commandButton style="width:160px" value="Muamele Detay"  actionListener="#{icradosyaislemleribean.setDialogPage('dlg_muamele_detay')}"  oncomplete="PF('dialogWidget').show();" update="dialog"/>
+				<p:commandButton style="width:160px" value="İzleme Detay "  actionListener="#{icradosyaislemleribean.setDialogPage('dlg_izleme_detay')}"  oncomplete="PF('dialogWidget').show();" update="dialog"/>
+				<p:commandButton style="width:160px" value="Gönderi Takibi"  actionListener="#{icradosyaislemleribean.setDialogPage('dlg_gonderi_takibi')}"  oncomplete="PF('dialogWidget').show();" update="dialog"/>
+				<p:commandButton style="width:160px" value="Dosya Kronolojisi"  actionListener="#{icradosyaislemleribean.setDialogPage('')}"  oncomplete="PF('dialogWidget').show();" update="dialog"/>
+				<p:commandButton style="width:160px" value="İCRA KLASÖRÜi"  actionListener="#{icradosyaislemleribean.setDialogPage('dlg_dosya_ekleme')}"  oncomplete="PF('dialogWidget').show();" update="dialog"/>
+		
 			
-		<p:commandButton style="width:160px" value="Haciz Bilgisi"
-						type="button" onclick="PF('dlgHaciz').show();" />
-					<p:commandButton style="width:160px" value="Harç Bilgisi"
-						type="button" onclick="PF('dlgHarc').show();" />
-					<p:commandButton style="width:160px" value="Masraf Bilgisi"
-						type="button" onclick="PF('dlgMasraf').show();" />
-					<p:commandButton style="width:160px" value="Muamele İşlemleri"
-						type="button" onclick="PF('dlgMuamele').show();" />
-					<p:commandButton style="width:160px" value="Ödeme Emri"
-						type="button" onclick="PF('dlgOdeme').show();" />
-					<p:commandButton style="width:160px" value="Vizit Bilgisi"
-						type="button" onclick="PF('dlgVizit').show();" />
-					<p:commandButton style="width:160px" value="Ses Kaydı"
-						type="button" onclick="PF('dlgSes').show();" />
-					<p:commandButton style="width:160px" value="İzleme Bilgisi"
-						type="button" onclick="PF('dlgIzleme').show();" />
-					<p:commandButton style="width:160px" value="Alacak Bilgisi"
-						type="button" onclick="PF('dlgAlacak').show();" />
-					<p:commandButton style="width:160px" value="Muamele Detay "
-						type="button" onclick="PF('dlgMuameledetay').show();" />
-					<p:commandButton style="width:160px" value="İzleme Detay "
-						type="button" onclick="PF('dlgIzlemedetay').show();" />
-					<p:commandButton style="width:160px" value="Gönderi Takibi"
-						type="button" onclick="PF('dlgGonderi').show();" />
-					<p:commandButton style="width:160px" value="Dosya Kronolojisi"
-						type="button"  />
-					<p:commandButton style="width:160px" value="İCRA KLASÖRÜ"
-						type="button" onclick="PF('dlgDosyaEk').show();" />
+				
 		
 		
 				
 		</p:panelGrid>
+		
+		
+		<p:dialog id="dialog" header="İŞLEM PANELİ" widgetVar="dialogWidget"
+				minHeight="340" height="768" width="1424">
+				<ui:include src="/#{icradosyaislemleribean.dialogUrl}.xhtml" />
+			</p:dialog>
 		
 		<p:spacer height="25"/>
 		
@@ -604,97 +605,8 @@ style="position: absolute; background-color: rgba(0, 0, 0, 0.6); height: 256px; 
 				</p:dialog>
 		</h:form>			
 		
-		<h:form id="dlgHacizBilgisi">
-		<p:dialog header="HACİZ BİLGİSİ KAYDI PANELİ" widgetVar="dlgHaciz" minHeight="340" height="%100" width="%100">
-     	    <ui:include  src="dlg_haciz_bilgisi_kaydi.xhtml" />
-		</p:dialog>
-		</h:form>
 		
 
-		<h:form id="dlgHarcBilgisi">
-			<p:dialog header="HARC BİLGİSİ KAYDI PANELİ" widgetVar="dlgHarc"
-				minHeight="340" height="%100" width="%100">
-				<ui:include src="dlg_harc_bilgisi_kaydi.xhtml" />
-			</p:dialog>
-		</h:form>
-
-		<h:form id="dlgMasrafBilgisi">
-			<p:dialog header="MASRAF BİLGİSİ KAYDI PANELİ" widgetVar="dlgMasraf"
-				minHeight="340" height="%100" width="%100">
-				<ui:include src="dlg_masraf_bilgisi_kaydi.xhtml" />
-			</p:dialog>
-		</h:form>
-
-		<h:form id="dlgMuameleBilgisi">
-			<p:dialog header="MUAMELE BİLGİSİ KAYDI PANELİ"
-				widgetVar="dlgMuamele" minHeight="340" height="768" width="1424" >
-				<ui:include src="dlg_muamele_islemleri_kaydi.xhtml" />
-			</p:dialog>
-		</h:form>
-
-		<h:form id="dlgOdemeEmri">
-			<p:dialog header="ÖDEME EMRİ KAYDI PANELİ" widgetVar="dlgOdeme"
-				minHeight="340" height="%100" width="%100">
-				<ui:include src="dlg_odeme_emri_kaydi.xhtml" />
-			</p:dialog>
-		</h:form>
-
-		<h:form id="dlgVizitBilgisi">
-			<p:dialog header="VİZİT KAYDI PANELİ" widgetVar="dlgVizit"
-				minHeight="340" height="%100" width="%100">
-				<ui:include src="dlg_vizit_bilgisi_kaydi.xhtml" />
-			</p:dialog>
-		</h:form>
-
-		<h:form id="dlgSesKaydi">
-			<p:dialog header="SES KAYDI PANELİ" widgetVar="dlgSes"
-				minHeight="340" height="%100" width="%100">
-				<ui:include src="dlg_icra_borc_ses_kayit.xhtml" />
-			</p:dialog>
-		</h:form>
-
-		<h:form id="dlgIzlemeKaydi">
-			<p:dialog header="İZLEME KAYDI PANELİ" widgetVar="dlgIzleme"
-				minHeight="340" height="768" width="1424">
-				<ui:include src="dlg_izleme_bilgisi_kaydi.xhtml" />
-			</p:dialog>
-		</h:form>
-
-		<h:form id="dlgAlacakBilgisi">
-			<p:dialog header="ALACAK BİLGİSİ KAYDI PANELİ" widgetVar="dlgAlacak"
-				minHeight="340" height="768" width="1424">
-				<ui:include src="dlg_alacak_bilgisi_kaydi.xhtml" />
-			</p:dialog>
-		</h:form>
-
-		<h:form id="dlgMuameleDetayi">
-			<p:dialog header="MUAMELE DETAY PANELİ" widgetVar="dlgMuameledetay"
-				minHeight="340" height="600" width="600">
-				<ui:include src="dlg_muamele_detay.xhtml" />
-			</p:dialog>
-		</h:form>
-
-		<h:form id="dlgIzlemeDetayi">
-			<p:dialog header="İZLEME DETAY PANELİ" widgetVar="dlgIzlemedetay"
-				minHeight="340" height="600" width="600">
-				<ui:include src="dlg_izleme_detay.xhtml" />
-			</p:dialog>
-		</h:form>
-
-		<h:form id="dlgGonderiTakibi">
-			<p:dialog header="GÖNDERİ TAKİBİ PANELİ" widgetVar="dlgGonderi"
-				minHeight="340" height="600" width="600">
-				<ui:include src="dlg_gonderi_takibi.xhtml" />
-			</p:dialog>
-		</h:form>
-
-		<h:form id="dlgDosyaEkleme">
-			<p:dialog header="DOSYA EKLEME" widgetVar="dlgDosyaEk"
-				minHeight="340" height="%100" width="%100">
-				<ui:include src="dlg_dosya_ekleme.xhtml" />
-			</p:dialog>
-		</h:form>
-		
 		
 		
 </p:panel>	

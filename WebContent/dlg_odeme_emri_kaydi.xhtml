@@ -75,11 +75,11 @@
 
 				<p:commandButton id="cmdButtonVAZGEC" value="Vazgeç"
 					style="margin-top:10px" action="#{odemeEmriKaydiBean.dlgVazgec()}"
-					update=":#{p:component('dlgOdemeEmri')}"></p:commandButton>
+					update=":#{p:component('dialog')}"></p:commandButton>
 
 				<p:commandButton id="cmdButtonKAYDET" value="Kaydet"
 					actionListener="#{odemeEmriKaydiBean.dlgKaydet()}"
-					update=":#{p:component('dlgOdemeEmri')}"></p:commandButton>
+					update=":#{p:component('dialog')}"></p:commandButton>
 
 
 
@@ -96,7 +96,7 @@
 						<p:commandButton value="Yeni Kayıt" style="float:left"
 							disabled="#{odemeEmriKaydiBean.buttonDisabled}"
 							action="#{odemeEmriKaydiBean.dlgYeniKayit}"
-							update=":#{p:component('dlgOdemeEmri')}" />
+							update=":#{p:component('dialog')}" />
 						<h:outputText value="ÖDEME EMRİ KAYIT LİSTESİ" />
 					</p:panelGrid>
 				</f:facet>
@@ -105,7 +105,7 @@
 
 					<p:commandButton icon="ui-icon-disk" value="Düzenle"
 						action="#{odemeEmriKaydiBean.dlgDuzenle}"
-						update=":#{p:component('dlgOdemeEmri')}"
+						update=":#{p:component('dialog')}"
 						disabled="#{odemeEmriKaydiBean.buttonDisabled}">
 						<f:param name="duzenle" value="#{oe.id}" />
 
@@ -119,7 +119,7 @@
 					<p:commandButton icon="ui-icon-cancel" value="Sil"
 						action="#{odemeEmriKaydiBean.dlgSil}"
 						disabled="#{odemeEmriKaydiBean.buttonDisabled}"
-						update=":#{p:component('dlgOdemeEmri')}">
+						update=":#{p:component('dialog')}">
 						<f:param name="sil" value="#{oe.id}" />
 
 					</p:commandButton>

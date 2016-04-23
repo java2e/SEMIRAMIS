@@ -25,7 +25,7 @@
 					<f:selectItems value="#{DosyaYuklemeBean.belgeTipiList}" var="list"
 						itemLabel="#{list.adi}" itemValue="#{list.id}"
 						noSelectionValue="true" />
-					<p:ajax event="change" update=":#{p:component('dlgDosyaEkleme')}"
+					<p:ajax event="change" update=":#{p:component('dialog')}"
 						oncomplete="PF('dlgDosyaEk').show();"
 						listener="#{DosyaYuklemeBean.subjectSelectionChanged}" />
 
@@ -62,11 +62,11 @@
 
 		<p:commandButton id="cmdButtonVAZGEC" style="margin-top:10px"
 			action="#{DosyaYuklemeBean.dlgVazgec}" value="Vazgeç"
-			update=":#{p:component('dlgDosyaEkleme')}"></p:commandButton>
+			update=":#{p:component('dialog')}"></p:commandButton>
 
 		<p:commandButton id="cmdButtonKAYDET"
 			action="#{DosyaYuklemeBean.dlgKaydet}" value="Kaydet"
-			update=":#{p:component('dlgDosyaEkleme')}"></p:commandButton>
+			update=":#{p:component('dialog')}"></p:commandButton>
 
 
 		<p:dataTable value="#{DosyaYuklemeBean.dosyaList}" var="dy"
@@ -77,7 +77,7 @@
 
 				<p:commandButton icon="ui-icon-cancel" value="Sil"
 					actionListener="#{DosyaYuklemeBean.dlgSil()}"
-					update=":#{p:component('dlgDosyaEkleme')}">
+					update=":#{p:component('dialog')}">
 					<f:param name="sil" value="#{dy.id}" />
 
 				</p:commandButton>

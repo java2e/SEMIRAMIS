@@ -29,8 +29,7 @@ public class GenelRaporDAO extends DBConnection {
 	public static HashMap<Integer, ReportGenel> trnList = new HashMap<Integer, ReportGenel>();
 	public static ArrayList<ReportGenel> returnList = new ArrayList<ReportGenel>();
 
-	public ArrayList<ReportGenel> getReportFromIcraDosyaID(int id)
-			throws Exception {
+	public ArrayList<ReportGenel> getReportFromIcraDosyaID(int id) throws Exception {
 		ArrayList<ReportGenel> ttList = new ArrayList<ReportGenel>();
 		SQL = "SELECT id, icra_dosyasi_no, muvekkil_adi, vergi_no, vergi_dairesi, muvekkil_adres, barkod,"
 				+ " borclu_adi, borclu_adres, talep_edilen_hak, takip_yolu, vekil_adi, asil_alacak, "
@@ -52,45 +51,33 @@ public class GenelRaporDAO extends DBConnection {
 			tt.setBorclu_id(rs.getInt("id"));
 			idList.add(rs.getInt("id"));
 			tt.setIcraDosyaNo(rs.getString("icra_dosyasi_no"));
-			text = rs.getString("muvekkil_adi") + " "
-					+ rs.getString("vergi_dairesi") + " "
-					+ rs.getString("vergi_no") + " "
-					+ rs.getString("muvekkil_adres");
+			text = rs.getString("muvekkil_adi") + " " + rs.getString("vergi_dairesi") + " " + rs.getString("vergi_no")
+					+ " " + rs.getString("muvekkil_adres");
 			tt.setAlacakliAdi(text);
 			tt.setMuvekkilAdi(rs.getString("muvekkil_adi"));
 			tt.setAlacakli(rs.getString("muvekkil_adi"));
 			text = null;
-			text = rs.getString("borclu_adi")
-					+ " TC NO:"
-					+ rs.getString("borclu_tc")
-					+ " "
-					+ (rs.getString("borclu_adres") == null ? " " : rs
-							.getString("borclu_adres"));
+			text = rs.getString("borclu_adi") + " TC NO:" + rs.getString("borclu_tc") + " "
+					+ (rs.getString("borclu_adres") == null ? " " : rs.getString("borclu_adres"));
 			tt.setBorclu(text);
 			text = null;
 			tt.setAsilAlacak1(defaultFormat.format(rs.getDouble("asil_alacak")));
-			tt.setGiderVergisi1(defaultFormat.format(rs
-					.getDouble("faiz_gider_vergisi")));
+			tt.setGiderVergisi1(defaultFormat.format(rs.getDouble("faiz_gider_vergisi")));
 			tt.setIcraMdHesapNo(rs.getString("icra_hesap"));
 			// tt.setTakipAlacagi(defaultFormat.format(rs.getDouble("faiz_gider_vergisi")));
 			tt.setTakipYolu(rs.getString("takip_yolu"));
 			tt.setTalepYazisi(rs.getString("talep_edilen_hak"));
 			tt.setTalepYaziEk(rs.getString("talep_edilen_hak"));
 			tt.setFaizGider1(defaultFormat.format(rs.getDouble("gecikme_faizi")));
-			tt.setNoterMasrafi1(defaultFormat.format(rs
-					.getDouble("noter_masrafi")));
-			tt.setTemmerutFaizi1(defaultFormat.format(rs
-					.getDouble("temerrut_faizi")));
+			tt.setNoterMasrafi1(defaultFormat.format(rs.getDouble("noter_masrafi")));
+			tt.setTemmerutFaizi1(defaultFormat.format(rs.getDouble("temerrut_faizi")));
 			tt.setVekil(rs.getString("vekil_adi"));
 			tt.setIcraBilgi(rs.getString("icra_bilgi"));
 			DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 			Date date = new Date();
 			tt.setTarih(String.valueOf(dateFormat.format(date)));
-			Double toplam = rs.getDouble("asil_alacak")
-					+ rs.getDouble("noter_masrafi")
-					+ rs.getDouble("temerrut_faizi")
-					+ rs.getDouble("gecikme_faizi")
-					+ rs.getDouble("faiz_gider_vergisi");
+			Double toplam = rs.getDouble("asil_alacak") + rs.getDouble("noter_masrafi") + rs.getDouble("temerrut_faizi")
+					+ rs.getDouble("gecikme_faizi") + rs.getDouble("faiz_gider_vergisi");
 			tt.setGecikmeFaizi1(rs.getString("gecikme_faizi"));
 			tt.setToplam(defaultFormat.format(toplam));
 			String ek = "Borca Iliskin Ihtarname ve Eki Hesap Özeti".toString();
@@ -101,13 +88,13 @@ public class GenelRaporDAO extends DBConnection {
 			tt.setBarkot(rs.getString("barkod"));
 			tt.setIl(rs.getString("il"));
 			tt.setBorcluAdres(rs.getString("borclu_adres"));
-			
-//			if (rs.getString("borclu_adres") != null) {
-//				String[] adres = rs.getString("borclu_adres").split(" ");
-//				int i = adres.length - 1;
-//				String il = adres[i];
-//				tt.setIl(il);
-//			}
+
+			// if (rs.getString("borclu_adres") != null) {
+			// String[] adres = rs.getString("borclu_adres").split(" ");
+			// int i = adres.length - 1;
+			// String il = adres[i];
+			// tt.setIl(il);
+			// }
 			tt.setKonu("Ödeme Emri");
 
 			// :TODO borclu bilgisi nereden dolacak öğren ona göre değişiklik
@@ -124,8 +111,7 @@ public class GenelRaporDAO extends DBConnection {
 		return ttList;
 	}
 
-	public ArrayList<ReportGenel> getFilteredReports1(SearchParams params)
-			throws Exception {
+	public ArrayList<ReportGenel> getFilteredReports1(SearchParams params) throws Exception {
 		ArrayList<ReportGenel> genels = new ArrayList<ReportGenel>();
 		String oldDate = "01/01/1900";
 		@SuppressWarnings("deprecation")
@@ -138,8 +124,7 @@ public class GenelRaporDAO extends DBConnection {
 				+ "  borclu_tc, borclu_dogum , il  FROM vwreport where 1=1";
 
 		if (!params.getTarih1().equals(tarih)) {
-			fullSQL += " and eklemet between '" + params.getTarih1()
-					+ "' and '" + params.getTarih2() + "'";
+			fullSQL += " and eklemet between '" + params.getTarih1() + "' and '" + params.getTarih2() + "'";
 		}
 
 		if (params.getBorcluAdi() != "") {
@@ -177,46 +162,34 @@ public class GenelRaporDAO extends DBConnection {
 			tt.setBorclu_id(rs.getInt("id"));
 			idList.add(rs.getInt("id"));
 			tt.setIcraDosyaNo(rs.getString("icra_dosyasi_no"));
-			text = rs.getString("muvekkil_adi") + " "
-					+ rs.getString("vergi_dairesi") + " "
-					+ rs.getString("vergi_no") + " "
-					+ rs.getString("muvekkil_adres");
+			text = rs.getString("muvekkil_adi") + " " + rs.getString("vergi_dairesi") + " " + rs.getString("vergi_no")
+					+ " " + rs.getString("muvekkil_adres");
 			tt.setAlacakliAdi(text);
 			tt.setMuvekkilAdi(rs.getString("muvekkil_adi"));
 			text = null;
-			text = rs.getString("borclu_adi")
-					+ " TC NO:"
-					+ rs.getString("borclu_tc")
-					+ " "
-					+ (rs.getString("borclu_adres") == null ? " " : rs
-							.getString("borclu_adres"));
+			text = rs.getString("borclu_adi") + " TC NO:" + rs.getString("borclu_tc") + " "
+					+ (rs.getString("borclu_adres") == null ? " " : rs.getString("borclu_adres"));
 			tt.setBorclu(text);
 			text = null;
 			tt.setAsilAlacak1(defaultFormat.format(rs.getDouble("asil_alacak")));
-			tt.setGiderVergisi1(defaultFormat.format(rs
-					.getDouble("faiz_gider_vergisi")));
+			tt.setGiderVergisi1(defaultFormat.format(rs.getDouble("faiz_gider_vergisi")));
 			// tt.setTakipAlacagi(defaultFormat.format(rs.getDouble("faiz_gider_vergisi")));
 			tt.setTakipYolu(rs.getString("takip_yolu"));
 			tt.setTalepYazisi(rs.getString("talep_edilen_hak"));
 			tt.setTalepYaziEk(rs.getString("talep_edilen_hak"));
 			tt.setFaizGider1(defaultFormat.format(rs.getDouble("gecikme_faizi")));
-			tt.setNoterMasrafi1(defaultFormat.format(rs
-					.getDouble("noter_masrafi")));
+			tt.setNoterMasrafi1(defaultFormat.format(rs.getDouble("noter_masrafi")));
 			tt.setIcraMdHesapNo(rs.getString("icra_hesap"));
 			tt.setId(rs.getInt("id"));
 
-			tt.setTemmerutFaizi1(defaultFormat.format(rs
-					.getDouble("temerrut_faizi")));
+			tt.setTemmerutFaizi1(defaultFormat.format(rs.getDouble("temerrut_faizi")));
 			tt.setVekil(rs.getString("vekil_adi"));
 			tt.setIcraBilgi(rs.getString("icra_bilgi"));
 			DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 			Date date = new Date();
 			tt.setTarih(String.valueOf(dateFormat.format(date)));
-			Double toplam = rs.getDouble("asil_alacak")
-					+ rs.getDouble("noter_masrafi")
-					+ rs.getDouble("temerrut_faizi")
-					+ rs.getDouble("gecikme_faizi")
-					+ rs.getDouble("faiz_gider_vergisi");
+			Double toplam = rs.getDouble("asil_alacak") + rs.getDouble("noter_masrafi") + rs.getDouble("temerrut_faizi")
+					+ rs.getDouble("gecikme_faizi") + rs.getDouble("faiz_gider_vergisi");
 			tt.setGecikmeFaizi1(rs.getString("gecikme_faizi"));
 			tt.setToplam(defaultFormat.format(toplam));
 			String ek = "Borca Iliskin Ihtarname ve Eki Hesap Özeti".toString();
@@ -226,13 +199,13 @@ public class GenelRaporDAO extends DBConnection {
 			tt.setBorcluAdi(rs.getString("borclu_adi"));
 			tt.setIl(rs.getString("il"));
 			tt.setBorcluAdres(rs.getString("borclu_adres"));
-			
-//			if (rs.getString("borclu_adres") != null) {
-//				String[] adres = rs.getString("borclu_adres").split(" ");
-//				int i = adres.length - 1;
-//				String il = adres[i];
-//				tt.setIl(il);
-//			}
+
+			// if (rs.getString("borclu_adres") != null) {
+			// String[] adres = rs.getString("borclu_adres").split(" ");
+			// int i = adres.length - 1;
+			// String il = adres[i];
+			// tt.setIl(il);
+			// }
 			tt.setKonu("Ödeme Emri");
 			// :TODO borclu bilgisi nereden dolacak öğren ona göre değişiklik
 			// yap
@@ -246,8 +219,7 @@ public class GenelRaporDAO extends DBConnection {
 
 	}
 
-	private HashSet<Integer> getIDList(SearchParams params, Integer ID)
-			throws Exception {
+	private HashSet<Integer> getIDList(SearchParams params, Integer ID) throws Exception {
 		HashSet<Integer> idListe = new HashSet<Integer>();
 
 		if (ID == null) {
@@ -258,8 +230,7 @@ public class GenelRaporDAO extends DBConnection {
 			SQL = "SELECT id  FROM vwreport where 1=1";
 
 			if (!params.getTarih1().equals(tarih)) {
-				fullSQL += " and eklemet between '" + params.getTarih1()
-						+ "' and '" + params.getTarih2() + "'";
+				fullSQL += " and eklemet between '" + params.getTarih1() + "' and '" + params.getTarih2() + "'";
 			}
 
 			if (params.getBorcluAdi() != "") {
@@ -271,8 +242,7 @@ public class GenelRaporDAO extends DBConnection {
 			}
 
 			if (params.getIcraDosyaNo() != "") {
-				fullSQL += "and icra_dosyasi_no='" + params.getIcraDosyaNo()
-						+ "'";
+				fullSQL += "and icra_dosyasi_no='" + params.getIcraDosyaNo() + "'";
 			}
 
 			if (params.getIcraMudurlugu() != "") {
@@ -304,8 +274,7 @@ public class GenelRaporDAO extends DBConnection {
 
 	}
 
-	public HashMap<Integer, ReportGenel> getTrnList(SearchParams params,
-			Integer ID) throws Exception {
+	public HashMap<Integer, ReportGenel> getTrnList(SearchParams params, Integer ID) throws Exception {
 		ArrayList<ReportGenel> genelList;
 		if (ID == null) {
 			genelList = getFilteredReports1(params);
@@ -365,24 +334,15 @@ public class GenelRaporDAO extends DBConnection {
 						int secondSize = trnListe.size();
 
 						if (fistsize == secondSize) {
-							trnListe.get(id).getAsilAlacak()
-									.add(reportGenel.getAsilAlacak1());
-							trnListe.get(id).getNoterMasrafi()
-									.add(reportGenel.getNoterMasrafi1());
-							trnListe.get(id).getGiderVergisi()
-									.add(reportGenel.getGiderVergisi1());
-							trnListe.get(id).getGecikmeFaizi()
-									.add(reportGenel.getGecikmeFaizi1());
-							trnListe.get(id).getTemmerutFaizi()
-									.add(reportGenel.getTemmerutFaizi1());
-							trnListe.get(id).getToplam1()
-									.add(reportGenel.getToplam());
-							trnListe.get(id).getFaizGider()
-									.add(reportGenel.getFaizGider1());
-							trnListe.get(id).getDiger()
-									.add(reportGenel.getDiger1());
-							trnListe.get(id).getEkler()
-									.add(reportGenel.getTalepYaziEk());
+							trnListe.get(id).getAsilAlacak().add(reportGenel.getAsilAlacak1());
+							trnListe.get(id).getNoterMasrafi().add(reportGenel.getNoterMasrafi1());
+							trnListe.get(id).getGiderVergisi().add(reportGenel.getGiderVergisi1());
+							trnListe.get(id).getGecikmeFaizi().add(reportGenel.getGecikmeFaizi1());
+							trnListe.get(id).getTemmerutFaizi().add(reportGenel.getTemmerutFaizi1());
+							trnListe.get(id).getToplam1().add(reportGenel.getToplam());
+							trnListe.get(id).getFaizGider().add(reportGenel.getFaizGider1());
+							trnListe.get(id).getDiger().add(reportGenel.getDiger1());
+							trnListe.get(id).getEkler().add(reportGenel.getTalepYaziEk());
 						}
 					}
 
@@ -397,147 +357,236 @@ public class GenelRaporDAO extends DBConnection {
 	// ID yi null gönderirsen tarihe göre alır, id yi dolu gönderirisen idye
 	// göre alır.
 
-	public ArrayList<ReportGenel> getPrintableList(SearchParams params,
-			Integer ID) throws Exception {
+	public ArrayList<ReportGenel> getPrintableList(SearchParams params, Integer ID) throws Exception {
 
 		HashSet<Integer> idListe = getIDList(params, ID);
 		HashMap<Integer, ReportGenel> trnListe = getTrnList(params, ID);
-		// System.out.println(idListe.size() + "    " + trnListe.size());
+		// System.out.println(idListe.size() + " " + trnListe.size());
 		ArrayList<ReportGenel> returnList = new ArrayList<ReportGenel>();
 		@SuppressWarnings("unused")
 		NumberFormat defaultFormat = NumberFormat.getCurrencyInstance();
 		if (trnListe.size() > 0 && idListe.size() > 0) {
-			// System.out.println("fora giritor");
 			for (int id : idListe) {
 				ReportGenel report = trnListe.get(id);
 				//
 				// faizGider
 				//
 				// notermasrafı
-				if (report.getAsilAlacak().size() > 0
-						&& report.getAsilAlacak() != null) {
-					String hesapModel = "";
-					double toplam1 = 0;
 
-					int l1 = 0;
-					int fark = 0;
-					String a = "";
-					for (int i = 0; i < report.getAsilAlacak().size(); i++) {
-						l1 = report.getAsilAlacak().get(i).length();
+				if (report.getMuvekkilAdi().equals(ReportUtils.HSBC)) {
+					if (report.getAsilAlacak().size() > 0 && report.getAsilAlacak() != null) {
+						String hesapModel = "";
+						double toplam1 = 0;
 
-						hesapModel = "\n";
-						fark = 15 - l1;
-						a = StringUtils.leftPad(" ", fark, ' ');
-						a = a + "Asıl Alacak";
-						hesapModel = hesapModel + report.getAsilAlacak().get(i)
-								+ a + "\n";
+						int l1 = 0;
+						int fark = 0;
+						String a = "";
+						for (int i = 0; i < report.getAsilAlacak().size(); i++) {
+							l1 = report.getAsilAlacak().get(i).length();
 
-						if (report.getFaizGider1() != ""
-								&& report.getFaizGider().size() > 0) {
-
-							l1 = report.getFaizGider().get(i).length();
+							hesapModel = "\n";
 							fark = 15 - l1;
-							a = StringUtils.leftPad(" ", fark, ' ');
-							a = a + "İslenmis Akdi Faiz";
-							hesapModel = hesapModel
-									+ report.getFaizGider().get(i) + a + "\n";
+							a = a + "Asıl Alacak";
+							hesapModel = hesapModel + report.getAsilAlacak().get(i) + a + "\n";
+
+							if (report.getFaizGider1() != "" && report.getFaizGider().size() > 0) {
+
+								l1 = report.getFaizGider().get(i).length();
+								fark = 15 - l1;
+								a = StringUtils.leftPad(" ", fark, ' ');
+								a = a + "İslenmis Akdi Faiz";
+								hesapModel = hesapModel + report.getFaizGider().get(i) + a + "\n";
+
+							}
+							if (report.getGiderVergisi1() != "" && report.getGiderVergisi().size() > 0) {
+
+								l1 = report.getGiderVergisi().get(i).length();
+								fark = 15 - l1;
+								a = StringUtils.leftPad(" ", fark, ' ');
+								a = a + "Faizin %5 Gider Vergisi";
+
+								hesapModel = hesapModel + report.getGiderVergisi().get(i) + a + "\n";
+
+							}
+							if (report.getTemmerutFaizi1() != "" && report.getTemmerutFaizi().size() > 0) {
+
+								l1 = report.getTemmerutFaizi().get(i).length();
+								fark = 15 - l1;
+								a = StringUtils.leftPad(" ", fark, ' ');
+								a = a + "İslenmis Temmerrut Faizi";
+								hesapModel = hesapModel + report.getTemmerutFaizi().get(i) + a + "\n";
+
+							}
+							if (!report.getNoterMasrafi1().equals("$0.00")
+									&& !report.getNoterMasrafi1().equals("0,00 TL")
+									&& report.getNoterMasrafi().size() > 0) {
+
+								l1 = report.getNoterMasrafi().get(i).length();
+								fark = 15 - l1;
+								a = StringUtils.leftPad(" ", fark, ' ');
+								a = a + "Masraf";
+								hesapModel = hesapModel + report.getNoterMasrafi().get(i) + a + "\n";
+
+							}
+
+							hesapModel = hesapModel + "----------------------------------------------------------- \n ";
+
+							if (report.getHesap() == null || report.getHesap().equals("")) {
+								report.setHesap(hesapModel);
+							}
 
 						}
-						if (report.getGiderVergisi1() != ""
-								&& report.getGiderVergisi().size() > 0) {
+						double t2 = 0;
+						if (report.getToplam1().size() > 1) {
+							String t = report.getToplam1().get(0);
+							String b[] = t.split("");
+							String ab = "";
+							if (t.charAt(0) == 36) {
+								for (int i1 = 1; i1 < b.length; i1++) {
+									if (!b[i1].equals(String.valueOf(","))) {
+										ab = ab + b[i1];
+									}
+									t2 = Double.valueOf(ab);
+								}
+							} else {
+								int l = b.length;
+								l = l - 2;
+								for (int i1 = 0; i1 < l; i1++) {
+									if (!b[i1].equals(String.valueOf(","))) {
+										ab = ab + b[i1];
+									}
+									t2 = Double.valueOf(ab);
+								}
 
-							l1 = report.getGiderVergisi().get(i).length();
-							fark = 15 - l1;
-							a = StringUtils.leftPad(" ", fark, ' ');
-							a = a + "Faizin %5 Gider Vergisi";
-
-							hesapModel = hesapModel
-									+ report.getGiderVergisi().get(i) + a
-									+ "\n";
-
-						}
-						if (report.getTemmerutFaizi1() != ""
-								&& report.getTemmerutFaizi().size() > 0) {
-
-							l1 = report.getTemmerutFaizi().get(i).length();
-							fark = 15 - l1;
-							a = StringUtils.leftPad(" ", fark, ' ');
-							a = a + "İslenmis Temmerrut Faizi";
-							hesapModel = hesapModel
-									+ report.getTemmerutFaizi().get(i) + a
-									+ "\n";
-
-						}
-						if (!report.getNoterMasrafi1().equals("$0.00")
-								&& !report.getNoterMasrafi1().equals("0,00 TL")
-								&& report.getNoterMasrafi().size() > 0) {
-
-							l1 = report.getNoterMasrafi().get(i).length();
-							fark = 15 - l1;
-							a = StringUtils.leftPad(" ", fark, ' ');
-							a = a + "Masraf";
-							hesapModel = hesapModel
-									+ report.getNoterMasrafi().get(i) + a
-									+ "\n";
+							}
+							String.valueOf(a);
+							toplam1 = toplam1 + t2;
 
 						}
+						// if (report.getToplam1().size() > 1) {
+						// report.setToplam(defaultFormat.format(toplam1));
+						// String ek = report.getTalepYazisi();
+						// String Ek1 = defaultFormat.format(toplam1) + " " +
+						// ek;
+						// report.setTalepYazisi(Ek1);
+						// } else {
+						// report.setTalepYazisi(report.getToplam() + " "
+						// + report.getTalepYazisi());
+						// }
+						if (report.getHesap() == null) {
+							report.setHesap(hesapModel);
+						} else if (!report.getHesap().equals(hesapModel)) {
+							String hes = report.getHesap();
+							hes = hes + hesapModel;
+							report.setHesap(hes);
+						}
+					}
+				} else if (report.getMuvekkilAdi().equals(ReportUtils.AKBANK)) {
+					if (report.getAsilAlacak().size() > 0 && report.getAsilAlacak() != null) {
+						String hesapModel = "";
+						report.setEk(report.getDiger1());
+						report.setDiger1(ReportUtils.getAkbankHesapTitle(report.getDiger1()));
+						double toplam1 = 0;
 
-						hesapModel = hesapModel
-								+ "----------------------------------------------------------- \n ";
+						int l1 = 0;
+						int fark = 0;
+						String a = "";
+						for (int i = 0; i < report.getAsilAlacak().size(); i++) {
+							l1 = report.getAsilAlacak().get(i).length();
 
-						if (report.getHesap() == null
-								|| report.getHesap().equals("")) {
+							hesapModel = "\n";
+							fark = 15 - l1;
+							a = StringUtils.leftPad(" ", fark, ' ');
+							a = a + "Asıl Alacak";
+							hesapModel = hesapModel + report.getAsilAlacak().get(i) + a + "\n";
+
+							if (report.getFaizGider1() != "" && report.getFaizGider().size() > 0) {
+
+								l1 = report.getFaizGider().get(i).length();
+								fark = 15 - l1;
+								a = StringUtils.leftPad(" ", fark, ' ');
+								a = a + "İslenmis Akdi Faiz";
+								hesapModel = hesapModel + report.getFaizGider().get(i) + a + "\n";
+
+							}
+							if (report.getGiderVergisi1() != "" && report.getGiderVergisi().size() > 0) {
+
+								l1 = report.getGiderVergisi().get(i).length();
+								fark = 15 - l1;
+								a = StringUtils.leftPad(" ", fark, ' ');
+								a = a + "Faizin %5 Gider Vergisi";
+
+								hesapModel = hesapModel + report.getGiderVergisi().get(i) + a + "\n";
+
+							}
+							if (report.getTemmerutFaizi1() != "" && report.getTemmerutFaizi().size() > 0) {
+
+								l1 = report.getTemmerutFaizi().get(i).length();
+								fark = 15 - l1;
+								a = StringUtils.leftPad(" ", fark, ' ');
+								a = a + "İslenmis Temmerrut Faizi";
+								hesapModel = hesapModel + report.getTemmerutFaizi().get(i) + a + "\n";
+
+							}
+							if (!report.getNoterMasrafi1().equals("$0.00")
+									&& !report.getNoterMasrafi1().equals("0,00 TL")
+									&& report.getNoterMasrafi().size() > 0) {
+
+								l1 = report.getNoterMasrafi().get(i).length();
+								fark = 15 - l1;
+								a = StringUtils.leftPad(" ", fark, ' ');
+								a = a + "Masraf";
+								hesapModel = hesapModel + report.getNoterMasrafi().get(i) + a + "\n";
+
+							}
+
+							hesapModel = hesapModel + "----------------------------------------------------------- \n ";
+
+							if (report.getToplam() != null || report.getToplam() != "") {
+								// fillAkbankList(report);
+								hesapModel = hesapModel + report.getToplam() + " TOPLAM(*)";
+							} else {
+								System.out.println(report.getToplam());
+							}
+
+							if (report.getHesap() == null || report.getHesap().equals("")) {
+								report.setHesap(hesapModel);
+							}
+
+						}
+
+						// if (report.getToplam1().size() > 1) {
+						// report.setToplam(defaultFormat.format(toplam1));
+						// String ek = report.getTalepYazisi();
+						// String Ek1 = defaultFormat.format(toplam1) + " " +
+						// ek;
+						// report.setTalepYazisi(Ek1);
+						// } else {
+						// report.setTalepYazisi(report.getToplam() + " "
+						// + report.getTalepYazisi());
+						// }
+						if (report.getHesap() == null) {
 							report.setHesap(hesapModel);
 						}
-
+						// } else if (!report.getHesap().equals(hesapModel)) {
+						// String hes = report.getHesap();
+						// hes = hes + hesapModel;
+						// report.setHesap(hes);
+						// }
 					}
-					double t2 = 0;
-					if (report.getToplam1().size() > 1) {
-						String t = report.getToplam1().get(0);
-						String b[] = t.split("");
-						String ab = "";
-						if (t.charAt(0) == 36) {
-							for (int i1 = 1; i1 < b.length; i1++) {
-								if (!b[i1].equals(String.valueOf(","))) {
-									ab = ab + b[i1];
-								}
-								t2 = Double.valueOf(ab);
-							}
-						} else {
-							int l = b.length;
-							l = l - 2;
-							for (int i1 = 0; i1 < l; i1++) {
-								if (!b[i1].equals(String.valueOf(","))) {
-									ab = ab + b[i1];
-								}
-								t2 = Double.valueOf(ab);
-							}
 
-						}
-						String.valueOf(a);
-						toplam1 = toplam1 + t2;
-
-					}
-					// if (report.getToplam1().size() > 1) {
-					// report.setToplam(defaultFormat.format(toplam1));
-					// String ek = report.getTalepYazisi();
-					// String Ek1 = defaultFormat.format(toplam1) + " " +
-					// ek;
-					// report.setTalepYazisi(Ek1);
-					// } else {
-					// report.setTalepYazisi(report.getToplam() + " "
-					// + report.getTalepYazisi());
-					// }
-					if (report.getHesap() == null) {
-						report.setHesap(hesapModel);
-					} else if (!report.getHesap().equals(hesapModel)) {
-						String hes = report.getHesap();
-						hes = hes + hesapModel;
-						report.setHesap(hes);
-					}
 				}
+
+				// :TODO Yeni bankalar rapora eklendiğinde bu alan
+				// güncellencek...
+
 				if (report.getMuvekkilAdi().equals(ReportUtils.AKBANK)) {
-					report.setHesapAkbank(fillAkbankList(report));
+					report.setHesapAkbank(fillAkbankList(report)); // Muhammet
+																	// Abi bu
+																	// method ne
+																	// ise
+																	// yariyo
+																	// anlamadım.
 				}
 
 				returnList.add(report);
@@ -565,6 +614,7 @@ public class GenelRaporDAO extends DBConnection {
 			hesap.setTarih(String.valueOf(date));
 			hesap.setTemmerutFaizi(reportGenel.getTemmerutFaizi().get(i));
 			hesap.setToplam1(reportGenel.getToplam1().get(i));
+			System.out.println(hesap.getToplam1());
 			akbankHesaps.add(hesap);
 
 		}
@@ -577,8 +627,7 @@ public class GenelRaporDAO extends DBConnection {
 		return hesapA;
 	}
 
-	public ArrayList<ReportGenel> getAllTebligatFromIcraDosyaID(int id)
-			throws Exception {
+	public ArrayList<ReportGenel> getAllTebligatFromIcraDosyaID(int id) throws Exception {
 		ArrayList<ReportGenel> tzList = new ArrayList<ReportGenel>();
 		SQL = "SELECT id, icra_dosyasi_no, borclu_adi, tc_no, adres, icra_bilgi, barkod"
 				+ " FROM vwtebligat where id = " + id + ";";
@@ -621,8 +670,7 @@ public class GenelRaporDAO extends DBConnection {
 		SQL = "SELECT id, icra_dosyasi_no, muvekkil_adi, vergi_no, vergi_dairesi,"
 				+ " borclu_adi, borclu_adres, talep_edilen_hak, takip_yolu, vekil_adi, asil_alacak, muvekkil_adres,  "
 				+ "temerrut_faizi, faiz_gider_vergisi, noter_masrafi, icra_bilgi, gecikme_faizi, "
-				+ "faiz_gider_v, icra_hesap, tapu_bilgi, borclu_tc, barkod, borclu_dogum, il  "
-				+ "FROM vwreport;";
+				+ "faiz_gider_v, icra_hesap, tapu_bilgi, borclu_tc, barkod, borclu_dogum, il  " + "FROM vwreport;";
 
 		newConnectDB();
 		stm = conn.createStatement();
@@ -644,15 +692,11 @@ public class GenelRaporDAO extends DBConnection {
 			rg.setTakipYolu(rs.getString("takip_yolu"));
 			rg.setVekil(rs.getString("vekil_adi"));
 			rg.setAsilAlacak1(defaultFormat.format(rs.getDouble("asil_alacak")));
-			rg.setTemmerutFaizi1(defaultFormat.format(rs
-					.getDouble("temerrut_faizi")));
-			rg.setGiderVergisi1(defaultFormat.format(rs
-					.getDouble("faiz_gider_vergisi")));
-			rg.setNoterMasrafi1(defaultFormat.format(rs
-					.getDouble("noter_masrafi")));
+			rg.setTemmerutFaizi1(defaultFormat.format(rs.getDouble("temerrut_faizi")));
+			rg.setGiderVergisi1(defaultFormat.format(rs.getDouble("faiz_gider_vergisi")));
+			rg.setNoterMasrafi1(defaultFormat.format(rs.getDouble("noter_masrafi")));
 			rg.setIcraBilgi(rs.getString("icra_bilgi"));
-			rg.setGecikmeFaizi1(defaultFormat.format(rs
-					.getDouble("gecikme_faizi")));
+			rg.setGecikmeFaizi1(defaultFormat.format(rs.getDouble("gecikme_faizi")));
 			rg.setBarkot(rs.getString("barkod"));
 
 			genels.add(rg);
@@ -789,39 +833,29 @@ public class GenelRaporDAO extends DBConnection {
 			tt.setBorclu_id(rs.getInt("id"));
 			tt.setIcraDosyaNo(rs.getString("icra_dosyasi_no"));
 			tt.setMuvekkilAdi(rs.getString("muvekkil_adi"));
-			text = rs.getString("muvekkil_adi") + " "
-					+ rs.getString("vergi_dairesi") + " "
-					+ rs.getString("vergi_no") + " "
-					+ rs.getString("muvekkil_adres");
+			text = rs.getString("muvekkil_adi") + " " + rs.getString("vergi_dairesi") + " " + rs.getString("vergi_no")
+					+ " " + rs.getString("muvekkil_adres");
 			tt.setAlacakliAdi(text);
 			text = null;
-			text = rs.getString("borclu_adi")
-					+ " "
-					+ (rs.getString("borclu_adres") == null ? " " : rs
-							.getString("borclu_adres"));
+			text = rs.getString("borclu_adi") + " "
+					+ (rs.getString("borclu_adres") == null ? " " : rs.getString("borclu_adres"));
 			tt.setBorclu(text);
 			text = null;
 			tt.setAsilAlacak1(defaultFormat.format(rs.getDouble("asil_alacak")));
-			tt.setGiderVergisi1(defaultFormat.format(rs
-					.getDouble("faiz_gider_vergisi")));
+			tt.setGiderVergisi1(defaultFormat.format(rs.getDouble("faiz_gider_vergisi")));
 			// tt.setTakipAlacagi(defaultFormat.format(rs.getDouble("faiz_gider_vergisi")));
 			tt.setTakipYolu(rs.getString("takip_yolu"));
 			tt.setTalepYazisi(rs.getString("talep_edilen_hak"));
 			tt.setFaizGider1(defaultFormat.format(rs.getDouble("gecikme_faizi")));
-			tt.setNoterMasrafi1(defaultFormat.format(rs
-					.getDouble("noter_masrafi")));
-			tt.setTemmerutFaizi1(defaultFormat.format(rs
-					.getDouble("temerrut_faizi")));
+			tt.setNoterMasrafi1(defaultFormat.format(rs.getDouble("noter_masrafi")));
+			tt.setTemmerutFaizi1(defaultFormat.format(rs.getDouble("temerrut_faizi")));
 			tt.setVekil(rs.getString("vekil_adi"));
 			tt.setIcraBilgi(rs.getString("icra_bilgi"));
 			DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 			Date date = new Date();
 			tt.setTarih(String.valueOf(dateFormat.format(date)));
-			Double toplam = rs.getDouble("asil_alacak")
-					+ rs.getDouble("noter_masrafi")
-					+ rs.getDouble("temerrut_faizi")
-					+ rs.getDouble("gecikme_faizi")
-					+ rs.getDouble("faiz_gider_vergisi");
+			Double toplam = rs.getDouble("asil_alacak") + rs.getDouble("noter_masrafi") + rs.getDouble("temerrut_faizi")
+					+ rs.getDouble("gecikme_faizi") + rs.getDouble("faiz_gider_vergisi");
 			tt.setGecikmeFaizi1(rs.getString("gecikme_faizi"));
 			tt.setToplam(defaultFormat.format(toplam));
 			String ek = "Borca Iliskin Ihtarname ve Eki Hesap Özeti".toString();

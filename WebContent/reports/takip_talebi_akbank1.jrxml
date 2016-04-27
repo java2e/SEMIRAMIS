@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="takip_talebi" language="groovy" pageWidth="555" pageHeight="802" columnWidth="515" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7a2929dd-6004-45a2-9a3b-a3bb412ffb43">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="239"/>
+	<property name="ireport.y" value="0"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value="dGJsX2hlc2FwICwxNSwxNSxiMDJhNDVmNS0xZDY5LTQwNWYtYTk2Ni0zOGM5ODg1NzI0ZmU7"/>
 	<parameter name="image" class="Object" isForPrompting="false">
 		<parameterDescription><![CDATA[The letterhead image]]></parameterDescription>
@@ -41,6 +41,7 @@
 	<field name="alacakli" class="java.lang.String"/>
 	<field name="hesap" class="java.lang.String"/>
 	<field name="id" class="java.lang.String"/>
+	<field name="diger1" class="java.lang.String"/>
 	<title>
 		<band height="64" splitType="Stretch">
 			<staticText>
@@ -227,13 +228,13 @@
 						</textElement>
 						<textFieldExpression><![CDATA[$F{hesap}]]></textFieldExpression>
 					</textField>
-					<staticText>
-						<reportElement positionType="FixRelativeToBottom" x="6" y="135" width="264" height="18" uuid="22f365b1-d3c2-4f3b-a2d1-6e153ea9ae47"/>
-						<textElement>
-							<font fontName="Times New Roman" size="8"/>
+					<textField>
+						<reportElement x="6" y="166" width="248" height="20" uuid="5cd02d18-f17c-45fb-81fd-66c208a64a25"/>
+						<textElement verticalAlignment="Bottom">
+							<font fontName="Times New Roman" size="8" pdfEncoding="Cp1254"/>
 						</textElement>
-						<text><![CDATA[Fazlaya ilişkin talep ve takip hakkımız saklı kalmak kaydıyla]]></text>
-					</staticText>
+						<textFieldExpression><![CDATA[$F{diger1}]]></textFieldExpression>
+					</textField>
 				</frame>
 			</frame>
 			<textField>

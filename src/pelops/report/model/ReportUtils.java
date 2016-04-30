@@ -11,8 +11,13 @@ public class ReportUtils {
 	public static final String JASPERFILE_NAME_ODEME_EMRI = "odeme_emri.jasper";
 	public static final String JASPERFILE_NAME_TAKIP_TALEBI = "takip_talebi.jasper";
 	public static final String JASPERFILE_NAME_TEBLIGAT_LISTESI = "tebligat_listesi1.jasper";
-	public static final String JASPERFILE_NAME_VEKALET_HSBC ="vekalet.jasper";
-	public static final String JASPERFILE_NAME_TAKIP_TALEBI_AKBANK = "takip_talebi_akbank.jasper";
+	public static final String JASPERFILE_NAME_VEKALET_HSBC = "vekalet.jasper";
+
+	/*
+	 * Jasper file isimleri Akbank için
+	 */
+	public static final String JASPERFILE_NAME_TAKIP_TALEBI_AKBANK = "takip_talebi_akbank1.jasper";
+	public static final String JASPERFILE_NAME_ODEME_EMRI_AKBANK = "odeme_emri_akbank.jasper";
 
 	/*
 	 * raporların isimleri
@@ -29,18 +34,14 @@ public class ReportUtils {
 	public static final String SOZLESME = "sozlesme";
 	public static final String DIGER = "diger";
 	public static final String HESAP_OZETI = "hesapOzeti";
-	
-	
-	//bankalar...
+
+	// bankalar...
 	public static final String HSBC = "HSBC BANK A.Ş.";
 	public static final String AKBANK = "AKBANK T.A.Ş.";
 	public static final String GARANTI = "T. GARANTİ BANKASI A.Ş.";
 	public static final String ING = "İNG BANK A.Ş.";
 
-
-
-	
-	//model Dosya Yükleme Modeli Belge adi combobox
+	// model Dosya Yükleme Modeli Belge adi combobox
 
 	public static final ArrayList<Model> getCbModels() {
 		ArrayList<Model> list = new ArrayList<Model>();
@@ -74,6 +75,36 @@ public class ReportUtils {
 		list.add(model);
 
 		return list;
+	}
+
+	public static String extractNumber(String str) {
+		str = str.replaceAll("\\s+", "");
+		if (str == null || str.isEmpty())
+			return "";
+
+		StringBuilder sb = new StringBuilder();
+		boolean found = false;
+		for (char c : str.toCharArray()) {
+			if (Character.isDigit(c)) {
+				sb.append(c);
+				found = true;
+			} else if (found) {
+				// If we already found a digit before and this char is not a
+				// digit, stop looping
+				break;
+			}
+		}
+
+		return sb.toString();
+	}
+
+	public static String getAkbankHesapTitle(String str) {
+		return extractNumber(str) + " nolu  kredi kartı için";
+	}
+
+	public static void main(String[] a) {
+		System.out.println(extractNumber(
+				"326,44 TL Takip öncesi tahsilat, borçtan düşülmüştür.) ( * ): Alacaklarımızın tamamının, asıl alacak tutarlarına takip tarihinden tamamen tahsiline kadar yukarıda belirtilen krediler için, yukarıdaki hesap tablosu/tablolarında belirtilen oranlardan işleyecek temerrüt faizleri, faizlerin gider vergisi, avukatlık ücreti, icra harç ve masraflarıyla birlikte fazlaya ilişkin talep ve dava haklarımız saklı kalmak, tahsilde tekerrür olmamak kaydıyla, sözleşme(ler)deki teselsül hükümleri gereğince TAHSİLİ talebidir. TBK. 100 Md. uyarınca kısmi ödemeler öncelikle faiz ve masraflara mahsup edilecektir."));
 	}
 
 }

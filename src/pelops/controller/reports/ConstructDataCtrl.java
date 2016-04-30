@@ -37,18 +37,16 @@ import pelops.report.model.ReportUtils;
 
 public class ConstructDataCtrl {
 
-	public ArrayList<ReportGenel> init(ArrayList<ReportGenel> genels)
-			throws Exception {
-		//s
+	public ArrayList<ReportGenel> init(ArrayList<ReportGenel> genels) throws Exception {
+		// s
 		ArrayList<ReportGenel> sendList = new ArrayList<ReportGenel>();
-		for (ReportGenel reportGenel : genels) { 
+		for (ReportGenel reportGenel : genels) {
 			reportGenel = setBarkod(reportGenel);
 			reportGenel.setBrcd(createBarcode(reportGenel.getBarkot()));
 			if (reportGenel.getIcraBilgi() != "") {
 				if (reportGenel.getIcraBilgi() != null) {
 
-					BufferedImage image = convertTextToGraphic(
-							reportGenel.getIcraBilgi(),
+					BufferedImage image = convertTextToGraphic(reportGenel.getIcraBilgi(),
 							reportGenel.getIcraDosyaNo());
 					reportGenel.setImage(image);
 				}
@@ -58,9 +56,8 @@ public class ConstructDataCtrl {
 		return sendList;
 	}
 
-	public ArrayList<ConstructedData> createConstructedData(
-			ArrayList<DataToPrint> belgeler, ArrayList<ReportGenel> raporlar)
-			throws Exception
+	public ArrayList<ConstructedData> createConstructedData(ArrayList<DataToPrint> belgeler,
+			ArrayList<ReportGenel> raporlar) throws Exception
 
 	{
 
@@ -69,8 +66,7 @@ public class ConstructDataCtrl {
 			ArrayList<ReportGenel> genels = init(raporlar);
 			for (ReportGenel reportGenel : genels) {
 				ConstructedData data = new ConstructedData();
-				ArrayList<DataToPrint> dataToPrints = createDataToPrintListForOneReport(
-						belgeler, reportGenel);
+				ArrayList<DataToPrint> dataToPrints = createDataToPrintListForOneReport(belgeler, reportGenel);
 				data.setGenel(reportGenel);
 				data.setDataToPrints(dataToPrints);
 				constructedDatas.add(data);
@@ -80,11 +76,9 @@ public class ConstructDataCtrl {
 
 		return constructedDatas;
 	}
-	
 
-	private ArrayList<DataToPrint> createDataToPrintListForOneReport(
-			ArrayList<DataToPrint> belgeler, ReportGenel reportGenel)
-			throws JRException, IOException {
+	private ArrayList<DataToPrint> createDataToPrintListForOneReport(ArrayList<DataToPrint> belgeler,
+			ReportGenel reportGenel) throws JRException, IOException {
 		ArrayList<DataToPrint> sendList = new ArrayList<DataToPrint>();
 		if (belgeler.size() > 0) {
 			for (DataToPrint belge : belgeler) {
@@ -92,13 +86,11 @@ public class ConstructDataCtrl {
 				ArrayList<JasperPrint> jasperPrints = new ArrayList<JasperPrint>();
 				if (belge.getAdet() > 1) {
 					for (int i = 0; i < belge.getAdet(); i++) {
-						JasperPrint jasperPrint = createJasperPrint(
-								reportGenel, belge);
+						JasperPrint jasperPrint = createJasperPrint(reportGenel, belge);
 						jasperPrints.add(jasperPrint);
 					}
 				} else {
-					JasperPrint jasperPrint = createJasperPrint(reportGenel,
-							belge);
+					JasperPrint jasperPrint = createJasperPrint(reportGenel, belge);
 					jasperPrints.add(jasperPrint);
 				}
 				belge.setJasperPrint(jasperPrints);
@@ -108,8 +100,7 @@ public class ConstructDataCtrl {
 		return sendList;
 	}
 
-	private JasperPrint createJasperPrint(ReportGenel genel, DataToPrint data)
-			throws JRException, IOException {
+	private JasperPrint createJasperPrint(ReportGenel genel, DataToPrint data) throws JRException, IOException {
 		JasperPrint jasperPrint = null;
 
 		HashMap<String, Object> hashMap = new HashMap<String, Object>();
@@ -123,42 +114,38 @@ public class ConstructDataCtrl {
 			hashMap.put("image", genel.getImage());
 		}
 
-		// :TODO imza resmi nerede ise ona göre get imzayı configure et
-		 BufferedImage image2 = getImza();
-		 hashMap.put("imza", image2);
+		// // :TODO imza resmi nerede ise ona göre get imzayı configure et
+		// BufferedImage image2 = getImza();
+		// hashMap.put("imza", image2);
 		ArrayList<ReportGenel> list = new ArrayList<ReportGenel>();
 		list.add(genel);
 		JRBeanCollectionDataSource beanCollectionDataSource = null;
 
 		DataToPrint dataNew = checkBankaForJasperPrintFileName(genel, data);
 		// :TODO Yeni banka eklendiğinde burası güncellenecek...
-		if (genel.getMuvekkilAdi().equals(ReportUtils.AKBANK)) {
+		if (genel.getMuvekkilAdi().equals(ReportUtils.GARANTI)) {
 			hashMap.put("icraBilgi", genel.getIcraBilgi());
 			hashMap.put("icraDosyaNo", genel.getIcraDosyaNo());
 			hashMap.put("alacakli", genel.getAlacakli());
 			hashMap.put("borclu", genel.getBorclu());
 			hashMap.put("vekil", genel.getVekil());
-			beanCollectionDataSource = new JRBeanCollectionDataSource(
-					genel.getHesapAkbank());
+			beanCollectionDataSource = new JRBeanCollectionDataSource(genel.getHesapAkbank());
 
 		} else {
 			beanCollectionDataSource = new JRBeanCollectionDataSource(list);
 		}
 
 		if (dataNew.getJasperFileName() != null) {
-			String reportPath = FacesContext.getCurrentInstance()
-					.getExternalContext()
+			String reportPath = FacesContext.getCurrentInstance().getExternalContext()
 					.getRealPath("/reports/" + dataNew.getJasperFileName());
-			jasperPrint = JasperFillManager.fillReport(reportPath, hashMap,
-					beanCollectionDataSource);
+			jasperPrint = JasperFillManager.fillReport(reportPath, hashMap, beanCollectionDataSource);
 		}
 
 		return jasperPrint;
 
 	}
 
-	public DataToPrint checkBankaForJasperPrintFileName(ReportGenel rapor,
-			DataToPrint print) {
+	public DataToPrint checkBankaForJasperPrintFileName(ReportGenel rapor, DataToPrint print) {
 
 		int adet = print.getAdet();
 		String belgeAdi = print.getBelgeAdi();
@@ -168,8 +155,7 @@ public class ConstructDataCtrl {
 				// TODO: dosya hazırlandığında eklenecek
 			} else if (belgeAdi.equals(ReportUtils.REPORT_ODEME_EMRI)) {
 				JasperFileName = ReportUtils.JASPERFILE_NAME_ODEME_EMRI;
-			} else if (belgeAdi
-					.equals(ReportUtils.REPORT_POSTANEDEN_GELEN_EVRAK)) {
+			} else if (belgeAdi.equals(ReportUtils.REPORT_POSTANEDEN_GELEN_EVRAK)) {
 				// TODO: dosya hazırlandığında eklenecek
 			} else if (belgeAdi.equals(ReportUtils.REPORT_TAKIP_TALEBI)) {
 				JasperFileName = ReportUtils.JASPERFILE_NAME_TAKIP_TALEBI;
@@ -192,6 +178,8 @@ public class ConstructDataCtrl {
 		} else if (rapor.getMuvekkilAdi().equals(ReportUtils.AKBANK)) {
 			if (belgeAdi == ReportUtils.REPORT_TAKIP_TALEBI) {
 				JasperFileName = ReportUtils.JASPERFILE_NAME_TAKIP_TALEBI_AKBANK;
+			} else if (belgeAdi == ReportUtils.REPORT_ODEME_EMRI) {
+				JasperFileName = ReportUtils.JASPERFILE_NAME_ODEME_EMRI_AKBANK;
 			}
 			// :TODO Akbankın diğer rapor tasarımları bittiğinde burası
 			// değiştirilecek...
@@ -212,24 +200,21 @@ public class ConstructDataCtrl {
 
 	}
 
-	public ArrayList<JasperPrint> getTebligatListesiJasperPrint(
-			DataToPrint print, ArrayList<ReportGenel> report) throws Exception {
+	public ArrayList<JasperPrint> getTebligatListesiJasperPrint(DataToPrint print, ArrayList<ReportGenel> report)
+			throws Exception {
 		JasperPrint jasperPrint = null;
-		
+
 		ArrayList<ReportGenel> reports = init(report);
 		ArrayList<JasperPrint> list = new ArrayList<JasperPrint>();
 		for (int i = 0; i < print.getAdet(); i++) {
 
 			Map<String, Object> hashMap = new HashMap<String, Object>();
-			JRBeanCollectionDataSource beanCollectionDataSource = new JRBeanCollectionDataSource(
-					reports);
+			JRBeanCollectionDataSource beanCollectionDataSource = new JRBeanCollectionDataSource(reports);
 
 			if (print.getJasperFileName() != null) {
-				String reportPath = FacesContext.getCurrentInstance()
-						.getExternalContext()
+				String reportPath = FacesContext.getCurrentInstance().getExternalContext()
 						.getRealPath("/reports/" + print.getJasperFileName());
-				jasperPrint = JasperFillManager.fillReport(reportPath, hashMap,
-						beanCollectionDataSource);
+				jasperPrint = JasperFillManager.fillReport(reportPath, hashMap, beanCollectionDataSource);
 				list.add(jasperPrint);
 			}
 		}
@@ -237,8 +222,7 @@ public class ConstructDataCtrl {
 		return list;
 	}
 
-	public BufferedImage convertTextToGraphic(String IcraMd, String DosyaNo)
-			throws IOException {
+	public BufferedImage convertTextToGraphic(String IcraMd, String DosyaNo) throws IOException {
 
 		String spText[] = IcraMd.split(" ");
 
@@ -253,22 +237,14 @@ public class ConstructDataCtrl {
 		img = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 
 		g2d = img.createGraphics();
-		g2d.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION,
-				RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
-		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-				RenderingHints.VALUE_ANTIALIAS_ON);
-		g2d.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING,
-				RenderingHints.VALUE_COLOR_RENDER_QUALITY);
-		g2d.setRenderingHint(RenderingHints.KEY_DITHERING,
-				RenderingHints.VALUE_DITHER_ENABLE);
-		g2d.setRenderingHint(RenderingHints.KEY_FRACTIONALMETRICS,
-				RenderingHints.VALUE_FRACTIONALMETRICS_ON);
-		g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
-				RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-		g2d.setRenderingHint(RenderingHints.KEY_RENDERING,
-				RenderingHints.VALUE_RENDER_QUALITY);
-		g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
-				RenderingHints.VALUE_STROKE_PURE);
+		g2d.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
+		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		g2d.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
+		g2d.setRenderingHint(RenderingHints.KEY_DITHERING, RenderingHints.VALUE_DITHER_ENABLE);
+		g2d.setRenderingHint(RenderingHints.KEY_FRACTIONALMETRICS, RenderingHints.VALUE_FRACTIONALMETRICS_ON);
+		g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+		g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+		g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_PURE);
 
 		fm = g2d.getFontMetrics();
 		g2d.setColor(Color.RED);
@@ -319,13 +295,11 @@ public class ConstructDataCtrl {
 		if (number != null) {
 
 			BarcodeUtil util = BarcodeUtil.getInstance();
-			BarcodeGenerator gen = util
-					.createBarcodeGenerator(buildCfg("ean-13"));
+			BarcodeGenerator gen = util.createBarcodeGenerator(buildCfg("ean-13"));
 			int resolution = 200;
 			OutputStream fout = new FileOutputStream("ean-13.jpg");
-			BitmapCanvasProvider canvas = new BitmapCanvasProvider(fout,
-					"image/jpeg", resolution, BufferedImage.TYPE_BYTE_BINARY,
-					false, 0);
+			BitmapCanvasProvider canvas = new BitmapCanvasProvider(fout, "image/jpeg", resolution,
+					BufferedImage.TYPE_BYTE_BINARY, false, 0);
 			gen.generateBarcode(canvas, number);
 			canvas.finish();
 
@@ -369,8 +343,8 @@ public class ConstructDataCtrl {
 
 	}
 
-	public static String DOSYA_KLASORU = System.getProperty("catalina.base")
-			+ File.separator + "temp" + File.separator + "imza.jpg";
+	public static String DOSYA_KLASORU = System.getProperty("catalina.base") + File.separator + "temp" + File.separator
+			+ "imza.jpg";
 
 	public BufferedImage getImza() throws IOException {
 		BufferedImage image = ImageIO.read(new File(DOSYA_KLASORU));

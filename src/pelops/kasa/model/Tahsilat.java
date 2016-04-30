@@ -23,6 +23,25 @@ public class Tahsilat {
 	private int tahsilatDurum;
 	private int durum;
 	private String gelisYeri;
+	private String tasilati_yapan;
+	private String kasa_islemini_yapan;
+
+	
+	public String getTasilati_yapan() {
+		return tasilati_yapan;
+	}
+
+	public void setTasilati_yapan(String tasilati_yapan) {
+		this.tasilati_yapan = tasilati_yapan;
+	}
+
+	public String getKasa_islemini_yapan() {
+		return kasa_islemini_yapan;
+	}
+
+	public void setKasa_islemini_yapan(String kasa_islemini_yapan) {
+		this.kasa_islemini_yapan = kasa_islemini_yapan;
+	}
 
 	public int getDurum() {
 		return durum;

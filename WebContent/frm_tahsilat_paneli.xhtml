@@ -25,32 +25,31 @@
 	<p:outputLabel value="İcra Dosya No"/>
 	<p:outputLabel>
 	
-	<p:inputText size="30"/>
+	<p:inputText size="30" value="#{kasaBean.bilgiTahsilat.icra_dosya_no}"/>
 	  ||
 	  <p:commandButton icon="ui-icon-search" style="color:red" value="Ara !" onclick="PF('dlgdetayliarama').show();"/>
 	</p:outputLabel>
 	
 	<p:outputLabel value="Müvekkil Adı"/>
-	<p:inputText size="30"/>
+	<p:inputText size="30" value="#{kasaBean.bilgiTahsilat.muvekkil_adi}"/>
 	
 	<p:outputLabel value="Borçlu Adı"/>
 	<p:outputLabel>
 	
-	<p:inputText size="30"/>
-	  ||
-	  <p:commandButton icon="ui-icon-search" style="color:red"/>
+	<p:inputText size="30" value="#{kasaBean.bilgiTahsilat.borclu_adi}"/>
+	  
 	</p:outputLabel>
 	
 	<p:outputLabel value="Tahsilat Miktarı"/>
-	<p:inputText size="30"/>
+	<p:inputText size="30" value="#{kasaBean.bilgiTahsilat.tahsilat_miktari}"/>
 	
 	<p:outputLabel value="Tahsilat Tarihi"/>
-	<p:inputText size="30"/>
+	<p:inputText size="30" value="#{kasaBean.bilgiTahsilat.tahsilat_tarihi}"/>
 	
 	<p:outputLabel value="Tahsilat Statüsü"/>
 	<p:selectOneMenu
 								id="tstatu" 	
-					 		    
+					 		    value="#{kasaBean.bilgiTahsilat.tahsilat_statusu}"
 					 			style="width: 250px">
 					 			<f:selectItem itemLabel="Seçiniz..........." itemValue="9999"/>
 								<f:selectItems
@@ -62,7 +61,7 @@
 	<p:outputLabel value="Ödeme Yapılan Yer"/>
 	<p:selectOneMenu
 								id="odemeyeri" 	
-					 		    
+					 		    value="#{kasaBean.bilgiTahsilat.gelisYeri}"
 					 			style="width: 250px">
 					 			<f:selectItem itemLabel="Seçiniz..........." itemValue="9999"/>
 								<f:selectItems
@@ -71,10 +70,10 @@
 								</p:selectOneMenu>
 	
 	<p:outputLabel value="Tahsilatı Yapan Kişi"/>
-	<p:inputText size="30" disabled="true"/>
+	<p:inputText size="30" disabled="true" value="#{kasaBean.bilgiTahsilat.tasilati_yapan}"/>
 	
 	<p:outputLabel value="Kasa İşlemini Yapan Kişi"/>
-	<p:inputText size="30" disabled="true"/>
+	<p:inputText size="30" disabled="true" value="#{kasaBean.bilgiTahsilat.kasa_islemini_yapan}"/>
 	
 	</p:panelGrid>
 	

@@ -1,16 +1,11 @@
 package pelops.controller;
 
-
-
-
 import java.util.ArrayList;
 import java.util.Date;
-
-
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-
 import pelops.dao.GelismisAramaDAO;
+import pelops.kasa.model.Tahsilat;
 import pelops.model.DetayliArama;
 import pelops.model.GenelTanimSablon;
 import pelops.model.Kasa;
@@ -25,20 +20,23 @@ public class KasaBean {
 	private Kasa modelKasa = new Kasa();
 	private ArrayList<DetayliArama> detayliAramaListesi = new  ArrayList<DetayliArama>();
 	private ArrayList<DetayliArama> filterDetayliAramaListesi;
+	private Tahsilat bilgiTahsilat = new Tahsilat();
 	
+	
+	
+	public Tahsilat getBilgiTahsilat() {
+		return bilgiTahsilat;
+	}
+	public void setBilgiTahsilat(Tahsilat bilgiTahsilat) {
+		this.bilgiTahsilat = bilgiTahsilat;
+	}
 	public ArrayList<DetayliArama> getFilterDetayliAramaListesi() {
 		return filterDetayliAramaListesi;
 	}
-
-
-
-
 	public void setFilterDetayliAramaListesi(
 			ArrayList<DetayliArama> filterDetayliAramaListesi) {
 		this.filterDetayliAramaListesi = filterDetayliAramaListesi;
 	}
-
-	
 	
 	public ArrayList<DetayliArama> getDetayliAramaListesi() {
 		return detayliAramaListesi;
@@ -94,8 +92,9 @@ public class KasaBean {
 	       Date tarih = new Date(oldDate);
 		GelismisAramaDAO dao = new GelismisAramaDAO();
 		detayliAramaListesi = dao.Listele("", "", "", "", "", "", 0, 0 , 0, tarih, tarih, tarih,tarih,tarih, tarih);
-		
+		bilgiTahsilat = new Tahsilat();
 	}
+	
 	
 	
 	 private static java.sql.Date convertUtilToSql(java.util.Date uDate) {

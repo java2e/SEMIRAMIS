@@ -454,4 +454,49 @@ public class TahsilatDAO extends DBConnection implements IDAO {
 		return id;
 	}
 
+	@Override
+	public ArrayList<Object> getAllObjFromStatus(int status) throws Exception {
+		String SQL = "SELECT id, icra_dosyasi_id, muvekkil_adi, borclu_adi, gelis_tarihi, "
+				+ "  borc_tipi, tahsilat_tarihi, tahsilat_tipi, tahsilat_miktari, "
+				+ "  tahsilat_statusu, durum, gelis_yeri, onaylayan_id, kasa_personel_id, "
+				+ "  dosya_tipi, icra_dosya_no, icra_mudurlugu" + " FROM tbl_tahsilat where durum =" + status + ";";
+
+		newConnectDB();
+
+		Statement stmt;
+		ResultSet rs;
+		stmt = conn.createStatement();
+		rs = stmt.executeQuery(SQL);
+		Tahsilat tahsilat;
+		ArrayList<Object> list = new ArrayList<Object>();
+		NumberFormat defaultFormat = NumberFormat.getCurrencyInstance();
+		while (rs.next()) {
+			tahsilat = new Tahsilat();
+			tahsilat.setId(rs.getInt("id"));
+			tahsilat.setBorc_tipi(rs.getString("borc_tipi"));
+			tahsilat.setBorclu_adi(rs.getString("borclu_adi"));
+			tahsilat.setDosya_tipi(rs.getString("dosya_tipi"));
+			tahsilat.setGelis_tarihi(rs.getDate("gelis_tarihi"));
+			tahsilat.setIcra_dosya_no(rs.getString("icra_dosya_no"));
+			tahsilat.setIcra_dosyasi_id(rs.getInt("icra_dosyasi_id"));
+			tahsilat.setIcra_mudurlugu(rs.getString("icra_mudurlugu"));
+			tahsilat.setMuvekkil_adi(rs.getString("muvekkil_adi"));
+			tahsilat.setTahsilat_miktari(rs.getDouble("tahsilat_miktari"));
+			tahsilat.setTahsilat_miktari_tl(defaultFormat.format(rs.getDouble("tahsilat_miktari")));
+			tahsilat.setTahsilat_statusu(rs.getString("tahsilat_statusu"));
+			tahsilat.setTahsilat_tarihi(rs.getDate("tahsilat_tarihi"));
+			tahsilat.setTahsilat_tipi(rs.getString("tahsilat_tipi"));
+			tahsilat.setOnaylayanID(rs.getInt("onaylayan_id"));
+			tahsilat.setKasaPersonelID(rs.getInt("kasa_personel_id"));
+			tahsilat.setGelisYeri(rs.getString("gelis_yeri"));
+			tahsilat.setDurum(rs.getInt("durum"));
+
+			list.add(tahsilat);
+
+		}
+
+		disconnectDB();
+		return list;
+	}
+
 }

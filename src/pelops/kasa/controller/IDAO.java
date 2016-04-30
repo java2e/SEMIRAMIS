@@ -15,5 +15,7 @@ public interface IDAO {
 	public Object getObjFromDB(int id) throws Exception;
 	
 	public int getID(Object object) throws Exception;
+	
+	public ArrayList<Object>getAllObjFromStatus(int status) throws Exception;
 
 }

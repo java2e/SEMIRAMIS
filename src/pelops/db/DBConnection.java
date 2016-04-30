@@ -33,7 +33,7 @@ public class DBConnection {
 		public java.sql.Date convertFromJAVADateToSQLDate(java.util.Date javaDate) {
 			java.sql.Date sqlDate = null;
 			if (javaDate != null) {
-				sqlDate = (java.sql.Date) new Date(javaDate.getTime());
+				sqlDate =  new java.sql.Date(javaDate.getTime());
 			}
 			return sqlDate;
 		}

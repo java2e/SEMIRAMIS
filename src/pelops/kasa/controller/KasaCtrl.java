@@ -4,12 +4,12 @@ import java.text.NumberFormat;
 import java.time.Year;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
-import pelops.dao.BaglantiDAO;
 import pelops.dao.BasvuruHarciDAO;
-import pelops.dao.HesapDAO;
 import pelops.dao.VekaletHarciDAO;
 import pelops.dao.VekaletSinirlariDAO;
+import pelops.kasa.model.Hitam;
 import pelops.kasa.model.Reddiyat;
 import pelops.kasa.model.Tahsilat;
 import pelops.kasa.model.TahsilatView;
@@ -34,12 +34,16 @@ public class KasaCtrl {
 	}
 
 	// Tahsilat ve izleme bilgisinin tamamı gelir
-	public ArrayList<TahsilatView> getListeFromViewsForTahsilatIslemi() throws Exception {
+	public ArrayList<TahsilatViewModel> getListeFromViewsForTahsilatIslemi(Date tarih1, Date tarih2) throws Exception {
 
-		return viewDAO.getAllTahsilatFromView();
+		return viewDAO.getAllViewList(tarih1, tarih2);
 	}
 
-	public Tahsilat getSelectedModel(String id) throws Exception {
+	public ArrayList<TahsilatView> getTahsilatViewForStatus(int durum) throws Exception {
+		return viewDAO.getAllTahsilatFromView(durum);
+	}
+
+	public Tahsilat secilenModeliGetir(String id) throws Exception {
 
 		TahsilatViewModel model = viewDAO.getSelectedValueFromID(id);
 		Tahsilat tahsilat = new Tahsilat();
@@ -51,17 +55,16 @@ public class KasaCtrl {
 		return tahsilat;
 	}
 
-	public void kaydetTahsilat(Tahsilat tahsilat, boolean hitam, Reddiyat reddiyat) throws Exception {
+	private void kaydetTahsilat(Tahsilat tahsilat, boolean hitam, Reddiyat reddiyat) throws Exception {
 		int tahsilatID = tahsilatDAO.insertObjToDB(tahsilat);
 		if (hitam) {
-				reddiyat.setTahsilatID(tahsilatID);
-				reddiyatDAO.insertObjToDB(reddiyat);
+			reddiyat.setTahsilatID(tahsilatID);
+			reddiyatDAO.insertObjToDB(reddiyat);
 		} else {
 			Reddiyat reddiyat2 = convertTahsilatToReddiyat(tahsilat);
 			reddiyat2.setTahsilatID(tahsilatID);
 			reddiyatDAO.insertObjToDB(reddiyat2);
 		}
-
 
 	}
 
@@ -70,7 +73,7 @@ public class KasaCtrl {
 		VekaletHarciDAO vekaletharcidao = new VekaletHarciDAO();
 		BasvuruHarciDAO basvuruharcidao = new BasvuruHarciDAO();
 		int yil = Year.now().getValue();
-		BaglantiDAO baglantidao = new BaglantiDAO();
+		// BaglantiDAO baglantidao = new BaglantiDAO();
 		Date bugun = new Date();
 		// hesap.setId(
 		// baglantidao.Listele(pelops.controller.AktifBean.getIcraDosyaID()).getHesaplamaID());
@@ -214,13 +217,120 @@ public class KasaCtrl {
 
 	}
 
-	public Reddiyat convertTahsilatToReddiyat(Tahsilat tahsilat){
+	public void kaydet(Object object, boolean hitam, Reddiyat reddiyat) throws Exception {
+		if (object instanceof Tahsilat) {
+			kaydetTahsilat((Tahsilat) object, hitam, reddiyat);
+		} else if (object instanceof Hitam) {
+			hitamDAO.insertObjToDB(object);
+		} else if (object instanceof Reddiyat) {
+			reddiyatDAO.insertObjToDB(object);
+		}
+	}
+
+	public void guncelle(Object object) throws Exception {
+		if (object instanceof Tahsilat) {
+			tahsilatDAO.updateObjFromDB(object);
+		} else if (object instanceof Hitam) {
+			hitamDAO.updateObjFromDB(object);
+		} else if (object instanceof Reddiyat) {
+			reddiyatDAO.updateObjFromDB(object);
+		}
+	}
+
+	// obj 1: Tahsilat, 2: hitam, 3:Reddiyat
+	public void sil(int id, int obj) throws Exception {
+		switch (obj) {
+		case 1:
+			tahsilatDAO.deleteObjFromDB(id);
+			break;
+		case 2:
+			hitamDAO.deleteObjFromDB(id);
+			break;
+		case 3:
+			reddiyatDAO.deleteObjFromDB(id);
+			break;
+
+		default:
+			break;
+		}
+
+	}
+
+	// obj 1: TahsilatListesi , 2: hitamListesi, 3: ReddiyatListesi Tüm Listeyi
+	// getirir.
+	public ArrayList<Object> getListe(int obj) throws Exception {
+		if (obj == 1) {
+			return tahsilatDAO.getAllObjFromDB();
+		} else if (obj == 2) {
+			return hitamDAO.getAllObjFromDB();
+		} else {
+			return reddiyatDAO.getAllObjFromDB();
+		}
+
+	}
+	
+
+	// obj 1: TahsilatListesi , 2: hitamListesi, 3: ReddiyatListesi Durumuna
+	// göre Listeyi getirir. // Kime göre Tarafı
+	// sadece Reddiyat içindir null gönderilirse default olarak sasaya göre
+	// duruma
+	// bakar dolu ise kimeGore: 1: sasa, 2: muvekkil, 3: devlet
+	public ArrayList<Object> getListeWithStatus(int status, int obj, Integer kimegore) throws Exception {
+		if (obj == 1) {
+			return tahsilatDAO.getAllObjFromStatus(status);
+		} else if (obj == 2) {
+			hitamDAO.getAllObjFromStatus(status);
+		} else {
+			if (kimegore == null) {
+				return reddiyatDAO.getAllObjFromStatus(status);
+			} else {
+				return reddiyatDAO.getAllObjFromStatus(status, kimegore);
+			}
+		}
+		return null;
+
+	}
+
+	// Viewler uzerinden getirmek istersen
+	/*
+	 * Status: Durumu na göre viewlerden gerekli listeyi getirmek icin
+	 * 
+	 * obj: 1: tahsilatView, 2: HitamView , 3: ReddiyatView
+	 * 
+	 * Kimegore: Reddiyat için gerekli eger null verilirse default sasa ya gore
+	 * durumu ceker null degilse:
+	 * 
+	 * kimegore: 1:sasa, 2: muvekkil, 3: devlet
+	 * 
+	 * return olarak List donecek 
+	 * ilgili Arraylist e dönüs için cast yapmak yeterli 
+	 * 
+	 * Or:
+	 * 
+	 * List list = kasaCtrl.getListefromView(1,1,null);
+	 * 
+	 * Arraylist<TahsilatView> tahsilatListesi = (Arraylist<TahsilatView>)list;
+	 */
+	@SuppressWarnings("rawtypes")
+	public List getListefromView(int status, int obj, Integer kimegore) throws Exception {
+		if (obj == 1) {
+
+			return viewDAO.getAllTahsilatFromView(status);
+		} else if (obj == 2) {
+			return viewDAO.getAllHitamFromView(status);
+		} else {
+			return viewDAO.getAllReddiyatFromView(status, kimegore);
+		}
+
+	}
+
+	public Reddiyat convertTahsilatToReddiyat(Tahsilat tahsilat) {
 		Reddiyat reddiyat = new Reddiyat();
-		
+
 		reddiyat.setMuvekkilDurum(0);
 		reddiyat.setMuvekkilReddiyatTutari(tahsilat.getTahsilat_miktari());
 		reddiyat.setKasaPersonelID(getPersonelID());
-		
+
 		return reddiyat;
 	}
 
@@ -229,5 +339,7 @@ public class KasaCtrl {
 		User user = (User) Util.getSession().getAttribute("user");
 		return user.getId();
 	}
+	
+
 
 }

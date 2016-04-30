@@ -2,7 +2,6 @@ package pelops.kasa.controller;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
@@ -18,7 +17,6 @@ public class ReddiyatDAO extends DBConnection implements IDAO {
 
 	@Override
 	public ArrayList<Object> getAllObjFromDB() throws Exception {
-		// TODO Auto-generated method stub
 		ArrayList<Object> list = new ArrayList<Object>();
 		sql = "SELECT id, tahsilat_id, kasa_personel_id, onaylayan_id, sasa_reddiyat_tutar,"
 				+ " devlet_reddiyat_tutar, muvekkil_reddiyat_tutar, sasa_durum, devlet_durum, "
@@ -49,7 +47,6 @@ public class ReddiyatDAO extends DBConnection implements IDAO {
 
 	@Override
 	public int insertObjToDB(Object obj) throws Exception {
-		// TODO Auto-generated method stub
 		int id = 0;
 		sql = "INSERT INTO tbl_reddiyat( tahsilat_id, kasa_personel_id, onaylayan_id, sasa_reddiyat_tutar, "
 				+ "   devlet_reddiyat_tutar, muvekkil_reddiyat_tutar, sasa_durum, devlet_durum, "
@@ -83,7 +80,6 @@ public class ReddiyatDAO extends DBConnection implements IDAO {
 
 	@Override
 	public int updateObjFromDB(Object obj) throws Exception {
-		// TODO Auto-generated method stub
 		int id = 0;
 		if (obj instanceof Reddiyat) {
 
@@ -118,7 +114,6 @@ public class ReddiyatDAO extends DBConnection implements IDAO {
 
 	@Override
 	public boolean deleteObjFromDB(int id) throws Exception {
-		// TODO Auto-generated method stub
 		boolean isTrue = false;
 		sql = "DELETE FROM tbl_reddiyat  WHERE id=" + id + ";";
 		newConnectDB();
@@ -130,7 +125,6 @@ public class ReddiyatDAO extends DBConnection implements IDAO {
 
 	@Override
 	public Object getObjFromDB(int id) throws Exception {
-		// TODO Auto-generated method stub
 		sql = "select * from tbl_reddiyat where id=" + id + ";";
 		newConnectDB();
 		stm = conn.createStatement();
@@ -156,7 +150,6 @@ public class ReddiyatDAO extends DBConnection implements IDAO {
 
 	@Override
 	public int getID(Object object) throws Exception {
-		// TODO Auto-generated method stub
 		int id = 0;
 		if (object instanceof Reddiyat) {
 			String sql = "select id from tbl_reddiyat where icra_dosya_id =" + ((Reddiyat) object).getIcraDosyaID()
@@ -172,6 +165,87 @@ public class ReddiyatDAO extends DBConnection implements IDAO {
 
 		}
 		return id;
+	}
+
+	@Override
+	public ArrayList<Object> getAllObjFromStatus(int status) throws Exception {
+		ArrayList<Object> list = new ArrayList<Object>();
+		sql = "SELECT id, tahsilat_id, kasa_personel_id, onaylayan_id, sasa_reddiyat_tutar,"
+				+ " devlet_reddiyat_tutar, muvekkil_reddiyat_tutar, sasa_durum, devlet_durum, "
+				+ "  muvekkil_durum, toplam_tutar FROM tbl_reddiyat " + "where sasa_durum =" + status + ";";
+		newConnectDB();
+		stm = conn.createStatement();
+		rs = stm.executeQuery(sql);
+		while (rs.next()) {
+			Reddiyat reddiyat = new Reddiyat();
+			reddiyat.setId(rs.getInt("id"));
+			reddiyat.setTahsilatID(rs.getInt("tahsilat_id"));
+			reddiyat.setKasaPersonelID(rs.getInt("kasa_personel_id"));
+			reddiyat.setOnaylayanID(rs.getInt("onaylayan_id"));
+			reddiyat.setSasaReddiyatTutari(rs.getDouble("sasa_reddiyat_tutar"));
+			reddiyat.setDevletReddiyatTutari(rs.getDouble("devlet_reddiyat_tutar"));
+			reddiyat.setMuvekkilReddiyatTutari(rs.getDouble("muvekkil_reddiyat_tutar"));
+			reddiyat.setSasaDurum(rs.getInt("sasa_durum"));
+			reddiyat.setDevletDurum(rs.getInt("devlet_durum"));
+			reddiyat.setMuvekkilDurum(rs.getInt("muvekkil_durum"));
+			reddiyat.setToplamReddiyatTutari(rs.getDouble("toplam_tutar"));
+
+			list.add(reddiyat);
+		}
+		disconnectDB();
+
+		return list;
+	}
+
+	// Kimegore 1: sasa, 2: muvekkil, 3: devlet
+	public ArrayList<Object> getAllObjFromStatus(int status, Integer kimegore) throws Exception {
+		ArrayList<Object> list = new ArrayList<Object>();
+		sql = "SELECT id, tahsilat_id, kasa_personel_id, onaylayan_id, sasa_reddiyat_tutar,"
+				+ " devlet_reddiyat_tutar, muvekkil_reddiyat_tutar, sasa_durum, devlet_durum, "
+				+ "  muvekkil_durum, toplam_tutar FROM tbl_reddiyat " + "where sasa_durum =" + status + ";";
+		if (kimegore != null) {
+			switch (kimegore) {
+			case 1:
+				// bisi yapmaya gerek yokyukarda set ettik
+				break;
+			case 2:
+				sql = "SELECT id, tahsilat_id, kasa_personel_id, onaylayan_id, sasa_reddiyat_tutar,"
+						+ " devlet_reddiyat_tutar, muvekkil_reddiyat_tutar, sasa_durum, devlet_durum, "
+						+ "  muvekkil_durum, toplam_tutar FROM tbl_reddiyat " + "where muvekkil_durum =" + status + ";";
+				break;
+			case 3:
+				sql = "SELECT id, tahsilat_id, kasa_personel_id, onaylayan_id, sasa_reddiyat_tutar,"
+						+ " devlet_reddiyat_tutar, muvekkil_reddiyat_tutar, sasa_durum, devlet_durum, "
+						+ "  muvekkil_durum, toplam_tutar FROM tbl_reddiyat " + "where devlet_durum =" + status + ";";
+				break;
+
+			default:
+				break;
+			}
+		}
+
+		newConnectDB();
+		stm = conn.createStatement();
+		rs = stm.executeQuery(sql);
+		while (rs.next()) {
+			Reddiyat reddiyat = new Reddiyat();
+			reddiyat.setId(rs.getInt("id"));
+			reddiyat.setTahsilatID(rs.getInt("tahsilat_id"));
+			reddiyat.setKasaPersonelID(rs.getInt("kasa_personel_id"));
+			reddiyat.setOnaylayanID(rs.getInt("onaylayan_id"));
+			reddiyat.setSasaReddiyatTutari(rs.getDouble("sasa_reddiyat_tutar"));
+			reddiyat.setDevletReddiyatTutari(rs.getDouble("devlet_reddiyat_tutar"));
+			reddiyat.setMuvekkilReddiyatTutari(rs.getDouble("muvekkil_reddiyat_tutar"));
+			reddiyat.setSasaDurum(rs.getInt("sasa_durum"));
+			reddiyat.setDevletDurum(rs.getInt("devlet_durum"));
+			reddiyat.setMuvekkilDurum(rs.getInt("muvekkil_durum"));
+			reddiyat.setToplamReddiyatTutari(rs.getDouble("toplam_tutar"));
+
+			list.add(reddiyat);
+		}
+		disconnectDB();
+
+		return list;
 	}
 
 }

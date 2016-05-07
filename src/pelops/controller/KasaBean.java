@@ -4,11 +4,17 @@ import java.util.ArrayList;
 import java.util.Date;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.servlet.http.HttpSession;
+
+import org.apache.commons.lang3.time.DateUtils;
+import org.primefaces.context.RequestContext;
+
 import pelops.dao.GelismisAramaDAO;
 import pelops.kasa.model.Tahsilat;
 import pelops.model.DetayliArama;
 import pelops.model.GenelTanimSablon;
 import pelops.model.Kasa;
+import pelops.util.Util;
 
 @SessionScoped
 @ManagedBean(name="kasaBean")
@@ -21,9 +27,22 @@ public class KasaBean {
 	private ArrayList<DetayliArama> detayliAramaListesi = new  ArrayList<DetayliArama>();
 	private ArrayList<DetayliArama> filterDetayliAramaListesi;
 	private Tahsilat bilgiTahsilat = new Tahsilat();
+	private Date baslangicTarihi, bitisTarihi;
 	
 	
 	
+	public Date getBaslangicTarihi() {
+		return baslangicTarihi;
+	}
+	public void setBaslangicTarihi(Date baslangicTarihi) {
+		this.baslangicTarihi = baslangicTarihi;
+	}
+	public Date getBitisTarihi() {
+		return bitisTarihi;
+	}
+	public void setBitisTarihi(Date bitisTarihi) {
+		this.bitisTarihi = bitisTarihi;
+	}
 	public Tahsilat getBilgiTahsilat() {
 		return bilgiTahsilat;
 	}
@@ -93,9 +112,33 @@ public class KasaBean {
 		GelismisAramaDAO dao = new GelismisAramaDAO();
 		detayliAramaListesi = dao.Listele("", "", "", "", "", "", 0, 0 , 0, tarih, tarih, tarih,tarih,tarih, tarih);
 		bilgiTahsilat = new Tahsilat();
+		HttpSession session = Util.getSession();
+		
+		bilgiTahsilat.setKasa_islemini_yapan(session.getAttribute("user").toString());
+		baslangicTarihi = new Date();
+	    Date tson = DateUtils.addMonths(new Date(), 1);
+		bitisTarihi = tson;
 	}
 	
+	public void icraDosyaSec(int id){
+		
+			
+		RequestContext.getCurrentInstance().execute("PF('dlgdetayliarama').hide()");
+		
+		bilgiTahsilat.setBorclu_adi(AktifBean.borcluAdi);
+		bilgiTahsilat.setIcra_dosya_no(AktifBean.icraDosyaNo);
+		bilgiTahsilat.setIcra_dosyasi_id(AktifBean.getIcraDosyaID());
+		bilgiTahsilat.setMuvekkil_adi(AktifBean.muvekkilAdi);
+		HttpSession session = Util.getSession();
+		
+		bilgiTahsilat.setTasilati_yapan(session.getAttribute("user").toString());
+	}
 	
+	public void dosyaal(int id){
+	
+		
+		
+	}
 	
 	 private static java.sql.Date convertUtilToSql(java.util.Date uDate) {
 		 

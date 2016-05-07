@@ -20,9 +20,9 @@
 					filteredValue="#{kasaBean.detayliAramaListesi}"
 					emptyMessage="Aradığınız Kritere Uygun Sonuç Bulunamamıştır."
 					var="hb"		
-					id="tbldetayliarama" style="width:700px "
+					id="tbldetayliarama" style="width:720px "
 					rowStyleClass="green"
-					rows="20"
+					rows="15"
 					paginator="true"
                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                     rowsPerPageTemplate="5,10,25,50,100,1000"
@@ -43,7 +43,9 @@
 		
 				<p:column headerText="Seç" width="42" >
 									
-                <p:commandButton value="Seç" type="Button"/>
+                <p:commandButton value="Seç" type="Button" 
+                action="#{kasaBean.icraDosyaSec(hb.id)}" actionListener="#{icradosyaislemleribean.GelismisListe(hb.id)}"  
+                update=":tahsilatyap:tahsilat, :tahsilatyap:frmhesapbilgisi:hesapbilgisi" />
 				
 			                      
 				</p:column>

@@ -991,6 +991,7 @@ public class PrintBean {
 				"Content-disposition",
 				"attachment; filename=" + "-" + "raporlar" + "_"
 						+ AktifBean.getIcraDosyaID() + ".pdf");
+	
 		ServletOutputStream servletOutputStream = httpServletResponse
 				.getOutputStream();
 

@@ -661,9 +661,10 @@ public class IcraDosyaIslemleriBean {
 	
 	public void GelismisListe(int id) throws Exception{
 		
-		String icradosyano = icraDosyaNo;
-		
+	
+
 		IcraDosyasiDAO icradosyasidao = new IcraDosyasiDAO();
+		String icradosyano = icradosyasidao.Listele(id).getIcraDosyaNo();
 		int icradosyaID = id;
 		icradosyasi.setId(id);
 		

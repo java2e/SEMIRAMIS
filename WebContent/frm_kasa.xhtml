@@ -80,8 +80,8 @@
 						<p:column rowspan="2">
 						
 							<p:panel header="KASA İŞLEMLERİ LİSTESİ" style="min-width:900px; min-height:700px; border-style: hidden !important;text-align:center;">
-							<p:outputLabel value="TARİH :"/> <p:calendar id="multi"  pages="3" />
-						
+							<p:outputLabel value="BAŞLANGIÇ TARİHİ :"/> <p:calendar id="multi"  pages="3" value="#{kasaBean.baslangicTarihi}"/>    
+							<p:outputLabel value="    BİTİŞ TARİHİ :"/> <p:calendar id="multi1"  pages="3" value="#{kasaBean.bitisTarihi}"/>
 						<p:tabView>
 						<p:tab title="Aktif Ödeme Sözleri">
 							

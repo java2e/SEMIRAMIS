@@ -55,8 +55,7 @@ public class TahsilatDAO extends DBConnection implements IDAO {
 		pstmt.setString(11, tahsilat.getGelisYeri());
 		pstmt.setInt(12, tahsilat.getOnaylayanID());
 		HttpSession session = Util.getSession();
-		User user = (User) session.getAttribute("user");
-		pstmt.setInt(13, user.getId());
+		pstmt.setInt(13,  Integer.valueOf(session.getAttribute("UserID").toString()));
 		pstmt.setString(14, tahsilat.getDosya_tipi());
 		pstmt.setString(15, tahsilat.getIcra_dosya_no());
 		pstmt.setString(16, tahsilat.getIcra_mudurlugu());
@@ -322,8 +321,8 @@ public class TahsilatDAO extends DBConnection implements IDAO {
 			pstmt.setString(11, tahsilat.getGelisYeri());
 			pstmt.setInt(12, tahsilat.getOnaylayanID());
 			HttpSession session = Util.getSession();
-			User user = (User) session.getAttribute("user");
-			pstmt.setInt(13, user.getId());
+			
+			pstmt.setInt(13,  Integer.valueOf(session.getAttribute("UserID").toString()));
 			pstmt.setString(14, tahsilat.getDosya_tipi());
 			pstmt.setString(15, tahsilat.getIcra_dosya_no());
 			pstmt.setString(16, tahsilat.getIcra_mudurlugu());

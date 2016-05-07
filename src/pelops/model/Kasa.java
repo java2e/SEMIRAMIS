@@ -14,6 +14,8 @@ public class Kasa {
 	private Date izlemeTarihi;
 	private String personelAdi;
 	private double izlemeFiyat;
+	
+	
 	public int getIzlemeID() {
 		return izlemeID;
 	}

@@ -928,6 +928,7 @@ public class IcraDosyaIslemleriBean {
 			hesapdao.Gucelle(hesaplistesi);
 		}
 	
+		AktifBean.hesaplistesi = hesaplistesi;
 	}
 	
 	public void plakaGetir() throws Exception{

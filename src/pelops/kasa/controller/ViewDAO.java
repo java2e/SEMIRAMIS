@@ -28,7 +28,7 @@ public class ViewDAO extends DBConnection {
 				+ "icra_dosyasi_id, ad_soyad, durum FROM vwkasa_izleme where 1=1";
 		java.sql.Date date1 = convertFromJAVADateToSQLDate(tarih1);
 		java.sql.Date date2 = convertFromJAVADateToSQLDate(tarih2);
-		if (tarih1.equals(new Date())) {
+		if (tarih1!=null && tarih2!=null) {
 			fullSQL += " and odeme_sozu_tarihi between '" + date1 + "' and '" + date2 + "'";
 		}
 
@@ -113,16 +113,16 @@ public class ViewDAO extends DBConnection {
 		String SQL = "SELECT id, ad_soyad, odeme_tarihleri, odeme_aylik_miktar, icra_dosyasi_id FROM vwkasa_odeme_plani where 1=1";
 		java.sql.Date date1 = convertFromJAVADateToSQLDate(tarih1);
 		java.sql.Date date2 = convertFromJAVADateToSQLDate(tarih2);
-		if (tarih1.equals(new Date())) {
+		if (tarih1 !=null && tarih2!=null) {
 			fullSQL += " and odeme_tarihleri between '" + date1 + "' and '" + date2 + "'";
 		}
+		
 
 		if (fullSQL == "") {
 			fullSQL = SQL + ";";
 		} else {
 			fullSQL = SQL + fullSQL + ";";
 		}
-
 		newConnectDB();
 		Statement stm = conn.createStatement();
 		ResultSet rs = stm.executeQuery(fullSQL);
@@ -295,7 +295,7 @@ public class ViewDAO extends DBConnection {
 			view.setMuvekkilDurum(rs.getInt("muvekkil_durum"));
 			view.setMuvekkilAdi(rs.getString("muvekkil_adi"));
 			view.setBorcluAdi(rs.getString("borclu_adi"));
-			view.setIcraDosyaId(rs.getInt("icra_dosya_id"));
+			view.setIcraDosyaId(rs.getInt("icra_dosyasi_id"));
 			view.setIcraDosyaNo(rs.getString("icra_dosya_no"));
 			view.setAdSoyad(rs.getString("ad_soyad"));
 			view.setToplamTutar(rs.getDouble("toplam_tutar"));

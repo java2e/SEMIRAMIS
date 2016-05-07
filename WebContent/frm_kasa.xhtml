@@ -86,8 +86,8 @@
 						<p:tab title="Aktif Ödeme Sözleri">
 							
 							<p:dataTable 	
-					value="#{kasaBean.kasaListesi}"
-					filteredValue="#{kasaBean.kasaListesi}"
+					value="#{kasaBean.tahsilatYapilacakListe}"
+					filteredValue="#{kasaBean.tahsilatYapilacakListe}"
 					emptyMessage="Aradığınız Kritere Uygun Sonuç Bulunamamıştır."
 					var="hb"		
 					id="tbldetayliarama" style="width:100% "
@@ -108,19 +108,19 @@
 				</p:column>
 
 				<p:column headerText="İcra Dosya No" width="10%">
-					<h:outputText value="#{hb.icraDosyaNo}" />
+					<h:outputText value="#{hb.borcluAdi}" />
 				</p:column>
 
 				<p:column headerText="Tarih" width="15%" >
-				<h:outputText value="#{hb.izlemeTarihi}" />
+				<h:outputText value="#{hb.tarih}" />
 				</p:column>
 
 				<p:column headerText="Personel" width="25%"  >
-					<h:outputText value="#{hb.personelAdi}" />
+					<h:outputText value="#{hb.borcluAdi}" />
 				</p:column>
 				
 				<p:column headerText="Ödenecek Tutar" width="10%" >
-				<h:outputText value="#{hb.izlemeFiyat}" />
+				<h:outputText value="#{hb.odemeMiktari}" />
 				</p:column>
 
 				
@@ -161,7 +161,7 @@
 						<p:column>
 							<p:panel header="REDDİYAT BEKLEYENLER" style="min-width:400px; min-height:350px; text-align:center;">
 							
-						<p:dataTable value="#{kasaBean.kasaListesi}" var="kasa"
+						<p:dataTable value="#{kasaBean.reddiyatListesi}" var="kasa"
 						id="tbldetayliarama" style="width:100% "
 					rowStyleClass="green"
 					rows="5"
@@ -179,11 +179,11 @@
 							</p:column>
 						
 							<p:column headerText="Reddiyat Türü" width="10%">
-							<h:outputText value="#{kasa.icraDosyaNo}" />
+							<h:outputText value="#{kasa.adSoyad}" />
 							</p:column>
 						
 							<p:column headerText="Tarih" width="10%">
-							<h:outputText value="#{kasa.izlemeTarihi}" />
+							<h:outputText value="#{kasa.muvekkilReddiyatTutar}" />
 							</p:column>
 							
 						

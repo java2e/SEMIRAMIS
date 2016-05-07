@@ -3,6 +3,8 @@ package pelops.controller;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
+import pelops.model.Hesap;
+
 @ManagedBean(name="aktifbean")
 @SessionScoped
 public class AktifBean {
@@ -11,8 +13,15 @@ public class AktifBean {
 	static String icraDosyaNo="";
 	static String muvekkilAdi ="";
     static  String  borcluAdi ="";
-
+    public static Hesap hesaplistesi = new Hesap();
     
+    
+	public static Hesap getHesaplistesi() {
+		return hesaplistesi;
+	}
+	public static void setHesaplistesi(Hesap hesaplistesi) {
+		AktifBean.hesaplistesi = hesaplistesi;
+	}
 	public static int getHesapID() {
 		return hesapID;
 	}

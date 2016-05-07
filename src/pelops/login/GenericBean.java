@@ -99,6 +99,7 @@ public class GenericBean implements Serializable
 					session.setAttribute("username", user.getKullaniciAdi());
 					kullaniciAdi = user.getAdSoyad();
 					session.setAttribute("user", user.getAdSoyad());
+					session.setAttribute("UserID", user.getId());
 					
 					context.getExternalContext().redirect("/SEMIRAMIS/frm_kasa.jsf");
 					context.responseComplete();
@@ -107,6 +108,8 @@ public class GenericBean implements Serializable
 					session.setAttribute("username", user.getKullaniciAdi());
 					kullaniciAdi = user.getAdSoyad();
 					session.setAttribute("user", user.getAdSoyad());
+					session.setAttribute("UserID", user.getId());
+					
 					
 					context.getExternalContext().redirect("/SEMIRAMIS/index.jsf");
 					context.responseComplete();

@@ -9,12 +9,13 @@ public class Reddiyat {
 	private int kasaPersonelID;
 	private int onaylayanID;
 	private double sasaReddiyatTutari;
-	private int sasaDurum;//
+	private Integer sasaDurum;//
 	private double devletReddiyatTutari;
-	private int devletDurum;
+	private Integer devletDurum;
 	private double muvekkilReddiyatTutari;
-	private int muvekkilDurum;// 0: kaydedildi fakat müvekkile aktarılmadı, 1:
-								// müvekkile ödendi,
+	private Integer muvekkilDurum;// 0: kaydedildi fakat müvekkile aktarılmadı,
+									// 1:
+									// müvekkile ödendi,
 	private double toplamReddiyatTutari;
 	private int icraDosyaID;
 
@@ -26,27 +27,27 @@ public class Reddiyat {
 		this.icraDosyaID = icraDosyaID;
 	}
 
-	public int getSasaDurum() {
+	public Integer getSasaDurum() {
 		return sasaDurum;
 	}
 
-	public void setSasaDurum(int sasaDurum) {
+	public void setSasaDurum(Integer sasaDurum) {
 		this.sasaDurum = sasaDurum;
 	}
 
-	public int getDevletDurum() {
+	public Integer getDevletDurum() {
 		return devletDurum;
 	}
 
-	public void setDevletDurum(int devletDurum) {
+	public void setDevletDurum(Integer devletDurum) {
 		this.devletDurum = devletDurum;
 	}
 
-	public int getMuvekkilDurum() {
+	public Integer getMuvekkilDurum() {
 		return muvekkilDurum;
 	}
 
-	public void setMuvekkilDurum(int muvekkilDurum) {
+	public void setMuvekkilDurum(Integer muvekkilDurum) {
 		this.muvekkilDurum = muvekkilDurum;
 	}
 

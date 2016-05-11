@@ -58,6 +58,7 @@
 			<p:panelGrid style=" border-style: hidden !important;" >
 				<p:row>
 						<p:column>
+						
 							<p:panel header="KASA İŞLEMLERİ" style="min-width:300px; min-height:350px;  text-align:center">
 						
 						<p:commandButton style="width:250px;height:95px; top:25px" value="TAHSİLAT YAP" onclick="PF('frmtahsilatyap').show();"/>
@@ -69,19 +70,17 @@
 							
 						</p:column>
 						<p:column>
-							<p:panel header="BEKLEMEDEKİ İŞLEMLER" style="width:450px; height:350px; text-align:center;">
+							<p:panel header="KASA RAPORLARI" style="width:500px; height:350px; text-align:center;">
 						
-						<p:commandButton style="width:150px;height:95px; top:25px" value="HİTAM" onclick="PF('hitambekleme').show();"/>
-						<p:commandButton style="width:150px;height:95px; top:25px" value="REDDİYAT" onclick="PF('reddiyatbekleme').show();"/>
-						<p:commandButton style="width:150px;height:95px; top:65px" value="TAHSİLAT MAKBUZU" onclick="PF('tahsilatmakbuzbekleme').show();"/>
-						<p:commandButton style="width:150px;height:95px; top:74px" value="İNDİRİM" onclick="PF('indirimbekleme').show();"/>
-							</p:panel>
+						</p:panel>
 						</p:column>
 						<p:column rowspan="2">
 						
-							<p:panel header="KASA İŞLEMLERİ LİSTESİ" style="min-width:900px; min-height:700px; border-style: hidden !important;text-align:center;">
+							<p:panel header="KASA İŞLEMLERİ LİSTESİ" style="min-width:850px; min-height:700px; border-style: hidden !important;text-align:center;">
 							<p:outputLabel value="BAŞLANGIÇ TARİHİ :"/> <p:calendar id="multi"  pages="3" value="#{kasaBean.baslangicTarihi}"/>    
 							<p:outputLabel value="    BİTİŞ TARİHİ :"/> <p:calendar id="multi1"  pages="3" value="#{kasaBean.bitisTarihi}"/>
+					
+					
 						<p:tabView>
 						<p:tab title="Aktif Ödeme Sözleri">
 							
@@ -132,6 +131,10 @@
 							
 						</p:tab>
 						<p:tab title="Tahsilatı Yapılmış">
+					
+						
+						
+						
 						
 						
 						</p:tab>
@@ -143,7 +146,7 @@
 						</p:tab>
 						
 						</p:tabView>
-							
+				
 							
 							</p:panel>
 						</p:column>
@@ -151,46 +154,65 @@
 				</p:row>
 				<p:row>
 						<p:column>
-						 	<p:panel header="ONAYDAN GELENLER" style="min-width:300px; min-height:350px; text-align:center;">
-							<p:commandButton style="width:120px;height:95px; top:25px" value="HİTAM" onclick="PF('hitamonaylanan').show();"/>
-						<p:commandButton style="width:120px;height:95px; top:25px" value="REDDİYAT" onclick="PF('reddiyatonaylanan').show();"/>
-						<p:commandButton style="width:120px;height:95px; top:65px" value="TAHSİLAT MAKBUZU" onclick="PF('tahsilatmakbuzonaylanan').show();"/>
-						<p:commandButton style="width:120px;height:95px; top:74px" value="İNDİRİM" onclick="PF('indirimonaylanan').show();"/>
+						 	<p:panel header="BEKLEYEN - ONAYDAN GELENLER" style="min-width:300px; min-height:350px; text-align:center;">
+						
+						<p:commandButton style="width:135px;height:65px; top:25px" value="BEKLEYEN - HİTAM" onclick="PF('hitambekleme').show();"/>
+						<p:commandButton style="width:135px;height:65px; top:25px" value="BEKLEYEN - REDDİYAT" onclick="PF('reddiyatbekleme').show();"/>
+						<p:commandButton style="width:135px;height:65px; top:17px" value="BEKLEYEN - TAHSİLAT MAKBUZU" onclick="PF('tahsilatmakbuzbekleme').show();"/>
+						<p:commandButton style="width:135px;height:65px; top:25px" value="BEKLEYEN - İNDİRİM" onclick="PF('indirimbekleme').show();"/>
+													
+						<p:commandButton style="width:135px;height:65px; top:25px" value="ONAYLANMIŞ - HİTAM" onclick="PF('hitamonaylanan').show();"/>
+						<p:commandButton style="width:135px;height:65px; top:25px" value="ONAYLANMIŞ - REDDİYAT" onclick="PF('reddiyatonaylanan').show();"/>
+						<p:commandButton style="width:135px;height:65px; top:17px" value="ONAYLANMIŞ - TAHSİLAT MAKBUZU" onclick="PF('tahsilatmakbuzonaylanan').show();"/>
+						<p:commandButton style="width:135px;height:65px; top:25px" value="ONAYLANMIŞ - İNDİRİM" onclick="PF('indirimonaylanan').show();"/>
 							</p:panel>
 						</p:column>
 						<p:column>
-							<p:panel header="REDDİYAT BEKLEYENLER" style="min-width:400px; min-height:350px; text-align:center;">
-							
-						<p:dataTable value="#{kasaBean.reddiyatListesi}" var="kasa"
-						id="tbldetayliarama" style="width:100% "
-					rowStyleClass="green"
-					rows="5"
-					paginator="true"
-                    paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                    rowsPerPageTemplate="5,10,25,50,100,1000"
-						>
-							
-							<p:column headerText="Seç" width="10%" >
-					 			 <p:commandButton value="Seç" type="Button" />
-							</p:column>
 						
-							<p:column headerText="İcra Dosya No" width="10%">
-							<h:outputText value="#{kasa.icraDosyaNo}" />
-							</p:column>
-						
-							<p:column headerText="Reddiyat Türü" width="10%">
-							<h:outputText value="#{kasa.adSoyad}" />
-							</p:column>
-						
-							<p:column headerText="Tarih" width="10%">
-							<h:outputText value="#{kasa.muvekkilReddiyatTutar}" />
-							</p:column>
-							
-						
-						</p:dataTable>
-							
-							
-							</p:panel>
+<!-- 							<p:panel header="REDDİYAT BEKLEYENLER" style="width:500px; height:350px; text-align:center;"> -->
+									
+						<p:carousel value="#{kasaBean.reddiyatListesi}" headerText="REDDİYAT LİSTESİ" var="kasa" 
+						itemStyle="text-align:left" responsive="false" rows="2" style="width:480px; top:2px; height:345px">
+        <p:panelGrid columns="2" style="width:248px; heigth:300px; margin:10px 0px" columnClasses="label,value" 
+        layout="grid" styleClass="ui-panelgrid-blank">
+            <f:facet name="header">
+                 
+					  <p:commandButton value="Seç" type="Button" />
+					
+            </f:facet>
+ 			
+ 			
+ 			  <p:graphicImage value="img/paracikisi.png" height="85" width="225" />
+ 			<h:outputLabel value=""/>
+ 			
+             
+            <h:outputLabel value=""/>
+            <h:outputLabel value=""/>
+ 				
+            <h:outputText value="İcra Dosya No" />
+            <h:outputText value="#{kasa.icraDosyaNo}" />
+ 
+            <h:outputText value="Ad Soyad" />
+            <h:outputText value="#{kasa.adSoyad}" />
+ 
+            <h:outputText value="Reddiyat Türü" />
+            <h:outputText value="#{kasa.adSoyad}" style="color:red"/>
+ 
+            <h:outputText value="Tutar" />
+            <h:outputText value="#{kasa.muvekkilReddiyatTutar}" style="color:green"/>
+            
+            <h:outputText value="Tarih" />
+            <h:outputText value="#{kasa.muvekkilReddiyatTutar}" style="color:green"/>
+            
+            
+        </p:panelGrid>
+ 
+        <f:facet name="footer">
+                Reddiyat işlemi için bekleyen kayıtların listesidir.
+        </f:facet>
+    </p:carousel>
+		
+<!-- 							</p:panel> -->
 						</p:column>
 						
 				

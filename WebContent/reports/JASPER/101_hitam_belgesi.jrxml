@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 5.6.1.final using JasperReports Library version 5.6.1  -->
+<!-- 2016-05-12T14:32:03 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="101_hitam_belgesi" pageWidth="600" pageHeight="430" columnWidth="600" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" whenResourceMissingType="Empty" uuid="9dffaa2a-a9b2-433a-b439-0db4dc9739c6">
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="alacakli" class="java.lang.String"/>
+	<field name="borclu" class="java.lang.String"/>
+	<field name="icraMudurlugu" class="java.lang.String"/>
+	<field name="dosyaNo" class="java.lang.String"/>
+	<field name="borcunSebebi" class="java.lang.String"/>
+	<field name="siraNo" class="java.lang.String"/>
+	<field name="tarih" class="java.lang.String"/>
+	<field name="dosyaGorevlisi" class="java.lang.String"/>
+	<field name="dosyaAvukati" class="java.lang.String"/>
+	<background>
+		<band height="426" splitType="Stretch">
+			<property name="local_mesure_unitheight" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<image hAlign="Center" vAlign="Middle">
+				<reportElement x="0" y="1" width="600" height="420" uuid="b0a9edd2-48df-460f-9951-a4e66ecf6557"/>
+				<imageExpression><![CDATA["hitam.png"]]></imageExpression>
+			</image>
+		</band>
+	</background>
+	<detail>
+		<band height="430" splitType="Stretch">
+			<property name="local_mesure_unitheight" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<textField>
+				<reportElement x="120" y="143" width="430" height="22" uuid="2131ef01-a901-4d0b-b42d-9616a9e86777">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Times New Roman" pdfEncoding="Cp1254"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{alacakli}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="436" y="102" width="110" height="20" uuid="9032c2c5-53bb-4f09-9ed5-0d901e75cc00"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{siraNo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="436" y="122" width="110" height="18" uuid="b69a2181-dc59-46d3-ad6a-d10a07601e80"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tarih}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="120" y="165" width="430" height="22" uuid="09ed0b85-70a2-471c-99fe-a922bac985aa">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" pdfEncoding="Cp1254"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{borclu}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="120" y="187" width="430" height="22" uuid="bc5c2120-4025-4eb2-adce-a44cf6ecff7b"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" pdfEncoding="Cp1254"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{icraMudurlugu}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="120" y="212" width="430" height="20" uuid="c5c0322c-1284-4219-ace6-7cdb3f405a8b">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" pdfEncoding="Cp1254"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dosyaNo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="120" y="232" width="430" height="22" uuid="0fa332bc-b257-41ad-a174-8dd32640ae81">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" pdfEncoding="Cp1254"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{borcunSebebi}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="56" y="375" width="170" height="30" uuid="e4638f85-d717-466c-b8b9-68a14a30a02a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" pdfEncoding="Cp1254"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dosyaGorevlisi}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="420" y="377" width="160" height="30" uuid="5d7cdd62-3d0b-4047-91be-371a2dd6105e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{dosyaAvukati}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

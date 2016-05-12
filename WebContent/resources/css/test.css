@@ -1,0 +1,30 @@
+.ui-icon.fa {
+     text-indent: 0px;
+     background-image: none;
+     moz-border-radius: 0px; 
+     -webkit-border-radius: 0px; 
+     border-radius: 0px ;
+	 width: 22px !important;
+	 height: 18px !important;
+}
+
+
+
+.ui-menu .ui-menu-list .ui-menuitem { 
+	border:solid 1px;
+	margin-right:5px;
+}
+
+.ui-menu .ui-menu-parent .ui-menu-child {
+    width:250px;
+}
+
+.ui-menubar .ui-menu-child .ui-menuitem-link {
+	width:96%;
+}
+
+#formMenu\:dil ul.ui-widget-content.ui-menu-list.ui-corner-all.ui-helper-clearfix.ui-menu-child.ui-shadow
+{
+	
+	width:96% !important;
+}

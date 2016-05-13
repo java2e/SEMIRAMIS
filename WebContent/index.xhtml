@@ -25,6 +25,13 @@ li.ui-menuitem.ui-menubar-options.ui-widget.ui-corner-all {
 	border-style: none !important;
 	margin: 6px 6px 6px 6px;
 }
+
+
+  #img-circle {
+      border-radius: 50%;
+  }
+  
+  
 </style>
 
 </h:head>
@@ -43,22 +50,42 @@ li.ui-menuitem.ui-menubar-options.ui-widget.ui-corner-all {
 			<div id="message" style="background-color: transparent !important">
 
 
-				<div style="width: 50px; height: 70px; float: right;">
-					<p:commandLink>
-						<img src="img/cikis.png" width="50" height="40"
-							style="margin-top: 10px;" />
-					</p:commandLink>
-				</div>
 
 
-				<div style="margin-left: 20px; float: right;">
-					<h3>Yetkili Kullanıcı</h3>
-					<h4>#{genericBean.kullaniciAdi}</h4>
-				</div>
+<div style="width: 250px; height: 70px;float:right;">
 
-				<div style="width: 70px; height: 70px; float: right;">
-					<img src="img/SasaUser.png" width="70" height="70" />
-				</div>
+
+<p:panelGrid columns="2">
+
+ <p:outputLabel value="Kullanıcı Adı :"/>
+ <p:outputLabel value="Mehmet Demircioğlu"/>
+
+ <p:outputLabel value="Kullanıcı Rolü :"/>
+ <p:outputLabel value="ADMİN"/>
+
+ <p:outputLabel value="Son Giriş :"/>
+ <p:outputLabel value="12/12/2016 14:55"/>
+
+
+
+</p:panelGrid>
+
+
+
+
+</div>
+
+
+<div style="width:80px;height:70px;float:right;">
+<center>
+  <img src="img/SasaUser.png" width="65" height="65" id="img-circle" />
+</center>
+</div>
+
+			
+			
+			
+			
 
 
 			</div>

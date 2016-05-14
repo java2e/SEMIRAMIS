@@ -10,6 +10,7 @@ import pelops.dao.BasvuruHarciDAO;
 import pelops.dao.VekaletHarciDAO;
 import pelops.dao.VekaletSinirlariDAO;
 import pelops.kasa.model.Hitam;
+import pelops.kasa.model.PrintModel;
 import pelops.kasa.model.Reddiyat;
 import pelops.kasa.model.ReddiyatView;
 import pelops.kasa.model.Tahsilat;
@@ -257,6 +258,11 @@ public class KasaCtrl {
 		
 		return reddiyat;
 	}
+	
+//	public PrintModel generatePrintModelFromTahsilat(TahsilatView view){
+//		PrintModel model = new PrintModel();
+//		
+//	}
 
 
 }

@@ -130,7 +130,7 @@
 					<textField>
 						<reportElement x="13" y="342" width="303" height="20" uuid="2d0fec2a-3862-45c3-a4e0-2dee44f7bfa6"/>
 						<textElement>
-							<font size="8" isBold="true"/>
+							<font size="8" isBold="true" pdfEncoding="Cp1254"/>
 						</textElement>
 						<textFieldExpression><![CDATA[$F{ek}]]></textFieldExpression>
 					</textField>

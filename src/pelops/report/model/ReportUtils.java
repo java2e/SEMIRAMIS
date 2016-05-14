@@ -99,7 +99,11 @@ public class ReportUtils {
 	}
 
 	public static String getAkbankHesapTitle(String str) {
-		return extractNumber(str) + " nolu  kredi kartı için";
+		String a = extractNumber(str);
+		if (!a.equals("")) {
+			a += " nolu  kredi kartı için";
+		}
+		return a;
 	}
 
 	public static void main(String[] a) {

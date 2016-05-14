@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="takip_talebi" language="groovy" pageWidth="555" pageHeight="802" columnWidth="515" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7a2929dd-6004-45a2-9a3b-a3bb412ffb43">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="440"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value="dGJsX2hlc2FwICwxNSwxNSxiMDJhNDVmNS0xZDY5LTQwNWYtYTk2Ni0zOGM5ODg1NzI0ZmU7"/>
 	<parameter name="image" class="Object" isForPrompting="false">
 		<parameterDescription><![CDATA[The letterhead image]]></parameterDescription>
@@ -202,7 +202,7 @@
 					<textField>
 						<reportElement x="28" y="478" width="231" height="20" uuid="2d0fec2a-3862-45c3-a4e0-2dee44f7bfa6"/>
 						<textElement>
-							<font size="8" isBold="true"/>
+							<font size="8" isBold="true" pdfEncoding="Cp1254"/>
 						</textElement>
 						<textFieldExpression><![CDATA[$F{ek}]]></textFieldExpression>
 					</textField>

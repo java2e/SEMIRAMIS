@@ -16,6 +16,59 @@ public class Reddiyat {
 	private Integer muvekkilDurum;// 0: kaydedildi fakat müvekkile aktarılmadı,
 									// 1:
 									// müvekkile ödendi,
+	private String muvekkilAdi;
+
+	private String borcluAdi;
+
+	private String icraDosyaNo;
+
+	private double aktifTutar;
+	
+	private String reddiyatTuru;
+	
+	
+	
+	
+	public String getReddiyatTuru() {
+		return reddiyatTuru;
+	}
+
+	public void setReddiyatTuru(String reddiyatTuru) {
+		this.reddiyatTuru = reddiyatTuru;
+	}
+
+	public double getAktifTutar() {
+		return aktifTutar;
+	}
+
+	public void setAktifTutar(double aktifTutar) {
+		this.aktifTutar = aktifTutar;
+	}
+
+	public String getIcraDosyaNo() {
+		return icraDosyaNo;
+	}
+
+	public void setIcraDosyaNo(String icraDosyaNo) {
+		this.icraDosyaNo = icraDosyaNo;
+	}
+
+	public String getMuvekkilAdi() {
+		return muvekkilAdi;
+	}
+
+	public void setMuvekkilAdi(String muvekkilAdi) {
+		this.muvekkilAdi = muvekkilAdi;
+	}
+
+	public String getBorcluAdi() {
+		return borcluAdi;
+	}
+
+	public void setBorcluAdi(String borcluAdi) {
+		this.borcluAdi = borcluAdi;
+	}
+
 	private double toplamReddiyatTutari;
 	private int icraDosyaID;
 

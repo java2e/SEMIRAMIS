@@ -51,10 +51,10 @@
 
 
 <div id="wrapper">
+<h:form id="kasaForm">
+	<div>
 
-	<div id="content">
-
-		<p:panel id="OrtaSayfa" style=" border-style: hidden !important;">
+		<p:panel style=" border-style: hidden !important;">
 			<p:panelGrid style=" border-style: hidden !important;" >
 				<p:row>
 						<p:column>
@@ -63,7 +63,7 @@
 						
 						<p:commandButton style="width:250px;height:95px; top:25px" value="TAHSİLAT YAP" onclick="PF('frmtahsilatyap').show();"/>
 						
-						<p:commandButton style="width:250px;height:95px; top:65px" value="REDDİYAT YAP"/>
+						<p:commandButton style="width:250px;height:95px; top:65px" value="REDDİYAT YAP" onclick="PF('frmreddiyatyap').show();"/>
 						
 					 
 							</p:panel>
@@ -71,14 +71,43 @@
 						</p:column>
 						<p:column>
 							<p:panel header="KASA RAPORLARI" style="width:500px; height:350px; text-align:center;">
-						
+						<p:panelGrid columns="2">
+									<p:panel style=" border-style: hidden !important;width:260px" header="AYLIK RAPOR">
+									<p:panelGrid  style=" border-style: hidden !important; text-align:center; height:100%" columns="1">
+									<p:outputPanel style="color:red">2016 - MAYIS</p:outputPanel>
+									<p:panelMenu>
+										<p:submenu label="HSBC     : 65.000 TL (%88)" style="color:red;"><p:menuitem>1.</p:menuitem><p:menuitem>2.</p:menuitem> </p:submenu>
+										<p:submenu label="AKBANK   : 15.000 TL (%65)" style="color:red"><p:menuitem>1.</p:menuitem><p:menuitem>2.</p:menuitem> </p:submenu>
+										<p:submenu label="GARANTİ  : 5.000 TL (%92)" style="color:red"><p:menuitem>1.</p:menuitem><p:menuitem>2.</p:menuitem> </p:submenu>
+										<p:submenu label="DİĞER    : 35.000 TL (%99.9)" style="color:red"><p:menuitem>1.</p:menuitem><p:menuitem>2.</p:menuitem> </p:submenu>
+									
+									</p:panelMenu>
+									
+									</p:panelGrid>
+									</p:panel>
+									
+									<p:panel style=" border-style: hidden !important;"  header="GÜNLÜK RAPOR"> 
+									<p:panelGrid  style=" border-style: hidden !important; text-align:center; height:100%" columns="1">
+									<p:outputLabel style="color:red">14 Mayıs 2016 Cumartesi</p:outputLabel>
+									<p:outputLabel>HSBC A.Ş.      : 3.500 TL  (%45)</p:outputLabel>
+									<p:outputLabel>AKBANK  A.Ş.   : 500 TL (%12)</p:outputLabel>
+									<p:outputLabel>GARANTİ A.Ş.   : 1.500 TL (%50)</p:outputLabel>
+									<p:outputLabel>DİĞER A.Ş.     : 3.300 TL (%66)</p:outputLabel>
+									
+									</p:panelGrid>
+									</p:panel>
+						</p:panelGrid>
 						</p:panel>
 						</p:column>
 						<p:column rowspan="2">
 						
 							<p:panel header="KASA İŞLEMLERİ LİSTESİ" style="min-width:850px; min-height:700px; border-style: hidden !important;text-align:center;">
-							<p:outputLabel value="BAŞLANGIÇ TARİHİ :"/> <p:calendar id="multi"  pages="3" value="#{kasaBean.baslangicTarihi}"/>    
-							<p:outputLabel value="    BİTİŞ TARİHİ :"/> <p:calendar id="multi1"  pages="3" value="#{kasaBean.bitisTarihi}"/>
+							<p:outputLabel value="BAŞLANGIÇ TARİHİ :"/> <p:calendar id="multi"  pages="3" value="#{kasaBean.baslangicTarihi}" >
+																  <p:ajax event="dateSelect" update=":kasaForm"/>
+																		</p:calendar>    
+							<p:outputLabel value="    BİTİŞ TARİHİ :"/> <p:calendar id="multi1"  pages="3" value="#{kasaBean.bitisTarihi}" >
+																			 <p:ajax event="dateSelect" update=":kasaForm"/>
+																			</p:calendar>
 					
 					
 						<p:tabView>
@@ -89,7 +118,7 @@
 					filteredValue="#{kasaBean.tahsilatYapilacakListe}"
 					emptyMessage="Aradığınız Kritere Uygun Sonuç Bulunamamıştır."
 					var="hb"		
-					id="tbldetayliarama" style="width:100% "
+					id="tblaktifodeme" style="width:100% "
 					rowStyleClass="green"
 					rows="15"
 					paginator="true"
@@ -99,7 +128,10 @@
 					>
 				
 					<p:column headerText="Seç" width="10%" >
-					  <p:commandButton value="Seç" type="Button" />
+					  <p:commandButton value="Seç" type="Button" action="#{icradosyaislemleribean.GelismisListe(hb.icraDosyaID)}"
+						update=":tahsilatyap"
+						actionListener="#{kasaBean.TahsilatAktar(hb.id)}"/>
+					  
 					</p:column>
 				
 				<p:column headerText="Borçlu Adı" width="30%" >
@@ -172,12 +204,12 @@
 <!-- 							<p:panel header="REDDİYAT BEKLEYENLER" style="width:500px; height:350px; text-align:center;"> -->
 									
 						<p:carousel value="#{kasaBean.reddiyatListesi}" headerText="REDDİYAT LİSTESİ" var="kasa" 
-						itemStyle="text-align:left" responsive="false" rows="2" style="width:480px; top:2px; height:345px">
+						itemStyle="text-align:left" responsive="false"  numVisible="2" style="width:480px; top:2px; height:345px">
         <p:panelGrid columns="2" style="width:248px; heigth:300px; margin:10px 0px" columnClasses="label,value" 
         layout="grid" styleClass="ui-panelgrid-blank">
             <f:facet name="header">
                  
-					  <p:commandButton value="Seç" type="Button" />
+					  <p:commandButton value="Seç" type="Button" action="#{kasaBean.ReddiyatAktar(kasa.id)}" update=":reddiyatyap"/>
 					
             </f:facet>
  			
@@ -223,7 +255,7 @@
 </div>
 
 
-
+</h:form>
 			
 <div id="cleared"></div>
 </div>
@@ -235,7 +267,14 @@
 				<ui:include src="frm_tahsilat_paneli.xhtml" />
 			</p:dialog>
 		</h:form>
-		
+	
+		<h:form id="reddiyatyap">
+			<p:dialog header="REDDİYAT İŞLEMİ KAYIT PANELİ" widgetVar="frmreddiyatyap"
+				minHeight="340" height="%100" width="%100">
+				<ui:include src="frm_reddiyat_paneli.xhtml" />
+			</p:dialog>
+		</h:form>
+	
 	<h:form id="tahsilatmakbuzbekle">
 			<p:dialog header="TAHSİLAT MAKBUZU BEKLEME" widgetVar="tahsilatmakbuzbekleme"
 				minHeight="340" >

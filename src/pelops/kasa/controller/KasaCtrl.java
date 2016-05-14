@@ -11,6 +11,7 @@ import pelops.dao.VekaletHarciDAO;
 import pelops.dao.VekaletSinirlariDAO;
 import pelops.kasa.model.Hitam;
 import pelops.kasa.model.Reddiyat;
+import pelops.kasa.model.ReddiyatView;
 import pelops.kasa.model.Tahsilat;
 import pelops.kasa.model.TahsilatView;
 import pelops.kasa.model.TahsilatViewModel;
@@ -76,6 +77,13 @@ public class KasaCtrl {
 		if (object instanceof Tahsilat) {
 			kaydetTahsilat((Tahsilat) object, hitam, reddiyat);
 		} else if (object instanceof Hitam) {
+			hitamDAO.insertObjToDB(object);
+		} else if (object instanceof Reddiyat) {
+			reddiyatDAO.insertObjToDB(object);
+		}
+	}
+	public void kaydet(Object object) throws Exception {
+		 if (object instanceof Hitam) {
 			hitamDAO.insertObjToDB(object);
 		} else if (object instanceof Reddiyat) {
 			reddiyatDAO.insertObjToDB(object);
@@ -224,6 +232,28 @@ public class KasaCtrl {
 		default:
 			break;
 		}
+		
+		return reddiyat;
+	}
+	
+	public Reddiyat createReddiyatFromReddiyatView(ReddiyatView view){
+		
+		Reddiyat reddiyat = new Reddiyat();
+		
+		reddiyat.setId(view.getId());
+		reddiyat.setIcraDosyaID(view.getIcraDosyaId());
+		reddiyat.setBorcluAdi(view.getBorcluAdi());
+		reddiyat.setDevletDurum(view.getDevletDurum());
+		reddiyat.setDevletReddiyatTutari(view.getDevletReddiyatTuttar());
+		reddiyat.setKasaPersonelID(getPersonelID());
+		reddiyat.setMuvekkilAdi(view.getMuvekkilAdi());
+		reddiyat.setMuvekkilDurum(view.getMuvekkilDurum());
+		reddiyat.setMuvekkilReddiyatTutari(view.getMuvekkilReddiyatTutar());
+		reddiyat.setSasaDurum(view.getSasaDurum());
+		reddiyat.setSasaReddiyatTutari(view.getSasaReddiyatTutar());
+		reddiyat.setTahsilatID(view.getTahsilatId());
+		reddiyat.setToplamReddiyatTutari(view.getToplamTutar());
+		reddiyat.setIcraDosyaNo(view.getIcraDosyaNo());
 		
 		return reddiyat;
 	}

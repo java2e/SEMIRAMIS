@@ -37,6 +37,19 @@ public class KasaBean {
 	private ArrayList<TahsilatViewModel> tahsilatYapilacakListe = new ArrayList<TahsilatViewModel>();
 	private ArrayList<ReddiyatView> reddiyatListesi = new ArrayList<>();
 	private KasaCtrl controller = new KasaCtrl();
+	private Reddiyat reddiyatBilgisi = new Reddiyat();
+	
+	
+	
+	
+
+	public Reddiyat getReddiyatBilgisi() {
+		return reddiyatBilgisi;
+	}
+
+	public void setReddiyatBilgisi(Reddiyat reddiyatBilgisi) {
+		this.reddiyatBilgisi = reddiyatBilgisi;
+	}
 
 	public ArrayList<ReddiyatView> getReddiyatListesi() {
 		return reddiyatListesi;
@@ -47,6 +60,8 @@ public class KasaBean {
 	}
 
 	public ArrayList<TahsilatViewModel> getTahsilatYapilacakListe() throws Exception {
+	
+		
 		return controller.getListeFromViewsForTahsilatIslemi(baslangicTarihi, bitisTarihi);
 	}
 
@@ -173,7 +188,39 @@ public class KasaBean {
 		reddiyatListesi.addAll(controller.getListefromView(0, 3, 3));
 
 	}
+	
+	
+	public void TahsilatAktar(int id) throws Exception{
+	
+	
+	bilgiTahsilat.setBorclu_adi(AktifBean.getBorcluAdi());
+	bilgiTahsilat.setIcra_dosya_no(AktifBean.getIcraDosyaNo());
+	bilgiTahsilat.setIcra_dosyasi_id(AktifBean.getIcraDosyaID());
+	bilgiTahsilat.setMuvekkil_adi(AktifBean.getMuvekkilAdi());
+	bilgiTahsilat.setTahsilat_miktari(this.getTahsilatYapilacakListe().get(returnID(id)).getOdemeMiktari());
+	HttpSession session = Util.getSession();
 
+	bilgiTahsilat.setTasilati_yapan(session.getAttribute("user").toString());
+	RequestContext.getCurrentInstance().execute("PF('frmtahsilatyap').show();");
+	
+	
+	}
+	
+	public int returnID(int id) throws Exception{
+		int rID=0;
+		System.out.println(this.getTahsilatYapilacakListe().size());
+		for (int i = 0; i < this.getTahsilatYapilacakListe().size(); i++) {
+			if(this.getTahsilatYapilacakListe().get(i).getId()==id)
+			{
+				rID=i;
+			}
+			
+		}
+		System.out.println(rID);
+		return rID;
+		
+	}
+	
 	public void icraDosyaSec(int id) {
 
 		RequestContext.getCurrentInstance().execute("PF('dlgdetayliarama').hide()");
@@ -187,9 +234,18 @@ public class KasaBean {
 		bilgiTahsilat.setTasilati_yapan(session.getAttribute("user").toString());
 	}
 
-	public void dosyaal(int id) {
-
+	public void ReddiyatAktar(int id){
+		reddiyatBilgisi  = new Reddiyat();
+		reddiyatBilgisi = controller.createReddiyatFromReddiyatView(reddiyatListesi.get(id));
+		
+		RequestContext.getCurrentInstance().execute("PF('frmreddiyatyap').show();");
 	}
+	
+	public void reddiyatYap(){
+		
+	}
+	
+	
 
 	public void tahsilatYap() throws Exception {
 		Hesap hesap = AktifBean.hesaplistesi;

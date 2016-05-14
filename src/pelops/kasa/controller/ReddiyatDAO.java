@@ -20,7 +20,7 @@ public class ReddiyatDAO extends DBConnection implements IDAO {
 		ArrayList<Object> list = new ArrayList<Object>();
 		sql = "SELECT id, tahsilat_id, kasa_personel_id, onaylayan_id, sasa_reddiyat_tutar,"
 				+ " devlet_reddiyat_tutar, muvekkil_reddiyat_tutar, sasa_durum, devlet_durum, "
-				+ "  muvekkil_durum, toplam_tutar FROM tbl_reddiyat;";
+				+ "  muvekkil_durum, toplam_tutar, muvekkil_adi,  borclu_adi FROM tbl_reddiyat;";
 		newConnectDB();
 		stm = conn.createStatement();
 		rs = stm.executeQuery(sql);
@@ -37,6 +37,8 @@ public class ReddiyatDAO extends DBConnection implements IDAO {
 			reddiyat.setDevletDurum(rs.getInt("devlet_durum"));
 			reddiyat.setMuvekkilDurum(rs.getInt("muvekkil_durum"));
 			reddiyat.setToplamReddiyatTutari(rs.getDouble("toplam_tutar"));
+			reddiyat.setBorcluAdi(rs.getString("borclu_adi"));
+			reddiyat.setMuvekkilAdi(rs.getString("muvekkil_adi"));
 
 			list.add(reddiyat);
 		}
@@ -50,7 +52,8 @@ public class ReddiyatDAO extends DBConnection implements IDAO {
 		int id = 0;
 		sql = "INSERT INTO tbl_reddiyat( tahsilat_id, kasa_personel_id, onaylayan_id, sasa_reddiyat_tutar, "
 				+ "   devlet_reddiyat_tutar, muvekkil_reddiyat_tutar, sasa_durum, devlet_durum, "
-				+ "    muvekkil_durum, toplam_tutar, icra_dosya_id)   VALUES (?, ?, ?, ?, ?,   ?, ?, ?, ?, ?, ?); ";
+				+ "    muvekkil_durum, toplam_tutar, icra_dosya_id, muvekkil_adi,  borclu_adi) "
+				+ "  VALUES (?, ?, ?, ?, ?,   ?, ?, ?, ?, ?, ?, ?, ?); ";
 		if (obj instanceof Reddiyat) {
 			newConnectDB();
 			psmt = conn.prepareStatement(sql);
@@ -66,6 +69,8 @@ public class ReddiyatDAO extends DBConnection implements IDAO {
 			psmt.setInt(9, ((Reddiyat) obj).getMuvekkilDurum());
 			psmt.setDouble(10, ((Reddiyat) obj).getToplamReddiyatTutari());
 			psmt.setInt(11, ((Reddiyat) obj).getIcraDosyaID());
+			psmt.setString(12, ((Reddiyat) obj).getMuvekkilAdi());
+			psmt.setString(13, ((Reddiyat) obj).getBorcluAdi());
 
 			psmt.execute();
 
@@ -85,7 +90,8 @@ public class ReddiyatDAO extends DBConnection implements IDAO {
 
 			sql = "UPDATE tbl_reddiyat SET  tahsilat_id=?, kasa_personel_id=?, onaylayan_id=?, sasa_reddiyat_tutar=?, "
 					+ "   devlet_reddiyat_tutar=?, muvekkil_reddiyat_tutar=?, sasa_durum=?, "
-					+ "    devlet_durum=?, muvekkil_durum=?, toplam_tutar=? WHERE id=" + ((Reddiyat) obj).getId()
+					+ "    devlet_durum=?, muvekkil_durum=?, toplam_tutar=? ,  muvekkil_adi=?,  "
+					+ "borclu_adi=? WHERE id=" + ((Reddiyat) obj).getId()
 					+ " ;";
 			newConnectDB();
 			psmt = conn.prepareStatement(sql);
@@ -100,7 +106,8 @@ public class ReddiyatDAO extends DBConnection implements IDAO {
 			psmt.setInt(8, ((Reddiyat) obj).getDevletDurum());
 			psmt.setInt(9, ((Reddiyat) obj).getMuvekkilDurum());
 			psmt.setDouble(10, ((Reddiyat) obj).getToplamReddiyatTutari());
-
+			psmt.setString(11, ((Reddiyat) obj).getMuvekkilAdi());
+			psmt.setString(12, ((Reddiyat) obj).getBorcluAdi());
 			psmt.execute();
 
 			disconnectDB();
@@ -143,6 +150,8 @@ public class ReddiyatDAO extends DBConnection implements IDAO {
 			reddiyat.setMuvekkilDurum(rs.getInt("muvekkil_durum"));
 			reddiyat.setToplamReddiyatTutari(rs.getDouble("toplam_tutar"));
 			reddiyat.setIcraDosyaID(rs.getInt("icra_dosya_id"));
+			reddiyat.setBorcluAdi(rs.getString("borclu_adi"));
+			reddiyat.setMuvekkilAdi(rs.getString("muvekkil_adi"));
 		}
 		disconnectDB();
 		return reddiyat;
@@ -170,9 +179,7 @@ public class ReddiyatDAO extends DBConnection implements IDAO {
 	@Override
 	public ArrayList<Object> getAllObjFromStatus(int status) throws Exception {
 		ArrayList<Object> list = new ArrayList<Object>();
-		sql = "SELECT id, tahsilat_id, kasa_personel_id, onaylayan_id, sasa_reddiyat_tutar,"
-				+ " devlet_reddiyat_tutar, muvekkil_reddiyat_tutar, sasa_durum, devlet_durum, "
-				+ "  muvekkil_durum, toplam_tutar FROM tbl_reddiyat " + "where sasa_durum =" + status + ";";
+		sql = "SELECT * FROM tbl_reddiyat " + "where sasa_durum =" + status + ";";
 		newConnectDB();
 		stm = conn.createStatement();
 		rs = stm.executeQuery(sql);
@@ -189,7 +196,8 @@ public class ReddiyatDAO extends DBConnection implements IDAO {
 			reddiyat.setDevletDurum(rs.getInt("devlet_durum"));
 			reddiyat.setMuvekkilDurum(rs.getInt("muvekkil_durum"));
 			reddiyat.setToplamReddiyatTutari(rs.getDouble("toplam_tutar"));
-
+			reddiyat.setBorcluAdi(rs.getString("borclu_adi"));
+			reddiyat.setMuvekkilAdi(rs.getString("muvekkil_adi"));
 			list.add(reddiyat);
 		}
 		disconnectDB();
@@ -200,23 +208,17 @@ public class ReddiyatDAO extends DBConnection implements IDAO {
 	// Kimegore 1: sasa, 2: muvekkil, 3: devlet
 	public ArrayList<Object> getAllObjFromStatus(int status, Integer kimegore) throws Exception {
 		ArrayList<Object> list = new ArrayList<Object>();
-		sql = "SELECT id, tahsilat_id, kasa_personel_id, onaylayan_id, sasa_reddiyat_tutar,"
-				+ " devlet_reddiyat_tutar, muvekkil_reddiyat_tutar, sasa_durum, devlet_durum, "
-				+ "  muvekkil_durum, toplam_tutar FROM tbl_reddiyat " + "where sasa_durum =" + status + ";";
+		sql = "SELECT * FROM tbl_reddiyat " + "where sasa_durum =" + status + ";";
 		if (kimegore != null) {
 			switch (kimegore) {
 			case 1:
 				// bisi yapmaya gerek yokyukarda set ettik
 				break;
 			case 2:
-				sql = "SELECT id, tahsilat_id, kasa_personel_id, onaylayan_id, sasa_reddiyat_tutar,"
-						+ " devlet_reddiyat_tutar, muvekkil_reddiyat_tutar, sasa_durum, devlet_durum, "
-						+ "  muvekkil_durum, toplam_tutar FROM tbl_reddiyat " + "where muvekkil_durum =" + status + ";";
+				sql = "SELECT * FROM tbl_reddiyat " + "where muvekkil_durum =" + status + ";";
 				break;
 			case 3:
-				sql = "SELECT id, tahsilat_id, kasa_personel_id, onaylayan_id, sasa_reddiyat_tutar,"
-						+ " devlet_reddiyat_tutar, muvekkil_reddiyat_tutar, sasa_durum, devlet_durum, "
-						+ "  muvekkil_durum, toplam_tutar FROM tbl_reddiyat " + "where devlet_durum =" + status + ";";
+				sql = "SELECT * FROM tbl_reddiyat " + "where devlet_durum =" + status + ";";
 				break;
 
 			default:
@@ -240,6 +242,8 @@ public class ReddiyatDAO extends DBConnection implements IDAO {
 			reddiyat.setDevletDurum(rs.getInt("devlet_durum"));
 			reddiyat.setMuvekkilDurum(rs.getInt("muvekkil_durum"));
 			reddiyat.setToplamReddiyatTutari(rs.getDouble("toplam_tutar"));
+			reddiyat.setBorcluAdi(rs.getString("borclu_adi"));
+			reddiyat.setMuvekkilAdi(rs.getString("muvekkil_adi"));
 
 			list.add(reddiyat);
 		}

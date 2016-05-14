@@ -1,11 +1,8 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
 
   <h:head>
  
@@ -28,8 +25,12 @@ body{
 
 #body{
 	position: absolute;
-	width: 100%;
-	height: 100%;
+	top: -20px;
+	left: -20px;
+	right: -40px;
+	bottom: -40px;
+	width: auto;
+	height: auto;
 	background-image: url(img/back2.jpg);
 	background-size: cover;
 	-webkit-filter: blur(50px) important !;
@@ -112,7 +113,7 @@ body{
 	margin-top: 10px;
 }
 
-#login input[type=submit]{
+#login input[type=button]{
 	width: 260px;
 	height: 35px;
 	background: #fff;
@@ -127,11 +128,11 @@ body{
 	margin-top: 10px;
 }
 
-#login input[type=submit]:hover{
+#login input[type=button]:hover{
 	opacity: 0.8;
 }
 
-#login input[type=submit]:active{
+#login input[type=button]:active{
 	opacity: 0.6;
 }
 
@@ -183,17 +184,17 @@ body{
 		
 		<div id="login">
 		
-		<h:form>
-		       <h:inputText  placeholder="username"  value="#{genericBean.kullanici}"/>
-		       <h:inputSecret id="password" value="#{genericBean.sifre}"/>
+		       <h:inputText  placeholder="username"/>
+		       <h:inputSecret id="password" />
 		       
-		       <h:commandButton id="button" value="Giriş" actionListener="#{genericBean.login}" />
+		       <h:commandButton type="button" value="Giriş"/>
 		      
-			</h:form>
+			
 			
 		</div>
   
   
+
     
     
     

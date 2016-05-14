@@ -11,6 +11,29 @@
 	<meta name="viewport" content="width=980,initial-scale=0.5"></meta>
 	<link href="style.css" rel="stylesheet" type="text/css" media="screen" />
 
+	<link type="text/css" rel="stylesheet"
+		href="#{request.contextPath}/resources/css/test.css" />
+
+	<link type="text/css" rel="stylesheet"
+		href="#{request.contextPath}/resources/css/font-awesome.css" />
+
+	<script type="text/javascript"
+		src="#{facesContext.externalContext.requestContextPath}/resources/js/common.js"
+		charset="utf-8"></script>
+	<style>
+li.ui-menuitem.ui-menubar-options.ui-widget.ui-corner-all {
+	border-style: none !important;
+	margin: 6px 6px 6px 6px;
+}
+
+
+  #img-circle {
+      border-radius: 50%;
+  }
+  
+  
+</style>
+
 </h:head>
 
 <h:body>
@@ -27,22 +50,42 @@
 			<div id="message" style="background-color: transparent !important">
 
 
-				<div style="width: 50px; height: 70px; float: right;">
-					<p:commandLink>
-						<img src="img/cikis.png" width="50" height="40"
-							style="margin-top: 10px;" />
-					</p:commandLink>
-				</div>
 
 
-				<div style="margin-left: 20px; float: right;">
-					<h3>Yetkili Kullanıcı</h3>
-					<h4>#{genericBean.kullaniciAdi}</h4>
-				</div>
+<div style="width: 250px; height: 70px;float:right;">
 
-				<div style="width: 70px; height: 70px; float: right;">
-					<img src="img/SasaUser.png" width="70" height="70" />
-				</div>
+
+<p:panelGrid columns="2">
+
+ <p:outputLabel value="Kullanıcı Adı :"/>
+ <p:outputLabel value="Mehmet Demircioğlu"/>
+
+ <p:outputLabel value="Kullanıcı Rolü :"/>
+ <p:outputLabel value="ADMİN"/>
+
+ <p:outputLabel value="Son Giriş :"/>
+ <p:outputLabel value="12/12/2016 14:55"/>
+
+
+
+</p:panelGrid>
+
+
+
+
+</div>
+
+
+<div style="width:80px;height:70px;float:right;">
+<center>
+  <img src="img/SasaUser.png" width="65" height="65" id="img-circle" />
+</center>
+</div>
+
+			
+			
+			
+			
 
 
 			</div>
@@ -54,16 +97,15 @@
 		</div>
 
 			<div id="sidebar">
-				<h:form>
+				<h:form id="formMenu">
 					<p:growl id="messages" showDetail="false" />
 
-				 <p:menubar>
+				 <p:menubar id="mb">
 
 						<p:submenu label="HIZLI ERİŞİM" expanded="true">
 
 							<p:menuitem value="Ana Sayfa" ajax="false" update=":OrtaSayfa"
-								actionListener="#{anaSayfaBean.gotoPage(1002)}"
-								icon="ui-icon-home" />
+								actionListener="#{anaSayfaBean.gotoPage(1002)}" />
 							<p:menuitem value="Hızlı Takip Açma    " ajax="false"
 								update=":OrtaSayfa"
 								actionListener="#{anaSayfaBean.gotoPage(48)}"

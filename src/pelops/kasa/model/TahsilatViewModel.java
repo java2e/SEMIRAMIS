@@ -14,6 +14,26 @@ public class TahsilatViewModel {
 	private Double odemeMiktari;
 	private String hangiView;
 
+	private String icraDosyaNo;
+
+	public String getIcraDosyaNo() {
+		return icraDosyaNo;
+	}
+
+	public void setIcraDosyaNo(String icraDosyaNo) {
+		this.icraDosyaNo = icraDosyaNo;
+	}
+
+	private String personelAdi;
+
+	public String getPersonelAdi() {
+		return personelAdi;
+	}
+
+	public void setPersonelAdi(String personelAdi) {
+		this.personelAdi = personelAdi;
+	}
+
 	public String getFromID() {
 		return fromID;
 	}

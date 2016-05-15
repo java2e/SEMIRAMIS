@@ -24,8 +24,7 @@ public class ViewDAO extends DBConnection {
 
 		String fullSQL = "";
 
-		String SQL = "SELECT id, odeme_sozu_tarihi, odeme_sozu_miktari, personel_id, \"user\", "
-				+ "icra_dosyasi_id, ad_soyad, durum FROM vwkasa_izleme where 1=1";
+		String SQL = "SELECT * FROM vwkasa_izleme where 1=1";
 		java.sql.Date date1 = convertFromJAVADateToSQLDate(tarih1);
 		java.sql.Date date2 = convertFromJAVADateToSQLDate(tarih2);
 		if (tarih1!=null && tarih2!=null) {
@@ -51,6 +50,8 @@ public class ViewDAO extends DBConnection {
 			model.setOdemeMiktari(rs.getDouble("odeme_sozu_miktari"));
 			model.setHangiView("Izleme Bilgisi");
 			model.setIcraDosyaID(rs.getInt("icra_dosyasi_id"));
+			model.setPersonelAdi(rs.getString("user"));
+			model.setIcraDosyaNo(rs.getString("icra_dosya_no"));
 			list.add(model);
 		}
 		disconnectDB();
@@ -110,7 +111,7 @@ public class ViewDAO extends DBConnection {
 
 		String fullSQL = "";
 
-		String SQL = "SELECT id, ad_soyad, odeme_tarihleri, odeme_aylik_miktar, icra_dosyasi_id FROM vwkasa_odeme_plani where 1=1";
+		String SQL = "SELECT * FROM vwkasa_odeme_plani where 1=1";
 		java.sql.Date date1 = convertFromJAVADateToSQLDate(tarih1);
 		java.sql.Date date2 = convertFromJAVADateToSQLDate(tarih2);
 		if (tarih1 !=null && tarih2!=null) {
@@ -135,6 +136,7 @@ public class ViewDAO extends DBConnection {
 			model.setOdemeMiktari(rs.getDouble("odeme_aylik_miktar"));
 			model.setHangiView("Odeme Plani Bilgisi");
 			model.setIcraDosyaID(rs.getInt("icra_dosyasi_id"));
+			model.setIcraDosyaNo(rs.getString("icra_dosya_no"));
 			list.add(model);
 		}
 		disconnectDB();

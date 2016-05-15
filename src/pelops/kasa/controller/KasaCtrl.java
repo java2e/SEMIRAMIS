@@ -61,6 +61,7 @@ public class KasaCtrl {
 		tahsilat.setGelis_tarihi(model.getTarih());
 		tahsilat.setIcra_dosyasi_id(model.getIcraDosyaID());
 		tahsilat.setTahsilat_miktari(model.getOdemeMiktari());
+		tahsilat.setIcra_dosya_no(model.getIcraDosyaNo());
 		return tahsilat;
 	}
 

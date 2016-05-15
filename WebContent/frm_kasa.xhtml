@@ -114,8 +114,8 @@
 						<p:tab title="Aktif Ödeme Sözleri">
 							
 							<p:dataTable 	
-					value="#{kasaBean.tahsilatYapilacakListe}"
-					filteredValue="#{kasaBean.tahsilatYapilacakListe}"
+					value="#{kasaBean.TWlist}"
+					filteredValue="#{kasaBean.TWlist}"
 					emptyMessage="Aradığınız Kritere Uygun Sonuç Bulunamamıştır."
 					var="hb"		
 					id="tblaktifodeme" style="width:100% "
@@ -129,8 +129,9 @@
 				
 					<p:column headerText="Seç" width="10%" >
 					  <p:commandButton value="Seç" type="Button" action="#{icradosyaislemleribean.GelismisListe(hb.icraDosyaID)}"
+						actionListener="#{kasaBean.TahsilatAktar(hb.id)}"
 						update=":tahsilatyap"
-						actionListener="#{kasaBean.TahsilatAktar(hb.id)}"/>
+						/>
 					  
 					</p:column>
 				
@@ -139,19 +140,19 @@
 				</p:column>
 
 				<p:column headerText="İcra Dosya No" width="10%">
-					<h:outputText value="#{hb.borcluAdi}" />
+					<h:outputText value="#{hb.icraDosyaNo}" />
 				</p:column>
 
 				<p:column headerText="Tarih" width="15%" >
-				<h:outputText value="#{hb.tarih}" />
+				<h:outputText value="#{hb.tahsilatTarihi}" />
 				</p:column>
 
 				<p:column headerText="Personel" width="25%"  >
-					<h:outputText value="#{hb.borcluAdi}" />
+					<h:outputText value="#{hb.kasaPersonelId}" />
 				</p:column>
 				
 				<p:column headerText="Ödenecek Tutar" width="10%" >
-				<h:outputText value="#{hb.odemeMiktari}" />
+				<h:outputText value="#{hb.tahsilatMiktari}" />
 				</p:column>
 
 				
@@ -205,7 +206,7 @@
 									
 						<p:carousel value="#{kasaBean.reddiyatListesi}" headerText="REDDİYAT LİSTESİ" var="kasa" 
 						itemStyle="text-align:left" responsive="false"  numVisible="2" style="width:480px; top:2px; height:345px">
-        <p:panelGrid columns="2" style="width:248px; heigth:300px; margin:10px 0px" columnClasses="label,value" 
+        <p:panelGrid columns="2" style="width:248px; heigth:300px; margin:5px 0px" columnClasses="label,value" 
         layout="grid" styleClass="ui-panelgrid-blank">
             <f:facet name="header">
                  
@@ -214,7 +215,7 @@
             </f:facet>
  			
  			
- 			  <p:graphicImage value="img/paracikisi.png" height="85" width="225" />
+ 			  <p:graphicImage value="img/paracikisi.png" height="55" width="225" />
  			<h:outputLabel value=""/>
  			
              
@@ -225,13 +226,13 @@
             <h:outputText value="#{kasa.icraDosyaNo}" />
  
             <h:outputText value="Ad Soyad" />
-            <h:outputText value="#{kasa.adSoyad}" />
+            <h:outputText value="#{kasa.borcluAdi}" />
  
             <h:outputText value="Reddiyat Türü" />
-            <h:outputText value="#{kasa.adSoyad}" style="color:red"/>
+            <h:outputText value="#{kasa.reddiyatTuru}" style="color:red"/>
  
             <h:outputText value="Tutar" />
-            <h:outputText value="#{kasa.muvekkilReddiyatTutar}" style="color:green"/>
+            <h:outputText value="#{kasa.aktifTutar}" style="color:green"/>
             
             <h:outputText value="Tarih" />
             <h:outputText value="#{kasa.muvekkilReddiyatTutar}" style="color:green"/>

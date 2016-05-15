@@ -25,6 +25,29 @@ public class ReddiyatView {
 	private String icraDosyaNo;
 	private String adSoyad;
 	private Double toplamTutar;
+	
+	private double aktifTutar;
+	
+	private String reddiyatTuru;
+	
+	
+	
+	
+	public String getReddiyatTuru() {
+		return reddiyatTuru;
+	}
+
+	public void setReddiyatTuru(String reddiyatTuru) {
+		this.reddiyatTuru = reddiyatTuru;
+	}
+
+	public double getAktifTutar() {
+		return aktifTutar;
+	}
+
+	public void setAktifTutar(double aktifTutar) {
+		this.aktifTutar = aktifTutar;
+	}
 
 	public Double getToplamTutar() {
 		return toplamTutar;

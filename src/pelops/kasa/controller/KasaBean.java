@@ -1,7 +1,11 @@
 package pelops.kasa.controller;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.servlet.http.HttpSession;
@@ -15,6 +19,7 @@ import pelops.dao.GelismisAramaDAO;
 import pelops.kasa.model.Reddiyat;
 import pelops.kasa.model.ReddiyatView;
 import pelops.kasa.model.Tahsilat;
+import pelops.kasa.model.TahsilatView;
 import pelops.kasa.model.TahsilatViewModel;
 import pelops.model.DetayliArama;
 import pelops.model.GenelTanimSablon;
@@ -35,13 +40,30 @@ public class KasaBean {
 	private Tahsilat bilgiTahsilat = new Tahsilat();
 	private Date baslangicTarihi, bitisTarihi;
 	private ArrayList<TahsilatViewModel> tahsilatYapilacakListe = new ArrayList<TahsilatViewModel>();
+	private ArrayList<TahsilatView> tahsilatviewyapilacakListe = new ArrayList<TahsilatView>();
 	private ArrayList<ReddiyatView> reddiyatListesi = new ArrayList<>();
 	private KasaCtrl controller = new KasaCtrl();
 	private Reddiyat reddiyatBilgisi = new Reddiyat();
+	private List<TahsilatView> TWlist ;
 	
 	
 	
-	
+
+	public List<TahsilatView> getTWlist() {
+		return TWlist;
+	}
+
+	public void setTWlist(List<TahsilatView> tWlist) {
+		TWlist = tWlist;
+	}
+
+	public ArrayList<TahsilatView> getTahsilatviewyapilacakListe() {
+		return tahsilatviewyapilacakListe;
+	}
+
+	public void setTahsilatviewyapilacakListe(ArrayList<TahsilatView> tahsilatviewyapilacakListe) {
+		this.tahsilatviewyapilacakListe = tahsilatviewyapilacakListe;
+	}
 
 	public Reddiyat getReddiyatBilgisi() {
 		return reddiyatBilgisi;
@@ -152,6 +174,7 @@ public class KasaBean {
 		this.modelKasa = modelKasa;
 	}
 
+	@SuppressWarnings("deprecation")
 	public KasaBean() throws Exception {
 
 		//
@@ -187,6 +210,12 @@ public class KasaBean {
 		reddiyatListesi.addAll(controller.getListefromView(0, 3, 2));
 		reddiyatListesi.addAll(controller.getListefromView(0, 3, 3));
 
+		reddiyatListesi= returnReddiyatview(reddiyatListesi);
+		
+		ViewDAO viewdao = new ViewDAO();
+		tahsilatviewyapilacakListe = viewdao.getAllTahsilatFromView(0);
+	
+		
 	}
 	
 	
@@ -201,6 +230,7 @@ public class KasaBean {
 	HttpSession session = Util.getSession();
 
 	bilgiTahsilat.setTasilati_yapan(session.getAttribute("user").toString());
+	
 	RequestContext.getCurrentInstance().execute("PF('frmtahsilatyap').show();");
 	
 	
@@ -208,7 +238,7 @@ public class KasaBean {
 	
 	public int returnID(int id) throws Exception{
 		int rID=0;
-		System.out.println(this.getTahsilatYapilacakListe().size());
+		
 		for (int i = 0; i < this.getTahsilatYapilacakListe().size(); i++) {
 			if(this.getTahsilatYapilacakListe().get(i).getId()==id)
 			{
@@ -216,9 +246,19 @@ public class KasaBean {
 			}
 			
 		}
-		System.out.println(rID);
+	
 		return rID;
 		
+	}
+	
+	public int returnReddiyatID(int id){
+		int rtID=0;
+		for (int i = 0; i < reddiyatListesi.size(); i++) {
+			if(reddiyatListesi.get(i).getId()==id){
+				rtID=i;
+			}
+		}
+		return rtID;
 	}
 	
 	public void icraDosyaSec(int id) {
@@ -236,14 +276,42 @@ public class KasaBean {
 
 	public void ReddiyatAktar(int id){
 		reddiyatBilgisi  = new Reddiyat();
-		reddiyatBilgisi = controller.createReddiyatFromReddiyatView(reddiyatListesi.get(id));
-		
+		reddiyatListesi= returnReddiyatview(reddiyatListesi);
+		reddiyatBilgisi = controller.createReddiyatFromReddiyatView(reddiyatListesi.get(returnReddiyatID(id)));
+	
 		RequestContext.getCurrentInstance().execute("PF('frmreddiyatyap').show();");
 	}
+	
+	
+	public ArrayList<ReddiyatView> returnReddiyatview(ArrayList<ReddiyatView> rw){
+		ArrayList<ReddiyatView> returnRW = new ArrayList<>();
+		returnRW = rw;
+		
+		for (int i = 0; i < rw.size(); i++) {
+			if( rw.get(i).getDevletDurum()==0){
+				returnRW.get(i).setAktifTutar(rw.get(i).getDevletReddiyatTuttar());
+				returnRW.get(i).setReddiyatTuru("Devlete Reddiyat");
+			}else if(rw.get(i).getMuvekkilDurum()==0){
+				returnRW.get(i).setAktifTutar(rw.get(i).getMuvekkilReddiyatTutar());
+				returnRW.get(i).setReddiyatTuru("Bankaya Reddiyat");
+			}else if(rw.get(i).getSasaDurum()==0){
+				returnRW.get(i).setAktifTutar(rw.get(i).getSasaReddiyatTutar());
+				returnRW.get(i).setReddiyatTuru("Sasaya Reddiyat");
+			}
+			
+			
+		}
+		return returnRW;
+	}
+	
+	
+	
 	
 	public void reddiyatYap(){
 		
 	}
+	
+	
 	
 	
 
@@ -264,6 +332,7 @@ public class KasaBean {
 
 	}
 
+	@SuppressWarnings("unused")
 	private static java.sql.Date convertUtilToSql(java.util.Date uDate) {
 
 		java.sql.Date sDate = new java.sql.Date(uDate.getTime());

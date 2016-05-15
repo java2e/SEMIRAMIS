@@ -260,7 +260,17 @@ public class KasaCtrl {
 		reddiyat.setTahsilatID(view.getTahsilatId());
 		reddiyat.setToplamReddiyatTutari(view.getToplamTutar());
 		reddiyat.setIcraDosyaNo(view.getIcraDosyaNo());
-
+		if( reddiyat.getDevletDurum()==0){
+			reddiyat.setAktifTutar(reddiyat.getDevletReddiyatTutari());
+			reddiyat.setReddiyatTuru("Devlete Reddiyat");
+		}else if(reddiyat.getMuvekkilDurum()==0){
+			reddiyat.setAktifTutar(reddiyat.getMuvekkilReddiyatTutari());
+			reddiyat.setReddiyatTuru("Bankaya Reddiyat");
+		}else if(reddiyat.getSasaDurum()==0){
+			reddiyat.setAktifTutar(reddiyat.getSasaReddiyatTutari());
+			reddiyat.setReddiyatTuru("Sasaya Reddiyat");
+		}
+			
 		return reddiyat;
 	}
 

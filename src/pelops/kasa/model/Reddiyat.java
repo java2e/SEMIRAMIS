@@ -26,9 +26,20 @@ public class Reddiyat {
 	
 	private String reddiyatTuru;
 	
+	private Date reddiyatTarihi;
 	
 	
 	
+	
+	
+	public Date getReddiyatTarihi() {
+		return reddiyatTarihi;
+	}
+
+	public void setReddiyatTarihi(Date reddiyatTarihi) {
+		this.reddiyatTarihi = reddiyatTarihi;
+	}
+
 	public String getReddiyatTuru() {
 		return reddiyatTuru;
 	}

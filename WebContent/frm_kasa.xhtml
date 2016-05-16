@@ -51,8 +51,12 @@
 
 
 <div id="wrapper">
+	<h:form id="formMsgs">
+			<p:growl id="msgs" showDetail="true" />
+		</h:form>
 <h:form id="kasaForm">
 	<div>
+	
 
 		<p:panel style=" border-style: hidden !important;">
 			<p:panelGrid style=" border-style: hidden !important;" >
@@ -114,8 +118,8 @@
 						<p:tab title="Aktif Ödeme Sözleri">
 							
 							<p:dataTable 	
-					value="#{kasaBean.TWlist}"
-					filteredValue="#{kasaBean.TWlist}"
+					value="#{kasaBean.tahsilatYapilacakListe}"
+					filteredValue="#{kasaBean.tahsilatYapilacakListe}"
 					emptyMessage="Aradığınız Kritere Uygun Sonuç Bulunamamıştır."
 					var="hb"		
 					id="tblaktifodeme" style="width:100% "
@@ -144,15 +148,15 @@
 				</p:column>
 
 				<p:column headerText="Tarih" width="15%" >
-				<h:outputText value="#{hb.tahsilatTarihi}" />
+				<h:outputText value="#{hb.tarih}" />
 				</p:column>
 
 				<p:column headerText="Personel" width="25%"  >
-					<h:outputText value="#{hb.kasaPersonelId}" />
+					<h:outputText value="#{hb.personelAdi}" />
 				</p:column>
 				
 				<p:column headerText="Ödenecek Tutar" width="10%" >
-				<h:outputText value="#{hb.tahsilatMiktari}" />
+				<h:outputText value="#{hb.odemeMiktari}" />
 				</p:column>
 
 				
@@ -165,16 +169,121 @@
 						</p:tab>
 						<p:tab title="Tahsilatı Yapılmış">
 					
-						
-						
+			<p:dataTable value="#{kasaBean.tahsilatYapilmisListe}"	filteredValue="#{kasaBean.tahsilatYapilmisListe}"
+					emptyMessage="Aradığınız Kritere Uygun Sonuç Bulunamamıştır." var="hb" id="tblodenmisler" style="width:100% "
+					rowStyleClass="green" rows="15"	paginator="true"
+                    paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                    rowsPerPageTemplate="15,25,50,100,1000"	>
+			
+			<p:column headerText="İcra Dosya No" width="10%">
+					<h:outputText value="#{hb.icraDosyaNo}" />
+			</p:column>
+			
+			<p:column headerText="Muvekkil Adı" width="15%" >
+				<h:outputText value="#{hb.muvekkilAdi}" />
+			</p:column>
+			
+			<p:column headerText="Borçlu Adı" width="30%" >
+					<h:outputText value="#{hb.borcluAdi}" />
+			</p:column>
+			<p:column headerText="Tahsilat Tarihi" width="16%" >
+				<h:outputText value="#{hb.tahsilatTarihi}" />
+			</p:column>
+			
+			<p:column headerText="Tahsilat Miktarı" width="12%"  >
+					<h:outputText value="#{hb.tahsilatMiktari}" />
+			</p:column>
+			</p:dataTable>
+							
 						
 						
 						
 						</p:tab>
 						<p:tab title="Reddiyatı Yapılmış">
 						
+						<p:dataTable value="#{kasaBean.reddiyatYapilmisListe}"	filteredValue="#{kasaBean.reddiyatYapilmisListe}"
+					emptyMessage="Aradığınız Kritere Uygun Sonuç Bulunamamıştır." var="hb" id="tblreddiyat" style="width:100% "
+					rowStyleClass="green" rows="15"	paginator="true"
+                    paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                    rowsPerPageTemplate="15,25,50,100,1000"	>
+			
+			<p:column headerText="İcra Dosya No" width="10%">
+					<h:outputText value="#{hb.icraDosyaNo}" />
+			</p:column>
+			
+			
+			<p:column headerText="Borçlu Adı" width="30%" >
+					<h:outputText value="#{hb.borcluAdi}" />
+			</p:column>
+			
+			<p:column headerText="Muvekkil" width="5%" >
+				<h:outputText value="#{hb.muvekkilReddiyatTutar}" />
+			</p:column>
+			<p:column headerText="Sasa" width="5%" >
+				<h:outputText value="#{hb.sasaReddiyatTutar}" />
+			</p:column>
+			<p:column headerText="Devlet" width="5%" >
+				<h:outputText value="#{hb.devletReddiyatTuttar}" />
+			</p:column>
+			
+		</p:dataTable>
+						
+						
+						
+						
 						</p:tab>
 						<p:tab title="Pasif Ödeme Sözleri">
+						
+									<p:dataTable 	
+					value="#{kasaBean.tahsilatiGecmisListe}"
+					filteredValue="#{kasaBean.tahsilatiGecmisListe}"
+					emptyMessage="Aradığınız Kritere Uygun Sonuç Bulunamamıştır."
+					var="hb"		
+					id="tblpasifodeme" style="width:100% "
+					rowStyleClass="green"
+					rows="15"
+					paginator="true"
+                    paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                    rowsPerPageTemplate="5,10,25,50,100,1000"
+					
+					>
+				
+					<p:column headerText="Seç" width="10%" >
+					  <p:commandButton value="Seç" type="Button" action="#{icradosyaislemleribean.GelismisListe(hb.icraDosyaID)}"
+						actionListener="#{kasaBean.TahsilatAktar(hb.id)}"
+						update=":tahsilatyap"
+						/>
+					  
+					</p:column>
+				
+				<p:column headerText="Borçlu Adı" width="30%" >
+					<h:outputText value="#{hb.borcluAdi}" />
+				</p:column>
+
+				<p:column headerText="İcra Dosya No" width="10%">
+					<h:outputText value="#{hb.icraDosyaNo}" />
+				</p:column>
+
+				<p:column headerText="Tarih" width="15%" >
+				<h:outputText value="#{hb.tarih}" />
+				</p:column>
+
+				<p:column headerText="Personel" width="25%"  >
+					<h:outputText value="#{hb.personelAdi}" />
+				</p:column>
+				
+				<p:column headerText="Ödenecek Tutar" width="10%" >
+				<h:outputText value="#{hb.odemeMiktari}" />
+				</p:column>
+
+				
+				
+			
+				
+			</p:dataTable>
+						
+						
+						
 						
 						</p:tab>
 						

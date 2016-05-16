@@ -46,7 +46,7 @@
 	<p:inputText size="30" value="#{kasaBean.reddiyatBilgisi.aktifTutar}"/>
 	
 	<p:outputLabel value="Reddiyat Tarihi"/>
-	<p:calendar id="multi"   size="30" pages="3" value="#{kasaBean.reddiyatBilgisi.kasaPersonelID}"/> 
+	<p:calendar id="multi"   size="30" pages="3" value="#{kasaBean.reddiyatBilgisi.reddiyatTarihi}"/> 
 
 		
 	<p:outputLabel value="Kasa İşlemini Yapan Kişi"/>
@@ -57,7 +57,7 @@
 	
 	<center>
 	<p:spacer height="50"/>
-	<p:commandButton value="REDDİYAT YAP" style="width:120px;height:55px; "/>
+	<p:commandButton value="REDDİYAT YAP" style="width:120px;height:55px; " action="#{kasaBean.reddiyatYap()}" update=":formMsgs, :kasaForm"/>
     </center>
 	
 	</p:panel>

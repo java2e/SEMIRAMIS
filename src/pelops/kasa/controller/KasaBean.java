@@ -1,13 +1,16 @@
 package pelops.kasa.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.time.DateUtils;
@@ -38,23 +41,47 @@ public class KasaBean {
 	private ArrayList<DetayliArama> detayliAramaListesi = new ArrayList<DetayliArama>();
 	private ArrayList<DetayliArama> filterDetayliAramaListesi;
 	private Tahsilat bilgiTahsilat = new Tahsilat();
-	private Date baslangicTarihi, bitisTarihi;
+	private Date baslangicTarihi, bitisTarihi, olddatenew, enddatenew;
 	private ArrayList<TahsilatViewModel> tahsilatYapilacakListe = new ArrayList<TahsilatViewModel>();
+	private ArrayList<TahsilatViewModel> tahsilatiGecmisListe = new ArrayList<TahsilatViewModel>();
+	
+	private ArrayList<TahsilatView> tahsilatYapilmisListe = new ArrayList<TahsilatView>();
+	
 	private ArrayList<TahsilatView> tahsilatviewyapilacakListe = new ArrayList<TahsilatView>();
 	private ArrayList<ReddiyatView> reddiyatListesi = new ArrayList<>();
+	private ArrayList<ReddiyatView> reddiyatYapilmisListe = new ArrayList<>();
+	
 	private KasaCtrl controller = new KasaCtrl();
 	private Reddiyat reddiyatBilgisi = new Reddiyat();
-	private List<TahsilatView> TWlist ;
+	
 	
 	
 	
 
-	public List<TahsilatView> getTWlist() {
-		return TWlist;
+
+
+	public ArrayList<TahsilatViewModel> getTahsilatiGecmisListe() throws Exception {
+		return controller.getListeFromViewsForTahsilatIslemi(olddatenew, enddatenew);
 	}
 
-	public void setTWlist(List<TahsilatView> tWlist) {
-		TWlist = tWlist;
+	public void setTahsilatiGecmisListe(ArrayList<TahsilatViewModel> tahsilatiGecmisListe) {
+		this.tahsilatiGecmisListe = tahsilatiGecmisListe;
+	}
+
+	public ArrayList<ReddiyatView> getReddiyatYapilmisListe() {
+		return reddiyatYapilmisListe;
+	}
+
+	public void setReddiyatYapilmisListe(ArrayList<ReddiyatView> reddiyatYapilmisListe) {
+		this.reddiyatYapilmisListe = reddiyatYapilmisListe;
+	}
+
+	public ArrayList<TahsilatView> getTahsilatYapilmisListe() {
+		return tahsilatYapilmisListe;
+	}
+
+	public void setTahsilatYapilmisListe(ArrayList<TahsilatView> tahsilatYapilmisListe) {
+		this.tahsilatYapilmisListe = tahsilatYapilmisListe;
 	}
 
 	public ArrayList<TahsilatView> getTahsilatviewyapilacakListe() {
@@ -177,23 +204,6 @@ public class KasaBean {
 	@SuppressWarnings("deprecation")
 	public KasaBean() throws Exception {
 
-		//
-		//
-		// for (int i = 0; i < 16; i++) {
-		// modelKasa = new Kasa();
-		// modelKasa.setBorcluAdi("Muhammet Ali KAYA");
-		// modelKasa.setIcraDosyaNo("2015/10");
-		// String string = "15/03/2016";
-		//
-		// @SuppressWarnings("deprecation")
-		// Date date = new Date(string);
-		// modelKasa.setIzlemeTarihi(convertUtilToSql(date));
-		// modelKasa.setPersonelAdi("Mehmet Can TOPUZ");
-		// modelKasa.setIzlemeFiyat(1254.45);
-		// kasaListesi.add(modelKasa);
-		//
-		// }
-
 		String oldDate = "01/01/1900";
 		Date tarih = new Date(oldDate);
 		GelismisAramaDAO dao = new GelismisAramaDAO();
@@ -213,8 +223,20 @@ public class KasaBean {
 		reddiyatListesi= returnReddiyatview(reddiyatListesi);
 		
 		ViewDAO viewdao = new ViewDAO();
-		tahsilatviewyapilacakListe = viewdao.getAllTahsilatFromView(0);
-	
+		tahsilatYapilmisListe = viewdao.getAllTahsilatFromView(0);
+		
+		reddiyatYapilmisListe =  (ArrayList<ReddiyatView>) controller.getListefromView(1, 3, 1);
+		reddiyatYapilmisListe.addAll(controller.getListefromView(1, 3, 2));
+		reddiyatYapilmisListe.addAll(controller.getListefromView(1, 3, 3));
+		
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy");
+		String dateInString = "01-01-1900";
+		Date date = sdf.parse(dateInString);
+		
+		olddatenew = date;
+		enddatenew = baslangicTarihi;
+		enddatenew.setHours(-24);
 		
 	}
 	
@@ -307,8 +329,16 @@ public class KasaBean {
 	
 	
 	
-	public void reddiyatYap(){
+	public void reddiyatYap() throws Exception{
 		
+		if(reddiyatBilgisi.getDevletDurum()==0) reddiyatBilgisi.setDevletDurum(1) ;
+		if(reddiyatBilgisi.getSasaDurum()==0) reddiyatBilgisi.setSasaDurum(1);
+		if(reddiyatBilgisi.getMuvekkilDurum()==0) reddiyatBilgisi.setMuvekkilDurum(1);
+		controller.guncelle(reddiyatBilgisi);
+		sayfaGuncelle();
+		
+		FacesContext context = FacesContext.getCurrentInstance();
+		context.addMessage(null, new FacesMessage("Reddiyat İşlemi Başarı İle Gerçekleştirildi..."));
 	}
 	
 	
@@ -329,7 +359,9 @@ public class KasaBean {
 			hitam = false;
 		}
 		controller.kaydet(bilgiTahsilat, hitam, redList);
-
+		sayfaGuncelle();
+		FacesContext context = FacesContext.getCurrentInstance();
+		context.addMessage(null, new FacesMessage("Tahsilat İşlemi Başarı İle Gerçekleştirildi..."));
 	}
 
 	@SuppressWarnings("unused")
@@ -340,5 +372,45 @@ public class KasaBean {
 		return sDate;
 
 	}
+	
+	public void sayfaGuncelle() throws Exception{
+		String oldDate = "01/01/1900";
+		Date tarih = new Date(oldDate);
+		GelismisAramaDAO dao = new GelismisAramaDAO();
+		detayliAramaListesi = dao.Listele("", "", "", "", "", "", 0, 0, 0, tarih, tarih, tarih, tarih, tarih, tarih);
+		bilgiTahsilat = new Tahsilat();
+		HttpSession session = Util.getSession();
+
+		bilgiTahsilat.setKasa_islemini_yapan(session.getAttribute("user").toString());
+		baslangicTarihi = new Date();
+		Date tson = DateUtils.addMonths(new Date(), 1);
+		bitisTarihi = tson;
+
+		reddiyatListesi =  (ArrayList<ReddiyatView>) controller.getListefromView(0, 3, 1);
+		reddiyatListesi.addAll(controller.getListefromView(0, 3, 2));
+		reddiyatListesi.addAll(controller.getListefromView(0, 3, 3));
+
+		reddiyatListesi= returnReddiyatview(reddiyatListesi);
+		
+		ViewDAO viewdao = new ViewDAO();
+		tahsilatYapilmisListe = viewdao.getAllTahsilatFromView(0);
+		
+		reddiyatYapilmisListe =  (ArrayList<ReddiyatView>) controller.getListefromView(1, 3, 1);
+		reddiyatYapilmisListe.addAll(controller.getListefromView(1, 3, 2));
+		reddiyatYapilmisListe.addAll(controller.getListefromView(1, 3, 3));
+		
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy");
+		String dateInString = "01-01-1900";
+		Date date = sdf.parse(dateInString);
+		
+		olddatenew = date;
+		enddatenew = baslangicTarihi;
+		enddatenew.setHours(-24);
+		
+		
+	}
+	
+	
 
 }

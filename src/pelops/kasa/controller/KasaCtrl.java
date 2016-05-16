@@ -75,6 +75,7 @@ public class KasaCtrl {
 		} else {
 			Reddiyat reddiyat2 = convertTahsilatToReddiyat(tahsilat);
 			reddiyat2.setTahsilatID(tahsilatID);
+
 			reddiyatDAO.insertObjToDB(reddiyat2);
 		}
 
@@ -198,6 +199,8 @@ public class KasaCtrl {
 		Reddiyat reddiyat = new Reddiyat();
 
 		reddiyat.setMuvekkilDurum(0);
+		reddiyat.setSasaDurum(5);
+		reddiyat.setDevletDurum(5);
 		reddiyat.setMuvekkilReddiyatTutari(tahsilat.getTahsilat_miktari());
 		reddiyat.setKasaPersonelID(getPersonelID());
 		reddiyat.setIcraDosyaID(tahsilat.getIcra_dosyasi_id());
@@ -261,17 +264,17 @@ public class KasaCtrl {
 		reddiyat.setTahsilatID(view.getTahsilatId());
 		reddiyat.setToplamReddiyatTutari(view.getToplamTutar());
 		reddiyat.setIcraDosyaNo(view.getIcraDosyaNo());
-		if( reddiyat.getDevletDurum()==0){
+		if (reddiyat.getDevletDurum() == 0) {
 			reddiyat.setAktifTutar(reddiyat.getDevletReddiyatTutari());
 			reddiyat.setReddiyatTuru("Devlete Reddiyat");
-		}else if(reddiyat.getMuvekkilDurum()==0){
+		} else if (reddiyat.getMuvekkilDurum() == 0) {
 			reddiyat.setAktifTutar(reddiyat.getMuvekkilReddiyatTutari());
 			reddiyat.setReddiyatTuru("Bankaya Reddiyat");
-		}else if(reddiyat.getSasaDurum()==0){
+		} else if (reddiyat.getSasaDurum() == 0) {
 			reddiyat.setAktifTutar(reddiyat.getSasaReddiyatTutari());
 			reddiyat.setReddiyatTuru("Sasaya Reddiyat");
 		}
-			
+
 		return reddiyat;
 	}
 

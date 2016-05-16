@@ -1,0 +1,629 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<meta name="viewport" content="width=980,initial-scale=0.5"></meta>
+
+</h:head>
+<h:body>
+	<h:form>
+		<p:panel id="girisPaneli" header="Muamele İşlem" style="width:100%;">
+			<p:panelGrid id="updatePanel" style="width:100%;">
+				<p:column style="width:60%;">
+					<p:panelGrid columns="4" style="width:100%">
+
+						<p:outputLabel value="İcra Dosya No" />
+						<p:inputText value="#{muameleislemlerbean.muamele.icraDosyaNo}"
+							readonly="true" style="font-size:16px; font-weight:bold"
+							size="19" />
+
+						<p:outputLabel value="Muhatap Adı" />
+						<p:inputText value="#{muameleislemlerbean.muamele.muhatapAdi}"
+							style="width: 200px;" />
+
+						<p:outputLabel value="Borçlu Adı" />
+						<p:inputText value="#{muameleislemlerbean.muamele.borcluAdi}"
+							readonly="true" style="font-size:16px; font-weight:bold"
+							size="19" />
+
+						<p:outputLabel value="Muamele Statüsü" />
+						<p:selectOneMenu id="muameleStatusu" styleClass="selectMenu"
+							value="#{muameleislemlerbean.muamele.muameleStatusuId}"
+							required="true" requiredMessage="Bu Alanı Boş Bırakamazsınız"
+							style="width: 210px;">
+							<f:selectItem itemLabel="Statü Seçiniz..." itemValue="0" />
+							<f:selectItems
+								value="#{geneltanimbean.ListeGetir('tbl_muamele_statusu')}"
+								var="list" itemLabel="#{list.adi}" itemValue="#{list.id}"
+								style="width: 210px;" />
+						</p:selectOneMenu>
+
+						<p:outputLabel value="Muamele Tarihi" />
+						<p:calendar id="mask"
+							value="#{muameleislemlerbean.muamele.muameleTarihi}"
+							pattern="dd-MM-yyyy" mask="true" size="27" />
+
+						<p:outputLabel value="Muhatap Adresi" />
+						<p:inputTextarea rows="2" cols="43" queryDelay="750"
+							minQueryLength="4"
+							value="#{muameleislemlerbean.muamele.muhatapAdresi}" />
+
+
+						<p:outputLabel value="Müzekkere Adı" />
+						<p:panelGrid columns="2">
+							<p:commandButton value="Muzekkere"
+								actionListener="#{muameleislemlerbean.display}" update="@form" />
+							<p:commandButton value="Talep"
+								actionListener="#{muameleislemlerbean.display2}" update="@form" />
+						</p:panelGrid>
+
+						<p:outputLabel value="Haciz Sırası" />
+						<p:spinner min="0" max="100"
+							value="#{muameleislemlerbean.muamele.hacizSirasi}" size="24" />
+
+						<p:outputLabel value="Talep İfadesi" />
+						<p:inputTextarea rows="5" cols="45" queryDelay="750"
+							minQueryLength="4"
+							value="#{muameleislemlerbean.muamele.talepIfadesi}" />
+
+						<p:outputLabel value="Borçlu Adresi" />
+						<p:inputTextarea rows="5" cols="45" queryDelay="750"
+							minQueryLength="4"
+							value="#{muameleislemlerbean.muamele.borcluAdresi}" />
+
+						<p:outputLabel value="Masraf Tipi" />
+						<p:selectOneMenu id="masrafTipi" styleClass="selectMenu"
+							value="#{muameleislemlerbean.muamele.masrafTipiId}"
+							required="true" requiredMessage="Bu Alanı Boş Bırakamazsınız"
+							style="width: 195px">
+							<f:selectItem itemLabel="Masraf Tipi Seçiniz..." itemValue="0" />
+							<f:selectItems
+								value="#{geneltanimbean.ListeGetir('tbl_masraf_tipi')}"
+								var="list" itemLabel="#{list.adi}" itemValue="#{list.id}" />
+						</p:selectOneMenu>
+
+						<p:outputLabel value="Haciz Başlangıç Tarihi" />
+						<p:calendar id="mask2"
+							value="#{muameleislemlerbean.muamele.hacizBaslangicTarihi}"
+							pattern="dd-MM-yyyy" mask="true" size="26" />
+
+
+						<p:outputLabel value="Masraf Miktarı" />
+						<p:inputText value="#{muameleislemlerbean.muamele.masrafMiktari}"
+							onkeyup="var pos=this.selectionStart;
+									var size = this.value.length;														
+             						this.value=this.value.replace(/[^0-9]+/g, '');
+             						if (this.value.length > 10) this.value=this.value.substring(0,10);
+             						if (size > this.value.length)
+             							{this.selectionStart = pos-1; this.selectionEnd = pos-1;}
+             						else
+             							{this.selectionStart = pos; this.selectionEnd = pos;}"
+							size="24" />
+
+						<p:outputLabel value="Tebligat Sonucu" />
+						<p:inputText value="#{muameleislemlerbean.muamele.tebligatSonucu}"
+							size="26" />
+
+
+						<p:outputLabel value="Mal Tipi" />
+						<p:selectOneMenu id="malTipi" styleClass="selectMenu"
+							value="#{muameleislemlerbean.muamele.malTipiId}" required="true"
+							requiredMessage="Bu Alanı Boş Bırakamazsınız"
+							style="width: 195px;">
+							<f:selectItem itemLabel="Mal Tipi Seçiniz..." itemValue="0" />
+							<f:selectItems
+								value="#{geneltanimbean.ListeGetir('tbl_mal_tipi')}" var="list"
+								itemLabel="#{list.adi}" itemValue="#{list.id}" />
+						</p:selectOneMenu>
+
+						<p:outputLabel value="Haciz Miktarı" />
+						<p:inputText value="#{muameleislemlerbean.muamele.hacizMiktari}"
+							onkeyup="var pos=this.selectionStart;
+									var size = this.value.length;														
+             						this.value=this.value.replace(/[^0-9]+/g, '');
+             						if (this.value.length > 10) this.value=this.value.substring(0,10);
+             						if (size > this.value.length)
+             							{this.selectionStart = pos-1; this.selectionEnd = pos-1;}
+             						else
+             							{this.selectionStart = pos; this.selectionEnd = pos;}"
+							size="26" />
+
+						<p:outputLabel value="Mal Bilgisi" />
+						<p:inputText value="#{muameleislemlerbean.muamele.malBilgisi}"
+							style="width: 185px;" />
+
+						<p:outputLabel value="Maaş Muvafakat" />
+						<p:inputText value="#{muameleislemlerbean.muamele.maasMuvafakat}"
+							size="26" />
+
+
+						<p:outputLabel value="Personel Adı" />
+						<p:selectOneMenu id="personelAdi" styleClass="selectMenu"
+							value="#{muameleislemlerbean.muamele.personelId}" required="true"
+							requiredMessage="Bu Alanı Boş Bırakamazsınız"
+							style="width:210px;">
+							<f:selectItem itemLabel="Personel Seçiniz..." itemValue="0" />
+							<f:selectItems value="#{userbean.ListeGetir()}" var="item"
+								itemValue="#{item.id}" itemLabel="#{item.adSoyad}" />
+						</p:selectOneMenu>
+
+						<p:outputLabel value="Açıklama" />
+						<p:inputTextarea rows="3" cols="43" queryDelay="750"
+							minQueryLength="4"
+							value="#{muameleislemlerbean.muamele.aciklama}"
+							style="width:250 px;" />
+
+						<p:outputLabel value="Avukat Adı" />
+						<p:selectOneMenu id="avukatAdi" styleClass="selectMenu"
+							value="#{muameleislemlerbean.muamele.avukatId}"
+							style="width:210px;">
+							<f:selectItem itemLabel="Avukat Seçiniz..." itemValue="0" />
+							<f:selectItems value="#{muameleislemlerbean.AvukatGetir()}"
+								var="item" itemValue="#{item.id}" itemLabel="#{item.adi}" />
+
+						</p:selectOneMenu>
+
+						<p:outputLabel value="Icra Müdürlüğü" />
+						<p:selectOneMenu id="iMudurlugu"
+							value="#{muameleislemlerbean.muamele.icraMudurluguId}"
+							style="width:230px;">
+							<f:selectItem itemLabel="İcra Müdürlüğü Seçiniz..." itemValue="0" />
+							<f:selectItems
+								value="#{geneltanimbean.ListeGetir('tbl_icra_mudurlugu')}"
+								var="list" itemLabel="#{list.adi}" itemValue="#{list.id}"
+								style="width: 230px;" />
+						</p:selectOneMenu>
+
+
+						<p:outputLabel value="Alacaklı Mail Adresi" />
+						<p:inputText value="#{muameleislemlerbean.muamele.alacakliMail}"
+							style="width: 185px;" />
+
+						<p:outputLabel value="Hazırlayan Kişi" />
+						<p:selectOneMenu id="hazirlayan" styleClass="selectMenu"
+							value="#{muameleislemlerbean.muamele.hazirlayanId}"
+							style="width:230px;">
+							<f:selectItem itemLabel="Hazırlayan Kişi Seçiniz..."
+								itemValue="0" />
+							<f:selectItems value="#{userbean.ListeGetir()}" var="item"
+								itemValue="#{item.id}" itemLabel="#{item.adSoyad}" />
+						</p:selectOneMenu>
+
+						<p:outputLabel value="Alacaklı Tel" />
+						<p:inputText value="#{muameleislemlerbean.muamele.alacakliTel}"
+							size="26" />
+
+						<p:outputLabel value="Banka Bilgileri" />
+						<p:inputText value="#{muameleislemlerbean.muamele.bankaBilgileri}"
+							size="26" />
+
+						<p:outputLabel value="Borçlu Tc" />
+						<p:inputText value="#{muameleislemlerbean.muamele.borcluTc}"
+							size="26" />
+
+
+						<p:outputLabel value="Tebligat Tarihi" />
+						<p:calendar id="mask1"
+							value="#{muameleislemlerbean.muamele.tebligatTarihi}"
+							pattern="dd-MM-yyyy" mask="true" size="26" />
+
+
+						<p:outputLabel value="Faiz Masraf Tutarı" />
+						<p:inputText
+							onkeyup="var pos=this.selectionStart;
+									var size = this.value.length;														
+             						this.value=this.value.replace(/[^0-9]+/g, '');
+             						if (this.value.length > 10) this.value=this.value.substring(0,10);
+             						if (size > this.value.length)
+             							{this.selectionStart = pos-1; this.selectionEnd = pos-1;}
+             						else
+             							{this.selectionStart = pos; this.selectionEnd = pos;}"
+							value="#{muameleislemlerbean.muamele.alacakFaizMasrafTutari}"
+							size="26" />
+
+						<p:outputLabel value="Semiramis No " />
+						<p:inputText value="#{muameleislemlerbean.muamele.semiramisNo}"
+						onkeyup="var pos=this.selectionStart;
+									var size = this.value.length;														
+             						this.value=this.value.replace(/[^0-9]+/g, '');
+             						if (this.value.length > 10) this.value=this.value.substring(0,10);
+             						if (size > this.value.length)
+             							{this.selectionStart = pos-1; this.selectionEnd = pos-1;}
+             						else
+             							{this.selectionStart = pos; this.selectionEnd = pos;}"
+							size="26" />
+
+
+						<p:outputLabel value="Banka İsmi" />
+						<p:inputText
+							value="#{muameleislemlerbean.muamele.alacakliBankasi}" size="26" />
+
+						<p:outputLabel />
+						<p:outputLabel />
+					</p:panelGrid>
+
+					<!-- PANEL1 BAŞLANGIÇ -->
+					<p:panel header="MUZEKKERE ALAN İLE YAZDIR"
+						rendered="#{muameleislemlerbean.panel1Visible}" id="panel1"
+						style="width:100%">
+						<p:panelGrid
+							rendered="#{printBean.checkComboboxValue('3', printBean.takipAcilisEvrakYazdirma )}"
+							columns="2" style=" border-style: hidden !important;">
+
+
+							<p:panelGrid
+								rendered="#{printBean.checkComboboxValue('3', printBean.takipAcilisEvrakYazdirma )}"
+								columns="12" style=" border-style: hidden !important;">
+								<p:outputLabel>103 Davetiyesi Müzekkeresi:</p:outputLabel>
+								<p:selectBooleanCheckbox
+									value="#{muameleislemlerbean.muamele.muzekkere1}"
+									disabled="#{muameleislemlerbean.muamele.muzekkere1Visible}">
+								</p:selectBooleanCheckbox>
+								<p:outputLabel value="Adeti" />
+
+								<p:spinner min="1"
+									disabled="#{muameleislemlerbean.muamele.muzekkere1Visible}"
+									value="#{muameleislemlerbean.muamele.muzekkere1Sayi}" size="2" />
+
+								<p:outputLabel>89/1 Haciz İhbarnamesi Müzekkeresi:</p:outputLabel>
+								<p:selectBooleanCheckbox
+									value="#{muameleislemlerbean.muamele.muzekkere2}"
+									disabled="#{muameleislemlerbean.muamele.muzekkere2Visible}">
+								</p:selectBooleanCheckbox>
+								<p:outputLabel value="Adeti" />
+
+								<p:spinner min="1"
+									disabled="#{muameleislemlerbean.muamele.muzekkere2Visible}"
+									value="#{muameleislemlerbean.muamele.muzekkere2Sayi}" size="2" />
+
+								<p:outputLabel>Muzekkere 3:</p:outputLabel>
+								<p:selectBooleanCheckbox
+									value="#{muameleislemlerbean.muamele.muzekkere3}"
+									disabled="#{muameleislemlerbean.muamele.muzekkere3Visible}">
+									<p:ajax event="change" />
+								</p:selectBooleanCheckbox>
+								<p:outputLabel value="Adeti" />
+								<p:spinner min="1"
+									disabled="#{muameleislemlerbean.muamele.muzekkere3Visible}"
+									value="#{muameleislemlerbean.muamele.muzekkere3Sayi}" size="2" />
+
+								<p:outputLabel>Muzekkere 4:</p:outputLabel>
+								<p:selectBooleanCheckbox
+									value="#{muameleislemlerbean.muamele.muzekkere4}"
+									disabled="#{muameleislemlerbean.muamele.muzekkere4Visible}">
+									<p:ajax event="change" />
+								</p:selectBooleanCheckbox>
+								<p:outputLabel value="Adeti" />
+								<p:spinner min="1"
+									disabled="#{muameleislemlerbean.muamele.muzekkere4Visible}"
+									value="#{muameleislemlerbean.muamele.muzekkere4Sayi}" size="2" />
+
+								<p:outputLabel>Muzekkere 5:</p:outputLabel>
+								<p:selectBooleanCheckbox
+									value="#{muameleislemlerbean.muamele.muzekkere5}"
+									disabled="#{muameleislemlerbean.muamele.muzekkere5Visible}">
+									<p:ajax event="change" />
+								</p:selectBooleanCheckbox>
+								<p:outputLabel value="Adeti" />
+								<p:spinner min="1"
+									disabled="#{muameleislemlerbean.muamele.muzekkere5Visible}"
+									value="#{muameleislemlerbean.muamele.muzekkere5Sayi}" size="2" />
+
+								<p:outputLabel>Muzekkere 6:</p:outputLabel>
+								<p:selectBooleanCheckbox
+									value="#{muameleislemlerbean.muamele.muzekkere6}"
+									disabled="#{muameleislemlerbean.muamele.muzekkere6Visible}">
+									<p:ajax event="change" />
+								</p:selectBooleanCheckbox>
+								<p:outputLabel value="Adeti" />
+								<p:spinner min="1"
+									disabled="#{muameleislemlerbean.muamele.muzekkere6Visible}"
+									value="#{muameleislemlerbean.muamele.muzekkere6Sayi}" size="2" />
+
+								<p:outputLabel>Muzekkere 7:</p:outputLabel>
+								<p:selectBooleanCheckbox
+									value="#{muameleislemlerbean.muamele.muzekkere7}"
+									disabled="#{muameleislemlerbean.muamele.muzekkere7Visible}">
+									<p:ajax event="change" />
+								</p:selectBooleanCheckbox>
+								<p:outputLabel value="Adeti" />
+								<p:spinner min="1"
+									disabled="#{muameleislemlerbean.muamele.muzekkere7Visible}"
+									value="#{muameleislemlerbean.muamele.muzekkere7Sayi}" size="2" />
+
+								<p:outputLabel>Muzekkere 8:</p:outputLabel>
+								<p:selectBooleanCheckbox
+									value="#{muameleislemlerbean.muamele.muzekkere8}"
+									disabled="#{muameleislemlerbean.muamele.muzekkere8Visible}">
+									<p:ajax event="change" />
+								</p:selectBooleanCheckbox>
+								<p:outputLabel value="Adeti" />
+								<p:spinner min="1"
+									disabled="#{muameleislemlerbean.muamele.muzekkere8Visible}"
+									value="#{muameleislemlerbean.muamele.muzekkere8Sayi}" size="2" />
+
+								<p:outputLabel>Muzekkere 9:</p:outputLabel>
+								<p:selectBooleanCheckbox
+									value="#{muameleislemlerbean.muamele.muzekkere9}"
+									disabled="#{muameleislemlerbean.muamele.muzekkere9Visible}">
+									<p:ajax event="change" />
+								</p:selectBooleanCheckbox>
+								<p:outputLabel value="Adeti" />
+								<p:spinner min="1"
+									disabled="#{muameleislemlerbean.muamele.muzekkere9Visible}"
+									value="#{muameleislemlerbean.muamele.muzekkere9Sayi}" size="2" />
+
+
+							</p:panelGrid>
+
+
+						</p:panelGrid>
+					</p:panel>
+
+					<!-- ****************************************************** -->
+
+					<!--Panel1 bitiş  -->
+
+
+					<!-- ****************************************************** -->
+					<!-- Panel 2 BAŞLANGIÇ -->
+
+
+					<p:panel header="TALEP ALAN İLE YAZDIR"
+						rendered="#{muameleislemlerbean.panel2Visible}" id="panel2"
+						style="width:100%;">
+
+
+						<p:panelGrid
+							rendered="#{printBean.checkComboboxValue('3', printBean.takipAcilisEvrakYazdirma )}"
+							columns="2" style=" border-style: hidden !important;">
+
+
+
+							<p:panelGrid
+								rendered="#{printBean.checkComboboxValue('3', printBean.takipAcilisEvrakYazdirma )}"
+								columns="12" style=" border-style: hidden !important;">
+
+								<p:outputLabel>103 Davetiyesi Talebi:</p:outputLabel>
+								<p:selectBooleanCheckbox
+									value="#{muameleislemlerbean.muamele.talep1}">
+								</p:selectBooleanCheckbox>
+								<p:outputLabel value="Adeti" />
+
+								<p:spinner min="1"
+									disabled="#{muameleislemlerbean.muamele.talep1Visible}"
+									value="#{muameleislemlerbean.muamele.talep1Sayi}" size="2" />
+
+
+								<p:outputLabel>89/1 Haciz İhbarnamesi Talebi:</p:outputLabel>
+								<p:selectBooleanCheckbox
+									value="#{muameleislemlerbean.muamele.talep2}">
+									<p:ajax event="change" />
+								</p:selectBooleanCheckbox>
+								<p:outputLabel value="Adeti" />
+
+								<p:spinner min="1"
+									disabled="#{muameleislemlerbean.muamele.talep2Visible}"
+									value="#{muameleislemlerbean.muamele.talep2Sayi}" size="2" />
+
+								<p:outputLabel>TK/21 Talebi:</p:outputLabel>
+								<p:selectBooleanCheckbox
+									value="#{muameleislemlerbean.muamele.talep3}">
+
+								</p:selectBooleanCheckbox>
+								<p:outputLabel value="Adeti" />
+
+								<p:spinner min="1"
+									disabled="#{muameleislemlerbean.muamele.talep3Visible}"
+									value="#{muameleislemlerbean.muamele.talep3Sayi}" size="2" />
+
+								<p:outputLabel>Menkul Haciz Talebi:</p:outputLabel>
+								<p:selectBooleanCheckbox
+									value="#{muameleislemlerbean.muamele.talep4}">
+								</p:selectBooleanCheckbox>
+								<p:outputLabel value="Adeti" />
+								<p:spinner min="1"
+									disabled="#{muameleislemlerbean.muamele.talep4Visible}"
+									value="#{muameleislemlerbean.muamele.talep4Sayi}" size="2" />
+
+
+								<p:outputLabel>Dosyanın İşlemden Kaldırılması Talebi:</p:outputLabel>
+								<p:selectBooleanCheckbox
+									value="#{muameleislemlerbean.muamele.talep5}">
+									<p:ajax event="change" />
+								</p:selectBooleanCheckbox>
+								<p:outputLabel value="Adeti" />
+								<p:spinner min="1"
+									disabled="#{muameleislemlerbean.muamele.talep5Visible}"
+									value="#{muameleislemlerbean.muamele.talep5Sayi}" size="2" />
+
+
+								<p:outputLabel>Adresi Araştırması Telebi:</p:outputLabel>
+								<p:selectBooleanCheckbox
+									value="#{muameleislemlerbean.muamele.talep6}">
+									<p:ajax event="change" />
+								</p:selectBooleanCheckbox>
+								<p:outputLabel value="Adeti" />
+								<p:spinner min="1"
+									disabled="#{muameleislemlerbean.muamele.talep6Visible}"
+									value="#{muameleislemlerbean.muamele.talep6Sayi}" size="2" />
+
+								<p:outputLabel>Mernis Adresine Ödeme Emri Gönderilmesi Talebi:</p:outputLabel>
+								<p:selectBooleanCheckbox
+									value="#{muameleislemlerbean.muamele.talep7}">
+									<p:ajax event="change" />
+								</p:selectBooleanCheckbox>
+								<p:outputLabel value="Adeti" />
+								<p:spinner min="1"
+									disabled="#{muameleislemlerbean.muamele.talep7Visible}"
+									value="#{muameleislemlerbean.muamele.talep7Sayi}" size="2" />
+
+								<p:outputLabel>Feragat Talebi:</p:outputLabel>
+								<p:selectBooleanCheckbox
+									value="#{muameleislemlerbean.muamele.talep8}">
+								</p:selectBooleanCheckbox>
+								<p:outputLabel value="Adeti" />
+								<p:spinner min="1"
+									disabled="#{muameleislemlerbean.muamele.talep8Visible}"
+									value="#{muameleislemlerbean.muamele.talep8Sayi}" size="2" />
+
+								<p:outputLabel>Mevduat Haczi Talebi:</p:outputLabel>
+								<p:selectBooleanCheckbox
+									value="#{muameleislemlerbean.muamele.talep9}">
+									<p:ajax event="change" />
+								</p:selectBooleanCheckbox>
+								<p:outputLabel value="Adeti" />
+								<p:spinner min="1"
+									disabled="#{muameleislemlerbean.muamele.talep9Visible}"
+									value="#{muameleislemlerbean.muamele.talep9Sayi}" size="2" />
+							</p:panelGrid>
+						</p:panelGrid>
+
+					</p:panel>
+
+					<p:panel style="margin-top:2%;">
+						<p:commandButton value="Önizleme"
+							actionListener="#{muameleislemlerbean.pdfOnizleKayit()}"
+							disabled="#{muameleislemlerbean.onizleButtonVisible}"
+							update="pdfGoruntuleme">
+							<f:param name="gelis_amaci" value="onizleme" />
+							<f:param name="pdfMiktari" value="#{list.miktar}" />
+							<f:param name="muzekkeretalep" value="#{list.muzekkereTalepAdi}" />
+						</p:commandButton>
+
+						<!-- 						<p:spacer width="30" /> -->
+						<p:commandButton value="Nihai Kayıt" style="margin-left:1%;"
+							action="#{muameleislemlerbean.Kaydet()}" update="@form" />
+						<!-- 						<p:spacer width="30" /> -->
+
+						<!-- 						<p:spacer width="30" /> -->
+						<p:commandButton value="Yeni Kayıt" style="margin-left:1%;"
+							action="#{muameleislemlerbean.yeniKayit()}" update="@form" />
+
+						<p:commandButton value="Yazdır" style="margin-left:1%;"
+							disabled="#{muameleislemlerbean.onizleButtonVisible}"
+							action="#{muameleislemlerbean.yazdir()}" update="@form">
+							<f:param name="gelis_amaci" value="yazdir" />
+						</p:commandButton>
+
+
+
+						<p:inputText style="margin-left:15%" />
+						<p:commandButton value="Mail Gönder" />
+						<p:commandButton value="Uyapa Aktar" />
+
+
+
+
+
+
+
+
+					</p:panel>
+				</p:column>
+				<p:column rowspan="2" style="width:40%;">
+
+
+					<p:panel id="pdfGoruntuleme" header="PDF GÖRÜNTÜLEME"
+						style="width:100%">
+						<p:panelGrid>
+							<object type="application/pdf" data="#{muameleislemlerbean.pdf}"
+								width="650" height="535"> </object>
+						</p:panelGrid>
+					</p:panel>
+
+					<p:panel header="ALANLAR" id="alanlarId">
+						<p:panelGrid columns="2">
+							<p:outputLabel value="Başlık" />
+							<p:inputText size="60"
+								value="#{muameleislemlerbean.muamele.baslik}" />
+							<p:outputLabel value="Paragraf 1" />
+							<p:inputTextarea rows="9" cols="60" queryDelay="750"
+								minQueryLength="4"
+								value="#{muameleislemlerbean.muamele.paragraf1}" />
+							<p:outputLabel value="Paragraf 2" />
+							<p:inputTextarea rows="9" cols="60" queryDelay="750"
+								minQueryLength="3"
+								value="#{muameleislemlerbean.muamele.paragraf2}" />
+						</p:panelGrid>
+					</p:panel>
+				</p:column>
+			</p:panelGrid>
+		</p:panel>
+
+
+		<p:panel header="Müzekkere Talep Listesi" style="width:100%;">
+			<p:panelGrid columns="2">
+				<p:dataTable id="datatable" var="list"
+					value="#{muameleislemlerbean.muameleList}" rowIndexVar="rowIndex">
+					<p:column headerText="Düzenle" width="10%">
+						<p:commandButton value="Düzenle"
+							actionListener="#{muameleislemlerbean.Duzenle()}"
+							update=":#{p:component('updatePanel')}">
+							<f:param name="gelis_amaci" value="duzenle" />
+							<f:param name="buttonDuzenle" value="#{list.id}" />
+							<f:param name="muzekkeretalep" value="#{list.muzekkereTalepAdi}" />
+							<f:param name="103 Davetiyesi Muzekkeresi"
+								value="103 Davetiyesi Muzekkeresi" />
+							<f:param name="89/1 Haciz Ihbarnamesi Muzekkeresi"
+								value="89/1 Haciz Ihbarnamesi Muzekkeresi" />
+							<f:param name="Muzekkere 3" value="Muzekkere 3" />
+							<f:param name="Muzekkere 4" value="Muzekkere 4" />
+							<f:param name="Muzekkere 5" value="Muzekkere 5" />
+							<f:param name="Muzekkere 6" value="Muzekkere 6" />
+							<f:param name="Muzekkere 7" value="Muzekkere 7" />
+							<f:param name="Muzekkere 8" value="Muzekkere 8" />
+							<f:param name="Muzekkere 9" value="Muzekkere 9" />
+							<f:param name="103 Davetiyesi Talebi"
+								value="103 Davetiyesi Talebi" />
+							<f:param name="89/1 Haciz Ihbarnamesi Talebi"
+								value="89/1 Haciz Ihbarnamesi Talebi" />
+							<f:param name="TK/21 Talebi" value="TK/21 Talebi" />
+							<f:param name="Menkul Haciz Talebi" value="Menkul Haciz Talebi" />
+							<f:param name="Dosyanın islemden kaldırılması talebi"
+								value="Dosyanın islemden kaldırılması talebi" />
+							<f:param name="Adresi Arastirmasi Talebi"
+								value="Adresi Arastirmasi Talebi" />
+							<f:param name="Mernis Adresine Odeme Emri Gonderilmesi Talebi"
+								value="Mernis Adresine Odeme Emri Gonderilmesi Talebi" />
+							<f:param name="Feragat Talebi" value="Feragat Talebi" />
+							<f:param name="Mevduat Haczi Talebi" value="Mevduat Haczi Talebi" />
+						</p:commandButton>
+					</p:column>
+					<p:column headerText="Sil" width="10%">
+						<p:commandButton value="Sil" action="#{muameleislemlerbean.Sil()}"
+							update="@form">
+							<f:param name="muzekkereTalepAdi"
+								value="#{list.muzekkereTalepAdi}" />
+							<f:param name="icraDosyaNumarasi"
+								value="#{muameleislemlerbean.muamele.icraDosyaNo}" />
+						</p:commandButton>
+					</p:column>
+					<p:column headerText="İcra Dosya No" width="10%">
+						<p:outputLabel value="#{muameleislemlerbean.muamele.icraDosyaNo}" />
+					</p:column>
+					<p:column headerText="Borçlu Adı" width="25%">
+						<p:outputLabel value="#{list.borcluAdi}" />
+					</p:column>
+
+					<p:column headerText="Müzekkere/Talep" width="15%">
+						<p:outputLabel value="#{list.muzekkereTalepAdi}" />
+					</p:column>
+					<p:column headerText="Miktar" width="15%">
+						<p:outputLabel value="#{list.muzekkereTalepMiktari}" />
+					</p:column>
+					<p:column headerText="Tarih" width="15%">
+						<p:outputLabel value="#{list.muameleTarihi}" />
+					</p:column>
+
+				</p:dataTable>
+			</p:panelGrid>
+		</p:panel>
+	</h:form>
+</h:body>
+</html>

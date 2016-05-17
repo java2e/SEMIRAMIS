@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+
+<style>
+
+#footer {
+    position: fixed;
+    bottom: 0;
+    width: 500px;
+    right:0;
+    float:right;
+    z-index: 99;
+}
+
+
+</style>
+
+
+
+<script language="javascript" type="text/javascript">
+function showHide(shID) {
+     
+        if(document.getElementById(shID).style.display != 'none'){
+        	document.getElementById(shID).style.display = 'none';
+        	document.getElementById('title').src = 'img/message_title_2.png';
+        	
+        	
+        
+        }
+        else
+        	{
+       
+        	
+        	document.getElementById(shID).style.display = 'block';
+        	document.getElementById('title').src = 'img/message_title.png';
+        	
+        	
+        	}
+        	
+        	
+   }
+   </script>
+
+<div id="footer">
+
+<div  style="height: 40px;" onclick="showHide('panel');return false;">
+<img id="title" src="img/message_title.png" width="500" height="40"/>
+</div>
+
+<div id="panel" >
+<div style="width: 150px;height: 300px;float: left;margin-right: 10px;background-image: url('img/message_back_1.png'); ">
+
+ <p:dataList   type="ordered">
+        <f:facet name="header">
+            Online Kullanıcılar
+        </f:facet>
+    </p:dataList>
+ 
+
+</div>
+
+<div style="width: 340px;height: 280px; float:left;">
+
+<div style="width: 340px;height: 250px;background-image: url('img/message_back_2.png');">
+Mesaja Alanı
+</div>
+<div style="width: 340px;height: 50px;background-image: url('img/message_back_3.png');">
+Yazılacak Alan
+</div>
+
+
+</div>
+
+</div>
+
+</div>
+
+
+
+
+</ui:composition>

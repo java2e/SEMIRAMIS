@@ -4,13 +4,22 @@ import java.text.NumberFormat;
 import java.time.Year;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
+import javax.faces.context.FacesContext;
+
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import pelops.dao.BasvuruHarciDAO;
 import pelops.dao.VekaletHarciDAO;
 import pelops.dao.VekaletSinirlariDAO;
 import pelops.kasa.model.Hitam;
+import pelops.kasa.model.PrintModel;
 import pelops.kasa.model.Reddiyat;
+import pelops.kasa.model.ReddiyatView;
 import pelops.kasa.model.Tahsilat;
 import pelops.kasa.model.TahsilatView;
 import pelops.kasa.model.TahsilatViewModel;
@@ -52,6 +61,7 @@ public class KasaCtrl {
 		tahsilat.setGelis_tarihi(model.getTarih());
 		tahsilat.setIcra_dosyasi_id(model.getIcraDosyaID());
 		tahsilat.setTahsilat_miktari(model.getOdemeMiktari());
+		tahsilat.setIcra_dosya_no(model.getIcraDosyaNo());
 		return tahsilat;
 	}
 
@@ -65,17 +75,24 @@ public class KasaCtrl {
 		} else {
 			Reddiyat reddiyat2 = convertTahsilatToReddiyat(tahsilat);
 			reddiyat2.setTahsilatID(tahsilatID);
+
 			reddiyatDAO.insertObjToDB(reddiyat2);
 		}
 
 	}
 
-	
-
 	public void kaydet(Object object, boolean hitam, ArrayList<Reddiyat> reddiyat) throws Exception {
 		if (object instanceof Tahsilat) {
 			kaydetTahsilat((Tahsilat) object, hitam, reddiyat);
 		} else if (object instanceof Hitam) {
+			hitamDAO.insertObjToDB(object);
+		} else if (object instanceof Reddiyat) {
+			reddiyatDAO.insertObjToDB(object);
+		}
+	}
+
+	public void kaydet(Object object) throws Exception {
+		if (object instanceof Hitam) {
 			hitamDAO.insertObjToDB(object);
 		} else if (object instanceof Reddiyat) {
 			reddiyatDAO.insertObjToDB(object);
@@ -123,7 +140,6 @@ public class KasaCtrl {
 		}
 
 	}
-	
 
 	// obj 1: TahsilatListesi , 2: hitamListesi, 3: ReddiyatListesi Durumuna
 	// göre Listeyi getirir. // Kime göre Tarafı
@@ -157,8 +173,8 @@ public class KasaCtrl {
 	 * 
 	 * kimegore: 1:sasa, 2: muvekkil, 3: devlet
 	 * 
-	 * return olarak List donecek 
-	 * ilgili Arraylist e dönüs için cast yapmak yeterli 
+	 * return olarak List donecek ilgili Arraylist e dönüs için cast yapmak
+	 * yeterli
 	 * 
 	 * Or:
 	 * 
@@ -183,6 +199,8 @@ public class KasaCtrl {
 		Reddiyat reddiyat = new Reddiyat();
 
 		reddiyat.setMuvekkilDurum(0);
+		reddiyat.setSasaDurum(5);
+		reddiyat.setDevletDurum(5);
 		reddiyat.setMuvekkilReddiyatTutari(tahsilat.getTahsilat_miktari());
 		reddiyat.setKasaPersonelID(getPersonelID());
 		reddiyat.setIcraDosyaID(tahsilat.getIcra_dosyasi_id());
@@ -192,16 +210,16 @@ public class KasaCtrl {
 
 	public int getPersonelID() {
 
-		return  Integer.valueOf(Util.getSession().getAttribute("UserID").toString());
-		
+		return Integer.valueOf(Util.getSession().getAttribute("UserID").toString());
+
 	}
-	
-	public Reddiyat createReddiyatForStatus(int status, Hesap hesap, Tahsilat tahsilat){
+
+	public Reddiyat createReddiyatForStatus(int status, Hesap hesap, Tahsilat tahsilat) {
 		Reddiyat reddiyat = new Reddiyat();
 		reddiyat = convertTahsilatToReddiyat(tahsilat);
-		double sasaTutar =hesap.getVekalet_ucreti();
+		double sasaTutar = hesap.getVekalet_ucreti();
 		double devletTutar = hesap.getTakip_faiz_gider_vergi();
-		double muvvekkilTutar = hesap.getKalan_alacak()-devletTutar-sasaTutar;
+		double muvvekkilTutar = hesap.getKalan_alacak() - devletTutar - sasaTutar;
 		reddiyat.setMuvekkilDurum(null);
 		reddiyat.setMuvekkilReddiyatTutari(0);
 		reddiyat.setDevletDurum(5);
@@ -213,20 +231,95 @@ public class KasaCtrl {
 			reddiyat.setSasaReddiyatTutari(sasaTutar);
 			break;
 		case 2:
-			 reddiyat.setMuvekkilDurum(0);
-			 reddiyat.setMuvekkilReddiyatTutari(muvvekkilTutar);
+			reddiyat.setMuvekkilDurum(0);
+			reddiyat.setMuvekkilReddiyatTutari(muvvekkilTutar);
 			break;
 		case 3:
-			
+
 			reddiyat.setDevletDurum(0);
 			reddiyat.setDevletReddiyatTutari(devletTutar);
 			break;
 		default:
 			break;
 		}
-		
+
 		return reddiyat;
 	}
 
+	public Reddiyat createReddiyatFromReddiyatView(ReddiyatView view) {
+
+		Reddiyat reddiyat = new Reddiyat();
+
+		reddiyat.setId(view.getId());
+		reddiyat.setIcraDosyaID(view.getIcraDosyaId());
+		reddiyat.setBorcluAdi(view.getBorcluAdi());
+		reddiyat.setDevletDurum(view.getDevletDurum());
+		reddiyat.setDevletReddiyatTutari(view.getDevletReddiyatTuttar());
+		reddiyat.setKasaPersonelID(getPersonelID());
+		reddiyat.setMuvekkilAdi(view.getMuvekkilAdi());
+		reddiyat.setMuvekkilDurum(view.getMuvekkilDurum());
+		reddiyat.setMuvekkilReddiyatTutari(view.getMuvekkilReddiyatTutar());
+		reddiyat.setSasaDurum(view.getSasaDurum());
+		reddiyat.setSasaReddiyatTutari(view.getSasaReddiyatTutar());
+		reddiyat.setTahsilatID(view.getTahsilatId());
+		reddiyat.setToplamReddiyatTutari(view.getToplamTutar());
+		reddiyat.setIcraDosyaNo(view.getIcraDosyaNo());
+		if (reddiyat.getDevletDurum() == 0) {
+			reddiyat.setAktifTutar(reddiyat.getDevletReddiyatTutari());
+			reddiyat.setReddiyatTuru("Devlete Reddiyat");
+		} else if (reddiyat.getMuvekkilDurum() == 0) {
+			reddiyat.setAktifTutar(reddiyat.getMuvekkilReddiyatTutari());
+			reddiyat.setReddiyatTuru("Bankaya Reddiyat");
+		} else if (reddiyat.getSasaDurum() == 0) {
+			reddiyat.setAktifTutar(reddiyat.getSasaReddiyatTutari());
+			reddiyat.setReddiyatTuru("Sasaya Reddiyat");
+		}
+
+		return reddiyat;
+	}
+
+	public PrintModel generatePrintModelFromTahsilat(TahsilatView view) {
+		PrintModel model = new PrintModel();
+		model.setSeri("");
+		model.setAlacakli(view.getMuvekkilAdi());
+		model.setBorclu(view.getBorcluAdi());
+		model.setDosyaNo(view.getIcraDosyaNo());
+		model.setMakbuzNo(String.valueOf(view.getId()));
+		model.setSebebi("");
+		model.setTarih(String.valueOf(new Date()));
+		model.setMiktari(String.valueOf(view.getTahsilatMiktari()));
+		model.setSiraNo(String.valueOf(view.getId()));
+
+		return model;
+
+	}
+
+	public JasperPrint generateTahsilatMakbuzu(TahsilatView view) throws JRException {
+		PrintModel model = generatePrintModelFromTahsilat(view);
+		JasperPrint jasperPrint = null;
+		ArrayList<PrintModel> list = new ArrayList<>();
+		list.add(model);
+		JRBeanCollectionDataSource beanCollectionDataSource = new JRBeanCollectionDataSource(list);
+		String reportPath = FacesContext.getCurrentInstance().getExternalContext()
+				.getRealPath("/reports/JASPER/" + PrintModel.TAHSILAT_MAKBUZU);
+		jasperPrint = JasperFillManager.fillReport(reportPath, new HashMap<>(), beanCollectionDataSource);
+
+		return jasperPrint;
+
+	}
+
+	public JasperPrint generateHitamMakbuzu(TahsilatView view) throws JRException {
+		PrintModel model = generatePrintModelFromTahsilat(view);
+		JasperPrint jasperPrint = null;
+		ArrayList<PrintModel> list = new ArrayList<>();
+		list.add(model);
+		JRBeanCollectionDataSource beanCollectionDataSource = new JRBeanCollectionDataSource(list);
+		String reportPath = FacesContext.getCurrentInstance().getExternalContext()
+				.getRealPath("/reports/JASPER/" + PrintModel.HITAM_MAKBUZU);
+		jasperPrint = JasperFillManager.fillReport(reportPath, new HashMap<>(), beanCollectionDataSource);
+
+		return jasperPrint;
+
+	}
 
 }

@@ -307,6 +307,9 @@ public class AnaSayfaBean {
 			case 2210:
 				formPath = "/Tanimlar/frm_dosya_yukleme.xhtml";
 				break;
+			case 1010:
+				formPath ="frm_muze_talep.xhtml";
+				break;
 			default:
 
 				formPath = "frm_rapor_dashboard.xhtml"; // ilk sayfa

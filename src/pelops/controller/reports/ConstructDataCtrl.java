@@ -180,6 +180,9 @@ public class ConstructDataCtrl {
 				JasperFileName = ReportUtils.JASPERFILE_NAME_TAKIP_TALEBI_AKBANK;
 			} else if (belgeAdi == ReportUtils.REPORT_ODEME_EMRI) {
 				JasperFileName = ReportUtils.JASPERFILE_NAME_ODEME_EMRI_AKBANK;
+			} else if (belgeAdi.equals(ReportUtils.REPORT_TEBLIGAT_ZARFI)) {
+				JasperFileName = ReportUtils.JASPERFILE_NAME_TEBLIGAT;
+
 			}
 			// :TODO Akbankın diğer rapor tasarımları bittiğinde burası
 			// değiştirilecek...

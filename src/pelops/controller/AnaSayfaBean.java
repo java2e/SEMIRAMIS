@@ -310,6 +310,7 @@ public class AnaSayfaBean {
 			case 1010:
 				formPath ="frm_muze_talep.xhtml";
 				break;
+			
 			default:
 
 				formPath = "frm_rapor_dashboard.xhtml"; // ilk sayfa

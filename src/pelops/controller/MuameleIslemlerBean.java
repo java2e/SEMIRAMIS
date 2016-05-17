@@ -90,8 +90,11 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 		this.setIptalrender(false);
 		this.setduzenlesilrender(false);
 		muamele.setStatus(0);
-		muamele.setBorcluAdi(AktifBean.getBorcluAdi());
-		muamele.setIcraDosyaNo(AktifBean.icraDosyaNo);
+//		muamele.setBorcluAdi(AktifBean.getBorcluAdi());
+//		muamele.setIcraDosyaNo(AktifBean.icraDosyaNo);
+		
+		muamele.setBorcluAdi("Deneme Statik");
+		muamele.setIcraDosyaNo("2016_9999");
 
 		// muamele.setPdf("./pdfler/default.pdf?pfdrid_c=true");
 
@@ -1107,12 +1110,19 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 			path = "D:/testworkspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/SEMIRAMIS/pdfler/"
 					+ muzekkereTalep + ".pdf";
 
-		} else {
+		} else if (gelisAmaci.equals("onizleme")) {
 			
-			// gelis_amaci yazdir
+			// gelis_amaci önizleme
+			
+			path = "D:/testworkspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/SEMIRAMIS/pdfler/"
+					+ muzekkereTalep + ".pdf";
 
+			
+
+		}else {
+			
+			// geliş amacı yazdir
 			path = "D:/muzekkere_talep_ciktilari/" + muzekkereTalep + "_" + muamele.getIcraDosyaNo() + ".pdf";
-
 		}
 
 		JRPdfExporter exporter = new JRPdfExporter();

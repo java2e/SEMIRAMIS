@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="hacizihbarnametalebi" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="15bbab6b-08e6-47a3-b8e5-3d13429efc83">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="icraMudurluguAdi" class="java.lang.String"/>
+	<field name="icraDosyaNo" class="java.lang.String"/>
+	<field name="avukatAdi" class="java.lang.String"/>
+	<field name="barcode" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="83" splitType="Stretch">
+			<staticText>
+				<reportElement x="27" y="2" width="51" height="29" uuid="9ce465da-b5a1-463a-964c-db42c1e10cec"/>
+				<textElement textAlignment="Center">
+					<font pdfEncoding="Cp1254" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[T.C.
+ANKARA]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="30" width="151" height="20" uuid="c72a6285-2aae-408e-b92a-afb07dc3a023"/>
+				<textElement>
+					<font pdfEncoding="Cp1254" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{icraMudurluguAdi}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="60" y="50" width="100" height="20" uuid="a8f9639c-8eeb-48f4-a07a-e706b27a1b90"/>
+				<textElement>
+					<font pdfEncoding="Cp1254" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{icraDosyaNo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="50" width="90" height="17" uuid="531a58d5-56a5-4b81-9067-8558684677fe"/>
+				<text><![CDATA[DOSYA NO:]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="407" splitType="Stretch">
+			<textField>
+				<reportElement x="393" y="124" width="139" height="26" uuid="cd49ca44-4b82-4e49-a925-b33b2b90532e"/>
+				<textElement>
+					<font size="12" pdfEncoding="Cp1254" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{avukatAdi}]]></textFieldExpression>
+			</textField>
+			<componentElement>
+				<reportElement x="0" y="357" width="200" height="50" uuid="d33bdf1f-605d-4b85-93e2-f210fa780d9f"/>
+				<jr:barbecue xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" type="EAN13" drawText="true" checksumRequired="false">
+					<jr:codeExpression><![CDATA[$F{barcode}]]></jr:codeExpression>
+				</jr:barbecue>
+			</componentElement>
+			<staticText>
+				<reportElement x="0" y="12" width="550" height="77" uuid="4976e8fc-e6fd-4895-b615-2bbcf131454c"/>
+				<textElement textAlignment="Justified">
+					<font size="12" pdfEncoding="Cp1254" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[Borçlunun 3. Kişilerdeki doğmuş hak ve alacaklarının haczi için (maaş hesabı hariç) Ziraat Bankası Genel Müdürlüğüne, Vakıflar Bankası Genel Müdürlüğüne, Yapı Kredi Bankası Genel Müdürlüğüne, Halkbankası Genel Müdürlüğüne 89/1 haciz ihbarnamesi gönderilmesini talep ederim, dedi.]]></text>
+			</staticText>
+		</band>
+	</detail>
+</jasperReport>

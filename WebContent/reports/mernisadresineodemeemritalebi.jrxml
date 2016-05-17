@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="hacizihbarnametalebi" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="15bbab6b-08e6-47a3-b8e5-3d13429efc83">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="icraMudurluguAdi" class="java.lang.String"/>
+	<field name="icraDosyaNo" class="java.lang.String"/>
+	<field name="barcode" class="java.lang.String"/>
+	<field name="tebligatTarihi" class="java.lang.String"/>
+	<field name="muhatapAdresi" class="java.lang.String"/>
+	<field name="paragraf1" class="java.lang.String"/>
+	<field name="paragraf2" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="69" splitType="Stretch">
+			<staticText>
+				<reportElement x="19" y="1" width="51" height="29" uuid="9ce465da-b5a1-463a-964c-db42c1e10cec"/>
+				<textElement textAlignment="Center">
+					<font pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[T.C.
+ANKARA]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="29" width="200" height="20" uuid="c72a6285-2aae-408e-b92a-afb07dc3a023"/>
+				<textElement>
+					<font pdfEncoding="Cp1254"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{icraMudurluguAdi}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="11" y="45" width="100" height="20" uuid="a8f9639c-8eeb-48f4-a07a-e706b27a1b90"/>
+				<textElement>
+					<font pdfEncoding="Cp1254"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{icraDosyaNo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band height="407" splitType="Stretch">
+			<componentElement>
+				<reportElement x="0" y="357" width="200" height="50" uuid="d33bdf1f-605d-4b85-93e2-f210fa780d9f"/>
+				<jr:barbecue xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" type="EAN13" drawText="true" checksumRequired="false">
+					<jr:codeExpression><![CDATA[$F{barcode}]]></jr:codeExpression>
+				</jr:barbecue>
+			</componentElement>
+			<textField>
+				<reportElement x="200" y="215" width="110" height="20" uuid="5ad27881-e6d0-4d4d-a988-aece49797dc5"/>
+				<textElement>
+					<font size="12" pdfEncoding="Cp1254"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tebligatTarihi}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="87" width="100" height="20" uuid="28665344-3b8b-4cd8-8a67-a1aeb3c44bc1"/>
+				<textElement>
+					<font size="12" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[ADRES:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="4" y="106" width="449" height="53" uuid="0a2ea357-27a0-4c3c-99d3-2d805f1afc19"/>
+				<textElement>
+					<font size="12" pdfEncoding="Cp1254"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{muhatapAdresi}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="4" y="27" width="100" height="20" uuid="c6e18c37-4015-4a34-86eb-779720cec339"/>
+				<textElement>
+					<font size="12" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[AV.GELDİ.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="4" y="47" width="421" height="20" uuid="9c2eeec0-b8f9-465d-972b-a8a6b4a2d3e1"/>
+				<textElement>
+					<font size="12" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[Borçlunun mernis adresine ödeme emri gönderilmesini talep ederim dedi.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="215" width="200" height="20" uuid="235120be-41c0-4db2-9d23-be9308932879"/>
+				<textElement>
+					<font size="12" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[İşbu talep uyap üzerinden e-imza ile]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="295" y="215" width="146" height="20" uuid="64b1430e-5ed8-495d-b863-51920ded1550"/>
+				<textElement>
+					<font size="12" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[tarihinde gönderilmiştir.]]></text>
+			</staticText>
+		</band>
+	</detail>
+</jasperReport>

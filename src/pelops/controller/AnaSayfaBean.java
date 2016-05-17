@@ -293,7 +293,6 @@ public class AnaSayfaBean {
 			// break;
 
 			case 1003:
-				System.out.println("burda 1003");
 				formPath = "frm_otomatik_dosya_yazdirma.xhtml";
 				break;
 
@@ -309,6 +308,9 @@ public class AnaSayfaBean {
 				break;
 			case 1010:
 				formPath ="frm_muze_talep.xhtml";
+				break;
+			case 1011:
+				formPath = "frm_dosya_chronology.xhtml";
 				break;
 			
 			default:

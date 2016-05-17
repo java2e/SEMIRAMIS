@@ -40,6 +40,11 @@ public class ReportUtils {
 	public static final String AKBANK = "AKBANK T.A.Ş.";
 	public static final String GARANTI = "T. GARANTİ BANKASI A.Ş.";
 	public static final String ING = "İNG BANK A.Ş.";
+	
+	//Dosya Krononolojisi için static veriler
+	
+	public static final String DOSYA_YONU_GIDEN = "Giden";
+	public static final String DOSYA_YONU_GELEN = "Gelen";
 
 	// model Dosya Yükleme Modeli Belge adi combobox
 

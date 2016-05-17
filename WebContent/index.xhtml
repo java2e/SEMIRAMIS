@@ -26,12 +26,9 @@ li.ui-menuitem.ui-menubar-options.ui-widget.ui-corner-all {
 	margin: 6px 6px 6px 6px;
 }
 
-
-  #img-circle {
-      border-radius: 50%;
-  }
-  
-  
+#img-circle {
+	border-radius: 50%;
+}
 </style>
 
 </h:head>
@@ -52,40 +49,40 @@ li.ui-menuitem.ui-menubar-options.ui-widget.ui-corner-all {
 
 
 
-<div style="width: 250px; height: 70px;float:right;">
+				<div style="width: 250px; height: 70px; float: right;">
 
 
-<p:panelGrid columns="2">
+					<p:panelGrid columns="2">
 
- <p:outputLabel value="Kullanıcı Adı :"/>
- <p:outputLabel value="Mehmet Demircioğlu"/>
+						<p:outputLabel value="Kullanıcı Adı :" />
+						<p:outputLabel value="Mehmet Demircioğlu" />
 
- <p:outputLabel value="Kullanıcı Rolü :"/>
- <p:outputLabel value="ADMİN"/>
+						<p:outputLabel value="Kullanıcı Rolü :" />
+						<p:outputLabel value="ADMİN" />
 
- <p:outputLabel value="Son Giriş :"/>
- <p:outputLabel value="12/12/2016 14:55"/>
-
-
-
-</p:panelGrid>
+						<p:outputLabel value="Son Giriş :" />
+						<p:outputLabel value="12/12/2016 14:55" />
 
 
 
+					</p:panelGrid>
 
-</div>
 
 
-<div style="width:80px;height:70px;float:right;">
-<center>
-  <img src="img/SasaUser.png" width="65" height="65" id="img-circle" />
-</center>
-</div>
 
-			
-			
-			
-			
+				</div>
+
+
+				<div style="width: 80px; height: 70px; float: right;">
+					<center>
+						<img src="img/SasaUser.png" width="65" height="65" id="img-circle" />
+					</center>
+				</div>
+
+
+
+
+
 
 
 			</div>
@@ -96,455 +93,389 @@ li.ui-menuitem.ui-menubar-options.ui-widget.ui-corner-all {
 			<div class="logo"></div>
 		</div>
 
-			<div id="sidebar">
-				<h:form id="formMenu">
-				
-				
-				
-					<p:growl id="messages" showDetail="false" />
+		<div id="sidebar">
+			<h:form id="formMenu">
 
 
 
-<ui:include src="/Message.xhtml"></ui:include>
+				<p:growl id="messages" showDetail="false" />
 
 
 
-				 <p:menubar id="mb">
-
-						<p:submenu label="HIZLI ERİŞİM" expanded="true">
-
-							<p:menuitem value="Ana Sayfa" ajax="false" update=":OrtaSayfa"
-								actionListener="#{anaSayfaBean.gotoPage(1002)}" />
-							<p:menuitem value="Hızlı Takip Açma    " ajax="false"
-								update=":OrtaSayfa"
-								actionListener="#{anaSayfaBean.gotoPage(48)}"
-								icon="ui-icon-home" />
-							<p:menuitem value="İcra Dosya Takibi" ajax="false"
-								update=":OrtaSayfa"
-								actionListener="#{anaSayfaBean.gotoPage(49)}"
-								icon="ui-icon-star" />
-								
-								<p:menuitem value="Müzekkere/Talep Hazırlama" ajax="false"
-								update=":OrtaSayfa"
-								actionListener="#{anaSayfaBean.gotoPage(1010)}"
-								icon="ui-icon-star" />
+				<ui:include src="/Message.xhtml"></ui:include>
 
 
-						</p:submenu>
 
-						<p:submenu label="TANIMLAR" expanded="true" toggleable="true"
-							id="tanimlar">
-							<p:menuitem value="Adres Statüsü	   " ajax="false"
-								update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(1)}"
-								icon="ui-icon-disk" />
-							<p:menuitem value="Adres Tipi" ajax="false" update=":OrtaSayfa"
-								actionListener="#{anaSayfaBean.gotoPage(2)}" icon="ui-icon-disk" />
-							<p:menuitem value="Adres Türü" ajax="false" update=":OrtaSayfa"
-								actionListener="#{anaSayfaBean.gotoPage(3)}" icon="ui-icon-disk" />
-							<p:menuitem value="Alacak Belge Tipi   " ajax="false"
-								update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(4)}"
-								icon="ui-icon-disk" />
-							<p:menuitem value="Alacak Tipi         " ajax="false"
-								update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(5)}"
-								icon="ui-icon-disk" />
-							<p:menuitem value="Analiz Tipi         " ajax="false"
-								update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(6)}"
-								icon="ui-icon-disk" />
-							<p:menuitem value="Avans Türü          " ajax="false"
-								update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(7)}"
-								icon="ui-icon-disk" />
-							<p:menuitem value="Belge Tipi          " ajax="false"
-								update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(8)}"
-								icon="ui-icon-disk" />
-							<p:menuitem value="Borç Tipi           " ajax="false"
-								update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(9)}"
-								icon="ui-icon-disk" />
-							<p:menuitem value="Dava Masrafları     " ajax="false"
-								update=":OrtaSayfa"
-								actionListener="#{anaSayfaBean.gotoPage(10)}"
-								icon="ui-icon-disk" />
-							<p:menuitem value="Dava Ekleme     " ajax="false"
-								update=":OrtaSayfa"
-								actionListener="#{anaSayfaBean.gotoPage(2210)}"
-								icon="ui-icon-disk" />
-							<p:menuitem value="Döküman Tipi        " ajax="false"
-								update=":OrtaSayfa"
-								actionListener="#{anaSayfaBean.gotoPage(11)}"
-								icon="ui-icon-disk" />
-							<p:menuitem value="Dosya Statü         " ajax="false"
-								update=":OrtaSayfa"
-								actionListener="#{anaSayfaBean.gotoPage(12)}"
-								icon="ui-icon-disk" />
-							<p:menuitem value="Dosya Türü          " ajax="false"
-								update=":OrtaSayfa"
-								actionListener="#{anaSayfaBean.gotoPage(13)}"
-								icon="ui-icon-disk" />
-							<p:menuitem value="Faiz Tipi           " ajax="false"
-								update=":OrtaSayfa"
-								actionListener="#{anaSayfaBean.gotoPage(14)}"
-								icon="ui-icon-disk" />
-							<p:menuitem value="Gönderi Tipi        " ajax="false"
-								update=":OrtaSayfa"
-								actionListener="#{anaSayfaBean.gotoPage(15)}"
-								icon="ui-icon-disk" />
-							<p:menuitem value="Haciz Masrafı       " ajax="false"
-								update=":OrtaSayfa"
-								actionListener="#{anaSayfaBean.gotoPage(16)}"
-								icon="ui-icon-disk" />
-							<p:menuitem value="Haciz Tipi          " ajax="false"
-								update=":OrtaSayfa"
-								actionListener="#{anaSayfaBean.gotoPage(17)}"
-								icon="ui-icon-disk" />
-							<p:menuitem value=" Harç Tipi          " ajax="false"
-								update=":OrtaSayfa"
-								actionListener="#{anaSayfaBean.gotoPage(18)}"
-								icon="ui-icon-disk" />
-							<p:menuitem value="İcra Dosya Aşaması  " ajax="false"
-								update=":OrtaSayfa"
-								actionListener="#{anaSayfaBean.gotoPage(19)}"
-								icon="ui-icon-disk" />
-							<p:menuitem value=" İl                 " ajax="false"
-								update=":OrtaSayfa"
-								actionListener="#{anaSayfaBean.gotoPage(20)}"
-								icon="ui-icon-disk" />
-							<p:menuitem value=" İlçe               " ajax="false"
-								update=":OrtaSayfa"
-								actionListener="#{anaSayfaBean.gotoPage(21)}"
-								icon="ui-icon-disk" />
-							<p:menuitem value="İşlem Statüsü       " ajax="false"
-								update=":OrtaSayfa"
-								actionListener="#{anaSayfaBean.gotoPage(22)}"
-								icon="ui-icon-disk" />
-							<p:menuitem value="İzleme Sonucu       " ajax="false"
-								update=":OrtaSayfa"
-								actionListener="#{anaSayfaBean.gotoPage(23)}"
-								icon="ui-icon-disk" />
-							<p:menuitem value=" Kasa Gelir Kalemi  " ajax="false"
-								update=":OrtaSayfa"
-								actionListener="#{anaSayfaBean.gotoPage(24)}"
-								icon="ui-icon-disk" />
-							<p:menuitem value=" Kasa Gider Kalemi  " ajax="false"
-								update=":OrtaSayfa"
-								actionListener="#{anaSayfaBean.gotoPage(25)}"
-								icon="ui-icon-disk" />
-							<p:menuitem value=" Kasa Tahsilat Statü" ajax="false"
-								update=":OrtaSayfa"
-								actionListener="#{anaSayfaBean.gotoPage(26)}"
-								icon="ui-icon-disk" />
-							<p:menuitem value=" Kasa Tahsilat Tipi " ajax="false"
-								update=":OrtaSayfa"
-								actionListener="#{anaSayfaBean.gotoPage(27)}"
-								icon="ui-icon-disk" />
-							<p:menuitem value="Kurum Tipi          " ajax="false"
-								update=":OrtaSayfa"
-								actionListener="#{anaSayfaBean.gotoPage(28)}"
-								icon="ui-icon-disk" />
-							<p:menuitem value="Mal Tipi          " ajax="false"
-								update=":OrtaSayfa"
-								actionListener="#{anaSayfaBean.gotoPage(29)}"
-								icon="ui-icon-disk" />
-							<p:menuitem value=" Masraf Tipi        " ajax="false"
-								update=":OrtaSayfa"
-								actionListener="#{anaSayfaBean.gotoPage(30)}"
-								icon="ui-icon-disk" />
-							<p:menuitem value=" Meslek             " ajax="false"
-								update=":OrtaSayfa"
-								actionListener="#{anaSayfaBean.gotoPage(31)}"
-								icon="ui-icon-disk" />
-							<p:menuitem value="Muamele Statüsü     " ajax="false"
-								update=":OrtaSayfa"
-								actionListener="#{anaSayfaBean.gotoPage(32)}"
-								icon="ui-icon-disk" />
-							<p:menuitem value="Muamele Tipi        " ajax="false"
-								update=":OrtaSayfa"
-								actionListener="#{anaSayfaBean.gotoPage(33)}"
-								icon="ui-icon-disk" />
-							<p:menuitem value="Müvekkil Tipi       " ajax="false"
-								update=":OrtaSayfa"
-								actionListener="#{anaSayfaBean.gotoPage(34)}"
-								icon="ui-icon-disk" />
-							<p:menuitem value="Müvekkil Bilgisi   " ajax="false"
-								update=":OrtaSayfa"
-								actionListener="#{anaSayfaBean.gotoPage(301)}"
-								icon="ui-icon-disk" />
-							<p:menuitem value=" Para Birimi        " ajax="false"
-								update=":OrtaSayfa"
-								actionListener="#{anaSayfaBean.gotoPage(35)}"
-								icon="ui-icon-disk" />
-							<p:menuitem value="Rapor Tipi         " ajax="false"
-								update=":OrtaSayfa"
-								actionListener="#{anaSayfaBean.gotoPage(36)}"
-								icon="ui-icon-disk" />
-							<p:menuitem value=" Satış Masrafları   " ajax="false"
-								update=":OrtaSayfa"
-								actionListener="#{anaSayfaBean.gotoPage(37)}"
-								icon="ui-icon-disk" />
-							<p:menuitem value="Tahsilat Statüsü    " ajax="false"
-								update=":OrtaSayfa"
-								actionListener="#{anaSayfaBean.gotoPage(38)}"
-								icon="ui-icon-disk" />
-							<p:menuitem value="Tahsilat Tipi       " ajax="false"
-								update=":OrtaSayfa"
-								actionListener="#{anaSayfaBean.gotoPage(39)}"
-								icon="ui-icon-disk" />
-							<p:menuitem value=" Takip Masrafları   " ajax="false"
-								update=":OrtaSayfa"
-								actionListener="#{anaSayfaBean.gotoPage(40)}"
-								icon="ui-icon-disk" />
-							<p:menuitem value=" Takip Şekli" ajax="false" update=":OrtaSayfa"
-								actionListener="#{anaSayfaBean.gotoPage(41)}"
-								icon="ui-icon-disk" />
-							<p:menuitem value=" Takip Tipi    " ajax="false"
-								update=":OrtaSayfa"
-								actionListener="#{anaSayfaBean.gotoPage(42)}"
-								icon="ui-icon-disk" />
-							<p:menuitem value=" Takip Yolu    " ajax="false"
-								update=":OrtaSayfa"
-								actionListener="#{anaSayfaBean.gotoPage(43)}"
-								icon="ui-icon-disk" />
-							<p:menuitem value="  Taraf Rolü   " ajax="false"
-								update=":OrtaSayfa"
-								actionListener="#{anaSayfaBean.gotoPage(44)}"
-								icon="ui-icon-disk" />
-							<p:menuitem value="Taraf Tipi         " ajax="false"
-								update=":OrtaSayfa"
-								actionListener="#{anaSayfaBean.gotoPage(45)}"
-								icon="ui-icon-disk" />
-							<p:menuitem value="Tebligat Tipi       " ajax="false"
-								update=":OrtaSayfa"
-								actionListener="#{anaSayfaBean.gotoPage(46)}"
-								icon="ui-icon-disk" />
-							<p:menuitem value="  Vizit Statüsü   " ajax="false"
-								update=":OrtaSayfa"
-								actionListener="#{anaSayfaBean.gotoPage(47)}"
-								icon="ui-icon-disk" />
+				<p:menubar id="mb">
 
+					<p:submenu label="HIZLI ERİŞİM" expanded="true">
 
-						</p:submenu>
+						<p:menuitem value="Ana Sayfa" ajax="false" update=":OrtaSayfa"
+							actionListener="#{anaSayfaBean.gotoPage(1002)}" />
+						<p:menuitem value="Hızlı Takip Açma    " ajax="false"
+							update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(48)}"
+							icon="ui-icon-home" />
+						<p:menuitem value="İcra Dosya Takibi" ajax="false"
+							update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(49)}"
+							icon="ui-icon-star" />
 
-						<p:submenu label="İCRA DOSYASI" expanded="false" id="icradosyasi">
-							<p:menuitem value="Hızlı Takip Açma    " ajax="false"
-								update=":OrtaSayfa"
-								actionListener="#{anaSayfaBean.gotoPage(48)}"
-								icon="ui-icon-home" />
-							<p:menuitem value="İcra Dosya Takibi" ajax="false"
-								update=":OrtaSayfa"
-								actionListener="#{anaSayfaBean.gotoPage(49)}"
-								icon="ui-icon-star" />
-							<p:menuitem value="Alacak Bilgisi Kaydı" ajax="false"
-								update=":OrtaSayfa"
-								actionListener="#{anaSayfaBean.gotoPage(50)}"
-								icon="ui-icon-home" />
-							<p:menuitem value="Alacaklı Bilgisi Kaydı" ajax="false"
-								update=":OrtaSayfa"
-								actionListener="#{anaSayfaBean.gotoPage(51)}"
-								icon="ui-icon-home" />
-							<p:menuitem value="Borçlu bilgisi Kaydı" ajax="false"
-								update=":OrtaSayfa"
-								actionListener="#{anaSayfaBean.gotoPage(52)}"
-								icon="ui-icon-home" />
-
-						</p:submenu>
-
-						<p:submenu label="OPERASYONEL İŞLEMLER" expanded="false"
-							id="operasyonel">
-							<p:menuitem value="Haciz Bilgisi Kaydı" ajax="false"
-								update=":OrtaSayfa"
-								actionListener="#{anaSayfaBean.gotoPage(53)}"
-								icon="ui-icon-home" />
-							<p:menuitem value="Hacze Esas Mal Bilgisi Kaydı" ajax="false"
-								update=":OrtaSayfa"
-								actionListener="#{anaSayfaBean.gotoPage(54)}"
-								icon="ui-icon-star" />
-							<p:menuitem value="Harç Bilgisi Kaydı" ajax="false"
-								update=":OrtaSayfa"
-								actionListener="#{anaSayfaBean.gotoPage(55)}"
-								icon="ui-icon-home" />
-							<p:menuitem value="Masraf Bilgisi Kaydı" ajax="false"
-								update=":OrtaSayfa"
-								actionListener="#{anaSayfaBean.gotoPage(56)}"
-								icon="ui-icon-home" />
-							<p:menuitem value="Muamele İşlemleri Kaydı" ajax="false"
-								update=":OrtaSayfa"
-								actionListener="#{anaSayfaBean.gotoPage(57)}"
-								icon="ui-icon-home" />
-							<p:menuitem value="Ödeme Emri Kaydı" ajax="false"
-								update=":OrtaSayfa"
-								actionListener="#{anaSayfaBean.gotoPage(58)}"
-								icon="ui-icon-home" />
-							<p:menuitem value="Vizit Bilgisi Kaydı" ajax="false"
-								update=":OrtaSayfa"
-								actionListener="#{anaSayfaBean.gotoPage(59)}"
-								icon="ui-icon-home" />
-							<p:menuitem value="İcra Borçlu Ses Kaydı" ajax="false"
-								update=":OrtaSayfa"
-								actionListener="#{anaSayfaBean.gotoPage(60)}"
-								icon="ui-icon-home" />
-							<p:menuitem value="İzleme Bilgisi Kaydı" ajax="false"
-								update=":OrtaSayfa"
-								actionListener="#{anaSayfaBean.gotoPage(61)}"
-								icon="ui-icon-home" />
-							<p:menuitem value="Otomatik Dosya Yükleme" ajax="false"
-								update=":OrtaSayfa"
-								actionListener="#{anaSayfaBean.gotoPage(62)}"
-								icon="ui-icon-home" />
-							<p:menuitem value="Ödeme Planı" ajax="false" update=":OrtaSayfa"
-								actionListener="#{anaSayfaBean.gotoPage(100)}"
-								icon="ui-icon-home" />
-							<p:menuitem value="Tahsilat İşlemleri" ajax="false"
-								update=":OrtaSayfa"
-								actionListener="#{anaSayfaBean.gotoPage(105)}"
-								icon="ui-icon-home" />
-							<p:menuitem value="Muamele İşlemleri" ajax="false"
-								update=":OrtaSayfa"
-								actionListener="#{anaSayfaBean.gotoPage(101)}"
-								icon="ui-icon-home" />
-
-
-						</p:submenu>
-
-
-						<p:submenu label="ANALİZ" expanded="false" id="analiz">
-							<p:menuitem value="Muamele Analizi" ajax="false"
-								update=":OrtaSayfa"
-								actionListener="#{anaSayfaBean.gotoPage(63)}"
-								icon="ui-icon-home" />
-							<p:menuitem value="İzleme Analizi" ajax="false"
-								update=":OrtaSayfa"
-								actionListener="#{anaSayfaBean.gotoPage(64)}"
-								icon="ui-icon-home" />
-							<p:menuitem value="Tahsilat Analizi" ajax="false"
-								update=":OrtaSayfa"
-								actionListener="#{anaSayfaBean.gotoPage(65)}"
-								icon="ui-icon-home" />
-							<p:menuitem value="Haciz Analizi" ajax="false"
-								update=":OrtaSayfa"
-								actionListener="#{anaSayfaBean.gotoPage(66)}"
-								icon="ui-icon-home" />
-							<p:menuitem value="Kasa Analizi" ajax="false" update=":OrtaSayfa"
-								actionListener="#{anaSayfaBean.gotoPage(67)}"
-								icon="ui-icon-home" />
-							<p:menuitem value="Risk Analizi" ajax="false" update=":OrtaSayfa"
-								actionListener="#{anaSayfaBean.gotoPage(10000)}"
-								icon="ui-icon-home" />
-
-							<p:menuitem value="Yazdır Tasarım " ajax="false"
-								update=":OrtaSayfa"
-								actionListener="#{anaSayfaBean.gotoPage(1005)}"
-								icon="ui-icon-home" />
-
-
-						</p:submenu>
-
-						<p:submenu label="UYAP" expanded="false" id="uyap">
-
-							<p:menuitem value="Uyap Dosyası Oluştur" ajax="false"
-								update=":OrtaSayfa"
-								actionListener="#{anaSayfaBean.gotoPage(68)}"
-								icon="ui-icon-home" />
-							<p:menuitem value="Uyap Entegrasyonu" ajax="false"
-								update=":OrtaSayfa"
-								actionListener="#{anaSayfaBean.gotoPage(69)}"
-								icon="ui-icon-star" />
-							<p:menuitem value="Excell Entegrasyonu" ajax="false"
-								update=":OrtaSayfa"
-								actionListener="#{anaSayfaBean.gotoPage(70)}"
-								icon="ui-icon-star" />
-							
-							<p:menuitem value="Uyap Sorgu Entegrasyonu" ajax="false"
-								update=":OrtaSayfa"
-								actionListener="#{anaSayfaBean.gotoPage(169)}"
-								icon="ui-icon-star" />
-									
-							<p:menuitem value="XML Entegrasyonu" ajax="false"
-								update=":OrtaSayfa"
-								actionListener="#{anaSayfaBean.gotoPage(71)}"
-								icon="ui-icon-star" />
-
-						</p:submenu>
-
-						<p:submenu label="KASA" expanded="false" id="kasa">
-
-							<p:menuitem value="Tahsilat Listesi" ajax="false"
-								update=":OrtaSayfa"
-								actionListener="#{anaSayfaBean.gotoPage(102)}"
-								icon="ui-icon-home" />
-							<p:menuitem value="Reddiyat Listesi" ajax="false"
-								update=":OrtaSayfa"
-								actionListener="#{anaSayfaBean.gotoPage(103)}"
-								icon="ui-icon-home" />
-
-						</p:submenu>
-
-						<p:submenu label="MESAJLAŞMA" expanded="false" id="mesajlasma">
-
-							<p:menuitem value="Semiramis Mesaj Servisi" ajax="false"
-								update=":OrtaSayfa"
-								actionListener="#{anaSayfaBean.gotoPage(72)}"
-								icon="ui-icon-star" />
-
-						</p:submenu>
-
-						<p:submenu label="RAPORLAMA" expanded="false" id="raporlama">
-							<p:submenu label="AÇILAN TAKİP DOSTA TÜRLERİ" expanded="false"
-								id="dsytakiptur">
-
-								<p:menuitem value="Gayrimenkul Rehni Dosyaları(128 Adet)"
-									update=":OrtaSayfa" actionListener="#" icon="ui-icon-star" />
-								<p:menuitem value="Taşıt Rehni Dosyaları(5 Adet)"
-									update=":OrtaSayfa" actionListener="#" icon="ui-icon-star" />
-								<p:menuitem value="Kredi Kartı Dosyaları(12 Adet)"
-									update=":OrtaSayfa" actionListener="#" icon="ui-icon-star" />
-								<p:menuitem value="Anadolu Dosyaları(8 Adet)"
-									update=":OrtaSayfa" actionListener="#" icon="ui-icon-star" />
-								<p:menuitem value="10 ve Üzeri Dosyalar(18 Adet)"
-									update=":OrtaSayfa" actionListener="#" icon="ui-icon-star" />
-								<p:menuitem value="Ticari Dosyalar(28 Adet)" update=":OrtaSayfa"
-									actionListener="#" icon="ui-icon-star" />
-
-							</p:submenu>
-							<p:submenu label="HACİZ KONULAN DOSYALAR" expanded="false"
-								id="hczkondos">
-
-								<p:menuitem value="Taşınmaz Haczi" update=":OrtaSayfa"
-									actionListener="#" icon="ui-icon-star" />
-								<p:menuitem value="Araç Haczi" update=":OrtaSayfa"
-									actionListener="#" icon="ui-icon-star" />
-								<p:menuitem value="Maaş Haczi" update=":OrtaSayfa"
-									actionListener="#" icon="ui-icon-star" />
-								<p:menuitem value="Banka Mevduat Haczi" update=":OrtaSayfa"
-									actionListener="#" icon="ui-icon-star" />
-
-							</p:submenu>
-							<p:submenu label="BÜYÜK EXCEL" expanded="false" id="bykexcel">
-							</p:submenu>
-						</p:submenu>
-
-						<p:submenu label="SEMİRAMİS NETWORK" expanded="false"
-							id="smrmstur">
-							<p:menuitem value="Türkiye Network" update=":OrtaSayfa"
-								actionListener="#" icon="ui-icon-star" />
-							<p:menuitem value="Dünya Network" update=":OrtaSayfa"
-								actionListener="#" icon="ui-icon-star" />
-						</p:submenu>
-
-						<p:submenu label="OTOMATİK PİLOT" expanded="false" id="otopilot">
-
-							<p:menuitem value="Otomatik Pilotu Çalıştır" update=":OrtaSayfa"
-								ajax="false" actionListener="#{anaSayfaBean.gotoPage(1004)}"
-								icon="ui-icon-star" />
-						</p:submenu>
-<p:menuitem value="Ekstra" ajax="false" update=":OrtaSayfa"
+						<p:menuitem value="Müzekkere/Talep Hazırlama" ajax="false"
+							update=":OrtaSayfa"
 							actionListener="#{anaSayfaBean.gotoPage(1010)}"
 							icon="ui-icon-star" />
 
 
-					</p:menubar>
-				</h:form>
+					</p:submenu>
+
+					<p:submenu label="TANIMLAR" expanded="true" toggleable="true"
+						id="tanimlar">
+						<p:menuitem value="Adres Statüsü	   " ajax="false"
+							update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(1)}"
+							icon="ui-icon-disk" />
+						<p:menuitem value="Adres Tipi" ajax="false" update=":OrtaSayfa"
+							actionListener="#{anaSayfaBean.gotoPage(2)}" icon="ui-icon-disk" />
+						<p:menuitem value="Adres Türü" ajax="false" update=":OrtaSayfa"
+							actionListener="#{anaSayfaBean.gotoPage(3)}" icon="ui-icon-disk" />
+						<p:menuitem value="Alacak Belge Tipi   " ajax="false"
+							update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(4)}"
+							icon="ui-icon-disk" />
+						<p:menuitem value="Alacak Tipi         " ajax="false"
+							update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(5)}"
+							icon="ui-icon-disk" />
+						<p:menuitem value="Analiz Tipi         " ajax="false"
+							update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(6)}"
+							icon="ui-icon-disk" />
+						<p:menuitem value="Avans Türü          " ajax="false"
+							update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(7)}"
+							icon="ui-icon-disk" />
+						<p:menuitem value="Belge Tipi          " ajax="false"
+							update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(8)}"
+							icon="ui-icon-disk" />
+						<p:menuitem value="Borç Tipi           " ajax="false"
+							update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(9)}"
+							icon="ui-icon-disk" />
+						<p:menuitem value="Dava Masrafları     " ajax="false"
+							update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(10)}"
+							icon="ui-icon-disk" />
+						<p:menuitem value="Dava Ekleme     " ajax="false"
+							update=":OrtaSayfa"
+							actionListener="#{anaSayfaBean.gotoPage(2210)}"
+							icon="ui-icon-disk" />
+						<p:menuitem value="Döküman Tipi        " ajax="false"
+							update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(11)}"
+							icon="ui-icon-disk" />
+						<p:menuitem value="Dosya Statü         " ajax="false"
+							update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(12)}"
+							icon="ui-icon-disk" />
+						<p:menuitem value="Dosya Türü          " ajax="false"
+							update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(13)}"
+							icon="ui-icon-disk" />
+						<p:menuitem value="Faiz Tipi           " ajax="false"
+							update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(14)}"
+							icon="ui-icon-disk" />
+						<p:menuitem value="Gönderi Tipi        " ajax="false"
+							update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(15)}"
+							icon="ui-icon-disk" />
+						<p:menuitem value="Haciz Masrafı       " ajax="false"
+							update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(16)}"
+							icon="ui-icon-disk" />
+						<p:menuitem value="Haciz Tipi          " ajax="false"
+							update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(17)}"
+							icon="ui-icon-disk" />
+						<p:menuitem value=" Harç Tipi          " ajax="false"
+							update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(18)}"
+							icon="ui-icon-disk" />
+						<p:menuitem value="İcra Dosya Aşaması  " ajax="false"
+							update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(19)}"
+							icon="ui-icon-disk" />
+						<p:menuitem value=" İl                 " ajax="false"
+							update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(20)}"
+							icon="ui-icon-disk" />
+						<p:menuitem value=" İlçe               " ajax="false"
+							update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(21)}"
+							icon="ui-icon-disk" />
+						<p:menuitem value="İşlem Statüsü       " ajax="false"
+							update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(22)}"
+							icon="ui-icon-disk" />
+						<p:menuitem value="İzleme Sonucu       " ajax="false"
+							update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(23)}"
+							icon="ui-icon-disk" />
+						<p:menuitem value=" Kasa Gelir Kalemi  " ajax="false"
+							update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(24)}"
+							icon="ui-icon-disk" />
+						<p:menuitem value=" Kasa Gider Kalemi  " ajax="false"
+							update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(25)}"
+							icon="ui-icon-disk" />
+						<p:menuitem value=" Kasa Tahsilat Statü" ajax="false"
+							update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(26)}"
+							icon="ui-icon-disk" />
+						<p:menuitem value=" Kasa Tahsilat Tipi " ajax="false"
+							update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(27)}"
+							icon="ui-icon-disk" />
+						<p:menuitem value="Kurum Tipi          " ajax="false"
+							update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(28)}"
+							icon="ui-icon-disk" />
+						<p:menuitem value="Mal Tipi          " ajax="false"
+							update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(29)}"
+							icon="ui-icon-disk" />
+						<p:menuitem value=" Masraf Tipi        " ajax="false"
+							update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(30)}"
+							icon="ui-icon-disk" />
+						<p:menuitem value=" Meslek             " ajax="false"
+							update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(31)}"
+							icon="ui-icon-disk" />
+						<p:menuitem value="Muamele Statüsü     " ajax="false"
+							update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(32)}"
+							icon="ui-icon-disk" />
+						<p:menuitem value="Muamele Tipi        " ajax="false"
+							update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(33)}"
+							icon="ui-icon-disk" />
+						<p:menuitem value="Müvekkil Tipi       " ajax="false"
+							update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(34)}"
+							icon="ui-icon-disk" />
+						<p:menuitem value="Müvekkil Bilgisi   " ajax="false"
+							update=":OrtaSayfa"
+							actionListener="#{anaSayfaBean.gotoPage(301)}"
+							icon="ui-icon-disk" />
+						<p:menuitem value=" Para Birimi        " ajax="false"
+							update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(35)}"
+							icon="ui-icon-disk" />
+						<p:menuitem value="Rapor Tipi         " ajax="false"
+							update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(36)}"
+							icon="ui-icon-disk" />
+						<p:menuitem value=" Satış Masrafları   " ajax="false"
+							update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(37)}"
+							icon="ui-icon-disk" />
+						<p:menuitem value="Tahsilat Statüsü    " ajax="false"
+							update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(38)}"
+							icon="ui-icon-disk" />
+						<p:menuitem value="Tahsilat Tipi       " ajax="false"
+							update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(39)}"
+							icon="ui-icon-disk" />
+						<p:menuitem value=" Takip Masrafları   " ajax="false"
+							update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(40)}"
+							icon="ui-icon-disk" />
+						<p:menuitem value=" Takip Şekli" ajax="false" update=":OrtaSayfa"
+							actionListener="#{anaSayfaBean.gotoPage(41)}" icon="ui-icon-disk" />
+						<p:menuitem value=" Takip Tipi    " ajax="false"
+							update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(42)}"
+							icon="ui-icon-disk" />
+						<p:menuitem value=" Takip Yolu    " ajax="false"
+							update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(43)}"
+							icon="ui-icon-disk" />
+						<p:menuitem value="  Taraf Rolü   " ajax="false"
+							update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(44)}"
+							icon="ui-icon-disk" />
+						<p:menuitem value="Taraf Tipi         " ajax="false"
+							update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(45)}"
+							icon="ui-icon-disk" />
+						<p:menuitem value="Tebligat Tipi       " ajax="false"
+							update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(46)}"
+							icon="ui-icon-disk" />
+						<p:menuitem value="  Vizit Statüsü   " ajax="false"
+							update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(47)}"
+							icon="ui-icon-disk" />
+
+
+					</p:submenu>
+
+					<p:submenu label="İCRA DOSYASI" expanded="false" id="icradosyasi">
+						<p:menuitem value="Hızlı Takip Açma    " ajax="false"
+							update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(48)}"
+							icon="ui-icon-home" />
+						<p:menuitem value="İcra Dosya Takibi" ajax="false"
+							update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(49)}"
+							icon="ui-icon-star" />
+						<p:menuitem value="Alacak Bilgisi Kaydı" ajax="false"
+							update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(50)}"
+							icon="ui-icon-home" />
+						<p:menuitem value="Alacaklı Bilgisi Kaydı" ajax="false"
+							update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(51)}"
+							icon="ui-icon-home" />
+						<p:menuitem value="Borçlu bilgisi Kaydı" ajax="false"
+							update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(52)}"
+							icon="ui-icon-home" />
+
+					</p:submenu>
+
+					<p:submenu label="OPERASYONEL İŞLEMLER" expanded="false"
+						id="operasyonel">
+						<p:menuitem value="Haciz Bilgisi Kaydı" ajax="false"
+							update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(53)}"
+							icon="ui-icon-home" />
+						<p:menuitem value="Hacze Esas Mal Bilgisi Kaydı" ajax="false"
+							update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(54)}"
+							icon="ui-icon-star" />
+						<p:menuitem value="Harç Bilgisi Kaydı" ajax="false"
+							update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(55)}"
+							icon="ui-icon-home" />
+						<p:menuitem value="Masraf Bilgisi Kaydı" ajax="false"
+							update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(56)}"
+							icon="ui-icon-home" />
+						<p:menuitem value="Muamele İşlemleri Kaydı" ajax="false"
+							update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(57)}"
+							icon="ui-icon-home" />
+						<p:menuitem value="Ödeme Emri Kaydı" ajax="false"
+							update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(58)}"
+							icon="ui-icon-home" />
+						<p:menuitem value="Vizit Bilgisi Kaydı" ajax="false"
+							update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(59)}"
+							icon="ui-icon-home" />
+						<p:menuitem value="İcra Borçlu Ses Kaydı" ajax="false"
+							update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(60)}"
+							icon="ui-icon-home" />
+						<p:menuitem value="İzleme Bilgisi Kaydı" ajax="false"
+							update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(61)}"
+							icon="ui-icon-home" />
+						<p:menuitem value="Otomatik Dosya Yükleme" ajax="false"
+							update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(62)}"
+							icon="ui-icon-home" />
+						<p:menuitem value="Ödeme Planı" ajax="false" update=":OrtaSayfa"
+							actionListener="#{anaSayfaBean.gotoPage(100)}"
+							icon="ui-icon-home" />
+						<p:menuitem value="Tahsilat İşlemleri" ajax="false"
+							update=":OrtaSayfa"
+							actionListener="#{anaSayfaBean.gotoPage(105)}"
+							icon="ui-icon-home" />
+						<p:menuitem value="Muamele İşlemleri" ajax="false"
+							update=":OrtaSayfa"
+							actionListener="#{anaSayfaBean.gotoPage(101)}"
+							icon="ui-icon-home" />
+						<p:menuitem value="Yazdır" ajax="false" update=":OrtaSayfa"
+							actionListener="#{anaSayfaBean.gotoPage(1005)}"
+							icon="ui-icon-home" />
+							<p:menuitem value="Dosya Kronolojisi" ajax="false" update=":OrtaSayfa"
+							actionListener="#{anaSayfaBean.gotoPage(1011)}"
+							icon="ui-icon-home" />
+					</p:submenu>
+
+
+					<p:submenu label="ANALİZ" expanded="false" id="analiz">
+						<p:menuitem value="Muamele Analizi" ajax="false"
+							update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(63)}"
+							icon="ui-icon-home" />
+						<p:menuitem value="İzleme Analizi" ajax="false"
+							update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(64)}"
+							icon="ui-icon-home" />
+						<p:menuitem value="Tahsilat Analizi" ajax="false"
+							update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(65)}"
+							icon="ui-icon-home" />
+						<p:menuitem value="Haciz Analizi" ajax="false" update=":OrtaSayfa"
+							actionListener="#{anaSayfaBean.gotoPage(66)}" icon="ui-icon-home" />
+						<p:menuitem value="Kasa Analizi" ajax="false" update=":OrtaSayfa"
+							actionListener="#{anaSayfaBean.gotoPage(67)}" icon="ui-icon-home" />
+						<p:menuitem value="Risk Analizi" ajax="false" update=":OrtaSayfa"
+							actionListener="#{anaSayfaBean.gotoPage(10000)}"
+							icon="ui-icon-home" />
 
 
 
-			</div>
+
+					</p:submenu>
+
+					<p:submenu label="UYAP" expanded="false" id="uyap">
+
+						<p:menuitem value="Uyap Dosyası Oluştur" ajax="false"
+							update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(68)}"
+							icon="ui-icon-home" />
+						<p:menuitem value="Uyap Entegrasyonu" ajax="false"
+							update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(69)}"
+							icon="ui-icon-star" />
+						<p:menuitem value="Excell Entegrasyonu" ajax="false"
+							update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(70)}"
+							icon="ui-icon-star" />
+
+						<p:menuitem value="Uyap Sorgu Entegrasyonu" ajax="false"
+							update=":OrtaSayfa"
+							actionListener="#{anaSayfaBean.gotoPage(169)}"
+							icon="ui-icon-star" />
+
+						<p:menuitem value="XML Entegrasyonu" ajax="false"
+							update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(71)}"
+							icon="ui-icon-star" />
+
+					</p:submenu>
+
+					<p:submenu label="KASA" expanded="false" id="kasa">
+
+						<p:menuitem value="Tahsilat Listesi" ajax="false"
+							update=":OrtaSayfa"
+							actionListener="#{anaSayfaBean.gotoPage(102)}"
+							icon="ui-icon-home" />
+						<p:menuitem value="Reddiyat Listesi" ajax="false"
+							update=":OrtaSayfa"
+							actionListener="#{anaSayfaBean.gotoPage(103)}"
+							icon="ui-icon-home" />
+
+					</p:submenu>
+
+					<p:submenu label="MESAJLAŞMA" expanded="false" id="mesajlasma">
+
+						<p:menuitem value="Semiramis Mesaj Servisi" ajax="false"
+							update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(72)}"
+							icon="ui-icon-star" />
+
+					</p:submenu>
+
+					<p:submenu label="RAPORLAMA" expanded="false" id="raporlama">
+						<p:submenu label="AÇILAN TAKİP DOSTA TÜRLERİ" expanded="false"
+							id="dsytakiptur">
+
+							<p:menuitem value="Gayrimenkul Rehni Dosyaları(128 Adet)"
+								update=":OrtaSayfa" actionListener="#" icon="ui-icon-star" />
+							<p:menuitem value="Taşıt Rehni Dosyaları(5 Adet)"
+								update=":OrtaSayfa" actionListener="#" icon="ui-icon-star" />
+							<p:menuitem value="Kredi Kartı Dosyaları(12 Adet)"
+								update=":OrtaSayfa" actionListener="#" icon="ui-icon-star" />
+							<p:menuitem value="Anadolu Dosyaları(8 Adet)" update=":OrtaSayfa"
+								actionListener="#" icon="ui-icon-star" />
+							<p:menuitem value="10 ve Üzeri Dosyalar(18 Adet)"
+								update=":OrtaSayfa" actionListener="#" icon="ui-icon-star" />
+							<p:menuitem value="Ticari Dosyalar(28 Adet)" update=":OrtaSayfa"
+								actionListener="#" icon="ui-icon-star" />
+
+						</p:submenu>
+						<p:submenu label="HACİZ KONULAN DOSYALAR" expanded="false"
+							id="hczkondos">
+
+							<p:menuitem value="Taşınmaz Haczi" update=":OrtaSayfa"
+								actionListener="#" icon="ui-icon-star" />
+							<p:menuitem value="Araç Haczi" update=":OrtaSayfa"
+								actionListener="#" icon="ui-icon-star" />
+							<p:menuitem value="Maaş Haczi" update=":OrtaSayfa"
+								actionListener="#" icon="ui-icon-star" />
+							<p:menuitem value="Banka Mevduat Haczi" update=":OrtaSayfa"
+								actionListener="#" icon="ui-icon-star" />
+
+						</p:submenu>
+						<p:submenu label="BÜYÜK EXCEL" expanded="false" id="bykexcel">
+						</p:submenu>
+					</p:submenu>
+
+					<p:submenu label="SEMİRAMİS NETWORK" expanded="false" id="smrmstur">
+						<p:menuitem value="Türkiye Network" update=":OrtaSayfa"
+							actionListener="#" icon="ui-icon-star" />
+						<p:menuitem value="Dünya Network" update=":OrtaSayfa"
+							actionListener="#" icon="ui-icon-star" />
+					</p:submenu>
+
+					<p:submenu label="OTOMATİK PİLOT" expanded="false" id="otopilot">
+
+						<p:menuitem value="Otomatik Pilotu Çalıştır" update=":OrtaSayfa"
+							ajax="false" actionListener="#{anaSayfaBean.gotoPage(1004)}"
+							icon="ui-icon-star" />
+					</p:submenu>
+					<p:menuitem value="Ekstra" ajax="false" update=":OrtaSayfa"
+						actionListener="#{anaSayfaBean.gotoPage(1010)}"
+						icon="ui-icon-star" />
+
+
+				</p:menubar>
+			</h:form>
+
+
+
+		</div>
 
 
 		<div id="wrapper">

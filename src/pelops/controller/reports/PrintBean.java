@@ -21,6 +21,7 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperPrintManager;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
 import net.sf.jasperreports.engine.export.JRPrintServiceExporterParameter;
+import pelops.chronology.controller.ReportChronologyUtil;
 import pelops.controller.AktifBean;
 import pelops.report.model.ConstructedData;
 import pelops.report.model.DataToPrint;
@@ -35,7 +36,7 @@ public class PrintBean {
 
 	public String yazdirTipi = "1";
 	public String operasyonelYazdirma = "5";
-	public String takipAcilisEvrakYazdirma  = "0";
+	public String takipAcilisEvrakYazdirma = "0";
 
 	public boolean dosyayaGirecekEvraklar;
 	public boolean borcluyaGidecekEvraklar;
@@ -656,8 +657,7 @@ public class PrintBean {
 			DataToPrint dataToPrint = new DataToPrint();
 			dataToPrint.setAdet(tebligatListesiAdedi);
 			dataToPrint.setBelgeAdi(ReportUtils.REPORT_TEBLIGAT_LISTESI);
-			dataToPrint
-					.setJasperFileName(ReportUtils.JASPERFILE_NAME_TEBLIGAT_LISTESI);
+			dataToPrint.setJasperFileName(ReportUtils.JASPERFILE_NAME_TEBLIGAT_LISTESI);
 			return dataToPrint;
 		} else {
 			return null;
@@ -665,10 +665,10 @@ public class PrintBean {
 
 	}
 
-	public void insertAll(){
+	public void insertAll() {
 		PrivateList = rgList;
 	}
-	
+
 	public void print() throws Exception {
 		ArrayList<DataToPrint> prints = getCheckBoxvalueCreateDP();
 		String msg = null;
@@ -680,15 +680,14 @@ public class PrintBean {
 
 			for (ReportGenel r : PrivateList) {
 				// :TODO Yeni banka eklendiğinde buralar güncellenecek
-				if (!(r.getMuvekkilAdi().equals(ReportUtils.HSBC) ||r.getMuvekkilAdi().equals(ReportUtils.AKBANK))) {
+				if (!(r.getMuvekkilAdi().equals(ReportUtils.HSBC) || r.getMuvekkilAdi().equals(ReportUtils.AKBANK))) {
 					msg = r.getMuvekkilAdi()
 							+ "  raporu şuan çalışma aşamasındadır! Sadece AKBANK ve HSBC Bankası Raporları çıkartılabilir.";
 				}
 			}
-			if (msg == null && prints.size()>0) {
-				ArrayList<ConstructedData> listC = ctrl.createConstructedData(
-						prints, PrivateList);
-				if (listC.size() > 0 ) {
+			if (msg == null && prints.size() > 0) {
+				ArrayList<ConstructedData> listC = ctrl.createConstructedData(prints, PrivateList);
+				if (listC.size() > 0) {
 					printConstructedData(listC);
 				}
 			} else if (tebligatListesi) {
@@ -699,10 +698,8 @@ public class PrintBean {
 			}
 		} else {
 			FacesContext context = FacesContext.getCurrentInstance();
-			context.addMessage(
-					null,
-					new FacesMessage(
-							"Lütfen yazdırmak istediğiniz rapor türünü veya türlerini şeçiniz!"));
+			context.addMessage(null,
+					new FacesMessage("Lütfen yazdırmak istediğiniz rapor türünü veya türlerini şeçiniz!"));
 		}
 	}
 
@@ -710,9 +707,8 @@ public class PrintBean {
 		if (eContext == null) {
 			eContext = getContext();
 		}
-		int id = Integer.parseInt(eContext.getRequestParameterMap().get("ekle")
-				.toString());
-		
+		int id = Integer.parseInt(eContext.getRequestParameterMap().get("ekle").toString());
+
 		if (id != 0)
 			PrivateList.add(dao.getPrintableList(null, id).get(0));
 
@@ -726,8 +722,7 @@ public class PrintBean {
 		if (eContext == null) {
 			eContext = getContext();
 		}
-		int id = Integer.parseInt(eContext.getRequestParameterMap()
-				.get("cikar").toString());
+		int id = Integer.parseInt(eContext.getRequestParameterMap().get("cikar").toString());
 		for (int i = 0; i < PrivateList.size(); i++) {
 			if (id == PrivateList.get(i).getId()) {
 				PrivateList.remove(i);
@@ -748,40 +743,36 @@ public class PrintBean {
 		ArrayList<ReportGenel> RaporListesi = new ArrayList<ReportGenel>();
 		GenelRaporDAO dao = new GenelRaporDAO();
 		for (int i = 0; i < SemiNums.length; i++) {
-			RaporListesi.add(dao.getPrintableList(null,
-					Integer.parseInt(SemiNums[i])).get(0));
+			RaporListesi.add(dao.getPrintableList(null, Integer.parseInt(SemiNums[i])).get(0));
 
 		}
 		ConstructDataCtrl ctrl = new ConstructDataCtrl();
 		if (RaporListesi.size() > 0) {
 			ArrayList<DataToPrint> list = getCheckBoxvalueCreateDP();
 			if (list.size() > 0) {
-				ArrayList<ConstructedData> constructedDatas = ctrl
-						.createConstructedData(list, RaporListesi);
+				ArrayList<ConstructedData> constructedDatas = ctrl.createConstructedData(list, RaporListesi);
 				printConstructedData(constructedDatas);
 			} else {
 
 				FacesContext context = FacesContext.getCurrentInstance();
-				context.addMessage(
-						null,
-						new FacesMessage(
-								"Lütfen yazdırmak istediğiniz rapor türünü veya türlerini şeçiniz!"));
+				context.addMessage(null,
+						new FacesMessage("Lütfen yazdırmak istediğiniz rapor türünü veya türlerini şeçiniz!"));
 			}
 		}
 
 	}
 
 	@SuppressWarnings("deprecation")
-	public void printConstructedData(ArrayList<ConstructedData> list)
-			throws Exception {
+	public void printConstructedData(ArrayList<ConstructedData> list) throws Exception {
 		ArrayList<JasperPrint> printList = new ArrayList<JasperPrint>();
 
+		// Dosya Chronolojisine Kayit
+
+		ReportChronologyUtil.getInstance().insertAll(list);
 		for (int i = 0; i < list.size(); i++) {
 			for (int j = 0; j < list.get(i).getDataToPrints().size(); j++) {
-				for (int j2 = 0; j2 < list.get(i).getDataToPrints().get(j)
-						.getJasperPrint().size(); j2++) {
-					JasperPrint jasperPrint = list.get(i).getDataToPrints()
-							.get(j).getJasperPrint().get(j2);
+				for (int j2 = 0; j2 < list.get(i).getDataToPrints().get(j).getJasperPrint().size(); j2++) {
+					JasperPrint jasperPrint = list.get(i).getDataToPrints().get(j).getJasperPrint().get(j2);
 					if (jasperPrint != null) {
 						printList.add(jasperPrint);
 					}
@@ -791,7 +782,7 @@ public class PrintBean {
 
 		}
 		// Eger Tebligat Listesi Tikli ise buraya girer...
-		
+
 		if (tebligatListesi) {
 
 			ArrayList<ReportGenel> genels = new ArrayList<ReportGenel>();
@@ -799,51 +790,42 @@ public class PrintBean {
 				genels.add(data.getGenel());
 			}
 			ConstructDataCtrl ctrl = new ConstructDataCtrl();
-			ArrayList<JasperPrint> liste = ctrl.getTebligatListesiJasperPrint(
-					createTebligatListesiDP(), genels);
+			ArrayList<JasperPrint> liste = ctrl.getTebligatListesiJasperPrint(createTebligatListesiDP(), genels);
 			// icra müdürlüğü ekli olmayan nesne varsa uyarı verir...
 			boolean İcraMd = false;
+			ReportGenel report = null;
 			for (ReportGenel reportGenel : genels) {
-				if (reportGenel.getIcraBilgi() == ""
-						|| reportGenel.getIcraBilgi() == null) {
+				if (reportGenel.getIcraBilgi() == "" || reportGenel.getIcraBilgi() == null) {
 					İcraMd = true;
 				}
+				report = reportGenel;
 			}
 			if (!İcraMd) {
-			
+				ReportChronologyUtil.getInstance()
+						.insertObjToDB(ReportChronologyUtil.convertObjToRC(createTebligatListesiDP(), null));
 				for (JasperPrint print : liste) {
 					printList.add(print);
 				}
 			} else {
 				FacesContext context = FacesContext.getCurrentInstance();
-				context.addMessage(
-						null,
-						new FacesMessage(
-								"İcra Müdürlüğü belli olmayan rapor veya raporlarlar var!"));
+				context.addMessage(null, new FacesMessage("İcra Müdürlüğü belli olmayan rapor veya raporlarlar var!"));
 				return;
 			}
 		}
 		if (eContext == null) {
 			eContext = getContext();
 		}
-		HttpServletResponse httpServletResponse = (HttpServletResponse) eContext
-				.getResponse();
-		httpServletResponse.addHeader(
-				"Content-disposition",
-				"attachment; filename=" + "-" + "raporlar" + "_"
-						+ AktifBean.getIcraDosyaID() + ".pdf");
-		ServletOutputStream servletOutputStream = httpServletResponse
-				.getOutputStream();
+		HttpServletResponse httpServletResponse = (HttpServletResponse) eContext.getResponse();
+		httpServletResponse.addHeader("Content-disposition",
+				"attachment; filename=" + "-" + "raporlar" + "_" + AktifBean.getIcraDosyaID() + ".pdf");
+		ServletOutputStream servletOutputStream = httpServletResponse.getOutputStream();
 
 		JRPdfExporter exporter = new JRPdfExporter();
 
 		exporter.setParameter(JRExporterParameter.JASPER_PRINT_LIST, printList);
 
-		exporter.setParameter(JRExporterParameter.OUTPUT_STREAM,
-				servletOutputStream);
-		exporter.setParameter(
-				JRPrintServiceExporterParameter.DISPLAY_PRINT_DIALOG,
-				Boolean.TRUE);
+		exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, servletOutputStream);
+		exporter.setParameter(JRPrintServiceExporterParameter.DISPLAY_PRINT_DIALOG, Boolean.TRUE);
 
 		exporter.exportReport();
 
@@ -852,38 +834,34 @@ public class PrintBean {
 	public void listele() throws Exception {
 		ArrayList<ReportGenel> tmp = new ArrayList<ReportGenel>();
 		GenelRaporDAO daom = new GenelRaporDAO();
-		
-		
-		
+
 		tmp = daom.getFilteredReports1(searchParams);
-			
-		
+
 		rgList.clear();
 		for (int i = 0; i < tmp.size(); i++) {
 			rgList.add(dao.getPrintableList(null, tmp.get(i).getId()).get(0));
-			
+
 		}
 	}
 
 	public void printAll() throws Exception {
-		
+
 		ArrayList<DataToPrint> list = getCheckBoxvalueCreateDP();
 		String msg = null;
-	if (list.size() > 0 || tebligatListesi) {
-		ConstructDataCtrl ctrl = new ConstructDataCtrl();
+		if (list.size() > 0 || tebligatListesi) {
+			ConstructDataCtrl ctrl = new ConstructDataCtrl();
 			for (ReportGenel r : rgList) {
 
 				// :TODO Yeni banka eklendiğinde buralar güncellenecek
 
-				if (!(r.getMuvekkilAdi().equals(ReportUtils.HSBC) ||r.getMuvekkilAdi().equals(ReportUtils.AKBANK))) {
+				if (!(r.getMuvekkilAdi().equals(ReportUtils.HSBC) || r.getMuvekkilAdi().equals(ReportUtils.AKBANK))) {
 					msg = r.getMuvekkilAdi()
 							+ "  raporu şuan çalışma aşamasındadır! Sadece AKBANK ve HSBC Bankası Raporları çıkartılabilir.";
 				}
 			}
-			
+
 			if (msg == null) {
-				ArrayList<ConstructedData> listeC = ctrl.createConstructedData(
-						list, rgList);
+				ArrayList<ConstructedData> listeC = ctrl.createConstructedData(list, rgList);
 				if (listeC.size() > 0) {
 					printConstructedData(listeC);
 				}
@@ -895,10 +873,8 @@ public class PrintBean {
 			}
 		} else {
 			FacesContext context = FacesContext.getCurrentInstance();
-			context.addMessage(
-					null,
-					new FacesMessage(
-							"Lütfen yazdırmak istediğiniz rapor türünü veya türlerini şeçiniz!"));
+			context.addMessage(null,
+					new FacesMessage("Lütfen yazdırmak istediğiniz rapor türünü veya türlerini şeçiniz!"));
 		}
 	}
 
@@ -909,20 +885,19 @@ public class PrintBean {
 
 	public void printOne() throws Exception {
 		int id = 0;
-		id = Integer.parseInt(FacesContext.getCurrentInstance()
-				.getExternalContext().getRequestParameterMap().get("pdf")
-				.toString());
+		id = Integer.parseInt(
+				FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("pdf").toString());
 		String msg = null;
 
 		ArrayList<DataToPrint> list = getCheckBoxvalueCreateDP();
 		if (id != 0) {
-			
+
 			ArrayList<ReportGenel> rList = dao.getPrintableList(null, id);
 			for (ReportGenel r : rList) {
 
 				// :TODO Yeni banka eklendiğinde buralar güncellenecek
 
-				if (!(r.getMuvekkilAdi().equals(ReportUtils.HSBC) ||r.getMuvekkilAdi().equals(ReportUtils.AKBANK))) {
+				if (!(r.getMuvekkilAdi().equals(ReportUtils.HSBC) || r.getMuvekkilAdi().equals(ReportUtils.AKBANK))) {
 					msg = r.getMuvekkilAdi()
 							+ "  raporu şuan çalışma aşamasındadır! Sadece AKBANK ve HSBC Bankası Raporları çıkartılabilir.";
 				}
@@ -931,8 +906,7 @@ public class PrintBean {
 				if (msg == null && list.size() > 0) {
 
 					ConstructDataCtrl ctrl = new ConstructDataCtrl();
-					ArrayList<ConstructedData> listC = ctrl
-							.createConstructedData(list, rList);
+					ArrayList<ConstructedData> listC = ctrl.createConstructedData(list, rList);
 					if (listC.size() > 0)
 						printConstructedData(listC);
 				} else if (tebligatListesi) {
@@ -944,66 +918,57 @@ public class PrintBean {
 				}
 			} else {
 				FacesContext context = FacesContext.getCurrentInstance();
-				context.addMessage(
-						null,
-						new FacesMessage(
-								"Lütfen yazdırmak istediğiniz rapor türünü veya türlerini şeçiniz!"));
+				context.addMessage(null,
+						new FacesMessage("Lütfen yazdırmak istediğiniz rapor türünü veya türlerini şeçiniz!"));
 			}
 		}
 		rgList = dao.getPrintableList(searchParams, null);
 	}
 
 	public ExternalContext getContext() {
-		ExternalContext context = FacesContext.getCurrentInstance()
-				.getExternalContext();
+		ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
 
 		return context;
 	}
 
-	public void printOnlyTebligatListesi(ArrayList<ReportGenel> genels)
-			throws Exception {
+	public void printOnlyTebligatListesi(ArrayList<ReportGenel> genels) throws Exception {
 
 		ConstructDataCtrl ctrl = new ConstructDataCtrl();
 
-		ArrayList<JasperPrint> liste = ctrl.getTebligatListesiJasperPrint(
-				createTebligatListesiDP(), genels);
+		ArrayList<JasperPrint> liste = ctrl.getTebligatListesiJasperPrint(createTebligatListesiDP(), genels);
+
+		// Report Chronology Kayit
+		ReportChronologyUtil.getInstance()
+				.insertObjToDB(ReportChronologyUtil.convertObjToRC(createTebligatListesiDP(), null));
+
 		// icra müdürlüğü ekli olmayan nesne varsa uyarı verir...
 		boolean İcraMd = false;
 		for (ReportGenel reportGenel : genels) {
-			if (reportGenel.getIcraBilgi() == ""
-					|| reportGenel.getIcraBilgi() == null) {
+			if (reportGenel.getIcraBilgi() == "" || reportGenel.getIcraBilgi() == null) {
 				İcraMd = true;
 			}
 		}
 		if (İcraMd) {
 			FacesContext context = FacesContext.getCurrentInstance();
-			context.addMessage(null, new FacesMessage(
-					"İcra Müdürlüğü belli olmayan rapor veya raporlarlar var!"));
+			context.addMessage(null, new FacesMessage("İcra Müdürlüğü belli olmayan rapor veya raporlarlar var!"));
 			return;
 		}
 
 		if (eContext == null) {
 			eContext = getContext();
 		}
-		HttpServletResponse httpServletResponse = (HttpServletResponse) eContext
-				.getResponse();
-		httpServletResponse.addHeader(
-				"Content-disposition",
-				"attachment; filename=" + "-" + "raporlar" + "_"
-						+ AktifBean.getIcraDosyaID() + ".pdf");
-	
-		ServletOutputStream servletOutputStream = httpServletResponse
-				.getOutputStream();
+		HttpServletResponse httpServletResponse = (HttpServletResponse) eContext.getResponse();
+		httpServletResponse.addHeader("Content-disposition",
+				"attachment; filename=" + "-" + "raporlar" + "_" + AktifBean.getIcraDosyaID() + ".pdf");
+
+		ServletOutputStream servletOutputStream = httpServletResponse.getOutputStream();
 
 		JRPdfExporter exporter = new JRPdfExporter();
 
 		exporter.setParameter(JRExporterParameter.JASPER_PRINT_LIST, liste);
 
-		exporter.setParameter(JRExporterParameter.OUTPUT_STREAM,
-				servletOutputStream);
-		exporter.setParameter(
-				JRPrintServiceExporterParameter.DISPLAY_PRINT_DIALOG,
-				Boolean.TRUE);
+		exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, servletOutputStream);
+		exporter.setParameter(JRPrintServiceExporterParameter.DISPLAY_PRINT_DIALOG, Boolean.TRUE);
 
 		exporter.exportReport();
 	}

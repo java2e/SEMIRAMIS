@@ -112,15 +112,15 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 			muzekkereTalep = "default";
 			// pdf = System.getProperty("catalina.base") + File.separator +
 			// "temp" + File.separator + muzekkereTalep + ".pdf";
-			pdf = "/home/husnu/workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/temp/" + muzekkereTalep
-					+ ".pdf?pdfrid_c=true";
+			pdf = FacesContext.getCurrentInstance().getExternalContext()
+					.getRealPath("/resources/pdfler/" + muzekkereTalep + ".pdf?pdfrid_c=true");
 		} else {
 
 			// pdf = System.getProperty("catalina.base") + File.separator +
 			// "temp" + File.separator + muzekkereTalep
 			// + ".pdf";
-			pdf = "/home/husnu/workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/temp/" + muzekkereTalep
-					+ ".pdf?pdfrid_c=true";
+			pdf = FacesContext.getCurrentInstance().getExternalContext()
+					.getRealPath("/resources/pdfler/" + muzekkereTalep + ".pdf?pdfrid_c=true");
 
 			System.out.println(pdf);
 		}
@@ -1113,21 +1113,21 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 		String path;
 		if (gelisAmaci.equals("duzenle")) {
 
-			path = System.getProperty("catalina.base") + File.separator + "temp" + File.separator + muzekkereTalep
-					+ ".pdf";
+			path = FacesContext.getCurrentInstance().getExternalContext()
+					.getRealPath("/resources/pdfler/" + muzekkereTalep + ".pdf");
 
 		} else if (gelisAmaci.equals("onizleme")) {
 
 			// gelis_amaci önizleme
 
-			path = System.getProperty("catalina.base") + File.separator + "temp" + File.separator + muzekkereTalep
-					+ ".pdf";
+			path = FacesContext.getCurrentInstance().getExternalContext()
+					.getRealPath("/resources/pdfler/" + muzekkereTalep + ".pdf");
 
 		} else {
 
 			// geliş amacı yazdir
-			path = System.getProperty("catalina.base") + File.separator + "temp" + File.separator + muzekkereTalep + "_"
-					+ muamele.getIcraDosyaNo() + ".pdf";
+			path = FacesContext.getCurrentInstance().getExternalContext()
+					.getRealPath("/resources/pdfler/" + muamele.getIcraDosyaId() + ".pdf");
 		}
 
 		JRPdfExporter exporter = new JRPdfExporter();

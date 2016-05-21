@@ -56,12 +56,15 @@ public class BasicTimelineController implements Serializable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		if (events.size() > 0) {
-			for (TimelineEvent timelineEvent : events) {
-				model.add(timelineEvent);
-			}
-		} else {
+		if (events != null) {
+			if (events.size() > 0) {
+				for (TimelineEvent timelineEvent : events) {
 
+					model.add(timelineEvent);
+				}
+			} else {
+
+			}
 		}
 
 		// cal.set(2013, Calendar.JUNE, 5, 0, 0, 0);

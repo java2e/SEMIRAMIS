@@ -9,6 +9,7 @@ import java.util.List;
 import org.primefaces.extensions.model.timeline.TimelineEvent;
 
 import pelops.chronology.model.Chronology;
+import pelops.chronology.model.ControlDateAndType;
 import pelops.chronology.model.ReportChronology;
 import pelops.chronology.model.Task;
 import pelops.report.model.ReportUtils;
@@ -40,56 +41,66 @@ public class ReportChronologyCtrl {
 		return events;
 	}
 
-	private boolean ihtarname = false;
-	private boolean odemeEmri = false;
-	private boolean vekaletname = false;
-	private boolean takipTalebi = false;
-	private boolean tebligatZarfi = false;
-	private boolean tebligatListesi = false;
 	// :TODO Yeni eklenecek raporlarda tekrar güncellenmeli
 
 	public ArrayList<Task> getTaskList(int id) throws Exception {
 		ArrayList<Task> tasks = new ArrayList<>();
 		HashSet<ReportChronology> chronologies = getChronologiesFromRC(id);
-
-		Date tarih = null;
-		ReportChronology reportChronolog = null;
+		Date flagDate = null;
+		ArrayList<ControlDateAndType> andTypes = new ArrayList<>();
+		HashSet<Date> dates = new HashSet<>();
 		for (ReportChronology reportChronology : chronologies) {
-			if (reportChronology.getBelgeAdi() == ReportUtils.REPORT_IHTARNAME) {
-				ihtarname = true;
-			} else if (reportChronology.getBelgeAdi().equals(ReportUtils.REPORT_ODEME_EMRI)) {
-				odemeEmri = true;
-			} else if (reportChronology.getBelgeAdi().equals(ReportUtils.REPORT_TAKIP_TALEBI)) {
-				takipTalebi = true;
-			} else if (reportChronology.getBelgeAdi().equals(ReportUtils.REPORT_VEKALETNAME)) {
-				vekaletname = true;
-			} else if (reportChronology.getBelgeAdi().equals(ReportUtils.REPORT_TEBLIGAT_ZARFI)) {
-				tebligatZarfi = true;
-			} else if (reportChronology.getBelgeAdi().equals(ReportUtils.REPORT_TEBLIGAT_LISTESI)) {
-				tebligatListesi = true;
-			}
-			tarih = reportChronology.getTarih();
-			reportChronolog = reportChronology;
+			dates.add(reportChronology.getTarih());
 		}
-		if (takipTalebi && odemeEmri) {
-			Task task = new Task(ReportChronologyUtil.ICRADOSYASI_GIRECEK_EVRAK, ReportChronologyUtil.IMAGE_I_D_G_E,
-					false, reportChronolog.getIcraDosyaID(), tarih);
-			tasks.add(task);
-		}
-		if (tebligatZarfi && odemeEmri) {
+		for (Date date : dates) {
+			ControlDateAndType andType = new ControlDateAndType();
 
-			Task task = new Task(ReportChronologyUtil.BANKA_GONDERILECEK_EVRAK, ReportChronologyUtil.IMAGE_B_G_E, false,
-					reportChronolog.getIcraDosyaID(), tarih);
-			tasks.add(task);
+			for (ReportChronology reportChronology : chronologies) {
+				if (date.toGMTString().equals(reportChronology.getTarih().toGMTString())) {
+					if (reportChronology.getBelgeAdi() == ReportUtils.REPORT_IHTARNAME) {
+						andType.setIhtarname(true);
+
+					} else if (reportChronology.getBelgeAdi().equals(ReportUtils.REPORT_ODEME_EMRI)) {
+
+						andType.setOdemeEmri(true);
+
+					} else if (reportChronology.getBelgeAdi().equals(ReportUtils.REPORT_TAKIP_TALEBI)) {
+						andType.setTakipTalebi(true);
+					} else if (reportChronology.getBelgeAdi().equals(ReportUtils.REPORT_VEKALETNAME)) {
+						andType.setVekaletname(true);
+
+					} else if (reportChronology.getBelgeAdi().equals(ReportUtils.REPORT_TEBLIGAT_ZARFI)) {
+						andType.setTebligatZarfi(true);
+
+					} else if (reportChronology.getBelgeAdi().equals(ReportUtils.REPORT_TEBLIGAT_LISTESI)) {
+						andType.setTebligatListesi(true);
+
+					}
+				}
+
+			}
+			andType.setTarih(date);
+			andTypes.add(andType);
+
 		}
-		if (tebligatListesi) {
-			Task task = new Task(ReportChronologyUtil.TEBLIGAT_LISTE_EVRAK, ReportChronologyUtil.IMAGE_T_L, false,
-					reportChronolog.getIcraDosyaID(), tarih);
-			tasks.add(task);
-		} else {
-			Task task = new Task(ReportChronologyUtil.DIGER, ReportChronologyUtil.IMAGE_D, false,
-					reportChronolog.getIcraDosyaID(), tarih);
-			tasks.add(task);
+
+		for (ControlDateAndType controlDateAndType : andTypes) {
+			if (controlDateAndType.isTakipTalebi() && controlDateAndType.isOdemeEmri()) {
+				Task task = new Task(ReportChronologyUtil.ICRADOSYASI_GIRECEK_EVRAK, ReportChronologyUtil.IMAGE_I_D_G_E,
+						false, id, controlDateAndType.getTarih());
+				tasks.add(task);
+			}
+			if (controlDateAndType.isTebligatZarfi() && controlDateAndType.isOdemeEmri()) {
+
+				Task task = new Task(ReportChronologyUtil.BANKA_GONDERILECEK_EVRAK, ReportChronologyUtil.IMAGE_B_G_E,
+						false, id, controlDateAndType.getTarih());
+				tasks.add(task);
+			}
+			if (controlDateAndType.isTebligatListesi()) {
+				Task task = new Task(ReportChronologyUtil.TEBLIGAT_LISTE_EVRAK, ReportChronologyUtil.IMAGE_T_L, false,
+						id, controlDateAndType.getTarih());
+				tasks.add(task);
+			}
 		}
 
 		return tasks;

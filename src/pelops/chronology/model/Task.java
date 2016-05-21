@@ -1,6 +1,7 @@
 package pelops.chronology.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class Task implements Serializable {
 
@@ -9,6 +10,7 @@ public class Task implements Serializable {
 	private boolean period;
 	private int id;
 	private Integer icraDosyaID;
+	private Date tarih;
 
 	public Task(String title, String imagePath, boolean period) {
 		this.title = title;
@@ -16,12 +18,20 @@ public class Task implements Serializable {
 		this.period = period;
 	}
 
-	public Task(String title, String imagePath, boolean period, int ChronologyID, Integer icraDosyaID) {
+	public Task(String title, String imagePath, boolean period, Integer icraDosyaID, Date date) {
 		this.title = title;
 		this.imagePath = imagePath;
 		this.period = period;
-		this.id = ChronologyID;
 		this.icraDosyaID = icraDosyaID;
+		this.tarih = date;
+	}
+
+	public Date getTarih() {
+		return tarih;
+	}
+
+	public void setTarih(Date tarih) {
+		this.tarih = tarih;
 	}
 
 	public String getTitle() {

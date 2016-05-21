@@ -297,7 +297,6 @@ public class AnaSayfaBean {
 				break;
 
 			case 1005:
-				System.out.println("burda 1005");
 				formPath = "frm_print.xhtml";
 				break;
 			case 1004:

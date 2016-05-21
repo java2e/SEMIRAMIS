@@ -12,7 +12,19 @@
 	<p:growl id="growl" showSummary="true" showDetail="false"
 		autoUpdate="true" />
 
-	<h:form>
+	<h:form id="form">
+		<p:panel>
+			<p:outputLabel>
+İcra Dosya No:
+				<p:inputText size="30"
+					value="#{basicTimelineController.icraDosyaNo}" />
+	  ||
+	  <p:commandButton icon="ui-icon-search" style="color:red"
+					value="Ara !" onclick="PF('dlgdetayliarama').show();" />
+
+			</p:outputLabel>
+
+		</p:panel>
 		<p:growl id="growl" showSummary="true" showDetail="true"
 			autoUpdate="true" />
 
@@ -74,7 +86,7 @@
 		<p:spacer width="100%" height="10" />
 
 		<pe:timeline id="timeline" value="#{basicTimelineController.model}"
-			var="task" height="600px"
+			var="task" height="400px"
 			selectable="#{basicTimelineController.selectable}"
 			zoomable="#{basicTimelineController.zoomable}"
 			moveable="#{basicTimelineController.moveable}"
@@ -87,7 +99,7 @@
 			<h:panelGroup layout="block" style="padding-bottom:5px">
 				<h:outputText value="#{task.title}" />
 			</h:panelGroup>
-			<h:graphicImage library="images"  name="#{task.imagePath}" />
+			<h:graphicImage library="images" name="#{task.imagePath}" />
 			<h:panelGroup rendered="#{task.period}" style="padding:8px">
 				<h:outputText value="#{task.title}" />
 			</h:panelGroup>
@@ -101,7 +113,11 @@
         white-space: nowrap;  
     }         
 </h:outputStylesheet>
+		<p:dialog header="DETAYLI ARAMA" widgetVar="dlgdetayliarama"
+			minHeight="340" height="690">
 
+			<ui:include src="dlg_detail_search.xhtml" />
+		</p:dialog>
 
 	</h:form>
 </h:body>

@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import pelops.chronology.model.ReportChronology;
 import pelops.db.DBConnection;
@@ -41,14 +42,18 @@ public class ReportChronologyUtil extends DBConnection implements IDAO {
 			ArrayList<DataToPrint> list = constructedData2.getDataToPrints();
 			ReportGenel reportGenel = constructedData2.getGenel();
 			for (DataToPrint dataToPrint : list) {
-				ReportChronology chronology = new ReportChronology(dataToPrint.getBelgeAdi(), reportGenel.getId(),
-						ReportUtils.DOSYA_YONU_GIDEN, new Date());
-				chronologies.add(chronology);
+				if (dataToPrint.getBelgeAdi() != ReportUtils.REPORT_UYAPSORGU
+						&& dataToPrint.getBelgeAdi() != ReportUtils.REPORT_IHTARNAME) {
+					ReportChronology chronology = new ReportChronology(dataToPrint.getBelgeAdi(), reportGenel.getId(),
+							ReportUtils.DOSYA_YONU_GIDEN, new Date());
+					chronologies.add(chronology);
+				}
 			}
 		}
 
 		newConnectDB();
 		for (ReportChronology reportChronology : chronologies) {
+
 			SQL = "INSERT INTO tbl_dosya_belgeleri( adi, icra_dosya_id, belge_yonu, belge_tarihi) VALUES ( ?, ?, ?, ?);";
 			pstm = conn.prepareStatement(SQL);
 			pstm.setString(1, reportChronology.getBelgeAdi());
@@ -158,6 +163,22 @@ public class ReportChronologyUtil extends DBConnection implements IDAO {
 		return chronology;
 	}
 
+	public List getObjFromDBWithIcraDosyaID(int id) throws Exception {
+		SQL = "SELECT * from tbl_dosya_belgeleri WHERE icra_dosya_id=" + id + ";";
+		newConnectDB();
+		stm = conn.createStatement();
+		rs = stm.executeQuery(SQL);
+		ReportChronology chronology = null;
+		List list = new ArrayList<ReportChronology>();
+		while (rs.next()) {
+			chronology = new ReportChronology(rs.getInt("id"), rs.getString("adi"), rs.getInt("icra_dosya_id"),
+					rs.getString("belge_yonu"), rs.getDate("belge_tarihi"));
+			list.add(chronology);
+		}
+		disconnectDB();
+		return list;
+	}
+
 	@Override
 	public int getID(Object object) throws Exception {
 		return 0;
@@ -167,10 +188,9 @@ public class ReportChronologyUtil extends DBConnection implements IDAO {
 	public ArrayList<Object> getAllObjFromStatus(int status) throws Exception {
 		return null;
 	}
-	
-	
-	//Timeline için kullanılacak Static Tanımlar
-	
+
+	// Timeline için kullanılacak Static Tanımlar
+
 	public static final String ICRADOSYASI_GIRECEK_EVRAK = "İcra Dosyasına Girecek Evraklar";
 
 	public static final String BORCLU_GIDECEK_EVRAK = "Borçluya Gidecek Evraklar";
@@ -180,5 +200,13 @@ public class ReportChronologyUtil extends DBConnection implements IDAO {
 	public static final String BANKA_GONDERILECEK_EVRAK = "Bankaya Gönderilecek Evraklar";
 
 	public static final String DIGER = "Diğer";
+
+	public static final String IMAGE_I_D_G_E = "timeline/report.png";
+
+	public static final String IMAGE_B_G_E = "timeline/report2.png";
+
+	public static final String IMAGE_T_L = "timeline/tebligat_listesi.png";
+
+	public static final String IMAGE_D = "timeline/report3.png";
 
 }

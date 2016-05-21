@@ -100,7 +100,7 @@ public class BasicTimelineController implements Serializable {
 		// "timeline/callback.png", false), cal.getTime()));
 	}
 
-	public void onSelect(TimelineSelectEvent e) {
+	public void onSelect(TimelineSelectEvent e) { 
 		TimelineEvent timelineEvent = e.getTimelineEvent();
 
 		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Selected event:",

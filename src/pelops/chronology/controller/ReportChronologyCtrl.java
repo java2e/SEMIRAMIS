@@ -53,7 +53,7 @@ public class ReportChronologyCtrl {
 			dates.add(reportChronology.getTarih());
 		}
 		for (Date date : dates) {
-			ControlDateAndType andType = new ControlDateAndType();
+			ControlDateAndType andType = new ControlDateAndType(); 
 
 			for (ReportChronology reportChronology : chronologies) {
 				if (date.toGMTString().equals(reportChronology.getTarih().toGMTString())) {

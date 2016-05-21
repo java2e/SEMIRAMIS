@@ -2,7 +2,7 @@ package pelops.chronology.model;
 
 import java.util.Date;
 
-public class ControlDateAndType {
+public class ControlDateAndType { 
 
 	private boolean ihtarname = false;
 	private boolean odemeEmri = false;

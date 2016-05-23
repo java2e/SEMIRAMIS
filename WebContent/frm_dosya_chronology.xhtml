@@ -86,7 +86,7 @@
 		<p:spacer width="100%" height="10" />
 
 		<pe:timeline id="timeline" value="#{basicTimelineController.model}"
-			var="task" height="400px"
+			var="task" height="400px" widgetVar="timelineFirstWdgt"
 			selectable="#{basicTimelineController.selectable}"
 			zoomable="#{basicTimelineController.zoomable}"
 			moveable="#{basicTimelineController.moveable}"
@@ -95,7 +95,7 @@
 			eventStyle="#{basicTimelineController.eventStyle}"
 			showCurrentTime="#{basicTimelineController.showCurrentTime}"
 			showNavigation="#{basicTimelineController.showNavigation}">
-
+		
 			<h:panelGroup layout="block" style="padding-bottom:5px">
 				<h:outputText value="#{task.title}" />
 			</h:panelGroup>
@@ -103,8 +103,27 @@
 			<h:panelGroup rendered="#{task.period}" style="padding:8px">
 				<h:outputText value="#{task.title}" />
 			</h:panelGroup>
-			<p:ajax event="select" listener="#{basicTimelineController.onSelect}" />
+
+			<pe:javascript event="rangechange" execute="onrangechange1()" />
+			<p:ajax event="select" listener="#{basicTimelineController.onSelect}" update="@form"/>
 		</pe:timeline>
+
+		<p:dataTable id="datatable" var="list"
+			value="#{basicTimelineController.chronologies}"
+			rowIndexVar="rowIndex">
+
+			<p:column headerText="Adı" width="10%">
+				<p:outputLabel value="#{list.belgeAdi}" />
+			</p:column>
+
+			<p:column headerText="Belge Yönü" width="15%">
+				<p:outputLabel value="#{list.dosyaYonu}" />
+			</p:column>
+			<p:column headerText="Belge Tarihi" width="15%">
+				<p:outputLabel value="#{list.tarih}" />
+			</p:column>
+
+		</p:dataTable>
 
 		<h:outputStylesheet id="timelineCSS">  
     table .formColumn {  
@@ -112,7 +131,23 @@
         text-align: right;  
         white-space: nowrap;  
     }         
-</h:outputStylesheet>
+		</h:outputStylesheet>
+
+		<h:outputScript id="timelineJS" target="body">  
+/* <![CDATA[ */      
+$(function() {  
+    onrangechange1();  // to set the range equal initially on page load  
+});  
+      
+function onrangechange1() {  
+   
+}  
+  
+/* ]]> */  
+</h:outputScript>
+
+
+
 		<p:dialog header="DETAYLI ARAMA" widgetVar="dlgdetayliarama"
 			minHeight="340" height="690">
 

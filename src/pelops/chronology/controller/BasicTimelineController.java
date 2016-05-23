@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -15,16 +16,18 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
+import org.primefaces.extensions.component.timeline.TimelineUpdater;
 import org.primefaces.extensions.event.timeline.TimelineSelectEvent;
 import org.primefaces.extensions.model.timeline.TimelineEvent;
 import org.primefaces.extensions.model.timeline.TimelineModel;
 
+import pelops.chronology.model.ReportChronology;
 import pelops.chronology.model.Task;
 import pelops.controller.AktifBean;
 import pelops.util.Util;
 
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class BasicTimelineController implements Serializable {
 
 	private TimelineModel model;
@@ -39,17 +42,15 @@ public class BasicTimelineController implements Serializable {
 	private boolean showNavigation = false;
 
 	private String icraDosyaNo;
+	private List<ReportChronology> chronologies = new ArrayList<>();
 
 	private int icraDosyaID;
 
 	@PostConstruct
 	public void initialize() {
 		model = new TimelineModel();
-
 		Calendar cal = Calendar.getInstance();
-
 		ArrayList<TimelineEvent> events = null;
-
 		try {
 			events = ReportChronologyCtrl.getInstance().getAllEvents(icraDosyaID);
 		} catch (Exception e) {
@@ -100,12 +101,24 @@ public class BasicTimelineController implements Serializable {
 		// "timeline/callback.png", false), cal.getTime()));
 	}
 
-	public void onSelect(TimelineSelectEvent e) { 
-		TimelineEvent timelineEvent = e.getTimelineEvent();
+	// Burada sadece gelen event boş geliyo onunda verileri dolu halde gelirse
+	// date yi alabiliriz abi
+	public void onSelect(TimelineSelectEvent e) {
 
-		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Selected event:",
-				timelineEvent.getData().toString());
+		// TimelineEvent timelineEvent = e.getTimelineEvent();
+		// TimelineEvent timelineEvent = e.getTimelineEvent();
+		//
+		// FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+		// "Selected event:",
+		// timelineEvent.getData().toString());
+		// FacesContext.getCurrentInstance().addMessage(null, msg);
+		// TimelineEvent timelineEvent = e.getTimelineEvent();
+		// System.out.println(timelineEvent.getEndDate().toString());
+
+		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Secildi", null);
 		FacesContext.getCurrentInstance().addMessage(null, msg);
+		System.out.println("geldi..");
+
 	}
 
 	public void icraDosyaSec(int id) {
@@ -194,4 +207,13 @@ public class BasicTimelineController implements Serializable {
 	public void setShowNavigation(boolean showNavigation) {
 		this.showNavigation = showNavigation;
 	}
+
+	public List<ReportChronology> getChronologies() {
+		return chronologies;
+	}
+
+	public void setChronologies(List<ReportChronology> chronologies) {
+		this.chronologies = chronologies;
+	}
+
 }

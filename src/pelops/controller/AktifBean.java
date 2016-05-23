@@ -10,9 +10,9 @@ import pelops.model.Hesap;
 public class AktifBean {
 
 	static int  icraDosyaID=0, borcluId=0, hesapID=0;
-	static String icraDosyaNo="";
-	static String muvekkilAdi ="";
-    static  String  borcluAdi ="";
+	static String icraDosyaNo="2016_9999";
+	static String muvekkilAdi ="2016_Muvekkil";
+    static  String  borcluAdi ="2016_Borclu";
     public static Hesap hesaplistesi = new Hesap();
     
     

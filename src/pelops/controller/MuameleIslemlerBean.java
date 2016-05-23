@@ -89,11 +89,8 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 		this.setIptalrender(false);
 		this.setduzenlesilrender(false);
 		muamele.setStatus(0);
-		// muamele.setBorcluAdi(AktifBean.getBorcluAdi());
-		// muamele.setIcraDosyaNo(AktifBean.icraDosyaNo);
-
-		muamele.setBorcluAdi("Deneme Statik");
-		muamele.setIcraDosyaNo("2016_9999");
+		muamele.setBorcluAdi(AktifBean.getBorcluAdi());
+		muamele.setIcraDosyaNo(AktifBean.icraDosyaNo);
 
 		// muamele.setPdf("./pdfler/default.pdf?pfdrid_c=true");
 
@@ -110,18 +107,11 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 		if (muameleList.isEmpty()) {
 
 			muzekkereTalep = "default";
-			// pdf = System.getProperty("catalina.base") + File.separator +
-			// "temp" + File.separator + muzekkereTalep + ".pdf";
-			pdf = FacesContext.getCurrentInstance().getExternalContext()
-					.getRealPath("/resources/pdfler/" + muzekkereTalep + ".pdf?pdfrid_c=true");
+			pdf = "./pdfler/" + muzekkereTalep + ".pdf?pfdrid_c=true";
+
 		} else {
 
-			// pdf = System.getProperty("catalina.base") + File.separator +
-			// "temp" + File.separator + muzekkereTalep
-			// + ".pdf";
-			pdf = FacesContext.getCurrentInstance().getExternalContext()
-					.getRealPath("/resources/pdfler/" + muzekkereTalep + ".pdf?pdfrid_c=true");
-
+			pdf = "./pdfler/" + muzekkereTalep + ".pdf?pfdrid_c=true";
 			System.out.println(pdf);
 		}
 		return pdf;
@@ -156,7 +146,7 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 
 		uretilenBarkod = barkodUret();
 		Duzenle();
-
+	
 	}
 
 	@SuppressWarnings("unused")
@@ -264,10 +254,11 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 		zarf.setTalepMuzekkereAdi(talepMuzekkereismiBul(muzekkereTalep));
 
 		dataBeanListForTebligat.add(zarf);
+		
+		
 
 		HashMap<String, Object> parameters = new HashMap<String, Object>();
-		String pathName = FacesContext.getCurrentInstance().getExternalContext()
-				.getRealPath("/reports/" + "tebligat_zarfi.jrxml");
+		String pathName = "D:/testworkspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/SEMIRAMIS/reports/tebligat_zarfi.jrxml";
 		InputStream inputStream = new FileInputStream(pathName);
 		System.out.println("path name :" + pathName);
 		JRBeanCollectionDataSource beanColDataSource = new JRBeanCollectionDataSource(dataBeanListForTebligat);
@@ -1056,12 +1047,13 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 		ArrayList<MuameleIslemleri> dataBeanList = new ArrayList<MuameleIslemleri>();
 		dataBeanList.add(muamele);
 		HashMap<String, Object> parameters = new HashMap<String, Object>();
-		String pathName = FacesContext.getCurrentInstance().getExternalContext()
-				.getRealPath("/reports/" + muzekkereTalep + ".jrxml");
+		String pathName = "D:/testworkspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/SEMIRAMIS/reports/"
+				+ muzekkereTalep + ".jrxml";
 
 		InputStream inputStream = new FileInputStream(pathName);
 
-		path = System.getProperty("catalina.base") + File.separator + "temp" + File.separator + muzekkereTalep + ".pdf";
+		path = "D:/testworkspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/SEMIRAMIS/pdfler/"
+				+ muzekkereTalep + ".pdf";
 
 		JRBeanCollectionDataSource beanColDataSource = new JRBeanCollectionDataSource(dataBeanList);
 		JasperDesign jasperDesign = new JasperDesign();
@@ -1109,25 +1101,25 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 			list.add(talepMuzekkere);
 			list.add(tebligat);
 		}
-
-		String path;
+		
+		String path=null;
 		if (gelisAmaci.equals("duzenle")) {
 
-			path = FacesContext.getCurrentInstance().getExternalContext()
-					.getRealPath("/resources/pdfler/" + muzekkereTalep + ".pdf");
+			path = "D:/testworkspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/SEMIRAMIS/pdfler/"
+					+ muzekkereTalep + ".pdf";
 
-		} else if (gelisAmaci.equals("onizleme")) {
+		} else  if (gelisAmaci.equals("onizleme")){
+			
+			// gelis_amaci onizleme
+			
+			path = "D:/testworkspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/SEMIRAMIS/pdfler/"
+					+ muzekkereTalep + ".pdf";
 
-			// gelis_amaci önizleme
+		
 
-			path = FacesContext.getCurrentInstance().getExternalContext()
-					.getRealPath("/resources/pdfler/" + muzekkereTalep + ".pdf");
-
-		} else {
-
-			// geliş amacı yazdir
-			path = FacesContext.getCurrentInstance().getExternalContext()
-					.getRealPath("/resources/pdfler/" + muamele.getIcraDosyaId() + ".pdf");
+		}else if(gelisAmaci.equals("yazdir")){
+			
+			path = "D:/muzekkere_talep_ciktilari/" + muzekkereTalep + "_" + muamele.getIcraDosyaNo() + ".pdf";
 		}
 
 		JRPdfExporter exporter = new JRPdfExporter();

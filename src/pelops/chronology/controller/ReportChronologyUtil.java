@@ -179,6 +179,22 @@ public class ReportChronologyUtil extends DBConnection implements IDAO {
 		return list;
 	}
 
+	public List getObjFromDBWithIcraDosyaIDandDate(int id, Date date) throws Exception {
+		SQL = "SELECT * from tbl_dosya_belgeleri WHERE icra_dosya_id=" + id + " and belge_tarihi='" + date + "';";
+		newConnectDB();
+		stm = conn.createStatement();
+		rs = stm.executeQuery(SQL);
+		ReportChronology chronology = null;
+		List list = new ArrayList<ReportChronology>();
+		while (rs.next()) {
+			chronology = new ReportChronology(rs.getInt("id"), rs.getString("adi"), rs.getInt("icra_dosya_id"),
+					rs.getString("belge_yonu"), rs.getDate("belge_tarihi"));
+			list.add(chronology);
+		}
+		disconnectDB();
+		return list;
+	}
+
 	@Override
 	public int getID(Object object) throws Exception {
 		return 0;

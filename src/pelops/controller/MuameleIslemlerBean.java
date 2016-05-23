@@ -1089,6 +1089,7 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 					.get("muzekkeretalep").toString());
 
 		}
+		
 
 		// Önizleme ve Düzenle Metodlarından ulaşım için yapıldı.
 		onizleDuzenleID = duzenleID;

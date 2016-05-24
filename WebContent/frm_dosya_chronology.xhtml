@@ -103,8 +103,8 @@
 			<h:panelGroup rendered="#{task.period}" style="padding:8px">
 				<h:outputText value="#{task.title}" />
 			</h:panelGroup>
-			<f:param name="date" value="#{task.tarih}"></f:param>
-			<p:ajax event="select" listener="#{basicTimelineController.onSelect}"
+			<f:param name="date" value="change()"></f:param>
+			<p:ajax event="select" listener="#{basicTimelineController.onSelect}" 
 				update=":form:datatable" />
 		</pe:timeline>
 
@@ -132,6 +132,17 @@
         white-space: nowrap;  
     }         
 		</h:outputStylesheet>
+
+		<h:outputScript>
+		function change() {  
+    var index = PF('timelineFirstWdgt').getSelectedIndex();  
+    if (index == -1) {  
+        // no event was selected  
+        return;  
+    }  
+    return index;
+    }
+		</h:outputScript>
 
 
 

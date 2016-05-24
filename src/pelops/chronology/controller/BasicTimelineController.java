@@ -91,12 +91,11 @@ public class BasicTimelineController implements Serializable {
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 		String date = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("date")
 				.toString();
-		System.out.println(date);
-	
+	System.out.println(date);
 		try {
-			Date date2 = formatter.parse(date);
-			chronologies = null; 
-			chronologies = ReportChronologyUtil.getInstance().getObjFromDBWithIcraDosyaIDandDate(icraDosyaID, date2);
+//			Date date2 = formatter.parse(date);
+//			chronologies = null; 
+//			chronologies = ReportChronologyUtil.getInstance().getObjFromDBWithIcraDosyaIDandDate(icraDosyaID, date2);
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();

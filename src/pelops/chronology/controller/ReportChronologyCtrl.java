@@ -34,9 +34,13 @@ public class ReportChronologyCtrl {
 	public ArrayList<TimelineEvent> getAllEvents(Integer icraDosyaId) throws Exception {
 		ArrayList<TimelineEvent> events = new ArrayList<>();
 		ArrayList<Task> tasks = getTaskList(icraDosyaId);
+		int id = 0;
 		for (Task task : tasks) {
+			task.setId(id);
 			TimelineEvent event = new TimelineEvent(task, task.getTarih());
 			events.add(event);
+			id++;
+
 		}
 		return events;
 	}
@@ -46,14 +50,13 @@ public class ReportChronologyCtrl {
 	public ArrayList<Task> getTaskList(int id) throws Exception {
 		ArrayList<Task> tasks = new ArrayList<>();
 		HashSet<ReportChronology> chronologies = getChronologiesFromRC(id);
-		Date flagDate = null;
 		ArrayList<ControlDateAndType> andTypes = new ArrayList<>();
 		HashSet<Date> dates = new HashSet<>();
 		for (ReportChronology reportChronology : chronologies) {
 			dates.add(reportChronology.getTarih());
 		}
 		for (Date date : dates) {
-			ControlDateAndType andType = new ControlDateAndType(); 
+			ControlDateAndType andType = new ControlDateAndType();
 
 			for (ReportChronology reportChronology : chronologies) {
 				if (date.toGMTString().equals(reportChronology.getTarih().toGMTString())) {
@@ -102,7 +105,6 @@ public class ReportChronologyCtrl {
 				tasks.add(task);
 			}
 		}
-
 		return tasks;
 
 	}

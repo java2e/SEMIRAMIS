@@ -95,7 +95,7 @@
 			eventStyle="#{basicTimelineController.eventStyle}"
 			showCurrentTime="#{basicTimelineController.showCurrentTime}"
 			showNavigation="#{basicTimelineController.showNavigation}">
-		
+
 			<h:panelGroup layout="block" style="padding-bottom:5px">
 				<h:outputText value="#{task.title}" />
 			</h:panelGroup>
@@ -103,9 +103,9 @@
 			<h:panelGroup rendered="#{task.period}" style="padding:8px">
 				<h:outputText value="#{task.title}" />
 			</h:panelGroup>
-
-			<pe:javascript event="rangechange" execute="onrangechange1()" />
-			<p:ajax event="select" listener="#{basicTimelineController.onSelect}" update="@form"/>
+			<f:param name="date" value="#{task.tarih}"></f:param>
+			<p:ajax event="select" listener="#{basicTimelineController.onSelect}"
+				update=":form:datatable" />
 		</pe:timeline>
 
 		<p:dataTable id="datatable" var="list"
@@ -133,18 +133,6 @@
     }         
 		</h:outputStylesheet>
 
-		<h:outputScript id="timelineJS" target="body">  
-/* <![CDATA[ */      
-$(function() {  
-    onrangechange1();  // to set the range equal initially on page load  
-});  
-      
-function onrangechange1() {  
-   
-}  
-  
-/* ]]> */  
-</h:outputScript>
 
 
 

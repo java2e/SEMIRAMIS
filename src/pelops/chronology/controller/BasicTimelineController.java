@@ -1,22 +1,19 @@
 package pelops.chronology.controller;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
-import org.primefaces.extensions.component.timeline.TimelineUpdater;
 import org.primefaces.extensions.event.timeline.TimelineSelectEvent;
 import org.primefaces.extensions.model.timeline.TimelineEvent;
 import org.primefaces.extensions.model.timeline.TimelineModel;
@@ -27,8 +24,13 @@ import pelops.controller.AktifBean;
 import pelops.util.Util;
 
 @ManagedBean
-@ViewScoped
+@SessionScoped
 public class BasicTimelineController implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2799560844470830953L;
 
 	private TimelineModel model;
 
@@ -40,6 +42,8 @@ public class BasicTimelineController implements Serializable {
 	private boolean axisOnTop;
 	private boolean showCurrentTime = true;
 	private boolean showNavigation = false;
+	
+	TimelineEvent event;
 
 	private String icraDosyaNo;
 	private List<ReportChronology> chronologies = new ArrayList<>();
@@ -49,7 +53,7 @@ public class BasicTimelineController implements Serializable {
 	@PostConstruct
 	public void initialize() {
 		model = new TimelineModel();
-		Calendar cal = Calendar.getInstance();
+		
 		ArrayList<TimelineEvent> events = null;
 		try {
 			events = ReportChronologyCtrl.getInstance().getAllEvents(icraDosyaID);
@@ -63,61 +67,40 @@ public class BasicTimelineController implements Serializable {
 
 					model.add(timelineEvent);
 				}
-			} else {
-
-			}
+			} 
+//			  Calendar cal = Calendar.getInstance();  
+//		        cal.set(2015, Calendar.AUGUST, 22, 17, 30, 0);  
+//		        model.add(new TimelineEvent(new Task("Mail from boss", "timeline/mail.png", false), cal.getTime()));  
+//		  
+//		        cal.set(2015, Calendar.AUGUST, 23, 23, 0, 0);  
+//		        model.add(new TimelineEvent(new Task("Call back my boss", "timeline/callback.png", false), cal.getTime()));  
+//		  
+//		        cal.set(2015, Calendar.AUGUST, 24, 21, 45, 0);  
+//		        model.add(new TimelineEvent("Travel to Spain", cal.getTime()));  
+		  
 		}
 
-		// cal.set(2013, Calendar.JUNE, 5, 0, 0, 0);
-		// model.add(new TimelineEvent(new Task("Call back my boss",
-		// "timeline/callback.png", false), cal.getTime()));
-		//
-		// cal.set(2013, Calendar.OCTOBER, 3, 0, 0, 0);
-		// model.add(new TimelineEvent(new Task("Call back my boss",
-		// "timeline/report.png", false), cal.getTime()));
-		//
-		// cal.set(2013, Calendar.DECEMBER, 28, 0, 0, 0);
-		// model.add(new TimelineEvent(new Task("Call back my boss",
-		// "timeline/callback.png", false), cal.getTime()));
-		//
-		// cal.set(2014, Calendar.JANUARY, 1, 0, 0, 0);
-		// model.add(new TimelineEvent(new Task("Call back my boss",
-		// "timeline/callback.png", false), cal.getTime()));
-		//
-		// cal.set(2014, Calendar.MAY, 5, 0, 0, 0);
-		// model.add(new TimelineEvent(new Task("Call back my boss",
-		// "timeline/callback.png", false), cal.getTime()));
-		//
-		// cal.set(2014, Calendar.AUGUST, 22, 0, 0, 0);
-		// model.add(new TimelineEvent(new Task("Call back my boss",
-		// "timeline/callback.png", false), cal.getTime()));
-		//
-		// cal.set(2014, Calendar.NOVEMBER, 3, 0, 0, 0);
-		// model.add(new TimelineEvent(new Task("Call back my boss",
-		// "timeline/callback.png", false), cal.getTime()));
-		//
-		// cal.set(2015, Calendar.APRIL, 26, 0, 0, 0);
-		// model.add(new TimelineEvent(new Task("Call back my boss",
-		// "timeline/callback.png", false), cal.getTime()));
 	}
 
 	// Burada sadece gelen event boş geliyo onunda verileri dolu halde gelirse
 	// date yi alabiliriz abi
 	public void onSelect(TimelineSelectEvent e) {
 
-		// TimelineEvent timelineEvent = e.getTimelineEvent();
-		// TimelineEvent timelineEvent = e.getTimelineEvent();
-		//
-		// FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
-		// "Selected event:",
-		// timelineEvent.getData().toString());
-		// FacesContext.getCurrentInstance().addMessage(null, msg);
-		// TimelineEvent timelineEvent = e.getTimelineEvent();
-		// System.out.println(timelineEvent.getEndDate().toString());
-
 		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Secildi", null);
 		FacesContext.getCurrentInstance().addMessage(null, msg);
-		System.out.println("geldi..");
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		String date = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("date")
+				.toString();
+		System.out.println(date);
+	
+		try {
+			Date date2 = formatter.parse(date);
+			chronologies = null; 
+			chronologies = ReportChronologyUtil.getInstance().getObjFromDBWithIcraDosyaIDandDate(icraDosyaID, date2);
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 
 	}
 
@@ -126,8 +109,6 @@ public class BasicTimelineController implements Serializable {
 		RequestContext.getCurrentInstance().execute("PF('dlgdetayliarama').hide()");
 		this.icraDosyaNo = AktifBean.getIcraDosyaNo();
 		icraDosyaID = AktifBean.getIcraDosyaID();
-		System.out.println(icraDosyaNo);
-		System.out.println(icraDosyaID);
 		initialize();
 
 	}

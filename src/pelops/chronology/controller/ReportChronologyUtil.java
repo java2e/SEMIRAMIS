@@ -110,7 +110,9 @@ public class ReportChronologyUtil extends DBConnection implements IDAO {
 			newConnectDB();
 			pstm = conn.prepareStatement(SQL);
 			pstm.setString(1, ((ReportChronology) obj).getBelgeAdi());
-			pstm.setInt(2, ((ReportChronology) obj).getIcraDosyaID());
+			if (((ReportChronology) obj).getIcraDosyaID() != null) {
+				pstm.setInt(2, ((ReportChronology) obj).getIcraDosyaID());
+			}
 			pstm.setString(3, ((ReportChronology) obj).getDosyaYonu());
 			pstm.setDate(4, convertFromJAVADateToSQLDate(((ReportChronology) obj).getTarih()));
 			pstm.execute();

@@ -34,13 +34,10 @@ public class ReportChronologyCtrl {
 	public ArrayList<TimelineEvent> getAllEvents(Integer icraDosyaId) throws Exception {
 		ArrayList<TimelineEvent> events = new ArrayList<>();
 		ArrayList<Task> tasks = getTaskList(icraDosyaId);
-		int id = 0;
+
 		for (Task task : tasks) {
-			task.setId(id);
 			TimelineEvent event = new TimelineEvent(task, task.getTarih());
 			events.add(event);
-			id++;
-
 		}
 		return events;
 	}

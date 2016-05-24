@@ -181,6 +181,23 @@ public class ReportChronologyUtil extends DBConnection implements IDAO {
 		return list;
 	}
 
+	public List getListForDataTable(int id) throws Exception {
+		List list = getObjFromDBWithIcraDosyaID(id);
+		List returnList = new ArrayList<ReportChronology>();
+		for (Object object : list) {
+			if (object instanceof ReportChronology) {
+				ReportChronology chronology = new ReportChronology(((ReportChronology) object).getId(),
+						ReportUtils.convertReportName(((ReportChronology) object).getBelgeAdi()),
+						((ReportChronology) object).getIcraDosyaID(), ((ReportChronology) object).getDosyaYonu(),
+						((ReportChronology) object).getTarih());
+				returnList.add(chronology);
+			}
+
+		}
+
+		return returnList;
+	}
+
 	public List getObjFromDBWithIcraDosyaIDandDate(int id, Date date) throws Exception {
 		SQL = "SELECT * from tbl_dosya_belgeleri WHERE icra_dosya_id=" + id + " and belge_tarihi='" + date + "';";
 		newConnectDB();

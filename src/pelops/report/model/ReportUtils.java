@@ -40,9 +40,9 @@ public class ReportUtils {
 	public static final String AKBANK = "AKBANK T.A.Ş.";
 	public static final String GARANTI = "T. GARANTİ BANKASI A.Ş.";
 	public static final String ING = "İNG BANK A.Ş.";
-	
-	//Dosya Krononolojisi için static veriler
-	
+
+	// Dosya Krononolojisi için static veriler
+
 	public static final String DOSYA_YONU_GIDEN = "Giden";
 	public static final String DOSYA_YONU_GELEN = "Gelen";
 
@@ -109,6 +109,30 @@ public class ReportUtils {
 			a += " nolu  kredi kartı için";
 		}
 		return a;
+	}
+
+	public static String convertReportName(String name) {
+		String returnVal = "";
+		if (name.equals(REPORT_IHTARNAME)) {
+			returnVal = "İhtarname";
+		} else if (name.equals(REPORT_ODEME_EMRI)) {
+			returnVal = "Ödeme Emri";
+		} else if (name.equals(REPORT_POSTANEDEN_GELEN_EVRAK)) {
+			returnVal = "Postane Evrakı";
+		} else if (name.equals(REPORT_ODEME_EMRI)) {
+			returnVal = "İhtarname";
+		} else if (name.equals(REPORT_TAKIP_TALEBI)) {
+			returnVal = "Takip Talebi";
+		} else if (name.equals(REPORT_TALEP_KAGIDI)) {
+			returnVal = "Talep Kağıdı";
+		} else if (name.equals(REPORT_TEBLIGAT_LISTESI)) {
+			returnVal = "Tebligat Listesi";
+		} else if (name.equals(REPORT_TEBLIGAT_ZARFI)) {
+			returnVal = "Tebligat Zarfı";
+		} else if (name.equals(REPORT_VEKALETNAME)) {
+			returnVal = "Vekaletname";
+		}
+		return returnVal;
 	}
 
 	public static void main(String[] a) {

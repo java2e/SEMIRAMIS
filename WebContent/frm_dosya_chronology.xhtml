@@ -28,7 +28,7 @@
 		<p:growl id="growl" showSummary="true" showDetail="true"
 			autoUpdate="true" />
 
-		<p:fieldset style="white-space:nowrap;">
+		<p:fieldset style="white-space:nowrap;" rendered="false">
 			<h:panelGrid columns="8"
 				columnClasses="formColumn,,formColumn,,formColumn,,formColumn,,">
 				<h:outputText value="Selectable" />
@@ -86,7 +86,7 @@
 		<p:spacer width="100%" height="10" />
 
 		<pe:timeline id="timeline" value="#{basicTimelineController.model}"
-			var="task" height="400px" widgetVar="timelineFirstWdgt"
+			var="task" height="400px" widgetVar="timelineWdgt"
 			selectable="#{basicTimelineController.selectable}"
 			zoomable="#{basicTimelineController.zoomable}"
 			moveable="#{basicTimelineController.moveable}"
@@ -100,15 +100,13 @@
 				<h:outputText value="#{task.title}" />
 			</h:panelGroup>
 			<h:graphicImage library="images" name="#{task.imagePath}" />
-			<h:panelGroup rendered="#{task.period}" style="padding:8px">
-				<h:outputText value="#{task.title}" />
-			</h:panelGroup>
-			<f:param name="date" value="change()"></f:param>
-			<p:ajax event="select" listener="#{basicTimelineController.onSelect}" 
+			<p:ajax event="select" listener="#{basicTimelineController.onSelect}"
 				update=":form:datatable" />
 		</pe:timeline>
 
-		<p:dataTable id="datatable" var="list"
+		<p:spacer width="100%" height="20" />
+
+		<p:dataTable id="datatable" var="list" rows="10" paginator="true"
 			value="#{basicTimelineController.chronologies}"
 			rowIndexVar="rowIndex">
 
@@ -133,16 +131,7 @@
     }         
 		</h:outputStylesheet>
 
-		<h:outputScript>
-		function change() {  
-    var index = PF('timelineFirstWdgt').getSelectedIndex();  
-    if (index == -1) {  
-        // no event was selected  
-        return;  
-    }  
-    return index;
-    }
-		</h:outputScript>
+
 
 
 

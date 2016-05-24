@@ -42,7 +42,7 @@ public class BasicTimelineController implements Serializable {
 	private boolean axisOnTop;
 	private boolean showCurrentTime = true;
 	private boolean showNavigation = false;
-	
+
 	TimelineEvent event;
 
 	private String icraDosyaNo;
@@ -53,7 +53,7 @@ public class BasicTimelineController implements Serializable {
 	@PostConstruct
 	public void initialize() {
 		model = new TimelineModel();
-		
+
 		ArrayList<TimelineEvent> events = null;
 		try {
 			events = ReportChronologyCtrl.getInstance().getAllEvents(icraDosyaID);
@@ -67,35 +67,17 @@ public class BasicTimelineController implements Serializable {
 
 					model.add(timelineEvent);
 				}
-			} 
-//			  Calendar cal = Calendar.getInstance();  
-//		        cal.set(2015, Calendar.AUGUST, 22, 17, 30, 0);  
-//		        model.add(new TimelineEvent(new Task("Mail from boss", "timeline/mail.png", false), cal.getTime()));  
-//		  
-//		        cal.set(2015, Calendar.AUGUST, 23, 23, 0, 0);  
-//		        model.add(new TimelineEvent(new Task("Call back my boss", "timeline/callback.png", false), cal.getTime()));  
-//		  
-//		        cal.set(2015, Calendar.AUGUST, 24, 21, 45, 0);  
-//		        model.add(new TimelineEvent("Travel to Spain", cal.getTime()));  
-		  
+			}
+
 		}
 
 	}
 
-	// Burada sadece gelen event boş geliyo onunda verileri dolu halde gelirse
-	// date yi alabiliriz abi
 	public void onSelect(TimelineSelectEvent e) {
 
-		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Secildi", null);
-		FacesContext.getCurrentInstance().addMessage(null, msg);
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-		String date = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("date")
-				.toString();
-	System.out.println(date);
 		try {
-//			Date date2 = formatter.parse(date);
-//			chronologies = null; 
-//			chronologies = ReportChronologyUtil.getInstance().getObjFromDBWithIcraDosyaIDandDate(icraDosyaID, date2);
+
+			chronologies = ReportChronologyUtil.getInstance().getListForDataTable(icraDosyaID);
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();

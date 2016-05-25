@@ -294,6 +294,8 @@ public class KasaCtrl {
 		model.setDosyaNo(view.getIcraDosyaNo());
 		model.setMakbuzNo(String.valueOf(view.getId()));
 		model.setSebebi("");
+		model.setMiktari(String.valueOf(view.getTahsilatMiktari()));
+		model.setAdSoyad(view.getAdSoyad());
 		model.setTarih(String.valueOf(new Date()));
 		model.setAlinanMiktar(String.valueOf(view.getTahsilatMiktari()));
 		model.setSiraNo(String.valueOf(view.getId()));
@@ -311,7 +313,9 @@ public class KasaCtrl {
 		model.setMakbuzNo(String.valueOf(view.getId()));
 		model.setAlinanMiktar(String.valueOf(view.getTahsilatMiktari()));
 		model.setSebebi("");
+		model.setMiktari(String.valueOf(view.getTahsilatMiktari()));
 		model.setSeri("");
+		model.setAdSoyad(view.getAdSoyad());
 		model.setSiraNo(String.valueOf(view.getId()));
 		return model;
 	}

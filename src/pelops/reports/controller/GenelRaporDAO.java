@@ -1,4 +1,4 @@
-package pelops.controller.reports;
+package pelops.reports.controller;
 
 import java.sql.ResultSet;
 import java.sql.Statement;

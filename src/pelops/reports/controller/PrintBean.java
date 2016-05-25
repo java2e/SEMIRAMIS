@@ -1,4 +1,4 @@
-package pelops.controller.reports;
+package pelops.reports.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;

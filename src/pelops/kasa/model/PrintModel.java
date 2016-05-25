@@ -1,9 +1,9 @@
 package pelops.kasa.model;
 
 public class PrintModel {
-	
+
 	public static final String TAHSILAT_MAKBUZU = "102_makbuz.jasper";
-	
+
 	public static final String HITAM_MAKBUZU = "101_hitam_belgesi.jasper";
 
 	private String tarih;
@@ -22,7 +22,37 @@ public class PrintModel {
 
 	private String sebebi;
 
+	private String alinanMiktar;
+
+	private String gorevliKisi;
+
 	private String miktari;
+
+	private String adSoyad;
+
+	public String getAdSoyad() {
+		return adSoyad;
+	}
+
+	public void setAdSoyad(String adSoyad) {
+		this.adSoyad = adSoyad;
+	}
+
+	public String getMiktari() {
+		return miktari;
+	}
+
+	public void setMiktari(String miktari) {
+		this.miktari = miktari;
+	}
+
+	public String getGorevliKisi() {
+		return gorevliKisi;
+	}
+
+	public void setGorevliKisi(String gorevliKisi) {
+		this.gorevliKisi = gorevliKisi;
+	}
 
 	public String getTarih() {
 		return tarih;
@@ -88,12 +118,12 @@ public class PrintModel {
 		this.sebebi = sebebi;
 	}
 
-	public String getMiktari() {
-		return miktari;
+	public String getAlinanMiktar() {
+		return alinanMiktar;
 	}
 
-	public void setMiktari(String miktari) {
-		this.miktari = miktari;
+	public void setAlinanMiktar(String alinanMiktar) {
+		this.alinanMiktar = alinanMiktar;
 	}
 
 }

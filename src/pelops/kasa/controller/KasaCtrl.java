@@ -8,12 +8,18 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.faces.context.FacesContext;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 
 import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.export.JRPdfExporter;
+import net.sf.jasperreports.engine.export.JRPrintServiceExporterParameter;
+import pelops.controller.AktifBean;
 import pelops.dao.BasvuruHarciDAO;
 import pelops.dao.VekaletHarciDAO;
 import pelops.dao.VekaletSinirlariDAO;
@@ -289,7 +295,7 @@ public class KasaCtrl {
 		model.setMakbuzNo(String.valueOf(view.getId()));
 		model.setSebebi("");
 		model.setTarih(String.valueOf(new Date()));
-		model.setMiktari(String.valueOf(view.getTahsilatMiktari()));
+		model.setAlinanMiktar(String.valueOf(view.getTahsilatMiktari()));
 		model.setSiraNo(String.valueOf(view.getId()));
 
 		return model;
@@ -303,7 +309,7 @@ public class KasaCtrl {
 		model.setBorclu(view.getBorcluAdi());
 		model.setDosyaNo(view.getIcraDosyaNo());
 		model.setMakbuzNo(String.valueOf(view.getId()));
-		model.setMiktari(String.valueOf(view.getTahsilatMiktari()));
+		model.setAlinanMiktar(String.valueOf(view.getTahsilatMiktari()));
 		model.setSebebi("");
 		model.setSeri("");
 		model.setSiraNo(String.valueOf(view.getId()));
@@ -341,13 +347,35 @@ public class KasaCtrl {
 	public void printTahsilatMakbuzu(int id) throws Exception {
 		TahsilatView tahsilatView = viewDAO.getTahsilatFromViewByID(id);
 		JasperPrint jasperPrint = generateTahsilatMakbuzu(tahsilatView);
-		JasperExportManager.exportReportToPdf(jasperPrint);
+		HttpServletResponse httpServletResponse = (HttpServletResponse) FacesContext.getCurrentInstance()
+				.getExternalContext().getResponse();
+		httpServletResponse.addHeader("Content-disposition", "attachment; filename=" + "makbuz.pdf");
+		ServletOutputStream servletOutputStream = httpServletResponse.getOutputStream();
+		JRPdfExporter exporter = new JRPdfExporter();
+
+		exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+
+		exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, servletOutputStream);
+		exporter.setParameter(JRPrintServiceExporterParameter.DISPLAY_PRINT_DIALOG, Boolean.TRUE);
+
+		exporter.exportReport();
 	}
 
 	public void printHitamMakbuzu(int id) throws Exception {
 		HitamView hitamView = viewDAO.getHitamFromViewByID(id);
 		JasperPrint jasperPrint = generateHitamMakbuzu(hitamView);
-		JasperExportManager.exportReportToPdf(jasperPrint);
+		HttpServletResponse httpServletResponse = (HttpServletResponse) FacesContext.getCurrentInstance()
+				.getExternalContext().getResponse();
+		httpServletResponse.addHeader("Content-disposition", "attachment; filename=" + "makbuz.pdf");
+		ServletOutputStream servletOutputStream = httpServletResponse.getOutputStream();
+		JRPdfExporter exporter = new JRPdfExporter();
+
+		exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+
+		exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, servletOutputStream);
+		exporter.setParameter(JRPrintServiceExporterParameter.DISPLAY_PRINT_DIALOG, Boolean.TRUE);
+
+		exporter.exportReport();
 
 	}
 

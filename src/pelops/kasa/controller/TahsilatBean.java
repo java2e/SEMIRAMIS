@@ -116,11 +116,6 @@ public class TahsilatBean {
 		
 	}
 	
-	public void TahsilatMakbuzuyazdir() throws Exception{
-		KasaCtrl islem = new KasaCtrl();
-		islem.printTahsilatMakbuzu(10);
-		
-	}
 	
 	public void YeniKayit() {
 

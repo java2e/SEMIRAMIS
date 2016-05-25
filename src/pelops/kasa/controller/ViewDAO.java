@@ -388,7 +388,7 @@ public class ViewDAO extends DBConnection {
 		TahsilatView view = new TahsilatView();
 		while (rs.next()) {
 			view.setId(rs.getInt("id"));
-			view.setIcraDosyaId(rs.getInt("icra_dosya_id"));
+			view.setIcraDosyaId(rs.getInt("icra_dosyasi_id"));
 			view.setMuvekkilAdi(rs.getString("muvekkil_adi"));
 			view.setBorcluAdi(rs.getString("borclu_adi"));
 			view.setGelisTarihi(rs.getDate("gelis_tarihi"));

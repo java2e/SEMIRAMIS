@@ -411,6 +411,14 @@ public class KasaBean {
 		
 	}
 	
+	public void print() throws Exception{
+		KasaCtrl islem = new KasaCtrl();
+		islem.printTahsilatMakbuzu(10);
+		System.out.println("burda");
+		
+	}
+	
+	
 	
 
 }

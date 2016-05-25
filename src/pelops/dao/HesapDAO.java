@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 import pelops.db.DBConnection;
+import pelops.kasa.controller.KasaCtrl;
 import pelops.model.Hesap;
 
 
@@ -214,7 +215,10 @@ public class HesapDAO extends DBConnection{
     public static void main(String[] args) {
 		HesapDAO dao = new HesapDAO();
 		try {
-			System.out.println(dao.Liste(13044).getToplam_alacak());
+//			System.out.println(dao.Liste(13044).getToplam_alacak());
+			KasaCtrl ctrl = new KasaCtrl();
+			ctrl.printTahsilatMakbuzu(10);
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

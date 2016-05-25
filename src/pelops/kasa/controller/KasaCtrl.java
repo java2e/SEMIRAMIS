@@ -10,6 +10,7 @@ import java.util.List;
 import javax.faces.context.FacesContext;
 
 import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
@@ -17,6 +18,7 @@ import pelops.dao.BasvuruHarciDAO;
 import pelops.dao.VekaletHarciDAO;
 import pelops.dao.VekaletSinirlariDAO;
 import pelops.kasa.model.Hitam;
+import pelops.kasa.model.HitamView;
 import pelops.kasa.model.PrintModel;
 import pelops.kasa.model.Reddiyat;
 import pelops.kasa.model.ReddiyatView;
@@ -278,7 +280,7 @@ public class KasaCtrl {
 		return reddiyat;
 	}
 
-	public PrintModel generatePrintModelFromTahsilat(TahsilatView view) {
+	private PrintModel generatePrintModelFromTahsilat(TahsilatView view) {
 		PrintModel model = new PrintModel();
 		model.setSeri("");
 		model.setAlacakli(view.getMuvekkilAdi());
@@ -294,7 +296,21 @@ public class KasaCtrl {
 
 	}
 
-	public JasperPrint generateTahsilatMakbuzu(TahsilatView view) throws JRException {
+	private PrintModel generatePrintModelFromHitamView(HitamView view) {
+
+		PrintModel model = new PrintModel();
+		model.setAlacakli(view.getMuvekkilAdi());
+		model.setBorclu(view.getBorcluAdi());
+		model.setDosyaNo(view.getIcraDosyaNo());
+		model.setMakbuzNo(String.valueOf(view.getId()));
+		model.setMiktari(String.valueOf(view.getTahsilatMiktari()));
+		model.setSebebi("");
+		model.setSeri("");
+		model.setSiraNo(String.valueOf(view.getId()));
+		return model;
+	}
+
+	private JasperPrint generateTahsilatMakbuzu(TahsilatView view) throws JRException {
 		PrintModel model = generatePrintModelFromTahsilat(view);
 		JasperPrint jasperPrint = null;
 		ArrayList<PrintModel> list = new ArrayList<>();
@@ -308,8 +324,8 @@ public class KasaCtrl {
 
 	}
 
-	public JasperPrint generateHitamMakbuzu(TahsilatView view) throws JRException {
-		PrintModel model = generatePrintModelFromTahsilat(view);
+	private JasperPrint generateHitamMakbuzu(HitamView view) throws JRException {
+		PrintModel model = generatePrintModelFromHitamView(view);
 		JasperPrint jasperPrint = null;
 		ArrayList<PrintModel> list = new ArrayList<>();
 		list.add(model);
@@ -319,6 +335,19 @@ public class KasaCtrl {
 		jasperPrint = JasperFillManager.fillReport(reportPath, new HashMap<>(), beanCollectionDataSource);
 
 		return jasperPrint;
+
+	}
+
+	public void printTahsilatMakbuzu(int id) throws Exception {
+		TahsilatView tahsilatView = viewDAO.getTahsilatFromViewByID(id);
+		JasperPrint jasperPrint = generateTahsilatMakbuzu(tahsilatView);
+		JasperExportManager.exportReportToPdf(jasperPrint);
+	}
+
+	public void printHitamMakbuzu(int id) throws Exception {
+		HitamView hitamView = viewDAO.getHitamFromViewByID(id);
+		JasperPrint jasperPrint = generateHitamMakbuzu(hitamView);
+		JasperExportManager.exportReportToPdf(jasperPrint);
 
 	}
 

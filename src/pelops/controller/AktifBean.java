@@ -2,20 +2,35 @@ package pelops.controller;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.servlet.http.HttpSession;
 
 import pelops.model.Hesap;
+import pelops.util.Util;
 
 @ManagedBean(name="aktifbean")
 @SessionScoped
 public class AktifBean {
 
 	static int  icraDosyaID=0, borcluId=0, hesapID=0;
-	static String icraDosyaNo="2016_9999";
-	static String muvekkilAdi ="2016_Muvekkil";
-    static  String  borcluAdi ="2016_Borclu";
+	static String icraDosyaNo="";
+	static String muvekkilAdi ="";
+    static  String  borcluAdi ="";
+    private String chatUserNamey="";
     public static Hesap hesaplistesi = new Hesap();
     
     
+    
+    
+    
+	public  String getChatUserNamey() {
+		HttpSession session = Util.getSession();
+		String username=(String)session.getAttribute("username");
+		chatUserNamey= username;
+		return chatUserNamey;
+	}
+	public  void setChatUserNamey(String chatUserNamey) {
+		this.chatUserNamey = chatUserNamey;
+	}
 	public static Hesap getHesaplistesi() {
 		return hesaplistesi;
 	}

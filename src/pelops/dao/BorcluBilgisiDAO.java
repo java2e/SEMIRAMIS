@@ -4,6 +4,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+
+import pelops.chronology.controller.ChronologyUtil;
+import pelops.chronology.model.Instance;
 import pelops.controller.AktifBean;
 import pelops.db.DBConnection;
 import pelops.model.BorcluBilgisi;
@@ -73,13 +76,9 @@ public class BorcluBilgisiDAO extends DBConnection {
 					+ "sira_no, verildigi_yer, veris_nedeni,  vefat,"
 					+ " resim, \"adressTuru\", ilce_id, il_id, adres, semt_adi, telefon_no,"
 					+ " telefon_turu, verilis_tarihi, telefon_no2, telefon_no3, ad, soyad, uyap_rol, uyap_rol_id)"
-					+ "  VALUES ( ?, ?, ?, ?, ?, "
-					+ " ?, ?, ?, ?, ?,"
-					+ " ?, ?, ?, ?, ?, ?, "
-					+ " ?, ?, ?, ?, ?, ?, "
-					+ " ?, ?, ?, ?, ?, ?, ?,"
-					+ " ?, ?, ?, ?, ?, "
-					+ " ?, ?, ?, ?, ?, ?, ?, " + " ?, ?, ?, ?, ?, ?, ?);";
+					+ "  VALUES ( ?, ?, ?, ?, ?, " + " ?, ?, ?, ?, ?," + " ?, ?, ?, ?, ?, ?, " + " ?, ?, ?, ?, ?, ?, "
+					+ " ?, ?, ?, ?, ?, ?, ?," + " ?, ?, ?, ?, ?, " + " ?, ?, ?, ?, ?, ?, ?, "
+					+ " ?, ?, ?, ?, ?, ?, ?);";
 
 			PreparedStatement pstm;
 
@@ -180,9 +179,9 @@ public class BorcluBilgisiDAO extends DBConnection {
 		SehirlerDAO dao = new SehirlerDAO();
 		String input = borclu.getIlAdi().toLowerCase();
 		String output = input.substring(0, 1).toUpperCase() + input.substring(1);
-		
-		borclu.setIlId(dao.getIl_KoduFromName(output ));
-		
+
+		borclu.setIlId(dao.getIl_KoduFromName(output));
+
 		return borclu;
 
 	}
@@ -238,16 +237,17 @@ public class BorcluBilgisiDAO extends DBConnection {
 
 	}
 
-	
-
 	public boolean uyapKimlikBilgisiGuncelle(BorcluBilgisi borcluBilgisi) throws Exception {
 		boolean guncelle = false;
-//		String SQL = "UPDATE tbl_borclu SET  baba_adi=?, ana_adi=?, dogum_yeri=?, dogum_tarihi=?, medeni_hali=?, il_adi=?," 
-//       +" ilce_adi=?, mahalle=?, koy=?, cilt_no=?, sira_no=?, verildigi_yer=?," 
-//       +" veris_nedeni=?, verilis_tarihi=?, adres=?, semt_adi=?  WHERE tc_no=?;";
+		// String SQL = "UPDATE tbl_borclu SET baba_adi=?, ana_adi=?,
+		// dogum_yeri=?, dogum_tarihi=?, medeni_hali=?, il_adi=?,"
+		// +" ilce_adi=?, mahalle=?, koy=?, cilt_no=?, sira_no=?,
+		// verildigi_yer=?,"
+		// +" veris_nedeni=?, verilis_tarihi=?, adres=?, semt_adi=? WHERE
+		// tc_no=?;";
 
 		String SQL = "UPDATE tbl_borclu SET  baba_adi=?, ana_adi=?, dogum_yeri=?, adres=?, il_adi=?  WHERE tc_no=?;";
-		
+
 		PreparedStatement pstm;
 		newConnectDB();
 
@@ -256,26 +256,38 @@ public class BorcluBilgisiDAO extends DBConnection {
 		pstm.setString(1, borcluBilgisi.getBabAdi());
 		pstm.setString(2, borcluBilgisi.getAnaAdi());
 		pstm.setString(3, borcluBilgisi.getDogumYeri());
-		
-		//pstm.setDate(4, borcluBilgisi.getDogumTarihi());
-		//pstm.setString(5, borcluBilgisi.getMedeniHali());
-		
-		//pstm.setString(7, borcluBilgisi.getIlceAdi());
-		//pstm.setString(8, borcluBilgisi.getMahalle());
-		//pstm.setString(9, borcluBilgisi.getKoy());
-		//pstm.setInt(10, borcluBilgisi.getCiltNo());
-		//pstm.setInt(11, borcluBilgisi.getSiraNo());
-		//pstm.setString(12, borcluBilgisi.getVerilisYeri());
-		//pstm.setString(13, borcluBilgisi.getVerilisNedeni());
-		//pstm.setDate(14, borcluBilgisi.getVerilisTarihi());
+
+		// pstm.setDate(4, borcluBilgisi.getDogumTarihi());
+		// pstm.setString(5, borcluBilgisi.getMedeniHali());
+
+		// pstm.setString(7, borcluBilgisi.getIlceAdi());
+		// pstm.setString(8, borcluBilgisi.getMahalle());
+		// pstm.setString(9, borcluBilgisi.getKoy());
+		// pstm.setInt(10, borcluBilgisi.getCiltNo());
+		// pstm.setInt(11, borcluBilgisi.getSiraNo());
+		// pstm.setString(12, borcluBilgisi.getVerilisYeri());
+		// pstm.setString(13, borcluBilgisi.getVerilisNedeni());
+		// pstm.setDate(14, borcluBilgisi.getVerilisTarihi());
 		pstm.setString(4, borcluBilgisi.getAdres());
 		pstm.setString(5, borcluBilgisi.getIlAdi());
-		//pstm.setString(16, borcluBilgisi.getSemtAdi());
+		// pstm.setString(16, borcluBilgisi.getSemtAdi());
 		pstm.setString(6, borcluBilgisi.getTcNo());
 
 		int result = pstm.executeUpdate();
 
+		SQL = "select \"icradosyasiID\" from tbl_baglanti where \"borcluID\" =" + tcSorgulama(borcluBilgisi.getTcNo())
+				+ ";";
+		Statement statement = conn.createStatement();
+		ResultSet resultSet = statement.executeQuery(SQL);
+		int icraDosyaId = 0;
+		while (resultSet.next()) {
+			icraDosyaId = resultSet.getInt("borcluID");
+			ChronologyUtil.getInstance().insertInstance(
+					new Instance(icraDosyaId, null, "Uyap Güncelleme", "Uyap Borclu Bilgisi Güncellendi", 2));
+		}
+
 		disconnectDB();
+
 		if (result == 1) {
 			guncelle = true;
 		}
@@ -284,18 +296,13 @@ public class BorcluBilgisiDAO extends DBConnection {
 
 	}
 
-
-	
-	
-	
 	public int tcSorgulama(BorcluBilgisi borcluBilgisi) throws Exception {
 
 		newConnectDB();
 
 		int id = 0;
 
-		String sorgu = "SELECT id FROM tbl_borclu where tc_no = '"
-				+ borcluBilgisi.getTcNo() + "';";
+		String sorgu = "SELECT id FROM tbl_borclu where tc_no = '" + borcluBilgisi.getTcNo() + "';";
 
 		Statement stm = conn.createStatement();
 
@@ -311,15 +318,14 @@ public class BorcluBilgisiDAO extends DBConnection {
 		return id;
 
 	}
-	
+
 	public int tcSorgulama(String tcno) throws Exception {
 
 		newConnectDB();
 
 		int id = 0;
 
-		String sorgu = "SELECT id FROM tbl_borclu where tc_no = '"
-				+ tcno + "';";
+		String sorgu = "SELECT id FROM tbl_borclu where tc_no = '" + tcno + "';";
 
 		Statement stm = conn.createStatement();
 
@@ -335,8 +341,6 @@ public class BorcluBilgisiDAO extends DBConnection {
 		return id;
 
 	}
-	
-	
 
 	public ArrayList<Integer> getBorcluIDList() throws Exception {
 

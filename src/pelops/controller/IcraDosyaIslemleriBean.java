@@ -546,7 +546,7 @@ public class IcraDosyaIslemleriBean {
 
 		BaglantiDAO daobaglanti = new BaglantiDAO();
 		daobaglanti.Kaydet(baglanti);
-		ChronologyUtil.getInstance().insertInstance(new Instance(icradosyaid, "Dosya Açıldı", null, 1));
+		ChronologyUtil.getInstance().insertInstance(new Instance(icradosyaid, null, "Dosya Açıldı", null, 1));
 
 		FacesContext context = FacesContext.getCurrentInstance();
 		context.addMessage(null, new FacesMessage("Kayıt İşlemi Başarı İle Gerçekleştirildi..."));

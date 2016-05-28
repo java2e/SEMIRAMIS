@@ -8,6 +8,8 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import pelops.chronology.controller.ChronologyUtil;
+import pelops.chronology.model.Instance;
 import pelops.controller.AktifBean;
 import pelops.db.DBConnection;
 import pelops.model.BorcluBilgisi;
@@ -35,6 +37,7 @@ public class IcraDosyasiDAO extends DBConnection {
 		pstmt.executeUpdate();
 
 		DB.disconnectDB();
+		ChronologyUtil.getInstance().insertInstance(new Instance(id, icraDosyaNo, "İcra Dosya No", "İcra Dosya No Eklendi", 2));
 
 	}
 

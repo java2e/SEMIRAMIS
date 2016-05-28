@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import pelops.chronology.controller.ChronologyUtil;
+import pelops.chronology.model.Instance;
 import pelops.controller.AktifBean;
 import pelops.db.DBConnection;
 import pelops.model.HaczeEsasMalBilgisi;
@@ -17,8 +19,7 @@ public class HaczeEsasMalBilgisiDAO extends DBConnection {
 	Statement stmt;
 	ResultSet rs;
 
-	public boolean kaydet(HaczeEsasMalBilgisi haczeEsasMalBilgisi)
-			throws Exception {
+	public boolean kaydet(HaczeEsasMalBilgisi haczeEsasMalBilgisi) throws Exception {
 
 		boolean kaydedildi = false;
 
@@ -26,9 +27,8 @@ public class HaczeEsasMalBilgisiDAO extends DBConnection {
 				+ " borclu_id, menkul_bilgisi, tapu_il_adi, tapu_ilce_adi, tapu_mahalle_adi, "
 				+ "tapu_mulk_tipi, tapu_parsel, tapu_sayfa_no, tapu_cilt_no, "
 				+ "arac_plaka_no, arac_aractipi, banka_hesap_no, muhatap_adi, muhatap_adresi, diger_bilgiler,"
-				+ " mal_tutari, icra_dosyasi_id, mal_tipi, mevduat_bilgisi)"
-				+ " VALUES ( ?, ?, ?, ?, ?, " + "?, ?, ?, ?, ?, "
-				+ " ?, ?, ?, ?, ?,  ?, ?, ?, ?);";
+				+ " mal_tutari, icra_dosyasi_id, mal_tipi, mevduat_bilgisi)" + " VALUES ( ?, ?, ?, ?, ?, "
+				+ "?, ?, ?, ?, ?, " + " ?, ?, ?, ?, ?,  ?, ?, ?, ?);";
 
 		newConnectDB();
 
@@ -61,8 +61,8 @@ public class HaczeEsasMalBilgisiDAO extends DBConnection {
 		}
 		return kaydedildi;
 	}
-	public boolean egmkaydet(HaczeEsasMalBilgisi haczeEsasMalBilgisi)
-			throws Exception {
+
+	public boolean egmkaydet(HaczeEsasMalBilgisi haczeEsasMalBilgisi) throws Exception {
 
 		boolean kaydedildi = false;
 
@@ -70,9 +70,8 @@ public class HaczeEsasMalBilgisiDAO extends DBConnection {
 				+ " borclu_id, menkul_bilgisi, tapu_il_adi, tapu_ilce_adi, tapu_mahalle_adi, "
 				+ "tapu_mulk_tipi, tapu_parsel, tapu_sayfa_no, tapu_cilt_no, "
 				+ "arac_plaka_no, arac_aractipi, banka_hesap_no, muhatap_adi, muhatap_adresi, diger_bilgiler,"
-				+ " mal_tutari, icra_dosyasi_id, mal_tipi, mevduat_bilgisi)"
-				+ " VALUES ( ?, ?, ?, ?, ?, " + "?, ?, ?, ?, ?, "
-				+ " ?, ?, ?, ?, ?,  ?, ?, ?, ?);";
+				+ " mal_tutari, icra_dosyasi_id, mal_tipi, mevduat_bilgisi)" + " VALUES ( ?, ?, ?, ?, ?, "
+				+ "?, ?, ?, ?, ?, " + " ?, ?, ?, ?, ?,  ?, ?, ?, ?);";
 
 		newConnectDB();
 
@@ -103,22 +102,20 @@ public class HaczeEsasMalBilgisiDAO extends DBConnection {
 		if (sonuc == 1) {
 			kaydedildi = true;
 		}
+		ChronologyUtil.getInstance().insertInstance(
+				new Instance(haczeEsasMalBilgisi.getIcraDosyaId(), null, "EGM Sorgu", "EGM sorgusu yapıldı", 2));
 		return kaydedildi;
 	}
-	public ArrayList<HaczeEsasMalBilgisi> getAllListFromIcraDosyaID(int id)
-			throws Exception {
+
+	public ArrayList<HaczeEsasMalBilgisi> getAllListFromIcraDosyaID(int id) throws Exception {
 
 		ArrayList<HaczeEsasMalBilgisi> list = new ArrayList<HaczeEsasMalBilgisi>();
 
-		SQL = "SELECT id, borclu_id, menkul_bilgisi, tapu_il_adi,"
-				+ " tapu_ilce_adi, tapu_mahalle_adi, "
-				+ "tapu_mulk_tipi, tapu_parsel, tapu_sayfa_no,"
-				+ " tapu_cilt_no, arac_plaka_no,"
-				+ " arac_aractipi, banka_hesap_no, muhatap_adi, muhatap_adresi, "
-				+ "diger_bilgiler,"
+		SQL = "SELECT id, borclu_id, menkul_bilgisi, tapu_il_adi," + " tapu_ilce_adi, tapu_mahalle_adi, "
+				+ "tapu_mulk_tipi, tapu_parsel, tapu_sayfa_no," + " tapu_cilt_no, arac_plaka_no,"
+				+ " arac_aractipi, banka_hesap_no, muhatap_adi, muhatap_adresi, " + "diger_bilgiler,"
 				+ " mal_tutari, icra_dosyasi_id, mal_tipi, mevduat_bilgisi"
-				+ " FROM tbl_hacze_esas_mal_bilgisi where borclu_id ="
-				+ id + " ;";
+				+ " FROM tbl_hacze_esas_mal_bilgisi where borclu_id =" + id + " ;";
 
 		newConnectDB();
 		stmt = conn.createStatement();
@@ -154,16 +151,15 @@ public class HaczeEsasMalBilgisiDAO extends DBConnection {
 	}
 
 	public boolean guncelle(HaczeEsasMalBilgisi hb) throws Exception {
-		
+
 		boolean duzenlendi = false;
-		
+
 		SQL = "UPDATE tbl_hacze_esas_mal_bilgisi SET "
 				+ " borclu_id=?, menkul_bilgisi=?, tapu_il_adi=?, tapu_ilce_adi=?, "
 				+ "tapu_mahalle_adi=?, tapu_mulk_tipi=?, tapu_parsel=?, tapu_sayfa_no=?, "
 				+ " tapu_cilt_no=?, arac_plaka_no=?, arac_aractipi=?, banka_hesap_no=?, "
 				+ "muhatap_adi=?, muhatap_adresi=?, diger_bilgiler=?, mal_tutari=?, "
-				+ " icra_dosyasi_id=?, mal_tipi=?, mevduat_bilgisi=?"
-				+ " WHERE id = "+hb.getId()+";";
+				+ " icra_dosyasi_id=?, mal_tipi=?, mevduat_bilgisi=?" + " WHERE id = " + hb.getId() + ";";
 
 		newConnectDB();
 
@@ -191,9 +187,9 @@ public class HaczeEsasMalBilgisiDAO extends DBConnection {
 
 		int sonuc = pstm.executeUpdate();
 		disconnectDB();
-	
+
 		if (sonuc == 1) {
-		
+
 			duzenlendi = true;
 		}
 
@@ -201,12 +197,12 @@ public class HaczeEsasMalBilgisiDAO extends DBConnection {
 	}
 
 	public int Sil(int id) throws Exception {
-		
+
 		SQL = "DELETE FROM tbl_hacze_esas_mal_bilgisi where id=" + id;
 		newConnectDB();
 
 		stmt = conn.createStatement();
-		int  silindi = stmt.executeUpdate(SQL);
+		int silindi = stmt.executeUpdate(SQL);
 		disconnectDB();
 
 		return silindi;

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import pelops.chronology.model.Instance;
 import pelops.chronology.model.ReportChronology;
 import pelops.db.DBConnection;
 import pelops.kasa.controller.IDAO;
@@ -15,6 +16,7 @@ import pelops.report.model.ConstructedData;
 import pelops.report.model.DataToPrint;
 import pelops.report.model.ReportGenel;
 import pelops.report.model.ReportUtils;
+import pelops.util.Util;
 
 public class ReportChronologyUtil extends DBConnection implements IDAO {
 
@@ -214,6 +216,7 @@ public class ReportChronologyUtil extends DBConnection implements IDAO {
 		return list;
 	}
 
+	
 	@Override
 	public int getID(Object object) throws Exception {
 		return 0;

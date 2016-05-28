@@ -27,9 +27,13 @@ public class ChronologyUtil {
 		if (object instanceof ReportChronology) {
 			ReportChronologyUtil.getInstance().insertObjToDB(object);
 		} else if (object instanceof Instance) {
-			InstanceUtil.getInstance().insertInstance(((Instance) object).getIcraDosyaNo(),
-					((Instance) object).getIcraDosyaID(), ((Instance) object).getOlayAdi(),
-					((Instance) object).getAciklama(), ((Instance) object).getState());
+			String icraDosyaNo = "";
+			if (((Instance) object).getIcraDosyaNo() != null) {
+				icraDosyaNo = ((Instance) object).getIcraDosyaNo();
+			}
+			InstanceUtil.getInstance().insertInstance(icraDosyaNo, ((Instance) object).getIcraDosyaID(),
+					((Instance) object).getOlayAdi(), ((Instance) object).getAciklama(),
+					((Instance) object).getState());
 		}
 	}
 

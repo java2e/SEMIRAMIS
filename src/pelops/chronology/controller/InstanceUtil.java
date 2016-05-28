@@ -3,6 +3,7 @@ package pelops.chronology.controller;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -35,7 +36,9 @@ public class InstanceUtil extends DBConnection {
 	public void insertInstance(String icradosyaNo, Integer icraDosyaID, String olayAdi, String aciklama, int state) {
 		SQL = "INSERT INTO tbl_instance( icra_dosya_no, icra_dosya_id, tarih, olay_adi, user_id, aciklama,  durum) "
 				+ "VALUES ( ?, ?, ?, ?, ?, ?, ?);";
+		System.out.println("ibstance");
 		newConnectDB();
+
 		try {
 			switch (state) {
 			case 1:
@@ -50,8 +53,10 @@ public class InstanceUtil extends DBConnection {
 					pstm.setString(4, olayAdi);
 
 				pstm.setInt(5, Integer.valueOf(Util.getSession().getAttribute("UserID").toString()));
-				if (!aciklama.equals(null))
+				if (aciklama != null)
 					pstm.setString(6, aciklama);
+				else
+					pstm.setString(6, "");
 
 				pstm.setString(7, DURUM_KAYDET);
 				break;
@@ -114,6 +119,21 @@ public class InstanceUtil extends DBConnection {
 						instance.getAciklama(), state);
 			}
 		}
+	}
+
+	public List getAllInstances(int id) throws Exception {
+		List list = new ArrayList<>();
+		SQL = "SELECT id,  icra_dosya_id, tarih, olay_adi, user_id, aciklama, durum FROM tbl_instance "
+				+ "where icra_dosya_id =" + id + ";";
+		newConnectDB();
+		stm = conn.createStatement();
+		rs = stm.executeQuery(SQL);
+		while (rs.next()) {
+			Instance instance = new Instance(rs.getInt("id"), null, rs.getInt("icra_dosya_id"), rs.getDate("tarih"),
+					rs.getString("olay_adi"), rs.getInt("user_id"), rs.getString("aciklama"), rs.getString("durum"));
+			list.add(instance);
+		}
+		return list;
 	}
 
 	/*

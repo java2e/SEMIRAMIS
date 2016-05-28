@@ -216,7 +216,6 @@ public class ReportChronologyUtil extends DBConnection implements IDAO {
 		return list;
 	}
 
-	
 	@Override
 	public int getID(Object object) throws Exception {
 		return 0;
@@ -246,5 +245,11 @@ public class ReportChronologyUtil extends DBConnection implements IDAO {
 	public static final String IMAGE_T_L = "timeline/tebligat_listesi.png";
 
 	public static final String IMAGE_D = "timeline/report3.png";
+
+	public static final String IMAGE_FILE_O = "timeline/file_open.png";
+
+	public static final String IMAGE_FILE_U = "timeline/file_update.png";
+
+	public static final String IMAGE_FILE_D = "timeline/file_delete.png";
 
 }

@@ -520,6 +520,13 @@ public class XMLToSistemAktarimDAO {
 			baglanti.setBorcluID(BorcluId);
 			baglanti.setHesaplamaID(HesapId);
 			baglanti.setIcradosyasiID(IcraDosyaId);
+			try {
+				ChronologyUtil.getInstance().insertInstance(new Instance(IcraDosyaId, null, "Dosya Açıldı", null, 1));
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+
 
 			BaglantiDAO daobaglanti = new BaglantiDAO();
 

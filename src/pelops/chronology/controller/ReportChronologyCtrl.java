@@ -10,6 +10,7 @@ import org.primefaces.extensions.model.timeline.TimelineEvent;
 
 import pelops.chronology.model.Chronology;
 import pelops.chronology.model.ControlDateAndType;
+import pelops.chronology.model.Instance;
 import pelops.chronology.model.ReportChronology;
 import pelops.chronology.model.Task;
 import pelops.report.model.ReportUtils;
@@ -34,10 +35,16 @@ public class ReportChronologyCtrl {
 	public ArrayList<TimelineEvent> getAllEvents(Integer icraDosyaId) throws Exception {
 		ArrayList<TimelineEvent> events = new ArrayList<>();
 		ArrayList<Task> tasks = getTaskList(icraDosyaId);
+		ArrayList<Task> instances = getTaskListFromInstances(icraDosyaId);
 
 		for (Task task : tasks) {
 			TimelineEvent event = new TimelineEvent(task, task.getTarih());
 			events.add(event);
+		}
+		for (Task task : instances) {
+			TimelineEvent event = new TimelineEvent(task, task.getTarih());
+			events.add(event);
+
 		}
 		return events;
 	}
@@ -117,6 +124,34 @@ public class ReportChronologyCtrl {
 		}
 
 		return reportChronologies;
+	}
+
+	private ArrayList<Task> getTaskListFromInstances(int id) throws Exception {
+		ArrayList<Task> tasks = new ArrayList<>();
+
+		List instances = InstanceUtil.getInstance().getAllInstances(id);
+
+		for (Object object : instances) {
+
+			if (object instanceof Instance) {
+				String imagePath = "";
+				if (((Instance) object).getDurum().equals(InstanceUtil.DURUM_KAYDET)) {
+					imagePath = ReportChronologyUtil.IMAGE_FILE_O;
+				} else if (((Instance) object).getDurum().equals(InstanceUtil.DURUM_GUNCELLE)) {
+					imagePath = ReportChronologyUtil.IMAGE_FILE_U;
+
+				} else if (((Instance) object).getDurum().equals(InstanceUtil.DURUM_SIL)) {
+					imagePath = ReportChronologyUtil.IMAGE_FILE_D;
+
+				}
+
+				Task task = new Task(((Instance) object).getOlayAdi(), imagePath, false, id,
+						((Instance) object).getTarih());
+				tasks.add(task);
+			}
+
+		}
+		return tasks;
 	}
 
 }

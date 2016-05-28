@@ -4,15 +4,15 @@ import java.util.Date;
 
 public class Instance {
 
-	public Instance(Integer icraDosyaID,String icradosyaNo, String olayAdi, String aciklama, int state) {
+	public Instance(Integer icraDosyaID, String icradosyaNo, String olayAdi, String aciklama, int state) {
 
 		if (!olayAdi.equals(null)) {
 			this.olayAdi = olayAdi;
 		}
-		if (!aciklama.equals(null)) {
+		if (aciklama != null) {
 			this.aciklama = aciklama;
 		}
-		if (!icradosyaNo.equals(null)) {
+		if (icradosyaNo != null) {
 			this.icraDosyaNo = icradosyaNo;
 		}
 		if (icraDosyaID != null) {
@@ -34,7 +34,7 @@ public class Instance {
 		if (!aciklama.equals(null)) {
 			this.aciklama = aciklama;
 		}
-		if (!icradosyaNo.equals(null)) {
+		if (icradosyaNo != null) {
 			this.icraDosyaNo = icradosyaNo;
 		}
 		if (icraDosyaID != null) {

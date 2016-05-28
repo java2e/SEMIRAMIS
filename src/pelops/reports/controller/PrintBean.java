@@ -681,8 +681,10 @@ public class PrintBean {
 			for (ReportGenel r : PrivateList) {
 				// :TODO Yeni banka eklendiğinde buralar güncellenecek
 				if (!(r.getMuvekkilAdi().equals(ReportUtils.HSBC) || r.getMuvekkilAdi().equals(ReportUtils.AKBANK))) {
-					msg = r.getMuvekkilAdi()
-							+ "  raporu şuan çalışma aşamasındadır! Sadece AKBANK ve HSBC Bankası Raporları çıkartılabilir.";
+					if (!(r.getMuvekkilAdi().equals(ReportUtils.GARANTI))) {
+						msg = r.getMuvekkilAdi() + "  raporu şuan çalışma aşamasındadır! ";
+
+					}
 				}
 			}
 			if (msg == null && prints.size() > 0) {
@@ -855,8 +857,10 @@ public class PrintBean {
 				// :TODO Yeni banka eklendiğinde buralar güncellenecek
 
 				if (!(r.getMuvekkilAdi().equals(ReportUtils.HSBC) || r.getMuvekkilAdi().equals(ReportUtils.AKBANK))) {
-					msg = r.getMuvekkilAdi()
-							+ "  raporu şuan çalışma aşamasındadır! Sadece AKBANK ve HSBC Bankası Raporları çıkartılabilir.";
+					if (!(r.getMuvekkilAdi().equals(ReportUtils.GARANTI))) {
+						msg = r.getMuvekkilAdi() + "  raporu şuan çalışma aşamasındadır! ";
+
+					}
 				}
 			}
 
@@ -898,8 +902,10 @@ public class PrintBean {
 				// :TODO Yeni banka eklendiğinde buralar güncellenecek
 
 				if (!(r.getMuvekkilAdi().equals(ReportUtils.HSBC) || r.getMuvekkilAdi().equals(ReportUtils.AKBANK))) {
-					msg = r.getMuvekkilAdi()
-							+ "  raporu şuan çalışma aşamasındadır! Sadece AKBANK ve HSBC Bankası Raporları çıkartılabilir.";
+					if (!(r.getMuvekkilAdi().equals(ReportUtils.GARANTI))) {
+						msg = r.getMuvekkilAdi() + "  raporu şuan çalışma aşamasındadır! ";
+
+					}
 				}
 			}
 			if (list.size() > 0 || tebligatListesi) {

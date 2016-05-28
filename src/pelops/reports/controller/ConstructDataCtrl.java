@@ -129,7 +129,7 @@ public class ConstructDataCtrl {
 			hashMap.put("alacakli", genel.getAlacakli());
 			hashMap.put("borclu", genel.getBorclu());
 			hashMap.put("vekil", genel.getVekil());
-			beanCollectionDataSource = new JRBeanCollectionDataSource(genel.getHesapAkbank());
+			beanCollectionDataSource = new JRBeanCollectionDataSource(list);
 
 		} else {
 			beanCollectionDataSource = new JRBeanCollectionDataSource(list);
@@ -188,6 +188,14 @@ public class ConstructDataCtrl {
 			// değiştirilecek...
 
 		} else if (rapor.getMuvekkilAdi().equals(ReportUtils.GARANTI)) {
+			if (belgeAdi == ReportUtils.REPORT_TAKIP_TALEBI) {
+				JasperFileName = ReportUtils.JASPERFILE_NAME_TAKIP_TALEBI_GARANTI;
+			} else if (belgeAdi == ReportUtils.REPORT_ODEME_EMRI) {
+				JasperFileName = ReportUtils.JASPERFILE_NAME_ODEME_EMRI_GARANTI;
+			} else if (belgeAdi.equals(ReportUtils.REPORT_TEBLIGAT_ZARFI)) {
+				JasperFileName = ReportUtils.JASPERFILE_NAME_TEBLIGAT;
+
+			}
 
 		} else if (rapor.getMuvekkilAdi().equals(ReportUtils.ING)) {
 

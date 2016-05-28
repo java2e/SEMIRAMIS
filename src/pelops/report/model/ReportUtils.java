@@ -20,6 +20,12 @@ public class ReportUtils {
 	public static final String JASPERFILE_NAME_ODEME_EMRI_AKBANK = "odeme_emri_akbank.jasper";
 
 	/*
+	 * Jasper File isimleri Garanti için
+	 */
+	public static final String JASPERFILE_NAME_TAKIP_TALEBI_GARANTI = "takip_talebi_garanti.jasper";
+	public static final String JASPERFILE_NAME_ODEME_EMRI_GARANTI = "takip_talebi_garanti.jasper";
+
+	/*
 	 * raporların isimleri
 	 */
 	public static final String REPORT_TAKIP_TALEBI = "takipTalebi";

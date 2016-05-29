@@ -560,7 +560,7 @@ public class IcraDosyaIslemleriBean {
 		icradosyasi.setBK84("E");
 		icradosyasi.setKKDF("H");
 		icradosyasi.setBSMV("E");
-		icradosyasi.setTakipSekliId(0);
+		icradosyasi.setTakipSekliId(0); 
 		icradosyasi.setTakipTipiId(1);
 		icradosyasi.setTalepEdilenHak(
 				"Alacağımızın asıl alacağa takip tarihinden tahsiline kadar sözleşme gereğince takip tarihinden itibaren işleyecek %30.24 temerrüt faizi, faizin %5 gider vergisi, icra harç ve masrafları, avukatlık vekalet ücreti ile birlikte, TBK.Madde 100 gereğince kısmi ödemelerin öncelikle faiz ve masraflara mahsup edileceği, (artan faiz oranlarının tatbiki kaydı ile talep) haklarımız saklı kalmak ve tahsilde tekerrür etmemek kaydı ile tahsili talebidir.");

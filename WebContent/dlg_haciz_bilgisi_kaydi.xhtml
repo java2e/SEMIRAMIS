@@ -155,12 +155,12 @@
 				<p:growl id="growl" showDetail="true" />
 
 
-				<p:commandButton value="Kaydet" update=":#{p:component('dialog')}, growl, tblHacizBilgisi"
+				<p:commandButton value="Kaydet" update=":frmHaciz, growl, tblHacizBilgisi"
 					action="#{hacizBilgisiBean.dlgKaydet}" rendered="#{hacizBilgisiBean.kaydetButtonRender}"
 					style="margin-top:10px;margin-right:5px" />
 
 				<p:commandButton value="Vazgeç" action="#{hacizBilgisiBean.dlgVazgec}"
-					update=":#{p:component('dialog')}" />
+					update=":frmHaciz" />
 
 
 
@@ -169,10 +169,10 @@
 
 
 			<p:commandButton value="Yeni Kayıt" disabled="#{hacizBilgisiBean.buttonDisabled}"
-				 update=":#{p:component('dialog')}" actionListener="#{hacizBilgisiBean.dlgPanelOpen()}"  />
+				 update=":frmHaciz:dlgPnlHaciz" actionListener="#{hacizBilgisiBean.dlgPanelOpen()}"  />
 
 			<p:commandButton value="Listeyi Yenile" 
-				disabled="#{hacizBilgisiBean.buttonDisabled}" update=":#{p:component('dialog')}" />
+				disabled="#{hacizBilgisiBean.buttonDisabled}" update=":frmHaciz:dlgPnlHaciz"  />
 
 
 
@@ -183,7 +183,7 @@
 
 					<p:commandButton icon="ui-icon-disk" value="Düzenle"
 						disabled="#{hacizBilgisiBean.buttonDisabled}"
-						action="#{hacizBilgisiBean.dlgDuzenle()}" update=":#{p:component('dialog')}, tblHacizBilgisi">
+						action="#{hacizBilgisiBean.dlgDuzenle()}" update=":frmHaciz, tblHacizBilgisi">
 						<f:param name="buttonDuzenle" value="#{list.id}" />
 					</p:commandButton>
 
@@ -193,7 +193,7 @@
 
 					<p:commandButton icon="ui-icon-cancel" value="Sil"
 						action="#{hacizBilgisiBean.dlgSil}"
-						disabled="#{hacizBilgisiBean.buttonDisabled}" update=":#{p:component('dialog')},tblHacizBilgisi">
+						disabled="#{hacizBilgisiBean.buttonDisabled}" update=":frmHaciz,tblHacizBilgisi">
 						<f:param name="buttonSil" value="#{list.id}" />
 					</p:commandButton>
 
@@ -220,7 +220,6 @@
 				</p:column>
 
 			</p:dataTable>
-
 
 </h:body>
 </html>

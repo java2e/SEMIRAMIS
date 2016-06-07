@@ -776,7 +776,7 @@ public class IcraDosyaIslemleriBean {
 			hesaplistesi = tmpHesap;
 			hesaplistesi.setId(99);
 			AktifBean.setHesapID(99);
-			System.out.println("tüm içinde");
+			
 		} else {
 
 			AktifBean.setHesapID(HesapTumId);

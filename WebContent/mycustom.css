@@ -1,0 +1,11 @@
+.ui-panelgrid-blank{
+	border-width: 0 !important;
+	border-style: hidden !important;
+	color: #D8000C !important;
+	background-color: #FFBABA !important;
+	
+}
+.ui-panelgrid-cell{
+	border-width:0px !important;
+	
+}

@@ -56,11 +56,13 @@ public class HacizBilgisiBean extends DBConnection {
 	public ArrayList<Tipi> getHacizTipiList() throws Exception {
 		list = dao.getHaczeEsasMalBilgisiFromBorcluID(AktifBean.borcluId);
 		hacizTipiList = dao.getHacizTipiList(list);
-		System.out.println(list.get(0));
+		
+		
 		if (hacizTipiList.size() == 0) {
 			LblPanelOpen();
 			bilgiNotu = "İşlem yaptığınız borclunun sistemde mal kaydi bulunamamistir!";
-			System.out.println("Burda");
+			
+			
 		} else {
 			LblPanelClose();
 		}
@@ -122,10 +124,10 @@ public class HacizBilgisiBean extends DBConnection {
 	}
 
 	public String getIcraDosyaNo() throws Exception {
-		System.out.println(AktifBean.borcluId);
+		
 		list = dao.getHaczeEsasMalBilgisiFromBorcluID(AktifBean.borcluId);
 		if (list.size() > 0) {
-			System.out.println(list.get(0));
+			
 		}
 		return AktifBean.icraDosyaNo;
 
@@ -216,11 +218,11 @@ public class HacizBilgisiBean extends DBConnection {
 
 	@SuppressWarnings("unused")
 	public void Kaydet() throws Exception {
-		System.out.println("kayet " + status);
+	
 		HacizDAO dao = new HacizDAO();
 		int hesapID = dao.getHesapID(AktifBean.icraDosyaID);
 		FacesContext context = FacesContext.getCurrentInstance();
-		System.out.println(hacizkayit.getAciklama());
+		
 		if (status == 0) {
 			if (hacizkayit.getAciklama().equals("")
 					|| hacizkayit.getTeslimYeriId() == 0
@@ -228,7 +230,7 @@ public class HacizBilgisiBean extends DBConnection {
 					|| hacizkayit.getHacizTipiId() == 0) {
 				context.addMessage(null, new FacesMessage(
 						"Eksik alan doldurdunuz!"));
-					System.out.println("eksikbilginin içinde");
+					;
 			} else {
 
 				boolean result = dao.kaydet(hacizkayit);
@@ -244,14 +246,14 @@ public class HacizBilgisiBean extends DBConnection {
 				} else {
 
 					context.addMessage(null, new FacesMessage(
-							"Kaydet i�lemi ba�ar�s�z!!!"));
+							"Kaydet işlemi başarısız!!!"));
 
 				}
 
 				
 			}
 
-			System.out.println("kaydetin içinde");
+			
 
 		}
 		if (status == 1) {
@@ -261,15 +263,15 @@ public class HacizBilgisiBean extends DBConnection {
 
 			if (duzenlendi) {
 
-				context.addMessage(null, new FacesMessage("D�zenlendi!"));
+				context.addMessage(null, new FacesMessage("Düzenlendi!"));
 				PanelClose();
 				ButtonOpen();
 			} else {
 
 				context.addMessage(null, new FacesMessage(
-						"G�ncelleme ��lemi Ba�ar�s�z!"));
+						"Güncelleme işlemi Başarısız!"));
 			}
-			System.out.println("duzenlenin içinde");
+			
 
 			status = 0;
 			hacizList = dao.getAllListFromIcraDosyaID(AktifBean.icraDosyaID);
@@ -283,7 +285,7 @@ public class HacizBilgisiBean extends DBConnection {
 
 		status = 1;
 
-		System.out.println("duzenle" + status);
+		
 
 		ArrayList<HacizBilgisi> list = dao
 				.getAllListFromIcraDosyaID(AktifBean.icraDosyaID);
@@ -291,7 +293,7 @@ public class HacizBilgisiBean extends DBConnection {
 		int id = Integer.parseInt(FacesContext.getCurrentInstance()
 				.getExternalContext().getRequestParameterMap()
 				.get("buttonDuzenle").toString());
-		System.out.println(id);
+		
 		if (id != 0) {
 			for (HacizBilgisi hem : list) {
 				if (hem.getId() == id) {
@@ -301,17 +303,18 @@ public class HacizBilgisiBean extends DBConnection {
 		}
 
 		hacizList = dao.getAllListFromIcraDosyaID(AktifBean.icraDosyaID);
-		System.out.println("burda");
+		
 		PanelOpen();
 		ButtonClose();
 
 	}
 
 	public void Sil() throws Exception {
+		@SuppressWarnings("unused")
 		int hesapID = dao.getHesapID(AktifBean.icraDosyaID);
 		ArrayList<HacizBilgisi> list = dao
 				.getAllListFromIcraDosyaID(AktifBean.icraDosyaID);
-		System.out.println("hesap ID " + hesapID);
+		
 		int id = Integer.parseInt(FacesContext.getCurrentInstance()
 				.getExternalContext().getRequestParameterMap().get("buttonSil")
 				.toString());

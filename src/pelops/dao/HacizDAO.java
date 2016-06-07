@@ -272,6 +272,7 @@ public class HacizDAO extends DBConnection {
 		ArrayList<String> malList = new ArrayList<String>();
 		SQL = "SELECT mal_tipi FROM tbl_hacze_esas_mal_bilgisi where borclu_id ="
 				+ id + ";";
+		
 		newConnectDB();
 		stmt = conn.createStatement();
 		rs = stmt.executeQuery(SQL);
@@ -288,7 +289,7 @@ public class HacizDAO extends DBConnection {
 			throws Exception {
 
 		ArrayList<Tipi> hacizTipiList = new ArrayList<Tipi>();
-		SQL = "SELECT id, adi FROM tbl_mal_tipi;";
+		SQL = "SELECT id, adi FROM tbl_haciz_tipi;";
 		newConnectDB();
 		stmt = conn.createStatement();
 		rs = stmt.executeQuery(SQL);

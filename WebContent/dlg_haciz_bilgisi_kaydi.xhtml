@@ -156,7 +156,7 @@
 
 
 				<p:commandButton value="Kaydet" update=":#{p:component('dialog')}, growl, tblHacizBilgisi"
-					action="#{hacizBilgisiBean.dlgKaydet}" rendered="#{hacizBilgisiBean.kaydetButtonRender}"
+					action="#{hacizBilgisiBean.dlgKaydet()}" rendered="#{hacizBilgisiBean.kaydetButtonRender}"
 					style="margin-top:10px;margin-right:5px" />
 
 				<p:commandButton value="Vazgeç" action="#{hacizBilgisiBean.dlgVazgec}"

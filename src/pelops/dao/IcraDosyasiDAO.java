@@ -449,7 +449,8 @@ public class IcraDosyasiDAO extends DBConnection {
 		DB.newConnectDB();
 		String SQL = "SELECT COUNT(*) as Adet FROM tbl_hacze_esas_mal_bilgisi where icra_dosyasi_id = "
 				+ id
-				+ " and ( mal_tipi= 'Sgk' or mal_tipi='Maa�' or mal_tipi='Emekli Maa��');";
+				+ " and ( mal_tipi= 'Sgk' or mal_tipi='Maaş' or mal_tipi='Emekli Maaşı');";
+		
 		Statement stmt;
 		ResultSet rs;
 		stmt = DB.conn.createStatement();

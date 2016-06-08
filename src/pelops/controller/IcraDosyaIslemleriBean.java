@@ -1130,6 +1130,7 @@ public class IcraDosyaIslemleriBean {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	
 	}
 
 	public String hacizDurum() {

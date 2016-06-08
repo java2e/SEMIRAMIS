@@ -206,7 +206,7 @@ public class XMLToSistemAktarimDAO {
 
 		try {
 			daobaglanti.Kaydet(baglanti);
-			ChronologyUtil.getInstance().insertInstance(new Instance(IcraDosyaId, null, "Dosya Açıldı", null, 1));
+			//ChronologyUtil.getInstance().insertInstance(new Instance(IcraDosyaId, null, "Dosya Açıldı", null, 1));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -521,7 +521,7 @@ public class XMLToSistemAktarimDAO {
 			baglanti.setHesaplamaID(HesapId);
 			baglanti.setIcradosyasiID(IcraDosyaId);
 			try {
-				ChronologyUtil.getInstance().insertInstance(new Instance(IcraDosyaId, null, "Dosya Açıldı", null, 1));
+				//ChronologyUtil.getInstance().insertInstance(new Instance(IcraDosyaId, null, "Dosya Açıldı", null, 1));
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();

@@ -247,6 +247,7 @@ public class HarcBilgisiBean {
 
 	public void dlgYeniKayit() {
 		YeniKayit();
+		System.out.println("yeni kayıtta");
 		RequestContext.getCurrentInstance().execute("PF('dialogWidget').show()");
 	}
 

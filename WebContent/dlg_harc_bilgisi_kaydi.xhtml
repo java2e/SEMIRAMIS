@@ -14,7 +14,6 @@
 <h:body >
 
 	
-		<h:form id="harcKaydı">
 			<p:panel rendered="#{harcBean.panelRender}">
 				<p:panelGrid columns="2">
 
@@ -87,12 +86,12 @@
 
 			</p:panel>
 
-			<p:commandButton value="Yeni Kayıt" style="float:left"
-				disabled="#{harcBean.buttonDisabled}"
-				action="#{harcBean.dlgYeniKayit}" update=":#{p:component('dialog')}" />
+			<p:commandButton value="Harç Yeni Kayıt"  style="float:left"
+				disabled="#{harcBean.buttonDisabled}"  update=":#{p:component('dialog')}"
+				actionListener="#{harcBean.dlgYeniKayit}" />
 
 
-			<p:commandButton value="Listeyi Yenile" style="float:left"
+			<p:commandButton value="Listeyi Yenile" 
 				disabled="#{harcBean.buttonDisabled}"
 				update=":#{p:component('dialog')}" />
 
@@ -145,8 +144,6 @@
 
 			</p:dataTable>
 
-
-		</h:form>
 
 </h:body>
 </html>

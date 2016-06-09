@@ -1,0 +1,199 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+ <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>AdminLTE 2 | Widgets</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport" />
+  
+<h:outputStylesheet library="bootstrap/css" name="bootstrap.min.css"  />
+<h:outputStylesheet library="bootstrap/css" name="font-awesome.min.css"  />
+<h:outputStylesheet library="bootstrap/css" name="ionicons.min.css"  />
+<h:outputStylesheet library="dist/css" name="AdminLTE.min.css"  />
+<h:outputStylesheet library="dist/css/skins" name="_all-skins.min.css"  />
+
+
+
+
+
+</h:head>
+
+<h:body class=" skin-blue ">
+<h:form id="dashboardform">
+
+ <section class="content-header">
+      <h1>
+      
+      </h1>
+      
+    </section>
+
+ <!-- =========================================================== -->
+
+      <!-- Small boxes (Stat box) -->
+      <div class="row" >
+       <br />
+        <div class="col-lg-3 col-xs-6">
+          <!-- small box -->
+          <div class="small-box bg-aqua">
+            <div class="inner">
+              <h3>150</h3>
+
+              <p>New Orders</p>
+            </div>
+            <div class="icon">
+              <i class="fa fa-shopping-cart"></i>
+            </div>
+            <a href="#" class="small-box-footer">
+              More info <i class="fa fa-arrow-circle-right"></i>
+            </a>
+          </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-6 col-xs-6">
+          <!-- small box -->
+          <div class="small-box bg-green">
+            <div class="inner">
+              <h3>53<sup style="font-size: 20px">%</sup></h3>
+
+              <p>Bounce Rate</p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-stats-bars"></i>
+            </div>
+            <a href="#" class="small-box-footer">
+              More info <i class="fa fa-arrow-circle-right"></i>
+            </a>
+          </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-xs-6">
+          <!-- small box -->
+          <div class="small-box bg-yellow">
+            <div class="inner">
+              <h3>44</h3>
+
+              <p>User Registrations</p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-person-add"></i>
+            </div>
+            <a href="#" class="small-box-footer">
+              More info <i class="fa fa-arrow-circle-right"></i>
+            </a>
+          </div>
+        </div>
+        <!-- ./col -->
+       
+      </div>
+      <!-- /.row -->
+
+      <!-- =========================================================== -->
+
+
+        <div class="col-md-12">
+          
+          <div class="box box-widget widget-user">
+           
+            <div class="widget-user-header bg-aqua-active">
+              <h3 class="widget-user-username">
+              
+               <p:rating value="4" stars="10" cancel="false" onRate="" style="float:right"/>
+              </h3>
+              <h5 class="widget-user-desc">kaplan &amp; ejderha</h5>
+     		
+       
+            </div>
+            <div class="widget-user-image">
+            
+           
+              <img class="img-circle" src="../img/SasaUser.png" alt="User Avatar" />
+             
+             
+            </div>
+            <div class="box-footer">
+              <div class="row">
+                <div class="col-sm-4 border-right">
+                  <div class="description-block">
+                    <h5 class="description-header">3.200,00 TL  </h5>
+                    <span class="description-text">İzleme Tutarı</span>
+                  </div>
+                
+                </div>
+               
+                <div class="col-sm-4 border-right">
+                  <div class="description-block">
+                    <h5 class="description-header">2.100,00 TL</h5>
+                    <span class="description-text">Gerçekleşen Ödeme</span>
+                  </div>
+                 
+                </div>
+                
+                <div class="col-sm-4">
+                  <div class="description-block">
+                    <h5 class="description-header">%72</h5>
+                    <span class="description-text">Gerçekleşme Oranı</span>
+                  </div>
+                
+                </div>
+              
+              </div>
+             
+              <div class="row">
+                <div class="col-sm-4 border-right">
+                  <div class="description-block">
+                    <h5 class="description-header">3.200,00 TL  </h5>
+                    <span class="description-text">İzleme Tutarı</span>
+                  </div>
+                 
+                </div>
+                
+                <div class="col-sm-4 border-right">
+                  <div class="description-block">
+                    <h5 class="description-header">2.100,00 TL</h5>
+                    <span class="description-text">Gerçekleşen Ödeme</span>
+                  </div>
+                  
+                </div>
+               
+                <div class="col-sm-4">
+                  <div class="description-block">
+                    <h5 class="description-header">%72</h5>
+                    <span class="description-text">Gerçekleşme Oranı</span>
+                  </div>
+                 
+                </div>
+                
+              </div>
+              
+            </div>
+          </div>
+         
+        </div>
+
+      
+
+
+</h:form>
+
+
+<h:outputScript  library="plugins/jQuery" name="jQuery-2.2.0.min.js"  />
+<h:outputScript  library="bootstrap/js" name="bootstrap.min.js"  />
+
+<h:outputScript  library="plugins/slimScroll/" name="jquery.slimscroll.min.js"  />
+<h:outputScript  library="plugins/fastclick" name="fastclick.js"  />
+<h:outputScript  library="dist/js" name="app.min.js"  />
+<h:outputScript  library="dist/js" name="demo.js"  />
+
+
+</h:body>
+
+</html>

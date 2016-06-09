@@ -14,6 +14,13 @@ public class dashboardBean {
 	
 	public dashboardBean(){
 		
+		dashboardModels models = new dashboardModels();
+		
+		models.setTakimAdi("KAPLANLAR TAKIMI");
+		
+		panelListesi.add(models);
+		
+		System.out.println(panelListesi.get(0).getTakimAdi());
 
 	}
 

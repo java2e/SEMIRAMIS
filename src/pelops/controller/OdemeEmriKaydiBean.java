@@ -10,6 +10,7 @@ import javax.faces.context.FacesContext;
 import org.primefaces.context.RequestContext;
 
 import pelops.dao.OdemeEmriDAO;
+import pelops.dao.UtilDAO;
 import pelops.model.OdemeEmri;
 
 @ManagedBean(name = "odemeEmriKaydiBean")
@@ -34,6 +35,8 @@ public class OdemeEmriKaydiBean {
 	String icradosyaNo;
 
 	String borcluAdi;
+
+	private String icraMd;
 
 	boolean panelRender;
 
@@ -68,7 +71,7 @@ public class OdemeEmriKaydiBean {
 				boolean kaydedildi = dao.odemeEmriKaydet(odemeEmri);
 
 				if (kaydedildi) {
-					
+
 					context.addMessage(null, new FacesMessage("Kaydedildi!"));
 
 				} else {
@@ -79,7 +82,6 @@ public class OdemeEmriKaydiBean {
 			} else {
 				odemeEmri.setIcraDosyadiID(AktifBean.getIcraDosyaID());
 				boolean duzenlendi = dao.guncelle(odemeEmri);
-			
 
 				if (duzenlendi) {
 					context.addMessage(null, new FacesMessage("Düzenlendi!"));
@@ -177,7 +179,7 @@ public class OdemeEmriKaydiBean {
 
 		int result = dao.Sil(id, odemeEmri);
 
-		if (result==1) {
+		if (result == 1) {
 			context.addMessage(null, new FacesMessage("Silindi!"));
 		} else {
 			context.addMessage(null, new FacesMessage("Silme Başarısız!"));
@@ -209,33 +211,41 @@ public class OdemeEmriKaydiBean {
 		this.borcluAdi = borcluAdi;
 	}
 
+	public String getIcraMd() {
+		return UtilDAO.getInstance().getIcraMdwithID(AktifBean.icraDosyaID);
+	}
+
+	public void setIcraMd(String icraMd) {
+		this.icraMd = icraMd;
+	}
+
 	public void dlgKaydet() throws Exception {
 		Kaydet();
-		RequestContext.getCurrentInstance().execute("PF('dlgOdeme').show()");
+		RequestContext.getCurrentInstance().execute("PF('dialogWidget').show()");
 	}
 
 	public void dlgVazgec() {
 		Vazgec();
-		RequestContext.getCurrentInstance().execute("PF('dlgOdeme').show()");
+		RequestContext.getCurrentInstance().execute("PF('dialogWidget').show()");
 	}
 
 	public void dlgPanelOpen() {
 		PanelOpen();
-		RequestContext.getCurrentInstance().execute("PF('dlgOdeme').show()");
+		RequestContext.getCurrentInstance().execute("PF('dialogWidget').show()");
 	}
 
 	public void dlgDuzenle() throws Exception {
 		Duzenle();
-		RequestContext.getCurrentInstance().execute("PF('dlgOdeme').show()");
+		RequestContext.getCurrentInstance().execute("PF('dialogWidget').show()");
 	}
 
 	public void dlgSil() throws Exception {
 		Sil();
-		RequestContext.getCurrentInstance().execute("PF('dlgOdeme').show()");
+		RequestContext.getCurrentInstance().execute("PF('dialogWidget').show()");
 	}
 
 	public void dlgYeniKayit() {
 		YeniKayit();
-		RequestContext.getCurrentInstance().execute("PF('dlgOdeme').show()");
+		RequestContext.getCurrentInstance().execute("PF('dialogWidget').show()");
 	}
 }

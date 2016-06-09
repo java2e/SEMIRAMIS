@@ -10,6 +10,7 @@ import javax.faces.context.FacesContext;
 import org.primefaces.context.RequestContext;
 
 import pelops.dao.MasrafDAO;
+import pelops.dao.UtilDAO;
 import pelops.db.DBConnection;
 import pelops.model.GenelTanimSablon;
 import pelops.model.MasrafBilgisi;
@@ -37,6 +38,8 @@ public class MasrafBilgisiBean extends DBConnection {
 
 	private String muvekkilAdi;
 
+	private String icraMd;
+
 	private boolean panelRender;
 
 	private boolean buttonDisabled;
@@ -46,6 +49,7 @@ public class MasrafBilgisiBean extends DBConnection {
 	public MasrafBilgisi getMasrafBilgisi() {
 
 		masrafBilgisi.setMuvekkilAdi(AktifBean.getMuvekkilAdi());
+
 		masrafBilgisi.setIcra_dosyasi_no(AktifBean.getIcraDosyaNo());
 		return masrafBilgisi;
 	}
@@ -73,11 +77,10 @@ public class MasrafBilgisiBean extends DBConnection {
 
 		FacesContext context = FacesContext.getCurrentInstance();
 
-		if ((masrafBilgisi.getMasrafMiktari() == null)
-				&& masrafBilgisi.getMasrafTarihi() == null) {
+		if ((masrafBilgisi.getMasrafMiktari() == null) && masrafBilgisi.getMasrafTarihi() == null) {
 
 			context.addMessage(null, new FacesMessage("Masraf miktarı ve masraf tarihi boş geçilemez!"));
-		
+
 		} else {
 
 			if (masrafBilgisi.getMasrafAciklama() == "" && masrafBilgisi.getPersonelName() == null
@@ -91,7 +94,6 @@ public class MasrafBilgisiBean extends DBConnection {
 
 					GenelTanimBean bean = new GenelTanimBean();
 					ArrayList<GenelTanimSablon> a = bean.ListeGetir("tbl_uygulama_asamasi");
-				
 
 					if (result) {
 						// Pop up a��lmas�n� sa�lar
@@ -121,6 +123,14 @@ public class MasrafBilgisiBean extends DBConnection {
 			}
 
 		}
+	}
+
+	public String getIcraMd() {
+		return UtilDAO.getInstance().getIcraMdwithID(AktifBean.icraDosyaID);
+	}
+
+	public void setIcraMd(String icraMd) {
+		this.icraMd = icraMd;
 	}
 
 	public boolean isPanelRender() {
@@ -204,7 +214,7 @@ public class MasrafBilgisiBean extends DBConnection {
 
 		int result = dao.Sil(id, masrafBilgisi);
 
-		if (result==1) {
+		if (result == 1) {
 
 			context.addMessage(null, new FacesMessage("Silindi!"));
 		} else {
@@ -230,7 +240,7 @@ public class MasrafBilgisiBean extends DBConnection {
 	}
 
 	public String getMuvekkilAdi() {
-		return muvekkilAdi;
+		return AktifBean.muvekkilAdi;
 	}
 
 	public void setMuvekkilAdi(String muvekkilAdi) {
@@ -239,32 +249,32 @@ public class MasrafBilgisiBean extends DBConnection {
 
 	public void dlgKaydet() throws Exception {
 		Kaydet();
-		RequestContext.getCurrentInstance().execute("PF('dlgMasraf').show()");
+		RequestContext.getCurrentInstance().execute("PF('dialogWidget').show()");
 	}
 
 	public void dlgVazgec() {
 		Vazgec();
-		RequestContext.getCurrentInstance().execute("PF('dlgMasraf').show()");
+		RequestContext.getCurrentInstance().execute("PF('dialogWidget').show()");
 	}
 
 	public void dlgPanelOpen() {
 		PanelOpen();
-		RequestContext.getCurrentInstance().execute("PF('dlgMasraf').show()");
+		RequestContext.getCurrentInstance().execute("PF('dialogWidget').show()");
 	}
 
 	public void dlgDuzenle() throws Exception {
 		Duzenle();
-		RequestContext.getCurrentInstance().execute("PF('dlgMasraf').show()");
+		RequestContext.getCurrentInstance().execute("PF('dialogWidget').show()");
 	}
 
 	public void dlgSil() throws Exception {
 		Sil();
-		RequestContext.getCurrentInstance().execute("PF('dlgMasraf').show()");
+		RequestContext.getCurrentInstance().execute("PF('dialogWidget').show()");
 	}
 
 	public void dlgYeniKayit() {
 		YeniKayit();
-		RequestContext.getCurrentInstance().execute("PF('dlgMasraf').show()");
+		RequestContext.getCurrentInstance().execute("PF('dialogWidget').show()");
 	}
 
 }

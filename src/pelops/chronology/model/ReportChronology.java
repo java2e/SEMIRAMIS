@@ -1,8 +1,14 @@
 package pelops.chronology.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class ReportChronology {
+public class ReportChronology implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public ReportChronology(String belgeAdi, Integer icraDosyaID, String dosyaYonu, Date tarih) {
 		this.belgeAdi = belgeAdi;
 		this.icraDosyaID = icraDosyaID;

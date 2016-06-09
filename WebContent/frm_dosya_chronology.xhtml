@@ -12,7 +12,7 @@
 	<p:growl id="growl" showSummary="true" showDetail="false"
 		autoUpdate="true" />
 
-	<h:form id="form">
+	<h:form id="formChr">
 		<p:panel>
 			<p:outputLabel>
 İcra Dosya No:
@@ -83,32 +83,35 @@
 			</h:panelGrid>
 		</p:fieldset>
 
-		<p:spacer width="100%" height="10" />
+		<p:panel >
+			<p:spacer width="100%" height="10" />
 
-		<pe:timeline id="timeline" value="#{basicTimelineController.model}"
-			var="task" height="400px" widgetVar="timelineWdgt"
-			selectable="#{basicTimelineController.selectable}"
-			zoomable="#{basicTimelineController.zoomable}"
-			moveable="#{basicTimelineController.moveable}"
-			stackEvents="#{basicTimelineController.stackEvents}"
-			axisOnTop="#{basicTimelineController.axisOnTop}"
-			eventStyle="#{basicTimelineController.eventStyle}"
-			showCurrentTime="#{basicTimelineController.showCurrentTime}"
-			showNavigation="#{basicTimelineController.showNavigation}">
+			<pe:timeline id="timeline" value="#{basicTimelineController.model}"
+				var="task" height="400px" widgetVar="timelineWdgt"
+				selectable="#{basicTimelineController.selectable}"
+				zoomable="#{basicTimelineController.zoomable}"
+				moveable="#{basicTimelineController.moveable}"
+				stackEvents="#{basicTimelineController.stackEvents}"
+				axisOnTop="#{basicTimelineController.axisOnTop}"
+				eventStyle="#{basicTimelineController.eventStyle}"
+				showCurrentTime="#{basicTimelineController.showCurrentTime}"
+				showNavigation="#{basicTimelineController.showNavigation}">
 
-			<h:panelGroup layout="block" style="padding-bottom:5px">
-				<h:outputText value="#{task.title}" />
-			</h:panelGroup>
-			<h:graphicImage library="images" name="#{task.imagePath}" />
-			<p:ajax event="select" listener="#{basicTimelineController.onSelect}"
-				update=":form:datatable" />
-		</pe:timeline>
-
+				<h:panelGroup layout="block" style="padding-bottom:5px">
+					<h:outputText value="#{task.title}" />
+				</h:panelGroup>
+				<h:graphicImage library="images" name="#{task.imagePath}" />
+				<p:ajax event="select"
+					listener="#{basicTimelineController.onSelect}"
+					update=":formChr" />
+			</pe:timeline>
+		</p:panel>
 		<p:spacer width="100%" height="20" />
 
 		<p:dataTable id="datatable" var="list" rows="10" paginator="true"
 			value="#{basicTimelineController.chronologies}"
-			rowIndexVar="rowIndex">
+			rowIndexVar="rowIndex"
+			rendered="#{basicTimelineController.panelRender}">
 
 			<p:column headerText="Adı" width="10%">
 				<p:outputLabel value="#{list.belgeAdi}" />

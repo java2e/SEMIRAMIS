@@ -18,7 +18,7 @@ import pelops.model.*;
 public class AlacakBean extends DBConnection {
 
 	AlacakBilgisi alacakKayit = new AlacakBilgisi();
-	String icraDosyaNo;
+	private String icraDosyaNo;
 
 	String isRequired = "false";
 
@@ -32,10 +32,12 @@ public class AlacakBean extends DBConnection {
 
 	public void giveValueToRequired() {
 
-		System.out.println("metoda girdii");
+		// System.out.println("metoda girdii");
 		isRequired = "false";
 	}
-
+	/**
+	 * :TODO Util class i yazıldığında AktifBean Kalıntıları düzeltlecek...  
+	 */
 	String muvekkilAdi;
 	String borcluAdi;
 	private int status;
@@ -51,6 +53,7 @@ public class AlacakBean extends DBConnection {
 	boolean buttonDisabled;
 	ArrayList<AlacakBilgisi> alacakbilgisiarrayList = new ArrayList<AlacakBilgisi>();
 
+	
 	public ArrayList<AlacakBilgisi> getAlacakbilgisiarrayList() throws Exception {
 
 		return dao.getAllListFromIcraDosyaID(AktifBean.getIcraDosyaID());
@@ -258,14 +261,10 @@ public class AlacakBean extends DBConnection {
 		for (AlacakBilgisi ab : list) {
 			if (ab.getId() == id) {
 				alacakKayit = ab;
-				System.out.println(alacakKayit.getId() + "test");
 				test = 100;
 			}
 
-			System.out.println(alacakKayit.getId() + "test");
 		}
-
-		System.out.println(alacakKayit.getId() + " " + test);
 
 		PanelOpen();
 		ButtonClose();
@@ -281,8 +280,6 @@ public class AlacakBean extends DBConnection {
 
 		int id = Integer.parseInt(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap()
 				.get("buttonSil").toString());
-		
-
 
 		result = dao.sil(id);
 
@@ -307,35 +304,36 @@ public class AlacakBean extends DBConnection {
 
 	public void dlgKaydet() throws Exception {
 		Kaydet();
-		RequestContext.getCurrentInstance().execute("PF('dlgAlacak').show()");
+		RequestContext.getCurrentInstance().execute("PF('dialogWidget').show()");
 	}
 
 	public void dlgVazgec() {
 		PanelClose();
-		RequestContext.getCurrentInstance().execute("PF('dlgAlacak').show()");
+		RequestContext.getCurrentInstance().execute("PF('dialogWidget').show()");
 	}
 
 	public void dlgPanelOpen() {
 		PanelOpen();
-		RequestContext.getCurrentInstance().execute("PF('dlgAlacak').show()");
+		RequestContext.getCurrentInstance().execute("PF('dialogWidget').show()");
 	}
 
 	public void dlgDuzenle() throws Exception {
 		Duzenle();
-		RequestContext.getCurrentInstance().execute("PF('dlgAlacak').show()");
+		RequestContext.getCurrentInstance().execute("PF('dialogWidget').show()");
 	}
 
 	public void dlgSil() throws Exception {
 		Sil();
-		RequestContext.getCurrentInstance().execute("PF('dlgAlacak').show()");
+		RequestContext.getCurrentInstance().execute("PF('dialogWidget').show()");
 	}
 
 	public void dlgYeniKayit() {
 		YeniKayit();
-		RequestContext.getCurrentInstance().execute("PF('dlgAlacak').show()");
+		RequestContext.getCurrentInstance().execute("PF('dialogWidget').show()");
 	}
-	public void ConfirmMessage(){
-		
+
+	public void ConfirmMessage() {
+
 	}
 
 }

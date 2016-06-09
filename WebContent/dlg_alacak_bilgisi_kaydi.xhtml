@@ -21,7 +21,7 @@
 	</p:dialog>
 	
 
-	<h:form id="alacakForm">
+
 		<p:panel id="girisPaneli" header="Alacak Bilgisi"
 			style="margin-bottom:10px" rendered="#{alacakBean.panelRender}">
 
@@ -61,17 +61,17 @@
 				</p:selectOneMenu>
 
 				<p:outputLabel value="Tanzim Tarihi" />
-				<p:calendar id="mask" size="32"
+				<p:calendar id="mask45" size="32"
 					value="#{alacakBean.alacakKayit.tanzim_tarihi}"
 					pattern="dd/MM/yyyy" mask="true" />
 
 
 				<p:outputLabel value="Vade Tarihi" />
-				<p:calendar id="mask1" value="#{alacakBean.alacakKayit.vade_tarihi}"
+				<p:calendar id="mask145" value="#{alacakBean.alacakKayit.vade_tarihi}"
 					pattern="dd/MM/yyyy" mask="true" size="32" />
 
 				<p:outputLabel value="İhtarname Tarihi" />
-				<p:calendar id="mask2"
+				<p:calendar id="mask46"
 					value="#{alacakBean.alacakKayit.ihtarname_tarihi}"
 					pattern="dd/MM/yyyy" mask="true" size="32" />
 
@@ -180,7 +180,7 @@
 
 
 
-	</h:form>
+
 
 
 </h:body>

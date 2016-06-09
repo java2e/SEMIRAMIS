@@ -10,179 +10,180 @@
 
 
 
-<h:body >
-
-
-	
-
-		<p:ajaxStatus onstart="PF('statusDialog').show()"
-			onsuccess="PF('statusDialog').hide()" />
-
-		<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
-			closable="false" resizable="false" showHeader="false"
-			style="position: absolute; background-color: rgba(0, 0, 0, 0.6); height: 256px; width: 256px; left:0%; top:0%; z-index:2; height: 100%; width: 100%">
-			<p:graphicImage value="img/yukleme.gif" height="80" width="80" />
-		</p:dialog>
-
-		<h:form id="MasrafBilgisiKaydi">
-
-			<p:panel rendered="#{masrafBilgisiBean.panelRender}">
-				<p:panelGrid columns="2" style="margin-bottom:10px;margin-top:10px">
-
-					<p:outputLabel style="width: 150px">İcra Dosya No :</p:outputLabel>
-
-					<p:inputText id="icraDosyaNo"
-						value="#{masrafBilgisiBean.icradosyaNo}" style="width: 250px"
-						readonly="true"></p:inputText>
-
-					<h:outputLabel>İcra Müdürlüğü :</h:outputLabel>
-
-					<p:inputText id="icraMd" style="width: 250px" readonly="true">
-					</p:inputText>
-
-					<p:outputLabel style="width: 150px"> Müvekkil Adı :</p:outputLabel>
-
-					<p:inputText id="müvekkilAdi" readonly="true"
-						value="#{masrafBilgisiBean.muvekkilAdi}" style="width: 250px">
-					</p:inputText>
-
-					<h:outputLabel>Borçlu Adı :</h:outputLabel>
-
-					<p:inputText id="borcluAdi" readonly="true"
-						value="#{masrafBilgisiBean.borcluAdi}" style="width: 250px"
-						converterMessage="Eksik veya Fazla Giriş Yaptınız.">
-					</p:inputText>
-
-
-					<p:outputLabel>Masraf Tipi:</p:outputLabel>
-					<p:selectOneMenu id="selectOneMenuMasrafTipi" required="true"
-						value="#{masrafBilgisiBean.masrafBilgisi.masrafTipiId}"
-						style="width:260px">
-						<f:selectItems
-							value="#{geneltanimbean.ListeGetir('tbl_masraf_tipi')}"
-							var="masrafListesi" itemLabel="#{masrafListesi.adi}"
-							itemValue="#{masrafListesi.id}"></f:selectItems>
-					</p:selectOneMenu>
-
-					<p:outputLabel>Masraf Tarihi :</p:outputLabel>
-					<p:calendar pattern="dd/MM/yyyy" mask="true" size="36"
-						value="#{masrafBilgisiBean.masrafBilgisi.masrafTarihi}">
-					</p:calendar>
-
-
-					<p:outputLabel>Masraf Miktarı :</p:outputLabel>
-					<p:inputText id="inputTextAmount"
-						value="#{masrafBilgisiBean.masrafBilgisi.masrafMiktari}"
-						style="width: 250px">
-						<f:converter converterId="javax.faces.Double" />
-					</p:inputText>
+<h:body>
 
 
 
-					<p:outputLabel>Açıklama :</p:outputLabel>
-					<p:inputTextarea id="inputAciklama" rows="10" cols="50"
-						value="#{masrafBilgisiBean.masrafBilgisi.masrafAciklama}"
-						style="width: 250px"></p:inputTextarea>
 
+	<p:ajaxStatus onstart="PF('statusDialog').show()"
+		onsuccess="PF('statusDialog').hide()" />
 
-					<h:outputLabel>Personel Adı :</h:outputLabel>
-					<p:selectOneMenu id="selectOneMenuPersonelAdi" required="true"
-						value="#{masrafBilgisiBean.masrafBilgisi.masrafPersonel_adi_id}"
-						style="width:260px">
-						<f:selectItems value="#{userbean.ListeGetir()}" var="list"
-							itemLabel="#{list.adSoyad}" itemValue="#{list.id}"></f:selectItems>
-					</p:selectOneMenu>
+	<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+		closable="false" resizable="false" showHeader="false"
+		style="position: absolute; background-color: rgba(0, 0, 0, 0.6); height: 256px; width: 256px; left:0%; top:0%; z-index:2; height: 100%; width: 100%">
+		<p:graphicImage value="img/yukleme.gif" height="80" width="80" />
+	</p:dialog>
 
 
 
-					<p:outputLabel>Uygulama Aşaması :</p:outputLabel>
-					<p:selectOneMenu id="selectOneMenuUygulamaAsamasi"
-						value="#{masrafBilgisiBean.masrafBilgisi.masrafUygulamaAsamasiId}"
-						style="width:260px">
-						<f:selectItems
-							value="#{geneltanimbean.ListeGetir('tbl_uygulama_asamasi')}"
-							var="uygulamaListesi" itemLabel="#{uygulamaListesi.adi}"
-							itemValue="#{uygulamaListesi.id}"></f:selectItems>
-					</p:selectOneMenu>
+	<p:panel rendered="#{masrafBilgisiBean.panelRender}">
+		<p:panelGrid columns="2" style="margin-bottom:10px;margin-top:10px">
 
-				</p:panelGrid>
+			<p:outputLabel style="width: 150px">İcra Dosya No :</p:outputLabel>
 
+			<p:inputText id="icraDosyaNo"
+				value="#{masrafBilgisiBean.icradosyaNo}" style="width: 250px"
+				readonly="true"></p:inputText>
 
-				<p:growl id="growl" showDetail="true" />
+			<h:outputLabel>İcra Müdürlüğü :</h:outputLabel>
 
-				<p:commandButton id="cmdButtonVazgec" style="margin-top:10px"
-					value="Vazgeç" action="#{masrafBilgisiBean.dlgVazgec}"
-					update=":#{p:component('dialog')}"></p:commandButton>
-				<p:commandButton id="cmdButtonKaydet" value="Kaydet"
-					actionListener="#{masrafBilgisiBean.dlgKaydet}"
-					update=":#{p:component('dialog')}"></p:commandButton>
+			<p:inputText id="icraMd" style="width: 250px" readonly="true"
+				value="#{masrafBilgisiBean.icraMd}">
+			</p:inputText>
 
-			</p:panel>
+			<p:outputLabel style="width: 150px"> Müvekkil Adı :</p:outputLabel>
 
+			<p:inputText id="müvekkilAdi" readonly="true"
+				value="#{masrafBilgisiBean.muvekkilAdi}" style="width: 250px">
+			</p:inputText>
 
-			<p:dataTable value="#{masrafBilgisiBean.masrafBilListesi}" var="mb"
-				id="tblMasrafBilgisi" style="width:900px ">
+			<h:outputLabel>Borçlu Adı :</h:outputLabel>
 
-				<f:facet name="header">
-					<p:panelGrid>
-						<p:commandButton value="Yeni Kayıt" style="float:left"
-							disabled="#{masrafBilgisiBean.buttonDisabled}"
-							actionListener="#{masrafBilgisiBean.dlgYeniKayit}"
-							update=":#{p:component('dialog')}" />
-						<h:outputText value="MASRAF BİLGİSİ LİSTESİ" />
-					</p:panelGrid>
-				</f:facet>
-
-				<p:column headerText="Düzenle" width="145">
-
-					<p:commandButton icon="ui-icon-disk" value="Düzenle"
-						action="#{masrafBilgisiBean.dlgDuzenle}"
-						update=":#{p:component('dialog')}"
-						disabled="#{masrafBilgisiBean.buttonDisabled}">
-						<f:param name="duzenle" value="#{mb.id}" />
+			<p:inputText id="borcluAdi" readonly="true"
+				value="#{masrafBilgisiBean.borcluAdi}" style="width: 250px"
+				converterMessage="Eksik veya Fazla Giriş Yaptınız.">
+			</p:inputText>
 
 
-					</p:commandButton>
+			<p:outputLabel>Masraf Tipi:</p:outputLabel>
+			<p:selectOneMenu id="selectOneMenuMasrafTipi" required="true"
+				value="#{masrafBilgisiBean.masrafBilgisi.masrafTipiId}"
+				style="width:260px">
+				<f:selectItems
+					value="#{geneltanimbean.ListeGetir('tbl_masraf_tipi')}"
+					var="masrafListesi" itemLabel="#{masrafListesi.adi}"
+					itemValue="#{masrafListesi.id}"></f:selectItems>
+			</p:selectOneMenu>
 
-				</p:column>
-
-				<p:column headerText="SİL" width="115">
-
-					<p:commandButton icon="ui-icon-cancel" value="Sil"
-						action="#{masrafBilgisiBean.dlgSil}"
-						disabled="#{masrafBilgisiBean.buttonDisabled}"
-						update=":#{p:component('dialog')}">
-						<f:param name="sil" value="#{mb.id}" />
-
-					</p:commandButton>
-
-				</p:column>
-
-				<p:column headerText="Masraf Tarihi">
-					<h:outputText value="#{mb.masrafTarihi}" />
-				</p:column>
-
-				<p:column headerText="Masraf Miktarı">
-					<h:outputText value="#{mb.masrafMiktari}" />
-				</p:column>
-
-				<p:column headerText="Masraf Tipi">
-					<h:outputText value="#{mb.masrafTipiName}" />
-				</p:column>
-
-				<p:column headerText="Uygulama Aşaması">
-					<h:outputText value="#{mb.masrafUygulamaAsamasiName}" />
-				</p:column>
+			<p:outputLabel>Masraf Tarihi :</p:outputLabel>
+			<p:calendar pattern="dd/MM/yyyy" mask="true" size="36"
+				value="#{masrafBilgisiBean.masrafBilgisi.masrafTarihi}">
+			</p:calendar>
 
 
-				<p:column headerText="Personel">
-					<h:outputText value="#{mb.personelName}" />
-				</p:column>
+			<p:outputLabel>Masraf Miktarı :</p:outputLabel>
+			<p:inputText id="inputTextAmount"
+				value="#{masrafBilgisiBean.masrafBilgisi.masrafMiktari}"
+				style="width: 250px">
+				<f:converter converterId="javax.faces.Double" />
+			</p:inputText>
 
 
-			</p:dataTable>
 
-		</h:form>
+			<p:outputLabel>Açıklama :</p:outputLabel>
+			<p:inputTextarea id="inputAciklama" rows="10" cols="50"
+				value="#{masrafBilgisiBean.masrafBilgisi.masrafAciklama}"
+				style="width: 250px"></p:inputTextarea>
+
+
+			<h:outputLabel>Personel Adı :</h:outputLabel>
+			<p:selectOneMenu id="selectOneMenuPersonelAdi" required="true"
+				value="#{masrafBilgisiBean.masrafBilgisi.masrafPersonel_adi_id}"
+				style="width:260px">
+				<f:selectItems value="#{userbean.ListeGetir()}" var="list"
+					itemLabel="#{list.adSoyad}" itemValue="#{list.id}"></f:selectItems>
+			</p:selectOneMenu>
+
+
+
+			<p:outputLabel>Uygulama Aşaması :</p:outputLabel>
+			<p:selectOneMenu id="selectOneMenuUygulamaAsamasi"
+				value="#{masrafBilgisiBean.masrafBilgisi.masrafUygulamaAsamasiId}"
+				style="width:260px">
+				<f:selectItems
+					value="#{geneltanimbean.ListeGetir('tbl_uygulama_asamasi')}"
+					var="uygulamaListesi" itemLabel="#{uygulamaListesi.adi}"
+					itemValue="#{uygulamaListesi.id}"></f:selectItems>
+			</p:selectOneMenu>
+
+		</p:panelGrid>
+
+
+		<p:growl id="growl" showDetail="true" />
+
+		<p:commandButton id="cmdButtonVazgec" style="margin-top:10px"
+			value="Vazgeç" action="#{masrafBilgisiBean.dlgVazgec}"
+			update=":#{p:component('dialog')}"></p:commandButton>
+		<p:commandButton id="cmdButtonKaydet" value="Kaydet"
+			actionListener="#{masrafBilgisiBean.dlgKaydet}"
+			update=":#{p:component('dialog')}"></p:commandButton>
+
+	</p:panel>
+
+
+	<p:dataTable value="#{masrafBilgisiBean.masrafBilListesi}" var="mb"
+		id="tblMasrafBilgisi" style="width:900px ">
+
+		<f:facet name="header">
+			<p:panelGrid>
+				<p:commandButton value="Yeni Kayıt" style="float:left"
+					disabled="#{masrafBilgisiBean.buttonDisabled}"
+					actionListener="#{masrafBilgisiBean.dlgYeniKayit}"
+					update=":#{p:component('dialog')}" />
+				<h:outputText value="MASRAF BİLGİSİ LİSTESİ" />
+			</p:panelGrid>
+		</f:facet>
+
+		<p:column headerText="Düzenle" width="145">
+
+			<p:commandButton icon="ui-icon-disk" value="Düzenle"
+				action="#{masrafBilgisiBean.dlgDuzenle}"
+				update=":#{p:component('dialog')}"
+				disabled="#{masrafBilgisiBean.buttonDisabled}">
+				<f:param name="duzenle" value="#{mb.id}" />
+
+
+			</p:commandButton>
+
+		</p:column>
+
+		<p:column headerText="SİL" width="115">
+
+			<p:commandButton icon="ui-icon-cancel" value="Sil"
+				action="#{masrafBilgisiBean.dlgSil}"
+				disabled="#{masrafBilgisiBean.buttonDisabled}"
+				update=":#{p:component('dialog')}">
+				<f:param name="sil" value="#{mb.id}" />
+
+			</p:commandButton>
+
+		</p:column>
+
+		<p:column headerText="Masraf Tarihi">
+			<h:outputText value="#{mb.masrafTarihi}" />
+		</p:column>
+
+		<p:column headerText="Masraf Miktarı">
+			<h:outputText value="#{mb.masrafMiktari}" />
+		</p:column>
+
+		<p:column headerText="Masraf Tipi">
+			<h:outputText value="#{mb.masrafTipiName}" />
+		</p:column>
+
+		<p:column headerText="Uygulama Aşaması">
+			<h:outputText value="#{mb.masrafUygulamaAsamasiName}" />
+		</p:column>
+
+
+		<p:column headerText="Personel">
+			<h:outputText value="#{mb.personelName}" />
+		</p:column>
+
+
+	</p:dataTable>
+
+
 
 
 

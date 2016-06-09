@@ -11,150 +11,148 @@
 
 <body>
 
-		<p:ajaxStatus onstart="PF('statusDialog').show()"
-			onsuccess="PF('statusDialog').hide()" />
+	<p:ajaxStatus onstart="PF('statusDialog').show()"
+		onsuccess="PF('statusDialog').hide()" />
 
-		<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
-			closable="false" resizable="false" showHeader="false"
-			style="position: absolute; background-color: rgba(0, 0, 0, 0.6); height: 256px; width: 256px; left:0%; top:0%; z-index:2; height: 100%; width: 100%">
-			<p:graphicImage value="img/yukleme.gif" height="80" width="80" />
-		</p:dialog>
+	<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+		closable="false" resizable="false" showHeader="false"
+		style="position: absolute; background-color: rgba(0, 0, 0, 0.6); height: 256px; width: 256px; left:0%; top:0%; z-index:2; height: 100%; width: 100%">
+		<p:graphicImage value="img/yukleme.gif" height="80" width="80" />
+	</p:dialog>
 
-		<h:form id="vizitForm">
+	<p:panel rendered="#{vizitBilgisiKaydiBean.panelRender}">
+		<p:panelGrid columns="2" style="margin-top:10px">
 
-			<p:panel rendered="#{vizitBilgisiKaydiBean.panelRender}">
-				<p:panelGrid columns="2" style="margin-top:10px">
+			<p:outputLabel style="width: 150px">İcra Dosya No :</p:outputLabel>
+			<p:inputText id="icraDosyaNo"
+				value="#{vizitBilgisiKaydiBean.icradosyaNo}" style="width: 250px"
+				readonly="true">
+			</p:inputText>
 
-					<p:outputLabel style="width: 150px">İcra Dosya No :</p:outputLabel>
-					<p:inputText id="icraDosyaNo"
-						value="#{vizitBilgisiKaydiBean.icradosyaNo}" style="width: 250px"
-						readonly="true">
-					</p:inputText>
+			<h:outputLabel>İcra Müdürlüğü :</h:outputLabel>
+			<p:inputText id="icraMd" style="width: 250px" readonly="true"
+				value="#{vizitBilgisiKaydiBean.icraMd}">
+			</p:inputText>
 
-					<h:outputLabel>İcra Müdürlüğü :</h:outputLabel>
-					<p:inputText id="icraMd" style="width: 250px" readonly="true">
-					</p:inputText>
-
-					<h:outputLabel>Borçlu Adı :</h:outputLabel>
-					<p:inputText id="borcluAdi"
-						value="#{vizitBilgisiKaydiBean.borcluAdi}" style="width: 250px"
-						readonly="true">
-					</p:inputText>
-
-
-
-					<p:outputLabel for="vizitDate">Vizit Tarihi :</p:outputLabel>
-					<p:calendar id="vizitDate" size="39"
-						value="#{vizitBilgisiKaydiBean.vizitBilgisi.vizitTarihi}"
-						pattern="dd/MM/yyyy" mask="true">
-					</p:calendar>
-
-
-					<h:outputLabel>Vizit Statüsü :</h:outputLabel>
-					<p:selectOneMenu id="vizitStatusu" required="false"
-						value="#{vizitBilgisiKaydiBean.vizitBilgisi.vizitStatusu}"
-						requiredMessage="Bu alanı doldurunuz" style="width:260px">
-						<f:selectItems value="#{vizitBilgisiKaydiBean.vizitStatuleri}"
-							var="list" itemLabel="#{list.adi}" itemValue="#{list.adi}"></f:selectItems>
-					</p:selectOneMenu>
-
-					<p:outputLabel for="odemeSozuDate">Ödeme Sözü Tarihi :</p:outputLabel>
-					<p:calendar id="odemeSozuDate" size="39"
-						value="#{vizitBilgisiKaydiBean.vizitBilgisi.odemeSozuTarihi}"
-						pattern="dd/MM/yyyy" mask="true" />
-
-					<p:outputLabel>Ödeme Sözü Miktarı:</p:outputLabel>
-					<p:inputMask id="odemeMiktari"
-						value="#{vizitBilgisiKaydiBean.vizitBilgisi.odemeMiktari}"
-						required="false" requiredMessage="Bu alanı doldurunuz"
-						style="width: 250px"></p:inputMask>
-
-
-					<p:outputLabel>Vizit Notu :</p:outputLabel>
-					<p:inputTextarea id="inputTextAciklama" required="false"
-						requiredMessage="Bu alanı doldurunuz" rows="10" cols="50"
-						value="#{vizitBilgisiKaydiBean.vizitBilgisi.vizitNotu}"
-						style="width: 250px"></p:inputTextarea>
-
-					<h:outputLabel>Vizit Personeli :</h:outputLabel>
-					<p:selectOneMenu id="vizitPersoneli" required="false"
-						value="#{vizitBilgisiKaydiBean.vizitBilgisi.vizitPersoneliId}"
-						requiredMessage="Bu alanı doldurunuz" style="width:260px">
-						<f:selectItems value="#{vizitBilgisiKaydiBean.users}" var="list"
-							itemLabel="#{list.adSoyad}" itemValue="#{list.id}"></f:selectItems>
-					</p:selectOneMenu>
-				</p:panelGrid>
-
-				<p:growl id="growl" showDetail="true" sticky="true" />
-
-				<p:commandButton id="cmdButtonVAZGEC" value="Vazgeç"
-					style="margin-top:10px" action="#{vizitBilgisiKaydiBean.dlgVazgec()}"
-					update=":#{p:component('dialog')}"></p:commandButton>
-
-				<p:commandButton id="cmdButtonKAYDET" value="Kaydet"
-					actionListener="#{vizitBilgisiKaydiBean.dlgKaydet()}"
-					update=":#{p:component('dialog')}"></p:commandButton>
+			<h:outputLabel>Borçlu Adı :</h:outputLabel>
+			<p:inputText id="borcluAdi"
+				value="#{vizitBilgisiKaydiBean.borcluAdi}" style="width: 250px"
+				readonly="true">
+			</p:inputText>
 
 
 
-			</p:panel>
+			<p:outputLabel for="vizitDate">Vizit Tarihi :</p:outputLabel>
+			<p:calendar id="vizitDate" size="39"
+				value="#{vizitBilgisiKaydiBean.vizitBilgisi.vizitTarihi}"
+				pattern="dd/MM/yyyy" mask="true">
+			</p:calendar>
+
+
+			<h:outputLabel>Vizit Statüsü :</h:outputLabel>
+			<p:selectOneMenu id="vizitStatusu" required="false"
+				value="#{vizitBilgisiKaydiBean.vizitBilgisi.vizitStatusu}"
+				requiredMessage="Bu alanı doldurunuz" style="width:260px">
+				<f:selectItems value="#{vizitBilgisiKaydiBean.vizitStatuleri}"
+					var="list" itemLabel="#{list.adi}" itemValue="#{list.adi}"></f:selectItems>
+			</p:selectOneMenu>
+
+			<p:outputLabel for="odemeSozuDate">Ödeme Sözü Tarihi :</p:outputLabel>
+			<p:calendar id="odemeSozuDate" size="39"
+				value="#{vizitBilgisiKaydiBean.vizitBilgisi.odemeSozuTarihi}"
+				pattern="dd/MM/yyyy" mask="true" />
+
+			<p:outputLabel>Ödeme Sözü Miktarı:</p:outputLabel>
+			<p:inputMask id="odemeMiktari"
+				value="#{vizitBilgisiKaydiBean.vizitBilgisi.odemeMiktari}"
+				required="false" requiredMessage="Bu alanı doldurunuz"
+				style="width: 250px"></p:inputMask>
+
+
+			<p:outputLabel>Vizit Notu :</p:outputLabel>
+			<p:inputTextarea id="inputTextAciklama" required="false"
+				requiredMessage="Bu alanı doldurunuz" rows="10" cols="50"
+				value="#{vizitBilgisiKaydiBean.vizitBilgisi.vizitNotu}"
+				style="width: 250px"></p:inputTextarea>
+
+			<h:outputLabel>Vizit Personeli :</h:outputLabel>
+			<p:selectOneMenu id="vizitPersoneli" required="false"
+				value="#{vizitBilgisiKaydiBean.vizitBilgisi.vizitPersoneliId}"
+				requiredMessage="Bu alanı doldurunuz" style="width:260px">
+				<f:selectItems value="#{vizitBilgisiKaydiBean.users}" var="list"
+					itemLabel="#{list.adSoyad}" itemValue="#{list.id}"></f:selectItems>
+			</p:selectOneMenu>
+		</p:panelGrid>
+
+		<p:growl id="growl" showDetail="true" sticky="true" />
+
+		<p:commandButton id="cmdButtonVAZGEC" value="Vazgeç"
+			style="margin-top:10px" action="#{vizitBilgisiKaydiBean.dlgVazgec()}"
+			update=":#{p:component('dialog')}"></p:commandButton>
+
+		<p:commandButton id="cmdButtonKAYDET" value="Kaydet"
+			actionListener="#{vizitBilgisiKaydiBean.dlgKaydet()}"
+			update=":#{p:component('dialog')}"></p:commandButton>
 
 
 
-			<p:dataTable value="#{vizitBilgisiKaydiBean.listVizit}" var="vb"
-				id="tblVizitBilgisi" style="width:900px ">
-				<f:facet name="header">
-					<p:panelGrid>
-						<p:commandButton value="Yeni Kayıt" style="float:left"
-							disabled="#{vizitBilgisiKaydiBean.buttonDisabled}"
-							action="#{vizitBilgisiKaydiBean.dlgYeniKayit}"
-							update=":#{p:component('dialog')}" />
-						<h:outputText value="VİZİT BİLGİSİ LİSTESİ" />
-					</p:panelGrid>
-				</f:facet>
-				<p:column headerText="Düzenle" width="145">
-
-					<p:commandButton icon="ui-icon-disk" value="Düzenle"
-						action="#{vizitBilgisiKaydiBean.dlgDuzenle}"
-						update=":#{p:component('dialog')}"
-						disabled="#{vizitBilgisiKaydiBean.buttonDisabled}">
-						<f:param name="duzenle" value="#{vb.id}" />
+	</p:panel>
 
 
-					</p:commandButton>
 
-				</p:column>
+	<p:dataTable value="#{vizitBilgisiKaydiBean.listVizit}" var="vb"
+		id="tblVizitBilgisi" style="width:900px ">
+		<f:facet name="header">
+			<p:panelGrid>
+				<p:commandButton value="Yeni Kayıt" style="float:left"
+					disabled="#{vizitBilgisiKaydiBean.buttonDisabled}"
+					action="#{vizitBilgisiKaydiBean.dlgYeniKayit}"
+					update=":#{p:component('dialog')}" />
+				<h:outputText value="VİZİT BİLGİSİ LİSTESİ" />
+			</p:panelGrid>
+		</f:facet>
+		<p:column headerText="Düzenle" width="145">
 
-				<p:column headerText="SİL" width="115">
+			<p:commandButton icon="ui-icon-disk" value="Düzenle"
+				action="#{vizitBilgisiKaydiBean.dlgDuzenle}"
+				update=":#{p:component('dialog')}"
+				disabled="#{vizitBilgisiKaydiBean.buttonDisabled}">
+				<f:param name="duzenle" value="#{vb.id}" />
 
-					<p:commandButton icon="ui-icon-cancel" value="Sil"
-						action="#{vizitBilgisiKaydiBean.Sil}"
-						disabled="#{vizitBilgisiKaydiBean.buttonDisabled}"
-						update=":#{p:component('dialog')}">
-						<f:param name="sil" value="#{vb.id}" />
 
-					</p:commandButton>
+			</p:commandButton>
 
-				</p:column>
+		</p:column>
 
-				<p:column headerText="Vizit Tarihi">
-					<h:outputText value="#{vb.vizitTarihi}" />
-				</p:column>
+		<p:column headerText="SİL" width="115">
 
-				<p:column headerText="Ödeme Sözü Tarihi">
-					<h:outputText value="#{vb.odemeSozuTarihi}" />
-				</p:column>
+			<p:commandButton icon="ui-icon-cancel" value="Sil"
+				action="#{vizitBilgisiKaydiBean.Sil}"
+				disabled="#{vizitBilgisiKaydiBean.buttonDisabled}"
+				update=":#{p:component('dialog')}">
+				<f:param name="sil" value="#{vb.id}" />
 
-				<p:column headerText="Ödeme Sözü Miktarı">
-					<h:outputText value="#{vb.odemeMiktari}" />
-				</p:column>
+			</p:commandButton>
 
-				<p:column headerText="Personel">
-					<h:outputText value="#{vb.userName}" />
-				</p:column>
-			</p:dataTable>
+		</p:column>
 
-		</h:form>
+		<p:column headerText="Vizit Tarihi">
+			<h:outputText value="#{vb.vizitTarihi}" />
+		</p:column>
+
+		<p:column headerText="Ödeme Sözü Tarihi">
+			<h:outputText value="#{vb.odemeSozuTarihi}" />
+		</p:column>
+
+		<p:column headerText="Ödeme Sözü Miktarı">
+			<h:outputText value="#{vb.odemeMiktari}" />
+		</p:column>
+
+		<p:column headerText="Personel">
+			<h:outputText value="#{vb.userName}" />
+		</p:column>
+	</p:dataTable>
+
 
 </body>
 </html>

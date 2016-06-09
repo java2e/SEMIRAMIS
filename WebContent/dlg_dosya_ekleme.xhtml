@@ -10,56 +10,58 @@
 
 <h:body>
 
-	<h:form id="form" enctype="multipart/form-data">
-		<p:panel id="panel1">
-			<p:panelGrid columns="2">
-				<p:outputLabel style="width: 150px">İcra Dosya No :</p:outputLabel>
-				<p:inputText id="icraDosyaNo"
-					value="#{DosyaYuklemeBean.icraDosyaNo}" style="width: 250px"
-					readonly="true"></p:inputText>
 
-				<h:outputLabel>Belge Adı :</h:outputLabel>
-				<p:selectOneMenu id="belgeAdi"
-					value="#{DosyaYuklemeBean.dosyaYukleme.belgeAdi}"
-					style="width:260px">
-					<f:selectItems value="#{DosyaYuklemeBean.belgeTipiList}" var="list"
-						itemLabel="#{list.adi}" itemValue="#{list.id}"
-						noSelectionValue="true" />
-					<p:ajax event="change" update=":#{p:component('dialog')}"
-						oncomplete="PF('dlgDosyaEk').show();"
-						listener="#{DosyaYuklemeBean.subjectSelectionChanged}" />
+	<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+		closable="false" resizable="false" showHeader="false"
+		style="position: absolute; background-color: rgba(0, 0, 0, 0.6); height: 256px; width: 256px; left:0%; top:0%; z-index:2; height: 100%; width: 100%">
+		<p:graphicImage value="img/yukleme.gif" height="80" width="80" />
+	</p:dialog>
 
-				</p:selectOneMenu>
+	<p:panel id="panel1" rendered="#{DosyaYuklemeBean.panelRender}">
+		<p:panelGrid columns="2">
+			<p:outputLabel style="width: 150px">İcra Dosya No :</p:outputLabel>
+			<p:inputText id="icraDosyaNo" value="#{DosyaYuklemeBean.icraDosyaNo}"
+				style="width: 250px" readonly="true"></p:inputText>
 
-				<p:outputLabel id="aciklamaLabel" style="width: 150px">Açıklama :</p:outputLabel>
-				<p:inputText id="aciklama"
-					value="#{DosyaYuklemeBean.dosyaYukleme.aciklama}"
-					disabled="#{DosyaYuklemeBean.checkComboboxValue(DosyaYuklemeBean.dosyaYukleme.belgeAdi)}"
-					style="width: 250px"></p:inputText>
+			<h:outputLabel>Belge Adı :</h:outputLabel>
+			<p:selectOneMenu id="belgeAdi"
+				value="#{DosyaYuklemeBean.dosyaYukleme.belgeAdi}"
+				style="width:260px">
+				<f:selectItems value="#{DosyaYuklemeBean.belgeTipiList}" var="list"
+					itemLabel="#{list.adi}" itemValue="#{list.id}"
+					noSelectionValue="true" />
+				<p:ajax event="change" update=":#{p:component('dialog')}"
+					oncomplete="PF('dialogWidget').show();"
+					listener="#{DosyaYuklemeBean.subjectSelectionChanged}" />
 
-				<p:outputLabel style="width: 150px">Belgenin Yönü :</p:outputLabel>
+			</p:selectOneMenu>
 
-				<p:selectOneMenu id="belgeYonu" required="false"
-					value="#{DosyaYuklemeBean.dosyaYukleme.belgeYonu}"
-					style="width:260px">
-					<f:selectItem itemValue="Gelen" itemLabel="Gelen"></f:selectItem>
-					<f:selectItem itemValue="Giden" itemLabel="Giden"></f:selectItem>
-				</p:selectOneMenu>
+			<p:outputLabel id="aciklamaLabel" style="width: 150px"
+				rendered="#{DosyaYuklemeBean.isTrue}">Açıklama :</p:outputLabel>
+			<p:inputText id="aciklama"
+				value="#{DosyaYuklemeBean.dosyaYukleme.aciklama}"
+				rendered="#{DosyaYuklemeBean.isTrue}" style="width: 250px"></p:inputText>
 
-				<p:outputLabel>Belgenin Yüklenme Tarihi :</p:outputLabel>
-				<p:calendar pattern="dd/MM/yyyy" mask="true"
-					value="#{DosyaYuklemeBean.dosyaYukleme.belgeTarihi}" size="39">
-				</p:calendar>
+			<p:outputLabel style="width: 150px">Belgenin Yönü :</p:outputLabel>
 
-				<p:outputLabel>Dosya :</p:outputLabel>
-				<p:fileUpload
-					fileUploadListener="#{DosyaYuklemeBean.handleFileUpload}"
-					allowTypes="/(\.|\/)(doc|docx|xls|xlsx|pdf)$/" sizeLimit="10000000" />
+			<p:selectOneMenu id="belgeYonu" required="false"
+				value="#{DosyaYuklemeBean.dosyaYukleme.belgeYonu}"
+				style="width:260px">
+				<f:selectItem itemValue="Gelen" itemLabel="Gelen"></f:selectItem>
+				<f:selectItem itemValue="Giden" itemLabel="Giden"></f:selectItem>
+			</p:selectOneMenu>
 
-			</p:panelGrid>
-		</p:panel>
-		<p:growl id="growl" showDetail="true" sticky="true" />
+			<p:outputLabel>Belgenin Yüklenme Tarihi :</p:outputLabel>
+			<p:calendar pattern="dd/MM/yyyy" mask="true"
+				value="#{DosyaYuklemeBean.dosyaYukleme.belgeTarihi}" size="39">
+			</p:calendar>
 
+			<p:outputLabel>Dosya :</p:outputLabel>
+			<p:fileUpload
+				fileUploadListener="#{DosyaYuklemeBean.handleFileUpload}"
+				allowTypes="/(\.|\/)(doc|docx|xls|xlsx|pdf)$/" sizeLimit="10000000" />
+
+		</p:panelGrid>
 		<p:commandButton id="cmdButtonVAZGEC" style="margin-top:10px"
 			action="#{DosyaYuklemeBean.dlgVazgec}" value="Vazgeç"
 			update=":#{p:component('dialog')}"></p:commandButton>
@@ -68,37 +70,49 @@
 			action="#{DosyaYuklemeBean.dlgKaydet}" value="Kaydet"
 			update=":#{p:component('dialog')}"></p:commandButton>
 
+	</p:panel>
+	<p:growl id="growl" showDetail="true" sticky="true" />
 
-		<p:dataTable value="#{DosyaYuklemeBean.dosyaList}" var="dy"
-			id="tblDosya" style="width:900px; margin-top:20px;">
 
 
-			<p:column headerText="SİL" width="115">
+	<p:dataTable value="#{DosyaYuklemeBean.dosyaList}" var="dy"
+		id="tblDosya" style="width:900px; margin-top:20px;">
+		<f:facet name="header">
+			<p:panelGrid>
+				<p:commandButton value="Yeni Kayıt" style="float:left"
+					rendered="#{!DosyaYuklemeBean.buttonDisabled}"
+					action="#{DosyaYuklemeBean.dlgPanelOpen}"
+					update=":#{p:component('dialog')}" />
+				<h:outputText value="EVRAK LİSTESİ" />
+			</p:panelGrid>
+		</f:facet>
 
-				<p:commandButton icon="ui-icon-cancel" value="Sil"
-					actionListener="#{DosyaYuklemeBean.dlgSil()}"
-					update=":#{p:component('dialog')}">
-					<f:param name="sil" value="#{dy.id}" />
+		<!-- 			<p:column headerText="SİL" width="115"> -->
 
-				</p:commandButton>
+		<!-- 				<p:commandButton icon="ui-icon-cancel" value="Sil" -->
+		<!-- 					actionListener="#{DosyaYuklemeBean.dlgSil()}" -->
+		<!-- 					update=":#{p:component('dialog')}"> -->
+		<!-- 					<f:param name="sil" value="#{dy.id}" /> -->
 
-			</p:column>
+		<!-- 				</p:commandButton> -->
 
-			<p:column headerText="Tarih">
-				<h:outputText value="#{dy.belgeTarihi}" />
-			</p:column>
+		<!-- 			</p:column> -->
 
-			<p:column headerText="Dosya Adı">
-				<h:outputText value="#{dy.belgeAdi}" />
-			</p:column>
+		<p:column headerText="Tarih">
+			<h:outputText value="#{dy.belgeTarihi}" />
+		</p:column>
 
-			<p:column headerText="Dosya Yönü">
-				<h:outputText value="#{dy.belgeYonu}" />
-			</p:column>
+		<p:column headerText="Dosya Adı">
+			<h:outputText value="#{dy.belgeAdi}" />
+		</p:column>
 
-		</p:dataTable>
+		<p:column headerText="Dosya Yönü">
+			<h:outputText value="#{dy.belgeYonu}" />
+		</p:column>
 
-	</h:form>
+	</p:dataTable>
+
+
 
 </h:body>
 </html>

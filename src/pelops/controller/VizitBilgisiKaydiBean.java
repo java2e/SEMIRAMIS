@@ -9,6 +9,7 @@ import javax.faces.context.FacesContext;
 
 import org.primefaces.context.RequestContext;
 
+import pelops.dao.UtilDAO;
 import pelops.dao.VizitBilgisiDAO;
 import pelops.model.User;
 import pelops.model.VizitBilgisi;
@@ -39,6 +40,8 @@ public class VizitBilgisiKaydiBean {
 	String icradosyaNo;
 
 	String borcluAdi;
+
+	private String icraMd;
 
 	boolean panelRender;
 
@@ -92,6 +95,14 @@ public class VizitBilgisiKaydiBean {
 		this.listVizit = listVizit;
 	}
 
+	public String getIcraMd() {
+		return UtilDAO.getInstance().getIcraMdwithID(AktifBean.icraDosyaID);
+	}
+
+	public void setIcraMd(String icraMd) {
+		this.icraMd = icraMd;
+	}
+
 	public void Kaydet() throws Exception {
 		// burada aktifBeanden icra dosyası idyi set edilecek...
 
@@ -99,26 +110,22 @@ public class VizitBilgisiKaydiBean {
 			FacesContext context = FacesContext.getCurrentInstance();
 
 			vizitBilgisi.setIcraDosyaID(AktifBean.getIcraDosyaID());
-			if (vizitBilgisi.getOdemeMiktari() != Double.valueOf(0)
-					&& !vizitBilgisi.getVizitStatusu().equals("")
-					&& vizitBilgisi.getVizitPersoneliId() != 0
-					&& !vizitBilgisi.getVizitNotu().equals("")) {
-				
+			if (vizitBilgisi.getOdemeMiktari() != Double.valueOf(0) && !vizitBilgisi.getVizitStatusu().equals("")
+					&& vizitBilgisi.getVizitPersoneliId() != 0 && !vizitBilgisi.getVizitNotu().equals("")) {
+
 				boolean kaydedildi = dao.vizitBilgisiKaydet(vizitBilgisi);
 				if (kaydedildi) {
 					// Pop Up Çıkacak... Kaydedildiğine dair.
 					context.addMessage(null, new FacesMessage("Kaydedildi!"));
 
 				} else {
-					context.addMessage(null, new FacesMessage(
-							"Kaydet işlemi başarısız!"));
+					context.addMessage(null, new FacesMessage("Kaydet işlemi başarısız!"));
 
 				}
 				PanelClose();
 				ButtonOpen();
 			} else {
-				context.addMessage(null, new FacesMessage(
-						"Eksik bilgi doldurdunuz!"));
+				context.addMessage(null, new FacesMessage("Eksik bilgi doldurdunuz!"));
 			}
 
 			vizitBilgisi = new VizitBilgisi();
@@ -134,12 +141,11 @@ public class VizitBilgisiKaydiBean {
 				PanelClose();
 				ButtonOpen();
 			} else {
-				context.addMessage(null, new FacesMessage(
-						"Güncelleme işlemi başarısız!"));
+				context.addMessage(null, new FacesMessage("Güncelleme işlemi başarısız!"));
 			}
 			status = 0;
 			listVizit = dao.getAllListFromIcraDosyaID(AktifBean.icraDosyaID);
-			
+
 		}
 
 	}
@@ -163,12 +169,10 @@ public class VizitBilgisiKaydiBean {
 
 		status = 1;
 
-		ArrayList<VizitBilgisi> list = dao
-				.getAllListFromIcraDosyaID(AktifBean.icraDosyaID);
+		ArrayList<VizitBilgisi> list = dao.getAllListFromIcraDosyaID(AktifBean.icraDosyaID);
 
-		int id = Integer.parseInt(FacesContext.getCurrentInstance()
-				.getExternalContext().getRequestParameterMap().get("duzenle")
-				.toString());
+		int id = Integer.parseInt(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap()
+				.get("duzenle").toString());
 
 		for (VizitBilgisi vb : list) {
 			if (vb.getId() == id) {
@@ -219,9 +223,8 @@ public class VizitBilgisiKaydiBean {
 	}
 
 	public void Sil() throws Exception {
-		int id = Integer.parseInt(FacesContext.getCurrentInstance()
-				.getExternalContext().getRequestParameterMap().get("sil")
-				.toString());
+		int id = Integer.parseInt(
+				FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("sil").toString());
 
 		dao.Sil(id);
 
@@ -229,22 +232,22 @@ public class VizitBilgisiKaydiBean {
 
 	public void dlgKaydet() throws Exception {
 		Kaydet();
-		RequestContext.getCurrentInstance().execute("PF('dlgMasraf').show()");
+		RequestContext.getCurrentInstance().execute("PF('dialogWidget').show()");
 	}
 
 	public void dlgVazgec() {
 		Vazgec();
-		RequestContext.getCurrentInstance().execute("PF('dlgVizit').show()");
+		RequestContext.getCurrentInstance().execute("PF('dialogWidget').show()");
 	}
 
 	public void dlgPanelOpen() {
 		PanelOpen();
-		RequestContext.getCurrentInstance().execute("PF('dlgVizit').show()");
+		RequestContext.getCurrentInstance().execute("PF('dialogWidget').show()");
 	}
 
 	public void dlgDuzenle() throws Exception {
 		Duzenle();
-		RequestContext.getCurrentInstance().execute("PF('dlgVizit').show()");
+		RequestContext.getCurrentInstance().execute("PF('dialogWidget').show()");
 	}
 
 	public void dlgSil() throws Exception {
@@ -254,6 +257,6 @@ public class VizitBilgisiKaydiBean {
 
 	public void dlgYeniKayit() {
 		YeniKayit();
-		RequestContext.getCurrentInstance().execute("PF('dlgVizit').show()");
+		RequestContext.getCurrentInstance().execute("PF('dialogWidget').show()");
 	}
 }

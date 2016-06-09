@@ -32,7 +32,6 @@ public class IzlemeBilgisiDAO extends DBConnection {
 			izlemeTarihi = convertFromJAVADateToSQLDate(izlemeKayit.getIzlemeTarihi());
 			sonOdemeSozuTarihi = convertFromJAVADateToSQLDate(izlemeKayit.getOdemeSozuTarihi());
 
-
 			SQL = "INSERT INTO tbl_izleme_bilgisi("
 					+ " izleme_tarihi, izleme_sonucu_id, odeme_sozu_tarihi, odeme_sozu_miktari, "
 					+ "  aciklama, personel_id, icra_dosyasi_id)" + "  VALUES (?, ?, ?, ?, ?, ?, ?);";
@@ -50,7 +49,6 @@ public class IzlemeBilgisiDAO extends DBConnection {
 				pstmt.setInt(7, AktifBean.getIcraDosyaID());
 
 				int result = pstmt.executeUpdate();
-
 
 				if (result == 1) {
 
@@ -103,39 +101,26 @@ public class IzlemeBilgisiDAO extends DBConnection {
 
 		boolean duzenlendi = false;
 
-		if (izlemeKayit.getIzlemeSonucuTarihi() == null && izlemeKayit.getOdemeSozuMiktari() != null) {
+		izlemeTarihi = convertFromJAVADateToSQLDate(izlemeKayit.getIzlemeTarihi());
+		sonOdemeSozuTarihi = convertFromJAVADateToSQLDate(izlemeKayit.getOdemeSozuTarihi());
 
-		} else {
+		SQL = "UPDATE tbl_izleme_bilgisi SET izleme_tarihi=?, odeme_sozu_tarihi=?, odeme_sozu_miktari=?, "
+				+ "aciklama=?, personel_id=?, icra_dosyasi_id=?, izleme_sonucu_id=?" + "WHERE id=" + izlemeKayit.getId()
+				+ ";";
 
-			izlemeTarihi = convertFromJAVADateToSQLDate(izlemeKayit.getIzlemeTarihi());
-			sonOdemeSozuTarihi = convertFromJAVADateToSQLDate(izlemeKayit.getOdemeSozuTarihi());
+		newConnectDB();
 
-			SQL = "UPDATE tbl_izleme_bilgisi SET izleme_tarihi=?, odeme_sozu_tarihi=?, odeme_sozu_miktari=?, "
-					+ "aciklama=?, personel_id=?, icra_dosyasi_id=?, izleme_sonucu_id=?" + "WHERE id="
-					+ izlemeKayit.getId() + ";";
+		pstmt = conn.prepareStatement(SQL);
+		pstmt.setDate(1, izlemeTarihi);
+		pstmt.setDate(2, sonOdemeSozuTarihi);
+		pstmt.setDouble(3, izlemeKayit.getOdemeSozuMiktari());
+		pstmt.setString(4, izlemeKayit.getAciklama());
+		pstmt.setInt(5, izlemeKayit.getPersonelId());
+		pstmt.setInt(6, izlemeKayit.getIcraDosyasiId());
+		pstmt.setInt(7, izlemeKayit.getIzlemeSonucuId());
+		duzenlendi = pstmt.execute();
 
-			newConnectDB();
-
-			pstmt = conn.prepareStatement(SQL);
-
-			pstmt.setDate(1, izlemeTarihi);
-			pstmt.setDate(2, sonOdemeSozuTarihi);
-			pstmt.setDouble(3, izlemeKayit.getOdemeSozuMiktari());
-			pstmt.setString(4, izlemeKayit.getAciklama());
-			pstmt.setInt(5, izlemeKayit.getPersonelId());
-			pstmt.setInt(6, izlemeKayit.getIcraDosyasiId());
-			pstmt.setInt(7, izlemeKayit.getIzlemeSonucuId());
-
-			int sonuc = pstmt.executeUpdate();
-
-			disconnectDB();
-
-			if (sonuc == 1) {
-
-				duzenlendi = true;
-			}
-
-		}
+		disconnectDB();
 
 		return duzenlendi;
 

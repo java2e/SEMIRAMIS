@@ -91,7 +91,7 @@ public class IzlemeBilgisiBean {
 		status = 0;
 		PanelClose();
 		ButtonOpen();
-		izleme=new IzlemeBilgisiKaydi();
+		izleme = new IzlemeBilgisiKaydi();
 	}
 
 	public void onDateSelect(SelectEvent event) {
@@ -102,8 +102,8 @@ public class IzlemeBilgisiBean {
 	}
 
 	public void YeniKayit() {
-    
-		izleme=new IzlemeBilgisiKaydi();
+
+		izleme = new IzlemeBilgisiKaydi();
 		status = 0;
 		PanelOpen();
 
@@ -134,8 +134,6 @@ public class IzlemeBilgisiBean {
 
 	public void Kaydet() throws Exception {
 
-
-
 		FacesContext context = FacesContext.getCurrentInstance();
 
 		if (izleme.getIzlemeSonucuTarihi() == null && izleme.getIzlemeSonucu() == null
@@ -145,7 +143,6 @@ public class IzlemeBilgisiBean {
 
 			context.addMessage(null, new FacesMessage("En az bir alan dolu olmalıdır!"));
 
-		
 		} else {
 
 			if (izleme.getOdemeSozuMiktari() == null || izleme.getOdemeSozuTarihi() == null) {
@@ -155,11 +152,7 @@ public class IzlemeBilgisiBean {
 
 			} else {
 
-			
-
 				if (status == 0) {
-
-				
 
 					boolean result = dao.kaydet(izleme);
 
@@ -178,10 +171,10 @@ public class IzlemeBilgisiBean {
 
 				} else {
 
-					
-
 					izleme.setIcraDosyasiId(AktifBean.icraDosyaID);
+
 					boolean duzenlendi = dao.guncelle(izleme);
+					izlemeList = dao.getAllListFromIcraDosyaID(AktifBean.icraDosyaID);
 
 					if (duzenlendi) {
 						context.addMessage(null, new FacesMessage("G�ncellendi!"));
@@ -253,32 +246,32 @@ public class IzlemeBilgisiBean {
 
 	public void dlgKaydet() throws Exception {
 		Kaydet();
-		RequestContext.getCurrentInstance().execute("PF('dlgIzleme').show()");
+		RequestContext.getCurrentInstance().execute("PF('dialogWidget').show()");
 	}
 
 	public void dlgVazgec() {
 		Vazgec();
-		RequestContext.getCurrentInstance().execute("PF('dlgIzleme').show()");
+		RequestContext.getCurrentInstance().execute("PF('dialogWidget').show()");
 	}
 
 	public void dlgPanelOpen() {
 		PanelOpen();
-		RequestContext.getCurrentInstance().execute("PF('dlgIzleme').show()");
+		RequestContext.getCurrentInstance().execute("PF('dialogWidget').show()");
 	}
 
 	public void dlgDuzenle() throws Exception {
 		Duzenle();
-		RequestContext.getCurrentInstance().execute("PF('dlgIzleme').show()");
+		RequestContext.getCurrentInstance().execute("PF('dialogWidget').show()");
 	}
 
 	public void dlgSil() throws Exception {
 		Sil();
-		RequestContext.getCurrentInstance().execute("PF('dlgIzleme').show()");
+		RequestContext.getCurrentInstance().execute("PF('dialogWidget').show()");
 	}
 
 	public void dlgYeniKayit() {
 		YeniKayit();
-		RequestContext.getCurrentInstance().execute("PF('dlgIzleme').show()");
+		RequestContext.getCurrentInstance().execute("PF('dialogWidget').show()");
 	}
 
 }

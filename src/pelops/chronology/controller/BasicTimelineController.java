@@ -42,7 +42,7 @@ public class BasicTimelineController implements Serializable {
 	private boolean axisOnTop;
 	private boolean showCurrentTime = true;
 	private boolean showNavigation = false;
-
+	private boolean panelRender = false;
 	TimelineEvent event;
 
 	private String icraDosyaNo;
@@ -50,15 +50,14 @@ public class BasicTimelineController implements Serializable {
 
 	private int icraDosyaID;
 
-	@PostConstruct
 	public void initialize() {
 		model = new TimelineModel();
 
 		ArrayList<TimelineEvent> events = null;
 		try {
 			events = ReportChronologyCtrl.getInstance().getAllEvents(icraDosyaID);
+			panelRender = false;
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		if (events != null) {
@@ -78,6 +77,7 @@ public class BasicTimelineController implements Serializable {
 		try {
 
 			chronologies = ReportChronologyUtil.getInstance().getListForDataTable(icraDosyaID);
+			this.panelRender = true;
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -92,6 +92,14 @@ public class BasicTimelineController implements Serializable {
 		icraDosyaID = AktifBean.getIcraDosyaID();
 		initialize();
 
+	}
+
+	public boolean isPanelRender() {
+		return panelRender;
+	}
+
+	public void setPanelRender(boolean panelRender) {
+		this.panelRender = panelRender;
 	}
 
 	public String getIcraDosyaNo() {

@@ -48,14 +48,23 @@ public class BasicTimelineController implements Serializable {
 	private String icraDosyaNo;
 	private List<ReportChronology> chronologies = new ArrayList<>();
 
-	private int icraDosyaID;
+	private int icraDosyaID = 0;
+
+	public BasicTimelineController() {
+		initialize();
+	}
 
 	public void initialize() {
 		model = new TimelineModel();
 
 		ArrayList<TimelineEvent> events = null;
 		try {
-			events = ReportChronologyCtrl.getInstance().getAllEvents(icraDosyaID);
+			if (icraDosyaID == 0 && AktifBean.getIcraDosyaID() != 0) {
+				events = ReportChronologyCtrl.getInstance().getAllEvents(AktifBean.getIcraDosyaID());
+			} else {
+				events = ReportChronologyCtrl.getInstance().getAllEvents(icraDosyaID);
+			}
+
 			panelRender = false;
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+
+<h:body>
+	<p:panel>
+		<p:spacer width="100%" height="10" />
+		<center>
+			<pe:timeline id="timeline" value="#{basicTimelineController.model}"
+				var="task" height="600px" widgetVar="timelineWdgt" width="1300px"
+				selectable="#{basicTimelineController.selectable}"
+				zoomable="#{basicTimelineController.zoomable}"
+				moveable="#{basicTimelineController.moveable}"
+				stackEvents="#{basicTimelineController.stackEvents}"
+				axisOnTop="#{basicTimelineController.axisOnTop}"
+				eventStyle="#{basicTimelineController.eventStyle}"
+				showCurrentTime="#{basicTimelineController.showCurrentTime}"
+				showNavigation="#{basicTimelineController.showNavigation}">
+
+				<h:panelGroup layout="block" style="padding-bottom:5px">
+					<h:outputText value="#{task.title}" />
+				</h:panelGroup>
+				<h:graphicImage library="images" name="#{task.imagePath}" />
+			</pe:timeline>
+		</center>
+	</p:panel>
+
+	<h:outputStylesheet id="timelineCSS">  
+    table .formColumn {  
+        padding: 0 5px 0 20px;  
+        text-align: right;  
+        white-space: nowrap;  
+    }         
+		</h:outputStylesheet>
+</h:body>
+</html>

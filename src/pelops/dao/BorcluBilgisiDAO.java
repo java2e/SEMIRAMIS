@@ -274,17 +274,20 @@ public class BorcluBilgisiDAO extends DBConnection {
 		pstm.setString(6, borcluBilgisi.getTcNo());
 
 		int result = pstm.executeUpdate();
+		disconnectDB();
+		
+		
 
-		SQL = "select \"icradosyasiID\" from tbl_baglanti where \"borcluID\" =" + tcSorgulama(borcluBilgisi.getTcNo())
-				+ ";";
-		Statement statement = conn.createStatement();
-		ResultSet resultSet = statement.executeQuery(SQL);
-		int icraDosyaId = 0;
-		while (resultSet.next()) {
-			icraDosyaId = resultSet.getInt("borcluID");
-			ChronologyUtil.getInstance().insertInstance(
-					new Instance(icraDosyaId, null, "Uyap Güncelleme", "Uyap Borclu Bilgisi Güncellendi", 2));
-		}
+//		SQL = "select \"icradosyasiID\" from tbl_baglanti where \"borcluID\" =" + tcSorgulama(borcluBilgisi.getTcNo())
+//				+ ";";
+//		Statement statement = conn.createStatement();
+//		ResultSet resultSet = statement.executeQuery(SQL);
+//		int icraDosyaId = 0;
+//		while (resultSet.next()) {
+//			icraDosyaId = resultSet.getInt("borcluID");
+//			ChronologyUtil.getInstance().insertInstance(
+//					new Instance(icraDosyaId, null, "Uyap Güncelleme", "Uyap Borclu Bilgisi Güncellendi", 2));
+//		}
 
 		disconnectDB();
 

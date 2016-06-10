@@ -273,6 +273,7 @@ public class BorcluBilgisiDAO extends DBConnection {
 		// pstm.setString(16, borcluBilgisi.getSemtAdi());
 		pstm.setString(6, borcluBilgisi.getTcNo());
 
+		System.out.println(borcluBilgisi.getTcNo());
 		int result = pstm.executeUpdate();
 		disconnectDB();
 		

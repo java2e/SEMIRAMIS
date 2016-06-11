@@ -1,6 +1,7 @@
 package pelops.kasa.controller;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
@@ -27,7 +28,7 @@ public class ViewDAO extends DBConnection {
 		String SQL = "SELECT * FROM vwkasa_izleme where 1=1";
 		java.sql.Date date1 = convertFromJAVADateToSQLDate(tarih1);
 		java.sql.Date date2 = convertFromJAVADateToSQLDate(tarih2);
-		if (tarih1!=null && tarih2!=null) {
+		if (tarih1 != null && tarih2 != null) {
 			fullSQL += " and odeme_sozu_tarihi between '" + date1 + "' and '" + date2 + "'";
 		}
 
@@ -59,6 +60,7 @@ public class ViewDAO extends DBConnection {
 		return list;
 	}
 
+	// :TODO Vizit bilgisiinin eklenmesi ile bu method güncellenmeli
 	public TahsilatViewModel getSelectedValueFromID(String id) throws Exception {
 		String[] values = id.split("-");
 		String sql = "";
@@ -99,13 +101,29 @@ public class ViewDAO extends DBConnection {
 					model.setIcraDosyaID(rs.getInt("icra_dosyasi_id"));
 				}
 				disconnectDB();
+			}else if (parameter=="vz") {
+				sql = "select * from vwkasa_vizit where id = " + ids + ";";
+
+				newConnectDB();
+				Statement stm = conn.createStatement();
+				ResultSet rs = stm.executeQuery(sql);
+				while (rs.next()) {
+					model.setId(rs.getInt("id"));
+					model.setFromID("vz-" + rs.getInt("id"));
+					model.setBorcluAdi(rs.getString("ad_soyad"));
+					model.setTarih(rs.getDate("odeme_sozu_tarihi"));
+					model.setOdemeMiktari(rs.getDouble("odeme_sozu_miktari"));
+					model.setHangiView("Izleme Bilgisi");
+					model.setIcraDosyaID(rs.getInt("icra_dosyasi"));
+				}
+				disconnectDB();
 			}
 
 		}
 		return model;
 	}
 
-	public ArrayList<TahsilatViewModel> getKasaOdemePlaniView(Date tarih1, Date tarih2) throws Exception {
+	private ArrayList<TahsilatViewModel> getKasaOdemePlaniView(Date tarih1, Date tarih2) throws Exception {
 
 		ArrayList<TahsilatViewModel> list = new ArrayList<TahsilatViewModel>();
 
@@ -114,10 +132,9 @@ public class ViewDAO extends DBConnection {
 		String SQL = "SELECT * FROM vwkasa_odeme_plani where 1=1";
 		java.sql.Date date1 = convertFromJAVADateToSQLDate(tarih1);
 		java.sql.Date date2 = convertFromJAVADateToSQLDate(tarih2);
-		if (tarih1 !=null && tarih2!=null) {
+		if (tarih1 != null && tarih2 != null) {
 			fullSQL += " and odeme_tarihleri between '" + date1 + "' and '" + date2 + "'";
 		}
-		
 
 		if (fullSQL == "") {
 			fullSQL = SQL + ";";
@@ -140,6 +157,44 @@ public class ViewDAO extends DBConnection {
 			list.add(model);
 		}
 		disconnectDB();
+		return list;
+	}
+
+	private ArrayList<TahsilatViewModel> getVizitView(Date tarih1, Date tarih2) throws Exception {
+		ArrayList<TahsilatViewModel> list = new ArrayList<>();
+		String fullSQL = "";
+
+		String SQL = "SELECT * FROM vwkasa_vizit where 1=1";
+		java.sql.Date date1 = convertFromJAVADateToSQLDate(tarih1);
+		java.sql.Date date2 = convertFromJAVADateToSQLDate(tarih2);
+		if (tarih1 != null && tarih2 != null) {
+			fullSQL += " and odeme_sozu_tarihi between '" + date1 + "' and '" + date2 + "'";
+		}
+
+		if (fullSQL == "") {
+			fullSQL = SQL + ";";
+		} else {
+			fullSQL = SQL + fullSQL + ";";
+		}
+		newConnectDB();
+		Statement stm = conn.createStatement();
+		ResultSet rs = stm.executeQuery(fullSQL);
+		while (rs.next()) {
+			TahsilatViewModel model = new TahsilatViewModel();
+			model.setId(rs.getInt("id"));
+			model.setFromID("vz-" + rs.getInt("id"));
+			model.setBorcluAdi(rs.getString("ad_soyad"));
+			model.setTarih(rs.getDate("odeme_sozu_tarihi"));
+			model.setOdemeMiktari(rs.getDouble("odeme_sozu_miktari"));
+			model.setHangiView("Vizit Bilgisi");
+			model.setIcraDosyaID(rs.getInt("icra_dosyasi"));
+			model.setIcraDosyaNo(rs.getString("icra_dosya_no"));
+			if (model.getIcraDosyaID() != 0) {
+				list.add(model);
+			}
+		}
+		disconnectDB();
+
 		return list;
 	}
 

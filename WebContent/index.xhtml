@@ -117,9 +117,11 @@ li.ui-menuitem.ui-menubar-options.ui-widget.ui-corner-all {
 						<p:menuitem value="Hızlı Takip Açma    " ajax="false"
 							update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(48)}"
 							icon="ui-icon-home" />
-						<p:menuitem value="İcra Dosya Takibi" ajax="false"
-							update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(49)}"
-							icon="ui-icon-star" />
+						<p:menuitem value="İcra Dosya Takibi" ajax="false" 
+							update=":OrtaSayfa,:formIcraDosyaTakibi:icralevhalari" action="#{icradosyaislemleribean.plakaGetir()}" actionListener="#{anaSayfaBean.gotoPage(49)}"
+							icon="ui-icon-star" >
+							
+							</p:menuitem>
 
 						<p:menuitem value="Müzekkere/Talep Hazırlama" ajax="false"
 							update=":OrtaSayfa"
@@ -484,10 +486,13 @@ li.ui-menuitem.ui-menubar-options.ui-widget.ui-corner-all {
 
 			<div id="content">
 
-				<p:panel id="OrtaSayfa">
+				
+				<h:panelGroup id="OrtaSayfa" >
+				
 					<ui:include src="#{anaSayfaBean.formPath}" />
-				</p:panel>
-
+				
+				</h:panelGroup>
+				
 			</div>
 
 

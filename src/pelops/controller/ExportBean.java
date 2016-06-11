@@ -5,11 +5,11 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
 import javax.faces.context.FacesContext;
+import javax.rmi.CORBA.UtilDelegate;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.parsers.DocumentBuilder;
@@ -29,18 +29,25 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+import org.apache.poi.ss.formula.functions.Now;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import pelops.dao.ExportXMLExcelDAO;
+import pelops.dao.LogErrorDAO;
+import pelops.model.LogError;
 import pelops.model.UyapXML;
+import pelops.util.Util;
 
 
 @ManagedBean(name="exportBean")
 @SessionScoped
 public class ExportBean {
+	LogErrorDAO log = new LogErrorDAO();
+	Date nowDate = new Date();
+	LogError newlog;
 	
 	String oldDate="01/01/1900";
 	public static String DOSYA_KLASORU = System.getProperty("catalina.base") + File.separator + "temp" + File.separator + "uyaptest.xml" + File.separator;
@@ -123,15 +130,100 @@ public class ExportBean {
 	}
 
 
-	public void Listele() throws SQLException {
+	public void Listele() {
+		try {
 		ExportXMLExcelDAO dao=new ExportXMLExcelDAO();
-		uyapModel = dao.exportUYAPXML();
+		
+			uyapModel = dao.exportUYAPXML();
+		} catch (SQLException e) {
+			String Hata="";
+			for (int i = 0; i < e.getStackTrace().length; i++) {
+				Hata += e.getStackTrace()[i]+" : ";	
+			}
+			newlog = new LogError();
+			newlog.setHata_detay(Hata);
+			newlog.setHata_value("ExportBean - Listele Prosedürü (SQL ERROR)");
+			newlog.setPage("frm_UyapXML");
+			newlog.setUser_id(99);
+			
+			
+			try {
+				log.Kaydet(newlog);	
+			} catch (Exception e2) {
+				
+			}
+			
+			
+		}catch(Exception ex){
+			String Hata="";
+			for (int i = 0; i < ex.getStackTrace().length; i++) {
+				Hata += ex.getStackTrace()[i]+" : ";	
+			}
+			newlog = new LogError();
+			newlog.setHata_detay(Hata);
+			newlog.setHata_value("ExportBean - Listele Prosedürü (STANDART ERROR)");
+			newlog.setPage("frm_UyapXML");
+			newlog.setUser_id(99);
+			
+			
+			try {
+				log.Kaydet(newlog);	
+			} catch (Exception e2) {
+				
+			}
+		}finally {
+			
+		}
+		
+	
+		
+		
 	}
 	
 	public void AralikListele() throws SQLException{
-		
+		try{
 		ExportXMLExcelDAO dao = new ExportXMLExcelDAO();
 		uyapModel = dao.exportAramaUYAPXML(gelisTarihi1, gelisTarihi2);
+		} catch (SQLException e) {
+			String Hata="";
+			for (int i = 0; i < e.getStackTrace().length; i++) {
+				Hata += e.getStackTrace()[i]+" : ";	
+			}
+			newlog = new LogError();
+			newlog.setHata_detay(Hata);
+			newlog.setHata_value("ExportBean - AralikListele Prosedürü (SQL ERROR)");
+			newlog.setPage("frm_UyapXML");
+			newlog.setUser_id(99);
+			
+			
+			try {
+				log.Kaydet(newlog);	
+			} catch (Exception e2) {
+				
+			}
+			
+			
+		}catch(Exception ex){
+			String Hata="";
+			for (int i = 0; i < ex.getStackTrace().length; i++) {
+				Hata += ex.getStackTrace()[i]+" : ";	
+			}
+			newlog = new LogError();
+			newlog.setHata_detay(Hata);
+			newlog.setHata_value("ExportBean - AralikListele Prosedürü (STANDART ERROR)");
+			newlog.setPage("frm_UyapXML");
+			newlog.setUser_id(99);
+			
+			
+			try {
+				log.Kaydet(newlog);	
+			} catch (Exception e2) {
+				
+			}
+		}finally {
+			
+		}
+		
 		
 	}
 	
@@ -154,9 +246,10 @@ public class ExportBean {
 		return SonucSayi;
 	}
 	
-	public void exportUyapXML() throws SQLException, ParserConfigurationException, TransformerException, IOException, ParseException
+	public void exportUyapXML()
 	{
 	
+		try{
 		
 		DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
@@ -574,7 +667,86 @@ public class ExportBean {
 	     response.getOutputStream().flush();
 	     response.getOutputStream().close();
 	     FacesContext.getCurrentInstance().responseComplete();
-	     
+	
+	    
+		
+				} catch (IOException e) {
+			String Hata="";
+			for (int i = 0; i < e.getStackTrace().length; i++) {
+				Hata += e.getStackTrace()[i]+" : ";	
+			}
+			newlog = new LogError();
+			newlog.setHata_detay(Hata);
+			newlog.setHata_value("ExportBean - exportUyapXML Prosedürü (IOException)");
+			newlog.setPage("frm_UyapXML");
+			newlog.setUser_id(99);
+			
+			
+			try {
+				log.Kaydet(newlog);	
+			} catch (Exception e2) {
+				
+			}
+			
+				
+		} catch (TransformerException e) {
+			String Hata="";
+			for (int i = 0; i < e.getStackTrace().length; i++) {
+				Hata += e.getStackTrace()[i]+" : ";	
+			}
+			newlog = new LogError();
+			newlog.setHata_detay(Hata);
+			newlog.setHata_value("ExportBean - exportUyapXML Prosedürü (TransformerException)");
+			newlog.setPage("frm_UyapXML");
+			newlog.setUser_id(99);
+			
+			
+			try {
+				log.Kaydet(newlog);	
+			} catch (Exception e2) {
+				
+			}
+			
+			
+		} catch (ParserConfigurationException e) {
+			String Hata="";
+			for (int i = 0; i < e.getStackTrace().length; i++) {
+				Hata += e.getStackTrace()[i]+" : ";	
+			}
+			newlog = new LogError();
+			newlog.setHata_detay(Hata);
+			newlog.setHata_value("ExportBean - exportUyapXML Prosedürü (ParserConfigurationException)");
+			newlog.setPage("frm_UyapXML");
+			newlog.setUser_id(99);
+			
+			
+			try {
+				log.Kaydet(newlog);	
+			} catch (Exception e2) {
+				
+			}
+			
+			
+		}catch(Exception ex){
+			String Hata="";
+			for (int i = 0; i < ex.getStackTrace().length; i++) {
+				Hata += ex.getStackTrace()[i]+" : ";	
+			}
+			newlog = new LogError();
+			newlog.setHata_detay(Hata);
+			newlog.setHata_value("ExportBean - exportUyapXML Prosedürü (STANDART ERROR)");
+			newlog.setPage("frm_UyapXML");
+			newlog.setUser_id(99);
+			
+			
+			try {
+				log.Kaydet(newlog);	
+			} catch (Exception e2) {
+				
+			}
+		}finally {
+			
+		}
 		
 		
 	
@@ -582,16 +754,17 @@ public class ExportBean {
 		//System.out.println("File saved!");
 		
 	//	FileDownloadView();
-		
+	 
+	     
 		
 	}
 	
 	
 
-	public void exportTakipTarihiUyapXML() throws SQLException, ParserConfigurationException, TransformerException, IOException
+	public void exportTakipTarihiUyapXML() 
 	{
 
-	
+	try{
 DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
 DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
 
@@ -1006,12 +1179,87 @@ File file = new File(DOSYA_KLASORU);
  FacesContext.getCurrentInstance().responseComplete();
  
 
+	} catch (IOException e) {
+String Hata="";
+for (int i = 0; i < e.getStackTrace().length; i++) {
+	Hata += e.getStackTrace()[i]+" : ";	
+}
+newlog = new LogError();
+newlog.setHata_detay(Hata);
+newlog.setHata_value("ExportBean - exportTakipTarihiUyapXML Prosedürü (IOException)");
+newlog.setPage("frm_UyapXML");
+newlog.setUser_id(99);
+
+
+try {
+	log.Kaydet(newlog);	
+} catch (Exception e2) {
+	
+}
+
+	
+} catch (TransformerException e) {
+String Hata="";
+for (int i = 0; i < e.getStackTrace().length; i++) {
+	Hata += e.getStackTrace()[i]+" : ";	
+}
+newlog = new LogError();
+newlog.setHata_detay(Hata);
+newlog.setHata_value("ExportBean - exportTakipTarihiUyapXML Prosedürü (TransformerException)");
+newlog.setPage("frm_UyapXML");
+newlog.setUser_id(99);
+
+
+try {
+	log.Kaydet(newlog);	
+} catch (Exception e2) {
+	
+}
+
+
+} catch (ParserConfigurationException e) {
+String Hata="";
+for (int i = 0; i < e.getStackTrace().length; i++) {
+	Hata += e.getStackTrace()[i]+" : ";	
+}
+newlog = new LogError();
+newlog.setHata_detay(Hata);
+newlog.setHata_value("ExportBean - exportTakipTarihiUyapXML Prosedürü (ParserConfigurationException)");
+newlog.setPage("frm_UyapXML");
+newlog.setUser_id(99);
+
+
+try {
+	log.Kaydet(newlog);	
+} catch (Exception e2) {
+	
+}
+
+
+}catch(Exception ex){
+String Hata="";
+for (int i = 0; i < ex.getStackTrace().length; i++) {
+	Hata += ex.getStackTrace()[i]+" : ";	
+}
+newlog = new LogError();
+newlog.setHata_detay(Hata);
+newlog.setHata_value("ExportBean - exportTakipTarihiUyapXML Prosedürü (STANDART ERROR)");
+newlog.setPage("frm_UyapXML");
+newlog.setUser_id(99);
+
+
+try {
+	log.Kaydet(newlog);	
+} catch (Exception e2) {
+	
+}
+}finally {
+
+}
 
 		
 	}
 	
-	
-	
-	
+
 
 }

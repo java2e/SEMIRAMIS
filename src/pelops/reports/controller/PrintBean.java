@@ -803,8 +803,8 @@ public class PrintBean {
 				report = reportGenel;
 			}
 			if (!İcraMd) {
-				ReportChronologyUtil.getInstance()
-						.insertObjToDB(ReportChronologyUtil.convertObjToRC(createTebligatListesiDP(), null));
+				//ReportChronologyUtil.getInstance()
+				//		.insertObjToDB(ReportChronologyUtil.convertObjToRC(createTebligatListesiDP(), null));
 				for (JasperPrint print : liste) {
 					printList.add(print);
 				}

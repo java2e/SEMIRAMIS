@@ -28,8 +28,16 @@ public class TahsilatView {
 	private String dosyaTipi;
 	private String icraDosyaNo;
 	private String icraMudurlugu;
+	private String tahsilatMiktariTL;
 
-	
+	public String getTahsilatMiktariTL() {
+		return tahsilatMiktariTL;
+	}
+
+	public void setTahsilatMiktariTL(String tahsilatMiktariTL) {
+		this.tahsilatMiktariTL = tahsilatMiktariTL;
+	}
+
 	public Date getGelisTarihi() {
 		return gelisTarihi;
 	}

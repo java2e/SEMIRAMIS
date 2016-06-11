@@ -25,8 +25,16 @@ public class Tahsilat {
 	private String gelisYeri;
 	private String tasilati_yapan;
 	private String kasa_islemini_yapan;
+	private String tahsilatMiktariTL;
 
-	
+	public String getTahsilatMiktariTL() {
+		return tahsilatMiktariTL;
+	}
+
+	public void setTahsilatMiktariTL(String tahsilatMiktariTL) {
+		this.tahsilatMiktariTL = tahsilatMiktariTL;
+	}
+
 	public String getTasilati_yapan() {
 		return tasilati_yapan;
 	}

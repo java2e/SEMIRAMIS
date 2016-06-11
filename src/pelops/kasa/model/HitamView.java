@@ -33,6 +33,52 @@ public class HitamView {
 	private String adSoyad;
 	private Date tarih;
 
+	private String tahsilatMiktariTL;
+	private String sasaReddiyatTutarTL;
+	private String devletReddiyatTutarTL;
+	private String muvekkilReddiyatTutarTL;
+	private String toplamTutarTL;
+
+	public String getTahsilatMiktariTL() {
+		return tahsilatMiktariTL;
+	}
+
+	public void setTahsilatMiktariTL(String tahsilatMiktariTL) {
+		this.tahsilatMiktariTL = tahsilatMiktariTL;
+	}
+
+	public String getSasaReddiyatTutarTL() {
+		return sasaReddiyatTutarTL;
+	}
+
+	public void setSasaReddiyatTutarTL(String sasaReddiyatTutarTL) {
+		this.sasaReddiyatTutarTL = sasaReddiyatTutarTL;
+	}
+
+	public String getDevletReddiyatTutarTL() {
+		return devletReddiyatTutarTL;
+	}
+
+	public void setDevletReddiyatTutarTL(String devletReddiyatTutarTL) {
+		this.devletReddiyatTutarTL = devletReddiyatTutarTL;
+	}
+
+	public String getMuvekkilReddiyatTutarTL() {
+		return muvekkilReddiyatTutarTL;
+	}
+
+	public void setMuvekkilReddiyatTutarTL(String muvekkilReddiyatTutarTL) {
+		this.muvekkilReddiyatTutarTL = muvekkilReddiyatTutarTL;
+	}
+
+	public String getToplamTutarTL() {
+		return toplamTutarTL;
+	}
+
+	public void setToplamTutarTL(String toplamTutarTL) {
+		this.toplamTutarTL = toplamTutarTL;
+	}
+
 	public Date getTarih() {
 		return tarih;
 	}

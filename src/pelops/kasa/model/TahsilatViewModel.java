@@ -14,7 +14,17 @@ public class TahsilatViewModel {
 	private Double odemeMiktari;
 	private String hangiView;
 
+	private String odemeMiktariTL;
+
 	private String icraDosyaNo;
+
+	public String getOdemeMiktariTL() {
+		return odemeMiktariTL;
+	}
+
+	public void setOdemeMiktariTL(String odemeMiktariTL) {
+		this.odemeMiktariTL = odemeMiktariTL;
+	}
 
 	public String getIcraDosyaNo() {
 		return icraDosyaNo;

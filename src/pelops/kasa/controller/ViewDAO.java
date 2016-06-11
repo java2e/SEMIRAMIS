@@ -7,6 +7,8 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import com.a.a.a.a.a.c;
+
 import pelops.db.DBConnection;
 import pelops.kasa.model.HitamView;
 import pelops.kasa.model.KasaSearchParams;
@@ -50,6 +52,7 @@ public class ViewDAO extends DBConnection {
 			model.setBorcluAdi(rs.getString("ad_soyad"));
 			model.setTarih(rs.getDate("odeme_sozu_tarihi"));
 			model.setOdemeMiktari(rs.getDouble("odeme_sozu_miktari"));
+			model.setOdemeMiktariTL(convertDoubleToTL(model.getOdemeMiktari()));
 			model.setHangiView("Izleme Bilgisi");
 			model.setIcraDosyaID(rs.getInt("icra_dosyasi_id"));
 			model.setPersonelAdi(rs.getString("user"));
@@ -82,6 +85,7 @@ public class ViewDAO extends DBConnection {
 					model.setBorcluAdi(rs.getString("ad_soyad"));
 					model.setTarih(rs.getDate("odeme_sozu_tarihi"));
 					model.setOdemeMiktari(rs.getDouble("odeme_sozu_miktari"));
+					model.setOdemeMiktariTL(convertDoubleToTL(model.getOdemeMiktari()));
 					model.setHangiView("Izleme Bilgisi");
 					model.setIcraDosyaID(rs.getInt("icra_dosyasi_id"));
 				}
@@ -98,6 +102,7 @@ public class ViewDAO extends DBConnection {
 					model.setBorcluAdi(rs.getString("ad_soyad"));
 					model.setTarih(rs.getDate("odeme_tarihleri"));
 					model.setOdemeMiktari(rs.getDouble("odeme_aylik_miktar"));
+					model.setOdemeMiktariTL(convertDoubleToTL(model.getOdemeMiktari()));
 					model.setHangiView("Odeme Plani Bilgisi");
 					model.setIcraDosyaID(rs.getInt("icra_dosyasi_id"));
 				}
@@ -114,6 +119,7 @@ public class ViewDAO extends DBConnection {
 					model.setBorcluAdi(rs.getString("ad_soyad"));
 					model.setTarih(rs.getDate("odeme_sozu_tarihi"));
 					model.setOdemeMiktari(rs.getDouble("odeme_sozu_miktari"));
+					model.setOdemeMiktariTL(convertDoubleToTL(model.getOdemeMiktari()));
 					model.setHangiView("Izleme Bilgisi");
 					model.setIcraDosyaID(rs.getInt("icra_dosyasi"));
 				}
@@ -152,6 +158,7 @@ public class ViewDAO extends DBConnection {
 			model.setBorcluAdi(rs.getString("ad_soyad"));
 			model.setTarih(rs.getDate("odeme_tarihleri"));
 			model.setOdemeMiktari(rs.getDouble("odeme_aylik_miktar"));
+			model.setOdemeMiktariTL(convertDoubleToTL(model.getOdemeMiktari()));
 			model.setHangiView("Odeme Plani Bilgisi");
 			model.setIcraDosyaID(rs.getInt("icra_dosyasi_id"));
 			model.setIcraDosyaNo(rs.getString("icra_dosya_no"));
@@ -187,6 +194,7 @@ public class ViewDAO extends DBConnection {
 			model.setBorcluAdi(rs.getString("ad_soyad"));
 			model.setTarih(rs.getDate("odeme_sozu_tarihi"));
 			model.setOdemeMiktari(rs.getDouble("odeme_sozu_miktari"));
+			model.setOdemeMiktariTL(convertDoubleToTL(model.getOdemeMiktari()));
 			model.setHangiView("Vizit Bilgisi");
 			model.setIcraDosyaID(rs.getInt("icra_dosyasi"));
 			model.setIcraDosyaNo(rs.getString("icra_dosya_no"));
@@ -249,6 +257,12 @@ public class ViewDAO extends DBConnection {
 			hitamView.setMuvvekkilDurum(rs.getInt("muvekkil_durum"));
 			hitamView.setToplamTutar(rs.getDouble("toplam_tutar"));
 			hitamView.setAdSoyad("ad_soyad");
+			hitamView.setTahsilatMiktariTL(convertDoubleToTL(hitamView.getTahsilatMiktari()));
+			hitamView.setDevletReddiyatTutarTL(convertDoubleToTL(hitamView.getDevletReddiyatTutar()));
+			hitamView.setSasaReddiyatTutarTL(convertDoubleToTL(hitamView.getSasaReddiyatTutar()));
+			hitamView.setMuvekkilReddiyatTutarTL(convertDoubleToTL(hitamView.getMuvvekkilReddiyatTutar()));
+			hitamView.setToplamTutarTL(convertDoubleToTL(hitamView.getToplamTutar()));
+
 			hitams.add(hitamView);
 		}
 		disconnectDB();
@@ -299,6 +313,12 @@ public class ViewDAO extends DBConnection {
 			hitamView.setMuvvekkilDurum(rs.getInt("muvekkil_durum"));
 			hitamView.setToplamTutar(rs.getDouble("toplam_tutar"));
 			hitamView.setAdSoyad("ad_soyad");
+
+			hitamView.setTahsilatMiktariTL(convertDoubleToTL(hitamView.getTahsilatMiktari()));
+			hitamView.setDevletReddiyatTutarTL(convertDoubleToTL(hitamView.getDevletReddiyatTutar()));
+			hitamView.setSasaReddiyatTutarTL(convertDoubleToTL(hitamView.getSasaReddiyatTutar()));
+			hitamView.setMuvekkilReddiyatTutarTL(convertDoubleToTL(hitamView.getMuvvekkilReddiyatTutar()));
+			hitamView.setToplamTutarTL(convertDoubleToTL(hitamView.getToplamTutar()));
 		}
 		disconnectDB();
 
@@ -323,13 +343,15 @@ public class ViewDAO extends DBConnection {
 				sql = "SELECT id, tahsilat_id, kasa_personel_id, onaylayan_id, sasa_reddiyat_tutar, "
 						+ "devlet_reddiyat_tutar, muvekkil_reddiyat_tutar, sasa_durum, devlet_durum, "
 						+ " muvekkil_adi, borclu_adi, icra_dosyasi_id, icra_dosya_no, ad_soyad, "
-						+ " muvekkil_durum, toplam_tutar, tarih " + " FROM vwreddiyat where muvekkil_durum=" + status + ";";
+						+ " muvekkil_durum, toplam_tutar, tarih " + " FROM vwreddiyat where muvekkil_durum=" + status
+						+ ";";
 				break;
 			case 3:
 				sql = "SELECT id, tahsilat_id, kasa_personel_id, onaylayan_id, sasa_reddiyat_tutar, "
 						+ "devlet_reddiyat_tutar, muvekkil_reddiyat_tutar, sasa_durum, devlet_durum, "
 						+ " muvekkil_adi, borclu_adi, icra_dosyasi_id, icra_dosya_no, ad_soyad, "
-						+ " muvekkil_durum, toplam_tutar,tarih " + " FROM vwreddiyat where devlet_durum=" + status + ";";
+						+ " muvekkil_durum, toplam_tutar,tarih " + " FROM vwreddiyat where devlet_durum=" + status
+						+ ";";
 				break;
 
 			default:
@@ -437,6 +459,7 @@ public class ViewDAO extends DBConnection {
 			view.setDosyaTipi(rs.getString("dosya_tipi"));
 			view.setIcraDosyaNo(rs.getString("icra_dosya_no"));
 			view.setIcraMudurlugu(rs.getString("icra_mudurlugu"));
+			view.setTahsilatMiktariTL(convertDoubleToTL(view.getTahsilatMiktari()));
 			list.add(view);
 		}
 		disconnectDB();
@@ -472,6 +495,7 @@ public class ViewDAO extends DBConnection {
 			view.setDosyaTipi(rs.getString("dosya_tipi"));
 			view.setIcraDosyaNo(rs.getString("icra_dosya_no"));
 			view.setIcraMudurlugu(rs.getString("icra_mudurlugu"));
+			view.setTahsilatMiktariTL(convertDoubleToTL(view.getTahsilatMiktari()));
 		}
 		disconnectDB();
 		return view;

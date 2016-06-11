@@ -816,31 +816,41 @@ public class IcraDosyaIslemleriBean {
 					.setVekalet_ucreti(hesaplistesi.getTakip_alacagi() * vekaletsinirlar.Liste(yil).getYuzde_1() / 100);
 
 		} else {
-			if (hesaplistesi.getTakip_alacagi() <= 70000) {
-				hesaplistesi.setVekalet_ucreti(3600 + (hesaplistesi.getTakip_alacagi() - 30000) * 11 / 100);
+			if (hesaplistesi.getTakip_alacagi() <= vekaletsinirlar.Liste(yil).getSinir_2()) {
+				hesaplistesi.setVekalet_ucreti((vekaletsinirlar.Liste(yil).getSinir_1()*vekaletsinirlar.Liste(yil).getYuzde_1() / 100) 
+											 + (hesaplistesi.getTakip_alacagi() - vekaletsinirlar.Liste(yil).getSinir_1()) 
+											 *  vekaletsinirlar.Liste(yil).getYuzde_2() / 100);
 			} else {
-				if (hesaplistesi.getTakip_alacagi() <= 150000) {
-					hesaplistesi.setVekalet_ucreti(8000 + (hesaplistesi.getTakip_alacagi() - 70000) * 8 / 100);
+				if (hesaplistesi.getTakip_alacagi() <= vekaletsinirlar.Liste(yil).getSinir_3()) {
+					hesaplistesi.setVekalet_ucreti((vekaletsinirlar.Liste(yil).getSinir_2()*vekaletsinirlar.Liste(yil).getYuzde_2() / 100) 
+												 + (hesaplistesi.getTakip_alacagi() - vekaletsinirlar.Liste(yil).getSinir_2()) 
+												 *  vekaletsinirlar.Liste(yil).getYuzde_3() / 100);
 				} else {
-					if (hesaplistesi.getTakip_alacagi() <= 400000) {
-						hesaplistesi.setVekalet_ucreti(14400 + (hesaplistesi.getTakip_alacagi() - 150000) * 6 / 100);
+					if (hesaplistesi.getTakip_alacagi() <= vekaletsinirlar.Liste(yil).getSinir_4()) {
+						hesaplistesi.setVekalet_ucreti((vekaletsinirlar.Liste(yil).getSinir_3()*vekaletsinirlar.Liste(yil).getYuzde_3() / 100) 
+													 + (hesaplistesi.getTakip_alacagi() - vekaletsinirlar.Liste(yil).getSinir_3()) 
+													 *  vekaletsinirlar.Liste(yil).getYuzde_4() / 100);
 
 					} else {
-						if (hesaplistesi.getTakip_alacagi() <= 1000000) {
-							hesaplistesi
-									.setVekalet_ucreti(29400 + (hesaplistesi.getTakip_alacagi() - 400000) * 4 / 100);
+						if (hesaplistesi.getTakip_alacagi() <= vekaletsinirlar.Liste(yil).getSinir_5()) {
+							hesaplistesi.setVekalet_ucreti((vekaletsinirlar.Liste(yil).getSinir_4()*vekaletsinirlar.Liste(yil).getYuzde_4() / 100) 
+														 + (hesaplistesi.getTakip_alacagi() - vekaletsinirlar.Liste(yil).getSinir_4()) 
+														 *  vekaletsinirlar.Liste(yil).getYuzde_5() / 100);
 						} else {
-							if (hesaplistesi.getTakip_alacagi() <= 1750000) {
-								hesaplistesi.setVekalet_ucreti(
-										53400 + (hesaplistesi.getTakip_alacagi() - 1000000) * 3 / 100);
+							if (hesaplistesi.getTakip_alacagi() <= vekaletsinirlar.Liste(yil).getSinir_6()) {
+								hesaplistesi.setVekalet_ucreti((vekaletsinirlar.Liste(yil).getSinir_5()*vekaletsinirlar.Liste(yil).getYuzde_5() / 100) 
+															 + (hesaplistesi.getTakip_alacagi() - vekaletsinirlar.Liste(yil).getSinir_5()) 
+															 *  vekaletsinirlar.Liste(yil).getYuzde_6() / 100);
 							} else {
 
-								if (hesaplistesi.getTakip_alacagi() <= 3000000) {
-									hesaplistesi.setVekalet_ucreti(
-											75900 + (hesaplistesi.getTakip_alacagi() - 1750000) * 1.5 / 100);
+								if (hesaplistesi.getTakip_alacagi() <= vekaletsinirlar.Liste(yil).getSinir_7()) {
+									hesaplistesi.setVekalet_ucreti((vekaletsinirlar.Liste(yil).getSinir_6()*vekaletsinirlar.Liste(yil).getYuzde_6() / 100) 
+																 + (hesaplistesi.getTakip_alacagi() - vekaletsinirlar.Liste(yil).getSinir_6()) 
+																 *  vekaletsinirlar.Liste(yil).getYuzde_7() / 100);
 								} else {
-									hesaplistesi.setVekalet_ucreti(
-											94650 + (hesaplistesi.getTakip_alacagi() - 3000000) * 1 / 100);
+									hesaplistesi.setVekalet_ucreti((vekaletsinirlar.Liste(yil).getSinir_7()*vekaletsinirlar.Liste(yil).getYuzde_7() / 100) 
+											 + (hesaplistesi.getTakip_alacagi() - vekaletsinirlar.Liste(yil).getSinir_7()) 
+											 *  vekaletsinirlar.Liste(yil).getYuzde_8() / 100);
 
 								}
 
@@ -948,7 +958,7 @@ public class IcraDosyaIslemleriBean {
 		}
 
 		AktifBean.hesaplistesi = hesaplistesi;
-	}
+	} // PROSEDÜR SONU
 
 	public void plakaGetir() throws Exception {
 		IcraDosyasiDAO icd = new IcraDosyasiDAO();

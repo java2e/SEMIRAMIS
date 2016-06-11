@@ -7,13 +7,15 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import pelops.db.DBConnection;
+import pelops.model.LogError;
 import pelops.model.UyapXML;
 
 public class ExportXMLExcelDAO extends DBConnection {
 	
-	
-	
-	public ArrayList<UyapXML> exportUYAPXML() throws SQLException
+	LogErrorDAO log = new LogErrorDAO();
+	Date nowDate = new Date();
+	LogError newlog;
+	public ArrayList<UyapXML> exportUYAPXML() throws SQLException 
 	{
 		
 		
@@ -41,13 +43,17 @@ public class ExportXMLExcelDAO extends DBConnection {
       + " FROM vwxmlhazirlama;";
 	  
 	  
-	  newConnectDB();
+	 newConnectDB();
 	  
-	  Statement stmt=conn.createStatement();
+	  
+	  ArrayList<UyapXML> liste = null;
+	  Statement stmt;
+	
+		stmt = conn.createStatement();
+	
 	  
 	  ResultSet set=stmt.executeQuery(sql);
-	  
-	  ArrayList<UyapXML> liste=new ArrayList<UyapXML>();
+	   liste=new ArrayList<UyapXML>();
 	  
 	  UyapXML uyap;
 	  
@@ -148,7 +154,8 @@ public class ExportXMLExcelDAO extends DBConnection {
 	  
 		  
 	  }
-		
+	
+	
 		return liste;
 	}
 

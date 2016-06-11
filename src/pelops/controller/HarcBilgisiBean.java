@@ -138,13 +138,12 @@ public class HarcBilgisiBean {
 	}
 
 	public void Kaydet() throws Exception {
-		
+
 		FacesContext context = FacesContext.getCurrentInstance();
 
 		if (status == 0) {
 
 			boolean result = dao.kaydet(harcBilgi);
-		
 
 			if (result) {
 				// Pop up a��lmas�n� sa�lar
@@ -157,7 +156,6 @@ public class HarcBilgisiBean {
 			}
 		} else {
 			boolean duzenlendi = dao.guncelle(harcBilgi);
-		
 
 			if (duzenlendi) {
 				context.addMessage(null, new FacesMessage("Düzenlendi!"));
@@ -203,7 +201,7 @@ public class HarcBilgisiBean {
 
 		int result = dao.Sil(id);
 
-		if (result==1) {
+		if (result == 1) {
 
 			context.addMessage(null, new FacesMessage("Silindi!"));
 
@@ -247,7 +245,6 @@ public class HarcBilgisiBean {
 
 	public void dlgYeniKayit() {
 		YeniKayit();
-		System.out.println("yeni kayıtta");
 		RequestContext.getCurrentInstance().execute("PF('dialogWidget').show()");
 	}
 

@@ -24,9 +24,6 @@ public class VekaletSinirlari {
 	 	private double vekalet_ucret ;
 	 	private double vekalet_ucret_sinir ;
 	 	
-	 	
-	 	
-	 	
 		public int getId() {
 			return id;
 		}

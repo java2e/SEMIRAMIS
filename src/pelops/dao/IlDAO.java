@@ -6,13 +6,18 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import pelops.controller.AktifBean;
 import pelops.db.DBConnection;
+import pelops.model.HarcBilgisi;
 import pelops.model.Il;
 
 
 public class IlDAO extends DBConnection{
 
-	 
+	private String SQL;
+	private PreparedStatement pstmt;
+	private Statement stm;
+	private ResultSet rs;
 	  
 	    public ArrayList<Il> Liste() throws Exception {
 
@@ -115,10 +120,28 @@ public class IlDAO extends DBConnection{
 	       disconnectDB();
 	        return st;
 	    }
-	
-//	    public static void main(String[] args) throws Exception {
-//			IlDAO dao = new  IlDAO();
-//			dao.Liste();
-//		}
+
+
+		public boolean Guncelle(Il secimIl) throws Exception {
+
+				boolean duzenlendi = false;
+
+				String SQL = "UPDATE tbl_il SET il_kodu=?, il_adi=? WHERE id=" + secimIl.getId()+ ";";
+
+				newConnectDB();
+
+				pstmt = conn.prepareStatement(SQL);
+				pstmt.setInt(1, secimIl.getIl_kodu());
+				pstmt.setString(2,secimIl.getIl_adi());
+
+				int sonuc = pstmt.executeUpdate();
+				disconnectDB();
+				if (sonuc == 1) {
+					duzenlendi = true;
+				}
+
+				return duzenlendi;
+			}
+		
 	    
 }

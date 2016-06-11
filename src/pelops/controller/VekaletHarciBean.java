@@ -7,57 +7,57 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
-import pelops.dao.IlDAO;
-import pelops.model.HacizBilgisi;
-import pelops.model.HarcBilgisi;
-import pelops.model.Il;
+import pelops.dao.BasvuruHarciDAO;
+import pelops.dao.VekaletHarciDAO;
+import pelops.model.BasvuruHarci;
+import pelops.model.VekaletHarci;
 
-@ManagedBean(name="ilBean")
+@ManagedBean(name="vekaletHarci")
 @SessionScoped
-public class IlBean {
-
-	private ArrayList<Il> ilListesiArrayList= new ArrayList<Il>();
-	private Il secimIl= new Il();
+public class VekaletHarciBean {
+	
+	private ArrayList<VekaletHarci> vekaletHarciArrayList= new ArrayList<VekaletHarci>();
+	private VekaletHarci secimVekaletHarci= new VekaletHarci();
 	boolean panelRender;
 	boolean buttonDisabled;
-	private Il il;
+	private VekaletHarci vekaletHarci;
 	boolean cmbRender;
 	boolean lblRender;
 	boolean kaydetButtonRender;
 	
 	int status=0;
+
 	
 
-
-	public Il getSecimIl() {
-		return secimIl;
+	public VekaletHarci getVekaletHarci() {
+		return vekaletHarci;
 	}
 
-	public void setSecimIl(Il secimIl) {
-		this.secimIl = secimIl;
+	public void setVekaletHarci(VekaletHarci vekaletHarci) {
+		this.vekaletHarci = vekaletHarci;
 	}
 
-	public IlBean(){
+	public VekaletHarciBean() {
 		
-		secimIl= new Il();
+		secimVekaletHarci= new VekaletHarci();
 	}
 	
-	public ArrayList<Il> Liste() throws Exception{
-		ilListesiArrayList= new ArrayList<Il>();
-		IlDAO ildao = new IlDAO();
-		ilListesiArrayList = ildao.Liste();
-		return ilListesiArrayList;		
+	public ArrayList<VekaletHarci> Liste() throws Exception{
+		vekaletHarciArrayList= new ArrayList<VekaletHarci>();
+		VekaletHarciDAO vekaletHarciDAO = new VekaletHarciDAO();
+		vekaletHarciArrayList = vekaletHarciDAO.Liste();
+		return vekaletHarciArrayList;		
 	}
 	
 	public void Kayit() throws Exception{
 		
-		IlDAO ildao = new IlDAO();
+		VekaletHarciDAO vekaletHarciDAO = new VekaletHarciDAO();
 
 		FacesContext context = FacesContext.getCurrentInstance();
 		
 		if (status == 0) {
 
-			boolean result = 	ildao.Kayit(secimIl);
+			boolean result = 	vekaletHarciDAO.Kaydet(secimVekaletHarci);
 		
 
 			if (result) {
@@ -69,7 +69,7 @@ public class IlBean {
 
 			}
 		} else {
-			boolean duzenlendi = ildao.Guncelle(secimIl);
+			boolean duzenlendi = vekaletHarciDAO.Duzenle(secimVekaletHarci);
 		
 
 			if (duzenlendi) {
@@ -80,7 +80,7 @@ public class IlBean {
 			status = 0;
 		}
 
-		ilListesiArrayList = ildao.Liste();
+		vekaletHarciArrayList = vekaletHarciDAO.Liste();
 
 		PanelClose();
 		ButtonOpen();
@@ -89,38 +89,38 @@ public class IlBean {
 		
 	
 	
-		ilListesiArrayList= new ArrayList<Il>();
-		ilListesiArrayList = ildao.Liste();
+		vekaletHarciArrayList= new ArrayList<VekaletHarci>();
+		vekaletHarciArrayList = vekaletHarciDAO.Liste();
 		
 		this.panelRender = false;
 		ButtonOpen();
 	}
 	
 	public void Sil() throws Exception{
-		IlDAO ildao = new IlDAO();
+		VekaletHarciDAO vekaletHarciDAO = new VekaletHarciDAO();
 		int id=Integer.parseInt(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("sil").toString());
-		ildao.Sil(id);
-		ilListesiArrayList= new ArrayList<Il>();
-		ilListesiArrayList = ildao.Liste();
+		vekaletHarciDAO.Sil(id);
+		vekaletHarciArrayList= new ArrayList<VekaletHarci>();
+		vekaletHarciArrayList = vekaletHarciDAO.Liste();
 	}
 	
 	public void Duzenle() throws Exception{
 			status = 1;
 
-			IlDAO ildao = new IlDAO();
-			ilListesiArrayList= new ArrayList<Il>();
-			ArrayList<Il> list = ildao.Liste();
+			VekaletHarciDAO vekaletHarciDAO = new VekaletHarciDAO();
+			vekaletHarciArrayList= new ArrayList<VekaletHarci>();
+			ArrayList<VekaletHarci> list = vekaletHarciDAO.Liste();
 
 			int id = Integer.parseInt(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap()
 					.get("id").toString());
 			
 
-			for (Il hem : list) {
+			for (VekaletHarci hem : list) {
 				if (hem.getId() == id) {
-					il = hem;
+					vekaletHarci = hem;
 				}
 			}
-			secimIl=il;
+			secimVekaletHarci=vekaletHarci;
 			PanelOpen();
 			ButtonClose();
 		
@@ -142,8 +142,8 @@ public class IlBean {
 	public void YeniKayit() throws Exception {
 
 		status = 0;
-		il = new Il();
-		secimIl = new Il();
+		vekaletHarci = new VekaletHarci();
+		secimVekaletHarci = new VekaletHarci();
 		PanelOpen();
 
 	}
@@ -185,12 +185,13 @@ public class IlBean {
 		this.buttonDisabled = buttonDisabled;
 	}
 
-	public Il getIl() {
-		return il;
+
+	public VekaletHarci getSecimVekaletHarci() {
+		return secimVekaletHarci;
 	}
 
-	public void setIl(Il il) {
-		this.il = il;
+	public void setSecimVekaletHarci(VekaletHarci secimVekaletHarci) {
+		this.secimVekaletHarci = secimVekaletHarci;
 	}
 
 	public boolean isCmbRender() {
@@ -224,8 +225,5 @@ public class IlBean {
 	public void setStatus(int status) {
 		this.status = status;
 	}
-	
-	
-	
 
 }

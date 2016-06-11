@@ -38,7 +38,7 @@ public class DAO extends DBConnection {
         while (rs.next()) {
             Sablon = new GenelTanimSablon();
             Sablon.setAdi(rs.getString("adi"));
-            Sablon.setId(rs.getString("id"));
+            Sablon.setId(rs.getInt("id"));
             SablonListesi.add(Sablon);
         }
         return SablonListesi;

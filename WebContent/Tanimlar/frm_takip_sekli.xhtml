@@ -5,72 +5,107 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:p="http://primefaces.org/ui"	>
-  
-  
+	xmlns:p="http://primefaces.org/ui">
+
+
 <h:body>
-<h:form id="formPG">
-<p:panel id="panelPG" header="TAKİP ŞEKLİ TANIMLAMA PANELİ" style="text-align:left;min-height:500px;">
+	<h:form id="form">
+		<p:panel id="panelPG" header="TAKİP ŞEKLİ TANIMLAMA PANELİ"
+			style="text-align:left;min-height:500px;">
 
-<p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
- 
-<p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false" 
-style="position: absolute; background-color: rgba(0, 0, 0, 0.6); height: 256px; width: 256px; left:0%; top:0%; z-index:2; height: 100%; width: 100%">
-    <p:graphicImage value="img/yukleme.gif" height="80" width="80" />
-</p:dialog>
+			<p:ajaxStatus onstart="PF('statusDialog').show()"
+				onsuccess="PF('statusDialog').hide()" />
 
-<p:panel id="girisPaneli" header="Takip Şekli Ekleme" style="margin-bottom:10px" >
-
-   
-
-<p:panelGrid columns="2">
-<p:outputLabel value="Takip Şekli"/>
-<h:inputText value="#{geneltanimbean.sablon.adi}" class="form-control" placeholder="Takip Şekli Giriniz"/>
-</p:panelGrid>
-<br />
-<p:panelGrid id="KayitDuzenleButonPaneli" columns="2" style="border: none !important;
-		border-style: none !important;
-		padding: 5px 20px 5px 5px !important;">
-	
-<h:commandButton  style="width:145px" class="btn btn-block btn-primary"  value="#{geneltanimbean.butonValue}" update=":formPG" action="#{geneltanimbean.IslemButonDuzenleKaydet('tbl_takip_sekli')}" />
-
-<h:commandButton  style="width:95px" class="btn btn-block btn-primary"  value="İptal" update=":formPG" action="#{geneltanimbean.Iptal}" rendered="#{geneltanimbean.iptalrender}"/>
-
-</p:panelGrid>
-
-</p:panel>
+			<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+				closable="false" resizable="false" showHeader="false"
+				style="position: absolute; background-color: rgba(0, 0, 0, 0.6); height: 256px; width: 256px; left:0%; top:0%; z-index:2; height: 100%; width: 100%">
+				<p:graphicImage value="img/yukleme.gif" height="80" width="80" />
+			</p:dialog>
 
 
-<p:dataTable value="#{geneltanimbean.ListeGetir('tbl_takip_sekli')}" var="TakipSekli" id="tblTakipSekli">
 
-	
-				
-					<p:column headerText="Düzenle" width="145" >
-						<div align="center">
-							<p:commandButton icon="ui-icon-disk" id="duzenle" value="Düzenle" action="#{geneltanimbean.TabloButonDuzenle()}" update=":formPG"  rendered="#{geneltanimbean.duzenlesilrender}">
-							<f:param name="adi" value="#{TakipSekli.adi}"/>
-							<f:param name="id" value="#{TakipSekli.id}"/>
+			<p:panel id="girisPaneli" header="Takip Şekli Ekleme"
+				style="margin-bottom:10px" rendered="#{geneltanimbean.panelRender}">
+				<p:panelGrid columns="2" style="margin-top:10px">
+
+					<p:outputLabel>Takip Şekli:</p:outputLabel>
+					<p:inputText id="ilName" value="#{geneltanimbean.secimSablon.adi}"
+						style="width: 250px"></p:inputText>
+				</p:panelGrid>
+
+				<p:growl id="growl" showDetail="true" sticky="true" />
+
+
+				<p:commandButton value="Kaydet" update="@form"
+					actionListener="#{geneltanimbean.Kayit('tbl_takip_sekli')}"
+					style="margin-top:10px;margin-right:5px">
+				</p:commandButton>
+
+				<p:commandButton value="Vazgeç" action="#{geneltanimbean.Vazgec}"
+					update="@form"></p:commandButton>
+
+			</p:panel>
+
+
+			<p:commandButton value="Yeni Kayıt" style="float:left"
+				disabled="#{geneltanimbean.buttonDisabled}"
+				action="#{geneltanimbean.YeniKayit()}" update="@form" />
+
+			<p:commandButton value="Listeyi Yenile" style="float:left"
+				disabled="#{geneltanimbean.buttonDisabled}" update="@form" />
+
+
+
+			<p:dataTable value="#{geneltanimbean.Liste('tbl_takip_sekli')}"
+				var="Belge" id="tblBelgeTipi">
+
+				<p:column headerText="Düzenle" width="145">
+					<div align="center">
+						<p:commandButton icon="ui-icon-disk" id="duzenle" value="Düzenle"
+							action="#{geneltanimbean.Duzenle('tbl_takip_sekli')}"
+							update="@form" rendered="true">
+							<f:param name="adi" value="#{Belge.adi}" />
+							<f:param name="id" value="#{Belge.id}" />
 						</p:commandButton>
-			            </div>
-					</p:column>
-					
-					
-					<p:column headerText="SİL" width="115" >
-						<div align="center">
-							<p:commandButton icon="ui-icon-cancel" id="sil" value="SİL" action="#{geneltanimbean.Sil('tbl_takip_sekli')}" update=":formPG" rendered="#{geneltanimbean.duzenlesilrender}">
-							 <f:param name="sil" value="#{TakipSekli.id}"/>
-							</p:commandButton>
-			            </div>
-					</p:column>
+					</div>
+				</p:column>
 
-<p:column headerText="TAKİP ŞEKLİ" width="450px">
-<h:outputText value="#{TakipSekli.adi}"/>
-</p:column >
 
-</p:dataTable>                
-               
- </p:panel>             
-</h:form>
+				<p:column headerText="SİL" width="115">
+					<div align="center">
+						<p:commandButton icon="ui-icon-cancel" id="sil" value="SİL"
+							action="#{geneltanimbean.Sil('tbl_takip_sekli')}"
+							update="@form" rendered="true">
+							<f:param name="sil" value="#{Belge.id}" />
+							
+							<p:confirm header="Uyarı Mesajı"
+							message="Silmek istediğinize emin misiniz ?" icon="ui-icon-alert" />
+						</p:commandButton>
+						<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+
+						<p:commandButton value="Evet" type="button"
+							styleClass="ui-confirmdialog-yes" icon="ui-icon-check">
+
+
+						</p:commandButton>
+
+						<p:commandButton value="Hayır" type="button"
+							styleClass="ui-confirmdialog-no" icon="ui-icon-close">
+
+						</p:commandButton>
+
+					</p:confirmDialog>
+					</div>
+				</p:column>
+
+				<p:column headerText="STATÜ ADI" width="250px">
+					<h:outputText value="#{Belge.adi}" />
+				</p:column>
+
+			</p:dataTable>
+
+		</p:panel>
+	</h:form>
 </h:body>
 
 </html>

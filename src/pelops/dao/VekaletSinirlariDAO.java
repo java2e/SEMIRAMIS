@@ -4,7 +4,10 @@ package pelops.dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
+
 import pelops.db.DBConnection;
+import pelops.model.VekaletHarci;
 import pelops.model.VekaletSinirlari;
 
 public class VekaletSinirlariDAO  extends DBConnection{
@@ -50,7 +53,46 @@ public class VekaletSinirlariDAO  extends DBConnection{
 		return liste;
 	}
 	
-	public void Kaydet(VekaletSinirlari liste) throws Exception{
+	
+public ArrayList<VekaletSinirlari> Liste() throws Exception{
+	
+		String SQL="SELECT  * FROM tbl_vekalet_ucret_limitleri;";
+			
+			newConnectDB();
+
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(SQL);
+			VekaletSinirlari liste;
+			ArrayList<VekaletSinirlari> basvuruHarciListe = new ArrayList<>();
+			while (rs.next()) {
+				liste = new VekaletSinirlari();
+				liste.setId(rs.getInt("id"));
+				liste.setSinir_1(rs.getDouble("sinir_1"));
+				liste.setSinir_2(rs.getDouble("sinir_2"));
+				liste.setSinir_3(rs.getDouble("sinir_3"));
+				liste.setSinir_4(rs.getDouble("sinir_4"));
+				liste.setSinir_5(rs.getDouble("sinir_5"));
+				liste.setSinir_6(rs.getDouble("sinir_6"));
+				liste.setSinir_7(rs.getDouble("sinir_7"));
+				liste.setSinir_8(rs.getDouble("sinir_8"));
+				liste.setYil(rs.getInt("yil"));
+				liste.setYuzde_1(rs.getInt("yuzde_1"));
+				liste.setYuzde_2(rs.getInt("yuzde_2"));
+				liste.setYuzde_3(rs.getInt("yuzde_3"));
+				liste.setYuzde_4(rs.getInt("yuzde_4"));
+				liste.setYuzde_5(rs.getInt("yuzde_5"));
+				liste.setYuzde_6(rs.getInt("yuzde_6"));
+				liste.setYuzde_7(rs.getInt("yuzde_7"));
+				liste.setYuzde_8(rs.getInt("yuzde_8"));
+				
+				basvuruHarciListe.add(liste);
+			}
+			
+			disconnectDB();
+			return basvuruHarciListe;
+		}
+	
+	public boolean Kaydet(VekaletSinirlari liste) throws Exception{
 		
 		
 		String SQL = "INSERT INTO tbl_vekalet_ucret_limitleri("
@@ -86,11 +128,13 @@ public class VekaletSinirlariDAO  extends DBConnection{
 		
 		disconnectDB();
 		
+		return true;
+		
 		
 	}
 	
 	
-	public void Duzenle(VekaletSinirlari liste) throws Exception{
+	public boolean  Duzenle(VekaletSinirlari liste) throws Exception{
 		
 		String SQL ="UPDATE tbl_vekalet_ucret_limitleri"
 				+ " SET yil=?, yuzde_1=?, sinir_1=?, yuzde_2=?, sinir_2=?, yuzde_3=?,"
@@ -123,6 +167,7 @@ public class VekaletSinirlariDAO  extends DBConnection{
 		ps.executeUpdate();
 		
 		disconnectDB();
+		return true;
 		
 	}
 	

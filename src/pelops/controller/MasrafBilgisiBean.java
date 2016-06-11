@@ -212,14 +212,14 @@ public class MasrafBilgisiBean extends DBConnection {
 		int id = Integer.parseInt(
 				FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("sil").toString());
 
-		int result = dao.Sil(id, masrafBilgisi);
-
-		if (result == 1) {
+		boolean result = dao.Sil(id);
+		if (result) {
 
 			context.addMessage(null, new FacesMessage("Silindi!"));
 		} else {
 			context.addMessage(null, new FacesMessage("Silme başarısız!"));
 		}
+		masrafBilListesi = dao.getAllListFromIcraDosyaID(AktifBean.icraDosyaID);
 
 	}
 

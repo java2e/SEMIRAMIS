@@ -3,6 +3,7 @@ package pelops.dao;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import pelops.controller.AktifBean;
@@ -17,6 +18,7 @@ public class MasrafDAO extends DBConnection {
 	String SQL;
 	double oldTahsilatTutari = 0;
 	double newTahsilatTutari = 0;
+	HesapDAO dao = new HesapDAO();
 
 	ArrayList<MasrafBilgisi> masrafListesi = new ArrayList<MasrafBilgisi>();
 
@@ -48,7 +50,7 @@ public class MasrafDAO extends DBConnection {
 		if (sonuc == 1) {
 
 			kaydedildi = true;
-
+			dao.guncelleMasraf(AktifBean.getIcraDosyaID(), masraf.getMasrafMiktari());
 			// hesaplaraEkle(AktifBean.getIcraDosyaID(), masraf);
 		}
 
@@ -56,63 +58,69 @@ public class MasrafDAO extends DBConnection {
 
 	}
 
-	public void hesaplaraEkle(int icraDosyaID, MasrafBilgisi masraf) throws Exception {
-
-		SQL = "SELECT tahsilat_tutari FROM tbl_hesap where id='" + AktifBean.getIcraDosyaID() + "';";
-
-		newConnectDB();
-
-		stmt = conn.createStatement();
-		rs = stmt.executeQuery(SQL);
-
-		while (rs.next()) {
-
-			oldTahsilatTutari = rs.getDouble("tahsilat_tutari");
-
-		}
-
-		newTahsilatTutari = oldTahsilatTutari + masraf.getMasrafMiktari();
-
-		SQL = "UPDATE tbl_hesap SET tahsilat_tutari=? WHERE id=" + AktifBean.getIcraDosyaID() + ";";
-
-		pstmt = conn.prepareStatement(SQL);
-
-		pstmt.setDouble(1, newTahsilatTutari);
-
-		pstmt.executeUpdate();
-
-		disconnectDB();
-
-	}
-
-	public void hesaplaraEkleForDelete(int icraDosyaID, MasrafBilgisi masraf) throws Exception {
-
-		SQL = "SELECT tahsilat_tutari FROM tbl_hesap where id='" + AktifBean.getIcraDosyaID() + "';";
-
-		newConnectDB();
-
-		stmt = conn.createStatement();
-		rs = stmt.executeQuery(SQL);
-
-		while (rs.next()) {
-
-			oldTahsilatTutari = rs.getDouble("tahsilat_tutari");
-
-		}
-
-		newTahsilatTutari = oldTahsilatTutari - masraf.getMasrafMiktari();
-
-		SQL = "UPDATE tbl_hesap SET tahsilat_tutari=? WHERE id=" + AktifBean.getIcraDosyaID() + ";";
-
-		pstmt = conn.prepareStatement(SQL);
-
-		pstmt.setDouble(1, newTahsilatTutari);
-
-		pstmt.executeUpdate();
-
-		disconnectDB();
-
-	}
+	// public void hesaplaraEkle(int icraDosyaID, MasrafBilgisi masraf) throws
+	// Exception {
+	//
+	// SQL = "SELECT tahsilat_tutari FROM tbl_hesap where id='" +
+	// AktifBean.getIcraDosyaID() + "';";
+	//
+	// newConnectDB();
+	//
+	// stmt = conn.createStatement();
+	// rs = stmt.executeQuery(SQL);
+	//
+	// while (rs.next()) {
+	//
+	// oldTahsilatTutari = rs.getDouble("tahsilat_tutari");
+	//
+	// }
+	//
+	// newTahsilatTutari = oldTahsilatTutari + masraf.getMasrafMiktari();
+	//
+	// SQL = "UPDATE tbl_hesap SET tahsilat_tutari=? WHERE id=" +
+	// AktifBean.getIcraDosyaID() + ";";
+	//
+	// pstmt = conn.prepareStatement(SQL);
+	//
+	// pstmt.setDouble(1, newTahsilatTutari);
+	//
+	// pstmt.executeUpdate();
+	//
+	// disconnectDB();
+	//
+	// }
+	//
+	// public void hesaplaraEkleForDelete(int icraDosyaID, MasrafBilgisi masraf)
+	// throws Exception {
+	//
+	// SQL = "SELECT tahsilat_tutari FROM tbl_hesap where id='" +
+	// AktifBean.getIcraDosyaID() + "';";
+	//
+	// newConnectDB();
+	//
+	// stmt = conn.createStatement();
+	// rs = stmt.executeQuery(SQL);
+	//
+	// while (rs.next()) {
+	//
+	// oldTahsilatTutari = rs.getDouble("tahsilat_tutari");
+	//
+	// }
+	//
+	// newTahsilatTutari = oldTahsilatTutari - masraf.getMasrafMiktari();
+	//
+	// SQL = "UPDATE tbl_hesap SET tahsilat_tutari=? WHERE id=" +
+	// AktifBean.getIcraDosyaID() + ";";
+	//
+	// pstmt = conn.prepareStatement(SQL);
+	//
+	// pstmt.setDouble(1, newTahsilatTutari);
+	//
+	// pstmt.executeUpdate();
+	//
+	// disconnectDB();
+	//
+	// }
 
 	public java.sql.Date convertFromJAVADateToSQLDate(java.util.Date javaDate) {
 		java.sql.Date sqlDate = null;
@@ -131,7 +139,8 @@ public class MasrafDAO extends DBConnection {
 				+ ", m.personel_id, m.masraf_tipi_id, m.uygulama_asamasi_id" + " FROM tbl_masraf_bilgisi m "
 				+ "inner join tbl_user u on m.personel_id=u.id "
 				+ "inner join tbl_masraf_tipi mt on m.masraf_tipi_id = mt.id "
-				+ "inner join tbl_uygulama_asamasi uy on m.uygulama_asamasi_id=uy.id where m.icra_dosyasi_id = "+ id + ";";
+				+ "inner join tbl_uygulama_asamasi uy on m.uygulama_asamasi_id=uy.id where m.icra_dosyasi_id = " + id
+				+ ";";
 
 		newConnectDB();
 		stmt = conn.createStatement();
@@ -160,45 +169,82 @@ public class MasrafDAO extends DBConnection {
 
 	}
 
+	public MasrafBilgisi getMasrafBilgisi(int id) {
+		SQL = "SELECT m.id, m.miktar, m.aciklama, m.tarih, u.\"adSoyad\", "
+				+ "mt.adi as mtadi, m.uygulama_asamasi_id , m.icra_dosyasi_id, uy.adi as uyadi"
+				+ ", m.personel_id, m.masraf_tipi_id, m.uygulama_asamasi_id" + " FROM tbl_masraf_bilgisi m "
+				+ "inner join tbl_user u on m.personel_id=u.id "
+				+ "inner join tbl_masraf_tipi mt on m.masraf_tipi_id = mt.id "
+				+ "inner join tbl_uygulama_asamasi uy on m.uygulama_asamasi_id=uy.id where m.id = " + id + ";";
+
+		newConnectDB();
+		MasrafBilgisi masraf = null;
+
+		try {
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(SQL);
+
+			while (rs.next()) {
+
+				masraf = new MasrafBilgisi();
+				masraf.setId(rs.getInt("id"));
+				masraf.setMasrafAciklama(rs.getString("aciklama"));
+				masraf.setMasrafMiktari(rs.getDouble("miktar"));
+				masraf.setMasrafTarihi(rs.getDate("tarih"));
+				masraf.setPersonelName(rs.getString("adSoyad"));
+				masraf.setMasrafUygulamaAsamasiName(rs.getString("uyadi"));
+				masraf.setMasrafTipiName(rs.getString("mtadi"));
+				masraf.setMasrafTipiId(rs.getInt("masraf_tipi_id"));
+				masraf.setMasrafPersonel_adi_id(rs.getInt("personel_id"));
+				masraf.setMasrafUygulamaAsamasiId(rs.getInt("uygulama_asamasi_id"));
+
+			}
+
+			disconnectDB();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return masraf;
+	}
+
 	public boolean guncelle(MasrafBilgisi masraf) throws Exception {
 		boolean duzenlendi = false;
-		SQL = "UPDATE tbl_masraf_bilgisi "
-				+ "SET id=?, miktar=?, aciklama=?, tarih=?, personel_id=?, masraf_tipi_id=?, "
-				+ " uygulama_asamasi_id=? " + "WHERE id =" + masraf.getId() + ";";
+		SQL = "UPDATE tbl_masraf_bilgisi SET  miktar=?, aciklama=?, tarih=?, personel_id=?, masraf_tipi_id=?,  uygulama_asamasi_id=? WHERE id=?;";
 
+		MasrafBilgisi masrafBilgisi = getMasrafBilgisi(masraf.getId());
+		dao.guncelleMasraf(AktifBean.getIcraDosyaID(), (masraf.getMasrafMiktari() - masrafBilgisi.getMasrafMiktari()));
 		newConnectDB();
 
 		pstmt = conn.prepareStatement(SQL);
-
-		pstmt.setInt(1, masraf.getId());
-		pstmt.setDouble(2, masraf.getMasrafMiktari());
-		pstmt.setString(3, masraf.getMasrafAciklama());
+		System.out.println(masraf.getId() + " id");
+		pstmt.setDouble(1, masraf.getMasrafMiktari());
+		pstmt.setString(2, masraf.getMasrafAciklama());
 		java.sql.Date date = convertFromJAVADateToSQLDate(masraf.getMasrafTarihi());
-		pstmt.setDate(4, date);
-		pstmt.setInt(5, masraf.getMasrafPersonel_adi_id());
-		pstmt.setInt(6, masraf.getMasrafTipiId());
-		pstmt.setInt(7, masraf.getMasrafUygulamaAsamasiId());
+		pstmt.setDate(3, date);
+		pstmt.setInt(4, masraf.getMasrafPersonel_adi_id());
+		pstmt.setInt(5, masraf.getMasrafTipiId());
+		pstmt.setInt(6, masraf.getMasrafUygulamaAsamasiId());
+		pstmt.setInt(7, masraf.getId());
 
-		int sonuc = pstmt.executeUpdate();
+		duzenlendi = pstmt.execute();
 		disconnectDB();
-		if (sonuc == 1) {
-			duzenlendi = true;
-		}
 
 		return duzenlendi;
 	}
 
-	public int Sil(int id, MasrafBilgisi masraf) throws Exception {
-		
-		int silindi=0;
+	public boolean Sil(int id) throws Exception {
+
+		boolean silindi = false;
 		SQL = "DELETE FROM tbl_masraf_bilgisi where id=" + id;
+		MasrafBilgisi masrafBilgisi = getMasrafBilgisi(id);
+		dao.guncelleMasraf(AktifBean.getIcraDosyaID(), (-masrafBilgisi.getMasrafMiktari()));
 		newConnectDB();
 
 		stmt = conn.createStatement();
-		
-		 silindi = stmt.executeUpdate(SQL);
 
-	
+		silindi = stmt.execute(SQL);
+
 		disconnectDB();
 
 		return silindi;

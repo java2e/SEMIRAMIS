@@ -198,10 +198,10 @@ public class HarcBilgisiBean {
 
 		int id = Integer.parseInt(
 				FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("sil").toString());
+		System.out.println(id);
+		boolean result = dao.Sil(id);
 
-		int result = dao.Sil(id);
-
-		if (result == 1) {
+		if (result) {
 
 			context.addMessage(null, new FacesMessage("Silindi!"));
 

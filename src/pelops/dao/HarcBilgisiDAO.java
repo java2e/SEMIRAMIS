@@ -3,6 +3,7 @@ package pelops.dao;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
@@ -17,6 +18,7 @@ public class HarcBilgisiDAO extends DBConnection {
 	private PreparedStatement pstmt;
 	private Statement stm;
 	private ResultSet rs;
+	HesapDAO dao = new HesapDAO();
 
 	@SuppressWarnings("unused")
 	public boolean kaydet(HarcBilgisi harcbilgisi) {
@@ -53,7 +55,8 @@ public class HarcBilgisiDAO extends DBConnection {
 
 			if (kaydedildi) {
 
-//				hesaplaraEkle(AktifBean.getIcraDosyaID(), harcbilgisi.getHarc_miktari());
+				// hesaplaraEkle(AktifBean.getIcraDosyaID(),
+				// harcbilgisi.getHarc_miktari());
 
 			}
 
@@ -64,22 +67,23 @@ public class HarcBilgisiDAO extends DBConnection {
 
 		return kaydedildi;
 
-	};
-
-	public void hesaplaraEkle(int icraDosyaID, double harcMiktari) throws Exception {
-
-		SQL = "UPDATE tbl_hesap SET ek_harclar=? WHERE id=" + icraDosyaID + ";";
-
-		newConnectDB();
-
-		pstmt = conn.prepareStatement(SQL);
-
-		pstmt.setDouble(1, harcMiktari);
-
-		pstmt.executeUpdate();
-		disconnectDB();
-
 	}
+
+	// public void hesaplaraEkle(int icraDosyaID, double harcMiktari) throws
+	// Exception {
+	//
+	// SQL = "UPDATE tbl_hesap SET ek_harclar=? WHERE id=" + icraDosyaID + ";";
+	//
+	// newConnectDB();
+	//
+	// pstmt = conn.prepareStatement(SQL);
+	//
+	// pstmt.setDouble(1, harcMiktari);
+	//
+	// pstmt.executeUpdate();
+	// disconnectDB();
+	//
+	// }
 
 	public ArrayList<HarcBilgisi> getAllListFromIcraDosyaID(int id) throws Exception {
 
@@ -96,7 +100,6 @@ public class HarcBilgisiDAO extends DBConnection {
 			bilgisi.setHarc_orani(rs.getDouble("harc_orani"));
 			bilgisi.setHarc_tarihi(rs.getDate("harc_tarihi"));
 			bilgisi.setHarc_tipi(rs.getString("harc_tipi"));
-			;
 			bilgisi.setUygulama_asamasi(rs.getString("uygulama_asamasi"));
 
 			list.add(bilgisi);
@@ -108,15 +111,44 @@ public class HarcBilgisiDAO extends DBConnection {
 		return list;
 	}
 
+	public HarcBilgisi getHarcBilgisi(int id) {
+		SQL = "SELECT id, harc_tarihi, harc_tipi, harc_orani, harc_miktari,"
+				+ " uygulama_asamasi, icra_dosyasi_id FROM tbl_harc_bilgisi where id =" + id + ";";
+		newConnectDB();
+		HarcBilgisi harc = new HarcBilgisi();
+
+		try {
+			stm = conn.createStatement();
+			rs = stm.executeQuery(SQL);
+			while (rs.next()) {
+
+				harc.setId(rs.getInt("id"));
+				harc.setHarc_miktari(rs.getDouble("harc_miktari"));
+				harc.setHarc_orani(rs.getDouble("harc_orani"));
+				harc.setHarc_tarihi(rs.getDate("harc_tarihi"));
+				harc.setHarc_tipi(rs.getString("harc_tipi"));
+				harc.setUygulama_asamasi(rs.getString("uygulama_asamasi"));
+
+			}
+
+			disconnectDB();
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return harc;
+	}
+
 	public boolean guncelle(HarcBilgisi harc) throws Exception {
 
 		boolean duzenlendi = false;
 
-		SQL = "UPDATE tbl_harc_bilgisi SET  harc_tarihi=?, " + "harc_tipi=?, harc_orani=?, harc_miktari=?, "
+		SQL = "UPDATE tbl_harc_bilgisi SET  harc_tarihi=?, harc_tipi=?, harc_orani=?, harc_miktari=?, "
 				+ "uygulama_asamasi=?, icra_dosyasi_id=? WHERE id=" + harc.getId() + ";";
-
+		HarcBilgisi oldHarc = getHarcBilgisi(harc.getId());
 		newConnectDB();
-
+		System.out.println(oldHarc.getHarc_miktari());
 		pstmt = conn.prepareStatement(SQL);
 		java.sql.Date date = convertFromJAVADateToSQLDate(harc.getHarc_tarihi());
 		pstmt.setDate(1, date);
@@ -131,22 +163,25 @@ public class HarcBilgisiDAO extends DBConnection {
 		disconnectDB();
 		if (sonuc == 1) {
 			duzenlendi = true;
+
+			dao.guncelleHarc(AktifBean.getIcraDosyaID(), (harc.getHarc_miktari() - oldHarc.getHarc_miktari()));
 		}
 
 		return duzenlendi;
 	}
 
-	public int Sil(int id) throws Exception {
+	public boolean Sil(int id) throws Exception {
 		SQL = "DELETE FROM tbl_harc_bilgisi where id=" + id;
-		newConnectDB();
 
+		HarcBilgisi harcBilgisi = getHarcBilgisi(id);
+		System.out.println(harcBilgisi.getHarc_miktari() + "  " + harcBilgisi.getUygulama_asamasi());
+		dao.guncelleHarc(AktifBean.getIcraDosyaID(), (harcBilgisi.getHarc_miktari() * (-1)));
+		newConnectDB();
 		stm = conn.createStatement();
-		//boolean silindi = stm.execute(SQL);
-	int silindi = stm.executeUpdate(SQL);
-	
+		// boolean silindi = stm.execute(SQL);
+		boolean silindi = stm.executeQuery(SQL) != null;
+
 		disconnectDB();
-		
-		
 
 		return silindi;
 	}

@@ -3,6 +3,7 @@ package pelops.kasa.controller;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -101,7 +102,7 @@ public class ViewDAO extends DBConnection {
 					model.setIcraDosyaID(rs.getInt("icra_dosyasi_id"));
 				}
 				disconnectDB();
-			}else if (parameter=="vz") {
+			} else if (parameter == "vz") {
 				sql = "select * from vwkasa_vizit where id = " + ids + ";";
 
 				newConnectDB();
@@ -201,6 +202,7 @@ public class ViewDAO extends DBConnection {
 	public ArrayList<TahsilatViewModel> getAllViewList(Date tarih1, Date tarih2) throws Exception {
 		ArrayList<TahsilatViewModel> returnList = getKasaIzlemeView(tarih1, tarih2);
 		returnList.addAll(getKasaOdemePlaniView(tarih1, tarih2));
+		returnList.addAll(getVizitView(tarih1, tarih2));
 		return returnList;
 
 	}
@@ -310,7 +312,7 @@ public class ViewDAO extends DBConnection {
 		String sql = "SELECT id, tahsilat_id, kasa_personel_id, onaylayan_id, sasa_reddiyat_tutar, "
 				+ "devlet_reddiyat_tutar, muvekkil_reddiyat_tutar, sasa_durum, devlet_durum, "
 				+ " muvekkil_adi, borclu_adi, icra_dosyasi_id, icra_dosya_no, ad_soyad, "
-				+ " muvekkil_durum, toplam_tutar " + " FROM vwreddiyat where sasa_durum=" + status + ";";
+				+ " muvekkil_durum, toplam_tutar, tarih " + " FROM vwreddiyat where sasa_durum=" + status + ";";
 
 		if (kimeGore != null) {
 			switch (kimeGore) {
@@ -321,13 +323,13 @@ public class ViewDAO extends DBConnection {
 				sql = "SELECT id, tahsilat_id, kasa_personel_id, onaylayan_id, sasa_reddiyat_tutar, "
 						+ "devlet_reddiyat_tutar, muvekkil_reddiyat_tutar, sasa_durum, devlet_durum, "
 						+ " muvekkil_adi, borclu_adi, icra_dosyasi_id, icra_dosya_no, ad_soyad, "
-						+ " muvekkil_durum, toplam_tutar " + " FROM vwreddiyat where muvekkil_durum=" + status + ";";
+						+ " muvekkil_durum, toplam_tutar, tarih " + " FROM vwreddiyat where muvekkil_durum=" + status + ";";
 				break;
 			case 3:
 				sql = "SELECT id, tahsilat_id, kasa_personel_id, onaylayan_id, sasa_reddiyat_tutar, "
 						+ "devlet_reddiyat_tutar, muvekkil_reddiyat_tutar, sasa_durum, devlet_durum, "
 						+ " muvekkil_adi, borclu_adi, icra_dosyasi_id, icra_dosya_no, ad_soyad, "
-						+ " muvekkil_durum, toplam_tutar " + " FROM vwreddiyat where devlet_durum=" + status + ";";
+						+ " muvekkil_durum, toplam_tutar,tarih " + " FROM vwreddiyat where devlet_durum=" + status + ";";
 				break;
 
 			default:
@@ -356,6 +358,11 @@ public class ViewDAO extends DBConnection {
 			view.setIcraDosyaNo(rs.getString("icra_dosya_no"));
 			view.setAdSoyad(rs.getString("ad_soyad"));
 			view.setToplamTutar(rs.getDouble("toplam_tutar"));
+			view.setToplamTutarTL(convertDoubleToTL(view.getToplamTutar()));
+			view.setSasaReddiyatTutarTL(convertDoubleToTL(view.getSasaReddiyatTutar()));
+			view.setDevletReddiyatTuttarTL(convertDoubleToTL(view.getDevletReddiyatTuttar()));
+			view.setMuvekkilReddiyatTutarTL(convertDoubleToTL(view.getMuvekkilReddiyatTutar()));
+			view.setTarih(rs.getDate("tarih") != null ? rs.getDate("tarih") : null);
 			list.add(view);
 		}
 		disconnectDB();
@@ -366,7 +373,7 @@ public class ViewDAO extends DBConnection {
 		String sql = "SELECT id, tahsilat_id, kasa_personel_id, onaylayan_id, sasa_reddiyat_tutar, "
 				+ "devlet_reddiyat_tutar, muvekkil_reddiyat_tutar, sasa_durum, devlet_durum, "
 				+ " muvekkil_adi, borclu_adi, icra_dosyasi_id, icra_dosya_no, ad_soyad, "
-				+ " muvekkil_durum, toplam_tutar " + " FROM vwreddiyat where id = " + id + ";";
+				+ " muvekkil_durum, toplam_tutar, tarih " + " FROM vwreddiyat where id = " + id + ";";
 		newConnectDB();
 		Statement stm = conn.createStatement();
 		ResultSet rs = stm.executeQuery(sql);
@@ -389,6 +396,11 @@ public class ViewDAO extends DBConnection {
 			view.setIcraDosyaNo(rs.getString("icra_dosya_no"));
 			view.setAdSoyad(rs.getString("ad_soyad"));
 			view.setToplamTutar(rs.getDouble("toplam_tutar"));
+			view.setToplamTutarTL(convertDoubleToTL(view.getToplamTutar()));
+			view.setSasaReddiyatTutarTL(convertDoubleToTL(view.getSasaReddiyatTutar()));
+			view.setDevletReddiyatTuttarTL(convertDoubleToTL(view.getDevletReddiyatTuttar()));
+			view.setMuvekkilReddiyatTutarTL(convertDoubleToTL(view.getMuvekkilReddiyatTutar()));
+			view.setTarih(rs.getDate("tarih"));
 		}
 		disconnectDB();
 		return view;
@@ -463,6 +475,12 @@ public class ViewDAO extends DBConnection {
 		}
 		disconnectDB();
 		return view;
+	}
+
+	public String convertDoubleToTL(double tutar) {
+
+		NumberFormat defaultFormat = NumberFormat.getCurrencyInstance();
+		return defaultFormat.format(tutar);
 	}
 
 }

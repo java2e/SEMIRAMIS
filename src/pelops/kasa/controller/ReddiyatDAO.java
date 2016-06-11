@@ -3,7 +3,9 @@ package pelops.kasa.controller;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import pelops.db.DBConnection;
 import pelops.kasa.model.Reddiyat;
@@ -20,7 +22,7 @@ public class ReddiyatDAO extends DBConnection implements IDAO {
 		ArrayList<Object> list = new ArrayList<Object>();
 		sql = "SELECT id, tahsilat_id, kasa_personel_id, onaylayan_id, sasa_reddiyat_tutar,"
 				+ " devlet_reddiyat_tutar, muvekkil_reddiyat_tutar, sasa_durum, devlet_durum, "
-				+ "  muvekkil_durum, toplam_tutar, muvekkil_adi,  borclu_adi FROM tbl_reddiyat;";
+				+ "  muvekkil_durum, toplam_tutar, muvekkil_adi,  borclu_adi , tarih FROM tbl_reddiyat;";
 		newConnectDB();
 		stm = conn.createStatement();
 		rs = stm.executeQuery(sql);
@@ -39,6 +41,7 @@ public class ReddiyatDAO extends DBConnection implements IDAO {
 			reddiyat.setToplamReddiyatTutari(rs.getDouble("toplam_tutar"));
 			reddiyat.setBorcluAdi(rs.getString("borclu_adi"));
 			reddiyat.setMuvekkilAdi(rs.getString("muvekkil_adi"));
+			reddiyat.setTarih(rs.getDate("tarih"));
 
 			list.add(reddiyat);
 		}
@@ -52,8 +55,8 @@ public class ReddiyatDAO extends DBConnection implements IDAO {
 		int id = 0;
 		sql = "INSERT INTO tbl_reddiyat( tahsilat_id, kasa_personel_id, onaylayan_id, sasa_reddiyat_tutar, "
 				+ "   devlet_reddiyat_tutar, muvekkil_reddiyat_tutar, sasa_durum, devlet_durum, "
-				+ "    muvekkil_durum, toplam_tutar, icra_dosya_id, muvekkil_adi,  borclu_adi) "
-				+ "  VALUES (?, ?, ?, ?, ?,   ?, ?, ?, ?, ?, ?, ?, ?); ";
+				+ "    muvekkil_durum, toplam_tutar, icra_dosya_id, muvekkil_adi,  borclu_adi, tarih) "
+				+ "  VALUES (?, ?, ?, ?, ?,   ?, ?, ?, ?, ?, ?, ?, ?, ?); ";
 		if (obj instanceof Reddiyat) {
 			newConnectDB();
 			psmt = conn.prepareStatement(sql);
@@ -71,6 +74,7 @@ public class ReddiyatDAO extends DBConnection implements IDAO {
 			psmt.setInt(11, ((Reddiyat) obj).getIcraDosyaID());
 			psmt.setString(12, ((Reddiyat) obj).getMuvekkilAdi());
 			psmt.setString(13, ((Reddiyat) obj).getBorcluAdi());
+			psmt.setDate(14, convertFromJAVADateToSQLDate(new Date()));
 
 			psmt.execute();
 
@@ -91,8 +95,7 @@ public class ReddiyatDAO extends DBConnection implements IDAO {
 			sql = "UPDATE tbl_reddiyat SET  tahsilat_id=?, kasa_personel_id=?, onaylayan_id=?, sasa_reddiyat_tutar=?, "
 					+ "   devlet_reddiyat_tutar=?, muvekkil_reddiyat_tutar=?, sasa_durum=?, "
 					+ "    devlet_durum=?, muvekkil_durum=?, toplam_tutar=? ,  muvekkil_adi=?,  "
-					+ "borclu_adi=? WHERE id=" + ((Reddiyat) obj).getId()
-					+ " ;";
+					+ "borclu_adi=?, tarih=? WHERE id=" + ((Reddiyat) obj).getId() + " ;";
 			newConnectDB();
 			psmt = conn.prepareStatement(sql);
 
@@ -108,6 +111,7 @@ public class ReddiyatDAO extends DBConnection implements IDAO {
 			psmt.setDouble(10, ((Reddiyat) obj).getToplamReddiyatTutari());
 			psmt.setString(11, ((Reddiyat) obj).getMuvekkilAdi());
 			psmt.setString(12, ((Reddiyat) obj).getBorcluAdi());
+			psmt.setDate(13, convertFromJAVADateToSQLDate(new Date()));
 			psmt.execute();
 
 			disconnectDB();
@@ -152,6 +156,11 @@ public class ReddiyatDAO extends DBConnection implements IDAO {
 			reddiyat.setIcraDosyaID(rs.getInt("icra_dosya_id"));
 			reddiyat.setBorcluAdi(rs.getString("borclu_adi"));
 			reddiyat.setMuvekkilAdi(rs.getString("muvekkil_adi"));
+			reddiyat.setDevletReddiyatTutariTL(convertDoubleToTL(reddiyat.getDevletReddiyatTutari()));
+			reddiyat.setMuvekkilReddiyatTutariTL(convertDoubleToTL(reddiyat.getMuvekkilReddiyatTutari()));
+			reddiyat.setSasaReddiyatTutariTL(convertDoubleToTL(reddiyat.getSasaReddiyatTutari()));
+			reddiyat.setAktifTutarTL(convertDoubleToTL(reddiyat.getAktifTutar()));
+			reddiyat.setTarih(rs.getDate("tarih"));
 		}
 		disconnectDB();
 		return reddiyat;
@@ -198,6 +207,11 @@ public class ReddiyatDAO extends DBConnection implements IDAO {
 			reddiyat.setToplamReddiyatTutari(rs.getDouble("toplam_tutar"));
 			reddiyat.setBorcluAdi(rs.getString("borclu_adi"));
 			reddiyat.setMuvekkilAdi(rs.getString("muvekkil_adi"));
+			reddiyat.setDevletReddiyatTutariTL(convertDoubleToTL(reddiyat.getDevletReddiyatTutari()));
+			reddiyat.setMuvekkilReddiyatTutariTL(convertDoubleToTL(reddiyat.getMuvekkilReddiyatTutari()));
+			reddiyat.setSasaReddiyatTutariTL(convertDoubleToTL(reddiyat.getSasaReddiyatTutari()));
+			reddiyat.setAktifTutarTL(convertDoubleToTL(reddiyat.getAktifTutar()));
+			reddiyat.setTarih(rs.getDate("tarih"));
 			list.add(reddiyat);
 		}
 		disconnectDB();
@@ -244,12 +258,22 @@ public class ReddiyatDAO extends DBConnection implements IDAO {
 			reddiyat.setToplamReddiyatTutari(rs.getDouble("toplam_tutar"));
 			reddiyat.setBorcluAdi(rs.getString("borclu_adi"));
 			reddiyat.setMuvekkilAdi(rs.getString("muvekkil_adi"));
-
+			reddiyat.setDevletReddiyatTutariTL(convertDoubleToTL(reddiyat.getDevletReddiyatTutari()));
+			reddiyat.setMuvekkilReddiyatTutariTL(convertDoubleToTL(reddiyat.getMuvekkilReddiyatTutari()));
+			reddiyat.setSasaReddiyatTutariTL(convertDoubleToTL(reddiyat.getSasaReddiyatTutari()));
+			reddiyat.setAktifTutarTL(convertDoubleToTL(reddiyat.getAktifTutar()));
+			reddiyat.setTarih(rs.getDate("tarih"));
 			list.add(reddiyat);
 		}
 		disconnectDB();
 
 		return list;
+	}
+
+	public String convertDoubleToTL(double tutar) {
+
+		NumberFormat defaultFormat = NumberFormat.getCurrencyInstance();
+		return defaultFormat.format(tutar);
 	}
 
 }

@@ -311,13 +311,13 @@ public class KasaBean {
 		
 		for (int i = 0; i < rw.size(); i++) {
 			if( rw.get(i).getDevletDurum()==0){
-				returnRW.get(i).setAktifTutar(rw.get(i).getDevletReddiyatTuttar());
+				returnRW.get(i).setAktifTutarTL(rw.get(i).getDevletReddiyatTuttarTL());
 				returnRW.get(i).setReddiyatTuru("Devlete Reddiyat");
 			}else if(rw.get(i).getMuvekkilDurum()==0){
-				returnRW.get(i).setAktifTutar(rw.get(i).getMuvekkilReddiyatTutar());
+				returnRW.get(i).setAktifTutarTL(rw.get(i).getMuvekkilReddiyatTutarTL());
 				returnRW.get(i).setReddiyatTuru("Bankaya Reddiyat");
 			}else if(rw.get(i).getSasaDurum()==0){
-				returnRW.get(i).setAktifTutar(rw.get(i).getSasaReddiyatTutar());
+				returnRW.get(i).setAktifTutarTL(rw.get(i).getSasaReddiyatTutarTL());
 				returnRW.get(i).setReddiyatTuru("Sasaya Reddiyat");
 			}
 			

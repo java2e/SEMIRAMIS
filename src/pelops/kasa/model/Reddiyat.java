@@ -23,15 +23,61 @@ public class Reddiyat {
 	private String icraDosyaNo;
 
 	private double aktifTutar;
-	
+
 	private String reddiyatTuru;
-	
+
 	private Date reddiyatTarihi;
-	
-	
-	
-	
-	
+
+	private String sasaReddiyatTutariTL;
+
+	private String muvekkilReddiyatTutariTL;
+
+	private String aktifTutarTL;
+
+	private String devletReddiyatTutariTL;
+
+	private Date tarih;
+
+	public Date getTarih() {
+		return tarih;
+	}
+
+	public void setTarih(Date tarih) {
+		this.tarih = tarih;
+	}
+
+	public String getAktifTutarTL() {
+		return aktifTutarTL;
+	}
+
+	public void setAktifTutarTL(String aktifTutarTL) {
+		this.aktifTutarTL = aktifTutarTL;
+	}
+
+	public String getSasaReddiyatTutariTL() {
+		return sasaReddiyatTutariTL;
+	}
+
+	public void setSasaReddiyatTutariTL(String sasaReddiyatTutariTL) {
+		this.sasaReddiyatTutariTL = sasaReddiyatTutariTL;
+	}
+
+	public String getMuvekkilReddiyatTutariTL() {
+		return muvekkilReddiyatTutariTL;
+	}
+
+	public void setMuvekkilReddiyatTutariTL(String muvekkilReddiyatTutariTL) {
+		this.muvekkilReddiyatTutariTL = muvekkilReddiyatTutariTL;
+	}
+
+	public String getDevletReddiyatTutariTL() {
+		return devletReddiyatTutariTL;
+	}
+
+	public void setDevletReddiyatTutariTL(String devletReddiyatTutariTL) {
+		this.devletReddiyatTutariTL = devletReddiyatTutariTL;
+	}
+
 	public Date getReddiyatTarihi() {
 		return reddiyatTarihi;
 	}

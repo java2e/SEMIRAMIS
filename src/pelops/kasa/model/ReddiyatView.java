@@ -1,5 +1,7 @@
 package pelops.kasa.model;
 
+import java.util.Date;
+
 public class ReddiyatView {
 
 	// SELECT id, tahsilat_id, kasa_personel_id, onaylayan_id,
@@ -25,14 +27,67 @@ public class ReddiyatView {
 	private String icraDosyaNo;
 	private String adSoyad;
 	private Double toplamTutar;
-	
+	private Date tarih;
+
 	private double aktifTutar;
-	
+
+	private String aktifTutarTL;
+
+	private String toplamTutarTL;
+	private String sasaReddiyatTutarTL;
+	private String devletReddiyatTuttarTL;
+	private String muvekkilReddiyatTutarTL;
+
+	public Date getTarih() {
+		return tarih;
+	}
+
+	public void setTarih(Date tarih) {
+		this.tarih = tarih;
+	}
+
 	private String reddiyatTuru;
-	
-	
-	
-	
+
+	public String getAktifTutarTL() {
+		return aktifTutarTL;
+	}
+
+	public void setAktifTutarTL(String aktifTutarTL) {
+		this.aktifTutarTL = aktifTutarTL;
+	}
+
+	public String getToplamTutarTL() {
+		return toplamTutarTL;
+	}
+
+	public void setToplamTutarTL(String toplamTutarTL) {
+		this.toplamTutarTL = toplamTutarTL;
+	}
+
+	public String getSasaReddiyatTutarTL() {
+		return sasaReddiyatTutarTL;
+	}
+
+	public void setSasaReddiyatTutarTL(String sasaReddiyatTutarTL) {
+		this.sasaReddiyatTutarTL = sasaReddiyatTutarTL;
+	}
+
+	public String getDevletReddiyatTuttarTL() {
+		return devletReddiyatTuttarTL;
+	}
+
+	public void setDevletReddiyatTuttarTL(String devletReddiyatTuttarTL) {
+		this.devletReddiyatTuttarTL = devletReddiyatTuttarTL;
+	}
+
+	public String getMuvekkilReddiyatTutarTL() {
+		return muvekkilReddiyatTutarTL;
+	}
+
+	public void setMuvekkilReddiyatTutarTL(String muvekkilReddiyatTutarTL) {
+		this.muvekkilReddiyatTutarTL = muvekkilReddiyatTutarTL;
+	}
+
 	public String getReddiyatTuru() {
 		return reddiyatTuru;
 	}

@@ -18,6 +18,7 @@ public class BaglantiDAO extends DBConnection {
     	 DBConnection DB = new DBConnection();
          DB.newConnectDB();
          String SQL = "SELECT id, \"icradosyasiID\", \"alacakliID\", \"borcluID\", \"hesaplamaID\"  FROM tbl_baglanti where \"icradosyasiID\"="+icradosyaid+";";
+        
          Statement stmt;
          ResultSet rs;
          stmt = DB.conn.createStatement();

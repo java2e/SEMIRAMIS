@@ -207,23 +207,21 @@ public class HesapDAO extends DBConnection {
 	}
 
 	public void guncelleMasraf(int id, double masrafTutari) {
-		String SQL = "UPDATE tbl_hesap SET" + " masraf_tutari=?, kalan_alacak=?, toplam_alacak=? WHERE id=" + id + ";";
-		BaglantiDAO dao = new BaglantiDAO();
-		try {
-			System.out.println(id);
-			System.out.println(dao.Listele(id).getHesaplamaID());
-			Hesap hesap = Liste(dao.Listele(id).getHesaplamaID());
+		String SQLupdate = "UPDATE tbl_hesap SET" + " masraf_tutari=?, kalan_alacak=?, toplam_alacak=? WHERE id=" + id + ";";
+				try {
+			
+			Hesap hesap = Liste(id);
 			newConnectDB();
 
-			PreparedStatement pstm = conn.prepareStatement(SQL);
+			PreparedStatement pstmt = conn.prepareStatement(SQLupdate);
 			double masraf = hesap.getMasraf_tutari() + masrafTutari;
-			pstm.setDouble(1, masraf);
+			pstmt.setDouble(1, masraf);
 			double kalan = hesap.getKalan_alacak() + masrafTutari;
-			pstm.setDouble(2, kalan);
+			pstmt.setDouble(2, kalan);
 			double toplam = hesap.getToplam_alacak() + masrafTutari;
-			pstm.setDouble(3, toplam);
+			pstmt.setDouble(3, toplam);
 
-			pstm.executeUpdate();
+			pstmt.executeUpdate();
 			disconnectDB();
 
 		} catch (Exception e) {

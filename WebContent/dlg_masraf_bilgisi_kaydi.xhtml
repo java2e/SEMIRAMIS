@@ -114,9 +114,9 @@
 		<p:commandButton id="cmdButtonVazgec" style="margin-top:10px"
 			value="Vazgeç" action="#{masrafBilgisiBean.dlgVazgec}"
 			update=":#{p:component('dialog')}"></p:commandButton>
-		<p:commandButton id="cmdButtonKaydet" value="Kaydet"
+		<p:commandButton id="cmdButtonKaydet" value="Kaydet" action="#{icradosyaislemleribean.Hesapla}"
 			actionListener="#{masrafBilgisiBean.dlgKaydet}"
-			update=":#{p:component('dialog')}"></p:commandButton>
+			update=":#{p:component('dialog')}, :formIcraDosyaTakibi:frmhesapbilgisi:hesapbilgisi"></p:commandButton>
 
 	</p:panel>
 
@@ -150,9 +150,9 @@
 		<p:column headerText="SİL" width="115">
 
 			<p:commandButton icon="ui-icon-cancel" value="Sil"
-				action="#{masrafBilgisiBean.dlgSil}"
+				action="#{icradosyaislemleribean.Hesapla}" actionListener="#{masrafBilgisiBean.dlgSil}"
 				disabled="#{masrafBilgisiBean.buttonDisabled}"
-				update=":#{p:component('dialog')}">
+				update=":#{p:component('dialog')}, :formIcraDosyaTakibi:frmhesapbilgisi:hesapbilgisi">
 				<f:param name="sil" value="#{mb.id}" />
 
 			</p:commandButton>

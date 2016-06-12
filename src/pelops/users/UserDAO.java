@@ -456,6 +456,7 @@ public class UserDAO extends DBConnection
 
 		// Genel admine tum roller dondurulur
 		if (user.getUsrKullaniciTipi() == 1)
+		//if (true)
 		{
 			buffer = new StringBuffer("select id, tur_adi as ack from tbl_rol_turu where alan_id = 1");
 

@@ -89,12 +89,13 @@ public class LoginBean {
 			FacesContext.getCurrentInstance().addMessage(
 					null,
 					new FacesMessage(FacesMessage.SEVERITY_WARN,
-							"Hatalı Giriş", "Kullanıcı adı veya şifre hatalıdır."));
+							"Hatalı Giriş", "Kullanıcı adı veya şifre hatalıdır........"));
 
 		} else {
 			
 			if (user.getUsrPwd().equals(MD5Sifreleme.sifrele(formatterP.toString()))) {
-				girisHatasiSayisi = 0;
+			//if (true) {	
+			girisHatasiSayisi = 0;
 				return true;
 			} else {
 				FacesContext.getCurrentInstance().addMessage(

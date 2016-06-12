@@ -178,6 +178,7 @@ public class HesapTanimlamaBean
 	{
 		Date date = new Date();
 		updatedUser.setGuncelleyenKullaniciId(Util.getUser().getUsrId());
+		updatedUser.setGuncelleyenKullaniciId(1);
 		updatedUser.setGuncellemeZamani(date);
 		updatedUser.setUsrPwd(geciciSifre);
 

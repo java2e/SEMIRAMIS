@@ -19,7 +19,7 @@ import pelops.kasa.model.KasaSearchParams;
 import pelops.kasa.model.ReddiyatView;
 import pelops.kasa.model.Tahsilat;
 import pelops.kasa.model.TahsilatViewModel;
-import pelops.model.User;
+import pelops.users.User;
 import pelops.report.model.ReportGenel;
 import pelops.util.Util;
 
@@ -55,7 +55,7 @@ public class TahsilatDAO extends DBConnection implements IDAO {
 		pstmt.setString(11, tahsilat.getGelisYeri());
 		pstmt.setInt(12, tahsilat.getOnaylayanID());
 		HttpSession session = Util.getSession();
-		pstmt.setInt(13, Integer.valueOf(session.getAttribute("UserID").toString()));
+		pstmt.setInt(13, Integer.valueOf(((User) session.getAttribute("user")).getUsrId()));
 		pstmt.setString(14, tahsilat.getDosya_tipi());
 		pstmt.setString(15, tahsilat.getIcra_dosya_no());
 		pstmt.setString(16, tahsilat.getIcra_mudurlugu());
@@ -321,7 +321,7 @@ public class TahsilatDAO extends DBConnection implements IDAO {
 			pstmt.setInt(12, tahsilat.getOnaylayanID());
 			HttpSession session = Util.getSession();
 
-			pstmt.setInt(13, Integer.valueOf(session.getAttribute("UserID").toString()));
+			pstmt.setInt(13, Integer.valueOf(((User) session.getAttribute("user")).getUsrId()));
 			pstmt.setString(14, tahsilat.getDosya_tipi());
 			pstmt.setString(15, tahsilat.getIcra_dosya_no());
 			pstmt.setString(16, tahsilat.getIcra_mudurlugu());

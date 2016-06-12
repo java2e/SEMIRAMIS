@@ -33,8 +33,8 @@ import pelops.kasa.model.TahsilatView;
 import pelops.kasa.model.TahsilatViewModel;
 import pelops.model.Hesap;
 import pelops.model.IcraDosyasi;
-import pelops.model.User;
-import pelops.util.Util;
+import pelops.users.User;
+import pelops.users.Util;
 
 public class KasaCtrl {
 	ViewDAO viewDAO = new ViewDAO();
@@ -218,7 +218,7 @@ public class KasaCtrl {
 
 	public int getPersonelID() {
 
-		return Integer.valueOf(Util.getSession().getAttribute("UserID").toString());
+		return Integer.valueOf(((User)Util.getSession().getAttribute("user")).getUsrId());
 
 	}
 

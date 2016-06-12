@@ -28,6 +28,7 @@ import pelops.model.DetayliArama;
 import pelops.model.GenelTanimSablon;
 import pelops.model.Hesap;
 import pelops.model.Kasa;
+import pelops.users.User;
 import pelops.util.Util;
 
 @SessionScoped
@@ -211,7 +212,7 @@ public class KasaBean {
 		bilgiTahsilat = new Tahsilat();
 		HttpSession session = Util.getSession();
 
-		bilgiTahsilat.setKasa_islemini_yapan(session.getAttribute("user").toString());
+		bilgiTahsilat.setKasa_islemini_yapan(((User) session.getAttribute("user")).getUsrAdSoyad());
 		baslangicTarihi = new Date();
 		Date tson = DateUtils.addMonths(new Date(), 1);
 		bitisTarihi = tson;
@@ -251,7 +252,7 @@ public class KasaBean {
 	bilgiTahsilat.setTahsilat_miktari(this.getTahsilatYapilacakListe().get(returnID(id)).getOdemeMiktari());
 	HttpSession session = Util.getSession();
 
-	bilgiTahsilat.setTasilati_yapan(session.getAttribute("user").toString());
+	bilgiTahsilat.setTasilati_yapan(((User) session.getAttribute("user")).getUsrAdSoyad());
 	
 	RequestContext.getCurrentInstance().execute("PF('frmtahsilatyap').show();");
 	
@@ -381,7 +382,7 @@ public class KasaBean {
 		bilgiTahsilat = new Tahsilat();
 		HttpSession session = Util.getSession();
 
-		bilgiTahsilat.setKasa_islemini_yapan(session.getAttribute("user").toString());
+		bilgiTahsilat.setKasa_islemini_yapan(((User) session.getAttribute("user")).getUsrAdSoyad());
 		baslangicTarihi = new Date();
 		Date tson = DateUtils.addMonths(new Date(), 1);
 		bitisTarihi = tson;

@@ -90,12 +90,12 @@
 						<p:panelGrid columns="2">
 									<p:panel style=" border-style: hidden !important;width:260px" header="AYLIK RAPOR">
 									<p:panelGrid  style=" border-style: hidden !important; text-align:center; height:100%" columns="1">
-									<p:outputPanel style="color:red">2016 - MAYIS</p:outputPanel>
+									<p:outputPanel style="color:red">#{kasaBean.ay}</p:outputPanel>
 									<p:panelMenu>
-										<p:submenu label="HSBC     : 65.000 TL (%88)" style="color:red;"><p:menuitem>1.</p:menuitem><p:menuitem>2.</p:menuitem> </p:submenu>
-										<p:submenu label="AKBANK   : 15.000 TL (%65)" style="color:red"><p:menuitem>1.</p:menuitem><p:menuitem>2.</p:menuitem> </p:submenu>
-										<p:submenu label="GARANTİ  : 5.000 TL (%92)" style="color:red"><p:menuitem>1.</p:menuitem><p:menuitem>2.</p:menuitem> </p:submenu>
-										<p:submenu label="DİĞER    : 35.000 TL (%99.9)" style="color:red"><p:menuitem>1.</p:menuitem><p:menuitem>2.</p:menuitem> </p:submenu>
+										<p:submenu label="HSBC     : #{kasaBean.hsbc_aylik1}" style="color:red;"><p:menuitem>1.</p:menuitem><p:menuitem>2.</p:menuitem> </p:submenu>
+										<p:submenu label="AKBANK   : #{kasaBean.akbank_aylik1}" style="color:red"><p:menuitem>1.</p:menuitem><p:menuitem>2.</p:menuitem> </p:submenu>
+										<p:submenu label="GARANTİ  : #{kasaBean.garanti_aylik1}" style="color:red"><p:menuitem>1.</p:menuitem><p:menuitem>2.</p:menuitem> </p:submenu>
+										<p:submenu label="DİĞER    : #{kasaBean.ing_aylik1}" style="color:red"><p:menuitem>1.</p:menuitem><p:menuitem>2.</p:menuitem> </p:submenu>
 									
 									</p:panelMenu>
 									
@@ -104,11 +104,13 @@
 									
 									<p:panel style=" border-style: hidden !important;"  header="GÜNLÜK RAPOR"> 
 									<p:panelGrid  style=" border-style: hidden !important; text-align:center; height:100%" columns="1">
-									<p:outputLabel style="color:red">14 Mayıs 2016 Cumartesi</p:outputLabel>
-									<p:outputLabel>HSBC A.Ş.      : 3.500 TL  (%45)</p:outputLabel>
-									<p:outputLabel>AKBANK  A.Ş.   : 500 TL (%12)</p:outputLabel>
-									<p:outputLabel>GARANTİ A.Ş.   : 1.500 TL (%50)</p:outputLabel>
-									<p:outputLabel>DİĞER A.Ş.     : 3.300 TL (%66)</p:outputLabel>
+									
+									<p:clock pattern="dd.MM.yyyy" mode="server" autoSync="true"	syncInterval="600000" />
+								
+									<p:outputLabel>HSBC A.Ş.      : #{kasaBean.hsbc_gunluk1}</p:outputLabel>
+									<p:outputLabel>AKBANK  A.Ş.   : #{kasaBean.akbank_gunluk1}</p:outputLabel>
+									<p:outputLabel>GARANTİ A.Ş.   : #{kasaBean.garanti_gunluk1}</p:outputLabel>
+									<p:outputLabel>DİĞER A.Ş.     : #{kasaBean.ing_gunluk1}</p:outputLabel>
 									
 									</p:panelGrid>
 									</p:panel>
@@ -119,11 +121,11 @@
 						
 							<p:panel header="KASA İŞLEMLERİ LİSTESİ" style="min-width:850px; min-height:700px; border-style: hidden !important;text-align:center;">
 							<p:outputLabel value="BAŞLANGIÇ TARİHİ :"/> <p:calendar id="multi"  pages="3" value="#{kasaBean.baslangicTarihi}" >
-																  <p:ajax event="dateSelect" update=":kasaForm"/>
+																  		<p:ajax event="dateSelect" update=":kasaForm"/>
 																		</p:calendar>    
 							<p:outputLabel value="    BİTİŞ TARİHİ :"/> <p:calendar id="multi1"  pages="3" value="#{kasaBean.bitisTarihi}" >
-																			 <p:ajax event="dateSelect" update=":kasaForm"/>
-																			</p:calendar>
+																		<p:ajax event="dateSelect" update=":kasaForm" />
+																		</p:calendar>
 					
 					
 						<p:tabView>
@@ -139,16 +141,12 @@
 					rows="15"
 					paginator="true"
                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                    rowsPerPageTemplate="5,10,25,50,100,1000"
-					
-					>
+                    rowsPerPageTemplate="5,10,25,50,100,1000">
 				
 					<p:column headerText="Seç" width="10%" >
-					  <p:commandButton value="Seç" type="Button" actionListener="#{icradosyaislemleribean.GelismisListe(hb.icraDosyaID)}"
-						action="#{kasaBean.TahsilatAktar(hb.id)}"
-						update=":tahsilatyap"
-						/>
-					  
+					<p:commandButton value="Seç" type="Button" actionListener="#{icradosyaislemleribean.GelismisListe(hb.icraDosyaID)}"
+					action="#{kasaBean.TahsilatAktar(hb.id)}"
+					update=":tahsilatyap"/>
 					</p:column>
 				
 				<p:column headerText="Borçlu Adı" width="30%" >

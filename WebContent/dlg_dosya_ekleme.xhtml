@@ -28,7 +28,7 @@
 				value="#{DosyaYuklemeBean.dosyaYukleme.belgeAdi}"
 				style="width:260px">
 				<f:selectItems value="#{DosyaYuklemeBean.belgeTipiList}" var="list"
-					itemLabel="#{list.adi}" itemValue="#{list.id}"
+				itemLabel="#{list.adi}" itemValue="#{list.id}"
 					noSelectionValue="true" />
 				<p:ajax event="change" update=":#{p:component('dialog')}"
 					oncomplete="PF('dialogWidget').show();"

@@ -1,5 +1,6 @@
 package pelops.kasa.controller;
 
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -55,11 +56,198 @@ public class KasaBean {
 	private KasaCtrl controller = new KasaCtrl();
 	private Reddiyat reddiyatBilgisi = new Reddiyat();
 	
+	Date tarih_rapor = new Date();
 	
+	private double hsbc_aylik, akbank_aylik, garanti_aylik, ing_aylik;
+	private double hsbc_gunluk, akbank_gunluk, garanti_gunluk, ing_gunluk;
+	
+	private String hsbc_aylik1, akbank_aylik1, garanti_aylik1, ing_aylik1;
+	private String hsbc_gunluk1, akbank_gunluk1, garanti_gunluk1, ing_gunluk1;
+	
+	
+	private String Ay, gun;
 	
 	
 
 
+
+	public String getHsbc_aylik1() {
+		return hsbc_aylik1;
+	}
+
+	public void setHsbc_aylik1(String hsbc_aylik1) {
+		this.hsbc_aylik1 = hsbc_aylik1;
+	}
+
+	public String getAkbank_aylik1() {
+		return akbank_aylik1;
+	}
+
+	public void setAkbank_aylik1(String akbank_aylik1) {
+		this.akbank_aylik1 = akbank_aylik1;
+	}
+
+	public String getGaranti_aylik1() {
+		return garanti_aylik1;
+	}
+
+	public void setGaranti_aylik1(String garanti_aylik1) {
+		this.garanti_aylik1 = garanti_aylik1;
+	}
+
+	public String getIng_aylik1() {
+		return ing_aylik1;
+	}
+
+	public void setIng_aylik1(String ing_aylik1) {
+		this.ing_aylik1 = ing_aylik1;
+	}
+
+	public String getHsbc_gunluk1() {
+		return hsbc_gunluk1;
+	}
+
+	public void setHsbc_gunluk1(String hsbc_gunluk1) {
+		this.hsbc_gunluk1 = hsbc_gunluk1;
+	}
+
+	public String getAkbank_gunluk1() {
+		return akbank_gunluk1;
+	}
+
+	public void setAkbank_gunluk1(String akbank_gunluk1) {
+		this.akbank_gunluk1 = akbank_gunluk1;
+	}
+
+	public String getGaranti_gunluk1() {
+		return garanti_gunluk1;
+	}
+
+	public void setGaranti_gunluk1(String garanti_gunluk1) {
+		this.garanti_gunluk1 = garanti_gunluk1;
+	}
+
+	public String getIng_gunluk1() {
+		return ing_gunluk1;
+	}
+
+	public void setIng_gunluk1(String ing_gunluk1) {
+		this.ing_gunluk1 = ing_gunluk1;
+	}
+
+	public String getAy() {
+		return Ay;
+	}
+
+	public void setAy(String ay) {
+		Ay = ay;
+	}
+
+	public String getGun() {
+		return gun;
+	}
+
+	public void setGun(String gun) {
+		this.gun = gun;
+	}
+
+	public Date getOlddatenew() {
+		return olddatenew;
+	}
+
+	public void setOlddatenew(Date olddatenew) {
+		this.olddatenew = olddatenew;
+	}
+
+	public Date getEnddatenew() {
+		return enddatenew;
+	}
+
+	public void setEnddatenew(Date enddatenew) {
+		this.enddatenew = enddatenew;
+	}
+
+	public Date getTarih() {
+		return tarih_rapor;
+	}
+
+	public void setTarih(Date tarih) {
+		this.tarih_rapor = tarih;
+	}
+
+	
+
+	public Date getTarih_rapor() {
+		return tarih_rapor;
+	}
+
+	public void setTarih_rapor(Date tarih_rapor) {
+		this.tarih_rapor = tarih_rapor;
+	}
+
+	public double getHsbc_aylik() {
+		return hsbc_aylik;
+	}
+
+	public void setHsbc_aylik(double hsbc_aylik) {
+		this.hsbc_aylik = hsbc_aylik;
+	}
+
+	public double getAkbank_aylik() {
+		return akbank_aylik;
+	}
+
+	public void setAkbank_aylik(double akbank_aylik) {
+		this.akbank_aylik = akbank_aylik;
+	}
+
+	public double getGaranti_aylik() {
+		return garanti_aylik;
+	}
+
+	public void setGaranti_aylik(double garanti_aylik) {
+		this.garanti_aylik = garanti_aylik;
+	}
+
+	public double getIng_aylik() {
+		return ing_aylik;
+	}
+
+	public void setIng_aylik(double ing_aylik) {
+		this.ing_aylik = ing_aylik;
+	}
+
+	public double getHsbc_gunluk() {
+		return hsbc_gunluk;
+	}
+
+	public void setHsbc_gunluk(double hsbc_gunluk) {
+		this.hsbc_gunluk = hsbc_gunluk;
+	}
+
+	public double getAkbank_gunluk() {
+		return akbank_gunluk;
+	}
+
+	public void setAkbank_gunluk(double akbank_gunluk) {
+		this.akbank_gunluk = akbank_gunluk;
+	}
+
+	public double getGaranti_gunluk() {
+		return garanti_gunluk;
+	}
+
+	public void setGaranti_gunluk(double garanti_gunluk) {
+		this.garanti_gunluk = garanti_gunluk;
+	}
+
+	public double getIng_gunluk() {
+		return ing_gunluk;
+	}
+
+	public void setIng_gunluk(double ing_gunluk) {
+		this.ing_gunluk = ing_gunluk;
+	}
 
 	public ArrayList<TahsilatViewModel> getTahsilatiGecmisListe() throws Exception {
 		return controller.getListeFromViewsForTahsilatIslemi(olddatenew, enddatenew);
@@ -111,8 +299,7 @@ public class KasaBean {
 
 	public ArrayList<TahsilatViewModel> getTahsilatYapilacakListe() throws Exception {
 	
-		
-		return controller.getListeFromViewsForTahsilatIslemi(baslangicTarihi, bitisTarihi);
+			return controller.getListeFromViewsForTahsilatIslemi(baslangicTarihi, bitisTarihi);
 	}
 
 	public void setTahsilatYapilacakListe(ArrayList<TahsilatViewModel> tahsilatYapilacakListe) {
@@ -212,7 +399,7 @@ public class KasaBean {
 		bilgiTahsilat = new Tahsilat();
 		HttpSession session = Util.getSession();
 
-		bilgiTahsilat.setKasa_islemini_yapan(((User) session.getAttribute("user")).getUsrAdSoyad());
+		bilgiTahsilat.setKasa_islemini_yapan(((User)session.getAttribute("user")).getUsrAdSoyad());
 		baslangicTarihi = new Date();
 		Date tson = DateUtils.addMonths(new Date(), 1);
 		bitisTarihi = tson;
@@ -238,7 +425,7 @@ public class KasaBean {
 		olddatenew = date;
 		enddatenew = baslangicTarihi;
 		enddatenew.setHours(-24);
-		
+		sayfaGuncelle();
 	}
 	
 	
@@ -250,6 +437,7 @@ public class KasaBean {
 	bilgiTahsilat.setIcra_dosyasi_id(AktifBean.getIcraDosyaID());
 	bilgiTahsilat.setMuvekkil_adi(AktifBean.getMuvekkilAdi());
 	bilgiTahsilat.setTahsilat_miktari(this.getTahsilatYapilacakListe().get(returnID(id)).getOdemeMiktari());
+System.out.println(id);
 	HttpSession session = Util.getSession();
 
 	bilgiTahsilat.setTasilati_yapan(((User) session.getAttribute("user")).getUsrAdSoyad());
@@ -408,6 +596,53 @@ public class KasaBean {
 		olddatenew = date;
 		enddatenew = baslangicTarihi;
 		enddatenew.setHours(-24);
+		
+		Ay ="2016 - HAZİRAN";
+		gun = tarih_rapor.toString();
+		
+		
+		for (int i = 0; i < tahsilatYapilmisListe.size(); i++) {
+			
+			if(tahsilatYapilmisListe.get(i).getMuvekkilAdi().equals("HSBC BANK A.Ş.")==true)
+				hsbc_aylik += tahsilatYapilmisListe.get(i).getTahsilatMiktari();
+			if(tahsilatYapilmisListe.get(i).getMuvekkilAdi().equals("AKBANK T.A.Ş.")==true)
+				akbank_aylik += tahsilatYapilmisListe.get(i).getTahsilatMiktari();
+			if(tahsilatYapilmisListe.get(i).getMuvekkilAdi().equals("T. GARANTİ BANKASI A.Ş.")==true)
+				garanti_aylik += tahsilatYapilmisListe.get(i).getTahsilatMiktari();
+			if(tahsilatYapilmisListe.get(i).getMuvekkilAdi().equals("İNG BANK A.Ş.")==true)
+				ing_aylik += tahsilatYapilmisListe.get(i).getTahsilatMiktari();
+			
+			SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+			
+System.out.println(format.format(tahsilatYapilmisListe.get(i).getTahsilatTarihi()));
+System.out.println(tarih_rapor);
+			if(tahsilatYapilmisListe.get(i).getTahsilatTarihi()==tarih_rapor){
+				if(tahsilatYapilmisListe.get(i).getMuvekkilAdi().equals("HSBC BANK A.Ş.")==true)
+					hsbc_gunluk += tahsilatYapilmisListe.get(i).getTahsilatMiktari();
+				if(tahsilatYapilmisListe.get(i).getMuvekkilAdi().equals("AKBANK T.A.Ş.")==true)
+					akbank_gunluk += tahsilatYapilmisListe.get(i).getTahsilatMiktari();
+				if(tahsilatYapilmisListe.get(i).getMuvekkilAdi().equals("T. GARANTİ BANKASI A.Ş.")==true)
+					garanti_gunluk += tahsilatYapilmisListe.get(i).getTahsilatMiktari();
+				if(tahsilatYapilmisListe.get(i).getMuvekkilAdi().equals("İNG BANK A.Ş.")==true)
+					ing_gunluk += tahsilatYapilmisListe.get(i).getTahsilatMiktari();
+					
+			}
+		}
+		
+		NumberFormat defaultFormat = NumberFormat.getCurrencyInstance();
+		
+		hsbc_aylik1 = defaultFormat.format(hsbc_aylik);
+		akbank_aylik1 = defaultFormat.format(akbank_aylik);
+		garanti_aylik1 = defaultFormat.format(garanti_aylik);
+		ing_aylik1 = defaultFormat.format(ing_aylik);
+		
+		hsbc_gunluk1 = defaultFormat.format(hsbc_aylik);
+		akbank_gunluk1 = defaultFormat.format(akbank_gunluk);
+		garanti_gunluk1= defaultFormat.format(garanti_gunluk);
+		ing_gunluk1 = defaultFormat.format(ing_gunluk);
+		
+				
+		
 		
 		
 	}

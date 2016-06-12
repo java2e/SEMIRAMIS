@@ -11,11 +11,14 @@ import org.primefaces.context.RequestContext;
 public class AnaSayfaBean {
 
 	private String formPath;
-
+	private Tanimlar tanimlar;
+	
 	public AnaSayfaBean() {
 
 		formPath = "frm_rapor_dashboard.xhtml";
 
+		tanimlar=new Tanimlar();
+		
 		// formPath = "frm_rapor_charts.xhtml";
 
 	}
@@ -40,6 +43,15 @@ public class AnaSayfaBean {
 		} else {
 			switch (id) {
 
+			case 222: formPath="/USER/frm_hesap_tanimlama.xhtml"; 
+			break;
+			
+		case 223: formPath="/USER/frm_takim.xhtml"; 
+		break;
+		
+		case 224: formPath="/USER/frm_kullanici_takim.xhtml"; 
+		break;
+		
 			case 1:
 				formPath = "/Tanimlar/frm_adres_statusu.xhtml";
 				break;
@@ -331,6 +343,13 @@ public class AnaSayfaBean {
 				formPath = "frm_rapor_dashboard.xhtml"; // ilk sayfa
 			}
 		}
+	}
+	public Tanimlar getTanimlar() {
+		return tanimlar;
+	}
+
+	public void setTanimlar(Tanimlar tanimlar) {
+		this.tanimlar = tanimlar;
 	}
 
 }

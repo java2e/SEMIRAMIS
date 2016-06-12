@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<pageflow:Pageflow xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf14412971573640" configfile="/SEMIRAMIS_V2/WebContent/WEB-INF/faces-config.xml"/>
+<pageflow:Pageflow xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf14412971573640" configfile="/SEMIRAMIS/WebContent/WEB-INF/faces-config.xml"/>

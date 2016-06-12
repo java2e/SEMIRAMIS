@@ -8,8 +8,6 @@
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
 
-	<h:outputStylesheet name="mycustom.css" />
-
 	<meta name="viewport" content="width=980,initial-scale=0.5"></meta>
 	<link href="style.css" rel="stylesheet" type="text/css" media="screen" />
 
@@ -48,38 +46,43 @@ li.ui-menuitem.ui-menubar-options.ui-widget.ui-corner-all {
 			</div>
 			<div id="message" style="background-color: transparent !important">
 
+<style> 
+#divUser {
+    border: 2px solid blue;
+    padding: 10px; 
+    background: white;
+	width:350px;
+    border-radius: 15px;
+    height: 70px;
+}
+</style>
 
 
-
-				<div style="width: 250px; height: 70px; float: right;">
-
-
-					<p:panelGrid columns="2">
-
-						<p:outputLabel value="Kullanıcı Adı :" />
-						<p:outputLabel value="Mehmet Demircioğlu" />
-
-						<p:outputLabel value="Kullanıcı Rolü :" />
-						<p:outputLabel value="ADMİN" />
-
-						<p:outputLabel value="Son Giriş :" />
-						<p:outputLabel value="12/12/2016 14:55" />
+	<div style="width: 400px; height: 80px; float: right;">
 
 
+<div id="divUser">
 
-					</p:panelGrid>
+<div style="width: 280px; height: 70px; float:right; padding-left: 10px;">				
+Hoş Geldiniz <strong>Mehmet Demircioğlu</strong> <br></br>
+Yetkiniz : <strong>ADMİN</strong><br></br>
+</div>
 
-
-
-
-				</div>
-
-
-				<div style="width: 80px; height: 70px; float: right;">
+<div style="width: 50px; height: 70px; float:right;">
 					<center>
-						<img src="img/SasaUser.png" width="65" height="65" id="img-circle" />
+						<img src="img/SasaUser.png" width="50" height="50" id="img-circle" />
 					</center>
 				</div>
+
+</div>
+
+
+
+
+				</div>
+
+
+				
 
 
 
@@ -94,6 +97,7 @@ li.ui-menuitem.ui-menubar-options.ui-widget.ui-corner-all {
 			</div>
 			<div class="logo"></div>
 		</div>
+
 
 		<div id="sidebar">
 			<h:form id="formMenu">
@@ -131,14 +135,28 @@ li.ui-menuitem.ui-menubar-options.ui-widget.ui-corner-all {
 
 					</p:submenu>
 
-					<p:submenu label="TANIMLAR" expanded="true" toggleable="true"
+				<p:submenu label="TANIMLAR" expanded="true" toggleable="true"
 						id="tanimlar">
-						<p:menuitem value="Adres Statüsü	   " ajax="false"
+						
+					<p:menuitem value="Kullanici İşlemleri" ajax="false"
+							update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(222)}"
+							icon="ui-icon-disk" />	
+					
+				<p:menuitem value="Takım İşlemleri" ajax="false"
+							update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(223)}"
+							icon="ui-icon-disk" />	
+					
+				<p:menuitem value="Takım Kullanıcı İşlemleri" ajax="false"
+							update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(224)}"
+							icon="ui-icon-disk" />	
+					
+						
+						<p:menuitem value="Adres Statüsü" ajax="false"
 							update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(1)}"
 							icon="ui-icon-disk" />
-						<p:menuitem value="Adres Tipi" ajax="false" update=":OrtaSayfa"
+						<p:menuitem value="Adres Tipi" ajax="false" update=":OrtaSayfa" 
 							actionListener="#{anaSayfaBean.gotoPage(2)}" icon="ui-icon-disk" />
-						<p:menuitem value="Adres Türü" ajax="false" update=":OrtaSayfa"
+						<p:menuitem value="Adres Türü" ajax="false" update=":OrtaSayfa" 
 							actionListener="#{anaSayfaBean.gotoPage(3)}" icon="ui-icon-disk" />
 						<p:menuitem value="Alacak Belge Tipi   " ajax="false"
 							update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(4)}"

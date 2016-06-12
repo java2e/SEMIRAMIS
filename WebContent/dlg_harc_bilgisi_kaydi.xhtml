@@ -111,9 +111,9 @@
 				<p:column headerText="SİL" width="115">
 
 					<p:commandButton icon="ui-icon-cancel" value="Sil"
-						action="#{harcBean.dlgSil}"
+						action="#{icradosyaislemleribean.Hesapla}" actionListener="#{harcBean.dlgSil}"
 						disabled="#{harcBean.buttonDisabled}"
-						update=":#{p:component('dialog')}">
+						update=":#{p:component('dialog')}, :formIcraDosyaTakibi:frmhesapbilgisi:hesapbilgisi" >
 						<f:param name="sil" value="#{hb.id}" />
 
 					</p:commandButton>

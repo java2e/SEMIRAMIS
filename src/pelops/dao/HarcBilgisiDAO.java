@@ -49,16 +49,11 @@ public class HarcBilgisiDAO extends DBConnection {
 
 			if (result == 1) {
 
-				return kaydedildi = true;
+				kaydedildi = true;
 
 			}
 
-			if (kaydedildi) {
-
-				// hesaplaraEkle(AktifBean.getIcraDosyaID(),
-				// harcbilgisi.getHarc_miktari());
-
-			}
+			
 
 		} catch (Exception ex) {
 
@@ -69,27 +64,37 @@ public class HarcBilgisiDAO extends DBConnection {
 
 	}
 
-	// public void hesaplaraEkle(int icraDosyaID, double harcMiktari) throws
-	// Exception {
-	//
-	// SQL = "UPDATE tbl_hesap SET ek_harclar=? WHERE id=" + icraDosyaID + ";";
-	//
-	// newConnectDB();
-	//
-	// pstmt = conn.prepareStatement(SQL);
-	//
-	// pstmt.setDouble(1, harcMiktari);
-	//
-	// pstmt.executeUpdate();
-	// disconnectDB();
-	//
-	// }
+//	 public void hesaplaraEkle(int icraDosyaID, double harcMiktari) throws
+//	 Exception {
+//	
+//		 HesapDAO hesap = new HesapDAO();
+//		 int hesapID = hesap.HesapIdGetir(icraDosyaID);
+//		 double digerHarclar = hesap.Liste(hesapID).getDiger_harclar(), 
+//				toplamAlacak = hesap.Liste(hesapID).getToplam_alacak(), 
+//				kalanAlacak = hesap.Liste(hesapID).getKalan_alacak();
+//	
+//		 
+//		 
+//	 SQL = "UPDATE tbl_hesap  SET diger_harclar=?, toplam_alacak=?, kalan_alacak=?  WHERE id=" + hesapID + ";";
+//	 System.out.println(SQL);
+//	 newConnectDB();
+//	 PreparedStatement pstmt1 = conn.prepareStatement(SQL.toString());
+//	
+//	 pstmt1.setDouble(1, (harcMiktari+digerHarclar));
+//	 pstmt1.setDouble(2, (harcMiktari+toplamAlacak));
+//	 pstmt1.setDouble(3, (harcMiktari+kalanAlacak));
+//	
+//	 
+//	 pstmt1.executeUpdate();
+//	 disconnectDB();
+//	
+//	 }
 
 	public ArrayList<HarcBilgisi> getAllListFromIcraDosyaID(int id) throws Exception {
 
 		ArrayList<HarcBilgisi> list = new ArrayList<HarcBilgisi>();
 		SQL = "SELECT id, harc_tarihi, harc_tipi, harc_orani, harc_miktari,"
-				+ " uygulama_asamasi, icra_dosyasi_id FROM tbl_harc_bilgisi;";
+				+ " uygulama_asamasi, icra_dosyasi_id FROM tbl_harc_bilgisi where icra_dosyasi_id="+id;
 		newConnectDB();
 		stm = conn.createStatement();
 		rs = stm.executeQuery(SQL);
@@ -111,6 +116,8 @@ public class HarcBilgisiDAO extends DBConnection {
 		return list;
 	}
 
+	
+	
 	public HarcBilgisi getHarcBilgisi(int id) {
 		SQL = "SELECT id, harc_tarihi, harc_tipi, harc_orani, harc_miktari,"
 				+ " uygulama_asamasi, icra_dosyasi_id FROM tbl_harc_bilgisi where id =" + id + ";";
@@ -173,13 +180,11 @@ public class HarcBilgisiDAO extends DBConnection {
 	public boolean Sil(int id) throws Exception {
 		SQL = "DELETE FROM tbl_harc_bilgisi where id=" + id;
 
-		HarcBilgisi harcBilgisi = getHarcBilgisi(id);
-		System.out.println(harcBilgisi.getHarc_miktari() + "  " + harcBilgisi.getUygulama_asamasi());
-		dao.guncelleHarc(AktifBean.getIcraDosyaID(), (harcBilgisi.getHarc_miktari() * (-1)));
+		
 		newConnectDB();
 		stm = conn.createStatement();
-		// boolean silindi = stm.execute(SQL);
-		boolean silindi = stm.executeQuery(SQL) != null;
+		 boolean silindi = stm.execute(SQL);
+		//boolean silindi = stm.executeQuery(SQL) != null;
 
 		disconnectDB();
 

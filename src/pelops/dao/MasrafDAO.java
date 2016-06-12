@@ -50,7 +50,9 @@ public class MasrafDAO extends DBConnection {
 		if (sonuc == 1) {
 
 			kaydedildi = true;
-			dao.guncelleMasraf(AktifBean.getIcraDosyaID(), masraf.getMasrafMiktari());
+			BaglantiDAO hsdao = new BaglantiDAO();
+			int hsID = hsdao.Listele(AktifBean.getIcraDosyaID()).getHesaplamaID();
+			dao.guncelleMasraf(hsID, masraf.getMasrafMiktari());
 			// hesaplaraEkle(AktifBean.getIcraDosyaID(), masraf);
 		}
 
@@ -235,17 +237,15 @@ public class MasrafDAO extends DBConnection {
 
 	public boolean Sil(int id) throws Exception {
 
-		boolean silindi = false;
-		SQL = "DELETE FROM tbl_masraf_bilgisi where id=" + id;
+		boolean silindi = true;
+		String SQLdelete = "DELETE FROM tbl_masraf_bilgisi where id=" + id;
 		MasrafBilgisi masrafBilgisi = getMasrafBilgisi(id);
 		dao.guncelleMasraf(AktifBean.getIcraDosyaID(), (-masrafBilgisi.getMasrafMiktari()));
-		newConnectDB();
-
-		stmt = conn.createStatement();
-
-		silindi = stmt.execute(SQL);
-
-		disconnectDB();
+		System.out.println(SQLdelete);
+		 newConnectDB();
+	        Statement stmt = conn.createStatement();
+	       stmt.execute(SQLdelete);
+	        disconnectDB();
 
 		return silindi;
 	}

@@ -201,6 +201,8 @@ public class HarcBilgisiBean {
 		System.out.println(id);
 		boolean result = dao.Sil(id);
 
+		
+		
 		if (result) {
 
 			context.addMessage(null, new FacesMessage("Silindi!"));

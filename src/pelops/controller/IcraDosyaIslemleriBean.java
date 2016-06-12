@@ -21,6 +21,7 @@ import pelops.dao.AlacakliDAO;
 import pelops.dao.BaglantiDAO;
 import pelops.dao.BasvuruHarciDAO;
 import pelops.dao.BorcluBilgisiDAO;
+import pelops.dao.HarcBilgisiDAO;
 import pelops.dao.HesapDAO;
 import pelops.dao.IcraDosyasiDAO;
 import pelops.dao.VekaletHarciDAO;
@@ -28,6 +29,7 @@ import pelops.dao.VekaletSinirlariDAO;
 import pelops.model.AlacakliBilgiler;
 import pelops.model.Baglanti;
 import pelops.model.BorcluBilgisi;
+import pelops.model.HarcBilgisi;
 import pelops.model.Hesap;
 import pelops.model.HesaplarList;
 import pelops.model.IcraDosyasi;
@@ -908,8 +910,12 @@ public class IcraDosyaIslemleriBean {
 
 		double pesinHarc = hesaplistesi.getTakip_alacagi() * 0.5 / 100;
 
-		double digerHarc = basvuruHarci + vekaletHarci + pesinHarc;
+		
+		
+		double digerHarc = basvuruHarci + vekaletHarci + pesinHarc + toplamharc();
 
+		
+		
 		double harcoran = this.getHarcoranTL();
 
 		this.setPesinHarcTL(pesinHarc);
@@ -1248,6 +1254,27 @@ public class IcraDosyaIslemleriBean {
 
 	public void setDlgURL(String dlgURL) {
 		this.dlgURL = dlgURL;
+	}
+	
+	
+	
+	public double toplamharc(){
+		
+		HarcBilgisiDAO dao = new HarcBilgisiDAO();
+		double returndouble = 0;
+		
+		try {
+			for (HarcBilgisi harc : dao.getAllListFromIcraDosyaID(AktifBean.getIcraDosyaID())) {
+				
+				returndouble += harc.getHarc_miktari();
+			}
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return returndouble;
+		
 	}
 
 	// public void getirURL(int deger){

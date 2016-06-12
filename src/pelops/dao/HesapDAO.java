@@ -196,7 +196,7 @@ public class HesapDAO extends DBConnection {
 			double toplam = hesap.getToplam_alacak() + harcTutari;
 			pstm.setDouble(3, toplam);
 
-			pstm.execute();
+			pstm.executeUpdate();
 			disconnectDB();
 
 		} catch (Exception e) {
@@ -210,6 +210,8 @@ public class HesapDAO extends DBConnection {
 		String SQL = "UPDATE tbl_hesap SET" + " masraf_tutari=?, kalan_alacak=?, toplam_alacak=? WHERE id=" + id + ";";
 		BaglantiDAO dao = new BaglantiDAO();
 		try {
+			System.out.println(id);
+			System.out.println(dao.Listele(id).getHesaplamaID());
 			Hesap hesap = Liste(dao.Listele(id).getHesaplamaID());
 			newConnectDB();
 
@@ -221,7 +223,7 @@ public class HesapDAO extends DBConnection {
 			double toplam = hesap.getToplam_alacak() + masrafTutari;
 			pstm.setDouble(3, toplam);
 
-			pstm.execute();
+			pstm.executeUpdate();
 			disconnectDB();
 
 		} catch (Exception e) {

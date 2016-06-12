@@ -211,7 +211,7 @@ public class MasrafBilgisiBean extends DBConnection {
 
 		int id = Integer.parseInt(
 				FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("sil").toString());
-
+System.out.println(id);
 		boolean result = dao.Sil(id);
 		if (result) {
 

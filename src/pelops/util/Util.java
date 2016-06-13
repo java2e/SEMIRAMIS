@@ -5,7 +5,7 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import pelops.model.User;
+import pelops.users.User;
 
 public class Util {
  

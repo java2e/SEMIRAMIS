@@ -389,7 +389,7 @@ public class KasaBean {
 		this.modelKasa = modelKasa;
 	}
 
-	@SuppressWarnings("deprecation")
+	@SuppressWarnings({ "deprecation", "static-access", "unchecked" })
 	public KasaBean() throws Exception {
 
 		String oldDate = "01/01/1900";
@@ -397,10 +397,12 @@ public class KasaBean {
 		GelismisAramaDAO dao = new GelismisAramaDAO();
 		detayliAramaListesi = dao.Listele("", "", "", "", "", "", 0, 0, 0, tarih, tarih, tarih, tarih, tarih, tarih);
 		bilgiTahsilat = new Tahsilat();
-		HttpSession session = Util.getSession();
+		
+		Util usersbilgil = new Util();
 
-		bilgiTahsilat.setKasa_islemini_yapan(((User)session.getAttribute("user")).getUsrAdSoyad());
-		baslangicTarihi = new Date();
+		bilgiTahsilat.setKasa_islemini_yapan(usersbilgil.getUser().getUsrAdSoyad());
+		
+		baslangicTarihi = new Date(); 
 		Date tson = DateUtils.addMonths(new Date(), 1);
 		bitisTarihi = tson;
 
@@ -431,16 +433,15 @@ public class KasaBean {
 	
 	public void TahsilatAktar(int id) throws Exception{
 	
-	
+		Util usersbilgi = new Util();
+		
 	bilgiTahsilat.setBorclu_adi(AktifBean.getBorcluAdi());
 	bilgiTahsilat.setIcra_dosya_no(AktifBean.getIcraDosyaNo());
 	bilgiTahsilat.setIcra_dosyasi_id(AktifBean.getIcraDosyaID());
 	bilgiTahsilat.setMuvekkil_adi(AktifBean.getMuvekkilAdi());
 	bilgiTahsilat.setTahsilat_miktari(this.getTahsilatYapilacakListe().get(returnID(id)).getOdemeMiktari());
-System.out.println(id);
-	HttpSession session = Util.getSession();
 
-	bilgiTahsilat.setTasilati_yapan(((User) session.getAttribute("user")).getUsrAdSoyad());
+	bilgiTahsilat.setTasilati_yapan(usersbilgi.getUser().getUsrName());
 	
 	RequestContext.getCurrentInstance().execute("PF('frmtahsilatyap').show();");
 	
@@ -473,16 +474,15 @@ System.out.println(id);
 	}
 	
 	public void icraDosyaSec(int id) {
-
+		
+		Util usersbilgi = new Util();
 		RequestContext.getCurrentInstance().execute("PF('dlgdetayliarama').hide()");
 
 		bilgiTahsilat.setBorclu_adi(AktifBean.getBorcluAdi());
 		bilgiTahsilat.setIcra_dosya_no(AktifBean.getIcraDosyaNo());
 		bilgiTahsilat.setIcra_dosyasi_id(AktifBean.getIcraDosyaID());
 		bilgiTahsilat.setMuvekkil_adi(AktifBean.getMuvekkilAdi());
-		HttpSession session = Util.getSession();
-
-		bilgiTahsilat.setTasilati_yapan(session.getAttribute("user").toString());
+		bilgiTahsilat.setTasilati_yapan(usersbilgi.getUser().getUsrName());
 	}
 
 	public void ReddiyatAktar(int id){

@@ -10,8 +10,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.servlet.http.HttpSession;
 
-import pelops.dao.UserDAO;
-import pelops.model.User;
+import pelops.users.User;
+import pelops.users.UserDAO;
 import pelops.util.Util;
 
 
@@ -85,30 +85,30 @@ public class GenericBean implements Serializable
 			UserDAO dao = new UserDAO();
 			
 			try {
-				user = dao.getUserinkullaniciAdi(kullanici);
+				user = dao.selectByUsrName(kullanici);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} 
 			
-			if (user.getSifre().equals(sifre.trim()))
+			if (user.getUsrPwd().equals(sifre.trim()))
 			{
-				if(user.getKullaniciAdi().equals("SasaKasa"))
+				if(user.getUsrName().equals("SasaKasa"))
 				{
 					HttpSession session = Util.getSession();
-					session.setAttribute("username", user.getKullaniciAdi());
-					kullaniciAdi = user.getAdSoyad();
-					session.setAttribute("user", user.getAdSoyad());
-					session.setAttribute("UserID", user.getId());
+					session.setAttribute("username", user.getUsrName());
+					kullaniciAdi = user.getUsrName();
+					session.setAttribute("user", user.getUsrAdSoyad());
+					session.setAttribute("UserID", user.getUsrId());
 					
 					context.getExternalContext().redirect("/SEMIRAMIS/frm_kasa.jsf");
 					context.responseComplete();
 				}else{
 					HttpSession session = Util.getSession();
-					session.setAttribute("username", user.getKullaniciAdi());
-					kullaniciAdi = user.getAdSoyad();
-					session.setAttribute("user", user.getAdSoyad());
-					session.setAttribute("UserID", user.getId());
+					session.setAttribute("username", user.getUsrName());
+					kullaniciAdi = user.getUsrName();
+					session.setAttribute("user", user.getUsrAdSoyad());
+					session.setAttribute("UserID", user.getUsrId());
 					
 					
 					context.getExternalContext().redirect("/SEMIRAMIS/index.jsf");

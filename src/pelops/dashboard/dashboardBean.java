@@ -139,6 +139,34 @@ public class dashboardBean {
 		return yuzde;
 	}
 
+	public void veriListele(){
+		
+		
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	public bankaTutarModel getHedef() {
 		return Hedef;
 	}

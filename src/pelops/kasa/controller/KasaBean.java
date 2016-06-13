@@ -614,8 +614,6 @@ System.out.println(id);
 			
 			SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 			
-System.out.println(format.format(tahsilatYapilmisListe.get(i).getTahsilatTarihi()));
-System.out.println(tarih_rapor);
 			if(tahsilatYapilmisListe.get(i).getTahsilatTarihi()==tarih_rapor){
 				if(tahsilatYapilmisListe.get(i).getMuvekkilAdi().equals("HSBC BANK A.Ş.")==true)
 					hsbc_gunluk += tahsilatYapilmisListe.get(i).getTahsilatMiktari();

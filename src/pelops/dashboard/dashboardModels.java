@@ -8,6 +8,8 @@ public class dashboardModels {
 	private String takimResmi;
 	private int starRate;
 	private ArrayList<dashboardPersonelModel> personel;
+	private bankaTutarModel bankaTutarModel;
+	
 	
 	public String getTakimAdi() {
 		return takimAdi;
@@ -33,6 +35,15 @@ public class dashboardModels {
 	public void setPersonel(ArrayList<dashboardPersonelModel> personel) {
 		this.personel = personel;
 	}
+	public bankaTutarModel getBankaTutarModel() {
+		return bankaTutarModel;
+	}
+	public void setBankaTutarModel(bankaTutarModel bankaTutarModel) {
+		this.bankaTutarModel = bankaTutarModel;
+	}
+	
+	
+	
 	
 	
 	

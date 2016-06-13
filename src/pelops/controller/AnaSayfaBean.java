@@ -297,6 +297,10 @@ public class AnaSayfaBean {
 			case 103:
 				formPath = "frm_reddiyat_listesi_kaydi.xhtml";
 				break;
+				
+			case 104:
+				formPath = "frm_kasa.xhtml";
+				break;
 
 			case 105:
 				formPath = "frm_tahsilat_listesi.xhtml";

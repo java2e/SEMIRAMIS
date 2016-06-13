@@ -434,7 +434,7 @@ this.value=this.value.replace(/,/g,'.').replace(/[^0-9,'.']+/g, '');
 									requiredMessage="Bu alanı boş bırakamazsınız...">
 									<f:selectItem itemLabel="" itemValue="" />
 								<f:selectItems
-										value="#{geneltanimbean.DosyaTuruListesi()}"
+										value="#{geneltanimbean.ListeGetir('tbl_adres_turu')}"
 										var="item" itemValue="#{item.id}" itemLabel="#{item.adi}" />
 								</p:selectOneMenu>
 

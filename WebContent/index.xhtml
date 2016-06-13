@@ -98,7 +98,6 @@ Yetkiniz : <strong>ADMİN</strong><br></br>
 			<div class="logo"></div>
 		</div>
 
-
 		<div id="sidebar">
 			<h:form id="formMenu">
 
@@ -113,19 +112,19 @@ Yetkiniz : <strong>ADMİN</strong><br></br>
 
 
 				<p:menubar id="mb">
+				
+				<p:menuitem value="ANA SAYFA" ajax="false" update=":OrtaSayfa"
+							actionListener="#{anaSayfaBean.gotoPage(1002)}" />
 
 					<p:submenu label="HIZLI ERİŞİM" expanded="true">
 
-						<p:menuitem value="Ana Sayfa" ajax="false" update=":OrtaSayfa"
-							actionListener="#{anaSayfaBean.gotoPage(1002)}" />
+						
 						<p:menuitem value="Hızlı Takip Açma    " ajax="false"
 							update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(48)}"
 							icon="ui-icon-home" />
-						<p:menuitem value="İcra Dosya Takibi" ajax="false" 
-							update=":OrtaSayfa,:formIcraDosyaTakibi:icralevhalari" action="#{icradosyaislemleribean.plakaGetir()}" actionListener="#{anaSayfaBean.gotoPage(49)}"
-							icon="ui-icon-star" >
-							
-							</p:menuitem>
+						<p:menuitem value="İcra Dosya Takibi" ajax="false"
+							update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(49)}"
+							icon="ui-icon-star" />
 
 						<p:menuitem value="Müzekkere/Talep Hazırlama" ajax="false"
 							update=":OrtaSayfa"
@@ -135,28 +134,18 @@ Yetkiniz : <strong>ADMİN</strong><br></br>
 
 					</p:submenu>
 
-				<p:submenu label="TANIMLAR" expanded="true" toggleable="true"
+					<p:submenu label="TANIMLAR" expanded="true" toggleable="true"
 						id="tanimlar">
 						
-					<p:menuitem value="Kullanici İşlemleri" ajax="false"
-							update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(222)}"
-							icon="ui-icon-disk" />	
 					
-				<p:menuitem value="Takım İşlemleri" ajax="false"
-							update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(223)}"
-							icon="ui-icon-disk" />	
-					
-				<p:menuitem value="Takım Kullanıcı İşlemleri" ajax="false"
-							update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(224)}"
-							icon="ui-icon-disk" />	
 					
 						
-						<p:menuitem value="Adres Statüsü" ajax="false"
+						<p:menuitem value="Adres Statüsü" ajax="false" rendered="#{anaSayfaBean.tanimlar.isReadPage(1)}"
 							update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(1)}"
 							icon="ui-icon-disk" />
-						<p:menuitem value="Adres Tipi" ajax="false" update=":OrtaSayfa" 
+						<p:menuitem value="Adres Tipi" ajax="false" update=":OrtaSayfa" rendered="#{anaSayfaBean.tanimlar.isReadPage(2)}"
 							actionListener="#{anaSayfaBean.gotoPage(2)}" icon="ui-icon-disk" />
-						<p:menuitem value="Adres Türü" ajax="false" update=":OrtaSayfa" 
+						<p:menuitem value="Adres Türü" ajax="false" update=":OrtaSayfa" rendered="#{anaSayfaBean.tanimlar.isReadPage(3)}"
 							actionListener="#{anaSayfaBean.gotoPage(3)}" icon="ui-icon-disk" />
 						<p:menuitem value="Alacak Belge Tipi   " ajax="false"
 							update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(4)}"
@@ -297,19 +286,7 @@ Yetkiniz : <strong>ADMİN</strong><br></br>
 						<p:menuitem value="  Vizit Statüsü   " ajax="false"
 							update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(47)}"
 							icon="ui-icon-disk" />
-						
-						
-						<p:menuitem value="  Başvuru Harcı   " ajax="false"
-							update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(1047)}"
-							icon="ui-icon-disk" />
-							
-						<p:menuitem value="  Vekalet Harcı   " ajax="false"
-							update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(1048)}"
-							icon="ui-icon-disk" />
-							
-						<p:menuitem value="  Vekalet Sınırları   " ajax="false"
-							update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(1049)}"
-							icon="ui-icon-disk" />
+
 
 					</p:submenu>
 
@@ -431,6 +408,11 @@ Yetkiniz : <strong>ADMİN</strong><br></br>
 					</p:submenu>
 
 					<p:submenu label="KASA" expanded="false" id="kasa">
+					
+					<p:menuitem value="Kasa Panosu" ajax="false"
+							update=":OrtaSayfa"
+							actionListener="#{anaSayfaBean.gotoPage(104)}"
+							icon="ui-icon-home" />
 
 						<p:menuitem value="Tahsilat Listesi" ajax="false"
 							update=":OrtaSayfa"
@@ -443,13 +425,7 @@ Yetkiniz : <strong>ADMİN</strong><br></br>
 
 					</p:submenu>
 
-					<p:submenu label="MESAJLAŞMA" expanded="false" id="mesajlasma">
-
-						<p:menuitem value="Semiramis Mesaj Servisi" ajax="false"
-							update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(72)}"
-							icon="ui-icon-star" />
-
-					</p:submenu>
+					
 
 					<p:submenu label="RAPORLAMA" expanded="false" id="raporlama">
 						<p:submenu label="AÇILAN TAKİP DOSTA TÜRLERİ" expanded="false"
@@ -482,8 +458,7 @@ Yetkiniz : <strong>ADMİN</strong><br></br>
 								actionListener="#" icon="ui-icon-star" />
 
 						</p:submenu>
-						<p:submenu label="BÜYÜK EXCEL" expanded="false" id="bykexcel">
-						</p:submenu>
+						
 					</p:submenu>
 
 					<p:submenu label="SEMİRAMİS NETWORK" expanded="false" id="smrmstur">
@@ -499,9 +474,25 @@ Yetkiniz : <strong>ADMİN</strong><br></br>
 							ajax="false" actionListener="#{anaSayfaBean.gotoPage(1004)}"
 							icon="ui-icon-star" />
 					</p:submenu>
-					<p:menuitem value="Ekstra" ajax="false" update=":OrtaSayfa"
-						actionListener="#{anaSayfaBean.gotoPage(1010)}"
-						icon="ui-icon-star" />
+					
+					<p:submenu label="KULLANICI İŞLEMLERİ" expanded="false" id="bykexcel">
+					
+					<p:menuitem value="Kullanici İşlemleri" ajax="false"
+							update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(222)}"
+							icon="ui-icon-disk" />	
+					
+				<p:menuitem value="Takım İşlemleri" ajax="false"
+							update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(223)}"
+							icon="ui-icon-disk" />	
+					
+				<p:menuitem value="Takım Kullanıcı İşlemleri" ajax="false"
+							update=":OrtaSayfa" actionListener="#{anaSayfaBean.gotoPage(224)}"
+							icon="ui-icon-disk" />	
+					
+					</p:submenu>
+						
+							<p:menuitem icon="fa fa-sign-out" value="Çıkış"
+						action="#{loginBean.logout()}" ajax="false"  />
 
 
 				</p:menubar>
@@ -516,13 +507,10 @@ Yetkiniz : <strong>ADMİN</strong><br></br>
 
 			<div id="content">
 
-				
-				<h:panelGroup id="OrtaSayfa" >
-				
+				<p:panel id="OrtaSayfa">
 					<ui:include src="#{anaSayfaBean.formPath}" />
-				
-				</h:panelGroup>
-				
+				</p:panel>
+
 			</div>
 
 

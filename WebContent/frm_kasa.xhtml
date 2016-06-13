@@ -145,7 +145,7 @@
 				
 					<p:column headerText="Seç" width="10%" >
 					<p:commandButton value="Seç" type="Button" actionListener="#{icradosyaislemleribean.GelismisListe(hb.icraDosyaID)}"
-					action="#{kasaBean.TahsilatAktar(hb.id)}"
+					action="#{kasaBean.TahsilatAktar(hb.fromID)}"
 					update=":tahsilatyap"/>
 					</p:column>
 				
@@ -260,7 +260,7 @@
 				
 					<p:column headerText="Seç" width="10%" >
 					  <p:commandButton value="Seç" type="Button" action="#{icradosyaislemleribean.GelismisListe(hb.icraDosyaID)}"
-						actionListener="#{kasaBean.TahsilatAktar(hb.id)}"
+						actionListener="#{kasaBean.TahsilatAktar(hb.fromID)}"
 						update=":tahsilatyap"
 						/>
 					  

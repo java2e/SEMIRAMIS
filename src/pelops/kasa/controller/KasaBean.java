@@ -46,30 +46,25 @@ public class KasaBean {
 	private Date baslangicTarihi, bitisTarihi, olddatenew, enddatenew;
 	private ArrayList<TahsilatViewModel> tahsilatYapilacakListe = new ArrayList<TahsilatViewModel>();
 	private ArrayList<TahsilatViewModel> tahsilatiGecmisListe = new ArrayList<TahsilatViewModel>();
-	
+
 	private ArrayList<TahsilatView> tahsilatYapilmisListe = new ArrayList<TahsilatView>();
-	
+
 	private ArrayList<TahsilatView> tahsilatviewyapilacakListe = new ArrayList<TahsilatView>();
 	private ArrayList<ReddiyatView> reddiyatListesi = new ArrayList<>();
 	private ArrayList<ReddiyatView> reddiyatYapilmisListe = new ArrayList<>();
-	
+
 	private KasaCtrl controller = new KasaCtrl();
 	private Reddiyat reddiyatBilgisi = new Reddiyat();
-	
+
 	Date tarih_rapor = new Date();
-	
+
 	private double hsbc_aylik, akbank_aylik, garanti_aylik, ing_aylik;
 	private double hsbc_gunluk, akbank_gunluk, garanti_gunluk, ing_gunluk;
-	
+
 	private String hsbc_aylik1, akbank_aylik1, garanti_aylik1, ing_aylik1;
 	private String hsbc_gunluk1, akbank_gunluk1, garanti_gunluk1, ing_gunluk1;
-	
-	
+
 	private String Ay, gun;
-	
-	
-
-
 
 	public String getHsbc_aylik1() {
 		return hsbc_aylik1;
@@ -174,8 +169,6 @@ public class KasaBean {
 	public void setTarih(Date tarih) {
 		this.tarih_rapor = tarih;
 	}
-
-	
 
 	public Date getTarih_rapor() {
 		return tarih_rapor;
@@ -298,8 +291,8 @@ public class KasaBean {
 	}
 
 	public ArrayList<TahsilatViewModel> getTahsilatYapilacakListe() throws Exception {
-	
-			return controller.getListeFromViewsForTahsilatIslemi(baslangicTarihi, bitisTarihi);
+
+		return controller.getListeFromViewsForTahsilatIslemi(baslangicTarihi, bitisTarihi);
 	}
 
 	public void setTahsilatYapilacakListe(ArrayList<TahsilatViewModel> tahsilatYapilacakListe) {
@@ -397,84 +390,81 @@ public class KasaBean {
 		GelismisAramaDAO dao = new GelismisAramaDAO();
 		detayliAramaListesi = dao.Listele("", "", "", "", "", "", 0, 0, 0, tarih, tarih, tarih, tarih, tarih, tarih);
 		bilgiTahsilat = new Tahsilat();
-		
+
 		Util usersbilgil = new Util();
 
 		bilgiTahsilat.setKasa_islemini_yapan(usersbilgil.getUser().getUsrAdSoyad());
-		
-		baslangicTarihi = new Date(); 
+
+		baslangicTarihi = new Date();
 		Date tson = DateUtils.addMonths(new Date(), 1);
 		bitisTarihi = tson;
 
-		reddiyatListesi =  (ArrayList<ReddiyatView>) controller.getListefromView(0, 3, 1);
+		reddiyatListesi = (ArrayList<ReddiyatView>) controller.getListefromView(0, 3, 1);
 		reddiyatListesi.addAll(controller.getListefromView(0, 3, 2));
 		reddiyatListesi.addAll(controller.getListefromView(0, 3, 3));
 
-		reddiyatListesi= returnReddiyatview(reddiyatListesi);
-		
+		reddiyatListesi = returnReddiyatview(reddiyatListesi);
+
 		ViewDAO viewdao = new ViewDAO();
 		tahsilatYapilmisListe = viewdao.getAllTahsilatFromView(0);
-		
-		reddiyatYapilmisListe =  (ArrayList<ReddiyatView>) controller.getListefromView(1, 3, 1);
+
+		reddiyatYapilmisListe = (ArrayList<ReddiyatView>) controller.getListefromView(1, 3, 1);
 		reddiyatYapilmisListe.addAll(controller.getListefromView(1, 3, 2));
 		reddiyatYapilmisListe.addAll(controller.getListefromView(1, 3, 3));
-		
-		
+
 		SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy");
 		String dateInString = "01-01-1900";
 		Date date = sdf.parse(dateInString);
-		
+
 		olddatenew = date;
 		enddatenew = baslangicTarihi;
 		enddatenew.setHours(-24);
 		sayfaGuncelle();
 	}
-	
-	
-	public void TahsilatAktar(int id) throws Exception{
-	
-		Util usersbilgi = new Util();
-		
-	bilgiTahsilat.setBorclu_adi(AktifBean.getBorcluAdi());
-	bilgiTahsilat.setIcra_dosya_no(AktifBean.getIcraDosyaNo());
-	bilgiTahsilat.setIcra_dosyasi_id(AktifBean.getIcraDosyaID());
-	bilgiTahsilat.setMuvekkil_adi(AktifBean.getMuvekkilAdi());
-	bilgiTahsilat.setTahsilat_miktari(this.getTahsilatYapilacakListe().get(returnID(id)).getOdemeMiktari());
 
-	bilgiTahsilat.setTasilati_yapan(usersbilgi.getUser().getUsrName());
-	
-	RequestContext.getCurrentInstance().execute("PF('frmtahsilatyap').show();");
-	
-	
+	public void TahsilatAktar(String id) throws Exception {
+		Util usersbilgi = new Util();
+		Tahsilat tahsilat = controller.secilenModeliGetir(id);
+
+		bilgiTahsilat.setBorclu_adi(AktifBean.getBorcluAdi());
+		bilgiTahsilat.setIcra_dosya_no(AktifBean.getIcraDosyaNo());
+		bilgiTahsilat.setIcra_dosyasi_id(AktifBean.getIcraDosyaID());
+		bilgiTahsilat.setMuvekkil_adi(AktifBean.getMuvekkilAdi());
+		// bilgiTahsilat.setTahsilat_miktari(this.getTahsilatYapilacakListe().get(returnID(id)).getOdemeMiktari());
+		bilgiTahsilat.setTahsilat_miktari(tahsilat.getTahsilat_miktari());
+
+		bilgiTahsilat.setTasilati_yapan(usersbilgi.getUser().getUsrName());
+
+		RequestContext.getCurrentInstance().execute("PF('frmtahsilatyap').show();");
+
 	}
-	
-	public int returnID(int id) throws Exception{
-		int rID=0;
-		
+
+	public int returnID(int id) throws Exception {
+		int rID = 0;
+
 		for (int i = 0; i < this.getTahsilatYapilacakListe().size(); i++) {
-			if(this.getTahsilatYapilacakListe().get(i).getId()==id)
-			{
-				rID=i;
+			if (this.getTahsilatYapilacakListe().get(i).getId() == id) {
+				rID = i;
 			}
-			
+
 		}
-	
+
 		return rID;
-		
+
 	}
-	
-	public int returnReddiyatID(int id){
-		int rtID=0;
+
+	public int returnReddiyatID(int id) {
+		int rtID = 0;
 		for (int i = 0; i < reddiyatListesi.size(); i++) {
-			if(reddiyatListesi.get(i).getId()==id){
-				rtID=i;
+			if (reddiyatListesi.get(i).getId() == id) {
+				rtID = i;
 			}
 		}
 		return rtID;
 	}
-	
+
 	public void icraDosyaSec(int id) {
-		
+
 		Util usersbilgi = new Util();
 		RequestContext.getCurrentInstance().execute("PF('dlgdetayliarama').hide()");
 
@@ -485,54 +475,48 @@ public class KasaBean {
 		bilgiTahsilat.setTasilati_yapan(usersbilgi.getUser().getUsrName());
 	}
 
-	public void ReddiyatAktar(int id){
-		reddiyatBilgisi  = new Reddiyat();
-		reddiyatListesi= returnReddiyatview(reddiyatListesi);
+	public void ReddiyatAktar(int id) {
+		reddiyatBilgisi = new Reddiyat();
+		reddiyatListesi = returnReddiyatview(reddiyatListesi);
 		reddiyatBilgisi = controller.createReddiyatFromReddiyatView(reddiyatListesi.get(returnReddiyatID(id)));
-	
+
 		RequestContext.getCurrentInstance().execute("PF('frmreddiyatyap').show();");
 	}
-	
-	
-	public ArrayList<ReddiyatView> returnReddiyatview(ArrayList<ReddiyatView> rw){
+
+	public ArrayList<ReddiyatView> returnReddiyatview(ArrayList<ReddiyatView> rw) {
 		ArrayList<ReddiyatView> returnRW = new ArrayList<>();
 		returnRW = rw;
-		
+
 		for (int i = 0; i < rw.size(); i++) {
-			if( rw.get(i).getDevletDurum()==0){
+			if (rw.get(i).getDevletDurum() == 0) {
 				returnRW.get(i).setAktifTutarTL(rw.get(i).getDevletReddiyatTuttarTL());
 				returnRW.get(i).setReddiyatTuru("Devlete Reddiyat");
-			}else if(rw.get(i).getMuvekkilDurum()==0){
+			} else if (rw.get(i).getMuvekkilDurum() == 0) {
 				returnRW.get(i).setAktifTutarTL(rw.get(i).getMuvekkilReddiyatTutarTL());
 				returnRW.get(i).setReddiyatTuru("Bankaya Reddiyat");
-			}else if(rw.get(i).getSasaDurum()==0){
+			} else if (rw.get(i).getSasaDurum() == 0) {
 				returnRW.get(i).setAktifTutarTL(rw.get(i).getSasaReddiyatTutarTL());
 				returnRW.get(i).setReddiyatTuru("Sasaya Reddiyat");
 			}
-			
-			
+
 		}
 		return returnRW;
 	}
-	
-	
-	
-	
-	public void reddiyatYap() throws Exception{
-		
-		if(reddiyatBilgisi.getDevletDurum()==0) reddiyatBilgisi.setDevletDurum(1) ;
-		if(reddiyatBilgisi.getSasaDurum()==0) reddiyatBilgisi.setSasaDurum(1);
-		if(reddiyatBilgisi.getMuvekkilDurum()==0) reddiyatBilgisi.setMuvekkilDurum(1);
+
+	public void reddiyatYap() throws Exception {
+
+		if (reddiyatBilgisi.getDevletDurum() == 0)
+			reddiyatBilgisi.setDevletDurum(1);
+		if (reddiyatBilgisi.getSasaDurum() == 0)
+			reddiyatBilgisi.setSasaDurum(1);
+		if (reddiyatBilgisi.getMuvekkilDurum() == 0)
+			reddiyatBilgisi.setMuvekkilDurum(1);
 		controller.guncelle(reddiyatBilgisi);
 		sayfaGuncelle();
-		
+
 		FacesContext context = FacesContext.getCurrentInstance();
 		context.addMessage(null, new FacesMessage("Reddiyat İşlemi Başarı İle Gerçekleştirildi..."));
 	}
-	
-	
-	
-	
 
 	public void tahsilatYap() throws Exception {
 		Hesap hesap = AktifBean.hesaplistesi;
@@ -561,8 +545,8 @@ public class KasaBean {
 		return sDate;
 
 	}
-	
-	public void sayfaGuncelle() throws Exception{
+
+	public void sayfaGuncelle() throws Exception {
 		String oldDate = "01/01/1900";
 		Date tarih = new Date(oldDate);
 		GelismisAramaDAO dao = new GelismisAramaDAO();
@@ -575,84 +559,75 @@ public class KasaBean {
 		Date tson = DateUtils.addMonths(new Date(), 1);
 		bitisTarihi = tson;
 
-		reddiyatListesi =  (ArrayList<ReddiyatView>) controller.getListefromView(0, 3, 1);
+		reddiyatListesi = (ArrayList<ReddiyatView>) controller.getListefromView(0, 3, 1);
 		reddiyatListesi.addAll(controller.getListefromView(0, 3, 2));
 		reddiyatListesi.addAll(controller.getListefromView(0, 3, 3));
 
-		reddiyatListesi= returnReddiyatview(reddiyatListesi);
-		
+		reddiyatListesi = returnReddiyatview(reddiyatListesi);
+
 		ViewDAO viewdao = new ViewDAO();
 		tahsilatYapilmisListe = viewdao.getAllTahsilatFromView(0);
-		
-		reddiyatYapilmisListe =  (ArrayList<ReddiyatView>) controller.getListefromView(1, 3, 1);
+
+		reddiyatYapilmisListe = (ArrayList<ReddiyatView>) controller.getListefromView(1, 3, 1);
 		reddiyatYapilmisListe.addAll(controller.getListefromView(1, 3, 2));
 		reddiyatYapilmisListe.addAll(controller.getListefromView(1, 3, 3));
-		
-		
+
 		SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy");
 		String dateInString = "01-01-1900";
 		Date date = sdf.parse(dateInString);
-		
+
 		olddatenew = date;
 		enddatenew = baslangicTarihi;
 		enddatenew.setHours(-24);
-		
-		Ay ="2016 - HAZİRAN";
+
+		Ay = "2016 - HAZİRAN";
 		gun = tarih_rapor.toString();
-		
-		
+
 		for (int i = 0; i < tahsilatYapilmisListe.size(); i++) {
-			
-			if(tahsilatYapilmisListe.get(i).getMuvekkilAdi().equals("HSBC BANK A.Ş.")==true)
+
+			if (tahsilatYapilmisListe.get(i).getMuvekkilAdi().equals("HSBC BANK A.Ş.") == true)
 				hsbc_aylik += tahsilatYapilmisListe.get(i).getTahsilatMiktari();
-			if(tahsilatYapilmisListe.get(i).getMuvekkilAdi().equals("AKBANK T.A.Ş.")==true)
+			if (tahsilatYapilmisListe.get(i).getMuvekkilAdi().equals("AKBANK T.A.Ş.") == true)
 				akbank_aylik += tahsilatYapilmisListe.get(i).getTahsilatMiktari();
-			if(tahsilatYapilmisListe.get(i).getMuvekkilAdi().equals("T. GARANTİ BANKASI A.Ş.")==true)
+			if (tahsilatYapilmisListe.get(i).getMuvekkilAdi().equals("T. GARANTİ BANKASI A.Ş.") == true)
 				garanti_aylik += tahsilatYapilmisListe.get(i).getTahsilatMiktari();
-			if(tahsilatYapilmisListe.get(i).getMuvekkilAdi().equals("İNG BANK A.Ş.")==true)
+			if (tahsilatYapilmisListe.get(i).getMuvekkilAdi().equals("İNG BANK A.Ş.") == true)
 				ing_aylik += tahsilatYapilmisListe.get(i).getTahsilatMiktari();
-			
+
 			SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-			
-			if(tahsilatYapilmisListe.get(i).getTahsilatTarihi()==tarih_rapor){
-				if(tahsilatYapilmisListe.get(i).getMuvekkilAdi().equals("HSBC BANK A.Ş.")==true)
+
+			if (tahsilatYapilmisListe.get(i).getTahsilatTarihi() == tarih_rapor) {
+				if (tahsilatYapilmisListe.get(i).getMuvekkilAdi().equals("HSBC BANK A.Ş.") == true)
 					hsbc_gunluk += tahsilatYapilmisListe.get(i).getTahsilatMiktari();
-				if(tahsilatYapilmisListe.get(i).getMuvekkilAdi().equals("AKBANK T.A.Ş.")==true)
+				if (tahsilatYapilmisListe.get(i).getMuvekkilAdi().equals("AKBANK T.A.Ş.") == true)
 					akbank_gunluk += tahsilatYapilmisListe.get(i).getTahsilatMiktari();
-				if(tahsilatYapilmisListe.get(i).getMuvekkilAdi().equals("T. GARANTİ BANKASI A.Ş.")==true)
+				if (tahsilatYapilmisListe.get(i).getMuvekkilAdi().equals("T. GARANTİ BANKASI A.Ş.") == true)
 					garanti_gunluk += tahsilatYapilmisListe.get(i).getTahsilatMiktari();
-				if(tahsilatYapilmisListe.get(i).getMuvekkilAdi().equals("İNG BANK A.Ş.")==true)
+				if (tahsilatYapilmisListe.get(i).getMuvekkilAdi().equals("İNG BANK A.Ş.") == true)
 					ing_gunluk += tahsilatYapilmisListe.get(i).getTahsilatMiktari();
-					
+
 			}
 		}
-		
+
 		NumberFormat defaultFormat = NumberFormat.getCurrencyInstance();
-		
+
 		hsbc_aylik1 = defaultFormat.format(hsbc_aylik);
 		akbank_aylik1 = defaultFormat.format(akbank_aylik);
 		garanti_aylik1 = defaultFormat.format(garanti_aylik);
 		ing_aylik1 = defaultFormat.format(ing_aylik);
-		
+
 		hsbc_gunluk1 = defaultFormat.format(hsbc_aylik);
 		akbank_gunluk1 = defaultFormat.format(akbank_gunluk);
-		garanti_gunluk1= defaultFormat.format(garanti_gunluk);
+		garanti_gunluk1 = defaultFormat.format(garanti_gunluk);
 		ing_gunluk1 = defaultFormat.format(ing_gunluk);
-		
-				
-		
-		
-		
+
 	}
-	
-	public void print() throws Exception{
+
+	public void print() throws Exception {
 		KasaCtrl islem = new KasaCtrl();
 		islem.printTahsilatMakbuzu(10);
 		System.out.println("burda");
-		
+
 	}
-	
-	
-	
 
 }

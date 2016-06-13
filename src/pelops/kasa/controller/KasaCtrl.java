@@ -50,7 +50,7 @@ public class KasaCtrl {
 		return 0;
 	}
 
-	// Tahsilat ve izleme bilgisinin tamamı gelir
+	// Tahsilat ve izleme ve vizit bilgisinin tamamı gelir
 	public ArrayList<TahsilatViewModel> getListeFromViewsForTahsilatIslemi(Date tarih1, Date tarih2) throws Exception {
 
 		return viewDAO.getAllViewList(tarih1, tarih2);

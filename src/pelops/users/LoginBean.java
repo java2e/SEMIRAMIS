@@ -83,7 +83,7 @@ public class LoginBean {
 		formatterP.format(new Locale("tr"),password);
 		
 		MD5Sifreleme = new MD5Sifreleme();
-		user = userDAO.selectByUsrName(formatterU.toString());
+		user = userDAO.selectByUsrName(formatterU.toString().trim());
 
 		if (user == null) {
 			FacesContext.getCurrentInstance().addMessage(
@@ -93,7 +93,7 @@ public class LoginBean {
 
 		} else {
 			
-			if (user.getUsrPwd().equals(MD5Sifreleme.sifrele(formatterP.toString()))) {
+			if (user.getUsrPwd().equals(MD5Sifreleme.sifrele(formatterP.toString().trim()))) {
 			//if (true) {	
 			girisHatasiSayisi = 0;
 				return true;

@@ -1,6 +1,5 @@
 package pelops.controller;
 
-
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -10,11 +9,12 @@ import pelops.util.*;
 import pelops.dao.UserDAO;
 import pelops.model.User;
 
-@ManagedBean(name="loginbean")
+@ManagedBean(name = "loginbean")
 @SessionScoped
 public class LoginBean {
 
-	String kullaniciAdi,sifre,adSoyad;
+	String kullaniciAdi, sifre, adSoyad;
+
 	public String getAdSoyad() {
 		return adSoyad;
 	}
@@ -26,7 +26,7 @@ public class LoginBean {
 	User user;
 	UserDAO userDAO;
 	private int girisHatasiSayisi = 0;
-	
+
 	public User getUser() {
 		return user;
 	}
@@ -43,12 +43,12 @@ public class LoginBean {
 		this.girisHatasiSayisi = girisHatasiSayisi;
 	}
 
-	public LoginBean(){
-		
+	public LoginBean() {
+
 		userDAO = new UserDAO();
-		
+
 	}
-	
+
 	public String getKullaniciAdi() {
 		return kullaniciAdi;
 	}
@@ -64,38 +64,34 @@ public class LoginBean {
 	public void setSifre(String sifre) {
 		this.sifre = sifre;
 	}
-	
-	public boolean login() throws Exception{
-		
-		user = userDAO.getUserinkullaniciAdi(kullaniciAdi);
-	
+
+	public boolean login() throws Exception {
+
+		user = userDAO.getUserinkullaniciAdi(kullaniciAdi.trim());
+
 		if (user == null) {
-			FacesContext.getCurrentInstance().addMessage(
-					null,
-					new FacesMessage(FacesMessage.SEVERITY_WARN,
-							"Hatalý Giriþ", "Kullanýcý adý veya þifre hatalýdýr."));
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
+					"Hatalï¿½ Giriï¿½", "Kullanï¿½cï¿½ adï¿½ veya ï¿½ifre hatalï¿½dï¿½r."));
 
 		} else {
-			
-			if (user.getSifre().equals(sifre)) {
+
+			if (user.getSifre().equals(sifre.trim())) {
 				girisHatasiSayisi = 0;
 				return true;
 			} else {
-				FacesContext.getCurrentInstance().addMessage(
-						null,
-						new FacesMessage(FacesMessage.SEVERITY_WARN,
-								"Hatalý Giriþ", "Kullanýcý adý veya þifre hatalýdýr."));
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
+						"Hatalï¿½ Giriï¿½", "Kullanï¿½cï¿½ adï¿½ veya ï¿½ifre hatalï¿½dï¿½r."));
 				girisHatasiSayisi++;
 				return false;
 			}
 		}
 		girisHatasiSayisi++;
 		return false;
-		
+
 	}
-	
+
 	public String loginProject() throws Exception {
-		
+
 		boolean result = login();
 		if (result) {
 
@@ -103,7 +99,6 @@ public class LoginBean {
 			session.setAttribute("username", kullaniciAdi);
 			this.setAdSoyad(user.getAdSoyad());
 			session.setAttribute("user", user);
-			
 
 			return "ANASAYFA.jsf";
 		} else {
@@ -111,12 +106,12 @@ public class LoginBean {
 			return "login.jsf";
 		}
 	}
-	
+
 	public String logout() {
 		HttpSession session = Util.getSession();
 		session.invalidate();
 
 		return "login.jsf";
 	}
-	
+
 }

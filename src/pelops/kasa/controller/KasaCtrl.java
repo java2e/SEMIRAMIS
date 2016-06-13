@@ -53,7 +53,7 @@ public class KasaCtrl {
 	// Tahsilat ve izleme ve vizit bilgisinin tamamı gelir
 	public ArrayList<TahsilatViewModel> getListeFromViewsForTahsilatIslemi(Date tarih1, Date tarih2) throws Exception {
 
-		return viewDAO.getAllViewList(tarih1, tarih2);
+		return generateTahsilatıYapılmamısList(viewDAO.getAllViewList(tarih1, tarih2));
 	}
 
 	public ArrayList<TahsilatView> getTahsilatViewForStatus(int durum) throws Exception {
@@ -218,7 +218,7 @@ public class KasaCtrl {
 
 	public int getPersonelID() {
 
-		return Integer.valueOf(((User)Util.getSession().getAttribute("user")).getUsrId());
+		return Integer.valueOf(((User) Util.getSession().getAttribute("user")).getUsrId());
 
 	}
 
@@ -381,6 +381,38 @@ public class KasaCtrl {
 
 		exporter.exportReport();
 
+	}
+
+	public ArrayList<TahsilatViewModel> generateTahsilatıYapılmamısList(ArrayList<TahsilatViewModel> list) {
+
+		ArrayList<TahsilatViewModel> list2 = new ArrayList<>();
+		ArrayList<TahsilatView> tahsilatViews;
+		try {
+			tahsilatViews = (ArrayList<TahsilatView>) getListefromView(1, 1, null);
+			for (TahsilatViewModel tahsilatViewModel : list) {
+				if (checkTahsilat(tahsilatViewModel, tahsilatViews)) {
+					list2.add(tahsilatViewModel);
+				}
+			}
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return list2;
+	}
+
+	private boolean checkTahsilat(TahsilatViewModel model, ArrayList<TahsilatView> list) {
+		boolean isTrue = true;
+
+		for (TahsilatView tahsilatView : list) {
+			if (model.getIcraDosyaID() == tahsilatView.getIcraDosyaId()) {
+				isTrue = false;
+				break;
+			}
+		}
+		return isTrue;
 	}
 
 }

@@ -145,6 +145,54 @@ public class TakimDAO extends DBConnection {
 	}
 	
 	
+
+	public ArrayList<TakimKullanici> selectByIdTKList(int TKid)
+	{
+		
+		ArrayList<TakimKullanici> liste = new ArrayList<TakimKullanici>();
+		
+		try {
+			
+			String sql="Select * from tbl_takim_kullanici where takim_id="+TKid;
+			
+			newConnectDB();
+			
+			Statement stmt=conn.createStatement();
+			
+			ResultSet set=stmt.executeQuery(sql);
+			
+			TakimKullanici tk=null;
+			
+			while(set.next())
+			{
+				
+				tk=new TakimKullanici();
+				
+				tk.setKullaniciId(set.getInt("kullanici_id"));
+				tk.setId(set.getInt("id"));
+				tk.setTakimId(set.getInt("takim_id"));
+				
+				liste.add(tk);
+			}
+			
+			return liste;
+			
+			
+		} catch (Exception e) {
+			
+			System.out.println("Hata TakimDAO selectById :"+e.getMessage());
+			return null;
+			// TODO: handle exception
+		}
+		
+	}
+	
+	
+	
+	
+	
+	
+	
 	public boolean kaydet(Takim takim)
 	{
 		

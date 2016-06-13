@@ -35,6 +35,7 @@ public class UserDAO extends DBConnection
 	{
 		java.sql.Timestamp guncellemeZamani = null;
 
+		@SuppressWarnings("unused")
 		int iptal;
 
 		if (user.isUsrIptal() == true)
@@ -355,6 +356,7 @@ public class UserDAO extends DBConnection
 				user.setUsrId(rset.getInt("id"));
 				user.setUsrName(rset.getString("kullanici_adi"));
 				user.setUsrAdSoyad(rset.getString("ad_soyad"));
+				
 				user.setUsrMail(rset.getString("email"));
 				user.setUsrTel(rset.getString("telefon"));
 				user.setUsrAck(rset.getString("aciklama"));

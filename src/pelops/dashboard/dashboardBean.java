@@ -7,6 +7,11 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
+import pelops.users.Takim;
+import pelops.users.TakimDAO;
+import pelops.users.TakimKullanici;
+import pelops.users.UserDAO;
+
 @ManagedBean(name = "dashBoardBean")
 @SessionScoped
 public class dashboardBean {
@@ -125,6 +130,8 @@ public class dashboardBean {
 		GenleToplam.setYuzdeHSBC(yuzdeHesapla(GenleToplam.getHSBC(), GenleToplam.getHedefHSBC()));
 		GenleToplam.setYuzdeING(yuzdeHesapla(GenleToplam.getING(), GenleToplam.getHedefING()));
 
+		veriListele();
+		
 	}
 
 	public int yuzdeHesapla(String deger, String hedeflenenDeger) {
@@ -132,16 +139,31 @@ public class dashboardBean {
 		String[] dizi2 = Hedef.getHedefAKBANK().replace(",", "").replace(".", "").split(" ");
 		int yuzdeDeger = Integer.parseInt(dizi[0]);
 		int yuzdeHedefDeger = Integer.parseInt(dizi2[0]);
-		System.out.println(yuzdeDeger);
-		System.out.println(yuzdeHedefDeger);
+		//System.out.println(yuzdeDeger);
+		//System.out.println(yuzdeHedefDeger);
 		int yuzde = yuzdeDeger * 100 / yuzdeHedefDeger;
-		System.out.println(yuzde);
+		//System.out.println(yuzde);
 		return yuzde;
 	}
 
 	public void veriListele(){
-		
-		
+		UserDAO userdao = new UserDAO();
+		// Takım listesini alalım
+		TakimDAO takimdao = new TakimDAO();
+		for (Takim items : takimdao.getTakimList()) {
+			dashboardModels models = new dashboardModels();
+			models.setTakimAdi(items.getTakimAdi());
+			
+			for (TakimKullanici itemsTK : takimdao.selectByIdTKList(items.getId())) {
+				dashboardPersonelModel personelmodel = new dashboardPersonelModel();
+				//System.out.println(itemsTK.getKullaniciId()); 
+				personelmodel.setPersonelAdi(userdao.selectById(itemsTK.getKullaniciId()).getUsrAdSoyad());
+				System.out.println(personelmodel.getPersonelAdi()); 
+				
+			}
+			
+			
+		}
 		
 	}
 	

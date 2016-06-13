@@ -434,7 +434,7 @@ public class KasaBean {
 		bilgiTahsilat.setTahsilat_miktari(tahsilat.getTahsilat_miktari());
 
 		bilgiTahsilat.setTasilati_yapan(usersbilgi.getUser().getUsrName());
-
+		
 		RequestContext.getCurrentInstance().execute("PF('frmtahsilatyap').show();");
 
 	}
@@ -531,6 +531,7 @@ public class KasaBean {
 		} else {
 			hitam = false;
 		}
+		bilgiTahsilat.setDurum(1);
 		controller.kaydet(bilgiTahsilat, hitam, redList);
 		sayfaGuncelle();
 		FacesContext context = FacesContext.getCurrentInstance();
@@ -566,7 +567,7 @@ public class KasaBean {
 		reddiyatListesi = returnReddiyatview(reddiyatListesi);
 
 		ViewDAO viewdao = new ViewDAO();
-		tahsilatYapilmisListe = viewdao.getAllTahsilatFromView(0);
+		tahsilatYapilmisListe = (ArrayList<TahsilatView>) controller.getListefromView(1, 1, null);
 
 		reddiyatYapilmisListe = (ArrayList<ReddiyatView>) controller.getListefromView(1, 3, 1);
 		reddiyatYapilmisListe.addAll(controller.getListefromView(1, 3, 2));

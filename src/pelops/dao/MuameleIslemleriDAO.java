@@ -1,48 +1,103 @@
 package pelops.dao;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-
-import com.sun.jna.platform.win32.Sspi.PSecHandle;
-
+import java.util.HashMap;
+import javax.faces.context.FacesContext;
+import org.apache.commons.lang3.time.DateFormatUtils;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import pelops.db.DBConnection;
 import pelops.model.Avukat;
+import pelops.model.CokluBankaFour;
+import pelops.model.DortluYapi;
 import pelops.model.MuameleIslemleri;
+import pelops.model.StandartTalep;
 
 
 public class MuameleIslemleriDAO extends DBConnection {
 
-	@SuppressWarnings("resource")
 	public void MuzekkereTalepEkle(MuameleIslemleri muamele, ArrayList<MuameleIslemleri> muameleList) throws Exception {
 
 		newConnectDB();
+		Statement stmt = conn.createStatement();
 
 		for (int i = 0; i < muameleList.size(); i++) {
 
-			Statement stmt = conn.createStatement();
-			ResultSet result = null;
+			
+			String kurumAdi = null;
+			String alacakliBankasi = null;
+			String tapuKayitlari = null;
 
-			System.out.println(muameleList.get(i).getIcraDosyaNo());
-			System.out.println(muameleList.get(i).getMuzekkereTalepAdi());
+			if (muameleList.get(i).getKurumAdi() == null) {
 
-			result = stmt.executeQuery(
-					"SELECT * FROM tbl_muamele_islemi where icra_dosya_no='" + muameleList.get(i).getIcraDosyaNo()
-							+ "' and muzekkere_talep_adi='" + muameleList.get(i).getMuzekkereTalepAdi() + "';");
+				kurumAdi = "...";
 
-			if (!(result.isBeforeFirst())) {
+			} else {
 
-				String SQL = "INSERT INTO tbl_muamele_islemi(borclu_adi, muamele_tarihi, talep_ifadesi, masraf_tipi_id,"
+				kurumAdi = muameleList.get(i).getKurumAdi();
+			}
+
+			if (muameleList.get(i).getAlacakliBankasi() == null) {
+
+				alacakliBankasi = "...";
+
+			} else {
+
+				alacakliBankasi = muameleList.get(i).getAlacakliBankasi();
+			}
+
+			if (muameleList.get(i).getTapuKayitlari() == null) {
+
+				tapuKayitlari = "...";
+
+			} else {
+
+				tapuKayitlari = muameleList.get(i).getTapuKayitlari();
+			}
+
+			String SQL = "SELECT COUNT(*) AS total FROM tbl_muamele_islemi where icra_dosya_no='"
+					+ muameleList.get(i).getIcraDosyaNo() + "' and muzekkere_talep_adi='"
+					+ muameleList.get(i).getMuzekkereTalepAdi() + "' and kurum_adi='" + kurumAdi
+					+ "' and alacakli_bankasi='" + alacakliBankasi + "' and tapu_kayitlari='" + tapuKayitlari + "';";
+
+			
+			ResultSet rs = stmt.executeQuery(SQL);
+			int deger = 0;
+
+			if (rs.next()) {
+
+				deger = rs.getInt("total");
+
+			
+
+			}
+
+			if (deger == 0) {
+
+				SQL = "INSERT INTO tbl_muamele_islemi(borclu_adi, muamele_tarihi, talep_ifadesi, masraf_tipi_id,"
 						+ "masraf_miktari, mal_tipi_id, mal_bilgisi, personel_id, avukat_id,"
 						+ "muhatap_adi, muamele_statusu_id, muhatap_adresi, haciz_sirasi,"
 						+ "tebligat_tarihi, haciz_baslangic_tarihi, tebligat_sonucu, haciz_miktari,"
 						+ "maas_muvafakat, aciklama, icra_mudurlugu_id, barcode, content_id,icra_dosya_id,"
 						+ "alacakli_mail,hazirlayan_id,alacakli_tel,banka_bilgileri,borclu_tc,borclu_adresi,"
-						+ "semiramis_no,alacakli_bankasi,icra_dosya_no,muzekkere_talep_adi,muzekkere_talep_miktari,alacak_faiz_tutari,baslik,paragraf_1,paragraf_2)"
-						+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? , ?, ?, ?, ?,?,?,?);";
+						+ "semiramis_no,alacakli_bankasi,icra_dosya_no,muzekkere_talep_adi,muzekkere_talep_miktari,alacak_faiz_tutari,baslik,paragraf_1,paragraf_2,kurum_adi,"
+						+ "tapu_kayitlari,vergi_kimlik_no,buro_adresi,plaka,risk_yoneticisi_text,hazirlayan_text,borclu_miktari,postane_adi,ptt_il_text,ptt_ilce_text, alacakli_adi,"
+						+ "mevduat_banka_adi,mevduat_banka_adresi,buro_iban_no,konu,mernis_adresi,sgk_adresi,yurtici_adresi)"
+						+ "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
 
 				PreparedStatement pstmt = conn.prepareStatement(SQL.toString());
 
@@ -76,23 +131,41 @@ public class MuameleIslemleriDAO extends DBConnection {
 				pstmt.setString(28, muamele.getBorcluTc());
 				pstmt.setString(29, muamele.getBorcluAdresi());
 				pstmt.setInt(30, muamele.getSemiramisNo());
-				pstmt.setString(31, muamele.getAlacakliBankasi());
+				pstmt.setString(31, alacakliBankasi);
 				pstmt.setString(32, muamele.getIcraDosyaNo());
 				pstmt.setString(33, muameleList.get(i).getMuzekkereTalepAdi());
 				pstmt.setInt(34, muameleList.get(i).getMiktar());
-				pstmt.setString(35, muamele.getAlacakFaizTutari());
+				pstmt.setInt(35, muamele.getAlacakFaizTutari());
 				pstmt.setString(36, muamele.getBaslik());
 				pstmt.setString(37, muamele.getParagraf1());
 				pstmt.setString(38, muamele.getParagraf2());
-
+				pstmt.setString(39, kurumAdi);
+				pstmt.setString(40, tapuKayitlari);
+				pstmt.setString(41, muamele.getVergiKimlikNo());
+				pstmt.setString(42, muamele.getBuroAdresi());
+				pstmt.setString(43, muamele.getPlaka());
+				pstmt.setString(44, muamele.getRiskYoneticisiText());
+				pstmt.setString(45, muamele.getHazirlayanText());
+				pstmt.setInt(46, muamele.getBorcluMiktari());
+				pstmt.setString(47, muamele.getPostaneAdi());
+				pstmt.setString(48, muamele.getPttIlText());
+				pstmt.setString(49, muamele.getPttIlceText());
+				pstmt.setString(50, muamele.getAlacakliAdi());
+				pstmt.setString(51, muamele.getMevduatBankaAdi());
+				pstmt.setString(52, muamele.getMevduatBankaAdresi());
+				pstmt.setString(53, muamele.getBuroIbanNo());
+				pstmt.setString(54, muamele.getKonu());
+				pstmt.setString(55, muamele.getMernisAdresi());
+				pstmt.setString(56, muamele.getSgkAdresi());
+				pstmt.setString(57, muamele.getYurticiAdresi());
+			
 				pstmt.executeUpdate();
 
-				System.out.println("insert");
 			}
 
-			else {
+			else if (deger == 1) {
 
-				String sql = "UPDATE tbl_muamele_islemi "
+				SQL = "UPDATE tbl_muamele_islemi "
 						+ "SET borclu_adi = ?,  muamele_tarihi= ? , talep_ifadesi = ?, masraf_tipi_id = ?, masraf_miktari = ?, "
 						+ " mal_tipi_id = ?, mal_bilgisi = ?, personel_id = ?, avukat_id = ?, muhatap_adi = ?, "
 						+ " muamele_statusu_id = ?, muhatap_adresi = ?, haciz_sirasi = ?,  tebligat_tarihi= ? , haciz_baslangic_tarihi= ?, "
@@ -102,11 +175,14 @@ public class MuameleIslemleriDAO extends DBConnection {
 						+ " hazirlayan_id= ? , alacakli_tel= ? , banka_bilgileri= ? , "
 						+ " borclu_tc= ? , borclu_adresi= ? ,  alacak_faiz_tutari= ? , "
 						+ " semiramis_no= ? , alacakli_bankasi= ? , icra_dosya_no= ? , muzekkere_talep_adi= ? , "
-						+ " muzekkere_talep_miktari = ? ,baslik = ? , paragraf_1 = ? , paragraf_2 = ?  WHERE icra_dosya_no = '"
+						+ " muzekkere_talep_miktari = ? ,baslik = ? , paragraf_1 = ? , paragraf_2 = ? , kurum_adi=? , tapu_kayitlari=? , vergi_kimlik_no=? , buro_adresi=? , plaka=? , risk_yoneticisi_text=? , hazirlayan_text=? , borclu_miktari=? , postane_adi = ? , ptt_il_text =?, ptt_ilce_text =? ,"
+						+ " alacakli_adi=? , mevduat_banka_adi= ? , mevduat_banka_adresi = ? , buro_iban_no=? , konu=?  , mernis_adresi =? , sgk_adresi=? , yurtici_adresi=?   WHERE icra_dosya_no = '"
 						+ muameleList.get(i).getIcraDosyaNo() + "'  and muzekkere_talep_adi = '"
-						+ muameleList.get(i).getMuzekkereTalepAdi() + "'";
+						+ muameleList.get(i).getMuzekkereTalepAdi() + "' and kurum_adi = '" + kurumAdi
+						+ "' and alacakli_bankasi='" + alacakliBankasi + "' and tapu_kayitlari='" + tapuKayitlari
+						+ "';";
 
-				PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+				PreparedStatement pstmt = conn.prepareStatement(SQL.toString());
 
 				pstmt.setString(1, muamele.getBorcluAdi());
 				pstmt.setDate(2, convertFromJAVADateToSQLDate(muamele.getMuameleTarihi()));
@@ -137,17 +213,37 @@ public class MuameleIslemleriDAO extends DBConnection {
 				pstmt.setString(27, muamele.getBankaBilgileri());
 				pstmt.setString(28, muamele.getBorcluTc());
 				pstmt.setString(29, muamele.getBorcluAdresi());
-				pstmt.setString(30, muamele.getAlacakFaizMasrafTutari());
+				pstmt.setInt(30, muamele.getAlacakFaizTutari());
 				pstmt.setInt(31, muamele.getSemiramisNo());
-				pstmt.setString(32, muamele.getAlacakliBankasi());
+				pstmt.setString(32, alacakliBankasi);
 				pstmt.setString(33, muamele.getIcraDosyaNo());
 				pstmt.setString(34, muameleList.get(i).getMuzekkereTalepAdi());
 				pstmt.setInt(35, muameleList.get(i).getMiktar());
 				pstmt.setString(36, muamele.getBaslik());
 				pstmt.setString(37, muamele.getParagraf1());
 				pstmt.setString(38, muamele.getParagraf2());
+				pstmt.setString(39, kurumAdi);
+				pstmt.setString(40, tapuKayitlari);
+				pstmt.setString(41, muamele.getVergiKimlikNo());
+				pstmt.setString(42, muamele.getBuroAdresi());
+				pstmt.setString(43, muamele.getPlaka());
+				pstmt.setString(44, muamele.getRiskYoneticisiText());
+				pstmt.setString(45, muamele.getHazirlayanText());
+				pstmt.setInt(46, muamele.getBorcluMiktari());
+				pstmt.setString(47, muamele.getPostaneAdi());
+				pstmt.setString(48, muamele.getPttIlText());
+				pstmt.setString(49, muamele.getPttIlceText());
+				pstmt.setString(50, muamele.getAlacakliAdi());
+				pstmt.setString(51, muamele.getMevduatBankaAdi());
+				pstmt.setString(52, muamele.getMevduatBankaAdresi());
+				pstmt.setString(53, muamele.getBuroIbanNo());
+				pstmt.setString(54, muamele.getKonu());
+				pstmt.setString(55, muamele.getMernisAdresi());
+				pstmt.setString(56, muamele.getSgkAdresi());
+				pstmt.setString(57, muamele.getYurticiAdresi());
+			
 				pstmt.executeUpdate();
-				System.out.println("update");
+				
 			}
 		}
 
@@ -181,11 +277,29 @@ public class MuameleIslemleriDAO extends DBConnection {
 
 	}
 
+	public String DateToText(java.sql.Date sqlDate) {
+
+		String date = null;
+
+		if (sqlDate != null) {
+
+			date = DateFormatUtils.format(sqlDate, "dd/MM/yyyy");
+
+		}
+
+		return date;
+
+	}
+
 	public java.sql.Date convertFromJAVADateToSQLDate(java.util.Date javaDate) {
+
 		java.sql.Date sqlDate = null;
+
 		if (javaDate != null) {
+
 			sqlDate = new Date(javaDate.getTime());
 		}
+
 		return sqlDate;
 	}
 
@@ -204,19 +318,18 @@ public class MuameleIslemleriDAO extends DBConnection {
 		return muameleIslm;
 	}
 
-	@SuppressWarnings("resource")
 	public ArrayList<MuameleIslemleri> getMuzekkereTalepList(String icraDosyaNo) throws Exception {
 
 		ArrayList<MuameleIslemleri> List = new ArrayList<MuameleIslemleri>();
 		MuameleIslemleri muamele;
 		newConnectDB();
-		ResultSet result = null;
 		String SQL = "select * from vw_muamele_islemi where icra_dosya_no='" + icraDosyaNo + "'";
 		Statement stmt = conn.createStatement();
 		ResultSet rs = stmt.executeQuery(SQL);
 
 		while (rs.next()) {
 			muamele = new MuameleIslemleri();
+
 			muamele.setId(rs.getInt("muameleid"));
 			muamele.setBorcluAdi(rs.getString("borcluadi"));
 			muamele.setTalepIfadesi(rs.getString("talepifadesi"));
@@ -240,7 +353,6 @@ public class MuameleIslemleriDAO extends DBConnection {
 			muamele.setBorcluTc(rs.getString("borclu_tc"));
 			muamele.setBorcluAdresi(rs.getString("borclu_adresi"));
 			muamele.setAlacakliMail(rs.getString("alacakli_mail"));
-			muamele.setAlacakFaizMasrafTutari(rs.getString("alacak_faiz_tutari"));
 			muamele.setSemiramisNo(rs.getInt("semiramis_no"));
 			muamele.setIcraDosyaNo(rs.getString("icra_dosya_no"));
 			muamele.setMuzekkereTalepAdi(rs.getString("muzekkere_talep_adi"));
@@ -261,17 +373,28 @@ public class MuameleIslemleriDAO extends DBConnection {
 			muamele.setIcraMudurluguId(rs.getInt("icramudurluguid"));
 			muamele.setHazirlayanAdSoyad(rs.getString("isimsoyisim"));
 			muamele.setAvukatId(rs.getInt("avukatid"));
-
-			// result = stmt.executeQuery("SELECT * FROM tbl_vekil_bilgisi where
-			// id ='"+ rs.getInt("avukatid")+"';");
-			// result.next();
-			// muamele.setAvukatAdi(result.getString("adi"));
-
-			// rs = stmt.executeQuery("SELECT * FROM tbl_vekil_bilgisi where id
-			// ='"+ muamele.getAvukatId()+"';");
-			// rs.next();
-			// muamele.setAvukatAdi(rs.getString("adi"));
-			//
+			muamele.setKurumAdi(rs.getString("kurum_adi"));
+			muamele.setAlacakliBankasi(rs.getString("alacakli_bankasi"));
+			muamele.setTapuKayitlari(rs.getString("tapu_kayitlari"));
+			muamele.setVergiKimlikNo(rs.getString("vergi_kimlik_no"));
+			muamele.setBankaBilgileri(rs.getString("banka_bilgileri"));
+			muamele.setBuroAdresi(rs.getString("buro_adresi"));
+			muamele.setPlaka(rs.getString("plaka"));
+			muamele.setRiskYoneticisiText(rs.getString("risk_yoneticisi_text"));
+			muamele.setHazirlayanText(rs.getString("hazirlayan_text"));
+			muamele.setBorcluMiktari(rs.getInt("borclu_miktari"));
+			muamele.setPostaneAdi(rs.getString("postane_adi"));
+			muamele.setPttIlText(rs.getString("ptt_il_text"));
+			muamele.setPttIlceText(rs.getString("ptt_ilce_text"));
+			muamele.setAlacakliAdi(rs.getString("alacakli_adi"));
+			muamele.setMevduatBankaAdi(rs.getString("mevduat_banka_adi"));
+			muamele.setMevduatBankaAdresi(rs.getString("mevduat_banka_adresi"));
+			muamele.setBuroIbanNo(rs.getString("buro_iban_no"));
+			muamele.setKonu(rs.getString("konu"));
+			muamele.setMernisAdresi(rs.getString("mernis_adresi"));
+			muamele.setSgkAdresi(rs.getString("sgk_adresi"));
+			muamele.setYurticiAdresi(rs.getString("yurtici_adresi"));
+			muamele.setAlacakFaizTutari(rs.getInt("alacak_faiz_tutari"));
 
 			List.add(muamele);
 		}
@@ -289,7 +412,6 @@ public class MuameleIslemleriDAO extends DBConnection {
 		String SQL = "select * from vw_muamele_islemi where muameleid=" + id;
 		Statement stmt = conn.createStatement();
 		ResultSet rs = stmt.executeQuery(SQL);
-		ResultSet result = null;
 		MuameleIslemleri islm = null;
 
 		while (rs.next()) {
@@ -309,15 +431,11 @@ public class MuameleIslemleriDAO extends DBConnection {
 			islm.setBarcode(rs.getString("barcode"));
 			islm.setContentId(rs.getInt("contentid"));
 			islm.setIcraDosyaId(rs.getInt("icradosyaid"));
-			islm.setMuameleTarihi(rs.getDate("muamele_tarihi"));
-			islm.setTebligatTarihi(rs.getDate("tebligat_tarihi"));
-			islm.setHacizBaslangicTarihi(rs.getDate("haciz_baslangic_tarihi"));
 			islm.setAlacakliTel(rs.getString("alacakli_tel"));
 			islm.setBankaBilgileri(rs.getString("banka_bilgileri"));
 			islm.setBorcluTc(rs.getString("borclu_tc"));
 			islm.setBorcluAdresi(rs.getString("borclu_adresi"));
 			islm.setAlacakliMail(rs.getString("alacakli_mail"));
-			islm.setAlacakFaizMasrafTutari(rs.getString("alacak_faiz_tutari"));
 			islm.setSemiramisNo(rs.getInt("semiramis_no"));
 			islm.setIcraDosyaNo(rs.getString("icra_dosya_no"));
 			islm.setMuzekkereTalepAdi(rs.getString("muzekkere_talep_adi"));
@@ -339,6 +457,36 @@ public class MuameleIslemleriDAO extends DBConnection {
 			islm.setHazirlayanAdSoyad(rs.getString("isimsoyisim"));
 			islm.setAvukatId(rs.getInt("avukatid"));
 			islm.setMiktar(rs.getInt("mtmiktar"));
+			islm.setKurumAdi(rs.getString("kurum_adi"));
+			islm.setAlacakliBankasi(rs.getString("alacakli_bankasi"));
+			islm.setTapuKayitlari(rs.getString("tapu_kayitlari"));
+			islm.setVergiKimlikNo(rs.getString("vergi_kimlik_no"));
+			islm.setBankaBilgileri(rs.getString("banka_bilgileri"));
+			islm.setBuroAdresi(rs.getString("buro_adresi"));
+			islm.setPlaka(rs.getString("plaka"));
+			islm.setMuzekkereTalepAdi(rs.getString("muzekkere_talep_adi"));
+			islm.setRiskYoneticisiText(rs.getString("risk_yoneticisi_text"));
+			islm.setHazirlayanText(rs.getString("hazirlayan_text"));
+			islm.setBorcluMiktari(rs.getInt("borclu_miktari"));
+			islm.setPostaneAdi(rs.getString("postane_adi"));
+			islm.setPttIlText(rs.getString("ptt_il_text"));
+			islm.setPttIlceText(rs.getString("ptt_ilce_text"));
+			islm.setAlacakliAdi(rs.getString("alacakli_adi"));
+			islm.setMevduatBankaAdi(rs.getString("mevduat_banka_adi"));
+			islm.setMevduatBankaAdresi(rs.getString("mevduat_banka_adresi"));
+			islm.setBuroIbanNo(rs.getString("buro_iban_no"));
+			islm.setKonu(rs.getString("konu"));
+			islm.setMernisAdresi(rs.getString("mernis_adresi"));
+			islm.setSgkAdresi(rs.getString("sgk_adresi"));
+			islm.setYurticiAdresi(rs.getString("yurtici_adresi"));
+			islm.setAlacakFaizTutari(rs.getInt("alacak_faiz_tutari"));
+			islm.setMuameleTarihi(rs.getDate("muamele_tarihi"));
+			islm.setMuameleTarihiText(DateToText(rs.getDate("muamele_tarihi")));
+			islm.setTebligatTarihi(rs.getDate("tebligat_tarihi"));
+			islm.setTebligatTarihiText(DateToText(rs.getDate("tebligat_tarihi")));
+			islm.setHacizBaslangicTarihi(rs.getDate("haciz_baslangic_tarihi"));
+			islm.setHacizBaslangicTarihiText(DateToText(rs.getDate("haciz_baslangic_tarihi")));
+
 			rs = stmt.executeQuery("SELECT * FROM tbl_vekil_bilgisi where id ='" + rs.getInt("avukatid") + "';");
 
 			if (rs.isBeforeFirst()) {
@@ -354,9 +502,13 @@ public class MuameleIslemleriDAO extends DBConnection {
 
 	}
 
-	public void deleteRowIndex(String muzekkereTalep, String icraDosyaNo) throws Exception {
+	public void deleteRowIndex(String muzekkereTalep, String icraDosyaNo, String kurumAdi, String alacakliBankasi,
+			String tapuKayitlari) throws Exception {
+
 		String SQL = "DELETE FROM tbl_muamele_islemi WHERE muzekkere_talep_adi='" + muzekkereTalep
-				+ "' and icra_dosya_no='" + icraDosyaNo + "'";
+				+ "' and icra_dosya_no='" + icraDosyaNo + "' and kurum_adi='" + kurumAdi + "' and alacakli_bankasi='"
+				+ alacakliBankasi + "' and tapu_kayitlari='" + tapuKayitlari + "'";
+
 		newConnectDB();
 		PreparedStatement ps = conn.prepareStatement(SQL);
 		ps.executeUpdate();
@@ -365,22 +517,140 @@ public class MuameleIslemleriDAO extends DBConnection {
 
 	public String getPdfAdi(String muzekkereTalep) throws Exception {
 
-		System.out.println("geldiiii");
 		newConnectDB();
 		String SQL = "select  *  from tbl_muamele_islemleri_pdf where talep_muzekkere_adi = '" + muzekkereTalep + "'";
 		Statement stmt = conn.createStatement();
 		ResultSet rs = stmt.executeQuery(SQL);
-		MuameleIslemleri islm = null;
 		String pdfAdi = null;
 		while (rs.next()) {
+			
 			pdfAdi = rs.getString("pdf_adi");
-			System.out.println("pdf_adi" + pdfAdi);
+	
 			return pdfAdi;
 		}
 
 		disconnectDB();
 
 		return null;
+
+	}
+
+	public ArrayList<StandartTalep> getStandartTalepTextList() throws SQLException {
+
+		newConnectDB();
+
+		String SQL = "select * from tbl_talep_standart_text";
+		Statement stmt = conn.createStatement();
+		ResultSet rs = stmt.executeQuery(SQL);
+		StandartTalep standartTalep = null;
+		ArrayList<StandartTalep> standartTalepList = new ArrayList<StandartTalep>();
+
+		while (rs.next()) {
+
+			standartTalep = new StandartTalep();
+			standartTalep.setAdi(rs.getString("adi"));
+			standartTalep.setBankaIsmi(rs.getString("banka_ismi"));
+			standartTalep.setStandartText(rs.getString("standart_text"));
+			standartTalep.setId(rs.getInt("id"));
+
+			standartTalepList.add(standartTalep);
+
+		}
+
+		return standartTalepList;
+
+	}
+
+	public DortluYapi dortluYapiGetir() throws SQLException {
+
+		newConnectDB();
+		String SQL = "select * from tbl_talep_standart_text";
+		Statement stmt = conn.createStatement();
+		ResultSet rs = stmt.executeQuery(SQL);
+		DortluYapi yapi = new DortluYapi();
+
+		while (rs.next()) {
+
+			switch (rs.getString("adi")) {
+
+			case "EGM Sorgu Talebi":
+				yapi.setEgm_standart_text(rs.getString("standart_text"));
+				break;
+
+			case "Maaş Haciz Talebi (Genel)":
+				yapi.setSgk_standart_text(rs.getString("standart_text"));
+				break;
+
+			case "PTT Haciz Talebi":
+				yapi.setPosta_standart_text(rs.getString("standart_text"));
+				break;
+
+			case "Tapu Haciz Talebi":
+				yapi.setTapu_standart_text(rs.getString("standart_text"));
+				break;
+
+			}
+		}
+
+		return yapi;
+	}
+
+	public JasperPrint cokluTalepGetirFor(MuameleIslemleri muamele, String muzekkereTalep)
+			throws FileNotFoundException, SQLException, JRException {
+
+		JasperPrint cokluFourPrint = new JasperPrint();
+		ArrayList<CokluBankaFour> dataBeanListForCokluBankaFour = new ArrayList<CokluBankaFour>();
+		ArrayList<StandartTalep> standartList = new ArrayList<StandartTalep>();
+		CokluBankaFour cokluBankaFour = new CokluBankaFour();
+
+		standartList = getStandartTalepTextList();
+		cokluBankaFour.setIcraDosyaNo(muamele.getIcraDosyaNo());
+		cokluBankaFour.setIcraMudurluguAdi(muamele.getIcraMudurluguAdi());
+		cokluBankaFour.setTalepMuzekkereAdi(muzekkereTalep);
+
+		for (StandartTalep standartTalep : standartList) {
+
+			if (standartTalep.getAdi().equals("Maaş Haciz Talebi (Genel)")) {
+
+				cokluBankaFour.setSgk_standart_text(standartTalep.getStandartText());
+
+			} else if (standartTalep.getAdi().equals("Tapu Haciz Talebi")) {
+
+				cokluBankaFour.setTapu_standart_text(standartTalep.getStandartText());
+
+			} else if (standartTalep.getAdi().equals("PTT Haciz Talebi")) {
+
+				cokluBankaFour.setPosta_standart_text(standartTalep.getStandartText());
+
+			} else if (standartTalep.getAdi().equals("EGM Sorgu Talebi")) {
+
+				cokluBankaFour.setEgm_standart_text(standartTalep.getStandartText());
+
+			} else if (standartTalep.getAdi().equals("Banka4")) {
+
+				cokluBankaFour.setBanka4(standartTalep.getStandartText());
+
+			} else if (standartTalep.getAdi().equals("Banka7")) {
+
+				cokluBankaFour.setBanka7(standartTalep.getStandartText());
+			}
+
+		}
+
+		dataBeanListForCokluBankaFour.add(cokluBankaFour);
+
+		HashMap<String, Object> parameters = new HashMap<String, Object>();
+
+		String pathName = FacesContext.getCurrentInstance().getExternalContext()
+				.getRealPath("/reports/4lu5banka.jrxml");
+
+		InputStream inputStream = new FileInputStream(pathName);
+		JRBeanCollectionDataSource beanColDataSource = new JRBeanCollectionDataSource(dataBeanListForCokluBankaFour);
+		JasperDesign jasperDesign = JRXmlLoader.load(inputStream);
+		JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
+		cokluFourPrint = JasperFillManager.fillReport(jasperReport, parameters, beanColDataSource);
+
+		return cokluFourPrint;
 
 	}
 

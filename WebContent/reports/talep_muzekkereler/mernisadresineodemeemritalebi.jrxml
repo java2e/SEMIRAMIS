@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="mernisadresineodemeemritalebi" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="15bbab6b-08e6-47a3-b8e5-3d13429efc83">
+	<property name="ireport.zoom" value="1.4641000000000008"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="icraMudurluguAdi" class="java.lang.String"/>
+	<field name="icraDosyaNo" class="java.lang.String"/>
+	<field name="barcode" class="java.lang.String"/>
+	<field name="muameleTarihiText" class="java.lang.String"/>
+	<field name="mernisAdresi" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="68" splitType="Stretch">
+			<staticText>
+				<reportElement x="19" y="0" width="51" height="29" uuid="9ce465da-b5a1-463a-964c-db42c1e10cec"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[T.C.
+ANKARA]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="29" width="321" height="20" uuid="c72a6285-2aae-408e-b92a-afb07dc3a023"/>
+				<textElement verticalAlignment="Middle">
+					<font pdfEncoding="Cp1254"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{icraMudurluguAdi}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="11" y="45" width="156" height="20" uuid="a8f9639c-8eeb-48f4-a07a-e706b27a1b90"/>
+				<textElement verticalAlignment="Middle">
+					<font pdfEncoding="Cp1254"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{icraDosyaNo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band height="407" splitType="Stretch">
+			<staticText>
+				<reportElement x="19" y="73" width="100" height="20" uuid="28665344-3b8b-4cd8-8a67-a1aeb3c44bc1"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[ADRES:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="35" y="17" width="100" height="20" uuid="c6e18c37-4015-4a34-86eb-779720cec339"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[AV.GELDİ.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="52" y="37" width="421" height="20" uuid="9c2eeec0-b8f9-465d-972b-a8a6b4a2d3e1"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[Borçlunun mernis adresine ödeme emri gönderilmesini talep ederim dedi.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="39" y="141" width="200" height="20" uuid="235120be-41c0-4db2-9d23-be9308932879"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[İşbu talep uyap üzerinden e-imza ile]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="298" y="141" width="146" height="20" uuid="64b1430e-5ed8-495d-b863-51920ded1550"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[tarihinde gönderilmiştir.]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="200" y="141" width="121" height="20" uuid="1cfddc94-c0b3-4333-94a0-89134b120c7b"/>
+				<textElement verticalAlignment="Middle">
+					<font pdfEncoding="Cp1254"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{muameleTarihiText}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="22" y="93" width="451" height="24" uuid="08eded17-84e9-4c46-8531-3427daca8e56"/>
+				<textElement verticalAlignment="Top">
+					<font pdfEncoding="Cp1254"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{mernisAdresi}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

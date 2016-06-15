@@ -1,0 +1,487 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="maashacizmuzekkeresimuvafakat" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="cfe93346-2c07-437d-adca-7e7a9777c6a0">
+	<property name="ireport.zoom" value="1.464100000000011"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="128"/>
+	<field name="alacakliBankasi" class="java.lang.String"/>
+	<field name="avukatAdi" class="java.lang.String"/>
+	<field name="borcluAdi" class="java.lang.String"/>
+	<field name="borcluTcKimlikNo" class="java.lang.String"/>
+	<field name="konu" class="java.lang.String"/>
+	<field name="icraMudurluguAdi" class="java.lang.String"/>
+	<field name="icraDosyaNo" class="java.lang.String"/>
+	<field name="semiramisNo" class="java.lang.String"/>
+	<field name="hazirlayan" class="java.lang.String"/>
+	<field name="riskYoneticisi" class="java.lang.String"/>
+	<field name="maasMuvafakat" class="java.lang.String"/>
+	<field name="buroAdresi" class="java.lang.String"/>
+	<field name="alacakliTel" class="java.lang.String"/>
+	<field name="alacakliMail" class="java.lang.String"/>
+	<field name="buroIbanNo" class="java.lang.String"/>
+	<field name="borcluMiktari" class="java.lang.String"/>
+	<field name="muameleTarihiText" class="java.lang.String"/>
+	<field name="hazirlayanText" class="java.lang.String"/>
+	<field name="riskYoneticisiText" class="java.lang.String"/>
+	<field name="borcluTc" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="10" y="54" width="60" height="19" uuid="8a122117-84f6-4b25-b62b-9dd3738e2d4f"/>
+				<textElement verticalAlignment="Middle">
+					<font pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[DOSYA NO :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="70" y="5" width="54" height="29" uuid="471b9d19-7943-4d22-9871-7832ad700025"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[T.C.
+ANKARA]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="25" y="34" width="296" height="20" uuid="d00bd167-425e-492c-bba1-be1b7eebd5d5"/>
+				<textElement verticalAlignment="Middle">
+					<font pdfEncoding="Cp1254"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{icraMudurluguAdi}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="70" y="53" width="251" height="20" uuid="55d9d696-79c6-452d-ac82-120a809ccf3b"/>
+				<textElement verticalAlignment="Middle">
+					<font pdfEncoding="Cp1254"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{icraDosyaNo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="395" y="14" width="134" height="20" uuid="ac6e9f86-f05c-42dc-a7ac-71d2c1914b7e"/>
+				<textElement verticalAlignment="Middle">
+					<font pdfEncoding="Cp1254"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{muameleTarihiText}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band height="770" splitType="Stretch">
+			<staticText>
+				<reportElement x="20" y="12" width="66" height="19" uuid="a85ec0a6-138d-4b41-82fd-cadf4462d73d"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[ALACAKLI :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="79" width="66" height="19" uuid="1e52121b-73a9-426a-b448-9f3726969bb0"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[VEKİLİ :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="142" width="66" height="19" uuid="0862ea3d-94c1-43ea-b484-973696a458d6"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[BORÇLU :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="181" width="66" height="19" uuid="28621c71-6fe2-4d58-b462-75ed59a594e4"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[KONU :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="19" y="219" width="67" height="19" uuid="0ea16d8e-a15b-459b-9e25-1046e08931d1"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[MİKTARI :]]></text>
+			</staticText>
+			<line>
+				<reportElement x="14" y="0" width="516" height="1" uuid="5fd6dd52-6b98-46a3-8ff7-ab9db3d01bc8"/>
+			</line>
+			<line>
+				<reportElement x="529" y="1" width="1" height="244" uuid="d828c845-3814-4923-a43e-35fbae301b2f"/>
+			</line>
+			<line>
+				<reportElement x="15" y="0" width="1" height="244" uuid="a72e5c08-4693-4933-9f10-c60637f6470f"/>
+			</line>
+			<line>
+				<reportElement x="15" y="38" width="514" height="1" uuid="47395a81-a9ab-4f70-b643-62f1689f95ce"/>
+			</line>
+			<line>
+				<reportElement x="16" y="134" width="514" height="1" uuid="8c79dea9-617e-481f-b43e-7111736dde84"/>
+			</line>
+			<line>
+				<reportElement x="16" y="170" width="514" height="1" uuid="9f893ae4-6d04-434c-afdb-6bf3bf726066"/>
+			</line>
+			<line>
+				<reportElement x="16" y="211" width="514" height="1" uuid="918f1c5c-6860-40ad-b195-c95f95baa10b"/>
+			</line>
+			<line>
+				<reportElement x="16" y="246" width="514" height="1" uuid="449d7e51-10d0-4a0e-ba51-9b3663fce0f7"/>
+			</line>
+			<line>
+				<reportElement x="91" y="0" width="1" height="245" uuid="9e7de730-bcdd-450b-9ee7-5fcbcf24b2aa"/>
+			</line>
+			<textField>
+				<reportElement x="97" y="12" width="367" height="19" uuid="7d51858c-77ce-44c4-a3b2-7b06102077d1"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font pdfEncoding="Cp1254"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{alacakliBankasi}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="97" y="39" width="37" height="20" uuid="a60262e1-c6bb-48e0-b23b-55ceae888771"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="8" isStrikeThrough="false" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[Avukat :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="134" y="39" width="228" height="20" uuid="21fea6a6-fad9-4911-a949-46bd2a29d84a"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="8" pdfEncoding="Cp1254"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{avukatAdi}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="97" y="59" width="37" height="20" uuid="6f94f57a-4b03-4ca6-82d3-d365770ba1d4"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="8" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[Adres  :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="97" y="79" width="37" height="20" uuid="fe2246e0-ac89-4b6f-b2df-c49a61e427ed"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="8" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[Tel :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="239" y="79" width="37" height="20" uuid="7c9b736a-33b7-4c6e-bc9a-fba67c7d2374"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="8" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[E-Mail :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="97" y="99" width="37" height="20" uuid="ceacf630-0645-4a40-a200-7d3d440efe42"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="8" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[IBAN :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="103" y="142" width="136" height="19" uuid="1f3a04ca-f98a-44a0-9518-b0803391e3fc"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="10" pdfEncoding="Cp1254"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{borcluAdi}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="225" y="142" width="74" height="19" uuid="bfe5289f-ca02-4382-b5f0-21ef88900356"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="10" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[T.C. Kimlik No :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="402" y="142" width="127" height="19" uuid="1620c9b0-2b3c-4d18-ba72-4316a0dd206f"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="10" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[KURUMUNUZ PERSONELİ :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="103" y="181" width="394" height="19" uuid="8f0cac3d-6c4f-49ef-9117-8e3758fceb41"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="10" pdfEncoding="Cp1254"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{konu}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="203" y="219" width="242" height="21" uuid="08fd47fd-759a-439c-b4c3-2ac9a20f8e0a"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="8" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[(İşleyecek Faiz, İcra Masrafları ve Vekalet Ücret Hariç)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="15" y="250" width="261" height="14" uuid="345a14c1-068e-42f5-a52c-59c556b72b4b"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[Yukarıda kayıt edilen alacağın tahsili için borçlunun almakta olduğu;]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="16" y="269" width="411" height="14" uuid="8a897848-6bd1-4730-8d7d-af9b733a6032"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="8" isBold="true" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[1. Maaş veya ücretinin borç bitinceye kadar ÜZERİNDE BAŞKA HACİZ VE KESİNTİLER OLSA DAHİ HER AY]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="16" y="283" width="539" height="23" uuid="71e58275-1e6f-4089-9b06-f679f0a0a53e"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="8" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[2. Borçlunun bazı aylarda ÇİFT MAAŞ ve ÜCRET ALMAKTA ise,haczimizin çift maaş almakta olduğu durumlarda da dikkate alınmasına
+ve kesintinin çift maaş üzerinden yapılmasına ve kesintinin çift maaş üzerinden yapılmasına,]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="16" y="306" width="539" height="15" uuid="974e1280-f3bd-4a9c-84b4-0c07a6b4d30a"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="8" isBold="false" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[3. Borçlu İKRAMİYE almakta ise, borç miktarını geçmemek üzere, bu ikramiyenin de TAMAMININ haczine,]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="16" y="321" width="539" height="12" uuid="522df9c4-a0e9-4655-b040-667226f60906"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[4. Borçlunun emekli olmakta tarihi yakın ise, emeklilik işlemi ile birlikte, HACZİMİN DE İLGİLİ SOSYAL GÜVENLİK KURUMUNA bildirilmesine,]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="16" y="333" width="539" height="21" uuid="8dc5552e-9d58-43de-bc94-47d805f79689"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[5. Nema ve vergi iadeleri ile borçlunun başkaca HAK VE ALACAĞI var ise; bu hak ve alacaklarının da borç miktarını geçmemek üzere TAMAMININ haczine karar verilmiştir.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="16" y="365" width="539" height="22" uuid="c8c3c4a4-730d-4057-95ec-e6616e981ab5"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[Karar dairesinde ve İc. ve İf. K.'nun 355. maddesi gereğince haczin icra edilip edilmediğinin ve borçlunun almakta olduğu maaş veya ücreti
+miktarının bir hafta içinde bildirilmesi ve borç bitinceye kadar tebligat mucibinne haciz olunan miktarın hemen kesilip dairemize gönderilmesini;]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="16" y="387" width="539" height="22" uuid="3bdafa3c-2854-4835-8638-1b3b25b51e27"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[Borçlunun maaş veya ücretinde veya memuriyetinde değişiklik olduğu ve hizmetine nihayet verildiği takkdirde derhal bildirilmesi, bu madde hükmüne riayet edilmediği veya kesilen paralar
+gönderilmediği takdirde aynı Kanunun 356. maddesi gereğince yetkililerin maaşından veya sairmalarından alınacağının ve ayrıca 357. madde gereğince cezai takibat yapılacağının bilinmesi rica olunur.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="16" y="414" width="539" height="15" uuid="e541f715-cc29-4115-8674-9fac64407be5"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[Not: Cevabınızda borçlunun mevcut ev adresleri ile maaşları mahcuz ise sıramızın ne zaman geleceğinin bildirilmesi.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="441" width="104" height="15" uuid="c791e6b2-fc33-4e8d-b31a-ca9c22d5c59d"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="8" isBold="true" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[İŞVERENİN DİKKATİNE :]]></text>
+			</staticText>
+			<line>
+				<reportElement x="14" y="456" width="530" height="1" uuid="19441c3d-f492-4b5f-90ea-290bf47e8b23"/>
+			</line>
+			<line>
+				<reportElement x="544" y="457" width="1" height="218" uuid="126f4b21-dc75-43f6-bbce-75c07c36f594"/>
+			</line>
+			<line>
+				<reportElement x="14" y="457" width="1" height="218" uuid="0ce58bbb-d629-492b-8ce4-7b892826472d"/>
+			</line>
+			<line>
+				<reportElement x="14" y="674" width="531" height="1" uuid="0628588b-a7f5-4019-a165-0fe0e5198b38"/>
+			</line>
+			<staticText>
+				<reportElement x="20" y="460" width="160" height="15" uuid="5e6996dc-89eb-463f-ab91-0b31c3a85def"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="8" isBold="true" isUnderline="true" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[İCRA VE İFLAS KANUNU İLE MEVZUAT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="475" width="525" height="45" uuid="398eabf2-8545-4a3b-977c-c4a9ef7889d6"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[MAAŞ VE ÜCRETLERİNİN KESİLMESİNDE USUL: Madde 355-Devlet işlerinde veya hususi müesseselerde bulunan borçlu memur
+veya müstahdemlerin maaş ve ücretlerinden kesilmesi için icra dairelerinden yapılacak tebligatın kanuni muhatapları haczin icra edildiğini ve borçlunun maaş ve ücreti miktarını nihayet bir hafta içine bildirmeğe ve borç bitinceye kadar icra dairesinin tebligatı mucibince haczolunan miktarı tevkif edip hemen daireye göndermeğe mecburdurlar.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="520" width="525" height="35" uuid="65d749d3-092e-4264-8f24-1991434bb1f1"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[Memurun maaş,ücret veya memuriyetinde yahut başka bir şubeden maaş almayı mucip olacak surette vuku bulacak tebeddülleri ve hizmetine nihayet verildiği takdirde bu keyfiyeti de mal memuru veya daire amiri yahut hususi müesseselerin kanuni muhatapları derhal icra dairesine bildirmeye ve ikinci halde haciz muamelesinden o şube veya amirini haberdar etmeye mecburdur.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="25" y="557" width="279" height="15" uuid="46c14477-bf74-40f6-bef9-c87b95d2458e"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="8" isBold="true" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[YUKARIDAKİ MADDEYE RİAYET ETMEYENLER HAKKINDA HÜKÜMLER:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="575" width="525" height="23" uuid="58e56e9e-468b-4a74-9ed4-0d76a3bf87ac"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true" isUnderline="true" isStrikeThrough="false" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[Madde 356-Yukarıdaki madde hükümlerine riayet etmemiş olanların  kesmedikleri veya ilk vasıta ile göndermedikleri para ayrıca mahkemeden hüküm alınmasına hacet kalmaksızın icra dairesince maaşlarından veya sair mallarından alınır.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="598" width="525" height="24" uuid="3eb907c7-1c98-45ce-b3ee-b39b852f5fae"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[Bunların borçluya kanun hükümleri dairesinde rücu hakkı vardır. Yukarı ki madde hükümlerine riayet etmeyen herhangi bir memur veya amir hakkında istenecek malum atın icra dairesine hemen verilmesi bunların mensup olduğu dairenin vazifesidir.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="25" y="622" width="155" height="15" uuid="88464ac0-0355-4ee7-9082-2583b6f0c933"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="8" isBold="true" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[CUMHURİYET SAVCILIĞINCA TAKİP :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="637" width="525" height="32" uuid="950904b6-1750-4e86-af48-c6ec251f3857"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[Madde 357-İcra dairesince kanuna göre yapılan tebliğ ve emirleri derhal yapmaya ve neticesini geciktirmeksizin icra dairesine bildirmeye alakadarlar mecburdur. Makbul sebep haricinde tebliğ ve emirleri yapmayanlar hakkında ait olduğu dairece tahkikatı evveliyeye hacet kalmaksızın Cumhuriyet Savcılığınca doğrudan doğruya takibat yapılır.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="14" y="685" width="98" height="15" uuid="6663d632-8fe5-44fa-988d-e1356b91a1c3"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="8" isBold="true" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[İcra Müd. / Hesap No :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="112" y="685" width="234" height="15" uuid="dafd069b-2b6a-4952-93fd-81aa4c11ac66"/>
+				<textElement verticalAlignment="Middle">
+					<font pdfEncoding="Cp1254"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{icraMudurluguAdi}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="241" y="430" width="314" height="22" uuid="febc40ee-5e37-4405-929c-6d830dd1faae"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" pdfEncoding="Cp1254"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{icraMudurluguAdi}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="304" y="711" width="70" height="15" uuid="766260a6-d2dd-4b3e-b38d-bbdf4ef45eec"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="8" isBold="false" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[Semiramis No :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="380" y="710" width="132" height="15" uuid="cb9bca6e-0f2a-4676-a2e3-4eb16a32a3b1"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isItalic="true" pdfEncoding="Cp1254"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{semiramisNo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="304" y="729" width="70" height="15" uuid="576ad85e-bcbc-45db-b415-6a4a48a41749"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="8" isBold="false" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[Hazırlayan :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="304" y="748" width="70" height="15" uuid="350c9ecc-8de5-4bb3-98c2-f6a3fbbfffda"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="8" isBold="false" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[Risk Yöneticisi :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="497" y="269" width="32" height="14" uuid="a7008c90-e4d2-46a6-b5c6-ec1720efe592"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="8" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[haczine,]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="415" y="269" width="82" height="14" uuid="8e5d55fb-68ba-4388-b8e5-3c71d769a6f4"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{maasMuvafakat}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="134" y="79" width="105" height="20" uuid="1a2d9307-34bd-4c17-ba87-b728b1e65f28"/>
+				<textElement verticalAlignment="Middle">
+					<font pdfEncoding="Cp1254"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{alacakliTel}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="279" y="79" width="160" height="20" uuid="08c9f14d-21d5-4696-b109-a6271f1ffb96"/>
+				<textElement verticalAlignment="Middle">
+					<font pdfEncoding="Cp1254"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{alacakliMail}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="134" y="99" width="305" height="20" uuid="11b60c43-5237-409b-b0d1-91abf8b90f19"/>
+				<textElement verticalAlignment="Middle">
+					<font pdfEncoding="Cp1254"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{buroIbanNo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="103" y="218" width="100" height="21" uuid="4bf6a4c6-f21c-47eb-8088-69857a1116b0"/>
+				<textElement verticalAlignment="Middle">
+					<font pdfEncoding="Cp1254"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{borcluMiktari}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="346" y="685" width="199" height="15" uuid="79ea7878-47f2-4510-8b1d-1d37de4f30b6"/>
+				<textElement verticalAlignment="Middle">
+					<font pdfEncoding="Cp1254"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{buroIbanNo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="134" y="59" width="305" height="20" uuid="7dd82c7a-5dce-44ac-9aa9-87216b1dfb47"/>
+				<textElement verticalAlignment="Middle">
+					<font pdfEncoding="Cp1254"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{buroAdresi}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="380" y="727" width="132" height="20" uuid="0b893a30-39c7-4aa5-80c7-90854aeb3aa6"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isItalic="true" pdfEncoding="Cp1254"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{hazirlayanText}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="380" y="748" width="132" height="15" uuid="dc335e9d-d779-4822-98da-c93a60647960"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isItalic="true" pdfEncoding="Cp1254"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{riskYoneticisiText}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="304" y="142" width="111" height="19" uuid="909592a2-3b3e-4e69-bbc1-dc131a322364"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" pdfEncoding="Cp1254"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{borcluTc}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

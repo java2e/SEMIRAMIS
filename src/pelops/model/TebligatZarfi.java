@@ -7,7 +7,7 @@ public class TebligatZarfi {
 	private String icraMudurluguAdi;
 	private String borcluAdi;
 	private String borcluAdres;
-	private String talepMuzekkereAdi;
+	private String muzekkereTalepAdi;
 	private String alacakliAdi;
 	private String avukatAdi;
 	
@@ -37,11 +37,14 @@ public class TebligatZarfi {
 	public void setBorcluAdres(String borcluAdres) {
 		this.borcluAdres = borcluAdres;
 	}
-	public String getTalepMuzekkereAdi() {
-		return talepMuzekkereAdi;
+	
+	
+
+	public String getMuzekkereTalepAdi() {
+		return muzekkereTalepAdi;
 	}
-	public void setTalepMuzekkereAdi(String talepMuzekkereAdi) {
-		this.talepMuzekkereAdi = talepMuzekkereAdi;
+	public void setMuzekkereTalepAdi(String muzekkereTalepAdi) {
+		this.muzekkereTalepAdi = muzekkereTalepAdi;
 	}
 	public String getAlacakliAdi() {
 		return alacakliAdi;

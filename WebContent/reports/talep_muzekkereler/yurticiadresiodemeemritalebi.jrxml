@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="yurticiadresiodemeemritalebi" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="15bbab6b-08e6-47a3-b8e5-3d13429efc83">
+	<property name="ireport.zoom" value="1.331000000000002"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="icraMudurluguAdi" class="java.lang.String"/>
+	<field name="icraDosyaNo" class="java.lang.String"/>
+	<field name="avukatAdi" class="java.lang.String"/>
+	<field name="yurticiAdresi" class="java.lang.String"/>
+	<field name="muameleTarihiText" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="69" splitType="Stretch">
+			<staticText>
+				<reportElement x="40" y="0" width="51" height="29" uuid="9ce465da-b5a1-463a-964c-db42c1e10cec"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[    T.C.
+ANKARA]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="29" width="313" height="20" uuid="c72a6285-2aae-408e-b92a-afb07dc3a023"/>
+				<textElement verticalAlignment="Middle">
+					<font pdfEncoding="Cp1254"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{icraMudurluguAdi}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="49" width="66" height="19" uuid="2b6c1f73-ee97-4138-b346-7d38c33c0de0"/>
+				<textElement verticalAlignment="Middle">
+					<font pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[DOSYA NO :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="66" y="48" width="168" height="20" uuid="9c5380c5-2255-4c04-8670-a10ffa99cbd1"/>
+				<textElement verticalAlignment="Middle">
+					<font pdfEncoding="Cp1254"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{icraDosyaNo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="360" y="9" width="160" height="20" uuid="4e13e5aa-8f7d-46c2-bb33-56e2d3b2e3cd"/>
+				<textElement verticalAlignment="Middle">
+					<font pdfEncoding="Cp1254"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{muameleTarihiText}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band height="407" splitType="Stretch">
+			<staticText>
+				<reportElement x="40" y="52" width="118" height="32" uuid="4fe452e0-f554-4383-b5b6-96bfd06c7223"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="10" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[Alacaklı vekili  geldi,]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="40" y="85" width="497" height="36" uuid="2bb52fbb-1d48-4c4a-834e-96ea5667affe"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="10" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[ 1) Borçlunun mernis adresi bilinmiyor olduğundan borçlunun yurtiçi adresine ödeme emri gönderilmesini talep ediyorum.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="66" y="159" width="38" height="20" uuid="9a2bc601-619e-4c7d-9ea9-cc74317f512b"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="10" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[Avukat :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="66" y="124" width="38" height="35" uuid="75f9bf67-e93f-4c2b-a6d8-664fdad60202"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[Adres :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="106" y="159" width="185" height="20" uuid="49f9d19c-f3c1-4c0b-8445-edddcedce341"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" pdfEncoding="Cp1254"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{avukatAdi}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="91" y="199" width="134" height="20" uuid="16adf884-3a57-4c8a-8f04-171171cab9c3"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="10" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[ İş bu talep E-İMZA uyap üzerinden ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="303" y="199" width="134" height="20" uuid="22f352d1-a7cc-47f2-9c46-9bc1d0d7cca0"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="10" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[tarihinde gönderilmiştir.]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="104" y="124" width="433" height="35" uuid="382d2034-8f88-4158-bd95-9200f441c5cf"/>
+				<textElement verticalAlignment="Middle">
+					<font pdfEncoding="Cp1254"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{yurticiAdresi}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="204" y="199" width="109" height="20" uuid="ff92ad6d-d845-49d5-96cf-5c81d343907b"/>
+				<textElement verticalAlignment="Middle">
+					<font pdfEncoding="Cp1254"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{muameleTarihiText}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

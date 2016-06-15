@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="gsmmuzekkeresiturktelekom" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="15bbab6b-08e6-47a3-b8e5-3d13429efc83">
+	<property name="ireport.zoom" value="1.3310000000000015"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="icraMudurluguAdi" class="java.lang.String"/>
+	<field name="icraDosyaNo" class="java.lang.String"/>
+	<field name="tebligatTarihi" class="java.lang.String"/>
+	<field name="alacakliAdi" class="java.lang.String"/>
+	<field name="vekili" class="java.lang.String"/>
+	<field name="borcluAdi" class="java.lang.String"/>
+	<field name="borcluTcKimlikNo" class="java.lang.String"/>
+	<field name="tebligatTarihiText" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="69" splitType="Stretch">
+			<staticText>
+				<reportElement x="60" y="0" width="48" height="29" uuid="9ce465da-b5a1-463a-964c-db42c1e10cec"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[T.C.
+ANKARA]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="10" y="29" width="246" height="20" uuid="c72a6285-2aae-408e-b92a-afb07dc3a023"/>
+				<textElement verticalAlignment="Middle">
+					<font pdfEncoding="Cp1254"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{icraMudurluguAdi}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="49" width="87" height="19" uuid="2b6c1f73-ee97-4138-b346-7d38c33c0de0"/>
+				<textElement verticalAlignment="Middle">
+					<font pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[DOSYA/ESAS:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="77" y="49" width="179" height="20" uuid="9c5380c5-2255-4c04-8670-a10ffa99cbd1"/>
+				<textElement verticalAlignment="Middle">
+					<font pdfEncoding="Cp1254"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{icraDosyaNo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="404" y="9" width="113" height="20" uuid="49e7dd79-8755-4de6-8458-7f0ba604d326"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{tebligatTarihiText}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band height="421" splitType="Stretch">
+			<staticText>
+				<reportElement x="151" y="40" width="292" height="19" uuid="7d74aaf9-0745-471e-9745-4aacd764b2b7"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[ TÜRK TELEKOM İLETİŞİM HİZMETLERİ ANONİM ŞİRKETİNE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="77" y="88" width="53" height="20" uuid="b77e81fd-a425-4be8-aad9-c89c93344e67"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="10" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[ALACAKLI :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="133" y="88" width="211" height="20" uuid="8cde4ea0-2805-444d-b5dc-f50c0cdb127c"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" pdfEncoding="Cp1254"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{alacakliAdi}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="77" y="108" width="53" height="20" uuid="6e9f7e3e-14c7-40c1-9c32-df1cd39b6c7a"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="10" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[VEKİLİ :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="133" y="108" width="211" height="20" uuid="eda50c99-ed2e-475f-8fc2-319d18fa842e"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" pdfEncoding="Cp1254"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{vekili}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="60" y="128" width="70" height="20" uuid="ef3f98c0-ae5a-4ed5-a9c7-dd7ff048f92d"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="10" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[BORÇLU ADI :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="133" y="128" width="211" height="20" uuid="bca90547-82bd-4d89-b80f-3dd5f24b71d5"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" pdfEncoding="Cp1254"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{borcluAdi}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="60" y="148" width="70" height="20" uuid="9a99e4ad-73b2-48f4-a592-b1502b4cb5dc"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[T.C. Kimlik No :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="87" y="184" width="430" height="20" uuid="31e632fa-bdbc-410b-b77e-c9e208471082"/>
+				<textElement verticalAlignment="Middle">
+					<font pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[ Bir alacağın temini ve tahsili amacı ile, yukarıda adı soyadı ve TC si yazılı bulunan borçlumuz ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="87" y="204" width="105" height="20" uuid="444afdac-13c5-4ff1-93d2-0bd7445d89a2"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" pdfEncoding="Cp1254"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{borcluAdi}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="192" y="204" width="136" height="20" uuid="3f923924-9269-4bea-9c6f-6bf39e9489ea"/>
+				<textElement verticalAlignment="Middle">
+					<font pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[adına kayıt bulunması halinde]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="87" y="224" width="430" height="26" uuid="2e8998b5-5e4d-4123-bc73-520cfa759af0"/>
+				<textElement verticalAlignment="Middle">
+					<font pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[Tebligata yarar  ev ve iş adresleri ile şahsa ait tüm telefon numaralarının dosyamıza bildirilmesine karar verilmiştir.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="87" y="250" width="430" height="17" uuid="380fcc1d-5425-47f9-95b9-5cedacf3e848"/>
+				<textElement verticalAlignment="Middle">
+					<font pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[Karar gereğinin ifası ile neticeden dosyamıza bilgi verilmesi rica olunur.]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="308" y="291" width="209" height="20" uuid="7df8d643-60f7-44ee-9c5c-579cc09a5945"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" pdfEncoding="Cp1254"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{icraMudurluguAdi}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="133" y="149" width="211" height="20" uuid="74b9dccb-0c84-4d82-837e-2f245b81543c"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{borcluTcKimlikNo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

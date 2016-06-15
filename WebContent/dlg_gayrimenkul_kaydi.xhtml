@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+
+<h:body>
+	<div id="wrapper">
+
+		<div id="content">
+
+			<p:panel>
+			
+				<p:panelGrid columns="4" style="margin-top:10px" id="panelGayrimenkul">
+				
+					<p:outputLabel style="width: 150px;" value="İl"></p:outputLabel>
+					
+					<p:selectOneMenu id="il_muzekkere"
+						value="#{muameleislemlerbean.il}"
+						style="width: 280px">
+
+						<p:ajax event="change" update="ilce_muzekkere"
+							listener="#{muameleislemlerbean.ilceListeEkleForGayriMenkul()}" />
+					
+					
+						<f:selectItems value="#{genelSehirlerBean.ListeGetirForIl()}"
+							var="iller" itemLabel="#{iller.il_adi}"
+							itemValue="#{iller.il_adi}">
+						</f:selectItems>
+					</p:selectOneMenu>
+					
+					
+					
+					<p:outputLabel style="width: 150px" value="İlçe"></p:outputLabel>
+					
+					<p:selectOneMenu id="ilce_muzekkere"
+						value="#{muameleislemlerbean.ilce}"
+						style="width: 280px">
+						<f:selectItems value="#{muameleislemlerbean.ilceList}" var="ilceler"
+							itemLabel="#{ilceler.ilce_adi}" itemValue="#{ilceler.ilce_adi}"></f:selectItems>
+					</p:selectOneMenu>
+					
+					
+					
+					<p:outputLabel value="Ada"></p:outputLabel>
+					<p:inputText value="#{muameleislemlerbean.ada}"></p:inputText>
+					<p:outputLabel value="Parsel"></p:outputLabel>
+					<p:inputText value="#{muameleislemlerbean.parsel}"></p:inputText>
+					<p:outputLabel value="Açıklama"></p:outputLabel>
+					<p:inputText value="#{muameleislemlerbean.aciklama}"></p:inputText>
+				</p:panelGrid>
+				<p:commandButton value="Ekle"
+					action="#{muameleislemlerbean.addGayrimenkulList}"
+					update="tblgarimenkul, panelGayrimenkul"></p:commandButton>
+				<p:commandButton value="Tabloyu Temizle"
+					action="#{muameleislemlerbean.clearList}"
+					update="tblgarimenkul, panelGayrimenkul"></p:commandButton>
+			</p:panel>
+
+
+			<p:dataTable value="#{muameleislemlerbean.gayrimenkulList}" var="kl"
+				id="tblgarimenkul" style="width:900px " rowStyleClass="green" rows="6"
+				paginator="true"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="5,10,25,50,100,1000">
+
+				<p:column headerText="İl" width="100px">
+					<h:outputText value="#{kl.il}" />
+				</p:column>
+
+				<p:column headerText="İlçe" width="100px">
+					<h:outputText value="#{kl.ilce}" />
+				</p:column>
+				<p:column headerText="Ada" width="100px">
+					<h:outputText value="#{kl.ada}" />
+				</p:column>
+				<p:column headerText="Parsel" width="100px">
+					<h:outputText value="#{kl.parsel}" />
+				</p:column>
+				<p:column headerText="Açıklama" width="100px">
+					<h:outputText value="#{kl.aciklama}" />
+				</p:column>
+
+				<p:column headerText="Çıkar" width="100px">
+
+					<p:commandButton value="Çıkar" type="Button"
+						actionListener="#{muameleislemlerbean.removeGayrimenkulList( kl.id)}"
+						update="tblgarimenkul" />
+
+
+				</p:column>
+
+			</p:dataTable>
+
+
+
+		</div>
+	</div>
+
+
+
+
+</h:body>
+</html>

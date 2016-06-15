@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="maashaciztalebimuvafakat" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="15bbab6b-08e6-47a3-b8e5-3d13429efc83">
+	<property name="ireport.zoom" value="1.3310000000000008"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="icraMudurluguAdi" class="java.lang.String"/>
+	<field name="icraDosyaNo" class="java.lang.String"/>
+	<field name="muameleTarihiText" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="69" splitType="Stretch">
+			<staticText>
+				<reportElement x="60" y="0" width="48" height="29" uuid="9ce465da-b5a1-463a-964c-db42c1e10cec"/>
+				<textElement textAlignment="Center">
+					<font pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[T.C.
+ANKARA]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="10" y="29" width="277" height="20" uuid="c72a6285-2aae-408e-b92a-afb07dc3a023"/>
+				<textElement verticalAlignment="Middle">
+					<font pdfEncoding="Cp1254"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{icraMudurluguAdi}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="49" width="87" height="19" uuid="2b6c1f73-ee97-4138-b346-7d38c33c0de0"/>
+				<textElement verticalAlignment="Middle">
+					<font pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[DOSYA/ESAS:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="72" y="49" width="215" height="20" uuid="9c5380c5-2255-4c04-8670-a10ffa99cbd1"/>
+				<textElement verticalAlignment="Middle">
+					<font pdfEncoding="Cp1254"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{icraDosyaNo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band height="407" splitType="Stretch">
+			<staticText>
+				<reportElement x="72" y="103" width="191" height="18" uuid="2d7382fb-8e1b-44df-8f29-96f530bf8d60"/>
+				<textElement verticalAlignment="Middle">
+					<font pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[İş bu talep uyap üzerinden e-imza ile ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="327" y="103" width="115" height="18" uuid="8554c365-4e6f-4fcf-86e0-36059c2eebce"/>
+				<textElement verticalAlignment="Middle">
+					<font pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[tarihinde gönderilmiştir.]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="237" y="103" width="104" height="18" uuid="5426bfbe-bcb4-4b5c-b6ba-85e8c7e44324"/>
+				<textElement verticalAlignment="Middle">
+					<font pdfEncoding="Cp1254"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{muameleTarihiText}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="26" y="36" width="61" height="18" uuid="f9cdb7b4-fa0b-41a0-9360-f23884f8d421"/>
+				<textElement verticalAlignment="Middle">
+					<font pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[AV GELDİ.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="47" y="54" width="451" height="32" uuid="a6e5c453-e1d7-4e65-89e8-84aaf122859b"/>
+				<textElement verticalAlignment="Top">
+					<font pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[Borçlunun vermiş olduğu muvafakat nedeniyle çalıştığı kuruma/iş yerine maaşından muvafakatı kadar paranın kesilmesi içim müzekkere gönderilmesini talep ederim dedi.]]></text>
+			</staticText>
+		</band>
+	</detail>
+</jasperReport>

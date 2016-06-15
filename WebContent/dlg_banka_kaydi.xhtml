@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+
+<h:body>
+	<div id="wrapper">
+
+		<div id="content">
+
+			<p:panel>
+				<p:panelGrid columns="4" style="margin-top:10px" id="panelBanka">
+					<p:outputLabel value="Banka Adı:"></p:outputLabel>
+					<p:inputText value="#{muameleislemlerbean.adi}"></p:inputText>
+					<p:outputLabel value="Banka Bilgisi"></p:outputLabel>
+					<p:inputText value="#{muameleislemlerbean.bankaBilgisi}"></p:inputText>
+				</p:panelGrid>
+				<p:commandButton value="Ekle"
+					action="#{muameleislemlerbean.addBankList}"
+					update="tblbanka, panelBanka"></p:commandButton>
+					<p:commandButton value="Tabloyu Temizle"
+					action="#{muameleislemlerbean.clearList}"
+					update="tblbanka, panelBanka"></p:commandButton>
+			</p:panel>
+
+
+			<p:dataTable value="#{muameleislemlerbean.bankaList}" var="kl"
+				id="tblbanka" style="width:720px " rowStyleClass="green" rows="5"
+				paginator="true"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="5,10,25,50,100,1000">
+
+				<p:column headerText="Kurum Adı" width="105">
+					<h:outputText value="#{kl.adi}" />
+				</p:column>
+
+				<p:column headerText="Kurum Adresi" width="195">
+					<h:outputText value="#{kl.bankaBilgisi}" />
+				</p:column>
+
+				<p:column headerText="Çıkar" width="42">
+
+					<p:commandButton value="Çıkar" type="Button"
+						actionListener="#{muameleislemlerbean.removeBankList(kl.id)}" update="tblbanka" />
+				</p:column>
+			</p:dataTable>
+		</div>
+	</div>
+
+
+
+
+</h:body>
+</html>

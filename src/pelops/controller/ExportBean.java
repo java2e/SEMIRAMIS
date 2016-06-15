@@ -73,6 +73,9 @@ public class ExportBean {
 		
 		 InputStream stream = ((ServletContext)FacesContext.getCurrentInstance().getExternalContext().getContext()).getResourceAsStream("/UyapXMLFiles/uyaptest.xml");
 		 downloadFile = new DefaultStreamedContent(stream, "text/xml", "UYAP.xml");
+		 System.out.println(stream);
+		 System.out.println(DOSYA_KLASORU);
+		 
 	}
 	 
 	public String getMuvekkilAdi() {

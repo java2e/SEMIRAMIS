@@ -84,5 +84,8 @@ public class GenelSehirlerBean extends DBConnection {
 
 		return dao.getIl_KoduFromName(a);
 	}
+	public ArrayList<Ilce> getlceFromIlAd(String ad) throws SQLException, Exception {
+		return handleValueChange(getIlKoduFromName(ad));
+	}
 
 }

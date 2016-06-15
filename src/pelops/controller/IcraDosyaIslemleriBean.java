@@ -24,6 +24,7 @@ import pelops.dao.BorcluBilgisiDAO;
 import pelops.dao.HarcBilgisiDAO;
 import pelops.dao.HesapDAO;
 import pelops.dao.IcraDosyasiDAO;
+import pelops.dao.LogErrorDAO;
 import pelops.dao.VekaletHarciDAO;
 import pelops.dao.VekaletSinirlariDAO;
 import pelops.model.AlacakliBilgiler;
@@ -34,11 +35,17 @@ import pelops.model.Hesap;
 import pelops.model.HesaplarList;
 import pelops.model.IcraDosyasi;
 import pelops.model.Ilce;
+import pelops.model.LogError;
 
 @ManagedBean(name = "icradosyaislemleribean")
 @SessionScoped
 public class IcraDosyaIslemleriBean {
 
+	LogErrorDAO log = new LogErrorDAO();
+	Date nowDate = new Date();
+	LogError newlog;
+	FacesContext context = FacesContext.getCurrentInstance();
+	
 	private ArrayList<HesaplarList> hesaplarlistesi;
 
 	private int HesapTumId;
@@ -693,8 +700,10 @@ public class IcraDosyaIslemleriBean {
 
 	}
 
-	public void GelismisListe(int id) throws Exception {
-
+	public void GelismisListe(int id) {
+try{
+	
+	
 		IcraDosyasiDAO icradosyasidao = new IcraDosyasiDAO();
 		String icradosyano = icradosyasidao.Listele(id).getIcraDosyaNo();
 		int icradosyaID = id;
@@ -755,6 +764,52 @@ public class IcraDosyaIslemleriBean {
 
 			Hesapla();
 		}
+	
+} catch (SQLException e) {
+	String Hata="";
+	for (int i = 0; i < e.getStackTrace().length; i++) {
+		Hata += e.getStackTrace()[i]+" : ";	
+	}
+	newlog = new LogError();
+	newlog.setHata_detay(Hata);
+	newlog.setHata_value("GelismisListele Prosedürü (SQL ERROR)");
+	newlog.setPage("IcraDosyaIslemleriBean");
+	newlog.setUser_id(99);
+	
+	
+	try {
+		log.Kaydet(newlog);	
+	} catch (Exception e2) {
+		context.addMessage(null, new FacesMessage("Beklenmeyen Bir Hata Gerçekleşti Lütfen Sisteme Yetkilisine Başvurunuz..."));
+		
+	}
+	
+	context.addMessage(null, new FacesMessage("Beklenmeyen Bir Hata Gerçekleşti Lütfen Sisteme Tekrar Giriş Yapınız..."));
+	
+}catch (Exception e) {
+		
+		String Hata="";
+		for (int i = 0; i < e.getStackTrace().length; i++) {
+			Hata += e.getStackTrace()[i]+" : ";	
+		}
+		newlog = new LogError();
+		newlog.setHata_detay(Hata);
+		newlog.setHata_value("GelismisListele Prosedürü  (STANDART ERROR)");
+		newlog.setPage("IcraDosyaIslemleriBean");
+		newlog.setUser_id(99);
+		
+		
+		try {
+			log.Kaydet(newlog);	
+		} catch (Exception e2) {
+			
+			context.addMessage(null, new FacesMessage("Beklenmeyen Bir Hata Gerçekleşti Lütfen Sisteme Yetkilisine Başvurunuz..."));
+		}
+		
+		context.addMessage(null, new FacesMessage("Beklenmeyen Bir Hata Gerçekleşti Lütfen Sisteme Tekrar Giriş Yapınız..."));
+		
+	
+	}
 
 	}
 

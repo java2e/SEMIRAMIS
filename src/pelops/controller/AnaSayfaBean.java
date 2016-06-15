@@ -1,8 +1,12 @@
 package pelops.controller;
 
+import java.io.IOException;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletResponse;
 
 import org.primefaces.context.RequestContext;
 
@@ -12,7 +16,7 @@ public class AnaSayfaBean {
 
 	private String formPath;
 	private Tanimlar tanimlar;
-	
+	FacesContext context = FacesContext.getCurrentInstance();
 	public AnaSayfaBean() {
 
 		formPath = "frm_rapor_dashboard.xhtml";
@@ -342,6 +346,8 @@ public class AnaSayfaBean {
 				formPath = "frm_dosya_chronology.xhtml";
 				break;
 			
+			
+				
 			default:
 
 				formPath = "frm_rapor_dashboard.xhtml"; // ilk sayfa

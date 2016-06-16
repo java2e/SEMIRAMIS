@@ -21,24 +21,20 @@
 	<div>
 	
 
-		<p:panel style=" border-style: hidden !important;">
-			<p:panelGrid style=" border-style: hidden !important;" >
-				<p:row>
-						<p:column>
+		<p:panel style=" border-style: hidden !important; width:100%; height:100%;">
+			<p:panelGrid style=" border-style: hidden !important; width:100%; height:100%;" >
+				<p:row style="width:100%; height:100%;">
 						
-							<p:panel header="KASA İŞLEMLERİ" style="min-width:300px; min-height:350px;  text-align:center">
-						
-						<p:commandButton style="width:250px;height:95px; top:25px" value="TAHSİLAT YAP" onclick="PF('frmtahsilatyap').show();"/>
-						
-						<p:commandButton style="width:250px;height:95px; top:65px" value="REDDİYAT YAP" onclick="PF('frmreddiyatyap').show();"/>
-						
-						
-					 
-							</p:panel>
-							
+						<p:column style="width:5%; height:100%;">
+						<p:panel header="KASA İŞLEMLERİ" style="min-width:100px; min-height:150px; width:100%; height:100%; text-align:center">
+						<p:commandButton style="width:100%; min-height:120px; height:100%; top:25px;" value="TAHSİLAT YAP" onclick="PF('frmtahsilatyap').show();"/>
+<!-- 				   <p:commandButton style="width:250px;height:95px; top:65px" value="REDDİYAT YAP" onclick="PF('frmreddiyatyap').show();"/> -->
+					 </p:panel>
+					
 						</p:column>
-						<p:column>
-							<p:panel header="KASA RAPORLARI" style="width:500px; height:350px; text-align:center;">
+						
+						<p:column style="width:30%; height:100%;">
+							<p:panel header="KASA RAPORLARI" style="min-width:500px; min-height:350px; text-align:center;">
 						<p:panelGrid columns="2">
 									<p:panel style=" border-style: hidden !important;width:260px" header="AYLIK RAPOR">
 									<p:panelGrid  style=" border-style: hidden !important; text-align:center; height:100%" columns="1">
@@ -69,7 +65,7 @@
 						</p:panelGrid>
 						</p:panel>
 						</p:column>
-						<p:column rowspan="2">
+						<p:column rowspan="2" style="width:50%; height:100%;">
 						
 							<p:panel header="KASA İŞLEMLERİ LİSTESİ" style="min-width:850px; min-height:700px; border-style: hidden !important;text-align:center;">
 							<p:outputLabel value="BAŞLANGIÇ TARİHİ :"/> <p:calendar id="multi"  pages="3" value="#{kasaBean.baslangicTarihi}" >
@@ -257,7 +253,7 @@
 								
 				</p:row>
 				<p:row>
-						<p:column>
+						<p:column style="width:10%; height:100%;">
 						 	<p:panel header="BEKLEYEN - ONAYDAN GELENLER" style="min-width:300px; min-height:350px; text-align:center;">
 						
 						<p:commandButton style="width:135px;height:65px; top:25px" value="BEKLEYEN - HİTAM" onclick="PF('hitambekleme').show();"/>
@@ -271,7 +267,7 @@
 						<p:commandButton style="width:135px;height:65px; top:25px" value="ONAYLANMIŞ - İNDİRİM" onclick="PF('indirimonaylanan').show();"/>
 							</p:panel>
 						</p:column>
-						<p:column>
+						<p:column style="width:50%; height:100%;">
 						
 <!-- 							<p:panel header="REDDİYAT BEKLEYENLER" style="width:500px; height:350px; text-align:center;"> -->
 									
@@ -339,64 +335,55 @@
 				<ui:include src="frm_tahsilat_paneli.xhtml" />
 			</p:dialog>
 		</h:form>
-	
-		<h:form id="reddiyatyap">
+	<h:form id="reddiyatyap">
 			<p:dialog header="REDDİYAT İŞLEMİ KAYIT PANELİ" widgetVar="frmreddiyatyap"
 				minHeight="340" height="%100" width="%100">
 				<ui:include src="frm_reddiyat_paneli.xhtml" />
 			</p:dialog>
 		</h:form>
-	
 	<h:form id="tahsilatmakbuzbekle">
 			<p:dialog header="TAHSİLAT MAKBUZU BEKLEME" widgetVar="tahsilatmakbuzbekleme"
 				minHeight="340" >
 				<ui:include src="KasaForm/tahsilat_makbuzu_bekleme.xhtml" />
 			</p:dialog>
 		</h:form>	
-		
-		<h:form id="hitambekle">
+	<h:form id="hitambekle">
 			<p:dialog header="HİTAM BEKLEME" widgetVar="hitambekleme"
 				minHeight="340" >
 				<ui:include src="KasaForm/hitam_bekleme.xhtml" />
 			</p:dialog>
 		</h:form>	
-		
-		<h:form id="reddiyatbekle">
+	<h:form id="reddiyatbekle">
 			<p:dialog header="REDDİYAT BEKLEME" widgetVar="reddiyatbekleme"
 				minHeight="340">
 				<ui:include src="KasaForm/reddiyat_bekleme.xhtml" />
 			</p:dialog>
 		</h:form>	
-
-        <h:form id="indirimbekle">
+    <h:form id="indirimbekle">
 			<p:dialog header="İNDİRİM BEKLEME" widgetVar="indirimbekleme"
 				minHeight="340" height="%100" width="%100">
 				<ui:include src="KasaForm/indirim_bekleme.xhtml" />
 			</p:dialog>
 		</h:form>	
-		
-		<h:form id="tahsilatmakbuzonaylanan">
+	<h:form id="tahsilatmakbuzonaylanan">
 			<p:dialog header="TAHSİLAT MAKBUZU ONAYDAN GELEN" widgetVar="tahsilatmakbuzonaylanan"
 				minHeight="340" >
 				<ui:include src="KasaForm/tahsilat_makbuzu_onaydan_gelen.xhtml" />
 			</p:dialog>
 		</h:form>	
-		
-		<h:form id="hitamonaylanan">
+	<h:form id="hitamonaylanan">
 			<p:dialog header="HİTAM ONAYDAN GELEN" widgetVar="hitamonaylanan"
 				minHeight="340" >
 				<ui:include src="KasaForm/hitam_onaydan_gelen.xhtml" />
 			</p:dialog>
 		</h:form>	
-		
-		<h:form id="reddiyatonaylanan">
+	<h:form id="reddiyatonaylanan">
 			<p:dialog header="REDDİYAT ONAYDAN GELEN" widgetVar="reddiyatonaylanan"
 				minHeight="340">
 				<ui:include src="KasaForm/reddiyat_onaydan_gelen.xhtml" />
 			</p:dialog>
 		</h:form>	
-
-        <h:form id="indirimonaylanan">
+    <h:form id="indirimonaylanan">
 			<p:dialog header="İNDİRİM ONAYDAN GELEN" widgetVar="indirimonaylanan"
 				minHeight="340" height="%100" width="%100">
 				<ui:include src="KasaForm/indirim_onaydan_gelen.xhtml" />

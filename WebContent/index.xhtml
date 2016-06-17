@@ -409,6 +409,12 @@ Yetkiniz : <strong>ADMİN</strong><br></br>
 
 					<p:submenu label="KASA" expanded="false" id="kasa">
 					
+					<p:menuitem value="New Kasa Tahsilat" ajax="false"
+							update=":OrtaSayfa"
+							actionListener="#{anaSayfaBean.gotoPage(1044)}"
+							icon="ui-icon-home" />
+					
+					
 					<p:menuitem value="Kasa Tahsilat" ajax="false"
 							update=":OrtaSayfa"
 							actionListener="#{anaSayfaBean.gotoPage(104)}"

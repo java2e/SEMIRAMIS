@@ -17,6 +17,28 @@ public class TahsilatViewModel {
 	private String odemeMiktariTL;
 
 	private String icraDosyaNo;
+	
+	private String baknaServisNo;
+	private String musteriNo;
+	
+	
+
+	public String getBaknaServisNo() {
+		return baknaServisNo;
+	}
+
+	public void setBaknaServisNo(String baknaServisNo) {
+		this.baknaServisNo = baknaServisNo;
+	}
+
+	public String getMusteriNo() {
+		return musteriNo;
+	}
+
+	public void setMusteriNo(String musteriNo) {
+		this.musteriNo = musteriNo;
+	}
+	
 
 	public String getOdemeMiktariTL() {
 		return odemeMiktariTL;

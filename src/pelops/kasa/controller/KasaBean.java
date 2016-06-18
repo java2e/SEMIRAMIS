@@ -3,6 +3,7 @@ package pelops.kasa.controller;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.NumberFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -43,6 +44,7 @@ public class KasaBean {
 	LogErrorDAO log = new LogErrorDAO();
 	Date nowDate = new Date();
 	LogError newlog;
+	SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 	FacesContext context = FacesContext.getCurrentInstance();
 	private ArrayList<Kasa> kasaListesi = new ArrayList<Kasa>();
 	private ArrayList<GenelTanimSablon> tahsilatStatuListesi = new ArrayList<GenelTanimSablon>();
@@ -524,7 +526,14 @@ public class KasaBean {
 		bilgiTahsilat.setMuvekkil_adi(AktifBean.getMuvekkilAdi());
 		// bilgiTahsilat.setTahsilat_miktari(this.getTahsilatYapilacakListe().get(returnID(id)).getOdemeMiktari());
 		bilgiTahsilat.setTahsilat_miktari(tahsilat.getTahsilat_miktari());
-
+		try {
+		
+		bilgiTahsilat.setTahsilat_tarihi(dateFormat.parse(dateFormat.format(tarih_rapor)));
+		
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		bilgiTahsilat.setTasilati_yapan(usersbilgi.getUser().getUsrName());
 		
 		RequestContext.getCurrentInstance().execute("PF('frmtahsilatyap').show();");
@@ -588,6 +597,12 @@ try{
 		bilgiTahsilat.setIcra_dosyasi_id(AktifBean.getIcraDosyaID());
 		bilgiTahsilat.setMuvekkil_adi(AktifBean.getMuvekkilAdi());
 		bilgiTahsilat.setTasilati_yapan(usersbilgi.getUser().getUsrName());
+		try {
+			bilgiTahsilat.setTahsilat_tarihi(dateFormat.parse(tarih_rapor.toString()));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void ReddiyatAktar(int id) {
@@ -698,6 +713,7 @@ try{
 			hitam = false;
 		}
 		bilgiTahsilat.setDurum(1);
+		
 		controller.kaydet(bilgiTahsilat, hitam, redList);
 		sayfaGuncelle();
 		FacesContext context = FacesContext.getCurrentInstance();
@@ -802,6 +818,7 @@ try{
 
 		Ay = "2016 - HAZİRAN";
 		gun = tarih_rapor.toString();
+		
 
 		for (int i = 0; i < tahsilatYapilmisListe.size(); i++) {
 

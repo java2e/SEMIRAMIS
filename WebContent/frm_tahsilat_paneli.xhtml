@@ -18,26 +18,50 @@
 <p:panel >
 	<p:panelGrid columns="2">
 	
-	<p:panel id="tahsilat" header="TAHSİLAT GİRİŞ PANELİ" style="width:100%; min-width:800px; margin-top: -310px">
+	<p:panel id="tahsilat" header="TAHSİLAT GİRİŞ PANELİ" style="width:100%; min-width:800px; margin-top: -200px">
 	
 	<p:panelGrid columns="2" style=" border-style: hidden !important;">
 	
 	<p:outputLabel value="İcra Dosya No"/>
 	<p:outputLabel>
 	
+	<p:panel style=" border-style: hidden !important; text-align:left;">
+	<p:panelGrid  columns="3" style=" border-style: hidden !important;">
+	<p:selectOneMenu id="icraMudurluk" 	
+					 effect="fold" 
+					 filter="true" filterMatchMode="startsWith"
+					 value="#" 
+					 style=" width:220px;">
+					 <f:selectItem itemLabel="" itemValue=""/>
+									<f:selectItems
+										value="#{geneltanimbean.ListeGetir('tbl_icra_mudurlugu')}"
+										var="list" itemLabel="#{list.adi}" itemValue="#{list.id}" />
+		</p:selectOneMenu>
+	  
 	<p:inputText size="30" value="#{kasaBean.bilgiTahsilat.icra_dosya_no}"/>
-	  ||
+	  
 	  <p:commandButton icon="ui-icon-search" style="color:red" value="Ara !" onclick="PF('dlgdetayliarama').show();"/>
 	  
+	</p:panelGrid>
+	</p:panel>
+	
+	
 	</p:outputLabel>
 	
+	<p:outputLabel value="Müşteri No"/>
+	<p:inputText size="30" value="#{kasaBean.bilgiTahsilat.musteriNo}" readonly="true" style="background-color:Gainsboro  !important"/>
+	
+	<p:outputLabel value="Banka Servis No"/>
+	<p:inputText size="30" value="#{kasaBean.bilgiTahsilat.baknaServisNo}" readonly="true" style="background-color:Gainsboro  !important"/>
+	
+	
 	<p:outputLabel value="Müvekkil Adı"/>
-	<p:inputText size="30" value="#{kasaBean.bilgiTahsilat.muvekkil_adi}"/>
+	<p:inputText size="30" value="#{kasaBean.bilgiTahsilat.muvekkil_adi}" readonly="true" style="background-color:Gainsboro  !important"/>
 	
 	<p:outputLabel value="Borçlu Adı"/>
 	<p:outputLabel>
 	
-	<p:inputText size="30" value="#{kasaBean.bilgiTahsilat.borclu_adi}"/>
+	<p:inputText size="30" value="#{kasaBean.bilgiTahsilat.borclu_adi}" readonly="true" style="background-color:Gainsboro  !important"/>
 	  
 	</p:outputLabel>
 	
@@ -45,7 +69,7 @@
 	<p:inputText size="30" value="#{kasaBean.bilgiTahsilat.tahsilat_miktari}"/>
 	
 	<p:outputLabel value="Tahsilat Tarihi"/>
-	<p:calendar id="multi"   size="30" pages="3" value="#{kasaBean.bilgiTahsilat.tahsilat_tarihi}"/> 
+	<p:inputText size="30" value="#{kasaBean.bilgiTahsilat.tahsilat_tarihi}" readonly="true" style="background-color:Gainsboro  !important"/> 
 
 	
 	<p:outputLabel value="Tahsilat Statüsü"/>
@@ -72,17 +96,21 @@
 								</p:selectOneMenu>
 	
 	<p:outputLabel value="Tahsilatı Yapan Kişi"/>
-	<p:inputText size="30" disabled="true" value="#{kasaBean.bilgiTahsilat.tasilati_yapan}"/>
+	<p:inputText size="30" readonly="true" value="#{kasaBean.bilgiTahsilat.tasilati_yapan}" style="background-color:Gainsboro  !important"/>
 	
 	<p:outputLabel value="Kasa İşlemini Yapan Kişi"/>
-	<p:inputText size="30" disabled="true" value="#{kasaBean.bilgiTahsilat.kasa_islemini_yapan}"/>
+	<p:inputText size="30" readonly="true" value="#{kasaBean.bilgiTahsilat.kasa_islemini_yapan}" style="background-color:Gainsboro  !important"/>
 	
 	</p:panelGrid>
+	
 	<p:spacer height="10"/>
+	<p:panelGrid columns="4" style=" border-style: hidden !important;">
 	<p:commandButton value="HİTAM BELGESİ" disabled="true" style="width:120px;height:55px;" />
 	<p:commandButton value="TAHSİLAT MAKBUZU" disabled="false" style="width:120px;height:55px;" ajax="false" action="#{kasaBean.print}"/>
 	<p:commandButton value="TAHSİLAT YAP" style="width:120px;height:55px;" action="#{kasaBean.tahsilatYap}" update=":kasaForm, :formMsgs"/>
 	<p:commandButton value="İNDİRİM ONAYI" style="width:120px;height:55px; "/>
+	
+	</p:panelGrid>
 	
 	</p:panel>
 

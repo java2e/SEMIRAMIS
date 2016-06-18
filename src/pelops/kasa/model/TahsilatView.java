@@ -29,6 +29,25 @@ public class TahsilatView {
 	private String icraDosyaNo;
 	private String icraMudurlugu;
 	private String tahsilatMiktariTL;
+	
+	private String baknaServisNo;
+	private String musteriNo;
+	
+	public String getBaknaServisNo() {
+		return baknaServisNo;
+	}
+
+	public void setBaknaServisNo(String baknaServisNo) {
+		this.baknaServisNo = baknaServisNo;
+	}
+
+	public String getMusteriNo() {
+		return musteriNo;
+	}
+
+	public void setMusteriNo(String musteriNo) {
+		this.musteriNo = musteriNo;
+	}
 
 	public String getTahsilatMiktariTL() {
 		return tahsilatMiktariTL;

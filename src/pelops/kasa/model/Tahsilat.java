@@ -26,6 +26,26 @@ public class Tahsilat {
 	private String tasilati_yapan;
 	private String kasa_islemini_yapan;
 	private String tahsilatMiktariTL;
+	private String baknaServisNo;
+	private String musteriNo;
+	
+	
+
+	public String getBaknaServisNo() {
+		return baknaServisNo;
+	}
+
+	public void setBaknaServisNo(String baknaServisNo) {
+		this.baknaServisNo = baknaServisNo;
+	}
+
+	public String getMusteriNo() {
+		return musteriNo;
+	}
+
+	public void setMusteriNo(String musteriNo) {
+		this.musteriNo = musteriNo;
+	}
 
 	public String getTahsilatMiktariTL() {
 		return tahsilatMiktariTL;

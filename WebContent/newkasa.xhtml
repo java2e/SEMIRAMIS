@@ -84,23 +84,222 @@
 <p:panelGrid style=" border-style: hidden !important; width:100%; height:100%;" >
 	
 <p:row style="width:100%;">
-<p:column style="width:60%; heigth:100%" headerText="KASA" >
+<p:column style="width:70%; heigth:100%" headerText="KASA" >
 <p:panel header="KASA İŞLEMLERİ LİSTESİ" style="height:100%; border-style: hidden !important;">
+
+<p:panelGrid columns="5" style="height:100%; border-style: hidden !important;">
+<p:outputLabel value="BAŞLANGIÇ TARİHİ :"/> <p:calendar id="multi"  pages="3" value="#{kasaBean.baslangicTarihi}" >
+																  		<p:ajax event="dateSelect" />
+																		</p:calendar>    
+<p:outputLabel value="    BİTİŞ TARİHİ :"/> <p:calendar id="multi1"  pages="3" value="#{kasaBean.bitisTarihi}" >
+																		<p:ajax event="dateSelect"  />
+																		</p:calendar>
+<p:commandButton value="Listele" update=":kasaForm"/>
+
+
+</p:panelGrid>
+					
+					
+<p:tabView>
+
+		
+						<p:tab title="Aktif Ödeme Sözleri">
+							
+							<p:dataTable 	
+					value="#{kasaBean.tahsilatYapilacakListe}"
+					filteredValue="#{kasaBean.tahsilatYapilacakListe}"
+					emptyMessage="Aradığınız Kritere Uygun Sonuç Bulunamamıştır."
+					var="hb"		
+					id="tblaktifodeme" style="width:100% "
+					rowStyleClass="green"
+					rows="15"
+					paginator="true"
+                    paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                    rowsPerPageTemplate="5,10,25,50,100,1000">
+				
+					<p:column headerText="Seç" width="7%" >
+					<p:commandButton value="Seç" type="Button" actionListener="#{icradosyaislemleribean.GelismisListe(hb.icraDosyaID)}"
+					action="#{kasaBean.TahsilatAktar(hb.fromID)}"
+					update=":tahsilatyap"
+					/>
+					</p:column>
+				
+				<p:column headerText="Borçlu Adı" width="25%" >
+					<h:outputText value="#{hb.borcluAdi}" />
+				</p:column>
+
+				<p:column headerText="İcra Dosya No" width="10%">
+					<h:outputText value="#{hb.icraDosyaNo}" />
+				</p:column>
+				
+				<p:column headerText="Müşteri No" width="10%">
+					<h:outputText value="#{hb.musteriNo}" />
+				</p:column>
+				
+				<p:column headerText="Banka Srv. No" width="10%">
+					<h:outputText value="#{hb.baknaServisNo}" />
+				</p:column>
+
+				<p:column headerText="Tarih" width="10%" >
+				<h:outputText value="#{hb.tarih}" />
+				</p:column>
+
+				<p:column headerText="Personel" width="15%"  >
+					<h:outputText value="#{hb.personelAdi}" />
+				</p:column>
+				
+				<p:column headerText="Ödenecek Tutar" width="10%" >
+				<h:outputText value="#{hb.odemeMiktariTL}" />
+				</p:column>
+		
+			</p:dataTable>
+			</p:tab>
+			
+			
+			<p:tab title="Tahsilatı Yapılmış">
+					
+			<p:dataTable value="#{kasaBean.tahsilatYapilmisListe}"	filteredValue="#{kasaBean.tahsilatYapilmisListe}"
+					emptyMessage="Aradığınız Kritere Uygun Sonuç Bulunamamıştır." var="hb" id="tblodenmisler" style="width:100% "
+					rowStyleClass="green" rows="8"	paginator="true"
+                    paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                    rowsPerPageTemplate="8,15,25,50,100,1000"	>
+			
+			<p:column headerText="İşlem" width="12%" >
+					<p:commandButton value="Tah. Makbuzu" type="Button" />
+					</p:column>
+			
+			<p:column headerText="İcra Dosya No" width="10%">
+					<h:outputText value="#{hb.icraDosyaNo}" />
+			</p:column>
+			
+			<p:column headerText="Müşteri No" width="10%">
+					<h:outputText value="#{hb.musteriNo}" />
+				</p:column>
+				
+				<p:column headerText="Banka Srv. No" width="10%">
+					<h:outputText value="#{hb.baknaServisNo}" />
+				</p:column>
+			
+			<p:column headerText="Muvekkil Adı" width="13%" >
+				<h:outputText value="#{hb.muvekkilAdi}" />
+			</p:column>
+			
+			<p:column headerText="Borçlu Adı" width="25%" >
+					<h:outputText value="#{hb.borcluAdi}" />
+			</p:column>
+			<p:column headerText="Tahsilat Tarihi" width="10%" >
+				<h:outputText value="#{hb.tahsilatTarihi}" />
+			</p:column>
+			
+			<p:column headerText="Tahsilat Miktarı" width="10%"  >
+					<h:outputText value="#{hb.tahsilatMiktariTL}" />
+			</p:column>
+			</p:dataTable>
+				</p:tab>
+				
+				
+			<p:tab title="Reddiyatı Yapılmış">
+						
+						<p:dataTable value="#{kasaBean.reddiyatYapilmisListe}"	filteredValue="#{kasaBean.reddiyatYapilmisListe}"
+					emptyMessage="Aradığınız Kritere Uygun Sonuç Bulunamamıştır." var="hb" id="tblreddiyat" style="width:100% "
+					rowStyleClass="green" rows="8"	paginator="true"
+                    paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                    rowsPerPageTemplate="8,10,25,50,100,1000"	>
+			
+			<p:column headerText="İcra Dosya No" width="10%">
+					<h:outputText value="#{hb.icraDosyaNo}" />
+			</p:column>
+			
+			
+			<p:column headerText="Borçlu Adı" width="30%" >
+					<h:outputText value="#{hb.borcluAdi}" />
+			</p:column>
+			
+			<p:column headerText="Muvekkil" width="5%" >
+				<h:outputText value="#{hb.muvekkilReddiyatTutarTL}" />
+			</p:column>
+			<p:column headerText="Sasa" width="5%" >
+				<h:outputText value="#{hb.sasaReddiyatTutarTL}" />
+			</p:column>
+			<p:column headerText="Devlet" width="5%" >
+				<h:outputText value="#{hb.devletReddiyatTuttarTL}" />
+			</p:column>
+			
+		</p:dataTable>
+		</p:tab>
+		
+		
+		<p:tab title="Pasif Ödeme Sözleri">
+						
+									<p:dataTable 	
+					value="#{kasaBean.tahsilatiGecmisListe}"
+					filteredValue="#{kasaBean.tahsilatiGecmisListe}"
+					emptyMessage="Aradığınız Kritere Uygun Sonuç Bulunamamıştır."
+					var="hb"		
+					id="tblpasifodeme" style="width:100% "
+					rowStyleClass="green"
+					rows="8"
+					paginator="true"
+                    paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                    rowsPerPageTemplate="8,10,25,50,100,1000"
+					
+					>
+				
+				<p:column headerText="Seç" width="7%" >
+					<p:commandButton value="Seç" type="Button" actionListener="#{icradosyaislemleribean.GelismisListe(hb.icraDosyaID)}"
+					action="#{kasaBean.TahsilatAktar(hb.fromID)}"
+					update=":tahsilatyap"
+					/>
+					</p:column>
+				
+				<p:column headerText="Borçlu Adı" width="25%" >
+					<h:outputText value="#{hb.borcluAdi}" />
+				</p:column>
+
+				<p:column headerText="İcra Dosya No" width="10%">
+					<h:outputText value="#{hb.icraDosyaNo}" />
+				</p:column>
+				
+				<p:column headerText="Müşteri No" width="10%">
+					<h:outputText value="#{hb.musteriNo}" />
+				</p:column>
+				
+				<p:column headerText="Banka Srv. No" width="10%">
+					<h:outputText value="#{hb.baknaServisNo}" />
+				</p:column>
+
+				<p:column headerText="Tarih" width="10%" >
+				<h:outputText value="#{hb.tarih}" />
+				</p:column>
+
+				<p:column headerText="Personel" width="15%"  >
+					<h:outputText value="#{hb.personelAdi}" />
+				</p:column>
+				
+				<p:column headerText="Ödenecek Tutar" width="10%" >
+				<h:outputText value="#{hb.odemeMiktariTL}" />
+				</p:column>
+				
+			</p:dataTable>
+					</p:tab>
+						
+						</p:tabView>
+				
 
 </p:panel>
 </p:column>
 
-<p:column style="width:40%; heigth:100%" headerText="REDDİYAT" >
+<p:column style="width:30%; heigth:100%" headerText="REDDİYAT" >
 <p:panel header="REDDİYAT LİSTESİ" style="height:100%; width:100%; border-style: hidden !important;">
 									
 <p:carousel value="#{kasaBean.reddiyatListesi}" headerText="REDDİYAT LİSTESİ" var="kasa" 
-						itemStyle="text-align:left" responsive="true"  numVisible="3">
-        <p:panelGrid columns="2" style=" width:100%; margin:5px 0px; font-size:11px" columnClasses="label,value" 
+						itemStyle="text-align:left" responsive="true"  numVisible="2" style="height:100%">
+        <p:panelGrid columns="2" style=" width:100%; margin:5px 0px; font-size:12px; height:100%" columnClasses="ui-grid-col-3, ui-grid-col-9" 
         layout="grid" styleClass="ui-panelgrid-blank">
             <f:facet name="header">
                  
-					  <p:commandButton value="Seç" type="Button" action="#{kasaBean.ReddiyatAktar(kasa.id)}" />
-					<p:graphicImage value="img/paracikisi.png" style="height:55px; width:100%"/>
+					  <p:commandButton value="Seç" type="Button" action="#{kasaBean.ReddiyatAktar(kasa.id)}" update=":reddiyatyap" />
+					<p:graphicImage value="img/paracikisi.png" style="height:100%; width:100%"/>
             </f:facet>
  		      
             <h:outputLabel value=""/>
@@ -145,6 +344,67 @@
 
 <div id="cleared"></div>
 </div>
+
+	<h:form id="tahsilatyap">
+			<p:dialog header="TAHSİLAT İŞLEMİ KAYIT PANELİ" widgetVar="frmtahsilatyap"
+				minHeight="340" height="%100" width="%100">
+				<ui:include src="frm_tahsilat_paneli.xhtml" />
+			</p:dialog>
+		</h:form>
+	<h:form id="reddiyatyap">
+			<p:dialog header="REDDİYAT İŞLEMİ KAYIT PANELİ" widgetVar="frmreddiyatyap"
+				minHeight="340" height="%100" width="%100">
+				<ui:include src="frm_reddiyat_paneli.xhtml" />
+			</p:dialog>
+		</h:form>
+	<h:form id="tahsilatmakbuzbekle">
+			<p:dialog header="TAHSİLAT MAKBUZU BEKLEME" widgetVar="tahsilatmakbuzbekleme"
+				minHeight="340" >
+				<ui:include src="KasaForm/tahsilat_makbuzu_bekleme.xhtml" />
+			</p:dialog>
+		</h:form>	
+	<h:form id="hitambekle">
+			<p:dialog header="HİTAM BEKLEME" widgetVar="hitambekleme"
+				minHeight="340" >
+				<ui:include src="KasaForm/hitam_bekleme.xhtml" />
+			</p:dialog>
+		</h:form>	
+	<h:form id="reddiyatbekle">
+			<p:dialog header="REDDİYAT BEKLEME" widgetVar="reddiyatbekleme"
+				minHeight="340">
+				<ui:include src="KasaForm/reddiyat_bekleme.xhtml" />
+			</p:dialog>
+		</h:form>	
+    <h:form id="indirimbekle">
+			<p:dialog header="İNDİRİM BEKLEME" widgetVar="indirimbekleme"
+				minHeight="340" height="%100" width="%100">
+				<ui:include src="KasaForm/indirim_bekleme.xhtml" />
+			</p:dialog>
+		</h:form>	
+	<h:form id="tahsilatmakbuzonaylanan">
+			<p:dialog header="TAHSİLAT MAKBUZU ONAYDAN GELEN" widgetVar="tahsilatmakbuzonaylanan"
+				minHeight="340" >
+				<ui:include src="KasaForm/tahsilat_makbuzu_onaydan_gelen.xhtml" />
+			</p:dialog>
+		</h:form>	
+	<h:form id="hitamonaylanan">
+			<p:dialog header="HİTAM ONAYDAN GELEN" widgetVar="hitamonaylanan"
+				minHeight="340" >
+				<ui:include src="KasaForm/hitam_onaydan_gelen.xhtml" />
+			</p:dialog>
+		</h:form>	
+	<h:form id="reddiyatonaylanan">
+			<p:dialog header="REDDİYAT ONAYDAN GELEN" widgetVar="reddiyatonaylanan"
+				minHeight="340">
+				<ui:include src="KasaForm/reddiyat_onaydan_gelen.xhtml" />
+			</p:dialog>
+		</h:form>	
+    <h:form id="indirimonaylanan">
+			<p:dialog header="İNDİRİM ONAYDAN GELEN" widgetVar="indirimonaylanan"
+				minHeight="340" height="%100" width="%100">
+				<ui:include src="KasaForm/indirim_onaydan_gelen.xhtml" />
+			</p:dialog>
+		</h:form>	
 
 </div>
 </h:body>

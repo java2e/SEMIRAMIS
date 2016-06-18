@@ -53,14 +53,7 @@
 								<p:inputText
 									value="#{icradosyaislemleribean.icradosyasi.icraDosyaNo}"
 									style="width: 250px"
-									onkeyup="var pos=this.selectionStart;
-									var size = this.value.length;														
-             						this.value=this.value.replace(/[^0-9]+/g, '');
-             						if (this.value.length > 10) this.value=this.value.substring(0,10);
-             						if (size > this.value.length)
-             							{this.selectionStart = pos-1; this.selectionEnd = pos-1;}
-             						else
-             							{this.selectionStart = pos; this.selectionEnd = pos;}" />
+									 />
 
 								<p:outputLabel value="Borç Tipi :" for="borcTipi" />
 								<p:selectOneMenu style="width: 260px" id="borcTipi"

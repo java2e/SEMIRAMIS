@@ -35,54 +35,53 @@ li.ui-menuitem.ui-menubar-options.ui-widget.ui-corner-all {
 
 <h:body>
 
-<!-- test -->
+
 	<div id="main">
 
-		<div id="header" style="background-image: url('img/back_2.png');">
+		<div id="header" style="background-image: url('img/header_back.png');">
 
-			<div id="header2" style="background-image: url('img/back_1.png');">
-				<img src="img/sasa_duvar.png" height="80" width="400"
+			<div id="header2" style="background-image: url('img/header_back.png');">
+				<img src="img/header_logo.png" height="60" width="270"
 					style="margin-top: 10px; margin-left: 50px;" />
 			</div>
-			<div id="message" style="background-color: transparent !important">
-
-<style> 
-#divUser {
-    border: 2px solid blue;
-    padding: 10px; 
-    background: white;
-	width:350px;
-    border-radius: 15px;
-    height: 70px;
-}
-</style>
 
 
-	<div style="width: 400px; height: 80px; float: right;">
 
 
-<div id="divUser">
+<div style="background-image: url('img/info_back.png'); float: right; height: 98px;width:400px; margin-right: 25px;">
 
-<div style="width: 280px; height: 70px; float:right; padding-left: 10px;">				
-Hoş Geldiniz <strong>Mehmet Demircioğlu</strong> <br></br>
-Yetkiniz : <strong>ADMİN</strong><br></br>
+<div style="float:left;height: 95px;width: 95px; margin-top: 3px;">
+<img src="img/SasaUser.png" id="img-circle" height="90" width="90" />
 </div>
 
-<div style="width: 50px; height: 70px; float:right;">
-					<center>
-						<img src="img/SasaUser.png" width="50" height="50" id="img-circle" />
-					</center>
-				</div>
+<div style="float:left; width: 180px;height: 98px;margin-left: 10px;">
+
+<div style="float:left;width: 180px;height: 20px;margin-top:10px;">
+
+<p style="font-family:verdana;color:white;">Mehmet DEMİRCİOĞLU</p>
+</div>
+<div style="float:left;width: 180px;height: 20px;margin-top:2px;">
+<p  style="font-family:verdana;color:white;">YÖNETİCİ</p>
+</div>
+<div style="float:left;width: 180px;height: 20px;margin-top:2px;">
+<p  style="font-family:verdana;color:white;">Son Giriş : 12/06/2016</p>
+</div>
 
 </div>
 
+<div style="float:left;width: 102;height: 98px;margin-left: 5px;">
+<div style="float:left;width: 101;height: 37px;margin-top: 30px;">
+
+<p:commandLink action="#{loginBean.logout()}" >
+    <img src="img/logout.png" height="37" width="101"/>
+</p:commandLink>
+
+</div>
+</div>
 
 
 
-				</div>
-
-
-				
+</div>
 
 
 
@@ -90,11 +89,9 @@ Yetkiniz : <strong>ADMİN</strong><br></br>
 
 
 
-			</div>
-			<div class="saat">
-				<p:clock pattern="HH:mm:ss dd.MM.yyyy" mode="server" autoSync="true"
-					syncInterval="600000" />
-			</div>
+
+
+			
 			<div class="logo"></div>
 		</div>
 
@@ -485,8 +482,7 @@ Yetkiniz : <strong>ADMİN</strong><br></br>
 					
 					</p:submenu>
 						
-							<p:menuitem icon="fa fa-sign-out" value="Çıkış"
-						action="#{loginBean.logout()}" ajax="false"  />
+							
 
 
 				</p:menubar>

@@ -5,3 +5,5 @@ git crash deneme 2
 git confict deneme 2
 git crash deneme 2
 git confict deneme 2
+git crash deneme 2
+git confict deneme 2

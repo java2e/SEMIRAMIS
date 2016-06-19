@@ -1,5 +1,11 @@
-selam deneme
+selam deneme 4
+git crash deneme
+selam deneme 3
 git crash deneme
 git confict deneme 2
 git crash deneme 2
 git confict deneme 2
+git crash deneme 2
+git confict deneme 2
+git crash deneme 2
+git confict deneme 3

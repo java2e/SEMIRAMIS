@@ -1,5 +1,6 @@
 package pelops.kasa.controller;
 
+import java.io.IOException;
 import java.text.NumberFormat;
 import java.time.Year;
 import java.util.ArrayList;
@@ -351,12 +352,15 @@ public class KasaCtrl {
 
 	}
 
+	@SuppressWarnings("deprecation")
 	public void printTahsilatMakbuzu(int id) throws Exception {
 		TahsilatView tahsilatView = viewDAO.getTahsilatFromViewByID(id);
 		JasperPrint jasperPrint = generateTahsilatMakbuzu(tahsilatView);
 		HttpServletResponse httpServletResponse = (HttpServletResponse) FacesContext.getCurrentInstance()
 				.getExternalContext().getResponse();
 		httpServletResponse.addHeader("Content-disposition", "attachment; filename=" + "makbuz.pdf");
+		
+		try{
 		ServletOutputStream servletOutputStream = httpServletResponse.getOutputStream();
 		JRPdfExporter exporter = new JRPdfExporter();
 
@@ -366,6 +370,16 @@ public class KasaCtrl {
 		exporter.setParameter(JRPrintServiceExporterParameter.DISPLAY_PRINT_DIALOG, Boolean.TRUE);
 
 		exporter.exportReport();
+				 servletOutputStream.flush();
+		    servletOutputStream.close();
+		FacesContext.getCurrentInstance().responseComplete();
+		} catch (IOException ex) {
+			   //
+			} catch (Exception ex) {
+			       //
+			   }
+	
+		
 	}
 
 	public void printHitamMakbuzu(int id) throws Exception {

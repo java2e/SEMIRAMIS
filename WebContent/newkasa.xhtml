@@ -163,7 +163,7 @@ style="position: absolute; background-color: rgba(0, 0, 0, 0.6); height: 256px; 
                     rowsPerPageTemplate="8,15,25,50,100,1000"	>
 			
 			<p:column headerText="İşlem" width="12%" >
-			<p:commandButton value="Tah. Makbuzu" type="Button" ajax="false" action="#{kasaBean.print(hb.id)}"/>
+			<h:commandButton value="Tah. Makbuzu" type="Button" ajax="false" action="#{kasaBean.print(hb.id)}"/>
 			</p:column>
 			
 			<p:column headerText="İcra Dosya No" width="10%" sortBy="#{hb.icraDosyaNo}">

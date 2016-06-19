@@ -70,6 +70,9 @@ public class KasaCtrl {
 		tahsilat.setIcra_dosyasi_id(model.getIcraDosyaID());
 		tahsilat.setTahsilat_miktari(model.getOdemeMiktari());
 		tahsilat.setIcra_dosya_no(model.getIcraDosyaNo());
+		tahsilat.setIzleme_id(model.getIzleme_id());
+		tahsilat.setVizit_id(model.getVizit_id());
+		tahsilat.setOdemeplani_id(model.getOdemeplani_id());
 		return tahsilat;
 	}
 
@@ -383,6 +386,7 @@ public class KasaCtrl {
 
 	}
 
+	@SuppressWarnings("unchecked")
 	public ArrayList<TahsilatViewModel> generateTahsilatıYapılmamısList(ArrayList<TahsilatViewModel> list) {
 
 		ArrayList<TahsilatViewModel> list2 = new ArrayList<>();
@@ -406,12 +410,39 @@ public class KasaCtrl {
 	private boolean checkTahsilat(TahsilatViewModel model, ArrayList<TahsilatView> list) {
 		boolean isTrue = true;
 
-		for (TahsilatView tahsilatView : list) {
-			if (model.getIcraDosyaID() == tahsilatView.getIcraDosyaId()) {
-				isTrue = false;
-				break;
+		
+		if(model.getIzleme_id()>0)
+		{
+			for (TahsilatView tahsilatView : list) {
+			
+				if (model.getIzleme_id() == tahsilatView.getIzleme_id()) {
+					isTrue = false;
+					break;
+				}
 			}
 		}
+		else if(model.getOdemeplani_id()>0)
+		{
+			for (TahsilatView tahsilatView : list) {
+			
+				if (model.getOdemeplani_id() == tahsilatView.getOdemeplani_id()) {
+					isTrue = false;
+					break;
+				}
+			}
+		}	
+		else if(model.getVizit_id()>0)
+		{
+			for (TahsilatView tahsilatView : list) {
+			
+				if (model.getVizit_id() == tahsilatView.getVizit_id()) {
+					isTrue = false;
+					break;
+				}
+			}
+		}	
+		
+		
 		return isTrue;
 	}
 

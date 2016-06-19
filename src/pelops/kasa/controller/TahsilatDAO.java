@@ -35,8 +35,8 @@ public class TahsilatDAO extends DBConnection implements IDAO {
 		String SQL = "INSERT INTO tbl_tahsilat( icra_dosyasi_id, muvekkil_adi, borclu_adi, gelis_tarihi, "
 				+ " borc_tipi, tahsilat_tarihi, tahsilat_tipi, tahsilat_miktari,"
 				+ " tahsilat_statusu, durum, gelis_yeri, onaylayan_id, kasa_personel_id,"
-				+ " dosya_tipi, icra_dosya_no, icra_mudurlugu) "
-				+ "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,  ?, ?, ?);";
+				+ " dosya_tipi, icra_dosya_no, icra_mudurlugu,izleme_id , vizit_id , odemeplani_id ) "
+				+ "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,  ?, ?, ?,? ,? ,?);";
 
 		newConnectDB();
 
@@ -59,6 +59,11 @@ public class TahsilatDAO extends DBConnection implements IDAO {
 		pstmt.setString(14, tahsilat.getDosya_tipi());
 		pstmt.setString(15, tahsilat.getIcra_dosya_no());
 		pstmt.setString(16, tahsilat.getIcra_mudurlugu());
+		pstmt.setInt(17, tahsilat.getIzleme_id());
+		pstmt.setInt(18, tahsilat.getVizit_id());
+		pstmt.setInt(19, tahsilat.getOdemeplani_id());
+		
+		
 		pstmt.executeUpdate();
 
 		disconnectDB();
@@ -123,7 +128,7 @@ public class TahsilatDAO extends DBConnection implements IDAO {
 		String SQL = "SELECT id, icra_dosyasi_id, muvekkil_adi, borclu_adi, gelis_tarihi, "
 				+ "  borc_tipi, tahsilat_tarihi, tahsilat_tipi, tahsilat_miktari, "
 				+ "  tahsilat_statusu, durum, gelis_yeri, onaylayan_id, kasa_personel_id, "
-				+ "  dosya_tipi, icra_dosya_no, icra_mudurlugu" + " FROM tbl_tahsilat;";
+				+ "  dosya_tipi, icra_dosya_no, icra_mudurlugu, izleme_id , vizit_id , odemeplani_id " + " FROM tbl_tahsilat;";
 
 		newConnectDB();
 
@@ -154,7 +159,9 @@ public class TahsilatDAO extends DBConnection implements IDAO {
 			tahsilat.setKasaPersonelID(rs.getInt("kasa_personel_id"));
 			tahsilat.setGelisYeri(rs.getString("gelis_yeri"));
 			tahsilat.setDurum(rs.getInt("durum"));
-
+			tahsilat.setIzleme_id(rs.getInt("izleme_id"));
+			tahsilat.setVizit_id(rs.getInt("vizit_id"));
+			tahsilat.setOdemeplani_id(rs.getInt("odemeplani_id"));
 			TahsilatListesi.add(tahsilat);
 
 		}
@@ -167,7 +174,7 @@ public class TahsilatDAO extends DBConnection implements IDAO {
 
 		String SQL = "SELECT id, icra_dosyasi_id, icra_dosya_no, muvekkil_adi, borclu_adi,"
 				+ " gelis_tarihi, borc_tipi, dosya_tipi, icra_mudurlugu, tahsilat_tarihi,"
-				+ " tahsilat_tipi, tahsilat_miktari, tahsilat_statusu  FROM tbl_tahsilat where icra_dosyasi_id='"
+				+ " tahsilat_tipi, tahsilat_miktari, tahsilat_statusu, izleme_id , vizit_id , odemeplani_id   FROM tbl_tahsilat where icra_dosyasi_id='"
 				+ IcraDosyasiID + "'";
 
 		newConnectDB();
@@ -196,7 +203,9 @@ public class TahsilatDAO extends DBConnection implements IDAO {
 			tahsilat.setTahsilat_statusu(rs.getString("tahsilat_statusu"));
 			tahsilat.setTahsilat_tarihi(rs.getDate("tahsilat_tarihi"));
 			tahsilat.setTahsilat_tipi(rs.getString("tahsilat_tipi"));
-
+			tahsilat.setIzleme_id(rs.getInt("izleme_id"));
+			tahsilat.setVizit_id(rs.getInt("vizit_id"));
+			tahsilat.setOdemeplani_id(rs.getInt("odemeplani_id"));
 			TahsilatListesi.add(tahsilat);
 
 		}
@@ -209,7 +218,7 @@ public class TahsilatDAO extends DBConnection implements IDAO {
 
 		String SQL = "SELECT id, icra_dosyasi_id, icra_dosya_no, muvekkil_adi, borclu_adi,"
 				+ " gelis_tarihi, borc_tipi, dosya_tipi, icra_mudurlugu, tahsilat_tarihi,"
-				+ " tahsilat_tipi, tahsilat_miktari, tahsilat_statusu  FROM tbl_tahsilat where id='" + id + "'";
+				+ " tahsilat_tipi, tahsilat_miktari, tahsilat_statusu, izleme_id , vizit_id , odemeplani_id   FROM tbl_tahsilat where id='" + id + "'";
 
 		newConnectDB();
 
@@ -218,7 +227,7 @@ public class TahsilatDAO extends DBConnection implements IDAO {
 		stmt = conn.createStatement();
 		rs = stmt.executeQuery(SQL);
 		Tahsilat tahsilat = new Tahsilat();
-		;
+		
 		while (rs.next()) {
 
 			tahsilat.setBorc_tipi(rs.getString("borc_tipi"));
@@ -234,7 +243,9 @@ public class TahsilatDAO extends DBConnection implements IDAO {
 			tahsilat.setTahsilat_statusu(rs.getString("tahsilat_statusu"));
 			tahsilat.setTahsilat_tarihi(rs.getDate("tahsilat_tarihi"));
 			tahsilat.setTahsilat_tipi(rs.getString("tahsilat_tipi"));
-
+			tahsilat.setIzleme_id(rs.getInt("izleme_id"));
+			tahsilat.setVizit_id(rs.getInt("vizit_id"));
+			tahsilat.setOdemeplani_id(rs.getInt("odemeplani_id"));
 		}
 
 		disconnectDB();
@@ -253,7 +264,7 @@ public class TahsilatDAO extends DBConnection implements IDAO {
 		String SQL = "SELECT id, icra_dosyasi_id, muvekkil_adi, borclu_adi, gelis_tarihi, "
 				+ "  borc_tipi, tahsilat_tarihi, tahsilat_tipi, tahsilat_miktari, "
 				+ "  tahsilat_statusu, durum, gelis_yeri, onaylayan_id, kasa_personel_id, "
-				+ "  dosya_tipi, icra_dosya_no, icra_mudurlugu" + " FROM tbl_tahsilat;";
+				+ "  dosya_tipi, icra_dosya_no, icra_mudurlugu,  izleme_id , vizit_id , odemeplani_id " + " FROM tbl_tahsilat;";
 
 		newConnectDB();
 
@@ -284,7 +295,9 @@ public class TahsilatDAO extends DBConnection implements IDAO {
 			tahsilat.setKasaPersonelID(rs.getInt("kasa_personel_id"));
 			tahsilat.setGelisYeri(rs.getString("gelis_yeri"));
 			tahsilat.setDurum(rs.getInt("durum"));
-
+			tahsilat.setIzleme_id(rs.getInt("izleme_id"));
+			tahsilat.setVizit_id(rs.getInt("vizit_id"));
+			tahsilat.setOdemeplani_id(rs.getInt("odemeplani_id"));
 			list.add(tahsilat);
 
 		}
@@ -299,8 +312,8 @@ public class TahsilatDAO extends DBConnection implements IDAO {
 		String SQL = "INSERT INTO tbl_tahsilat( icra_dosyasi_id, muvekkil_adi, borclu_adi, gelis_tarihi, "
 				+ " borc_tipi, tahsilat_tarihi, tahsilat_tipi, tahsilat_miktari,"
 				+ " tahsilat_statusu, durum, gelis_yeri, onaylayan_id, kasa_personel_id,"
-				+ " dosya_tipi, icra_dosya_no, icra_mudurlugu) "
-				+ "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,  ?, ?, ?);";
+				+ " dosya_tipi, icra_dosya_no, icra_mudurlugu,izleme_id , vizit_id , odemeplani_id) "
+				+ "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,  ?, ?, ?,?,?,?);";
 
 		newConnectDB();
 		if (obj instanceof Tahsilat) {
@@ -325,6 +338,9 @@ public class TahsilatDAO extends DBConnection implements IDAO {
 			pstmt.setString(14, tahsilat.getDosya_tipi());
 			pstmt.setString(15, tahsilat.getIcra_dosya_no());
 			pstmt.setString(16, tahsilat.getIcra_mudurlugu());
+			pstmt.setInt(17, tahsilat.getIzleme_id());
+			pstmt.setInt(18, tahsilat.getVizit_id());
+			pstmt.setInt(19, tahsilat.getOdemeplani_id());
 			pstmt.execute();
 
 			disconnectDB();
@@ -397,7 +413,7 @@ public class TahsilatDAO extends DBConnection implements IDAO {
 	public Object getObjFromDB(int id) throws Exception {
 		String SQL = "SELECT id, icra_dosyasi_id, icra_dosya_no, muvekkil_adi, borclu_adi,"
 				+ " gelis_tarihi, borc_tipi, dosya_tipi, icra_mudurlugu, tahsilat_tarihi,"
-				+ " tahsilat_tipi, tahsilat_miktari, tahsilat_statusu  FROM tbl_tahsilat where id='" + id + "'";
+				+ " tahsilat_tipi, tahsilat_miktari, tahsilat_statusu, izleme_id , vizit_id , odemeplani_id  FROM tbl_tahsilat where id='" + id + "'";
 
 		newConnectDB();
 
@@ -422,7 +438,9 @@ public class TahsilatDAO extends DBConnection implements IDAO {
 			tahsilat.setTahsilat_statusu(rs.getString("tahsilat_statusu"));
 			tahsilat.setTahsilat_tarihi(rs.getDate("tahsilat_tarihi"));
 			tahsilat.setTahsilat_tipi(rs.getString("tahsilat_tipi"));
-
+			tahsilat.setIzleme_id(rs.getInt("izleme_id"));
+			tahsilat.setVizit_id(rs.getInt("vizit_id"));
+			tahsilat.setOdemeplani_id(rs.getInt("odemeplani_id"));
 		}
 
 		disconnectDB();
@@ -457,7 +475,7 @@ public class TahsilatDAO extends DBConnection implements IDAO {
 		String SQL = "SELECT id, icra_dosyasi_id, muvekkil_adi, borclu_adi, gelis_tarihi, "
 				+ "  borc_tipi, tahsilat_tarihi, tahsilat_tipi, tahsilat_miktari, "
 				+ "  tahsilat_statusu, durum, gelis_yeri, onaylayan_id, kasa_personel_id, "
-				+ "  dosya_tipi, icra_dosya_no, icra_mudurlugu" + " FROM tbl_tahsilat where durum =" + status + ";";
+				+ "  dosya_tipi, icra_dosya_no, icra_mudurlugu,izleme_id , vizit_id , odemeplani_id" + " FROM tbl_tahsilat where durum =" + status + ";";
 
 		newConnectDB();
 
@@ -488,7 +506,9 @@ public class TahsilatDAO extends DBConnection implements IDAO {
 			tahsilat.setKasaPersonelID(rs.getInt("kasa_personel_id"));
 			tahsilat.setGelisYeri(rs.getString("gelis_yeri"));
 			tahsilat.setDurum(rs.getInt("durum"));
-
+			tahsilat.setIzleme_id(rs.getInt("izleme_id"));
+			tahsilat.setVizit_id(rs.getInt("vizit_id"));
+			tahsilat.setOdemeplani_id(rs.getInt("odemeplani_id"));
 			list.add(tahsilat);
 
 		}

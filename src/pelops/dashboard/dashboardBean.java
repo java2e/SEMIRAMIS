@@ -145,6 +145,7 @@ public class dashboardBean {
 		//System.out.println(yuzde);
 		return yuzde;
 	}
+	
 
 	public void veriListele(){
 		UserDAO userdao = new UserDAO();
@@ -153,11 +154,13 @@ public class dashboardBean {
 		for (Takim items : takimdao.getTakimList()) {
 			dashboardModels models = new dashboardModels();
 			models.setTakimAdi(items.getTakimAdi());
-			
+			System.out.println(items.getTakimAdi());
+			System.out.println("--------------------------------------");
 			for (TakimKullanici itemsTK : takimdao.selectByIdTKList(items.getId())) {
 				dashboardPersonelModel personelmodel = new dashboardPersonelModel();
 				//System.out.println(itemsTK.getKullaniciId()); 
 				personelmodel.setPersonelAdi(userdao.selectById(itemsTK.getKullaniciId()).getUsrAdSoyad());
+				
 				System.out.println(personelmodel.getPersonelAdi()); 
 				
 			}

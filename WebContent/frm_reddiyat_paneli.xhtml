@@ -13,7 +13,7 @@
 <div id="wrapper">
 
 	<div id="content">
-
+<h:form id="reddiyatyap">
 
 <p:panel >
 	<p:panelGrid columns="2" style=" border-style: hidden !important;">
@@ -57,7 +57,7 @@
 	
 	<center>
 	<p:spacer height="50"/>
-	<p:commandButton value="REDDİYAT YAP" style="width:120px;height:55px; " action="#{kasaBean.reddiyatYap()}" update=":formMsgs, :kasaForm"/>
+	<p:commandButton value="REDDİYAT YAP" style="width:120px;height:55px; " action="#{kasaBean.reddiyatYap}" update=":formMsgs, :kasaForm:tabviewlist:tblreddiyat"/>
     </center>
 	
 	</p:panel>
@@ -67,6 +67,7 @@
 </p:panelGrid>
 </p:panel>
 
+</h:form>
 </div>
 </div>
 

@@ -33,6 +33,41 @@ public class TahsilatView {
 	private String baknaServisNo;
 	private String musteriNo;
 	
+	private int izleme_id;
+	private int vizit_id;
+	private int odemeplani_id;
+	
+	
+	
+
+	public int getIzleme_id() {
+		return izleme_id;
+	}
+
+	public void setIzleme_id(int izleme_id) {
+		this.izleme_id = izleme_id;
+	}
+
+	public int getVizit_id() {
+		return vizit_id;
+	}
+
+	public void setVizit_id(int vizit_id) {
+		this.vizit_id = vizit_id;
+	}
+
+	public int getOdemeplani_id() {
+		return odemeplani_id;
+	}
+
+	public void setOdemeplani_id(int odemeplani_id) {
+		this.odemeplani_id = odemeplani_id;
+	}
+	
+	
+	
+	
+	
 	public String getBaknaServisNo() {
 		return baknaServisNo;
 	}

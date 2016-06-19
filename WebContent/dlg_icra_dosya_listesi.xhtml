@@ -17,7 +17,7 @@
 	
 		<p:dataTable 	
 					value="#{kasaBean.detayliAramaListesi}"
-					filteredValue="#{kasaBean.detayliAramaListesi}"
+					filteredValue="#{kasaBean.filterDetayliAramaListesi}"
 					emptyMessage="Aradığınız Kritere Uygun Sonuç Bulunamamıştır."
 					var="hb"		
 					id="tbldetayliarama" style="width:720px "
@@ -45,7 +45,7 @@
 									
                 <p:commandButton value="Seç" type="Button" 
                 action="#{kasaBean.icraDosyaSec(hb.id)}" actionListener="#{icradosyaislemleribean.GelismisListe(hb.id)}"  
-                update=":tahsilatyap:tahsilat, :tahsilatyap:frmhesapbilgisi:hesapbilgisi" />
+                update=":tahsilatyap:tahsilat, :tahsilatyap:hesapbilgisi" />
 				
 			                      
 				</p:column>

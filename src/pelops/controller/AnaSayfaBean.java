@@ -37,7 +37,7 @@ public class AnaSayfaBean {
 
 	public void gotoPage(int id) {
 
-		if (AktifBean.icraDosyaID == 0 && id > 49 && id < 64) {
+		if (AktifBean.icraDosyaID == 0 && id > 49 && id < 64 || (id==1010 && AktifBean.icraDosyaID == 0 )) {
 			FacesMessage message = new FacesMessage(
 					FacesMessage.SEVERITY_INFO,
 					"ÜZGÜNÜZ !!!",

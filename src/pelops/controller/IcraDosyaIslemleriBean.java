@@ -700,10 +700,16 @@ public class IcraDosyaIslemleriBean {
 
 	}
 
+	private static int gelismisgetir;
+	
+	public void listelegelismis(){
+		GelismisListe(gelismisgetir);
+	}
+	
 	public void GelismisListe(int id) {
 try{
 	
-	
+	gelismisgetir = id;
 		IcraDosyasiDAO icradosyasidao = new IcraDosyasiDAO();
 		String icradosyano = icradosyasidao.Listele(id).getIcraDosyaNo();
 		int icradosyaID = id;

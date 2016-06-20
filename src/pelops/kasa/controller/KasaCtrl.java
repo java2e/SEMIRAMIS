@@ -299,7 +299,7 @@ public class KasaCtrl {
 		model.setMakbuzNo(String.valueOf(view.getId()));
 		model.setSebebi("");
 		model.setMiktari(String.valueOf(view.getTahsilatMiktari()));
-		model.setAdSoyad(view.getAdSoyad());
+		//model.setAdSoyad(view.getAdSoyad());
 		model.setTarih(String.valueOf(new Date()));
 		model.setAlinanMiktar(String.valueOf(view.getTahsilatMiktari()));
 		model.setSiraNo(String.valueOf(view.getId()));
@@ -331,7 +331,7 @@ public class KasaCtrl {
 		list.add(model);
 		JRBeanCollectionDataSource beanCollectionDataSource = new JRBeanCollectionDataSource(list);
 		String reportPath = FacesContext.getCurrentInstance().getExternalContext()
-				.getRealPath("/reports/JASPER/" + PrintModel.TAHSILAT_MAKBUZU);
+				.getRealPath("/reports/JASPER/" + PrintModel.TAHSILAT_MAKBUZUNEW);
 		jasperPrint = JasperFillManager.fillReport(reportPath, new HashMap<>(), beanCollectionDataSource);
 
 		return jasperPrint;

@@ -3,6 +3,12 @@ package pelops.kasa.model;
 public class PrintModel {
 
 	public static final String TAHSILAT_MAKBUZU = "102_makbuz.jasper";
+	public static final String TAHSILAT_MAKBUZUNEW = "Tahsilat-Makbuzu.jasper";
+	
+
+	public static String getTahsilatMakbuzunew() {
+		return TAHSILAT_MAKBUZUNEW;
+	}
 
 	public static final String HITAM_MAKBUZU = "101_hitam_belgesi.jasper";
 

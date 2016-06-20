@@ -20,6 +20,8 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.lang3.time.DateUtils;
 import org.primefaces.context.RequestContext;
 
+import com.sun.faces.facelets.tag.TagHandlerImpl;
+
 import pelops.controller.AktifBean;
 import pelops.controller.GenelTanimBean;
 import pelops.controller.IcraDosyaIslemleriBean;
@@ -301,7 +303,8 @@ public class KasaBean {
 		this.reddiyatYapilmisListe = reddiyatYapilmisListe;
 	}
 
-	public ArrayList<TahsilatView> getTahsilatYapilmisListe() {
+	@SuppressWarnings("unchecked")
+	public ArrayList<TahsilatView> getTahsilatYapilmisListe() throws Exception {
 		return tahsilatYapilmisListe;
 	}
 
@@ -819,6 +822,22 @@ try{
 		
 	}
 
+//	public ArrayList<TahsilatView> returnTarihTahsilat(ArrayList<TahsilatView> tahsilatListesi,Date date1, Date date2){
+//		ArrayList<TahsilatView> returnList = new ArrayList<>();
+//		if(date1==null || date2==null){
+//		returnList = tahsilatListesi;
+//		}else
+//		{
+//		for (TahsilatView thlist : tahsilatListesi) {
+//			if((thlist.getTahsilatTarihi().after(date1)==true || thlist.getTahsilatTarihi().equals(date1)==true) && (thlist.getTahsilatTarihi().before(date2)==true || thlist.getTahsilatTarihi().equals(date2)))
+//			{
+//			returnList.add(thlist);
+//			}
+//		}
+//		}
+//		return returnList;
+//	}
+	
 	@SuppressWarnings({ "unused", "unchecked", "deprecation" })
 	public void sayfaGuncelle() 
 	{

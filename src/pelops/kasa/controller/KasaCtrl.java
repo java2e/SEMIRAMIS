@@ -2,6 +2,7 @@ package pelops.kasa.controller;
 
 import java.io.IOException;
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.time.Year;
 import java.util.ArrayList;
 import java.util.Date;
@@ -34,6 +35,7 @@ import pelops.kasa.model.TahsilatView;
 import pelops.kasa.model.TahsilatViewModel;
 import pelops.model.Hesap;
 import pelops.model.IcraDosyasi;
+import pelops.model.LogError;
 import pelops.users.User;
 import pelops.users.Util;
 
@@ -79,6 +81,7 @@ public class KasaCtrl {
 
 	private void kaydetTahsilat(Tahsilat tahsilat, boolean hitam, ArrayList<Reddiyat> reddiyat) throws Exception {
 		int tahsilatID = tahsilatDAO.insertObjToDB(tahsilat);
+		KasaBean.tahsilatID = tahsilatID;
 		if (hitam) {
 			for (Reddiyat reddiyat1 : reddiyat) {
 				reddiyat1.setTahsilatID(tahsilatID);
@@ -292,22 +295,58 @@ public class KasaCtrl {
 
 	private PrintModel generatePrintModelFromTahsilat(TahsilatView view) {
 		PrintModel model = new PrintModel();
-		model.setSeri("");
+		Date nowDate = new Date();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy");
+		
+		NumberFormat priceFormat = NumberFormat.getCurrencyInstance();
+		model.setSeri(yearFormat.format(nowDate));
 		model.setAlacakli(view.getMuvekkilAdi());
 		model.setBorclu(view.getBorcluAdi());
 		model.setDosyaNo(view.getIcraDosyaNo());
 		model.setMakbuzNo(String.valueOf(view.getId()));
-		model.setSebebi("");
-		model.setMiktari(String.valueOf(view.getTahsilatMiktari()));
+		model.setSebebi("........ KREDİ KARTI NA AİT BORÇ");
+		model.setMiktari(priceFormat.format(view.getTahsilatMiktari())+" - "+ yaziyaCevir(view.getTahsilatMiktari()));
 		//model.setAdSoyad(view.getAdSoyad());
-		model.setTarih(String.valueOf(new Date()));
-		model.setAlinanMiktar(String.valueOf(view.getTahsilatMiktari()));
+		model.setTarih(dateFormat.format(nowDate)+ " - "+nowDate.getHours()+":"+ (nowDate.getMinutes()<10 ? "0"+nowDate.getMinutes(): nowDate.getMinutes()));
+		model.setAlinanMiktar(priceFormat.format(view.getTahsilatMiktari())+" - "+ yaziyaCevir(view.getTahsilatMiktari()));
 		model.setSiraNo(String.valueOf(view.getId()));
 
 		return model;
 
 	}
 
+	private String yaziyaCevir(double sayi){
+		int  birler, onlar, yuzler, binler, onbinler, yuzbinler, tam, kusurat,kusuronlar, kusurbirler;
+		tam = (int) sayi;
+        kusurat = (int) (sayi*100 - tam*100);  
+        birler = tam % 10;
+        onlar  = (tam /   10) % 10;
+        yuzler = (tam /  100) % 10;
+        binler = (tam / 1000) % 10;
+        onbinler = (tam / 10000) % 10;
+        yuzbinler = (tam / 100000) % 10;
+          
+        kusuronlar = (kusurat /   10) % 10;
+        kusurbirler = kusurat %10;
+        
+        String[] birlik = { "Sıfır", "Bir", "İki", "Üç", "Dört", "Beş", "Altı", "Yedi", "Sekiz", 
+                            "Dokuz" }; 
+        String[] onluk  = { "", "On ", "Yirmi ", "Otuz ", "Kırk ", "Elli ", "Altmış ", "Yetmiş ", 
+                            "Seksen ", "Doksan " }; 
+        String[] yuzluk = { "", "Yüz ", "İki Yüz ", "Üç Yüz ", "Dört Yüz ", "Beş Yüz ", "Altı Yüz ", 
+                            "Yedi Yüz ", "Sekiz Yüz ", "Dokuz Yüz " }; 
+        String[] binlik = { "", "Bin ", "İki Bin ", "Üç Bin ", "Dört Bin ", "Beş Bin ", "Altı Bin ", 
+                            "Yedi Bin ", "Sekiz Bin ", "Dokuz Bin " };
+       
+       
+    
+        String returnYazi="#"+yuzluk[yuzbinler]+""+ onluk[onbinler]+""+ binlik[binler]+""+ yuzluk[yuzler]+""+onluk[onlar]+""+birlik[birler]+"# TL "
+        +onluk[kusuronlar]+""+birlik[kusurbirler]+"# KR";   
+        
+		return returnYazi;
+	}
+	
 	private PrintModel generatePrintModelFromHitamView(HitamView view) {
 
 		PrintModel model = new PrintModel();

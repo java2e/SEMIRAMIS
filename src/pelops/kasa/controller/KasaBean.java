@@ -44,7 +44,7 @@ import pelops.util.Util;
 @ManagedBean(name = "kasaBean")
 public class KasaBean {
 
-	public static int tahsilatID=67;
+	public static int tahsilatID;
 	private String tali;
 	LogErrorDAO log = new LogErrorDAO();
 	Date nowDate = new Date();
@@ -745,6 +745,7 @@ try{
 		bilgiTahsilat.setDurum(1);
 		
 		controller.kaydet(bilgiTahsilat, hitam, redList);
+		
 		sayfaGuncelle();
 		
 		

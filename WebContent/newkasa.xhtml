@@ -99,7 +99,7 @@ style="position: absolute; background-color: rgba(0, 0, 0, 0.6); height: 256px; 
 																  
 <p:outputLabel value="    BİTİŞ TARİHİ : #{kasaBean.tali}"/> <p:calendar id="multi1"  pages="3" value="#{kasaBean.bitisTarihi}" />
 																	
-<p:commandButton value="Listele"  update=":kasaForm:tabviewlist:tblaktifodeme"/>
+<p:commandButton value="Listele"  update=":kasaForm:tabviewlist:tblaktifodeme" actionListener="#{kasaBean.sayfaGuncelle()}"/>
 
 
 </p:panelGrid>

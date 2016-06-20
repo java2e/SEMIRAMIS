@@ -287,7 +287,7 @@ public class KasaBean {
 
 	public ArrayList<TahsilatViewModel> getTahsilatiGecmisListe() throws Exception {
 	
-		return controller.getListeFromViewsForTahsilatIslemi(olddatenew, enddatenew);
+		return this.tahsilatiGecmisListe;
 	}
 
 	public void setTahsilatiGecmisListe(ArrayList<TahsilatViewModel> tahsilatiGecmisListe) {
@@ -339,7 +339,7 @@ public class KasaBean {
 
 	public ArrayList<TahsilatViewModel> getTahsilatYapilacakListe() throws Exception {
 		
-		return controller.getListeFromViewsForTahsilatIslemi(baslangicTarihi, bitisTarihi);
+		return this.tahsilatYapilacakListe;
 	}
 
 	public void setTahsilatYapilacakListe(ArrayList<TahsilatViewModel> tahsilatYapilacakListe) {
@@ -857,6 +857,7 @@ try{
 		Date tson = DateUtils.addMonths(new Date(), 1);
 		bitisTarihi = tson;
 
+		tahsilatYapilacakListe=controller.getListeFromViewsForTahsilatIslemi(baslangicTarihi, bitisTarihi);
 		
 		reddiyatListesi = (ArrayList<ReddiyatView>) controller.getListefromView(0, 3, 1);
 		reddiyatListesi.addAll(controller.getListefromView(0, 3, 2));
@@ -878,6 +879,8 @@ try{
 		olddatenew = date;
 		enddatenew = baslangicTarihi;
 		enddatenew.setHours(-24);
+		
+		tahsilatiGecmisListe=controller.getListeFromViewsForTahsilatIslemi(olddatenew, enddatenew);
 
 		Ay = "2016 - HAZİRAN";
 		gun = tarih_rapor.toString();

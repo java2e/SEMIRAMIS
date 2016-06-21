@@ -538,6 +538,7 @@ public class KasaBean {
 		}
 
 		bilgiTahsilat.setBorclu_adi(AktifBean.getBorcluAdi());
+		
 		bilgiTahsilat.setMusteriNo(AktifBean.getMusteriNo());
 		bilgiTahsilat.setIcra_dosya_no(AktifBean.getIcraDosyaNo());
 		bilgiTahsilat.setIcra_dosyasi_id(AktifBean.getIcraDosyaID());
@@ -622,6 +623,7 @@ try{
 		
 		bilgiTahsilat.setBorclu_adi(AktifBean.getBorcluAdi());
 		bilgiTahsilat.setIcra_dosya_no(AktifBean.getIcraDosyaNo());
+		bilgiTahsilat.setMusteriNo(AktifBean.getMusteriNo());
 		bilgiTahsilat.setIcra_dosyasi_id(AktifBean.getIcraDosyaID());
 		bilgiTahsilat.setMuvekkil_adi(AktifBean.getMuvekkilAdi());
 		bilgiTahsilat.setTasilati_yapan(usersbilgi.getUser().getUsrName());
@@ -886,10 +888,12 @@ try{
 		Ay = "2016 - HAZİRAN";
 		gun = tarih_rapor.toString();
 		
-
-		icdb = new IcraDosyaIslemleriBean();
-		icdb.GelismisListe(AktifBean.getIcraDosyaID());
-		this.hesaplistesi = icdb.getHesaplistesi();
+		if(AktifBean.getIcraDosyaID()>0){
+			icdb = new IcraDosyaIslemleriBean();
+			icdb.GelismisListe(AktifBean.getIcraDosyaID());
+			this.hesaplistesi = icdb.getHesaplistesi();
+		}
+		
 		
 		for (int i = 0; i < tahsilatYapilmisListe.size(); i++) {
 

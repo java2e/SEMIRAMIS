@@ -305,7 +305,7 @@ public class KasaCtrl {
 		model.setBorclu(view.getBorcluAdi());
 		model.setDosyaNo(view.getIcraDosyaNo());
 		model.setMakbuzNo(String.valueOf(view.getId()));
-		model.setSebebi("........ KREDİ KARTI NA AİT BORÇ");
+		model.setSebebi("...................................................................' NA AİT BORÇ");
 		model.setMiktari(priceFormat.format(view.getTahsilatMiktari())+" - "+ yaziyaCevir(view.getTahsilatMiktari()));
 		//model.setAdSoyad(view.getAdSoyad());
 		model.setTarih(dateFormat.format(nowDate)+ " - "+nowDate.getHours()+":"+ (nowDate.getMinutes()<10 ? "0"+nowDate.getMinutes(): nowDate.getMinutes()));

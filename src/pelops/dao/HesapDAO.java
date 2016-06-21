@@ -168,7 +168,7 @@ public class HesapDAO extends DBConnection {
 
 	public void GuncelleTahsilat(int id, double tahsilatTutari) throws Exception {
 		String SQL = "UPDATE tbl_hesap SET" + " tahsilat_tutari=?, kalan_alacak=? WHERE id=" + id + ";";
-
+	
 		newConnectDB();
 
 		PreparedStatement pstmt = conn.prepareStatement(SQL.toString());
@@ -208,21 +208,22 @@ public class HesapDAO extends DBConnection {
 
 	public void guncelleMasraf(int id, double masrafTutari) {
 		String SQLupdate = "UPDATE tbl_hesap SET" + " masraf_tutari=?, kalan_alacak=?, toplam_alacak=? WHERE id=" + id + ";";
-				try {
+		DBConnection DB = new DBConnection();		
+		try {
 			
 			Hesap hesap = Liste(id);
-			newConnectDB();
+			DB.newConnectDB();
 
-			PreparedStatement pstmt = conn.prepareStatement(SQLupdate);
+			PreparedStatement pstmtMasraf = conn.prepareStatement(SQLupdate);
 			double masraf = hesap.getMasraf_tutari() + masrafTutari;
-			pstmt.setDouble(1, masraf);
+			pstmtMasraf.setDouble(1, masraf);
 			double kalan = hesap.getKalan_alacak() + masrafTutari;
-			pstmt.setDouble(2, kalan);
+			pstmtMasraf.setDouble(2, kalan);
 			double toplam = hesap.getToplam_alacak() + masrafTutari;
-			pstmt.setDouble(3, toplam);
+			pstmtMasraf.setDouble(3, toplam);
 
-			pstmt.executeUpdate();
-			disconnectDB();
+			pstmtMasraf.executeUpdate();
+			DB.disconnectDB();
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

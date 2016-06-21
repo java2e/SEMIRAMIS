@@ -52,6 +52,7 @@ public class MasrafDAO extends DBConnection {
 			kaydedildi = true;
 			BaglantiDAO hsdao = new BaglantiDAO();
 			int hsID = hsdao.Listele(AktifBean.getIcraDosyaID()).getHesaplamaID();
+			
 			dao.guncelleMasraf(hsID, masraf.getMasrafMiktari());
 			
 		}

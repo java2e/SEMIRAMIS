@@ -49,12 +49,38 @@
 					</p:inputMask>
 
 					<p:outputLabel>Peşinat Miktarı :</p:outputLabel>
-					<p:inputMask id="pesinatMiktari"
+					<p:inputText id="pesinatMiktari"
 						convertMessage="Sayısal bir değer giriniz"
 						value="#{odemePlaniBean.plan.pesinatMiktari}" required="false"
+						requiredMessage="Bu alanı doldurunuz" style="width: 250px"
+						onkeyup=" var pos=this.selectionStart;
+									var size = this.value.length;	
+									
+             						var kalan = document.getElementById('odemePlaniForm:alacakMiktari').value - this.value;
+             						
+             						if(0 >  parseFloat(kalan)){
+             							document.getElementById('odemePlaniForm:odenecekMiktar').value=0;
+             							alert('ÖDENECEK MİKTAR EKSİ BİR DEĞER OLAMAZ');
+             						}else{
+             						if (this.value.length == 0 || this.value==null || this.value==''){
+             							document.getElementById('odemePlaniForm:odenecekMiktar').value = document.getElementById('odemePlaniForm:alacakMiktari').value;
+             						} 						
+             						else
+             							{
+             							document.getElementById('odemePlaniForm:odenecekMiktar').value = parseFloat(kalan).toFixed(2);
+             							}
+             						}
+             						" />
+					
+					
+					<p:outputLabel>Ödenecek Miktar :</p:outputLabel>
+					<p:inputMask id="odenecekMiktar"
+						convertMessage="Sayısal bir değer giriniz"
+						value="#{odemePlaniBean.plan.odenecekMiktar}" required="false"
 						requiredMessage="Bu alanı doldurunuz" style="width: 250px">
 						<f:validateDoubleRange minimum="0.0" />
 					</p:inputMask>
+					
 
 					<p:outputLabel>Taksit Adedi:</p:outputLabel>
 					<p:inputText id="taksitAdedi"

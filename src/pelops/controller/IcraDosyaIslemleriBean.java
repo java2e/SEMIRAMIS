@@ -734,7 +734,7 @@ try{
 			pelops.controller.AktifBean.setBorcluId(borclubilgisiID);
 			pelops.controller.AktifBean.setMuvekkilAdi(daoalacakli.ListeGetir(alacakliID).getMuvekkilAdi());
 			pelops.controller.AktifBean.setBorcluAdi(daoborclu.Liste(borclubilgisiID).getAdSoyad());
-
+			pelops.controller.AktifBean.setMusteriNo(daoborclu.Liste(borclubilgisiID).getMusteriNo());
 			icradosyasilistesi = icradosyasidao.Listele(icradosyaID);
 
 			BorcluBilgisiDAO borcludao = new BorcluBilgisiDAO();

@@ -15,6 +15,15 @@ public class OdemePlani {
 	private double kalanAlacakMiktari;
 	private double pesinatMiktari;
 	private double taksitAylikMiktar;
+	private double odenecekMiktar;
+	
+	
+	public double getOdenecekMiktar() {
+		return odenecekMiktar;
+	}
+	public void setOdenecekMiktar(double odenecekMiktar) {
+		this.odenecekMiktar = odenecekMiktar;
+	}
 	public double getTaksitAylikMiktar() {
 		return taksitAylikMiktar;
 	}

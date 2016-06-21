@@ -16,12 +16,17 @@ public class AktifBean {
 	static String muvekkilAdi ="";
     static  String  borcluAdi ="";
     private String chatUserNamey="";
+    static String musteriNo="";
     public static Hesap hesaplistesi = new Hesap();
     
     
-    
-    
-    
+  
+	public static String getMusteriNo() {
+		return musteriNo;
+	}
+	public static void setMusteriNo(String musteriNo) {
+		AktifBean.musteriNo = musteriNo;
+	}
 	public  String getChatUserNamey() {
 		HttpSession session = Util.getSession();
 		String username=(String)session.getAttribute("username");

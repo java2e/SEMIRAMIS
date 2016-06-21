@@ -1,5 +1,6 @@
 package pelops.controller;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import javax.faces.application.FacesMessage;
@@ -147,11 +148,29 @@ public class OdemePlaniBean {
 		this.plan = plan;
 	}
 
+	public Double doubleYap(String sttutar){
+		Double tutar = 0.0;
+		if(sttutar==null || sttutar.equals("")){}
+		else
+		{
+			int nokta = sttutar.indexOf(",");
+			if(nokta<0) nokta = sttutar.indexOf(".");
+			
+		
+		String tam = sttutar.substring(0, nokta);
+		String kesir = sttutar.substring(nokta+1, sttutar.length());
+		String sayi = tam + "." + kesir;
+		tutar = Double.parseDouble(sayi); 
+		}
+		return tutar;
+	}
+	
 	public void getKalanAlacakMiktari() throws Exception {
 
 		FacesContext context = FacesContext.getCurrentInstance();
-
-		plan.setKalanAlacakMiktari(dao.getKalanAlacak(AktifBean.getIcraDosyaID()));
+		DecimalFormat format = new DecimalFormat("0.00");
+			
+		plan.setKalanAlacakMiktari(doubleYap(format.format(dao.getKalanAlacak(AktifBean.getIcraDosyaID()))));
 
 		if (plan.getKalanAlacakMiktari() == 0.0) {
 
@@ -183,10 +202,11 @@ public class OdemePlaniBean {
 
 	}
 
-	public void YeniKayit() {
+	public void YeniKayit() throws Exception {
 
 		status = 0;
 		plan = new OdemePlani();
+		getKalanAlacakMiktari();
 		PanelOpen();
 
 	}

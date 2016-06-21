@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import pelops.controller.AktifBean;
+import pelops.controller.IcraDosyaIslemleriBean;
 import pelops.db.DBConnection;
 import pelops.model.OdemePlani;
 
@@ -217,24 +218,27 @@ public class OdemePlaniDAO extends DBConnection {
 
 	public double getKalanAlacak(int id) throws Exception {
 
-		double kalanAlacak = 0;
+//		double kalanAlacak = 0;
+//
+//		SQL = "SELECT kalan_alacak FROM tbl_hesap where id=" + id+ ";";
+//
+//		newConnectDB();
+//
+//		stmt = conn.createStatement();
+//		rs = stmt.executeQuery(SQL);
+//
+//		while (rs.next()) {
+//
+//			kalanAlacak = rs.getDouble("kalan_alacak");
+//
+//		}
+//
+//		disconnectDB();
 
-		SQL = "SELECT kalan_alacak FROM tbl_hesap where id=" + id+ ";";
-
-		newConnectDB();
-
-		stmt = conn.createStatement();
-		rs = stmt.executeQuery(SQL);
-
-		while (rs.next()) {
-
-			kalanAlacak = rs.getDouble("kalan_alacak");
-
-		}
-
-		disconnectDB();
-
-		return kalanAlacak;
+		IcraDosyaIslemleriBean icra = new IcraDosyaIslemleriBean();
+		icra.GelismisListe(id);
+			
+		return icra.getHesaplistesi().getKalan_alacak();
 
 	}
 

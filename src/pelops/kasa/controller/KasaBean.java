@@ -538,6 +538,7 @@ public class KasaBean {
 		}
 
 		bilgiTahsilat.setBorclu_adi(AktifBean.getBorcluAdi());
+		bilgiTahsilat.setMusteriNo(AktifBean.getMusteriNo());
 		bilgiTahsilat.setIcra_dosya_no(AktifBean.getIcraDosyaNo());
 		bilgiTahsilat.setIcra_dosyasi_id(AktifBean.getIcraDosyaID());
 		bilgiTahsilat.setMuvekkil_adi(AktifBean.getMuvekkilAdi());

@@ -20,8 +20,8 @@ public class DuyuruService {
         for(int i = 0 ; i < size ; i++) {
         	Duyuru duyuru =new Duyuru();
         	duyuru.setId(getRandomId());
-        	duyuru.setBaslik("baslik");
-        	duyuru.setAciklama("aciklama");
+        	duyuru.setBaslik("Baslik");
+        	duyuru.setAciklama("Duyuru("+(i+1)+") aciklaması yüklenecektir");
             list.add(duyuru);
         }
          

@@ -20,8 +20,8 @@ public class GorevService {
         for(int i = 0 ; i < size ; i++) {
         	Gorev gorev =new Gorev();
         	gorev.setId(getRandomId());
-        	gorev.setKonu("konu");
-        	gorev.setAciklama("aciklama");
+        	gorev.setKonu("Konu");
+        	gorev.setAciklama("Görev aciklaması yüklenecektir");
         	gorev.setBasTarih(new Date());
         	gorev.setBitTarih(new Date());
             list.add(gorev);

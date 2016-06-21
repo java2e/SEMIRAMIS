@@ -234,22 +234,19 @@
 					<p:ajax process="@this"  event="rowSelect" listener="#{defaultAnaSayfaBean.onRowSelect}"
 						update=":defaultAnaSayfaForm:gorevDetail" oncomplete="PF('gorevDialog').show()" />
 
-					<p:column headerText="Baslik">
-						<h:outputText value="#{gorev.konu}" />
+					<p:column headerText="Konu">
+						<h:outputText value="#{gorev.konu}" style="color:#{gorev.id%2==0 ? 'red' : 'black' };"  />
 					</p:column>
 
-					<p:column headerText="Aciklama">
-						<h:outputText value="#{gorev.aciklama}" />
-					</p:column>
 					
 					<p:column headerText="Başlangıç Tarih">
-						<h:outputText value="#{gorev.basTarih}" >
+						<h:outputText value="#{gorev.basTarih}" style="color:#{gorev.id%2==0 ? 'red' : 'black' };" >
 						    <f:convertDateTime pattern="dd/MM/yyyy" />
 						</h:outputText>
 					</p:column>
 					
 					<p:column headerText="Bitiş Tarih">
-						<h:outputText value="#{gorev.bitTarih}" >
+						<h:outputText value="#{gorev.bitTarih}" style="color:#{gorev.id%2==0 ? 'red' : 'black' };" >
 						<f:convertDateTime pattern="dd/MM/yyyy" />
 						</h:outputText>
 					</p:column>

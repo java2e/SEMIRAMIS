@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"	>
+ 
+ 
+ 
+    <h:body >
+
+ <h:form id="defaultAnaSayfaForm">
+    <script type="text/javascript"
+			src="amcharts/amcharts.js"></script>
+		<script type="text/javascript"
+			src="amcharts/serial.js"></script>
+		<script type="text/javascript"
+			src="amcharts/pie.js"></script>
+		<script type="text/javascript"
+			src="amcharts/themes/none.js"></script>
+		<script type="text/javascript">
+			//<![CDATA[
+			           
+        
+            var chart;
+            var legend;
+
+            var chartData = [#{dashBean.testVeri}];
+
+            AmCharts.ready(function () {
+                // PIE CHART
+                chart = new AmCharts.AmPieChart();
+                chart.dataProvider = chartData;
+                chart.titleField = "Muvekkil";
+                chart.valueField = "DosyaSayisi";
+                chart.outlineColor = "#FFFFFF";
+                chart.outlineAlpha = 0.8;
+                chart.outlineThickness = 2;
+
+                // WRITE
+                chart.write("chartdiv");
+            });
+            
+            
+            var chart = AmCharts.makeChart("chartdiv2", {
+                "type": "serial",
+                "theme": "light",
+                "marginRight":30,
+                "legend": {
+                    "equalWidths": false,
+                    "periodValueText": "Toplam: [[value.sum]]",
+                    "position": "top",
+                    "valueAlign": "left",
+                    "valueWidth": 100
+                },
+                "dataProvider": [{
+                    "year": "Ocak",
+                    "cars": 1587,
+                    "motorcycles": 650,
+                    "bicycles": 121
+                }, {
+                    "year": "Şubat",
+                    "cars": 1567,
+                    "motorcycles": 683,
+                    "bicycles": 146
+                }, {
+                    "year":"Mart",
+                    "cars": 1617,
+                    "motorcycles": 691,
+                    "bicycles": 138
+                }, {
+                    "year": "Nisan",
+                    "cars": 1630,
+                    "motorcycles": 642,
+                    "bicycles": 127
+                }, {
+                    "year": "Mayıs",
+                    "cars": 1660,
+                    "motorcycles": 699,
+                    "bicycles": 105
+                }, {
+                    "year":"Haziran",
+                    "cars": 1683,
+                    "motorcycles": 721,
+                    "bicycles": 109
+                }, {
+                    "year": "Temmuz",
+                    "cars": 1691,
+                    "motorcycles": 737,
+                    "bicycles": 112
+                }, {
+                    "year": "Ağustos",
+                    "cars": 1298,
+                    "motorcycles": 680,
+                    "bicycles": 101
+                }, {
+                    "year": "Eylül",
+                    "cars": 1275,
+                    "motorcycles": 664,
+                    "bicycles": 97
+                }, {
+                    "year": "Ekim",
+                    "cars": 1246,
+                    "motorcycles": 648,
+                    "bicycles": 93
+                }, {
+                    "year":"Kasım",
+                    "cars": 1318,
+                    "motorcycles": 697,
+                    "bicycles": 111
+                }, {
+                    "year": "Aralık",
+                    "cars": 1213,
+                    "motorcycles": 633,
+                    "bicycles": 87
+                }, 
+                ],
+                "valueAxes": [{
+                    "stackType": "regular",
+                    "gridAlpha": 0.07,
+                    "position": "left",
+                    "title": "Türk Lirası"
+                }],
+                "graphs": [{
+                    "fillAlphas": 0.6,
+                    "lineAlpha": 0.4,
+                    "title": "AKBANK",
+                    "valueField": "cars"
+                }, {
+                    "fillAlphas": 0.6,
+                    "lineAlpha": 0.4,
+                    "title": "HSBC",
+                    "valueField": "motorcycles"
+                }, {
+                    "fillAlphas": 0.6,
+                    "lineAlpha": 0.4,
+                    "title": "ING BANK",
+                    "valueField": "bicycles"
+                }],
+                "plotAreaBorderAlpha": 0,
+                "marginTop": 10,
+                "marginLeft": 0,
+                "marginBottom": 0,
+                "chartScrollbar": {},
+                "chartCursor": {
+                    "cursorAlpha": 0
+                },
+                "categoryField": "year",
+                "categoryAxis": {
+                    "startOnAxis": true,
+                    "axisColor": "#DADADA",
+                    "gridAlpha": 0.07,
+                   
+                },
+                "export": {
+                	"enabled": true
+                 }
+            });
+            
+
+          //]]>
+
+        </script>
+        
+<!-- Hizli Erişim  -->
+	<div style="width:100%;">
+	
+	<div style="width:505px; height: 100px;margin: auto;padding-top: 20px;">
+	
+		<div style="width:505px; height: 40px;margin: auto;">
+		<img src="img/hizli_erisim.png" height="40" width="505"/>
+		</div>
+	
+<div style="width: 101px;height: 60px;float: left;">
+
+
+<p:commandLink ajax="false" update=":OrtaSayfa"	actionListener="#{anaSayfaBean.gotoPage(48)}">
+    <img src="img/takip-ac-button.png" width="101" height="60"/>
+</p:commandLink>
+
+</div>
+
+<div style="width: 101px;height: 60px;float: left;">
+<p:commandLink ajax="false" update=":OrtaSayfa"	actionListener="#{anaSayfaBean.gotoPage(49)}">
+    <img src="img/dosya-takip-button.png" width="101" height="60"/>
+</p:commandLink>
+</div>
+
+<div style="width: 101px;height: 60px;float: left;">
+<p:commandLink ajax="false" update=":OrtaSayfa"	actionListener="#{anaSayfaBean.gotoPage(1010)}">
+    <img src="img/talep-hazırlama-button.png" width="101" height="60"/>
+</p:commandLink>
+</div>
+
+<div style="width: 101px;height: 60px;float: left;">
+<p:commandLink ajax="false" update=":OrtaSayfa"	actionListener="#{anaSayfaBean.gotoPage(1044)}">
+    <img src="img/kasa-button.png" width="101" height="60"/>
+</p:commandLink>
+
+</div>
+
+<div style="width: 101px;height: 60px;float: left;">
+
+<p:commandLink ajax="false" update=":OrtaSayfa"	actionListener="#{anaSayfaBean.gotoPage(1005)}">
+    <img src="img/yazdır-button.png" width="101" height="60"/>
+</p:commandLink>
+
+</div>
+	
+	</div>
+	
+	</div>	
+<!--	/Hizli Erişim  -->
+	<br/><br/>
+        	
+       <div  style=" height: %100;
+            width: 99%;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: none;
+            margin-bottom: none;
+            border-top: 4px solid #00ccff;
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius: 15px;
+            background-color: blue;
+            ">
+            
+            <!-- Gorevler -->
+  			<div style="float: left; width: 30%; margin:0px 0px 0px 0px;">
+  			<h2 style="margin:5px 0px 0px 0px;">Görevler</h2>
+  				<p:dataTable var="gorev" value="#{defaultAnaSayfaBean.gorevler}" 
+					selectionMode="single" selection="#{defaultAnaSayfaBean.selectedGorev}"
+					id="gorevTable" rowKey="#{gorev.id}">
+					<p:ajax process="@this"  event="rowSelect" listener="#{defaultAnaSayfaBean.onRowSelect}"
+						update=":defaultAnaSayfaForm:gorevDetail" oncomplete="PF('gorevDialog').show()" />
+
+					<p:column headerText="Baslik">
+						<h:outputText value="#{gorev.konu}" />
+					</p:column>
+
+					<p:column headerText="Aciklama">
+						<h:outputText value="#{gorev.aciklama}" />
+					</p:column>
+					
+					<p:column headerText="Başlangıç Tarih">
+						<h:outputText value="#{gorev.basTarih}" >
+						    <f:convertDateTime pattern="dd/MM/yyyy" />
+						</h:outputText>
+					</p:column>
+					
+					<p:column headerText="Bitiş Tarih">
+						<h:outputText value="#{gorev.bitTarih}" >
+						<f:convertDateTime pattern="dd/MM/yyyy" />
+						</h:outputText>
+					</p:column>
+
+				</p:dataTable>
+
+				<p:dialog header="Görev Detayı" widgetVar="gorevDialog" modal="true"
+					showEffect="fade" hideEffect="fade" resizable="true" >
+					<p:outputPanel id="gorevDetail" style="text-align:center;">
+
+							<h:outputText value="#{defaultAnaSayfaBean.selectedGorev.aciklama}" />
+
+					</p:outputPanel>
+				</p:dialog>
+  			
+
+			</div>
+			
+			<!-- /Gorevler  -->
+			
+			 <!-- Duyurular -->
+  			<div style="float: left; width: 33%; margin:0px 10px 0px 10px;">
+  			
+  			<h2 style="margin:5px 0px 0px 0px;">Duyurular</h2>
+
+				<p:dataTable var="duyuru" value="#{defaultAnaSayfaBean.duyurular}">
+
+					<p:column >
+						<h:outputText value="#{duyuru.aciklama}" />
+					</p:column>
+
+				</p:dataTable>
+
+			</div>
+			<!-- /Duyurular -->
+  			
+  			<!-- Takvim -->
+  			<div style="float: left; width: 35%; margin:0px 0px 0px 0px;">
+  			<h2 style="margin:5px 0px 0px 0px;">Takvim</h2>
+				<p:growl id="messages" showDetail="true" />
+
+				<p:schedule id="schedule" value="#{scheduleView.eventModel}" locale="tr"
+					widgetVar="myschedule" timeZone="GMT+2">
+
+					<p:ajax event="dateSelect" listener="#{scheduleView.onDateSelect}"
+						update="eventDetails" oncomplete="PF('eventDialog').show();" />
+					<p:ajax event="eventSelect"
+						listener="#{scheduleView.onEventSelect}" update="eventDetails"
+						oncomplete="PF('eventDialog').show();" />
+					<p:ajax event="eventMove" listener="#{scheduleView.onEventMove}"
+						update="messages" />
+					<p:ajax event="eventResize"
+						listener="#{scheduleView.onEventResize}" update="messages" />
+
+				</p:schedule>
+
+				<p:dialog widgetVar="eventDialog" header="Etkinlik Detayları"
+					showEffect="clip" hideEffect="clip">
+					<h:panelGrid id="eventDetails" columns="2">
+						<p:outputLabel for="title" value="Başlık:" />
+						<p:inputText id="title" value="#{scheduleView.event.title}"
+							required="true" />
+
+						<p:outputLabel for="from" value="Başlangıç:" />
+						<p:calendar id="from" value="#{scheduleView.event.startDate}"
+							timeZone="GMT+2" pattern="dd/MM/yyyy HH:mm" />
+
+						<p:outputLabel for="to" value="Bitiş:" />
+						<p:calendar id="to" value="#{scheduleView.event.endDate}"
+							timeZone="GMT+2" pattern="dd/MM/yyyy HH:mm" />
+
+						<p:outputLabel for="allDay" value="Bütün Gün:" />
+						<h:selectBooleanCheckbox id="allDay"
+							value="#{scheduleView.event.allDay}" />
+
+						<p:commandButton type="reset" value="Yenile" />
+						<p:commandButton id="addButton" value="Kaydet"
+							actionListener="#{scheduleView.addEvent}"
+							oncomplete="PF('myschedule').update();PF('eventDialog').hide();" />
+					</h:panelGrid>
+				</p:dialog>
+
+			</div>
+			<!-- /Takvim -->
+		</div>
+		
+</h:form>        
+</h:body>
+<script type="text/javascript">
+    PrimeFaces.locales['tr'] = {
+        closeText: 'kapat',
+        prevText: 'geri',
+        nextText: 'ileri',
+        currentText: 'bugün',
+        monthNames: ['Ocak','Şubat','Mart','Nisan','Mayıs','Haziran',
+            'Temmuz','Ağustos','Eylül','Ekim','Kasım','Aralık'],
+        monthNamesShort: ['Oca','Şub','Mar','Nis','May','Haz',
+            'Tem','Ağu','Eyl','Eki','Kas','Ara'],
+        dayNames: ['Pazar','Pazartesi','Salı','Çarşamba','Perşembe','Cuma','Cumartesi'],
+        dayNamesShort: ['Pz','Pt','Sa','Ça','Pe','Cu','Ct'],
+        dayNamesMin: ['Pz','Pt','Sa','Ça','Pe','Cu','Ct'],
+        weekHeader: 'Hf',
+        firstDay: 1,
+        isRTL: false,
+        showMonthAfterYear: false,
+        yearSuffix: '',
+        month: 'Ay',
+        week: 'Hafta',
+        day: 'Gün',
+        allDayText : 'Tüm Gün'
+    };
+</script>
+</html>

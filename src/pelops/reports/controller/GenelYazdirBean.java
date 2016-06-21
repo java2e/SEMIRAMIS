@@ -416,7 +416,10 @@ public class GenelYazdirBean {
 		JasperExportManager.exportReportToPdfStream(jasperPrint, output);
 
 		refreshPage(FacesContext.getCurrentInstance());
+		 servletOutputStream.flush();
+		    servletOutputStream.close();
 		FacesContext.getCurrentInstance().responseComplete();
+		
 		refreshObjects();
 
 	}
@@ -443,6 +446,9 @@ public class GenelYazdirBean {
 		// String destinationForServer = "e:\\muko\\";
 		String destinationForServer = "/Users/Ozgen/Desktop/dosya/";
 		output = new FileOutputStream(new File(destinationForServer + filename));
+		 servletOutputStream.flush();
+		    servletOutputStream.close();
+		FacesContext.getCurrentInstance().responseComplete();
 		refreshObjects();
 
 	}
@@ -476,6 +482,9 @@ public class GenelYazdirBean {
 		exporter.exportReport();
 
 		refreshPage(FacesContext.getCurrentInstance());
+		 servletOutputStream.flush();
+		    servletOutputStream.close();
+		FacesContext.getCurrentInstance().responseComplete();
 		refreshObjects();
 
 	}
@@ -553,6 +562,8 @@ public class GenelYazdirBean {
 				exporter.exportReport();
 
 				hiddenOrShow = false;
+				 servletOutputStream.flush();
+				    servletOutputStream.close();
 				FacesContext.getCurrentInstance().responseComplete();
 
 				jasperPrints = new ArrayList<JasperPrint>();
@@ -594,9 +605,11 @@ public class GenelYazdirBean {
 
 			JasperExportManager.exportReportToPdfStream(jasperPrint,
 					servletOutputStream);
-			servletOutputStream.flush();
-			servletOutputStream.close();
 
+			 servletOutputStream.flush();
+			    servletOutputStream.close();
+			FacesContext.getCurrentInstance().responseComplete();
+			
 			tebligatListesi = new ArrayList<ReportGenel>();
 		} else {
 			FacesContext context = FacesContext.getCurrentInstance();
@@ -903,6 +916,8 @@ public class GenelYazdirBean {
 				exporter.exportReport();
 
 				hiddenOrShow = false;
+				 servletOutputStream.flush();
+				    servletOutputStream.close();
 				FacesContext.getCurrentInstance().responseComplete();
 
 				jasperPrints = new ArrayList<JasperPrint>();

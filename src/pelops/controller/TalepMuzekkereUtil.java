@@ -1,16 +1,23 @@
 package pelops.controller;
 
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import pelops.dao.MuameleIslemleriDAO;
+import pelops.db.DAO;
+import pelops.model.Avukat;
 import pelops.model.MuameleIslemleri;
 import pelops.muameleislemleri.util.BankaModel;
 import pelops.muameleislemleri.util.GayrimenkulModel;
 import pelops.muameleislemleri.util.KurumModel;
 
 public class TalepMuzekkereUtil {
+
+	MuameleIslemleriDAO dao = new MuameleIslemleriDAO();
 
 	public TalepMuzekkereUtil() {
 
@@ -28,17 +35,14 @@ public class TalepMuzekkereUtil {
 		// 103 Davetiye Müzekkeresi ( Araç )
 
 		if (muamele.isDavetiyemuzekkeresi103arac()) {
-			
-			
-			
-//			İster Banka Bilgiler İster alacaklı bankalardan yapabiliriz
-//			System.out.println(bankaList.get(0).getBankaBilgisi());
-			
+
+			// İster Banka Bilgiler İster alacaklı bankalardan yapabiliriz
+			// System.out.println(bankaList.get(0).getBankaBilgisi());
 
 			// Müzekkere Oluşturma
 			muameleIslemleri = new MuameleIslemleri();
 			muameleIslemleri = nesneDoldur(muamele);
-			
+
 			muameleIslemleri.setMiktar(muamele.getDavetiyemuzekkeresi103Sayi());
 			muameleIslemleri.setMuzekkereTalepAdi("103 Davetiyesi Müzekkeresi(Araç)");
 			muameleList.add(muameleIslemleri);
@@ -196,6 +200,7 @@ public class TalepMuzekkereUtil {
 		if (muamele.isMevduathaczimuzekkeresi()) {
 			muameleIslemleri = new MuameleIslemleri();
 			muameleIslemleri = nesneDoldur(muamele);
+		
 			muameleIslemleri.setMiktar(muamele.getMevduathaczimuzekkeresiSayi());
 			muameleIslemleri.setMuzekkereTalepAdi("Mevduat Haczi Müzekkeresi");
 			muameleList.add(muameleIslemleri);
@@ -281,11 +286,11 @@ public class TalepMuzekkereUtil {
 			muameleList.add(muameleIslemleri);
 
 			// ilgili Müzekkerenin Talebini Oluşturma
-			muameleIslemleri = new MuameleIslemleri();
-			muameleIslemleri = nesneDoldur(muamele);
-			muameleIslemleri.setMiktar(muamele.getPtthacizmuzekkeresiSayi());
-			muameleIslemleri.setMuzekkereTalepAdi("PTT Haciz Talebi");
-			muameleList.add(muameleIslemleri);
+			// muameleIslemleri = new MuameleIslemleri();
+			// muameleIslemleri = nesneDoldur(muamele);
+			// muameleIslemleri.setMiktar(muamele.getPtthacizmuzekkeresiSayi());
+			// muameleIslemleri.setMuzekkereTalepAdi("PTT Haciz Talebi");
+			// muameleList.add(muameleIslemleri);
 		}
 
 		// *******************************************************************************
@@ -339,11 +344,12 @@ public class TalepMuzekkereUtil {
 			}
 
 			// ilgili Müzekkerenin Talebini Oluşturma
-			muameleIslemleri = new MuameleIslemleri();
-			muameleIslemleri = nesneDoldur(muamele);
-			muameleIslemleri.setMiktar(muamele.getTapuhacizmuzekkeresinoktaSayi());
-			muameleIslemleri.setMuzekkereTalepAdi("Tapu Haciz Talebi(Nokta)");
-			muameleList.add(muameleIslemleri);
+			// muameleIslemleri = new MuameleIslemleri();
+			// muameleIslemleri = nesneDoldur(muamele);
+			// muameleIslemleri.setMiktar(muamele.getTapuhacizmuzekkeresinoktaSayi());
+			// muameleIslemleri.setMuzekkereTalepAdi("Tapu Haciz
+			// Talebi(Nokta)");
+			// muameleList.add(muameleIslemleri);
 		}
 
 		// *******************************************************************************
@@ -412,16 +418,16 @@ public class TalepMuzekkereUtil {
 
 		// Araç Şerhi Talebi
 
-		if (muamele.isAracserhitalebi()) {
-
-			// İlgili Müzekkerenin Talebini Oluşturma
-			muameleIslemleri = new MuameleIslemleri();
-			muameleIslemleri = nesneDoldur(muamele);
-			muameleIslemleri.setMiktar(muamele.getAracserhitalebiSayi());
-			muameleIslemleri.setMuzekkereTalepAdi("Araç Şerhi Talebi");
-			muameleList.add(muameleIslemleri);
-
-		}
+		// if (muamele.isAracserhitalebi()) {
+		//
+		// // İlgili Müzekkerenin Talebini Oluşturma
+		// muameleIslemleri = new MuameleIslemleri();
+		// muameleIslemleri = nesneDoldur(muamele);
+		// muameleIslemleri.setMiktar(muamele.getAracserhitalebiSayi());
+		// muameleIslemleri.setMuzekkereTalepAdi("Araç Şerhi Talebi");
+		// muameleList.add(muameleIslemleri);
+		//
+		// }
 
 		// **********************************************************************************************
 		// Adres Araştırma Talebi
@@ -522,15 +528,15 @@ public class TalepMuzekkereUtil {
 		// **********************************************************************************************
 
 		// Tapu Haciz Talebi
-		if (muamele.isAilekayittablosutalebi()) {
-
-			// İlgili Müzekkerenin Talebini Oluşturma
-			muameleIslemleri = new MuameleIslemleri();
-			muameleIslemleri = nesneDoldur(muamele);
-			muameleIslemleri.setMiktar(muamele.getAilekayittablosutalebiSayi());
-			muameleIslemleri.setMuzekkereTalepAdi("Aile Kayıt Tablosu Talebi");
-			muameleList.add(muameleIslemleri);
-		}
+		// if (muamele.isAilekayittablosutalebi()) {
+		//
+		// // İlgili Müzekkerenin Talebini Oluşturma
+		// muameleIslemleri = new MuameleIslemleri();
+		// muameleIslemleri = nesneDoldur(muamele);
+		// muameleIslemleri.setMiktar(muamele.getAilekayittablosutalebiSayi());
+		// muameleIslemleri.setMuzekkereTalepAdi("Aile Kayıt Tablosu Talebi");
+		// muameleList.add(muameleIslemleri);
+		// }
 
 		// **********************************************************************************************
 
@@ -614,14 +620,15 @@ public class TalepMuzekkereUtil {
 
 		// SGK Adresi Ödeme Emri Talebi
 
-		if (muamele.isSgkadresiodemeemritalebi()) {
-
-			muameleIslemleri = new MuameleIslemleri();
-			muameleIslemleri = nesneDoldur(muamele);
-			muameleIslemleri.setMiktar(muamele.getSgkadresiodemeemritalebiSayi());
-			muameleIslemleri.setMuzekkereTalepAdi("SGK Adresi Ödeme Emri Talebi");
-			muameleList.add(muameleIslemleri);
-		}
+		// if (muamele.isSgkadresiodemeemritalebi()) {
+		//
+		// muameleIslemleri = new MuameleIslemleri();
+		// muameleIslemleri = nesneDoldur(muamele);
+		// muameleIslemleri.setMiktar(muamele.getSgkadresiodemeemritalebiSayi());
+		// muameleIslemleri.setMuzekkereTalepAdi("SGK Adresi Ödeme Emri
+		// Talebi");
+		// muameleList.add(muameleIslemleri);
+		// }
 
 		// **********************************************************************************************
 
@@ -674,6 +681,36 @@ public class TalepMuzekkereUtil {
 
 		// **********************************************************************************************
 
+		// Çoklu 4lu 5 Banka Talebi
+
+		if (muamele.isCoklu4lu5bankatalebi()) {
+
+			// 4lu sorgu doldurulacak
+
+			muameleIslemleri = new MuameleIslemleri();
+			muameleIslemleri = nesneDoldur(muamele);
+			muameleIslemleri.setMiktar(muamele.getCoklu4lu5bankatalebiSayi());
+			muameleIslemleri.setMuzekkereTalepAdi("4lu( 5 Banka ) Talebi");
+			muameleList.add(muameleIslemleri);
+		}
+
+		// **********************************************************************************************
+
+		// Çoklu 4lu 7 Banka Talebi
+
+		if (muamele.isCoklu4lu7bankatalebi()) {
+
+			// 7li sorgu doldurulacak
+
+			muameleIslemleri = new MuameleIslemleri();
+			muameleIslemleri = nesneDoldur(muamele);
+			muameleIslemleri.setMiktar(muamele.getCoklu4lu7bankatalebiSayi());
+			muameleIslemleri.setMuzekkereTalepAdi("4lu( 7 Banka ) Talebi");
+			muameleList.add(muameleIslemleri);
+		}
+
+		// **********************************************************************************************
+
 		return muameleList;
 
 	}
@@ -720,6 +757,9 @@ public class TalepMuzekkereUtil {
 		muameleIslemleri.setIcraMudurluguAdi(muamele.getIcraMudurluguAdi());
 		muameleIslemleri.setHazirlayanAdi(muamele.getHazirlayanAdi());
 		muameleIslemleri.setAvukatAdi(muamele.getAvukatAdi());
+		muameleIslemleri.setAlacakliAdi(muamele.getAlacakliAdi());
+		muameleIslemleri.setDogumTarihi(muamele.getDogumTarihi());
+	
 
 		return muameleIslemleri;
 	}
@@ -803,6 +843,67 @@ public class TalepMuzekkereUtil {
 		}
 
 		return date;
+
+	}
+
+	public String getIcraMudurluguText(int icraMudurluguId) throws Exception {
+
+		String icraMudurluguText = dao.getIcraMudurluguText(icraMudurluguId);
+
+		return icraMudurluguText;
+
+	}
+
+	public String getRiskYoneticisiText(int riskYoneticisiId) throws Exception {
+
+		String riskYoneticisiText = dao.getRiskYoneticisiText(riskYoneticisiId);
+
+		return riskYoneticisiText;
+	}
+
+	public String getAlacakliEpostaText(int alacakliId) throws Exception {
+
+		String alacakliEpostaText = dao.getAlacakliEpostaText(alacakliId);
+
+		return alacakliEpostaText;
+	}
+
+	public String getIcraDosyaNoText(int icraDosyaId) throws Exception {
+
+		String icraDosyaNoText = dao.getIcraDosyaNoText(icraDosyaId);
+
+		return icraDosyaNoText;
+	}
+
+	public String getBorcluAdresiText(int borcluId) throws Exception {
+
+		String borcluAdresiText = dao.getBorcluAdresiText(borcluId);
+
+		return borcluAdresiText;
+
+	}
+
+	public String getBuroAdresiText(int icraDosyaId) throws Exception {
+
+		String buroAdresiText = dao.getBuroAdresiText(icraDosyaId);
+
+		return buroAdresiText;
+
+	}
+
+	public String getAlacakliTelText(int icraDosyaId) throws Exception {
+
+		String alacakliTelText = dao.getAlacakliTelText(icraDosyaId);
+
+		return alacakliTelText;
+
+	}
+
+	public String getBorcluTcText(int borclubilgisiID) throws Exception {
+
+		String borcluTcText = dao.getBorcluTcText(borclubilgisiID);
+
+		return borcluTcText;
 
 	}
 

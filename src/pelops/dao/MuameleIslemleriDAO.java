@@ -27,7 +27,6 @@ import pelops.model.DortluYapi;
 import pelops.model.MuameleIslemleri;
 import pelops.model.StandartTalep;
 
-
 public class MuameleIslemleriDAO extends DBConnection {
 
 	public void MuzekkereTalepEkle(MuameleIslemleri muamele, ArrayList<MuameleIslemleri> muameleList) throws Exception {
@@ -37,7 +36,6 @@ public class MuameleIslemleriDAO extends DBConnection {
 
 		for (int i = 0; i < muameleList.size(); i++) {
 
-			
 			String kurumAdi = null;
 			String alacakliBankasi = null;
 			String tapuKayitlari = null;
@@ -74,15 +72,12 @@ public class MuameleIslemleriDAO extends DBConnection {
 					+ muameleList.get(i).getMuzekkereTalepAdi() + "' and kurum_adi='" + kurumAdi
 					+ "' and alacakli_bankasi='" + alacakliBankasi + "' and tapu_kayitlari='" + tapuKayitlari + "';";
 
-			
 			ResultSet rs = stmt.executeQuery(SQL);
 			int deger = 0;
 
 			if (rs.next()) {
 
 				deger = rs.getInt("total");
-
-			
 
 			}
 
@@ -96,8 +91,8 @@ public class MuameleIslemleriDAO extends DBConnection {
 						+ "alacakli_mail,hazirlayan_id,alacakli_tel,banka_bilgileri,borclu_tc,borclu_adresi,"
 						+ "semiramis_no,alacakli_bankasi,icra_dosya_no,muzekkere_talep_adi,muzekkere_talep_miktari,alacak_faiz_tutari,baslik,paragraf_1,paragraf_2,kurum_adi,"
 						+ "tapu_kayitlari,vergi_kimlik_no,buro_adresi,plaka,risk_yoneticisi_text,hazirlayan_text,borclu_miktari,postane_adi,ptt_il_text,ptt_ilce_text, alacakli_adi,"
-						+ "mevduat_banka_adi,mevduat_banka_adresi,buro_iban_no,konu,mernis_adresi,sgk_adresi,yurtici_adresi)"
-						+ "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+						+ "mevduat_banka_adi,mevduat_banka_adresi,buro_iban_no,konu,mernis_adresi,sgk_adresi,yurtici_adresi,eki,dogum_tarihi)"
+						+ "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
 
 				PreparedStatement pstmt = conn.prepareStatement(SQL.toString());
 
@@ -105,7 +100,7 @@ public class MuameleIslemleriDAO extends DBConnection {
 				pstmt.setDate(2, convertFromJAVADateToSQLDate(muamele.getMuameleTarihi()));
 				pstmt.setString(3, muamele.getTalepIfadesi());
 				pstmt.setInt(4, muamele.getMasrafTipiId());
-				pstmt.setInt(5, muamele.getMasrafMiktari());
+				pstmt.setDouble(5, muamele.getMasrafMiktari());
 				pstmt.setInt(6, muamele.getMalTipiId());
 				pstmt.setString(7, muamele.getMalBilgisi());
 				pstmt.setInt(8, muamele.getPersonelId());
@@ -135,7 +130,7 @@ public class MuameleIslemleriDAO extends DBConnection {
 				pstmt.setString(32, muamele.getIcraDosyaNo());
 				pstmt.setString(33, muameleList.get(i).getMuzekkereTalepAdi());
 				pstmt.setInt(34, muameleList.get(i).getMiktar());
-				pstmt.setInt(35, muamele.getAlacakFaizTutari());
+				pstmt.setDouble(35, muamele.getAlacakFaizTutari());
 				pstmt.setString(36, muamele.getBaslik());
 				pstmt.setString(37, muamele.getParagraf1());
 				pstmt.setString(38, muamele.getParagraf2());
@@ -146,7 +141,7 @@ public class MuameleIslemleriDAO extends DBConnection {
 				pstmt.setString(43, muamele.getPlaka());
 				pstmt.setString(44, muamele.getRiskYoneticisiText());
 				pstmt.setString(45, muamele.getHazirlayanText());
-				pstmt.setInt(46, muamele.getBorcluMiktari());
+				pstmt.setDouble(46, muamele.getBorcluMiktari());
 				pstmt.setString(47, muamele.getPostaneAdi());
 				pstmt.setString(48, muamele.getPttIlText());
 				pstmt.setString(49, muamele.getPttIlceText());
@@ -158,7 +153,9 @@ public class MuameleIslemleriDAO extends DBConnection {
 				pstmt.setString(55, muamele.getMernisAdresi());
 				pstmt.setString(56, muamele.getSgkAdresi());
 				pstmt.setString(57, muamele.getYurticiAdresi());
-			
+				pstmt.setString(58, muamele.getEki());
+				pstmt.setDate(59, convertFromJAVADateToSQLDate(muamele.getDogumTarihi()));
+
 				pstmt.executeUpdate();
 
 			}
@@ -176,7 +173,7 @@ public class MuameleIslemleriDAO extends DBConnection {
 						+ " borclu_tc= ? , borclu_adresi= ? ,  alacak_faiz_tutari= ? , "
 						+ " semiramis_no= ? , alacakli_bankasi= ? , icra_dosya_no= ? , muzekkere_talep_adi= ? , "
 						+ " muzekkere_talep_miktari = ? ,baslik = ? , paragraf_1 = ? , paragraf_2 = ? , kurum_adi=? , tapu_kayitlari=? , vergi_kimlik_no=? , buro_adresi=? , plaka=? , risk_yoneticisi_text=? , hazirlayan_text=? , borclu_miktari=? , postane_adi = ? , ptt_il_text =?, ptt_ilce_text =? ,"
-						+ " alacakli_adi=? , mevduat_banka_adi= ? , mevduat_banka_adresi = ? , buro_iban_no=? , konu=?  , mernis_adresi =? , sgk_adresi=? , yurtici_adresi=?   WHERE icra_dosya_no = '"
+						+ " alacakli_adi=? , mevduat_banka_adi= ? , mevduat_banka_adresi = ? , buro_iban_no=? , konu=?  , mernis_adresi =? , sgk_adresi=? , yurtici_adresi=?  ,eki =? , dogum_tarihi =?  WHERE icra_dosya_no = '"
 						+ muameleList.get(i).getIcraDosyaNo() + "'  and muzekkere_talep_adi = '"
 						+ muameleList.get(i).getMuzekkereTalepAdi() + "' and kurum_adi = '" + kurumAdi
 						+ "' and alacakli_bankasi='" + alacakliBankasi + "' and tapu_kayitlari='" + tapuKayitlari
@@ -188,7 +185,7 @@ public class MuameleIslemleriDAO extends DBConnection {
 				pstmt.setDate(2, convertFromJAVADateToSQLDate(muamele.getMuameleTarihi()));
 				pstmt.setString(3, muamele.getTalepIfadesi());
 				pstmt.setInt(4, muamele.getMasrafTipiId());
-				pstmt.setInt(5, muamele.getMasrafMiktari());
+				pstmt.setDouble(5, muamele.getMasrafMiktari());
 				pstmt.setInt(6, muamele.getMalTipiId());
 				pstmt.setString(7, muamele.getMalBilgisi());
 				pstmt.setInt(8, muamele.getPersonelId());
@@ -213,7 +210,7 @@ public class MuameleIslemleriDAO extends DBConnection {
 				pstmt.setString(27, muamele.getBankaBilgileri());
 				pstmt.setString(28, muamele.getBorcluTc());
 				pstmt.setString(29, muamele.getBorcluAdresi());
-				pstmt.setInt(30, muamele.getAlacakFaizTutari());
+				pstmt.setDouble(30, muamele.getAlacakFaizTutari());
 				pstmt.setInt(31, muamele.getSemiramisNo());
 				pstmt.setString(32, alacakliBankasi);
 				pstmt.setString(33, muamele.getIcraDosyaNo());
@@ -229,7 +226,7 @@ public class MuameleIslemleriDAO extends DBConnection {
 				pstmt.setString(43, muamele.getPlaka());
 				pstmt.setString(44, muamele.getRiskYoneticisiText());
 				pstmt.setString(45, muamele.getHazirlayanText());
-				pstmt.setInt(46, muamele.getBorcluMiktari());
+				pstmt.setDouble(46, muamele.getBorcluMiktari());
 				pstmt.setString(47, muamele.getPostaneAdi());
 				pstmt.setString(48, muamele.getPttIlText());
 				pstmt.setString(49, muamele.getPttIlceText());
@@ -241,9 +238,11 @@ public class MuameleIslemleriDAO extends DBConnection {
 				pstmt.setString(55, muamele.getMernisAdresi());
 				pstmt.setString(56, muamele.getSgkAdresi());
 				pstmt.setString(57, muamele.getYurticiAdresi());
-			
+				pstmt.setString(58, muamele.getEki());
+				pstmt.setDate(59, convertFromJAVADateToSQLDate(muamele.getDogumTarihi()));
+
 				pstmt.executeUpdate();
-				
+
 			}
 		}
 
@@ -274,6 +273,169 @@ public class MuameleIslemleriDAO extends DBConnection {
 		disconnectDB();
 
 		return list;
+
+	}
+
+	public String getIcraMudurluguText(int icraMudurluguId) throws Exception {
+
+		newConnectDB();
+		String icraMudurluguText = null;
+		String SQL = "select * from tbl_icra_mudurlugu where id=" + icraMudurluguId;
+		System.out.println(SQL);
+		Statement stmt = conn.createStatement();
+		ResultSet rs = stmt.executeQuery(SQL);
+
+		while (rs.next()) {
+
+			icraMudurluguText = rs.getString("adi");
+
+		}
+
+		disconnectDB();
+
+		return icraMudurluguText;
+
+	}
+
+	public String getBuroAdresiText(int icraDosyaId) throws Exception {
+
+		newConnectDB();
+		String buroAdresiText = null;
+		String SQL = "select * from tbl_vekil_bilgisi where id=1";
+		Statement stmt = conn.createStatement();
+		ResultSet rs = stmt.executeQuery(SQL);
+
+		while (rs.next()) {
+
+			buroAdresiText = rs.getString("adres");
+
+		}
+
+		disconnectDB();
+
+		return buroAdresiText;
+
+	}
+
+	public String getAlacakliTelText(int icraDosyaId) throws Exception {
+
+		newConnectDB();
+		String alacakliTelText = null;
+		String SQL = "select * from tbl_alacakli_bilgisi where id=" + icraDosyaId;
+		Statement stmt = conn.createStatement();
+		ResultSet rs = stmt.executeQuery(SQL);
+
+		while (rs.next()) {
+
+			alacakliTelText = rs.getString("telefon_no");
+
+		}
+
+		disconnectDB();
+
+		return alacakliTelText;
+
+	}
+
+	public String getRiskYoneticisiText(int riskYoneticisiId) throws Exception {
+
+		newConnectDB();
+		String riskYoneticisiText = null;
+		String SQL = "select * from tbl_user where id=" + riskYoneticisiId;
+		Statement stmt = conn.createStatement();
+		ResultSet rs = stmt.executeQuery(SQL);
+
+		while (rs.next()) {
+
+			riskYoneticisiText = rs.getString("adSoyad");
+
+		}
+
+		disconnectDB();
+
+		return riskYoneticisiText;
+
+	}
+
+	public String getAlacakliEpostaText(int alacakliId) throws Exception {
+
+		newConnectDB();
+		String alacakliEpostaText = null;
+		String SQL = "select * from tbl_alacakli_bilgisi where id=" + alacakliId;
+		Statement stmt = conn.createStatement();
+		ResultSet rs = stmt.executeQuery(SQL);
+
+		while (rs.next()) {
+
+			alacakliEpostaText = rs.getString("muvekkil_adi");
+
+		}
+
+		disconnectDB();
+
+		return alacakliEpostaText;
+
+	}
+
+	public String getIcraDosyaNoText(int icraDosyaNoId) throws Exception {
+
+		newConnectDB();
+		String icraDosyaNoText = null;
+		String SQL = "select * from tbl_icra_dosyasi where id=" + icraDosyaNoId;
+		Statement stmt = conn.createStatement();
+		ResultSet rs = stmt.executeQuery(SQL);
+
+		while (rs.next()) {
+
+			icraDosyaNoText = rs.getString("icra_dosyasi_no");
+
+		}
+
+		disconnectDB();
+
+		return icraDosyaNoText;
+
+	}
+
+	public String getBorcluAdresiText(int borcluId) throws Exception {
+
+		newConnectDB();
+		String borcluAdresiText = null;
+		String SQL = "select * from tbl_borclu where id=" + borcluId;
+		System.out.println(SQL);
+		Statement stmt = conn.createStatement();
+		ResultSet rs = stmt.executeQuery(SQL);
+
+		while (rs.next()) {
+
+			borcluAdresiText = rs.getString("adres");
+
+		}
+
+		disconnectDB();
+
+		return borcluAdresiText;
+
+	}
+
+	public String getBorcluTcText(int borclubilgisiID) throws Exception {
+
+		newConnectDB();
+		String borcluText = null;
+		String SQL = "select * from tbl_borclu where id=" + borclubilgisiID;
+		System.out.println("borclu tc " + SQL);
+		Statement stmt = conn.createStatement();
+		ResultSet rs = stmt.executeQuery(SQL);
+
+		while (rs.next()) {
+
+			borcluText = rs.getString("tc_no");
+
+		}
+
+		disconnectDB();
+
+		return borcluText;
 
 	}
 
@@ -333,7 +495,7 @@ public class MuameleIslemleriDAO extends DBConnection {
 			muamele.setId(rs.getInt("muameleid"));
 			muamele.setBorcluAdi(rs.getString("borcluadi"));
 			muamele.setTalepIfadesi(rs.getString("talepifadesi"));
-			muamele.setMasrafMiktari(rs.getInt("masrafmiktari"));
+			muamele.setMasrafMiktari(rs.getDouble("masrafmiktari"));
 			muamele.setMalBilgisi(rs.getString("malbilgisi"));
 			muamele.setMuhatapAdi(rs.getString("muhatapadi"));
 			muamele.setMuhatapAdresi(rs.getString("muhatapadresi"));
@@ -382,7 +544,7 @@ public class MuameleIslemleriDAO extends DBConnection {
 			muamele.setPlaka(rs.getString("plaka"));
 			muamele.setRiskYoneticisiText(rs.getString("risk_yoneticisi_text"));
 			muamele.setHazirlayanText(rs.getString("hazirlayan_text"));
-			muamele.setBorcluMiktari(rs.getInt("borclu_miktari"));
+			muamele.setBorcluMiktari(rs.getDouble("borclu_miktari"));
 			muamele.setPostaneAdi(rs.getString("postane_adi"));
 			muamele.setPttIlText(rs.getString("ptt_il_text"));
 			muamele.setPttIlceText(rs.getString("ptt_ilce_text"));
@@ -394,7 +556,9 @@ public class MuameleIslemleriDAO extends DBConnection {
 			muamele.setMernisAdresi(rs.getString("mernis_adresi"));
 			muamele.setSgkAdresi(rs.getString("sgk_adresi"));
 			muamele.setYurticiAdresi(rs.getString("yurtici_adresi"));
-			muamele.setAlacakFaizTutari(rs.getInt("alacak_faiz_tutari"));
+			muamele.setAlacakFaizTutari(rs.getDouble("alacak_faiz_tutari"));
+			muamele.setEki(rs.getString("eki"));
+			muamele.setDogumTarihi(rs.getDate("dogum_tarihi"));
 
 			List.add(muamele);
 		}
@@ -419,7 +583,7 @@ public class MuameleIslemleriDAO extends DBConnection {
 			islm.setId(rs.getInt("muameleid"));
 			islm.setBorcluAdi(rs.getString("borcluadi"));
 			islm.setTalepIfadesi(rs.getString("talepifadesi"));
-			islm.setMasrafMiktari(rs.getInt("masrafmiktari"));
+			islm.setMasrafMiktari(rs.getDouble("masrafmiktari"));
 			islm.setMalBilgisi(rs.getString("malbilgisi"));
 			islm.setMuhatapAdi(rs.getString("muhatapadi"));
 			islm.setMuhatapAdresi(rs.getString("muhatapadresi"));
@@ -467,7 +631,7 @@ public class MuameleIslemleriDAO extends DBConnection {
 			islm.setMuzekkereTalepAdi(rs.getString("muzekkere_talep_adi"));
 			islm.setRiskYoneticisiText(rs.getString("risk_yoneticisi_text"));
 			islm.setHazirlayanText(rs.getString("hazirlayan_text"));
-			islm.setBorcluMiktari(rs.getInt("borclu_miktari"));
+			islm.setBorcluMiktari(rs.getDouble("borclu_miktari"));
 			islm.setPostaneAdi(rs.getString("postane_adi"));
 			islm.setPttIlText(rs.getString("ptt_il_text"));
 			islm.setPttIlceText(rs.getString("ptt_ilce_text"));
@@ -479,13 +643,15 @@ public class MuameleIslemleriDAO extends DBConnection {
 			islm.setMernisAdresi(rs.getString("mernis_adresi"));
 			islm.setSgkAdresi(rs.getString("sgk_adresi"));
 			islm.setYurticiAdresi(rs.getString("yurtici_adresi"));
-			islm.setAlacakFaizTutari(rs.getInt("alacak_faiz_tutari"));
+			islm.setAlacakFaizTutari(rs.getDouble("alacak_faiz_tutari"));
 			islm.setMuameleTarihi(rs.getDate("muamele_tarihi"));
 			islm.setMuameleTarihiText(DateToText(rs.getDate("muamele_tarihi")));
 			islm.setTebligatTarihi(rs.getDate("tebligat_tarihi"));
 			islm.setTebligatTarihiText(DateToText(rs.getDate("tebligat_tarihi")));
 			islm.setHacizBaslangicTarihi(rs.getDate("haciz_baslangic_tarihi"));
 			islm.setHacizBaslangicTarihiText(DateToText(rs.getDate("haciz_baslangic_tarihi")));
+			islm.setEki(rs.getString("eki"));
+			islm.setDogumTarihiText(DateToText(rs.getDate("dogum_tarihi")));
 
 			rs = stmt.executeQuery("SELECT * FROM tbl_vekil_bilgisi where id ='" + rs.getInt("avukatid") + "';");
 
@@ -523,9 +689,9 @@ public class MuameleIslemleriDAO extends DBConnection {
 		ResultSet rs = stmt.executeQuery(SQL);
 		String pdfAdi = null;
 		while (rs.next()) {
-			
+
 			pdfAdi = rs.getString("pdf_adi");
-	
+
 			return pdfAdi;
 		}
 

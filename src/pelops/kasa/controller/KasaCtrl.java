@@ -436,6 +436,9 @@ public class KasaCtrl {
 		exporter.setParameter(JRPrintServiceExporterParameter.DISPLAY_PRINT_DIALOG, Boolean.TRUE);
 
 		exporter.exportReport();
+		 servletOutputStream.flush();
+		    servletOutputStream.close();
+		FacesContext.getCurrentInstance().responseComplete();
 
 	}
 

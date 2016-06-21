@@ -1,21 +1,32 @@
 package pelops.controller;
 
-
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import org.primefaces.model.StreamedContent;
+
+import com.a.a.a.b.i;
+
+import pelops.dao.AlacakliDAO;
+import pelops.dao.BaglantiDAO;
+import pelops.dao.BorcluBilgisiDAO;
+import pelops.dao.HesapDAO;
+import pelops.dao.IcraDosyasiDAO;
 import pelops.dao.MuameleIslemleriDAO;
 import pelops.dao.PostaDAO;
 import pelops.interfaces.ReportCRUDInterface;
 import pelops.model.Avukat;
 import pelops.model.DortluYapi;
 import pelops.model.Ilce;
+import pelops.model.MuameleAutoFields;
 import pelops.model.MuameleIslemleri;
 import pelops.model.Posta;
 import pelops.model.StandartTalep;
@@ -40,12 +51,15 @@ import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
 import net.sf.jasperreports.export.SimplePdfExporterConfiguration;
 
 @ManagedBean(name = "muameleislemlerbean")
-@SessionScoped
+@ViewScoped
 public class MuameleIslemlerBean implements ReportCRUDInterface {
 
 	MuameleIslemleriDAO dao = new MuameleIslemleriDAO();
 	private ArrayList<MuameleIslemleri> muameleList;
 	MuameleIslemleri muamele = new MuameleIslemleri();
+	//private String currentpath = currentpath;
+	private String currentpath = "C:/apache-tomcat-8.0.30/webapps/SEMIRAMIS/pdfler/";
+	
 	TalepMuzekkereUtil util = new TalepMuzekkereUtil();
 	private MuameleIslemleri muameleIslemleri;
 	private JasperPrint jasperPrint;
@@ -76,22 +90,103 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 	ArrayList<JasperPrint> list = new ArrayList<JasperPrint>();
 	TalepMuzekkereUtil tmUtil = new TalepMuzekkereUtil();
 
-	public MuameleIslemlerBean() throws Exception {
+	public void getFieldFromIcraDosyaTakibi() throws Exception {
 
 		this.setIptalrender(false);
 		this.setduzenlesilrender(false);
-		muamele.setStatus(0);
-		muamele.setBorcluAdi(AktifBean.getBorcluAdi());
 
-		// Kullanıcı Adı otomatik gelecek
+		// Müvekkil ile Alacaklı aynı kişi
 
-		// Hazırlayan Kişi Kullanıcı aynı kişi
+		int icraDosyaId = AktifBean.icraDosyaID;
+		if (icraDosyaId != 0) {
 
-		muamele.setIcraDosyaNo(AktifBean.icraDosyaNo);
+			MuameleAutoFields autoFields = new MuameleAutoFields();
+			BaglantiDAO baglantidao = new BaglantiDAO();
+			HesapDAO hesapDao = new HesapDAO();
+
+			int hesapId = baglantidao.Listele(icraDosyaId).getHesaplamaID();
+
+			BorcluBilgisiDAO daoborclu = new BorcluBilgisiDAO();
+			AlacakliDAO daoalacakli = new AlacakliDAO();
+			IcraDosyasiDAO icradosyasidao = new IcraDosyasiDAO();
+			TalepMuzekkereUtil talepMuzekkereUtil = new TalepMuzekkereUtil();
+			int borclubilgisiID = baglantidao.Listele(icraDosyaId).getBorcluID();
+			int alacakliID = baglantidao.Listele(icraDosyaId).getAlacakliID();
+
+			autoFields.setBorcMiktari(
+					(hesapDao.Liste(hesapId).getToplam_alacak()) - (hesapDao.Liste(hesapId).getTahsilat_tutari()));
+
+			autoFields.setIcraDosyaNo(icradosyasidao.Listele(icraDosyaId).getIcraDosyaNo());
+			autoFields.setIcraMudurluguId(icradosyasidao.Listele(icraDosyaId).getIcraMudurluguId());
+			autoFields.setRiskYoneticisiId(icradosyasidao.Listele(icraDosyaId).getRiskYoneticisiId());
+			autoFields.setIcraMudurluguText(talepMuzekkereUtil.getIcraMudurluguText(autoFields.getIcraMudurluguId()));
+			autoFields
+					.setRiskYoneticisiText(talepMuzekkereUtil.getRiskYoneticisiText(autoFields.getRiskYoneticisiId()));
+			autoFields.setAlacakliEpostaText(talepMuzekkereUtil.getAlacakliEpostaText(alacakliID));
+			autoFields.setIcraMudurluguText(talepMuzekkereUtil.getAlacakliEpostaText(alacakliID));
+			autoFields.setAlacakliEpostaText(talepMuzekkereUtil.getAlacakliEpostaText(alacakliID));
+			autoFields.setIcraDosyaNoText(talepMuzekkereUtil.getIcraDosyaNoText(icraDosyaId));
+			autoFields.setBorcluAdresiText(talepMuzekkereUtil.getBorcluAdresiText(borclubilgisiID));
+			autoFields.setBuroAdresiText(talepMuzekkereUtil.getBuroAdresiText(icraDosyaId));
+			autoFields.setAlacakliTelText(talepMuzekkereUtil.getAlacakliTelText(alacakliID));
+			autoFields.setBorcluTcText(talepMuzekkereUtil.getBorcluTcText(borclubilgisiID));
+			autoFields.setMuvekkilAdiText(daoalacakli.ListeGetir(alacakliID).getMuvekkilAdi());
+
+			// Manuel Giriş Yapılmıştır -- Bad Code :(
+			muamele.setPostaneAdi("PTT İSKİTLER MERKEZ MÜDÜRLÜĞÜ");
+			muamele.setBuroIbanNo("TR3000 1230 0067 1038 9292 8100");
+			muamele.setVergiKimlikNo("Kimlik No ?");
+
+			muamele.setStatus(0);
+			muamele.setBorcluAdi(AktifBean.getBorcluAdi());
+			muamele.setIcraDosyaNo(AktifBean.getIcraDosyaNo());
+			muamele.setIcraMudurluguAdi(autoFields.getIcraMudurluguText());
+
+			muamele.setRiskYoneticisi(autoFields.getRiskYoneticisiText());
+			muamele.setSemiramisNo(icraDosyaId);
+			muamele.setAlacakliAdi(autoFields.getMuvekkilAdi());
+			muamele.setAlacakliMail(autoFields.getAlacakliMail());
+			muamele.setBuroAdresi(autoFields.getBuroAdresiText());
+			muamele.setAlacakliTel(autoFields.getAlacakliTelText());
+			muamele.setBorcluTc(autoFields.getBorcluTcText());
+			muamele.setIcraMudurluguId(autoFields.getIcraMudurluguId());
+			muamele.setRiskYoneticisiId(autoFields.getRiskYoneticisiId());
+			muamele.setBorcluAdresi(autoFields.getBorcluAdresiText());
+
+			if (autoFields.getBorcMiktari() == null) {
+
+				muamele.setBorcluMiktari(0.0);
+
+			} else {
+
+				muamele.setBorcluMiktari(autoFields.getBorcMiktari());
+			}
+
+			if (muamele.getAlacakFaizTutari() == null) {
+
+				muamele.setAlacakFaizTutari(0.0);
+
+			}
+			if (muamele.getMasrafMiktari() == null) {
+
+				muamele.setMasrafMiktari(0.0);
+
+			}
+
+			System.out.println(autoFields.getBorcMiktari());
+
+			TümListeyiGetir();
+		}
+
+	}
+
+	public MuameleIslemlerBean() throws Exception {
+
+		// İcra Dosya Takibinden bilgilerin alınıp set edilmesi sağlanır
+		getFieldFromIcraDosyaTakibi();
 
 		standartTalepList = new ArrayList<>();
 		standartTalepList = dao.getStandartTalepTextList();
-
 		muamele.setMuameleTarihi(util.getCurrentDate());
 
 		// Listenin Getirilmesi sağlanır±r.
@@ -112,7 +207,7 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 		} else {
 
 			pdf = "./pdfler/" + muzekkereTalep + ".pdf?pfdrid_c=true";
-			
+
 		}
 		return pdf;
 	}
@@ -123,26 +218,26 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 		switch (muamele.getMasrafTipiId()) {
 
 		case 1:
-			muamele.setMasrafMiktari(10);
+			muamele.setMasrafMiktari(10.0);
 			break;
 
 		case 2:
 
-			muamele.setMasrafMiktari(20);
+			muamele.setMasrafMiktari(20.0);
 			break;
 
 		case 3:
 
-			muamele.setMasrafMiktari(30);
+			muamele.setMasrafMiktari(30.0);
 			break;
 
 		case 4:
 
-			muamele.setMasrafMiktari(40);
+			muamele.setMasrafMiktari(40.0);
 			break;
 		case 5:
 
-			muamele.setMasrafMiktari(50);
+			muamele.setMasrafMiktari(50.0);
 			break;
 
 		}
@@ -176,17 +271,18 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 
 	public void Yazdir() throws Exception {
 
-//		String uretilenBarkod = barkodUret();
-//		Duzenle();
+		// String uretilenBarkod = barkodUret();
+		// Duzenle();
 
 	}
-
 
 	public void PdfOnizle() throws Exception {
 
 		Kaydet();
 		Duzenle();
-		muamele = dao.getMuameleFromList(onizleDuzenleID);
+		// muamele = dao.getMuameleFromList(onizleDuzenleID);
+		// Thread.sleep(2000);
+
 		// OnizleAndKaydet();
 
 	}
@@ -510,6 +606,7 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 		muamele.setTapuhaciztalebi(false);
 		muamele.setAilekayittablosutalebi(false);
 		muamele.setMaashaciztalebigenel(false);
+		muamele.setMaashacizmuzekkeresimuvafakat(false);
 		muamele.setPtthaciztalebi(false);
 		muamele.setDavetiyetalebi103(false);
 		muamele.setAdresarastimatalebi(false);
@@ -527,6 +624,8 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 		muamele.setTk21talebi(false);
 		muamele.setYenilemetalebi(false);
 		muamele.setYurticiadresiodemeemritalebi(false);
+		muamele.setCoklu4lu5bankatalebi(false);
+		muamele.setCoklu4lu7bankatalebi(false);
 
 		// Müzekkere Visible
 		muamele.setAilekayittablosutalebiVisible(true);
@@ -553,6 +652,7 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 		muamele.setMaashaciztalebimuvafakatVisible(true);
 		muamele.setTapuhaciztalebiVisible(true);
 		muamele.setMaashaciztalebigenelVisible(true);
+		muamele.setMaashacizmuzekkeresimuvafakatVisible(true);
 		muamele.setPtthaciztalebiVisible(true);
 		muamele.setDavetiyetalebi103Visible(true);
 		muamele.setAdresarastimatalebiVisible(true);
@@ -570,6 +670,8 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 		muamele.setTk21talebiVisible(true);
 		muamele.setYenilemetalebiVisible(true);
 		muamele.setYurticiadresiodemeemritalebiVisible(true);
+		muamele.setCoklu4lu5bankatalebiVisible(true);
+		muamele.setCoklu4lu7bankatalebiVisible(true);
 
 		onizleButtonVisible = false;
 
@@ -584,7 +686,21 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 			muamele.setDavetiyemuzekkeresi103aracVisible(false);
 			break;
 
+		case "103davetiyesimuzekkeresiarac":
+
+			muzekkereTalep = "103davetiyesimuzekkeresiarac";
+			muamele.setDavetiyemuzekkeresi103arac(true);
+			muamele.setDavetiyemuzekkeresi103aracVisible(false);
+			break;
+
 		case "103 Davetiyesi Müzekkeresi(SGK)":
+
+			muzekkereTalep = "103davetiyesimuzekkeresisgk";
+			muamele.setDavetiyemuzekkeresi103sgk(true);
+			muamele.setDavetiyemuzekkeresi103sgkVisible(false);
+			break;
+
+		case "103davetiyesimuzekkeresisgk":
 
 			muzekkereTalep = "103davetiyesimuzekkeresisgk";
 			muamele.setDavetiyemuzekkeresi103sgk(true);
@@ -598,7 +714,21 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 			muamele.setDavetiyemuzekkeresi103gayrimenkulVisible(false);
 			break;
 
+		case "103davetiyesimuzekkeresigayrimenkul":
+
+			muzekkereTalep = "103davetiyesimuzekkeresigayrimenkul";
+			muamele.setDavetiyemuzekkeresi103gayrimenkul(true);
+			muamele.setDavetiyemuzekkeresi103gayrimenkulVisible(false);
+			break;
+
 		case "103 Davetiyesi Müzekkeresi(Menkul)":
+
+			muzekkereTalep = "103davetiyesimuzekkeresimenkul";
+			muamele.setDavetiyemuzekkeresi103menkul(true);
+			muamele.setDavetiyemuzekkeresi103menkulVisible(false);
+			break;
+
+		case "103davetiyesimuzekkeresimenkul":
 
 			muzekkereTalep = "103davetiyesimuzekkeresimenkul";
 			muamele.setDavetiyemuzekkeresi103menkul(true);
@@ -612,7 +742,22 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 			muamele.setAdresarastirmamuzekkeresikurumlaricinVisible(false);
 			break;
 
+		case "adresarastirmamuzekkeresikurumlaricin":
+
+			muzekkereTalep = "adresarastirmamuzekkeresikurumlaricin";
+			muamele.setAdresarastirmamuzekkeresikurumlaricin(true);
+			muamele.setAdresarastirmamuzekkeresikurumlaricinVisible(false);
+			break;
+
 		case "Haciz İhbarnamesi Müzekkeresi(89/1)":
+
+			muzekkereTalep = "hacizihbarnamesimuzekkeresi891";
+			muamele.setHacizihbarnamesimuzekkeresi891(true);
+			muamele.setHacizihbarnamesimuzekkeresi891Visible(false);
+
+			break;
+
+		case "hacizihbarnamesimuzekkeresi891":
 
 			muzekkereTalep = "hacizihbarnamesimuzekkeresi891";
 			muamele.setHacizihbarnamesimuzekkeresi891(true);
@@ -628,7 +773,22 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 
 			break;
 
+		case "maashacizmuzekkeresigenel":
+
+			muzekkereTalep = "maashacizmuzekkeresigenel";
+			muamele.setMaashacizmuzekkeresigenel(true);
+			muamele.setMaashacizmuzekkeresigenelVisible(false);
+
+			break;
+
 		case "Maaş Haciz Müzekkeresi(Muvafakat)":
+
+			muzekkereTalep = "maashacizmuzekkeresimuvafakat";
+			muamele.setMaashacizmuzekkeresimuvafakat(true);
+			muamele.setMaashacizmuzekkeresimuvafakatVisible(false);
+			break;
+
+		case "maashacizmuzekkeresimuvafakat":
 
 			muzekkereTalep = "maashacizmuzekkeresimuvafakat";
 			muamele.setMaashacizmuzekkeresimuvafakat(true);
@@ -643,7 +803,22 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 
 			break;
 
+		case "ptthacizmuzekkeresi":
+
+			muzekkereTalep = "ptthacizmuzekkeresi";
+			muamele.setPtthacizmuzekkeresi(true);
+			muamele.setPtthacizmuzekkeresiVisible(false);
+
+			break;
+
 		case "Tapu Haciz Müzekkeresi(Nokta)":
+
+			muzekkereTalep = "tapuhacizmuzekkeresinokta";
+			muamele.setTapuhacizmuzekkeresinokta(true);
+			muamele.setTapuhacizmuzekkeresinoktaVisible(false);
+			break;
+
+		case "tapuhacizmuzekkeresinokta":
 
 			muzekkereTalep = "tapuhacizmuzekkeresinokta";
 			muamele.setTapuhacizmuzekkeresinokta(true);
@@ -657,16 +832,42 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 			muamele.setMevduathaczimuzekkeresiVisible(false);
 			break;
 
+		case "mevduathaczimuzekkeresi":
+
+			muzekkereTalep = "mevduathaczimuzekkeresi";
+			muamele.setMevduathaczimuzekkeresi(true);
+			muamele.setMevduathaczimuzekkeresiVisible(false);
+			break;
+
 		// ******************************************************************************
 
 		case "103 Davetiyesi Talebi":
 
 			muzekkereTalep = "103davetiyesitalebi";
-			muamele.setDavetiyemuzekkeresi103(true);
-			muamele.setDavetiyemuzekkeresi103Visible(false);
+			muamele.setDavetiyetalebi103(true);
+			muamele.setDavetiyetalebi103Visible(false);
+			break;
+
+		case "103davetiyesitalebi":
+
+			muzekkereTalep = "103davetiyesitalebi";
+			muamele.setDavetiyetalebi103(true);
+			muamele.setDavetiyetalebi103Visible(false);
 			break;
 
 		case "Maaş Haciz Talebi(Genel)":
+
+			muzekkereTalep = "maashaciztalebigenel";
+			muamele.setMaashaciztalebigenel(true);
+			muamele.setMaashaciztalebigenelVisible(false);
+
+			// SGK Standart text'in alınması sağlanır
+			yapi = dao.dortluYapiGetir();
+			muamele.setSgk_standart_text(yapi.getSgk_standart_text());
+
+			break;
+
+		case "maashaciztalebigenel":
 
 			muzekkereTalep = "maashaciztalebigenel";
 			muamele.setMaashaciztalebigenel(true);
@@ -685,6 +886,13 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 			muamele.setMaashaciztalebimuvafakatVisible(false);
 			break;
 
+		case "maashaciztalebimuvafakat":
+
+			muzekkereTalep = "maashaciztalebimuvafakat";
+			muamele.setMaashaciztalebimuvafakat(true);
+			muamele.setMaashaciztalebimuvafakatVisible(false);
+			break;
+
 		case "Haciz İhbarnamesi Talebi(Bankalar İçin)":
 
 			muzekkereTalep = "hacizihbarnamesitalebibankalaricin";
@@ -692,7 +900,29 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 			muamele.setHacizihbarnamesitalebibankalaricinVisible(false);
 			break;
 
+		case "hacizihbarnamesitalebibankalaricin":
+
+			muzekkereTalep = "hacizihbarnamesitalebibankalaricin";
+			muamele.setHacizihbarnamesitalebibankalaricin(true);
+			muamele.setHacizihbarnamesitalebibankalaricinVisible(false);
+			break;
+
 		case "PTT Haciz Talebi":
+
+			muzekkereTalep = "ptthaciztalebi";
+			muamele.setPtthaciztalebi(true);
+			muamele.setPtthaciztalebiVisible(false);
+
+			// Standart Text'lerin getirilmesi sağlanır.
+			yapi = dao.dortluYapiGetir();
+			muamele.setEgm_standart_text(yapi.getEgm_standart_text());
+			muamele.setSgk_standart_text(yapi.getSgk_standart_text());
+			muamele.setTapu_standart_text(yapi.getTapu_standart_text());
+			muamele.setPosta_standart_text(yapi.getPosta_standart_text());
+
+			break;
+
+		case "ptthaciztalebi":
 
 			muzekkereTalep = "ptthaciztalebi";
 			muamele.setPtthaciztalebi(true);
@@ -715,7 +945,30 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 
 			break;
 
+		case "ailekayittablosutalebi":
+
+			muzekkereTalep = "ailekayittablosutalebi";
+			muamele.setAilekayittablosutalebi(true);
+			muamele.setAilekayittablosutalebiVisible(false);
+
+			break;
+
 		case "Tapu Haciz Talebi(Nokta)":
+
+			muzekkereTalep = "tapuhaciztalebinokta";
+			muamele.setTapuhaciztalebi(true);
+			muamele.setTapuhaciztalebiVisible(false);
+
+			// Standart Text'lerin getirilmesi sağlanır.
+			yapi = dao.dortluYapiGetir();
+			muamele.setEgm_standart_text(yapi.getEgm_standart_text());
+			muamele.setSgk_standart_text(yapi.getSgk_standart_text());
+			muamele.setTapu_standart_text(yapi.getTapu_standart_text());
+			muamele.setPosta_standart_text(yapi.getPosta_standart_text());
+
+			break;
+
+		case "tapuhaciztalebinokta":
 
 			muzekkereTalep = "tapuhaciztalebinokta";
 			muamele.setTapuhaciztalebi(true);
@@ -737,7 +990,21 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 			muamele.setAdresarastimatalebiVisible(false);
 			break;
 
+		case "adresarastirmatalebi":
+
+			muzekkereTalep = "adresarastirmatalebi";
+			muamele.setAdresarastimatalebi(true);
+			muamele.setAdresarastimatalebiVisible(false);
+			break;
+
 		case "Araç Haczi Talebi":
+
+			muzekkereTalep = "arachaczitalebi";
+			muamele.setArachaczitalebi(true);
+			muamele.setArachaczitalebiVisible(false);
+			break;
+
+		case "arachaczitalebi":
 
 			muzekkereTalep = "arachaczitalebi";
 			muamele.setArachaczitalebi(true);
@@ -750,7 +1017,20 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 			muamele.setAracyakalamatalebiVisible(false);
 			break;
 
+		case "aracyakalamatalebi":
+			muzekkereTalep = "aracyakalamatalebi";
+			muamele.setAracyakalamatalebi(true);
+			muamele.setAracyakalamatalebiVisible(false);
+			break;
+
 		case "Araç Şerhi Talebi":
+
+			muzekkereTalep = "aracserhitalebi";
+			muamele.setAracserhitalebi(true);
+			muamele.setAracserhitalebiVisible(false);
+			break;
+
+		case "aracserhitalebi":
 
 			muzekkereTalep = "aracserhitalebi";
 			muamele.setAracserhitalebi(true);
@@ -764,7 +1044,21 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 			muamele.setDosyaislemdenkaldirilmatalebiharcborcludaVisible(false);
 			break;
 
+		case "dosyaislemdenkaldirilmatalebiferagatnedeniyleharcborcluda":
+
+			muzekkereTalep = "dosyaislemdenkaldirilmatalebiferagatnedeniyleharcborcluda";
+			muamele.setDosyaislemdenkaldirilmatalebiharcborcluda(true);
+			muamele.setDosyaislemdenkaldirilmatalebiharcborcludaVisible(false);
+			break;
+
 		case "Dosya İşlemden Kaldırılma Talebi(Harç Büroda)":
+
+			muzekkereTalep = "dosyaislemdenkaldirilmatalebiferagatnedeniyleharcburoda";
+			muamele.setDosyaislemdenkaldirilmatalebiharcburoda(true);
+			muamele.setDosyaislemdenkaldirilmatalebiharcburodaVisible(false);
+			break;
+
+		case "dosyaislemdenkaldirilmatalebiferagatnedeniyleharcburoda":
 
 			muzekkereTalep = "dosyaislemdenkaldirilmatalebiferagatnedeniyleharcburoda";
 			muamele.setDosyaislemdenkaldirilmatalebiharcburoda(true);
@@ -778,7 +1072,21 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 			muamele.setFeragattalebiVisible(false);
 			break;
 
+		case "feragattalebi":
+
+			muzekkereTalep = "feragattalebi";
+			muamele.setFeragattalebi(true);
+			muamele.setFeragattalebiVisible(false);
+			break;
+
 		case "Kapanış Harç Borçluda Talebi":
+
+			muzekkereTalep = "kapanistalebiharcborcludatalebi";
+			muamele.setKapanistalebiharcborcludatalebi(true);
+			muamele.setKapanistalebiharcborcludatalebiVisible(false);
+			break;
+
+		case "kapanistalebiharcborcludatalebi":
 
 			muzekkereTalep = "kapanistalebiharcborcludatalebi";
 			muamele.setKapanistalebiharcborcludatalebi(true);
@@ -792,7 +1100,21 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 			muamele.setKapanistalebiharcburodatalebiVisible(false);
 			break;
 
+		case "kapanistalebiharcburodatalebi":
+
+			muzekkereTalep = "kapanistalebiharcburodatalebi";
+			muamele.setKapanistalebiharcburodatalebi(true);
+			muamele.setKapanistalebiharcburodatalebiVisible(false);
+			break;
+
 		case "Menkul Haciz Talebi":
+
+			muzekkereTalep = "menkulhaciztalebi";
+			muamele.setMenkulhaciztalebi(true);
+			muamele.setMenkulhaciztalebiVisible(false);
+			break;
+
+		case "menkulhaciztalebi":
 
 			muzekkereTalep = "menkulhaciztalebi";
 			muamele.setMenkulhaciztalebi(true);
@@ -806,7 +1128,21 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 			muamele.setMernisadresineodemeemritalebiVisible(false);
 			break;
 
+		case "mernisadresineodemeemritalebi":
+
+			muzekkereTalep = "mernisadresineodemeemritalebi";
+			muamele.setMernisadresineodemeemritalebi(true);
+			muamele.setMernisadresineodemeemritalebiVisible(false);
+			break;
+
 		case "Mevduat Haczi Talebi":
+
+			muzekkereTalep = "mevduathaczitalebi";
+			muamele.setMevduathaczitalebi(true);
+			muamele.setMevduathaczitalebiVisible(false);
+			break;
+
+		case "mevduathaczitalebi":
 
 			muzekkereTalep = "mevduathaczitalebi";
 			muamele.setMevduathaczitalebi(true);
@@ -820,7 +1156,21 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 			muamele.setSgkadresiodemeemritalebiVisible(false);
 			break;
 
+		case "sgkadresiodemeemritalebi":
+
+			muzekkereTalep = "sgkadresiodemeemritalebi";
+			muamele.setSgkadresiodemeemritalebi(true);
+			muamele.setSgkadresiodemeemritalebiVisible(false);
+			break;
+
 		case "Ticaret Sicil Adresi Sorma Talebi":
+
+			muzekkereTalep = "ticaretsiciladressormatalebi";
+			muamele.setTicaretsiciladressormatalebi(true);
+			muamele.setTicaretsiciladressormatalebiVisible(false);
+			break;
+
+		case "ticaretsiciladressormatalebi":
 
 			muzekkereTalep = "ticaretsiciladressormatalebi";
 			muamele.setTicaretsiciladressormatalebi(true);
@@ -834,7 +1184,21 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 			muamele.setTk21talebiVisible(false);
 			break;
 
+		case "tk21talebi":
+
+			muzekkereTalep = "tk21talebi";
+			muamele.setTk21talebi(true);
+			muamele.setTk21talebiVisible(false);
+			break;
+
 		case "Yenileme Talebi":
+
+			muzekkereTalep = "yenilemetalebi";
+			muamele.setYenilemetalebi(true);
+			muamele.setYenilemetalebiVisible(false);
+			break;
+
+		case "yenilemetalebi":
 
 			muzekkereTalep = "yenilemetalebi";
 			muamele.setYenilemetalebi(true);
@@ -848,7 +1212,47 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 			muamele.setYurticiadresiodemeemritalebiVisible(false);
 			break;
 
+		case "yurticiadresiodemeemritalebi":
+
+			muzekkereTalep = "yurticiadresiodemeemritalebi";
+			muamele.setYurticiadresiodemeemritalebi(true);
+			muamele.setYurticiadresiodemeemritalebiVisible(false);
+			break;
+
+		case "4lu( 5 Banka ) Talebi":
+			muzekkereTalep = "coklu4lu5bankatalebi";
+			muamele.setCoklu4lu5bankatalebi(true);
+			muamele.setCoklu4lu5bankatalebiVisible(false);
+
+			break;
+
+		case "coklu4lu5bankatalebi":
+			muzekkereTalep = "coklu4lu5bankatalebi";
+			muamele.setCoklu4lu5bankatalebi(true);
+			muamele.setCoklu4lu5bankatalebiVisible(false);
+
+			break;
+
+		case "4lu( 7 Banka ) Talebi":
+			muzekkereTalep = "coklu4lu7bankatalebi";
+			muamele.setCoklu4lu7bankatalebi(true);
+			muamele.setCoklu4lu7bankatalebiVisible(false);
+			break;
+
+		case "coklu4lu7bankatalebi":
+			muzekkereTalep = "coklu4lu7bankatalebi";
+			muamele.setCoklu4lu7bankatalebi(true);
+			muamele.setCoklu4lu7bankatalebiVisible(false);
+			break;
+
+		case "default":
+
+			muzekkereTalep = "default";
+			muamele.setDefault(true);
+			break;
+
 		default:
+
 			break;
 		}
 
@@ -865,7 +1269,12 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 
 		InputStream inputStream = new FileInputStream(pathName);
 
-		path = "C:/apache-tomcat-8.0.30/webapps/SEMIRAMIS/pdfler/"
+		File file = new File(
+				currentpath
+						+ muzekkereTalep + ".pdf");
+		file.delete();
+
+		path = currentpath
 				+ muzekkereTalep + ".pdf";
 
 		JRBeanCollectionDataSource beanColDataSource = new JRBeanCollectionDataSource(dataBeanList);
@@ -882,6 +1291,10 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 	@Override
 	public void Duzenle() throws Exception {
 
+		String pathName = FacesContext.getCurrentInstance().getExternalContext()
+				.getRealPath("/reports/talep_muzekkereler/" + muzekkereTalep + ".jrxml");
+System.out.println(pathName);
+		
 		ArrayList<JasperPrint> list = new ArrayList<JasperPrint>();
 
 		gelisAmaci = (FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("gelis_amaci")
@@ -904,8 +1317,11 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 		muamele = dao.getMuameleFromList(onizleDuzenleID);
 
 		// Önizleme yapılırken text'lerin yeniden gelmesi için sağlanır
+
 		if (muzekkereTalep.equals("ptthaciztalebi") || muzekkereTalep.equals("maashaciztalebigenel")
-				|| muzekkereTalep.equals("tapuhaciztalebinokta")) {
+				|| muzekkereTalep.equals("coklu4lu5bankatalebi") || muzekkereTalep.equals("coklu4lu7bankatalebi")
+				|| muzekkereTalep.equals("tapuhaciztalebinokta") || muzekkereTalep.equals("4lu( 5 Banka ) Talebi")
+				|| muzekkereTalep.equals("4lu( 7 Banka ) Talebi")) {
 
 			yapi = dao.dortluYapiGetir();
 			muamele.setSgk_standart_text(yapi.getSgk_standart_text());
@@ -915,47 +1331,43 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 
 		}
 
-		if (muzekkereTalep.equals("4lu5bankatalebi")) {
+		// Tebligat zarfı oluşturmak için müzekkere kontrolu mu yapılır
+		boolean result = tmUtil.isMuzekkere(muzekkereTalep);
 
-			cokluBanka4 = dao.cokluTalepGetirFor(muamele, muzekkereTalep);
-			list.add(cokluBanka4);
+		// Talep Müzekkere ve Tebligatın Hazırlanması
+		talepMuzekkere = OnizleAndKaydet();
 
-		} else if (muzekkereTalep.equals("4lu7bankatalebi")) {
+		list.add(talepMuzekkere);
 
-			cokluBanka7 = dao.cokluTalepGetirFor(muamele, muzekkereTalep);
-			list.add(cokluBanka7);
-
-		} else {
-
-			// Tebligat zarfı oluşturmak için müzekkere kontrolu mu yapılır
-			boolean result = tmUtil.isMuzekkere(muzekkereTalep);
-			// Talep Müzekkere ve Tebligatın Hazırlanması
-			talepMuzekkere = OnizleAndKaydet();
-			list.add(talepMuzekkere);
-
-			if (result) {
-				tebligat = tebligatZarfiJasper(muamele, muzekkereTalep);
-				list.add(tebligat);
-			}
-
+		if (result) {
+			tebligat = tebligatZarfiJasper(muamele, muzekkereTalep);
+			list.add(tebligat);
 		}
 
 		String path = null;
 		if (gelisAmaci.equals("duzenle")) {
 
-			path = "C:/apache-tomcat-8.0.30/webapps/SEMIRAMIS/pdfler/"
+			// File file = new
+			// File(currentpath+
+			// muzekkereTalep + ".pdf");
+			// file.delete();
+
+			path = currentpath
 					+ muzekkereTalep + ".pdf";
+
+			System.out.println(path);
 
 		} else if (gelisAmaci.equals("onizleme")) {
 
 			// gelis_amaci onizleme
 
-			path = "C:/apache-tomcat-8.0.30/webapps/SEMIRAMIS/pdfler/"
+			path = currentpath
 					+ muzekkereTalep + ".pdf";
 
 		} else if (gelisAmaci.equals("yazdir")) {
 
-			path = "C:/muzekkere_talep_ciktilari/" + muzekkereTalep + "_" + muamele.getIcraDosyaNo() + ".pdf";
+			path = currentpath
+					+ muzekkereTalep + "_" + muamele.getIcraDosyaNo() + ".pdf";
 		}
 
 		JRPdfExporter exporter = new JRPdfExporter();
@@ -966,8 +1378,9 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 		exporter.exportReport();
 
 		// Oluşturulan PDF'lerin Gösterimi Sağlanır
+
 		pdf = path;
-		Thread.sleep(2000);
+
 	}
 
 	@Override
@@ -996,6 +1409,7 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 		if (muameleList.size() == 0) {
 
 			onizleButtonVisible = true;
+			YeniKayitAc();
 
 		}
 
@@ -1011,14 +1425,64 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 
 	}
 
-	public void YeniKayitAc() throws InterruptedException {
+	public void YeniKayitAc() throws Exception {
 
-		muamele = new MuameleIslemleri();
-		muamele.setBorcluAdi(AktifBean.getBorcluAdi());
-		muamele.setIcraDosyaNo(AktifBean.icraDosyaNo);
+		// Talep ve Müzekkere Görünür Hale Getirilmesi
+
+		muamele.setDosyaislemdenkaldirilmatalebiharcborcludaVisible(false);
+		muamele.setDosyaislemdenkaldirilmatalebiharcburodaVisible(false);
+		muamele.setAracserhitalebiVisible(false);
+		muamele.setAracyakalamatalebiVisible(false);
+		muamele.setTapuhaciztalebiVisible(false);
+		muamele.setAilekayittablosutalebiVisible(false);
+		muamele.setDavetiyetalebi103Visible(false);
+		muamele.setMaashaciztalebigenelVisible(false);
+		muamele.setMaashacizmuzekkeresimuvafakatVisible(false);
+		muamele.setAdresarastimatalebiVisible(false);
+		muamele.setArachaczitalebiVisible(false);
+		muamele.setDosyaislemdenkaldirilmatalebiVisible(false);
+		muamele.setFeragattalebiVisible(false);
+		muamele.setHacizihbarnamesitalebibankalaricinVisible(false);
+		muamele.setKapanistalebiharcborcludatalebiVisible(false);
+		muamele.setKapanistalebiharcburodatalebiVisible(false);
+		muamele.setMenkulhaciztalebiVisible(false);
+		muamele.setMernisadresineodemeemritalebiVisible(false);
+		muamele.setMevduathaczitalebiVisible(false);
+		muamele.setSgkadresiodemeemritalebiVisible(false);
+		muamele.setTicaretsiciladressormatalebiVisible(false);
+		muamele.setTk21talebiVisible(false);
+		muamele.setYenilemetalebiVisible(false);
+		muamele.setYurticiadresiodemeemritalebiVisible(false);
+		muamele.setPtthaciztalebiVisible(false);
+		muamele.setCoklu4lu5bankatalebiVisible(false);
+		muamele.setCoklu4lu7bankatalebiVisible(false);
+
+		muamele.setMevduathaczimuzekkeresiVisible(false);
+		muamele.setDavetiyemuzekkeresi103aracVisible(false);
+		muamele.setDavetiyemuzekkeresi103gayrimenkulVisible(false);
+		muamele.setDavetiyemuzekkeresi103menkulVisible(false);
+		muamele.setDavetiyemuzekkeresi103sgkVisible(false);
+		muamele.setHacizihbarnamesitalebibankalaricinVisible(false);
+		muamele.setMaashacizmuzekkeresigenelVisible(false);
+		muamele.setMaashacizmuzekkeresimuvafakatVisible(false);
+		muamele.setPtthacizmuzekkeresiVisible(false);
+		muamele.setTapuhacizmuzekkeresinoktaVisible(false);
+		muamele.setAdresarastimatalebiVisible(false);
+		muamele.setHacizihbarnamesimuzekkeresi891Visible(false);
+		muamele.setAdresarastirmamuzekkeresikurumlaricinVisible(false);
+
+		getFieldFromIcraDosyaTakibi();
 		onizleButtonVisible = true;
+
 		muzekkereTalep = "default";
-		Thread.sleep(1000);
+		path = currentpath
+				+ muzekkereTalep + ".pdf";
+
+		pdf = path;
+
+		Thread.sleep(2000);
+
+		System.out.println(pdf);
 
 	}
 
@@ -1266,31 +1730,33 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 			ctrl.setBorcluAdi(true);
 			ctrl.setBorcluTc(true);
 			ctrl.setBorcluAdresi(true);
-			ctrl.setHazirlayan(true);
-			ctrl.setIcraMudurluguAdi(true);
 			ctrl.setIcraDosyaNo(true);
 			ctrl.setSemiramisNo(true);
+			ctrl.setHacizBaslangicTarihi(true);
+			ctrl.setPlaka(true);
+			ctrl.setMuameleTarihi(true);
+			ctrl.setAvukatId(true);
+			ctrl.setHazirlayanText(true);
+			ctrl.setRiskYoneticisiText(true);
 
 		}
 
 		if (muamele.isDavetiyemuzekkeresi103gayrimenkul()) {
+
 			ctrl.setAlacakliTel(true);
 			ctrl.setAlacakliMail(true);
 			ctrl.setBankaBilgileri(true);
 			ctrl.setBorcluAdi(true);
 			ctrl.setBorcluTc(true);
 			ctrl.setBorcluAdresi(true);
-			ctrl.setHazirlayan(true);
-			ctrl.setIcraMudurluguAdi(true);
 			ctrl.setIcraDosyaNo(true);
 			ctrl.setSemiramisNo(true);
-			ctrl.setRiskYoneticisi(true);
-			ctrl.setMuameleTarihiText(true);
-			ctrl.setAvukatAdi(true);
-			ctrl.setVergiKimlikNo(true);
-			ctrl.setBuroAdres(true);
 			ctrl.setHacizBaslangicTarihi(true);
 			ctrl.setPlaka(true);
+			ctrl.setMuameleTarihi(true);
+			ctrl.setAvukatId(true);
+			ctrl.setHazirlayanText(true);
+			ctrl.setRiskYoneticisiText(true);
 
 		}
 
@@ -1301,17 +1767,14 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 			ctrl.setBorcluAdi(true);
 			ctrl.setBorcluTc(true);
 			ctrl.setBorcluAdresi(true);
-			ctrl.setHazirlayan(true);
-			ctrl.setIcraMudurluguAdi(true);
 			ctrl.setIcraDosyaNo(true);
 			ctrl.setSemiramisNo(true);
-			ctrl.setRiskYoneticisi(true);
-			ctrl.setMuameleTarihiText(true);
-			ctrl.setAvukatAdi(true);
-			ctrl.setVergiKimlikNo(true);
-			ctrl.setBuroAdres(true);
 			ctrl.setHacizBaslangicTarihi(true);
 			ctrl.setPlaka(true);
+			ctrl.setMuameleTarihi(true);
+			ctrl.setAvukatId(true);
+			ctrl.setHazirlayanText(true);
+			ctrl.setRiskYoneticisiText(true);
 
 		}
 
@@ -1322,196 +1785,309 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 			ctrl.setBorcluAdi(true);
 			ctrl.setBorcluTc(true);
 			ctrl.setBorcluAdresi(true);
-			ctrl.setHazirlayan(true);
-			ctrl.setIcraMudurluguAdi(true);
 			ctrl.setIcraDosyaNo(true);
 			ctrl.setSemiramisNo(true);
-			ctrl.setRiskYoneticisi(true);
-			ctrl.setMuameleTarihiText(true);
-			ctrl.setAvukatAdi(true);
-			ctrl.setVergiKimlikNo(true);
-			ctrl.setBuroAdres(true);
 			ctrl.setHacizBaslangicTarihi(true);
 			ctrl.setPlaka(true);
+			ctrl.setMuameleTarihi(true);
+			ctrl.setAvukatId(true);
+			ctrl.setHazirlayanText(true);
+			ctrl.setRiskYoneticisiText(true);
 
 		}
 
 		if (muamele.isDavetiyetalebi103()) {
-			ctrl.setIcraMudurluguAdi(true);
+			ctrl.setIcraMudurluguId(true);
 			ctrl.setIcraDosyaNo(true);
-			ctrl.setAvukatAdi(true);
-			ctrl.setBarcode(true);
-			ctrl.setMuameleTarihiText(true);
+			ctrl.setAvukatId(true);
+			ctrl.setMuameleTarihi(true);
 
 		}
 
 		if (muamele.isAdresarastirmamuzekkeresikurumlaricin()) {
-			ctrl.setIcraMudurluguAdi(true);
+			ctrl.setIcraMudurluguId(true);
 			ctrl.setIcraDosyaNo(true);
 			ctrl.setAlacakliAdi(true);
-			ctrl.setBorcluAdi(true);
-			ctrl.setBorcluTcKimlikNo(true);
-			ctrl.setMuameleTarihiText(true);
-			ctrl.setAvukatAdi(true);
+			ctrl.setBorcluTc(true);
+			ctrl.setMuameleTarihi(true);
+			ctrl.setAvukatId(true);
 			ctrl.setKurumAdi(true);
 
 		}
 
 		if (muamele.isAdresarastimatalebi()) {
-			ctrl.setIcraMudurluguAdi(true);
+			ctrl.setIcraMudurluguId(true);
 			ctrl.setIcraDosyaNo(true);
+			ctrl.setAvukatId(true);
+			ctrl.setKurumAdi(true);
 			ctrl.setAlacakliAdi(true);
 			ctrl.setAvukatAdi(true);
-			ctrl.setBarcode(true);
 			ctrl.setKurumAdi(true);
-			ctrl.setMuameleTarihiText(true);
+			ctrl.setMuameleTarihi(true);
 
 		}
 
 		if (muamele.isAilekayittablosutalebi()) {
 
-			ctrl.setIcraMudurluguAdi(true);
+			ctrl.setIcraMudurluguId(true);
 			ctrl.setIcraDosyaNo(true);
-			ctrl.setAvukatAdi(true);
-			ctrl.setBarcode(true);
-			ctrl.setMuameleTarihiText(true);
+			ctrl.setAvukatId(true);
+			ctrl.setMuameleTarihi(true);
 
 		}
 		if (muamele.isAracserhitalebi()) {
-			ctrl.setIcraMudurluguAdi(true);
+			ctrl.setIcraMudurluguId(true);
 			ctrl.setIcraDosyaNo(true);
-			ctrl.setAvukatAdi(true);
+			ctrl.setAvukatId(true);
 			ctrl.setPlaka(true);
-			ctrl.setMuameleTarihiText(true);
+			ctrl.setMuameleTarihi(true);
 
 		}
+
 		if (muamele.isAracyakalamatalebi()) {
-			ctrl.setIcraMudurluguAdi(true);
+			ctrl.setIcraMudurluguId(true);
 			ctrl.setIcraDosyaNo(true);
-			ctrl.setAvukatAdi(true);
 			ctrl.setPlaka(true);
-			ctrl.setMuameleTarihiText(true);
+			ctrl.setMuameleTarihi(true);
 
 		}
-		if (muamele.isDosyaislemdenkaldirilmatalebi()) {
-			ctrl.setIcraMudurluguAdi(true);
-			ctrl.setIcraDosyaNo(true);
-			ctrl.setAvukatAdi(true);
-			ctrl.setPlaka(true);
-			ctrl.setMuameleTarihiText(true);
 
-		}
 		if (muamele.isDosyaislemdenkaldirilmatalebiharcburoda()) {
-			ctrl.setIcraMudurluguAdi(true);
+			ctrl.setIcraMudurluguId(true);
 			ctrl.setIcraDosyaNo(true);
-			ctrl.setAvukatAdi(true);
 			ctrl.setPlaka(true);
-			ctrl.setMuameleTarihiText(true);
+			ctrl.setPlaka(true);
+			ctrl.setMuameleTarihi(true);
 
 		}
 
 		if (muamele.isDosyaislemdenkaldirilmatalebiharcborcluda()) {
-			ctrl.setIcraMudurluguAdi(true);
+			ctrl.setIcraMudurluguId(true);
 			ctrl.setIcraDosyaNo(true);
-			ctrl.setAvukatAdi(true);
 			ctrl.setPlaka(true);
-			ctrl.setMuameleTarihiText(true);
+			ctrl.setPlaka(true);
+			ctrl.setMuameleTarihi(true);
 
 		}
 
 		if (muamele.isHacizihbarnamesimuzekkeresi891()) {
-			ctrl.setIcraMudurluguAdi(true);
+			ctrl.setIcraMudurluguId(true);
 			ctrl.setIcraDosyaNo(true);
-			ctrl.setAvukatAdi(true);
-			ctrl.setBarcode(true);
-			ctrl.setAlacakliAdi(true);
-			ctrl.setAlacakliMail(true);
-			ctrl.setAlacakliTel(true);
-			ctrl.setBankaBilgileri(true);
-			ctrl.setBorcluAdi(true);
-			ctrl.setBorcluTc(true);
-			ctrl.setBorcluAdresi(true);
-			ctrl.setSemiramisNo(true);
-			ctrl.setHazirlayan(true);
 			ctrl.setAlacakliBankasi(true);
-			ctrl.setAlacakFaizTutari(true);
-			ctrl.setMuameleTarihiText(true);
-			ctrl.setMuhatapAdi(true);
-			ctrl.setVergiKimlikNo(true);
+			ctrl.setAvukatId(true);
+			ctrl.setBorcluTcKimlikNo(true);
+			ctrl.setKonu(true);
+			ctrl.setSemiramisNo(true);
+			ctrl.setHazirlayanId(true);
+			ctrl.setRiskYoneticisiId(true);
+			ctrl.setMuameleTarihi(true);
+			ctrl.setMuameleTarihi(true);
+			ctrl.setAlacakliTel(true);
+			ctrl.setAlacakliMail(true);
+			ctrl.setBorcluMiktari(true);
+			ctrl.setBuroIbanNo(true);
+			ctrl.setBuroAdresi(true);
+
 		}
 
 		if (muamele.isHacizihbarnamesitalebibankalaricin()) {
-			ctrl.setIcraMudurluguAdi(true);
+			ctrl.setIcraMudurluguId(true);
 			ctrl.setIcraDosyaNo(true);
-			ctrl.setAvukatAdi(true);
-			ctrl.setBarcode(true);
+			ctrl.setAvukatId(true);
 			ctrl.setAlacakliBankasi(true);
-			ctrl.setMuameleTarihiText(true);
+			ctrl.setMuameleTarihi(true);
 		}
 
 		if (muamele.isMaashacizmuzekkeresigenel()) {
 
-			ctrl.setIcraMudurluguAdi(true);
+			ctrl.setIcraMudurluguId(true);
 			ctrl.setIcraDosyaNo(true);
 			ctrl.setAlacakliBankasi(true);
-			ctrl.setAvukatAdi(true);
-			ctrl.setBorcluAdi(true);
+			ctrl.setAvukatId(true);
 			ctrl.setBorcluTcKimlikNo(true);
 			ctrl.setKonu(true);
 			ctrl.setSemiramisNo(true);
-			ctrl.setHazirlayan(true);
-			ctrl.setRiskYoneticisi(true);
-			ctrl.setMuameleTarihiText(true);
-			ctrl.setAlacakliMail(true);
+			ctrl.setHazirlayanId(true);
+			ctrl.setRiskYoneticisiId(true);
+			ctrl.setMuameleTarihi(true);
+			ctrl.setMuameleTarihi(true);
 			ctrl.setAlacakliTel(true);
+			ctrl.setAlacakliMail(true);
 			ctrl.setBorcluMiktari(true);
 			ctrl.setBuroIbanNo(true);
-			ctrl.setBuroAdres(true);
+			ctrl.setBuroAdresi(true);
+			ctrl.setKonu(true);
+			ctrl.setRiskYoneticisiId(true);
 
 		}
+
 		if (muamele.isMaashacizmuzekkeresimuvafakat()) {
-			ctrl.setIcraMudurluguAdi(true);
+			ctrl.setIcraMudurluguId(true);
 			ctrl.setIcraDosyaNo(true);
 			ctrl.setAlacakliBankasi(true);
-			ctrl.setAvukatAdi(true);
-			ctrl.setBorcluAdi(true);
+			ctrl.setAvukatId(true);
 			ctrl.setBorcluTcKimlikNo(true);
 			ctrl.setKonu(true);
 			ctrl.setSemiramisNo(true);
-			ctrl.setHazirlayan(true);
-			ctrl.setRiskYoneticisi(true);
-			ctrl.setMuameleTarihiText(true);
-			ctrl.setAlacakliMail(true);
+			ctrl.setHazirlayanId(true);
+			ctrl.setRiskYoneticisiId(true);
+			ctrl.setMuameleTarihi(true);
+			ctrl.setMuameleTarihi(true);
 			ctrl.setAlacakliTel(true);
+			ctrl.setAlacakliMail(true);
 			ctrl.setBorcluMiktari(true);
 			ctrl.setBuroIbanNo(true);
-			ctrl.setBuroAdres(true);
+			ctrl.setBuroAdresi(true);
+			ctrl.setRiskYoneticisiId(true);
 			ctrl.setMaasMuvafakat(true);
 
 		}
 
 		if (muamele.isMaashaciztalebigenel()) {
 
-			ctrl.setIcraMudurluguAdi(true);
-			ctrl.setIcraDosyaNo(true);
-			ctrl.setSgk_standart_text(true);
-			ctrl.setEgm_standart_text(true);
-			ctrl.setTapu_standart_text(true);
-			ctrl.setPosta_standart_text(true);
+			ctrl.setIcraMudurluguId(true);
 		}
 
 		if (muamele.isMaashaciztalebimuvafakat()) {
 
-			ctrl.setIcraMudurluguAdi(true);
+			ctrl.setIcraMudurluguId(true);
 			ctrl.setIcraDosyaNo(true);
-			ctrl.setMuameleTarihiText(true);
+			ctrl.setMuameleTarihi(true);
 		}
 
 		if (muamele.isMenkulhaciztalebi()) {
-			ctrl.setIcraMudurluguAdi(true);
+			ctrl.setIcraMudurluguId(true);
 			ctrl.setIcraDosyaNo(true);
-			ctrl.setAvukatAdi(true);
-			ctrl.setBarcode(true);
+			ctrl.setAvukatId(true);
+			ctrl.setMuameleTarihi(true);
+
+		}
+
+		if (muamele.isMernisadresineodemeemritalebi()) {
+
+			ctrl.setIcraMudurluguId(true);
+			ctrl.setIcraDosyaNo(true);
+			ctrl.setAvukatId(true);
+			ctrl.setMuameleTarihi(true);
+			ctrl.setMernisAdresi(true);
+
+		}
+
+		if (muamele.isMevduathaczimuzekkeresi()) {
+
+			ctrl.setIcraMudurluguId(true);
+			ctrl.setIcraDosyaNo(true);
+			ctrl.setAvukatId(true);
+			ctrl.setAlacakliAdi(true);
+			ctrl.setMuameleTarihi(true);
+			ctrl.setGondermeTarihi(true);
+			ctrl.setBuroAdresi(true);
+			ctrl.setAlacakliTel(true);
+			ctrl.setBorcluAdresi(true);
+			ctrl.setBuroIbanNo(true);
+			ctrl.setBorcluMiktari(true);
+
+		}
+
+		if (muamele.isMevduathaczitalebi()) {
+
+			ctrl.setIcraMudurluguId(true);
+			ctrl.setIcraDosyaNo(true);
+			ctrl.setMuameleTarihi(true);
+
+		}
+
+		if (muamele.isPtthacizmuzekkeresi()) {
+
+			ctrl.setIcraMudurluguId(true);
+			ctrl.setIcraDosyaNo(true);
+			ctrl.setMuameleTarihi(true);
+			ctrl.setPostaneAdi(true);
+			ctrl.setAvukatId(true);
+			ctrl.setPttIlceText(true);
+			ctrl.setPttIlText(true);
+			ctrl.setAlacakliTel(true);
+			ctrl.setAlacakliMail(true);
+			ctrl.setBorcluMiktari(true);
+			ctrl.setAlacakliAdi(true);
+			ctrl.setMuameleTarihi(true);
+			ctrl.setGondermeTarihi(true);
+			ctrl.setBuroAdresi(true);
+		}
+
+		if (muamele.isPtthaciztalebi()) {
+
+			ctrl.setIcraMudurluguId(true);
+			ctrl.setMuameleTarihi(true);
+
+		}
+
+		if (muamele.isSgkadresiodemeemritalebi()) {
+			ctrl.setIcraMudurluguId(true);
+			ctrl.setIcraDosyaNo(true);
+			ctrl.setAvukatId(true);
+			ctrl.setMuameleTarihi(true);
+			ctrl.setSgkAdresi(true);
+
+		}
+
+		if (muamele.isTapuhacizmuzekkeresinokta()) {
+
+			ctrl.setIcraMudurluguId(true);
+			ctrl.setIcraDosyaNo(true);
+			ctrl.setAvukatId(true);
+			ctrl.setBorcluTc(true);
+			ctrl.setSemiramisNo(true);
+			ctrl.setHazirlayanId(true);
+			ctrl.setRiskYoneticisiId(true);
+			ctrl.setMuameleTarihi(true);
+			ctrl.setBorcluMiktari(true);
+			ctrl.setDogumTarihi(true);
+			ctrl.setKonu(true);
+
+		}
+
+		if (muamele.isTapuhaciztalebi()) {
+
+			ctrl.setIcraMudurluguId(true);
+			ctrl.setIcraDosyaNo(true);
+			ctrl.setMuameleTarihi(true);
+
+		}
+
+		if (muamele.isTicaretsiciladressormatalebi()) {
+
+			ctrl.setIcraMudurluguId(true);
+			ctrl.setIcraDosyaNo(true);
+			ctrl.setAvukatId(true);
+			ctrl.setMuameleTarihi(true);
+
+		}
+
+		if (muamele.isTk21talebi()) {
+			ctrl.setIcraMudurluguId(true);
+			ctrl.setIcraDosyaNo(true);
+			ctrl.setMuameleTarihi(true);
+			ctrl.setMernisAdresi(true);
+
+		}
+
+		if (muamele.isYenilemetalebi()) {
+
+			ctrl.setIcraMudurluguId(true);
+			ctrl.setIcraDosyaNo(true);
+			ctrl.setMuameleTarihi(true);
+
+		}
+
+		if (muamele.isYurticiadresiodemeemritalebi()) {
+
+			ctrl.setIcraMudurluguId(true);
+			ctrl.setIcraDosyaNo(true);
+			ctrl.setMuameleTarihi(true);
+			ctrl.setAvukatId(true);
+			ctrl.setYurticiAdresi(true);
+
 		}
 
 	}

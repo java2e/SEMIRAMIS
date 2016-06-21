@@ -4,8 +4,7 @@ import java.util.Date;
 
 public class MuameleIslemleri {
 
-	// ***********Genel
-	// Alanlar***********************************************************
+	// ***********Genel Alanlar***********************************************************
 
 	private int id;
 	boolean checkControl;
@@ -16,7 +15,7 @@ public class MuameleIslemleri {
 	private String borcluAdi;
 	private String talepIfadesi;
 	private int masrafTipiId;
-	private int masrafMiktari;
+	private Double masrafMiktari;
 	private int malTipiId;
 	private String malBilgisi;
 	private int personelId;
@@ -55,7 +54,7 @@ public class MuameleIslemleri {
 	private String muzekkereTalepAdi;
 	private int muzekkereTalepMiktari;
 	private String hazirlayanAdi;
-	private int alacakFaizTutari;
+	private Double alacakFaizTutari;
 	private String masrafTipiAdi;
 	private String malTipiAdi;
 	private String muameleStatuAdi;
@@ -71,7 +70,7 @@ public class MuameleIslemleri {
 	private String ilce;
 	private String tel;
 	private String email;
-	private int borcluMiktari;
+	private Double borcluMiktari;
 	private String alacakliAdi;
 	private String buroIbanNo;
 	private String borcluTcKimlikNo;
@@ -116,16 +115,16 @@ public class MuameleIslemleri {
 	private String riskYoneticisiText;
 	private String mevduatBankaAdi;
 	private String mevduatBankaAdresi;
-	
-
 	private String postaneIl;
 	private String postaneIlce;
+	private String banka4;
+	private String banka7;
 
 
 
-	// ***********Müzekkereler , Visible , Sayi
-	// ***********************************************************
+	// ***********Müzekkereler , Visible , Sayi ***********************************************************
 
+	private boolean Default;
 	private boolean davetiyemuzekkeresi103;
 	private boolean davetiyemuzekkeresi103arac;
 	private boolean davetiyemuzekkeresi103sgk;
@@ -173,8 +172,7 @@ public class MuameleIslemleri {
 	private int ptthacizmuzekkeresiSayi = 1;
 	private int tapuhacizmuzekkeresinoktaSayi = 1;
 
-	// ***********Talepler , Visible , Sayi
-	// ***********************************************************
+	// ***********Talepler , Visible , Sayi ***********************************************************
 
 	private boolean dosyaislemdenkaldirilmatalebiharcborcluda;
 	private boolean dosyaislemdenkaldirilmatalebiharcburoda;
@@ -201,6 +199,8 @@ public class MuameleIslemleri {
 	private boolean yenilemetalebi;
 	private boolean yurticiadresiodemeemritalebi;
 	private boolean ptthaciztalebi;
+	private boolean coklu4lu5bankatalebi;
+	private boolean coklu4lu7bankatalebi;
 
 	private boolean dosyaislemdenkaldirilmatalebiharcborcludaVisible = false;
 	private boolean dosyaislemdenkaldirilmatalebiharcburodaVisible = false;
@@ -228,6 +228,8 @@ public class MuameleIslemleri {
 	private boolean yenilemetalebiVisible = false;
 	private boolean yurticiadresiodemeemritalebiVisible = false;
 	private boolean ptthaciztalebiVisible = false;
+	private boolean coklu4lu5bankatalebiVisible=false;
+	private boolean coklu4lu7bankatalebiVisible=false;
 
 	private int dosyaislemdenkaldirilmatalebiharcborcludaSayi = 1;
 	private int dosyaislemdenkaldirilmatalebiharcburodaSayi = 1;
@@ -255,9 +257,10 @@ public class MuameleIslemleri {
 	private int yenilemetalebiSayi = 1;
 	private int yurticiadresiodemeemritalebiSayi = 1;
 	private int ptthaciztalebiSayi = 1;
+	private int coklu4lu5bankatalebiSayi =1;
+	private int coklu4lu7bankatalebiSayi=1;
 
-	// *********** Getter Setter
-	// ***********************************************************
+	// *********** Getter Setter ***********************************************************
 	
 	
 	
@@ -265,6 +268,167 @@ public class MuameleIslemleri {
 	public int getId() {
 		return id;
 	}
+
+
+
+	public Double getMasrafMiktari() {
+		return masrafMiktari;
+	}
+
+
+
+	public void setMasrafMiktari(Double masrafMiktari) {
+		this.masrafMiktari = masrafMiktari;
+	}
+
+
+
+	public Double getAlacakFaizTutari() {
+		return alacakFaizTutari;
+	}
+
+
+
+	public void setAlacakFaizTutari(Double alacakFaizTutari) {
+		this.alacakFaizTutari = alacakFaizTutari;
+	}
+
+
+
+	public boolean isDefault() {
+		return Default;
+	}
+
+
+
+	public void setDefault(boolean default1) {
+		Default = default1;
+	}
+
+
+
+	public String getBanka4() {
+		return banka4;
+	}
+
+
+	public void setBanka4(String banka4) {
+		this.banka4 = banka4;
+	}
+
+
+
+
+
+	public String getBanka7() {
+		return banka7;
+	}
+
+
+
+
+
+	public void setBanka7(String banka7) {
+		this.banka7 = banka7;
+	}
+
+
+
+
+
+	public boolean isCoklu4lu5bankatalebi() {
+		return coklu4lu5bankatalebi;
+	}
+
+
+
+
+
+	public void setCoklu4lu5bankatalebi(boolean coklu4lu5bankatalebi) {
+		this.coklu4lu5bankatalebi = coklu4lu5bankatalebi;
+	}
+
+
+
+
+
+	public boolean isCoklu4lu7bankatalebi() {
+		return coklu4lu7bankatalebi;
+	}
+
+
+
+
+
+	public void setCoklu4lu7bankatalebi(boolean coklu4lu7bankatalebi) {
+		this.coklu4lu7bankatalebi = coklu4lu7bankatalebi;
+	}
+
+
+
+
+
+	public boolean isCoklu4lu5bankatalebiVisible() {
+		return coklu4lu5bankatalebiVisible;
+	}
+
+
+
+
+
+	public void setCoklu4lu5bankatalebiVisible(boolean coklu4lu5bankatalebiVisible) {
+		this.coklu4lu5bankatalebiVisible = coklu4lu5bankatalebiVisible;
+	}
+
+
+
+
+
+	public boolean isCoklu4lu7bankatalebiVisible() {
+		return coklu4lu7bankatalebiVisible;
+	}
+
+
+
+
+
+	public void setCoklu4lu7bankatalebiVisible(boolean coklu4lu7bankatalebiVisible) {
+		this.coklu4lu7bankatalebiVisible = coklu4lu7bankatalebiVisible;
+	}
+
+
+
+
+
+	public int getCoklu4lu5bankatalebiSayi() {
+		return coklu4lu5bankatalebiSayi;
+	}
+
+
+
+
+
+	public void setCoklu4lu5bankatalebiSayi(int coklu4lu5bankatalebiSayi) {
+		this.coklu4lu5bankatalebiSayi = coklu4lu5bankatalebiSayi;
+	}
+
+
+
+
+
+	public int getCoklu4lu7bankatalebiSayi() {
+		return coklu4lu7bankatalebiSayi;
+	}
+
+
+
+
+
+	public void setCoklu4lu7bankatalebiSayi(int coklu4lu7bankatalebiSayi) {
+		this.coklu4lu7bankatalebiSayi = coklu4lu7bankatalebiSayi;
+	}
+
+
 
 
 
@@ -1064,13 +1228,19 @@ public class MuameleIslemleri {
 
 
 
-	public int getBorcluMiktari() {
+
+
+	public Double getBorcluMiktari() {
 		return borcluMiktari;
 	}
 
-	public void setBorcluMiktari(int borcluMiktari) {
+
+
+	public void setBorcluMiktari(Double borcluMiktari) {
 		this.borcluMiktari = borcluMiktari;
 	}
+
+
 
 	public String getIl() {
 		return il;
@@ -1172,13 +1342,7 @@ public class MuameleIslemleri {
 		this.masrafTipiId = masrafTipiId;
 	}
 
-	public int getMasrafMiktari() {
-		return masrafMiktari;
-	}
 
-	public void setMasrafMiktari(int masrafMiktari) {
-		this.masrafMiktari = masrafMiktari;
-	}
 
 	public int getMalTipiId() {
 		return malTipiId;
@@ -1500,16 +1664,6 @@ public class MuameleIslemleri {
 		this.hazirlayanAdi = hazirlayanAdi;
 	}
 
-
-	public int getAlacakFaizTutari() {
-		return alacakFaizTutari;
-	}
-
-
-
-	public void setAlacakFaizTutari(int alacakFaizTutari) {
-		this.alacakFaizTutari = alacakFaizTutari;
-	}
 
 
 

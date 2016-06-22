@@ -149,6 +149,7 @@ public class dashboardBean {
 
 	public void veriListele(){
 		UserDAO userdao = new UserDAO();
+		
 		// Takım listesini alalım
 		TakimDAO takimdao = new TakimDAO();
 		for (Takim items : takimdao.getTakimList()) {
@@ -156,6 +157,7 @@ public class dashboardBean {
 			models.setTakimAdi(items.getTakimAdi());
 			System.out.println(items.getTakimAdi());
 			System.out.println("--------------------------------------");
+			// Personel Listesi
 			for (TakimKullanici itemsTK : takimdao.selectByIdTKList(items.getId())) {
 				dashboardPersonelModel personelmodel = new dashboardPersonelModel();
 				//System.out.println(itemsTK.getKullaniciId()); 
@@ -164,7 +166,7 @@ public class dashboardBean {
 				System.out.println(personelmodel.getPersonelAdi()); 
 				
 			}
-			
+			System.out.println("00000000000000000000000000000000000000000000000");
 			
 		}
 		

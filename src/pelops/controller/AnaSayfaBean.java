@@ -348,6 +348,9 @@ public class AnaSayfaBean {
 			case 1011:
 				formPath = "frm_dosya_chronology.xhtml";
 				break;
+			case 1012:
+				formPath = "frm_hedef.xhtml";
+				break;
 			
 			
 				

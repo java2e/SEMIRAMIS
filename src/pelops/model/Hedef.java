@@ -6,7 +6,9 @@ public class Hedef {
 
 	private int id;
 	private  int personel_id;
+	private String personel_adi;
 	private  int muvekkil_id;
+	private String muvekkil_adi;
 	private  double gunluk_hedef;
 	private  double aylik_hedef;
 	private  int ilgili_ay;
@@ -14,11 +16,37 @@ public class Hedef {
 	private  int user_id;
 	private  Date ekleme_tarihi; 
 	private  Date guncelleme_tarihi;
+	private String gunlukHedefTL;
+	private String aylikHedefTL;
 	
 	
 	
 	
 	
+	public String getGunlukHedefTL() {
+		return gunlukHedefTL;
+	}
+	public void setGunlukHedefTL(String gunlukHedefTL) {
+		this.gunlukHedefTL = gunlukHedefTL;
+	}
+	public String getAylikHedefTL() {
+		return aylikHedefTL;
+	}
+	public void setAylikHedefTL(String aylikHedefTL) {
+		this.aylikHedefTL = aylikHedefTL;
+	}
+	public String getPersonel_adi() {
+		return personel_adi;
+	}
+	public void setPersonel_adi(String personel_adi) {
+		this.personel_adi = personel_adi;
+	}
+	public String getMuvekkil_adi() {
+		return muvekkil_adi;
+	}
+	public void setMuvekkil_adi(String muvekkil_adi) {
+		this.muvekkil_adi = muvekkil_adi;
+	}
 	public int getId() {
 		return id;
 	}

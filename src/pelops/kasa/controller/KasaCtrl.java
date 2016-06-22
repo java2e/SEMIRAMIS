@@ -316,7 +316,7 @@ public class KasaCtrl {
 		model.setMakbuzNo(String.valueOf(view.getId()));
 		model.setSebebi(hesapdao.Liste(hesapID).getUrunAdi()+ " "+ hesapdao.Liste(hesapID).getUrunNo());
 		model.setMiktari(priceFormat.format(view.getTahsilatMiktari())+" - "+ yaziyaCevir(view.getTahsilatMiktari()));
-		//model.setAdSoyad(view.getAdSoyad());
+		model.setAdSoyad(view.getAdSoyad());
 		model.setTarih(dateFormat.format(nowDate)+ " - "+nowDate.getHours()+":"+ (nowDate.getMinutes()<10 ? "0"+nowDate.getMinutes(): nowDate.getMinutes()));
 		model.setAlinanMiktar(priceFormat.format(view.getTahsilatMiktari())+" - "+ yaziyaCevir(view.getTahsilatMiktari()));
 		model.setSiraNo(String.valueOf(view.getId()));

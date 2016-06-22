@@ -53,6 +53,10 @@ public class KasaBean {
 	LogError newlog;
 	SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 	FacesContext context = FacesContext.getCurrentInstance();
+	
+	private boolean hitam=true, tahsilat=false, makbuz=true;
+	
+	
 	private ArrayList<Kasa> kasaListesi = new ArrayList<Kasa>();
 	private ArrayList<GenelTanimSablon> tahsilatStatuListesi = new ArrayList<GenelTanimSablon>();
 	private ArrayList<GenelTanimSablon> odemeYeriListesi = new ArrayList<GenelTanimSablon>();
@@ -92,6 +96,30 @@ public class KasaBean {
 
 	
 	
+
+	public boolean isHitam() {
+		return hitam;
+	}
+
+	public void setHitam(boolean hitam) {
+		this.hitam = hitam;
+	}
+
+	public boolean isTahsilat() {
+		return tahsilat;
+	}
+
+	public void setTahsilat(boolean tahsilat) {
+		this.tahsilat = tahsilat;
+	}
+
+	public boolean isMakbuz() {
+		return makbuz;
+	}
+
+	public void setMakbuz(boolean makbuz) {
+		this.makbuz = makbuz;
+	}
 
 	public IcraDosyaIslemleriBean getIcdb() {
 		return icdb;
@@ -549,12 +577,14 @@ public class KasaBean {
 		bilgiTahsilat.setOdemeplani_id(tahsilat.getOdemeplani_id());
 		bilgiTahsilat.setVizit_id(tahsilat.getVizit_id());
 		bilgiTahsilat.setTahsilat_tarihi(new Date());
-		bilgiTahsilat.setKasa_islemini_yapan(usersbilgi.getUser().getUsrName());
+		bilgiTahsilat.setKasa_islemini_yapan(usersbilgi.getUser().getUsrAdSoyad());
 		bilgiTahsilat.setSoz_alan_personel_id(tahsilat.getSoz_alan_personel_id());
 		
 		bilgiTahsilat.setTasilati_yapan(tahsilat.getTasilati_yapan());
 		RequestContext.getCurrentInstance().execute("PF('frmtahsilatyap').show();");
-		 
+		
+		this.setTahsilat(false);
+		makbuz=true;
 		try {
 			icdb = new IcraDosyaIslemleriBean();
 		} catch (Exception e) {
@@ -628,10 +658,13 @@ try{
 		bilgiTahsilat.setMusteriNo(AktifBean.getMusteriNo());
 		bilgiTahsilat.setIcra_dosyasi_id(AktifBean.getIcraDosyaID());
 		bilgiTahsilat.setMuvekkil_adi(AktifBean.getMuvekkilAdi());
-		bilgiTahsilat.setKasa_islemini_yapan(usersbilgi.getUser().getUsrName());
-		bilgiTahsilat.setTasilati_yapan(usersbilgi.getUser().getUsrName());
+		bilgiTahsilat.setKasa_islemini_yapan(usersbilgi.getUser().getUsrAdSoyad());
+		bilgiTahsilat.setTasilati_yapan(usersbilgi.getUser().getUsrAdSoyad());
 		
 		bilgiTahsilat.setTahsilat_tarihi(new Date());
+		makbuz=true;
+		tahsilat=false;
+		
 	}
 
 	public void ReddiyatAktar(int id) {
@@ -755,6 +788,8 @@ try{
 		bilgiTahsilat.setDurum(1);
 		
 		controller.kaydet(bilgiTahsilat, hitam, redList);
+		tahsilat=true;
+		makbuz=false;
 		
 		sayfaGuncelle();
 		

@@ -87,9 +87,9 @@
 	
 	<p:spacer height="10"/>
 	<p:panelGrid columns="4" style=" border-style: hidden !important;">
-	<p:commandButton value="HİTAM BELGESİ" disabled="true" style="width:120px;height:55px;" />
-	<p:commandButton value="TAHSİLAT MAKBUZU" disabled="false" style="width:120px;height:55px;" ajax="false" action="#{kasaBean.print(null)}"/>
-	<p:commandButton value="TAHSİLAT YAP" style="width:120px;height:55px;"  action="#{kasaBean.tahsilatYap}"  update=":tahsilatyap:hesapbilgisi,:kasaForm:reddiyatlistesi,:kasaForm:tabviewlist:tblaktifodeme, :kasaForm:tabviewlist:tblodenmisler,:formMsgs">
+	<p:commandButton value="HİTAM BELGESİ" disabled="#{kasaBean.hitam}" style="width:120px;height:55px;" />
+	<p:commandButton value="TAHSİLAT MAKBUZU" disabled="#{kasaBean.makbuz}" style="width:120px;height:55px;" ajax="false" action="#{kasaBean.print(null)}" update=":tahsilatyap"/>
+	<p:commandButton value="TAHSİLAT YAP" style="width:120px;height:55px;" disabled="#{kasaBean.tahsilat}"  action="#{kasaBean.tahsilatYap}"  update=":tahsilatyap,:tahsilatyap:hesapbilgisi,:kasaForm:reddiyatlistesi,:kasaForm:tabviewlist:tblaktifodeme, :kasaForm:tabviewlist:tblodenmisler,:formMsgs">
 	
 	</p:commandButton>
 <!-- 	<p:commandButton value="İNDİRİM ONAYI" style="width:120px;height:55px; "/> -->

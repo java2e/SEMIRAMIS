@@ -67,7 +67,34 @@ public class BaglantiDAO extends DBConnection {
       return liste;
     	    	
  }
-      
+  
+  public  ArrayList<Baglanti> BaglantiListele() throws Exception{
+	  	
+	 	 DBConnection DB = new DBConnection();
+	      DB.newConnectDB();
+	      String SQL = "SELECT id, \"icradosyasiID\", \"alacakliID\", \"borcluID\", \"hesaplamaID\"  FROM tbl_baglanti ;";
+	      Statement stmt;
+	      ResultSet rs;
+	      stmt = DB.conn.createStatement();
+	      rs = stmt.executeQuery(SQL);
+	      Baglanti baglanti=null;
+	      ArrayList<Baglanti> liste = new ArrayList<Baglanti>();
+	     
+	     
+	      while (rs.next()) {
+	     	 baglanti = new Baglanti();
+	          baglanti.setAlacakliID(rs.getInt("alacakliID"));
+	          baglanti.setBorcluID(rs.getInt("borcluID"));
+	          baglanti.setHesaplamaID(rs.getInt("hesaplamaID"));
+	          baglanti.setIcradosyasiID(rs.getInt("icradosyasiID"));
+	    	  
+	     	 liste.add(baglanti);
+	      }
+	     DB.disconnectDB();
+	      return liste;
+	    	    	
+	 }
+  
 	public void Kaydet(Baglanti baglanti) throws Exception{
 		String SQL= "INSERT INTO tbl_baglanti( \"icradosyasiID\", \"alacakliID\", \"borcluID\","
 				+ " \"hesaplamaID\")"

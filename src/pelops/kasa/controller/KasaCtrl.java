@@ -291,7 +291,7 @@ public class KasaCtrl {
 			reddiyat.setAktifTutar(reddiyat.getSasaReddiyatTutari());
 			reddiyat.setReddiyatTuru("Sasaya Reddiyat");
 		}
-
+                      
 		return reddiyat;
 	}
 

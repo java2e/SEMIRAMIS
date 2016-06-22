@@ -181,6 +181,20 @@ public class HesapDAO extends DBConnection {
 
 	}
 
+	public void GuncelleUrun(int id, String UrunAdi, String UrunNo) throws Exception {
+		String SQL = "UPDATE tbl_hesap SET" + " urun_adi=?, urun_no=? WHERE id=" + id + ";";
+
+		newConnectDB();
+
+		PreparedStatement pstmt = conn.prepareStatement(SQL.toString());
+		pstmt.setString(1, UrunAdi);
+		pstmt.setString(2, UrunNo);
+
+		pstmt.executeUpdate();
+		disconnectDB();
+
+	}
+	
 	public void guncelleAlacak(int id, double alacaktutari) {
 		String SQL = "UPDATE tbl_hesap SET" + "  kalan_alacak=?, toplam_alacak=? WHERE id=" + id + ";";
 		BaglantiDAO dao = new BaglantiDAO();

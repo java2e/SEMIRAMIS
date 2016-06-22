@@ -10,6 +10,7 @@ import javax.faces.context.FacesContext;
 import org.primefaces.context.RequestContext;
 
 import pelops.dao.AlacakBilgisiDAO;
+import pelops.dao.HesapDAO;
 import pelops.db.DBConnection;
 import pelops.model.*;
 
@@ -35,13 +36,15 @@ public class AlacakBean extends DBConnection {
 		// System.out.println("metoda girdii");
 		isRequired = "false";
 	}
+
 	/**
-	 * :TODO Util class i yazıldığında AktifBean Kalıntıları düzeltlecek...  
+	 * :TODO Util class i yazıldığında AktifBean Kalıntıları düzeltlecek...
 	 */
 	String muvekkilAdi;
 	String borcluAdi;
 	private int status;
 	AlacakBilgisiDAO dao = new AlacakBilgisiDAO();
+	HesapDAO hesapDAO = new HesapDAO();
 	boolean panelRender;
 
 	// public void test(){
@@ -53,17 +56,13 @@ public class AlacakBean extends DBConnection {
 	boolean buttonDisabled;
 	ArrayList<AlacakBilgisi> alacakbilgisiarrayList = new ArrayList<AlacakBilgisi>();
 
-	
 	public ArrayList<AlacakBilgisi> getAlacakbilgisiarrayList() throws Exception {
-
 		return dao.getAllListFromIcraDosyaID(AktifBean.getIcraDosyaID());
 	}
 
 	public void setAlacakbilgisiarrayList(ArrayList<AlacakBilgisi> alacakbilgisiarrayList) {
 		this.alacakbilgisiarrayList = alacakbilgisiarrayList;
 	}
-
-	ArrayList<AlacakBilgisi> alacakList = new ArrayList<AlacakBilgisi>();
 
 	public AlacakBean() throws Exception {
 
@@ -137,16 +136,6 @@ public class AlacakBean extends DBConnection {
 		this.dao = dao;
 	}
 
-	public ArrayList<AlacakBilgisi> getAlacakList() throws Exception {
-
-		alacakbilgisiarrayList = dao.getAllListFromIcraDosyaID(AktifBean.getIcraDosyaID());
-		return alacakbilgisiarrayList;
-	}
-
-	public void setAlacakList(ArrayList<AlacakBilgisi> alacakList) {
-		this.alacakList = alacakList;
-	}
-
 	public void PanelOpen() {
 
 		this.setPanelRender(true);
@@ -205,6 +194,7 @@ public class AlacakBean extends DBConnection {
 
 				AlacakBilgisiDAO dao = new AlacakBilgisiDAO();
 				boolean result = dao.kaydet(alacakKayit);
+				hesapDAO.guncelleAlacak(AktifBean.icraDosyaID, alacakKayit.getOdenen_miktar());
 
 				if (result) {
 
@@ -237,7 +227,7 @@ public class AlacakBean extends DBConnection {
 
 			}
 
-			alacakbilgisiarrayList = dao.vwListe();
+			alacakbilgisiarrayList = dao.getAllListFromIcraDosyaID(AktifBean.icraDosyaID);
 			PanelClose();
 			ButtonOpen();
 
@@ -247,7 +237,6 @@ public class AlacakBean extends DBConnection {
 
 	public void Duzenle() throws Exception {
 
-		System.out.println("inner update");
 		int test = 0;
 		status = 1;
 
@@ -255,8 +244,6 @@ public class AlacakBean extends DBConnection {
 
 		int id = Integer.parseInt(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap()
 				.get("buttonDuzenle").toString());
-
-		System.out.println("id " + id);
 
 		for (AlacakBilgisi ab : list) {
 			if (ab.getId() == id) {
@@ -268,7 +255,7 @@ public class AlacakBean extends DBConnection {
 
 		PanelOpen();
 		ButtonClose();
-		alacakbilgisiarrayList = dao.vwListe();
+		alacakbilgisiarrayList = dao.getAllListFromIcraDosyaID(AktifBean.icraDosyaID);
 
 	}
 
@@ -290,16 +277,9 @@ public class AlacakBean extends DBConnection {
 			context.addMessage(null, new FacesMessage("Kayıt Silmesi Başarısız"));
 		}
 
-		alacakbilgisiarrayList = dao.vwListe();
+		alacakbilgisiarrayList = dao.getAllListFromIcraDosyaID(AktifBean.icraDosyaID);
 		status = 0;
 
-	}
-
-	public ArrayList<AlacakBilgisi> vwListe() throws Exception {
-
-		AlacakBilgisiDAO alackadao = new AlacakBilgisiDAO();
-		alacakbilgisiarrayList = alackadao.vwListe();
-		return alacakbilgisiarrayList;
 	}
 
 	public void dlgKaydet() throws Exception {

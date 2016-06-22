@@ -39,7 +39,7 @@ public class AlacakBilgisiDAO extends DBConnection {
 			pstmt.setDouble(9, alacak.getOdenen_miktar());
 			pstmt.setInt(10, alacak.getFaiz_tipi_id());
 			pstmt.setString(11, alacak.getAciklama());
-			pstmt.setInt(12, alacak.getIcra_dosyasi_id());
+			pstmt.setInt(12, AktifBean.getIcraDosyaID());
 
 			int result = pstmt.executeUpdate();
 
@@ -55,46 +55,40 @@ public class AlacakBilgisiDAO extends DBConnection {
 
 		return kaydedildi;
 	}
-	
 
-	 public ArrayList<AlacakBilgisi> vwListe() throws Exception {
-	 newConnectDB();
-	 String SQL = "select * from vwalacakbilgisi ";
-	 Statement stmt;
-	 ResultSet rs;
-	 stmt = conn.createStatement();
-	 rs = stmt.executeQuery(SQL);
-	
-	 AlacakBilgisi alacak;
-	 ArrayList<AlacakBilgisi> alacakListesi = new ArrayList<AlacakBilgisi>();
-	 while (rs.next()) { 
-	 alacak = new AlacakBilgisi(); 
-	 
-     alacak.setId(rs.getInt("id"));
-	 alacak.setBelge_miktari(rs.getInt("belge_miktari"));
-	 alacak.setBelge_statusu(rs.getString("belge_statusu"));
-	 alacak.setBelge_tipi(rs.getString("belge_tipi"));
-	 alacak.setDoviz_kuru(rs.getString("doviz_kuru"));
-	 alacak.setDoviz_tipi(rs.getString("doviz_tipi"));
-	 alacak.setIhtarname_tarihi(rs.getDate("ihtarname_tarihi"));
-	 alacak.setOdenen_miktar(rs.getDouble("odenen_miktar"));
-	 alacak.setTanzim_tarihi(rs.getDate("tanzim_tarihi"));
-	 alacak.setVade_tarihi(rs.getDate("vade_tarihi"));
-	 alacakListesi.add(alacak);
+	public ArrayList<AlacakBilgisi> vwListe() throws Exception {
+		newConnectDB();
+		String SQL = "select * from vwalacakbilgisi ";
+		Statement stmt;
+		ResultSet rs;
+		stmt = conn.createStatement();
+		rs = stmt.executeQuery(SQL);
 
-	 }
-	 disconnectDB();
-	 return alacakListesi;
-	
-	 }
+		AlacakBilgisi alacak;
+		ArrayList<AlacakBilgisi> alacakListesi = new ArrayList<AlacakBilgisi>();
+		while (rs.next()) {
+			alacak = new AlacakBilgisi();
+
+			alacak.setId(rs.getInt("id"));
+			alacak.setBelge_miktari(rs.getInt("belge_miktari"));
+			alacak.setBelge_statusu(rs.getString("belge_statusu"));
+			alacak.setBelge_tipi(rs.getString("belge_tipi"));
+			alacak.setDoviz_kuru(rs.getString("doviz_kuru"));
+			alacak.setDoviz_tipi(rs.getString("doviz_tipi"));
+			alacak.setIhtarname_tarihi(rs.getDate("ihtarname_tarihi"));
+			alacak.setOdenen_miktar(rs.getDouble("odenen_miktar"));
+			alacak.setTanzim_tarihi(rs.getDate("tanzim_tarihi"));
+			alacak.setVade_tarihi(rs.getDate("vade_tarihi"));
+			alacakListesi.add(alacak);
+
+		}
+		disconnectDB();
+		return alacakListesi;
+
+	}
 
 	public boolean sil(int id) throws Exception {
 
-		
-		
-		
-	
-		
 		String SQL = "DELETE FROM tbl_alacak_bilgisi WHERE id = ?;";
 
 		boolean silindi = false;
@@ -112,7 +106,7 @@ public class AlacakBilgisiDAO extends DBConnection {
 			if (result == 1) {
 
 				silindi = true;
-				
+
 			}
 
 		} catch (Exception ex) {
@@ -121,7 +115,6 @@ public class AlacakBilgisiDAO extends DBConnection {
 
 		}
 
-	
 		return silindi;
 
 	}
@@ -138,17 +131,17 @@ public class AlacakBilgisiDAO extends DBConnection {
 
 		ArrayList<AlacakBilgisi> list = new ArrayList<AlacakBilgisi>();
 		newConnectDB();
-		
+
 		String SQL = "SELECT * FROM tbl_alacak_bilgisi where icra_dosyasi_id=" + icraDosyaID;
-		
+
 		Statement stmt;
 		ResultSet rs;
 		stmt = conn.createStatement();
 		rs = stmt.executeQuery(SQL);
 
 		AlacakBilgisi alacak = null;
-		
-		 NumberFormat defaultFormat = NumberFormat.getCurrencyInstance();
+
+		NumberFormat defaultFormat = NumberFormat.getCurrencyInstance();
 
 		while (rs.next()) {
 
@@ -166,8 +159,6 @@ public class AlacakBilgisiDAO extends DBConnection {
 			alacak.setOdenen_miktar(rs.getDouble("odenen_miktar"));
 			alacak.setTanzim_tarihi(rs.getDate("tanzim_tarihi"));
 			alacak.setVade_tarihi(rs.getDate("vade_tarihi"));
-			
-
 
 			list.add(alacak);
 
@@ -203,7 +194,7 @@ public class AlacakBilgisiDAO extends DBConnection {
 			pstmt.setString(11, alacak.getAciklama());
 			pstmt.setInt(12, AktifBean.getIcraDosyaID());
 			pstmt.setInt(13, alacak.getId());
-			
+
 			int result = pstmt.executeUpdate();
 
 			disconnectDB();

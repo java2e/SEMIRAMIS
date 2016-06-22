@@ -53,18 +53,17 @@ public class HesapDAO extends DBConnection {
 	}
 
 	public int HesapIdGetir(int IcraDosyaNo) throws Exception {
-		DBConnection DB = new DBConnection();
-		DB.newConnectDB();
+		newConnectDB();
 		String SQL = "SELECT * FROM tbl_hesap where icra_dosyasi=" + IcraDosyaNo;
 		Statement stmt;
 		ResultSet rs;
-		stmt = DB.conn.createStatement();
+		stmt = conn.createStatement();
 		rs = stmt.executeQuery(SQL);
 		int id = 0;
 		while (rs.next()) {
 			id = rs.getInt("id");
 		}
-		DB.disconnectDB();
+		disconnectDB();
 		return id;
 	}
 
@@ -168,7 +167,7 @@ public class HesapDAO extends DBConnection {
 
 	public void GuncelleTahsilat(int id, double tahsilatTutari) throws Exception {
 		String SQL = "UPDATE tbl_hesap SET" + " tahsilat_tutari=?, kalan_alacak=? WHERE id=" + id + ";";
-	
+
 		newConnectDB();
 
 		PreparedStatement pstmt = conn.prepareStatement(SQL.toString());
@@ -179,6 +178,28 @@ public class HesapDAO extends DBConnection {
 
 		pstmt.executeUpdate();
 		disconnectDB();
+
+	}
+
+	public void guncelleAlacak(int id, double alacaktutari) {
+		String SQL = "UPDATE tbl_hesap SET" + "  kalan_alacak=?, toplam_alacak=? WHERE id=" + id + ";";
+		BaglantiDAO dao = new BaglantiDAO();
+		try {
+			Hesap hesap = Liste(dao.Listele(id).getHesaplamaID());
+			newConnectDB();
+			PreparedStatement pstm = conn.prepareStatement(SQL);
+			double kalan = hesap.getKalan_alacak() + alacaktutari;
+			pstm.setDouble(1, kalan);
+			double toplam = hesap.getToplam_alacak() + alacaktutari;
+			pstm.setDouble(2, toplam);
+
+			pstm.executeUpdate();
+			disconnectDB();
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 
@@ -207,14 +228,15 @@ public class HesapDAO extends DBConnection {
 	}
 
 	public void guncelleMasraf(int id, double masrafTutari) {
-		String SQLupdate = "UPDATE tbl_hesap SET" + " masraf_tutari=?, kalan_alacak=?, toplam_alacak=? WHERE id=" + id + ";";
-		DBConnection DB = new DBConnection();		
+		String SQLupdate = "UPDATE tbl_hesap SET" + " masraf_tutari=?, kalan_alacak=?, toplam_alacak=? WHERE id=" + id
+				+ ";";
 		try {
-			
+
 			Hesap hesap = Liste(id);
-			DB.newConnectDB();
+			newConnectDB();
 
 			PreparedStatement pstmtMasraf = conn.prepareStatement(SQLupdate);
+			System.out.println(hesap.getKalan_alacak());
 			double masraf = hesap.getMasraf_tutari() + masrafTutari;
 			pstmtMasraf.setDouble(1, masraf);
 			double kalan = hesap.getKalan_alacak() + masrafTutari;
@@ -223,7 +245,7 @@ public class HesapDAO extends DBConnection {
 			pstmtMasraf.setDouble(3, toplam);
 
 			pstmtMasraf.executeUpdate();
-			DB.disconnectDB();
+			disconnectDB();
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

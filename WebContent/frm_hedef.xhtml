@@ -1,0 +1,136 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+<style>
+
+.ui-panelgrid-cell{
+	border-width:0px !important;
+	
+}
+</style>
+<h:form id="formMsgs">
+			<p:growl id="msgs" showDetail="true" />
+		</h:form>
+<h:form id="hedefForm">
+<p:panel id="panelPG" header="PERSONEL HEDEFLERİ İŞLEMLERİ" style=" border-style: hidden !important;width:100%; text-align:center">
+
+		<p:ajaxStatus onstart="PF('statusDialog').show()"
+			onsuccess="PF('statusDialog').hide()" />
+
+		<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+			closable="false" resizable="false" showHeader="false"
+			style="position: absolute; background-color: rgba(0, 0, 0, 0.6); height: 256px; width: 256px; left:0%; top:0%; z-index:2; height: 100%; width: 100%">
+			<p:graphicImage value="img/yukleme.gif" height="80" width="80" />
+		</p:dialog>
+		
+		
+		
+		<p:panelGrid columns="2" style=" border-style: hidden !important;width:100%" columnClasses="ui-grid-col-4,ui-grid-col-8">
+
+		<p:panelGrid columns="2" style=" border-style: hidden !important;width:100%; text-align:left;" columnClasses="ui-grid-col-5,ui-grid-col-7">
+		
+		<p:outputLabel value="İlgili Yıl"/>
+		<p:selectOneMenu id="ilgili_yil" 	
+					 						
+					 effect="fold" 
+					 filter="true" filterMatchMode="startsWith"
+					 value="#{hedefbean.hedef.ilgili_yil}"
+					 style="width: 100%">
+					 
+									<f:selectItems value="#{hedefbean.yilListesi}" />
+					</p:selectOneMenu>
+		<p:outputLabel value="İlgili Ay"/>
+		<p:selectOneMenu id="ilgili_ay" 	
+					 						
+					 effect="fold" 
+					 filter="true" filterMatchMode="startsWith"
+					 value="#{hedefbean.hedef.ilgili_ay}"
+					 style="width: 100%" >
+					<p:ajax event="change" update=":hedefForm"
+								listener="#{hedefbean.tarihListele()}" oncomplete="PF('dataTableWidgetVar').filter()" />
+									<f:selectItems value="#{hedefbean.ayListesi}"/>
+					</p:selectOneMenu>
+		
+		<p:outputLabel value="Personel Listesi " style="width:100%" />
+		<p:selectOneMenu id="icraMudurluk" 	
+					 effect="fold" 
+					 filter="true" filterMatchMode="startsWith"
+					 value="#{hedefbean.hedef.personel_id}"
+					 style=" width:100%;">
+					 <f:selectItem itemLabel="" itemValue=""/>
+									<f:selectItems
+										value="#{hesapTanimlamaBean.users}"
+										var="list" itemLabel="#{list.usrAdSoyad}" itemValue="#{list.usrId}" />
+		</p:selectOneMenu>
+		<p:outputLabel value="Müvekkil Adı"/>
+		<p:selectOneMenu id="detay_muvekkil" 	
+					 						
+					 effect="fold" 
+					 filter="true" filterMatchMode="startsWith"
+					 value="#{hedefbean.hedef.muvekkil_id}"
+					 style="width: 100%">
+					
+									<f:selectItems value="#{alacakliBean.Liste()}" var="listeler" itemLabel="#{listeler.muvekkilAdi}"	itemValue="#{listeler.id}" />
+					</p:selectOneMenu>
+		
+		<p:outputLabel value="Günlük Hedef"/>
+		<p:inputText value="#{hedefbean.hedef.gunluk_hedef}"/>
+		<p:outputLabel value="Aylık Hedef"/>
+		<p:inputText value="#{hedefbean.hedef.aylik_hedef}"/>
+		<p:spacer />
+		<p:outputLabel style="text-align:right; width:100%;">
+		<p:commandButton value="Kaydet" style="position:right" action="#{hedefbean.kaydet()}" update=":hedefForm,:formMsgs" actionListener="#{hedefbean.Listele()}" oncomplete="PF('dataTableWidgetVar').filter()" />
+		<p:commandButton value="Güncelle" style="position:right" disabled="true" />
+		<p:commandButton value="Listele" style="position:right"  update=":hedefForm" action="#{hedefbean.Listele()}"  oncomplete="PF('dataTableWidgetVar').filter()" />
+		
+		</p:outputLabel>
+		
+		</p:panelGrid>
+		
+		<p:panelGrid  style=" border-style: hidden !important;width:100%; text-align:center" id="tablePanel">
+			<p:dataTable value="#{hedefbean.hedefList}"	filteredValue="#{hedefbean.filterhedefList}"	emptyMessage="Aradığınız Kritere Uygun Sonuç Bulunamamıştır."
+					var="hb" widgetVar="dataTableWidgetVar"	id="tbldetayliarama" style="width:100%; text-align:center " rowStyleClass="green"		rows="20"		paginator="true"
+                    paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                    rowsPerPageTemplate="5,10,25,50,100,1000">
+
+				<p:column headerText="İşlem" width="15%">
+				<p:commandButton value="Sil" action="#{hedefbean.sil(hb.id)}" actionListener="#{hedefbean.Listele()}"  oncomplete="PF('dataTableWidgetVar').filter()" />
+				<p:commandButton value="Düzenle" disabled="true"/>
+				</p:column>
+				
+				<p:column headerText="Personel Adı" width="30%" filterBy="#{hb.personel_adi}" filterMatchMode="contains" sortBy="#{hb.personel_adi}">
+					<h:outputText value="#{hb.personel_adi}" />
+				</p:column>
+				<p:column headerText="Müvekkil Adı" width="15%" filterBy="#{hb.muvekkil_adi}" filterMatchMode="contains" sortBy="#{hb.muvekkil_adi}">
+					<h:outputText value="#{hb.muvekkil_adi}" />
+				</p:column>
+				<p:column headerText="İlgili Yıl" width="10%" filterBy="#{hb.ilgili_yil}" filterMatchMode="contains" sortBy="#{hb.ilgili_yil}">
+					<h:outputText value="#{hb.ilgili_yil}" />
+				</p:column>
+				<p:column headerText="İlgili Ay" width="10%" filterBy="#{hb.ilgili_ay}" filterMatchMode="contains" sortBy="#{hb.ilgili_ay}">
+					<h:outputText value="#{hb.ilgili_ay}" />
+				</p:column>
+				<p:column headerText="Aylık Hedef" width="10%" filterBy="#{hb.aylikHedefTL}" filterMatchMode="contains" sortBy="#{hb.aylikHedefTL}">
+					<h:outputText value="#{hb.aylikHedefTL}" />
+				</p:column>
+				<p:column headerText="Günlük Hedef" width="10%" filterBy="#{hb.gunlukHedefTL}" filterMatchMode="contains" sortBy="#{hb.gunlukHedefTL}">
+					<h:outputText value="#{hb.gunlukHedefTL}" />
+				</p:column>
+				
+				
+			</p:dataTable>	
+		</p:panelGrid>
+		
+		
+	</p:panelGrid>		
+</p:panel>
+</h:form>
+</h:body>
+</html>

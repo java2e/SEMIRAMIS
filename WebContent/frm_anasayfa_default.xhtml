@@ -5,7 +5,18 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui"	>
  
- 
+ <style>
+ .ui-datatable.borderless thead th,
+.ui-datatable.borderless tbody,
+.ui-datatable.borderless tbody tr,
+.ui-datatable.borderless tbody td {
+    border-style: none;
+}
+
+.noHeader.ui-datatable table thead tr {
+    display: none;
+}
+ </style>
  
     <h:body >
 
@@ -219,33 +230,35 @@
             margin-right: auto;
             margin-top: none;
             margin-bottom: none;
-            border-top: 4px solid #00ccff;
+            border-top: 4px solid #0080FF;
             border-bottom-left-radius: 15px;
             border-bottom-right-radius: 15px;
             background-color: blue;
             ">
             
             <!-- Gorevler -->
-  			<div style="float: left; width: 30%; margin:0px 0px 0px 0px;">
+            
+            
+  			<div style="float: left; width: 24%; margin:0px 0px 0px 0px;">
   			<h2 style="margin:5px 0px 0px 0px;">Görevler</h2>
-  				<p:dataTable var="gorev" value="#{defaultAnaSayfaBean.gorevler}" 
+  				<p:dataTable var="gorev" value="#{defaultAnaSayfaBean.gorevler}"  
 					selectionMode="single" selection="#{defaultAnaSayfaBean.selectedGorev}"
-					id="gorevTable" rowKey="#{gorev.id}">
+					id="gorevTable" rowKey="#{gorev.id}" >
 					<p:ajax process="@this"  event="rowSelect" listener="#{defaultAnaSayfaBean.onRowSelect}"
 						update=":defaultAnaSayfaForm:gorevDetail" oncomplete="PF('gorevDialog').show()" />
 
-					<p:column headerText="Konu">
+					<p:column style="padding:4px 2px 2px 2px;">
 						<h:outputText value="#{gorev.konu}" style="color:#{gorev.id%2==0 ? 'red' : 'black' };"  />
 					</p:column>
 
 					
-					<p:column headerText="Başlangıç Tarih">
+					<p:column  style="width: 19%;padding:4px 2px 2px 6px;">
 						<h:outputText value="#{gorev.basTarih}" style="color:#{gorev.id%2==0 ? 'red' : 'black' };" >
 						    <f:convertDateTime pattern="dd/MM/yyyy" />
 						</h:outputText>
 					</p:column>
 					
-					<p:column headerText="Bitiş Tarih">
+					<p:column  style="width: 19%;padding:4px 4px 2px 6px;">
 						<h:outputText value="#{gorev.bitTarih}" style="color:#{gorev.id%2==0 ? 'red' : 'black' };" >
 						<f:convertDateTime pattern="dd/MM/yyyy" />
 						</h:outputText>
@@ -268,14 +281,14 @@
 			<!-- /Gorevler  -->
 			
 			 <!-- Duyurular -->
-  			<div style="float: left; width: 33%; margin:0px 10px 0px 10px;">
+  			<div style="float: left; width: 39%; margin:0px 10px 0px 10px;">
   			
   			<h2 style="margin:5px 0px 0px 0px;">Duyurular</h2>
 
-				<p:dataTable var="duyuru" value="#{defaultAnaSayfaBean.duyurular}">
+				<p:dataTable var="duyuru" value="#{defaultAnaSayfaBean.duyurular}" styleClass="borderless" >
 
-					<p:column >
-						<h:outputText value="#{duyuru.aciklama}" />
+					<p:column style="padding:4px 2px 2px 0px;" >
+						<h:outputText  value="#{duyuru.aciklama}" />
 					</p:column>
 
 				</p:dataTable>
@@ -288,18 +301,18 @@
   			<h2 style="margin:5px 0px 0px 0px;">Takvim</h2>
 				<p:growl id="messages" showDetail="true" />
 
-				<p:schedule id="schedule" value="#{scheduleView.eventModel}" locale="tr"
+				<p:schedule id="schedule" value="#{defaultAnaSayfaBean.eventModel}" locale="tr"
 					widgetVar="myschedule" timeZone="GMT+2">
 
-					<p:ajax event="dateSelect" listener="#{scheduleView.onDateSelect}"
+					<p:ajax event="dateSelect" listener="#{defaultAnaSayfaBean.onDateSelect}"
 						update="eventDetails" oncomplete="PF('eventDialog').show();" />
 					<p:ajax event="eventSelect"
-						listener="#{scheduleView.onEventSelect}" update="eventDetails"
+						listener="#{defaultAnaSayfaBean.onEventSelect}" update="eventDetails"
 						oncomplete="PF('eventDialog').show();" />
-					<p:ajax event="eventMove" listener="#{scheduleView.onEventMove}"
+					<p:ajax event="eventMove" listener="#{defaultAnaSayfaBean.onEventMove}"
 						update="messages" />
 					<p:ajax event="eventResize"
-						listener="#{scheduleView.onEventResize}" update="messages" />
+						listener="#{defaultAnaSayfaBean.onEventResize}" update="messages" />
 
 				</p:schedule>
 
@@ -307,24 +320,24 @@
 					showEffect="clip" hideEffect="clip">
 					<h:panelGrid id="eventDetails" columns="2">
 						<p:outputLabel for="title" value="Başlık:" />
-						<p:inputText id="title" value="#{scheduleView.event.title}"
+						<p:inputText id="title" value="#{defaultAnaSayfaBean.event.title}"
 							required="true" />
 
 						<p:outputLabel for="from" value="Başlangıç:" />
-						<p:calendar id="from" value="#{scheduleView.event.startDate}"
+						<p:calendar id="from" value="#{defaultAnaSayfaBean.event.startDate}"
 							timeZone="GMT+2" pattern="dd/MM/yyyy HH:mm" />
 
 						<p:outputLabel for="to" value="Bitiş:" />
-						<p:calendar id="to" value="#{scheduleView.event.endDate}"
+						<p:calendar id="to" value="#{defaultAnaSayfaBean.event.endDate}"
 							timeZone="GMT+2" pattern="dd/MM/yyyy HH:mm" />
 
 						<p:outputLabel for="allDay" value="Bütün Gün:" />
 						<h:selectBooleanCheckbox id="allDay"
-							value="#{scheduleView.event.allDay}" />
+							value="#{defaultAnaSayfaBean.event.allDay}" />
 
 						<p:commandButton type="reset" value="Yenile" />
 						<p:commandButton id="addButton" value="Kaydet"
-							actionListener="#{scheduleView.addEvent}"
+							actionListener="#{defaultAnaSayfaBean.addEvent}"
 							oncomplete="PF('myschedule').update();PF('eventDialog').hide();" />
 					</h:panelGrid>
 				</p:dialog>

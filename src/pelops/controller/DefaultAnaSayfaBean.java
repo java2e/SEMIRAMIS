@@ -75,7 +75,7 @@ public class DefaultAnaSayfaBean implements Serializable {
 	        return selectedGorev;
 	    }
 	 
-	    public void setSelectedCar(Gorev selectedGorev) {
+	    public void setSelectedGorev(Gorev selectedGorev) {
 	        this.selectedGorev = selectedGorev;
 	    }
 	     
@@ -102,10 +102,10 @@ public class DefaultAnaSayfaBean implements Serializable {
 	    	selectedGorev=new Gorev();
 	    	
 	    	eventModel = new DefaultScheduleModel();
-	        eventModel.addEvent(new DefaultScheduleEvent("Champions League Match", previousDay8Pm(), previousDay11Pm()));
-	        eventModel.addEvent(new DefaultScheduleEvent("Birthday Party", today1Pm(), today6Pm()));
-	        eventModel.addEvent(new DefaultScheduleEvent("Breakfast at Tiffanys", nextDay9Am(), nextDay11Am()));
-	        eventModel.addEvent(new DefaultScheduleEvent("Plant the new garden stuff", theDayAfter3Pm(), fourDaysLater3pm()));
+	        eventModel.addEvent(new DefaultScheduleEvent("Şampiyonlar Ligi Maçı", previousDay8Pm(), previousDay11Pm()));
+	        eventModel.addEvent(new DefaultScheduleEvent("Duygu Doğum Günü", today1Pm(), today6Pm()));
+	        eventModel.addEvent(new DefaultScheduleEvent("Öğlen Yemeği", nextDay9Am(), nextDay11Am()));
+	        eventModel.addEvent(new DefaultScheduleEvent("Haciz Dosyaları Planla", theDayAfter3Pm(), fourDaysLater3pm()));
 	         
 	        lazyEventModel = new LazyScheduleModel() {
 	             

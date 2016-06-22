@@ -17,6 +17,27 @@ public class Hesap {
 			alacak_kalemi4_alacak_kalem_adi, alacak_kalemi4_kalem_kod, alacak_kalemi5_kalem_kod_turu,
 			alacak_kalemi5_kalem_kod_aciklama, alacak_kalemi5_alacak_kalem_adi, alacak_kalemi5_kalem_kod;
 
+	String UrunAdi, UrunNo;
+	
+	
+	
+	
+	public String getUrunAdi() {
+		return UrunAdi;
+	}
+
+	public void setUrunAdi(String urunAdi) {
+		UrunAdi = urunAdi;
+	}
+
+	public String getUrunNo() {
+		return UrunNo;
+	}
+
+	public void setUrunNo(String urunNo) {
+		UrunNo = urunNo;
+	}
+
 	public String getAlacak_kalemi2_kalem_kod_turu() {
 		return alacak_kalemi2_kalem_kod_turu;
 	}

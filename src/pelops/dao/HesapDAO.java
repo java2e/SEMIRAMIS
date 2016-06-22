@@ -45,6 +45,8 @@ public class HesapDAO extends DBConnection {
 			hesap.setKalan_alacak(rs.getDouble("kalan_alacak"));
 			hesap.setTemerrut_faiz_orani(rs.getDouble("temerrut_faiz_orani"));
 			hesap.setAkdi_faiz_orani(rs.getDouble("akdi_faiz_orani"));
+			hesap.setUrunAdi(rs.getString("urun_adi"));
+			hesap.setUrunNo(rs.getString("urun_no"));
 
 		}
 		DB.disconnectDB();

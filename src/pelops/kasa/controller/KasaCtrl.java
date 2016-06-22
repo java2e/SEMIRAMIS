@@ -22,7 +22,9 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
 import net.sf.jasperreports.engine.export.JRPrintServiceExporterParameter;
 import pelops.controller.AktifBean;
+import pelops.dao.BaglantiDAO;
 import pelops.dao.BasvuruHarciDAO;
+import pelops.dao.HesapDAO;
 import pelops.dao.VekaletHarciDAO;
 import pelops.dao.VekaletSinirlariDAO;
 import pelops.kasa.model.Hitam;
@@ -295,19 +297,24 @@ public class KasaCtrl {
 		return reddiyat;
 	}
 
-	private PrintModel generatePrintModelFromTahsilat(TahsilatView view) {
+	private PrintModel generatePrintModelFromTahsilat(TahsilatView view) throws Exception {
 		PrintModel model = new PrintModel();
 		Date nowDate = new Date();
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 		SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy");
 		
+		HesapDAO hesapdao = new HesapDAO();
+		BaglantiDAO baglantidao = new BaglantiDAO();
+		int hesapID = baglantidao.BaglantiListele(view.getIcraDosyaId()).get(0).getHesaplamaID(); 
+		
 		NumberFormat priceFormat = NumberFormat.getCurrencyInstance();
+		
 		model.setSeri(yearFormat.format(nowDate));
 		model.setAlacakli(view.getMuvekkilAdi());
 		model.setBorclu(view.getBorcluAdi());
 		model.setDosyaNo(view.getIcraDosyaNo());
 		model.setMakbuzNo(String.valueOf(view.getId()));
-		model.setSebebi("...................................................................' NA AİT BORÇ");
+		model.setSebebi(hesapdao.Liste(hesapID).getUrunAdi()+ " "+ hesapdao.Liste(hesapID).getUrunNo());
 		model.setMiktari(priceFormat.format(view.getTahsilatMiktari())+" - "+ yaziyaCevir(view.getTahsilatMiktari()));
 		//model.setAdSoyad(view.getAdSoyad());
 		model.setTarih(dateFormat.format(nowDate)+ " - "+nowDate.getHours()+":"+ (nowDate.getMinutes()<10 ? "0"+nowDate.getMinutes(): nowDate.getMinutes()));
@@ -365,7 +372,7 @@ public class KasaCtrl {
 		return model;
 	}
 
-	private JasperPrint generateTahsilatMakbuzu(TahsilatView view) throws JRException {
+	private JasperPrint generateTahsilatMakbuzu(TahsilatView view) throws Exception {
 		PrintModel model = generatePrintModelFromTahsilat(view);
 		JasperPrint jasperPrint = null;
 		ArrayList<PrintModel> list = new ArrayList<>();

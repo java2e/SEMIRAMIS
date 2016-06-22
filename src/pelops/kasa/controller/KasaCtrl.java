@@ -76,6 +76,8 @@ public class KasaCtrl {
 		tahsilat.setIzleme_id(model.getIzleme_id());
 		tahsilat.setVizit_id(model.getVizit_id());
 		tahsilat.setOdemeplani_id(model.getOdemeplani_id());
+		tahsilat.setSoz_alan_personel_id(model.getSoz_alan_personel_id());
+		tahsilat.setTasilati_yapan(model.getPersonelAdi());
 		return tahsilat;
 	}
 
@@ -330,7 +332,7 @@ public class KasaCtrl {
         kusuronlar = (kusurat /   10) % 10;
         kusurbirler = kusurat %10;
         
-        String[] birlik = { "Sıfır", "Bir", "İki", "Üç", "Dört", "Beş", "Altı", "Yedi", "Sekiz", 
+        String[] birlik = { "", "Bir", "İki", "Üç", "Dört", "Beş", "Altı", "Yedi", "Sekiz", 
                             "Dokuz" }; 
         String[] onluk  = { "", "On ", "Yirmi ", "Otuz ", "Kırk ", "Elli ", "Altmış ", "Yetmiş ", 
                             "Seksen ", "Doksan " }; 

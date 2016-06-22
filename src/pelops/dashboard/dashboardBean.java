@@ -1,12 +1,15 @@
 package pelops.dashboard;
 
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
+import pelops.dao.HedefDAO;
 import pelops.users.Takim;
 import pelops.users.TakimDAO;
 import pelops.users.TakimKullanici;
@@ -22,8 +25,13 @@ public class dashboardBean {
 	private bankaTutarModel Gunluk = new bankaTutarModel();
 	private bankaTutarModel Aylık = new bankaTutarModel();
 	private bankaTutarModel GenleToplam = new bankaTutarModel();
-
-	public dashboardBean() {
+	
+	private SimpleDateFormat yearsFormat = new SimpleDateFormat("yyyy");
+	private SimpleDateFormat mountsFormat = new SimpleDateFormat("MM");
+	
+	private SimpleDateFormat fullDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+	private Date nowDate = new Date();
+	public dashboardBean() throws Exception {
 
 		dashboardModels models = new dashboardModels();
 		models.setTakimAdi("KAPLANLAR TAKIMI");
@@ -147,14 +155,21 @@ public class dashboardBean {
 	}
 	
 
-	public void veriListele(){
+	public void veriListele() throws Exception{
 		UserDAO userdao = new UserDAO();
-		
+		int yil = Integer.parseInt(yearsFormat.format(nowDate));
+		int ay = Integer.parseInt(mountsFormat.format(nowDate));
+		HedefDAO hedefler = new HedefDAO();
 		// Takım listesini alalım
 		TakimDAO takimdao = new TakimDAO();
+		tahsilatDAO tahsilatdao = new tahsilatDAO();
 		for (Takim items : takimdao.getTakimList()) {
 			dashboardModels models = new dashboardModels();
 			models.setTakimAdi(items.getTakimAdi());
+			System.out.println("-------------------------------------------");
+			System.out.println("-------------------------------------------");
+			
+			
 			System.out.println(items.getTakimAdi());
 			System.out.println("--------------------------------------");
 			// Personel Listesi
@@ -162,12 +177,35 @@ public class dashboardBean {
 				dashboardPersonelModel personelmodel = new dashboardPersonelModel();
 				//System.out.println(itemsTK.getKullaniciId()); 
 				personelmodel.setPersonelAdi(userdao.selectById(itemsTK.getKullaniciId()).getUsrAdSoyad());
+				System.out.println(personelmodel.getPersonelAdi());
+				System.out.println("------------------------ Hedefler --------------");
 				
-				System.out.println(personelmodel.getPersonelAdi()); 
+				for (int i = 0; i < hedefler.Listele(yil, ay).size(); i++) {
+					//System.out.println("Hedef id = "+ hedefler.Listele(yil, ay).get(i).getUser_id());
+					//System.out.println("takim id...:"+itemsTK.getKullaniciId());
+					if(hedefler.Listele(yil, ay).get(i).getPersonel_id()==itemsTK.getKullaniciId()){
+						System.out.println(hedefler.Listele(yil, ay).get(i).getMuvekkil_adi()+
+									" - "+ hedefler.Listele(yil, ay).get(i).getAylikHedefTL()+
+									" - "+ hedefler.Listele(yil, ay).get(i).getGunlukHedefTL()
+								);
+						
+					}
+				}
+				System.out.println("---------------------------------------------");
+				System.out.println("---------------- TAHİSLATLAR  ----------------");
+				for (int i = 0; i < tahsilatdao.Listele().size(); i++) {
+					if(tahsilatdao.Listele().get(i).getSoz_alan_personel_id()==itemsTK.getKullaniciId()){
+						System.out.println("Müvekkil Adı...:"+ tahsilatdao.Listele().get(i).getMuvekkil_adi());
+						System.out.println(i+". tahilat :"+tahsilatdao.Listele().get(i).getOdemeMiktari());	
+					}
+					
+				}
+				System.out.println("");
+				System.out.println("");
 				
 			}
 			System.out.println("00000000000000000000000000000000000000000000000");
-			
+			System.out.println("");
 		}
 		
 	}

@@ -25,8 +25,27 @@ public class TahsilatViewModel {
 	private int vizit_id;
 	private int odemeplani_id;
 	
+	private int soz_alan_personel_id;
+	
+	private String muvekkil_adi;
 	
 	
+
+	public String getMuvekkil_adi() {
+		return muvekkil_adi;
+	}
+
+	public void setMuvekkil_adi(String muvekkil_adi) {
+		this.muvekkil_adi = muvekkil_adi;
+	}
+
+	public int getSoz_alan_personel_id() {
+		return soz_alan_personel_id;
+	}
+
+	public void setSoz_alan_personel_id(int soz_alan_personel_id) {
+		this.soz_alan_personel_id = soz_alan_personel_id;
+	}
 
 	public int getIzleme_id() {
 		return izleme_id;

@@ -549,8 +549,10 @@ public class KasaBean {
 		bilgiTahsilat.setOdemeplani_id(tahsilat.getOdemeplani_id());
 		bilgiTahsilat.setVizit_id(tahsilat.getVizit_id());
 		bilgiTahsilat.setTahsilat_tarihi(new Date());
-		bilgiTahsilat.setTasilati_yapan(usersbilgi.getUser().getUsrName());
+		bilgiTahsilat.setKasa_islemini_yapan(usersbilgi.getUser().getUsrName());
+		bilgiTahsilat.setSoz_alan_personel_id(tahsilat.getSoz_alan_personel_id());
 		
+		bilgiTahsilat.setTasilati_yapan(tahsilat.getTasilati_yapan());
 		RequestContext.getCurrentInstance().execute("PF('frmtahsilatyap').show();");
 		 
 		try {
@@ -626,7 +628,9 @@ try{
 		bilgiTahsilat.setMusteriNo(AktifBean.getMusteriNo());
 		bilgiTahsilat.setIcra_dosyasi_id(AktifBean.getIcraDosyaID());
 		bilgiTahsilat.setMuvekkil_adi(AktifBean.getMuvekkilAdi());
+		bilgiTahsilat.setKasa_islemini_yapan(usersbilgi.getUser().getUsrName());
 		bilgiTahsilat.setTasilati_yapan(usersbilgi.getUser().getUsrName());
+		
 		bilgiTahsilat.setTahsilat_tarihi(new Date());
 	}
 

@@ -58,6 +58,7 @@ public class ViewDAO extends DBConnection {
 			model.setPersonelAdi(rs.getString("user"));
 			model.setIcraDosyaNo(rs.getString("icra_dosya_no"));
 			model.setIzleme_id(rs.getInt("id"));
+			model.setSoz_alan_personel_id(rs.getInt("personel_id"));
 			
 			list.add(model);
 		}
@@ -91,6 +92,8 @@ public class ViewDAO extends DBConnection {
 					model.setHangiView("Izleme Bilgisi");
 					model.setIcraDosyaID(rs.getInt("icra_dosyasi_id"));
 					model.setIzleme_id(rs.getInt("id"));
+					model.setPersonelAdi(rs.getString("user"));
+					model.setSoz_alan_personel_id(rs.getInt("personel_id"));
 				}
 				disconnectDB();
 
@@ -127,6 +130,8 @@ public class ViewDAO extends DBConnection {
 					model.setHangiView("Izleme Bilgisi");
 					model.setIcraDosyaID(rs.getInt("icra_dosyasi"));
 					model.setVizit_id(rs.getInt("id"));
+					model.setPersonelAdi(rs.getString("user"));
+					model.setSoz_alan_personel_id(rs.getInt("personel_id"));
 				}
 				disconnectDB();
 			}
@@ -206,6 +211,7 @@ public class ViewDAO extends DBConnection {
 			model.setIcraDosyaID(rs.getInt("icra_dosyasi"));
 			model.setIcraDosyaNo(rs.getString("icra_dosya_no"));
 			model.setVizit_id(rs.getInt("id"));
+			model.setSoz_alan_personel_id(rs.getInt("personel_id"));
 			if (model.getIcraDosyaID() != 0) {
 				list.add(model);
 			}

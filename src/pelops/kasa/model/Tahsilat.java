@@ -31,9 +31,18 @@ public class Tahsilat {
 	private int izleme_id;
 	private int vizit_id;
 	private int odemeplani_id;
+	private int soz_alan_personel_id;
 	
 	
 	
+
+	public int getSoz_alan_personel_id() {
+		return soz_alan_personel_id;
+	}
+
+	public void setSoz_alan_personel_id(int soz_alan_personel_id) {
+		this.soz_alan_personel_id = soz_alan_personel_id;
+	}
 
 	public int getIzleme_id() {
 		return izleme_id;

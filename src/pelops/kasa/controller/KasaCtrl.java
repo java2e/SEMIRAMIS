@@ -62,7 +62,7 @@ public class KasaCtrl {
 	}
 
 	public ArrayList<TahsilatView> getTahsilatViewForStatus(int durum) throws Exception {
-		return viewDAO.getAllTahsilatFromView(durum);
+		return viewDAO.getAllTahsilatFromView(durum,null,null);
 	}
 
 	public Tahsilat secilenModeliGetir(String id) throws Exception {
@@ -202,14 +202,14 @@ public class KasaCtrl {
 	 * Arraylist<TahsilatView> tahsilatListesi = (Arraylist<TahsilatView>)list;
 	 */
 	@SuppressWarnings("rawtypes")
-	public List getListefromView(int status, int obj, Integer kimegore) throws Exception {
+	public List getListefromView(int status, int obj, Integer kimegore, Date date1, Date date2) throws Exception {
 		if (obj == 1) {
 
-			return viewDAO.getAllTahsilatFromView(status);
+			return viewDAO.getAllTahsilatFromView(status,date1,date2);
 		} else if (obj == 2) {
 			return viewDAO.getAllHitamFromView(status);
 		} else {
-			return viewDAO.getAllReddiyatFromView(status, kimegore);
+			return viewDAO.getAllReddiyatFromView(status, kimegore,date1,date2);
 		}
 
 	}
@@ -457,7 +457,7 @@ public class KasaCtrl {
 		ArrayList<TahsilatViewModel> list2 = new ArrayList<>();
 		ArrayList<TahsilatView> tahsilatViews;
 		try {
-			tahsilatViews = (ArrayList<TahsilatView>) getListefromView(1, 1, null);
+			tahsilatViews = (ArrayList<TahsilatView>) getListefromView(1, 1, null,null,null);
 			for (TahsilatViewModel tahsilatViewModel : list) {
 				if (checkTahsilat(tahsilatViewModel, tahsilatViews)) {
 					list2.add(tahsilatViewModel);

@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -158,6 +159,7 @@ public class ViewDAO extends DBConnection {
 		} else {
 			fullSQL = SQL + fullSQL + ";";
 		}
+		
 		newConnectDB();
 		Statement stm = conn.createStatement();
 		ResultSet rs = stm.executeQuery(fullSQL);
@@ -341,12 +343,12 @@ public class ViewDAO extends DBConnection {
 	}
 
 	// kimeGore: 1:sasa, 2: muvekkil, 3: devlet
-	public ArrayList<ReddiyatView> getAllReddiyatFromView(int status, Integer kimeGore) throws Exception {
+	public ArrayList<ReddiyatView> getAllReddiyatFromView(int status, Integer kimeGore, Date date1, Date date2) throws Exception {
 		ArrayList<ReddiyatView> list = new ArrayList<ReddiyatView>();
 		String sql = "SELECT id, tahsilat_id, kasa_personel_id, onaylayan_id, sasa_reddiyat_tutar, "
 				+ "devlet_reddiyat_tutar, muvekkil_reddiyat_tutar, sasa_durum, devlet_durum, "
 				+ " muvekkil_adi, borclu_adi, icra_dosyasi_id, icra_dosya_no, ad_soyad, "
-				+ " muvekkil_durum, toplam_tutar, tarih " + " FROM vwreddiyat where sasa_durum=" + status + ";";
+				+ " muvekkil_durum, toplam_tutar, tarih " + " FROM vwreddiyat where sasa_durum=" + status ;
 
 		if (kimeGore != null) {
 			switch (kimeGore) {
@@ -357,25 +359,28 @@ public class ViewDAO extends DBConnection {
 				sql = "SELECT id, tahsilat_id, kasa_personel_id, onaylayan_id, sasa_reddiyat_tutar, "
 						+ "devlet_reddiyat_tutar, muvekkil_reddiyat_tutar, sasa_durum, devlet_durum, "
 						+ " muvekkil_adi, borclu_adi, icra_dosyasi_id, icra_dosya_no, ad_soyad, "
-						+ " muvekkil_durum, toplam_tutar, tarih " + " FROM vwreddiyat where muvekkil_durum=" + status
-						+ ";";
+						+ " muvekkil_durum, toplam_tutar, tarih " + " FROM vwreddiyat where muvekkil_durum=" + status;
 				break;
 			case 3:
 				sql = "SELECT id, tahsilat_id, kasa_personel_id, onaylayan_id, sasa_reddiyat_tutar, "
 						+ "devlet_reddiyat_tutar, muvekkil_reddiyat_tutar, sasa_durum, devlet_durum, "
 						+ " muvekkil_adi, borclu_adi, icra_dosyasi_id, icra_dosya_no, ad_soyad, "
-						+ " muvekkil_durum, toplam_tutar,tarih " + " FROM vwreddiyat where devlet_durum=" + status
-						+ ";";
+						+ " muvekkil_durum, toplam_tutar,tarih " + " FROM vwreddiyat where devlet_durum=" + status;
 				break;
 
 			default:
 				break;
 			}
 		}
-
+		String	fullSQL=sql;
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		if (date1 != null && date2 != null) {
+		fullSQL = sql+ " and tarih between '" + format.format(date1) + "' and '" + format.format(date2) + "'";
+		}
+		
 		newConnectDB();
 		Statement stm = conn.createStatement();
-		ResultSet rs = stm.executeQuery(sql);
+		ResultSet rs = stm.executeQuery(fullSQL);
 		while (rs.next()) {
 			ReddiyatView view = new ReddiyatView();
 			view.setId(rs.getInt("id"));
@@ -442,18 +447,27 @@ public class ViewDAO extends DBConnection {
 		return view;
 	}
 
-	public ArrayList<TahsilatView> getAllTahsilatFromView(int status) throws Exception {
+	public ArrayList<TahsilatView> getAllTahsilatFromView(int status, Date date1, Date date2) throws Exception {
 		ArrayList<TahsilatView> list = new ArrayList<TahsilatView>();
 
 		String sql = "SELECT id, icra_dosyasi_id, muvekkil_adi, borclu_adi, gelis_tarihi, "
 				+ "borc_tipi, tahsilat_tarihi, tahsilat_tipi, tahsilat_miktari, "
 				+ "tahsilat_statusu, durum, gelis_yeri, onaylayan_id, kasa_personel_id, "
-				+ "ad_soyad, dosya_tipi, icra_dosya_no, icra_mudurlugu,izleme_id , vizit_id , odemeplani_id " + " FROM vwtahsilat where durum =" + status
-				+ ";";
+				+ "ad_soyad, dosya_tipi, icra_dosya_no, icra_mudurlugu,izleme_id , vizit_id , odemeplani_id " + " FROM vwtahsilat where durum =" + status;
+		
+		String fullSQL=sql;
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		
+		if(date1!=null || date2!=null){
+		
+			fullSQL = sql +" and tahsilat_tarihi BETWEEN '"+format.format(date1)+"' AND '"+format.format(date2)+"' ";
+			
+		}
+		
 		newConnectDB();
 		
 		Statement stm = conn.createStatement();
-		ResultSet rs = stm.executeQuery(sql);
+		ResultSet rs = stm.executeQuery(fullSQL);
 		while (rs.next()) {
 			TahsilatView view = new TahsilatView();
 			view.setId(rs.getInt("id"));

@@ -54,6 +54,8 @@ public class KasaBean {
 	SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 	FacesContext context = FacesContext.getCurrentInstance();
 	
+	
+	
 	private boolean hitam=true, tahsilat=false, makbuz=true;
 	
 	
@@ -64,7 +66,7 @@ public class KasaBean {
 	private ArrayList<DetayliArama> detayliAramaListesi = new ArrayList<DetayliArama>();
 	private ArrayList<DetayliArama> filterDetayliAramaListesi = new ArrayList<>();
 	private Tahsilat bilgiTahsilat = new Tahsilat();
-	private Date baslangicTarihi, bitisTarihi, olddatenew, enddatenew;
+	private Date baslangicTarihi = new Date(), bitisTarihi= DateUtils.addMonths(new Date(), 1), olddatenew, enddatenew;
 	private ArrayList<TahsilatViewModel> tahsilatYapilacakListe = new ArrayList<TahsilatViewModel>();
 	
 	private IcraDosyaIslemleriBean icdb; 
@@ -94,6 +96,8 @@ public class KasaBean {
 
 	private String Ay, gun;
 
+	
+	
 	
 	
 
@@ -895,24 +899,22 @@ try{
 		HttpSession session = Util.getSession();
 
 		bilgiTahsilat.setKasa_islemini_yapan(((User) session.getAttribute("user")).getUsrAdSoyad());
-		baslangicTarihi = new Date();
-		Date tson = DateUtils.addMonths(new Date(), 1);
-		bitisTarihi = tson;
-
+		
+		
 		tahsilatYapilacakListe=controller.getListeFromViewsForTahsilatIslemi(baslangicTarihi, bitisTarihi);
 		
-		reddiyatListesi = (ArrayList<ReddiyatView>) controller.getListefromView(0, 3, 1);
-		reddiyatListesi.addAll(controller.getListefromView(0, 3, 2));
-		reddiyatListesi.addAll(controller.getListefromView(0, 3, 3));
+		reddiyatListesi = (ArrayList<ReddiyatView>) controller.getListefromView(0, 3, 1,null,null);
+		reddiyatListesi.addAll(controller.getListefromView(0, 3, 2,null,null));
+		reddiyatListesi.addAll(controller.getListefromView(0, 3, 3,null,null));
 
 		reddiyatListesi = returnReddiyatview(reddiyatListesi);
 
 		ViewDAO viewdao = new ViewDAO();
-		tahsilatYapilmisListe = (ArrayList<TahsilatView>) controller.getListefromView(1, 1, null);
+		tahsilatYapilmisListe = (ArrayList<TahsilatView>) controller.getListefromView(1, 1, null,baslangicTarihi,bitisTarihi);
 		
-		reddiyatYapilmisListe = (ArrayList<ReddiyatView>) controller.getListefromView(1, 3, 1);
-		reddiyatYapilmisListe.addAll(controller.getListefromView(1, 3, 2));
-		reddiyatYapilmisListe.addAll(controller.getListefromView(1, 3, 3));
+		reddiyatYapilmisListe = (ArrayList<ReddiyatView>) controller.getListefromView(1, 3, 1,baslangicTarihi,bitisTarihi);
+		reddiyatYapilmisListe.addAll(controller.getListefromView(1, 3, 2,baslangicTarihi,bitisTarihi));
+		reddiyatYapilmisListe.addAll(controller.getListefromView(1, 3, 3,baslangicTarihi,bitisTarihi));
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy");
 		String dateInString = "01-01-1900";

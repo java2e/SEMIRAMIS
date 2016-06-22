@@ -99,7 +99,7 @@ style="position: absolute; background-color: rgba(0, 0, 0, 0.6); height: 256px; 
 																  
 <p:outputLabel value="    BİTİŞ TARİHİ : #{kasaBean.tali}"/> <p:calendar id="multi1"  pages="3" value="#{kasaBean.bitisTarihi}" />
 																	
-<p:commandButton value="Listele"  update=":kasaForm:tabviewlist:tblaktifodeme" actionListener="#{kasaBean.sayfaGuncelle()}"/>
+<p:commandButton value="Listele"  update=":kasaForm:tabviewlist" action="#{kasaBean.sayfaGuncelle()}"/>
 
 
 </p:panelGrid>
@@ -212,6 +212,10 @@ style="position: absolute; background-color: rgba(0, 0, 0, 0.6); height: 256px; 
 			<p:column headerText="Muvekkil" width="5%"  sortBy="#{hb.muvekkilReddiyatTutarTL}">
 				<h:outputText value="#{hb.muvekkilReddiyatTutarTL}" />
 			</p:column>
+			<p:column headerText="Tahsilat Tarihi" width="10%"  sortBy="#{hb.tarih}">
+				<h:outputText value="#{hb.tarih}" />
+			</p:column>
+			
 			<p:column headerText="Sasa" width="5%"  sortBy="#{hb.sasaReddiyatTutarTL}">
 				<h:outputText value="#{hb.sasaReddiyatTutarTL}" />
 			</p:column>

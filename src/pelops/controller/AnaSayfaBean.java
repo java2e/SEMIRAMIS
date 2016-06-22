@@ -19,7 +19,7 @@ public class AnaSayfaBean {
 	FacesContext context = FacesContext.getCurrentInstance();
 	public AnaSayfaBean() {
 
-		formPath = "frm_anasayfa_default.xhtml";
+		formPath = "frm_rapor_dashboard.xhtml";
 
 		tanimlar=new Tanimlar();
 		
@@ -347,6 +347,9 @@ public class AnaSayfaBean {
 				break;
 			case 1011:
 				formPath = "frm_dosya_chronology.xhtml";
+				break;
+			case 1012:
+				formPath = "frm_hedef.xhtml";
 				break;
 			
 			

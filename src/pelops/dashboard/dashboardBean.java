@@ -21,12 +21,14 @@ import pelops.users.UserDAO;
 @SessionScoped
 public class dashboardBean {
 
-	private ArrayList<dashboardModels> DashBorad = new ArrayList<dashboardModels>();
-	private ArrayList<dashboardModels> DashBoradFaces = new ArrayList<dashboardModels>();
+	private ArrayList<dashboardModels> DashBorad;
+	private ArrayList<dashboardModels> DashBoradFaces ;
 
 	private SimpleDateFormat yearsFormat = new SimpleDateFormat("yyyy");
 	private SimpleDateFormat mountsFormat = new SimpleDateFormat("MM");
 	private SimpleDateFormat fullDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+	private SimpleDateFormat fullXDateFormat = new SimpleDateFormat("dd MMMM yyyy EEEE");
+	
 	private Date nowDate = new Date();
 	
 
@@ -38,13 +40,25 @@ public class dashboardBean {
 	private bankaTutarModel aylik = new bankaTutarModel();
 	private bankaTutarModel genelToplam = new bankaTutarModel();
 	
+	private String tarih;
 	
 	
 	public dashboardBean() throws Exception {
+		DashBorad = new ArrayList<dashboardModels>();
+		DashBoradFaces = new ArrayList<dashboardModels>();
+				
 	takimtanimla();
 	veriListele();
 	aktar();
 		
+	tarih = fullXDateFormat.format(nowDate);
+	
+	for (int i = 0; i < DashBoradFaces.size(); i++) {
+		System.out.println(DashBoradFaces.get(i).getTakimAdi());
+		System.out.println("Personel Adı...:"+ DashBoradFaces.get(i).getPersonel().get(0).getPersonelAdi());
+		System.out.println("gümlük tutar....:"+ DashBoradFaces.get(i).getPersonel().get(0).getBankamodel().getHSBC());
+	
+	}
 	
 	
 	}
@@ -205,30 +219,33 @@ public class dashboardBean {
 			aylik.setGARANTIaylik(aylik.getGARANTIaylik()+tutartakim.getGARANTIaylik());
 			aylik.setINGaylik(aylik.getINGaylik()+tutartakim.getINGaylik());
 			
+		//	DashBoradFaces.get(0).getBankaTutarModel().getHSBC();
+		//	DashBoradFaces.get(0).getBankaTutarModel().getYuzdeHSBC();
 			
+			//DashBoradFaces.get(0).getPersonel().get(0).getPersonelAdi()
 			
 		}
 	
-	
-		System.out.println("---------------- "+DashBorad.get(0).getTakimAdi()+" ----------------");
-		System.out.println("---------------------------------------------------------------------");
-		System.out.println("");
-		System.out.println("Personel Adı........: "+ DashBorad.get(0).getPersonel().get(0).getPersonelAdi());
-		System.out.println("HSBC GÜNLÜK HEDEF....:"+ DashBorad.get(0).getPersonel().get(0).getBankamodel().getHedefHSBC());
-		System.out.println("HSBC AYLIK HEDEF....:"+ DashBorad.get(0).getPersonel().get(0).getBankamodel().getHedefHSBCaylik());
-		System.out.println("HSBC GÜNLÜK TOPLAM....:"+ DashBorad.get(0).getPersonel().get(0).getBankamodel().getHSBC());
-		System.out.println("");
-		System.out.println("Personel Adı........: "+ DashBorad.get(0).getPersonel().get(1).getPersonelAdi());
-		System.out.println("HSBC GÜNLÜK HEDEF....:"+ DashBorad.get(0).getPersonel().get(1).getBankamodel().getHedefHSBC());
-		System.out.println("HSBC AYLIK HEDEF....:"+ DashBorad.get(0).getPersonel().get(1).getBankamodel().getHedefHSBCaylik());
-		System.out.println("HSBC GÜNLÜK TOPLAM....:"+ DashBorad.get(0).getPersonel().get(1).getBankamodel().getHSBC());
-		System.out.println("");
-		System.out.println("Personel Adı........: "+ DashBorad.get(0).getPersonel().get(2).getPersonelAdi());
-		System.out.println("HSBC GÜNLÜK HEDEF....:"+ DashBorad.get(0).getPersonel().get(2).getBankamodel().getHedefHSBC());
-		System.out.println("HSBC AYLIK HEDEF....:"+ DashBorad.get(0).getPersonel().get(2).getBankamodel().getHedefHSBCaylik());
-		System.out.println("HSBC GÜNLÜK TOPLAM....:"+ DashBorad.get(0).getPersonel().get(2).getBankamodel().getHSBC());
-		
-		
+//	
+//		System.out.println("---------------- "+DashBorad.get(0).getTakimAdi()+" ----------------");
+//		System.out.println("---------------------------------------------------------------------");
+//		System.out.println("");
+//		System.out.println("Personel Adı........: "+ DashBorad.get(0).getPersonel().get(0).getPersonelAdi());
+//		System.out.println("HSBC GÜNLÜK HEDEF....:"+ DashBorad.get(0).getPersonel().get(0).getBankamodel().getHedefHSBC());
+//		System.out.println("HSBC AYLIK HEDEF....:"+ DashBorad.get(0).getPersonel().get(0).getBankamodel().getHedefHSBCaylik());
+//		System.out.println("HSBC GÜNLÜK TOPLAM....:"+ DashBorad.get(0).getPersonel().get(0).getBankamodel().getHSBC());
+//		System.out.println("");
+//		System.out.println("Personel Adı........: "+ DashBorad.get(0).getPersonel().get(1).getPersonelAdi());
+//		System.out.println("HSBC GÜNLÜK HEDEF....:"+ DashBorad.get(0).getPersonel().get(1).getBankamodel().getHedefHSBC());
+//		System.out.println("HSBC AYLIK HEDEF....:"+ DashBorad.get(0).getPersonel().get(1).getBankamodel().getHedefHSBCaylik());
+//		System.out.println("HSBC GÜNLÜK TOPLAM....:"+ DashBorad.get(0).getPersonel().get(1).getBankamodel().getHSBC());
+//		System.out.println("");
+//		System.out.println("Personel Adı........: "+ DashBorad.get(0).getPersonel().get(2).getPersonelAdi());
+//		System.out.println("HSBC GÜNLÜK HEDEF....:"+ DashBorad.get(0).getPersonel().get(2).getBankamodel().getHedefHSBC());
+//		System.out.println("HSBC AYLIK HEDEF....:"+ DashBorad.get(0).getPersonel().get(2).getBankamodel().getHedefHSBCaylik());
+//		System.out.println("HSBC GÜNLÜK TOPLAM....:"+ DashBorad.get(0).getPersonel().get(2).getBankamodel().getHSBC());
+//		
+//		
 		
 		
 	}
@@ -244,7 +261,7 @@ public class dashboardBean {
 		for (int i = 0; i < 6; i++) {
 			dashboardModels takim = new dashboardModels();
 			ArrayList<dashboardPersonelModel> personelListesi = new ArrayList<>();
-			for (int j = 0; j < 6 ; j++) {
+			for (int j = 0; j < 8 ; j++) {
 				dashboardPersonelModel personel = new dashboardPersonelModel();
 				bankaTutarModel bankaPersonelBilgi = new bankaTutarModel();
 				personel.setBankamodel(bankaPersonelBilgi);
@@ -271,11 +288,12 @@ public class dashboardBean {
 			DashBoradFaces.get(i).setDurum(true);
 			DashBoradFaces.get(i).setTakimAdi(DashBorad.get(i).getTakimAdi());
 			DashBoradFaces.get(i).setTakimResmi(DashBorad.get(i).getTakimResmi());
+			
 			for (int j = 0; j < DashBorad.get(i).getPersonel().size(); j++) {
 				DashBoradFaces.get(i).getPersonel().get(j).setBankamodel(DashBorad.get(i).getPersonel().get(j).getBankamodel());
+				
 				DashBoradFaces.get(i).getPersonel().get(j).setDurum(true);
 				DashBoradFaces.get(i).getPersonel().get(j).setPersonelAdi(DashBorad.get(i).getPersonel().get(j).getPersonelAdi());
-				
 				
 			}
 			
@@ -378,6 +396,16 @@ public class dashboardBean {
 
 	public void setAylik(bankaTutarModel aylik) {
 		this.aylik = aylik;
+	}
+
+
+	public String getTarih() {
+		return tarih;
+	}
+
+
+	public void setTarih(String tarih) {
+		this.tarih = tarih;
 	}
 
 	

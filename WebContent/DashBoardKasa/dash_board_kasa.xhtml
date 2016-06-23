@@ -48,7 +48,7 @@
 						<table class="table table-condensed">
 							<tr>
 								<td>HSBC</td>
-								
+							
 								<td>#{dashBoardBean.hedeflerAylik.hedefHSBCaylik}</td>
 							
 							</tr>
@@ -75,7 +75,7 @@
 						<table class="table table-condensed">
 							<tr>
 								<td>HSBC</td>
-								<p:outputLabel value="#{dashBoardBean.aylik.yuzdeAKBANKaylik}"></p:outputLabel>
+								
 								<td>#{dashBoardBean.aylik.HSBCaylik}</td>
 								<td><span class="badge bg-red">#{dashBoardBean.aylik.yuzdeHSBCaylik}%</span></td>
 							</tr>
@@ -112,7 +112,7 @@
 
 					<div class="col-md-9">
 						<center>
-							<h3>09 Haziran 2016 Perşembe</h3>
+							<h3>#{dashBoardBean.tarih}</h3>
 						</center>
 
 						<br /> <br /> <br /> <br />
@@ -125,25 +125,26 @@
 						<table class="table table-condensed">
 							<tr>
 								<td>HSBC</td>
-								<td><p:outputLabel value="#{dashBoardBean.gunluk.HSBC}"></p:outputLabel>
+								
+								<td>#{dashBoardBean.gunluk.HSBC}
 								</td>
 								<td><span class="badge bg-red">#{dashBoardBean.gunluk.yuzdeHSBC}%</span></td>
 							</tr>
 							<tr>
 								<td>AKBANK</td>
-								<td><p:outputLabel value="#{dashBoardBean.gunluk.AKBANK}"></p:outputLabel>
+								<td>#{dashBoardBean.gunluk.AKBANK}
 								</td>
 								<td><span class="badge bg-yellow">#{dashBoardBean.gunluk.yuzdeAKBANK}%</span></td>
 							</tr>
 							<tr>
 								<td>GARANTİ</td>
-								<td><p:outputLabel value="#{dashBoardBean.gunluk.GARANTI}"></p:outputLabel>
+								<td>#{dashBoardBean.gunluk.GARANTI}
 								</td>
 								<td><span class="badge bg-green">#{dashBoardBean.gunluk.yuzdeGARANTI}%</span></td>
 							</tr>
 							<tr>
 								<td>ING</td>
-								<td><p:outputLabel value="#{dashBoardBean.gunluk.AKBANK}"></p:outputLabel>
+								<td>#{dashBoardBean.gunluk.ING}
 								</td>
 								<td><span class="badge bg-blue">#{dashBoardBean.gunluk.yuzdeING}%</span></td>
 							</tr>
@@ -171,28 +172,25 @@
 						<table class="table table-condensed">
 							<tr>
 								<td>HSBC</td>
-								<td><p:outputLabel
-										value="#{dashBoardBean.genleToplam.HSBC}"></p:outputLabel></td>
-								<td><span class="badge bg-red">#{dashBoardBean.genleToplam.yuzdeHSBC}%</span></td>
+								<td>#{dashBoardBean.genelToplam.HSBC}</td>
+								<td><span class="badge bg-red">#{dashBoardBean.genelToplam.yuzdeHSBC}%</span></td>
 							</tr>
 							<tr>
 								<td>AKBANK</td>
-								<td><p:outputLabel
-										value="#{dashBoardBean.genleToplam.AKBANK}"></p:outputLabel></td>
-								<td><span class="badge bg-yellow">#{dashBoardBean.genleToplam.yuzdeAKBANK}%</span></td>
+								<td>#{dashBoardBean.genelToplam.AKBANK}</td>
+								<td><span class="badge bg-yellow">#{dashBoardBean.genelToplam.yuzdeAKBANK}%</span></td>
 							</tr>
 							<tr>
 								<td>GARANTİ</td>
-								<td><p:outputLabel
-										value="#{dashBoardBean.genleToplam.GARANTI}"></p:outputLabel>
+								<td>#{dashBoardBean.genelToplam.GARANTI}
 								</td>
-								<td><span class="badge bg-green">#{dashBoardBean.genleToplam.yuzdeGARANTI}%</span></td>
+								<td><span class="badge bg-green">#{dashBoardBean.genelToplam.yuzdeGARANTI}%</span></td>
 							</tr>
 							<tr>
 								<td>ING</td>
-								<td><p:outputLabel value="#{dashBoardBean.genleToplam.ING}"></p:outputLabel>
+								<td>#{dashBoardBean.genelToplam.ING}
 								</td>
-								<td><span class="badge bg-blue">#{dashBoardBean.genleToplam.yuzdeING}%</span></td>
+								<td><span class="badge bg-blue">#{dashBoardBean.genelToplam.yuzdeING}%</span></td>
 							</tr>
 						</table>
 
@@ -205,6 +203,11 @@
 			<!-- ./col -->
 
 		</div>
+
+
+
+		<!--   BU ALANDA ÇEKTİĞİM YERLER GELMİYOR  BAŞLANGIÇ -->
+
 
 		<!--     Resimli OLAN TAG -->
 		<div class="col-md-4">
@@ -223,74 +226,75 @@
 							<tr>
 								<td>HSBC</td>
 								<td>
-									#{dashBoardBean.panelListesi.get(0).getBankaTutarModel().getHSBC()}
+									#{DashBoradFaces.get(0).getBankaTutarModel().getHSBC()}
 								</td>
-								<td><span class="badge bg-red">55%</span></td>
+								<td><span class="badge bg-red">#{DashBoradFaces.get(0).getBankaTutarModel().getYuzdeHSBC()}%</span></td>
 							</tr>
 							<tr>
 								<td>AKBANK</td>
 								<td>
-									#{dashBoardBean.panelListesi.get(0).getBankaTutarModel().getAKBANK()}
+									#{DashBoradFaces.get(0).getBankaTutarModel().getAKBANK()}
 								</td>
-								<td><span class="badge bg-yellow">70%</span></td>
+								<td><span class="badge bg-yellow">#{DashBoradFaces.get(0).getBankaTutarModel().getYuzdeAKBANK()}%</span></td>
 							</tr>
 							<tr>
 								<td>GARANTİ</td>
 								<td>
-									#{dashBoardBean.panelListesi.get(0).getBankaTutarModel().getGARANTI()}
+									#{DashBoradFaces.get(0).getBankaTutarModel().getGARANTI()}
 								</td>
-								<td><span class="badge bg-green">10%</span></td>
+								<td><span class="badge bg-green">#{DashBoradFaces.get(0).getBankaTutarModel().getYuzdeGARANTI()}%</span></td>
 							</tr>
 							<tr>
 								<td>ING</td>
 								<td>
-									#{dashBoardBean.panelListesi.get(0).getBankaTutarModel().getING()}
+									#{DashBoradFaces.get(0).getBankaTutarModel().getING()}
 								</td>
-								<td><span class="badge bg-blue">40%</span></td>
+								<td><span class="badge bg-blue">#{DashBoradFaces.get(0).getBankaTutarModel().getYuzdeING()}%</span></td>
 							</tr>
 						</table>
 					</div>
 
 					<div class="col-md-5">
 						<h3 class="widget-user-username" style="text-align: center;">
-							#{dashBoardBean.panelListesi.get(0).getTakimAdi()}</h3>
+							
+							#{DashBoradFaces.get(0).getTakimAdi()}</h3>
 					</div>
 
 					<div class="col-md-3">
-						<p:rating value="#{dashBoardBean.panelListesi.get(0).getStarRate()}" stars="7" cancel="false" onRate=""
+						<p:rating value="#{DashBoradFaces.get(0).getStarRate()}" stars="7" cancel="false" onRate=""
 							style="float:right" />
 					</div>
 
 				</div>
 				<div class="widget-user-image">
 
-					<img class="img-circle" src="../img/kartal.jpg" alt="User Avatar" />
+					<img class="img-circle" src="#{DashBoradFaces.get(0).getTakimResmi()}" alt="User Avatar" />
 
 
 				</div>
 				<div class="box-footer">
 
-
+																	
 					<div class="box-body no-padding">
 						<ul class="users-list clearfix">
 							<li><img src="../img/user1-128x128.jpg" alt="User Image" />
-								<a class="users-list-name" href="#">#{dashBoardBean.panelListesi.get(0).personel.get(0).getPersonelAdi()}</a>
+								<a class="users-list-name" href="#">#{DashBoradFaces.get(0).getPersonel().get(0).getPersonelAdi()}</a>
 
 							</li>
 							<li><img src="../img/user8-128x128.jpg" alt="User Image" />
-								<a class="users-list-name" href="#">#{dashBoardBean.panelListesi.get(0).personel.get(1).getPersonelAdi()}</a></li>
+								<a class="users-list-name" href="#">#{DashBoradFaces.get(0).getPersonel().get(1).getPersonelAdi()}</a></li>
 							<li><img src="../img/user7-128x128.jpg" alt="User Image" />
-								<a class="users-list-name" href="#">Melis MELİS</a></li>
+								<a class="users-list-name" href="#">#{DashBoradFaces.get(0).getPersonel().get(2).getPersonelAdi()}</a></li>
 							<li><img src="../img/user6-128x128.jpg" alt="User Image" />
-								<a class="users-list-name" href="#">Mehmet DEMİRÇİOĞLU</a></li>
+								<a class="users-list-name" href="#">#{DashBoradFaces.get(0).getPersonel().get(3).getPersonelAdi()}</a></li>
 							<li><img src="../img/user2-160x160.jpg" alt="User Image" />
-								<a class="users-list-name" href="#">Hakan KUZUDİŞLİ</a></li>
+								<a class="users-list-name" href="#">#{DashBoradFaces.get(0).getPersonel().get(4).getPersonelAdi()}</a></li>
 							<li><img src="../img/user5-128x128.jpg" alt="User Image" />
-								<a class="users-list-name" href="#">Sude SUDE</a></li>
+								<a class="users-list-name" href="#">#{DashBoradFaces.get(0).getPersonel().get(5).getPersonelAdi()}</a></li>
 							<li><img src="../img/user4-128x128.jpg" alt="User Image" />
-								<a class="users-list-name" href="#">Bengü BENGÜ</a></li>
+								<a class="users-list-name" href="#">#{DashBoradFaces.get(0).getPersonel().get(6).getPersonelAdi()}</a></li>
 							<li><img src="../img/user3-128x128.jpg" alt="User Image" />
-								<a class="users-list-name" href="#">Bahar BAHAR</a></li>
+								<a class="users-list-name" href="#">#{DashBoradFaces.get(0).getPersonel().get(7).getPersonelAdi()}</a></li>
 						</ul>
 
 					</div>
@@ -299,6 +303,19 @@
 			</div>
 
 		</div>
+		
+		
+		<!--     BU ALANDA ÇEKTİĞİM YERLER GELMİYOR  BİTİŞ -->
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		<div class="col-md-4">
 
 			<div class="box box-widget widget-user">
@@ -465,345 +482,7 @@
 		</div>
 
 
-		<!-- RAKAMSAL OAN TAG -->
-		<div class="col-md-4">
-
-			<div class="box box-widget widget-user">
-
-				<div class="widget-user-header bg-aqua-active">
-
-					<div class="col-md-4" style="float: left;">
-						<table class="table table-condensed">
-							<tr>
-								<th></th>
-								<th></th>
-								<th style="width: 40px"></th>
-							</tr>
-							<tr>
-								<td>HSBC</td>
-								<td>15.200 TL</td>
-								<td><span class="badge bg-red">55%</span></td>
-							</tr>
-							<tr>
-								<td>AKBANK</td>
-								<td>24.600 TL</td>
-								<td><span class="badge bg-yellow">70%</span></td>
-							</tr>
-							<tr>
-								<td>GARANTİ</td>
-								<td>4.600 TL</td>
-								<td><span class="badge bg-green">10%</span></td>
-							</tr>
-							<tr>
-								<td>AKBANK</td>
-								<td>2.600 TL</td>
-								<td><span class="badge bg-blue">40%</span></td>
-							</tr>
-						</table>
-					</div>
-
-					<div class="col-md-5">
-						<h3 class="widget-user-username" style="text-align: center;">
-							KAPLANLAR TAKIMI</h3>
-					</div>
-
-					<div class="col-md-3">
-						<p:rating value="4" stars="7" cancel="false" onRate=""
-							style="float:right" />
-					</div>
-
-				</div>
-				<div class="widget-user-image">
-
-					<img class="img-circle" src="../img/kaplan.jpg" alt="User Avatar" />
-
-
-				</div>
-				<div class="box-footer">
-					<div class="row">
-						<div class="col-sm-4 border-right">
-							<div class="description-block">
-								<h5 class="description-header">3.200,00 TL</h5>
-								<span class="description-text">İzleme Tutarı</span>
-							</div>
-
-						</div>
-
-						<div class="col-sm-4 border-right">
-							<div class="description-block">
-								<h5 class="description-header">2.100,00 TL</h5>
-								<span class="description-text">Gerçekleşen Ödeme</span>
-							</div>
-
-						</div>
-
-						<div class="col-sm-4">
-							<div class="description-block">
-								<h5 class="description-header">%72</h5>
-								<span class="description-text">Gerçekleşme Oranı</span>
-							</div>
-
-						</div>
-
-					</div>
-
-					<div class="row">
-						<div class="col-sm-4 border-right">
-							<div class="description-block">
-								<h5 class="description-header">3.200,00 TL</h5>
-								<span class="description-text">İzleme Tutarı</span>
-							</div>
-
-						</div>
-
-						<div class="col-sm-4 border-right">
-							<div class="description-block">
-								<h5 class="description-header">2.100,00 TL</h5>
-								<span class="description-text">Gerçekleşen Ödeme</span>
-							</div>
-
-						</div>
-
-						<div class="col-sm-4">
-							<div class="description-block">
-								<h5 class="description-header">%72</h5>
-								<span class="description-text">Gerçekleşme Oranı</span>
-							</div>
-
-						</div>
-
-					</div>
-
-				</div>
-			</div>
-
-		</div>
-		<div class="col-md-4">
-
-			<div class="box box-widget widget-user">
-
-				<div class="widget-user-header bg-aqua-active">
-
-					<div class="col-md-4" style="float: left;">
-						<table class="table table-condensed">
-							<tr>
-								<th></th>
-								<th></th>
-								<th style="width: 40px"></th>
-							</tr>
-							<tr>
-								<td>HSBC</td>
-								<td>15.200 TL</td>
-								<td><span class="badge bg-red">55%</span></td>
-							</tr>
-							<tr>
-								<td>AKBANK</td>
-								<td>24.600 TL</td>
-								<td><span class="badge bg-yellow">70%</span></td>
-							</tr>
-							<tr>
-								<td>GARANTİ</td>
-								<td>4.600 TL</td>
-								<td><span class="badge bg-green">10%</span></td>
-							</tr>
-							<tr>
-								<td>AKBANK</td>
-								<td>2.600 TL</td>
-								<td><span class="badge bg-blue">40%</span></td>
-							</tr>
-						</table>
-					</div>
-
-					<div class="col-md-5">
-						<h3 class="widget-user-username" style="text-align: center;">
-							SİNCAP TAKIMI</h3>
-					</div>
-
-					<div class="col-md-3">
-						<p:rating value="4" stars="7" cancel="false" onRate=""
-							style="float:right" />
-					</div>
-
-				</div>
-				<div class="widget-user-image">
-
-					<img class="img-circle" src="../img/zurafa.jpg" alt="User Avatar" />
-
-
-				</div>
-				<div class="box-footer">
-					<div class="row">
-						<div class="col-sm-4 border-right">
-							<div class="description-block">
-								<h5 class="description-header">3.200,00 TL</h5>
-								<span class="description-text">İzleme Tutarı</span>
-							</div>
-
-						</div>
-
-						<div class="col-sm-4 border-right">
-							<div class="description-block">
-								<h5 class="description-header">2.100,00 TL</h5>
-								<span class="description-text">Gerçekleşen Ödeme</span>
-							</div>
-
-						</div>
-
-						<div class="col-sm-4">
-							<div class="description-block">
-								<h5 class="description-header">%72</h5>
-								<span class="description-text">Gerçekleşme Oranı</span>
-							</div>
-
-						</div>
-
-					</div>
-
-					<div class="row">
-						<div class="col-sm-4 border-right">
-							<div class="description-block">
-								<h5 class="description-header">3.200,00 TL</h5>
-								<span class="description-text">İzleme Tutarı</span>
-							</div>
-
-						</div>
-
-						<div class="col-sm-4 border-right">
-							<div class="description-block">
-								<h5 class="description-header">2.100,00 TL</h5>
-								<span class="description-text">Gerçekleşen Ödeme</span>
-							</div>
-
-						</div>
-
-						<div class="col-sm-4">
-							<div class="description-block">
-								<h5 class="description-header">%72</h5>
-								<span class="description-text">Gerçekleşme Oranı</span>
-							</div>
-
-						</div>
-
-					</div>
-
-				</div>
-			</div>
-
-		</div>
-		<div class="col-md-4">
-
-			<div class="box box-widget widget-user">
-
-				<div class="widget-user-header bg-aqua-active">
-
-					<div class="col-md-4" style="float: left;">
-						<table class="table table-condensed">
-							<tr>
-								<th></th>
-								<th></th>
-								<th style="width: 40px"></th>
-							</tr>
-							<tr>
-								<td>HSBC</td>
-								<td>15.200 TL</td>
-								<td><span class="badge bg-red">55%</span></td>
-							</tr>
-							<tr>
-								<td>AKBANK</td>
-								<td>24.600 TL</td>
-								<td><span class="badge bg-yellow">70%</span></td>
-							</tr>
-							<tr>
-								<td>GARANTİ</td>
-								<td>4.600 TL</td>
-								<td><span class="badge bg-green">10%</span></td>
-							</tr>
-							<tr>
-								<td>AKBANK</td>
-								<td>2.600 TL</td>
-								<td><span class="badge bg-blue">40%</span></td>
-							</tr>
-						</table>
-					</div>
-
-					<div class="col-md-5">
-						<h3 class="widget-user-username" style="text-align: center;">
-							SİNCAP TAKIMI</h3>
-					</div>
-
-					<div class="col-md-3">
-						<p:rating value="4" stars="7" cancel="false" onRate=""
-							style="float:right" />
-					</div>
-
-				</div>
-				<div class="widget-user-image">
-
-					<img class="img-circle" src="../img/sincap.jpg" alt="User Avatar" />
-
-
-				</div>
-				<div class="box-footer">
-					<div class="row">
-						<div class="col-sm-4 border-right">
-							<div class="description-block">
-								<h5 class="description-header">3.200,00 TL</h5>
-								<span class="description-text">İzleme Tutarı</span>
-							</div>
-
-						</div>
-
-						<div class="col-sm-4 border-right">
-							<div class="description-block">
-								<h5 class="description-header">2.100,00 TL</h5>
-								<span class="description-text">Gerçekleşen Ödeme</span>
-							</div>
-
-						</div>
-
-						<div class="col-sm-4">
-							<div class="description-block">
-								<h5 class="description-header">%72</h5>
-								<span class="description-text">Gerçekleşme Oranı</span>
-							</div>
-
-						</div>
-
-					</div>
-
-					<div class="row">
-						<div class="col-sm-4 border-right">
-							<div class="description-block">
-								<h5 class="description-header">3.200,00 TL</h5>
-								<span class="description-text">İzleme Tutarı</span>
-							</div>
-
-						</div>
-
-						<div class="col-sm-4 border-right">
-							<div class="description-block">
-								<h5 class="description-header">2.100,00 TL</h5>
-								<span class="description-text">Gerçekleşen Ödeme</span>
-							</div>
-
-						</div>
-
-						<div class="col-sm-4">
-							<div class="description-block">
-								<h5 class="description-header">%72</h5>
-								<span class="description-text">Gerçekleşme Oranı</span>
-							</div>
-
-						</div>
-
-					</div>
-
-				</div>
-			</div>
-
-		</div>
-
-
+		
 
 
 	</h:form>

@@ -5,9 +5,16 @@ public class dashboardPersonelModel {
 	private String personelAdi;
 	private bankaTutarModel bankamodel = new bankaTutarModel();
 	private boolean durum=false;
+	private String personelresim;
 	
 	
 	
+	public String getPersonelresim() {
+		return personelresim;
+	}
+	public void setPersonelresim(String personelresim) {
+		this.personelresim = personelresim;
+	}
 	public boolean isDurum() {
 		return durum;
 	}

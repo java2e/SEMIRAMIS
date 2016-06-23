@@ -3,40 +3,30 @@ package pelops.dashboard;
 public class dashboardPersonelModel {
 
 	private String personelAdi;
-	private double HSBC;
-	private double AKBANK;
-	private double GARANTI;
-	private double ING;
+	private bankaTutarModel bankamodel = new bankaTutarModel();
+	private boolean durum=false;
+	
+	
+	
+	public boolean isDurum() {
+		return durum;
+	}
+	public void setDurum(boolean durum) {
+		this.durum = durum;
+	}
 	public String getPersonelAdi() {
 		return personelAdi;
 	}
 	public void setPersonelAdi(String personelAdi) {
 		this.personelAdi = personelAdi;
 	}
-	public double getHSBC() {
-		return HSBC;
+	public bankaTutarModel getBankamodel() {
+		return bankamodel;
 	}
-	public void setHSBC(double hSBC) {
-		HSBC = hSBC;
+	public void setBankamodel(bankaTutarModel bankamodel) {
+		this.bankamodel = bankamodel;
 	}
-	public double getAKBANK() {
-		return AKBANK;
-	}
-	public void setAKBANK(double aKBANK) {
-		AKBANK = aKBANK;
-	}
-	public double getGARANTI() {
-		return GARANTI;
-	}
-	public void setGARANTI(double gARANTI) {
-		GARANTI = gARANTI;
-	}
-	public double getING() {
-		return ING;
-	}
-	public void setING(double iNG) {
-		ING = iNG;
-	}
+	
 	
 	
 	

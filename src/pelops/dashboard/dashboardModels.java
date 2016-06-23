@@ -10,6 +10,16 @@ public class dashboardModels {
 	private ArrayList<dashboardPersonelModel> personel;
 	private bankaTutarModel bankaTutarModel;
 	
+	private boolean durum=false;
+	
+	
+	
+	public boolean isDurum() {
+		return durum;
+	}
+	public void setDurum(boolean durum) {
+		this.durum = durum;
+	}
 	
 	public String getTakimAdi() {
 		return takimAdi;

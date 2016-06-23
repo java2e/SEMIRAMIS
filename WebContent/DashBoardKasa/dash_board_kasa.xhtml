@@ -48,23 +48,24 @@
 						<table class="table table-condensed">
 							<tr>
 								<td>HSBC</td>
-								<td>#{dashBoardBean.hedef.HSBC}</td>
-								<td><span class="badge bg-red">#{dashBoardBean.hedef.yuzdeHSBC}%</span></td>
+								
+								<td>#{dashBoardBean.hedeflerAylik.hedefHSBCaylik}</td>
+							
 							</tr>
 							<tr>
 								<td>AKBANK</td>
-								<td>#{dashBoardBean.hedef.AKBANK}</td>
-								<td><span class="badge bg-yellow">#{dashBoardBean.hedef.yuzdeAKBANK}%</span></td>
+								<td>#{dashBoardBean.hedeflerAylik.hedefAKBANKaylik}</td>
+							
 							</tr>
 							<tr>
 								<td>GARANTİ</td>
-								<td>#{dashBoardBean.hedef.GARANTI}</td>
-								<td><span class="badge bg-green">#{dashBoardBean.hedef.yuzdeGARANTI}%</span></td>
+								<td>#{dashBoardBean.hedeflerAylik.hedefGARANTIaylik}</td>
+							
 							</tr>
 							<tr>
 								<td>ING</td>
-								<td>#{dashBoardBean.hedef.ING}</td>
-								<td><span class="badge bg-blue">#{dashBoardBean.hedef.yuzdeING}%</span></td>
+								<td>#{dashBoardBean.hedeflerAylik.hedefINGaylik}</td>
+						
 							</tr>
 						</table>
 
@@ -74,27 +75,26 @@
 						<table class="table table-condensed">
 							<tr>
 								<td>HSBC</td>
-								<td><p:outputLabel value="#{dashBoardBean.aylık.HSBC}"></p:outputLabel>
-								</td>
-								<td><span class="badge bg-red">#{dashBoardBean.aylık.yuzdeHSBC}%</span></td>
+								<p:outputLabel value="#{dashBoardBean.aylik.yuzdeAKBANKaylik}"></p:outputLabel>
+								<td>#{dashBoardBean.aylik.HSBCaylik}</td>
+								<td><span class="badge bg-red">#{dashBoardBean.aylik.yuzdeHSBCaylik}%</span></td>
 							</tr>
 							<tr>
 								<td>AKBANK</td>
-								<td><p:outputLabel value="#{dashBoardBean.aylık.AKBANK}"></p:outputLabel>
-								</td>
-								<td><span class="badge bg-yellow">#{dashBoardBean.aylık.yuzdeAKBANK}%</span></td>
+								<td>#{dashBoardBean.aylik.AKBANKaylik}	</td>
+								<td><span class="badge bg-yellow">#{dashBoardBean.aylik.yuzdeAKBANKaylik}%</span></td>
 							</tr>
 							<tr>
 								<td>GARANTİ</td>
-								<td><p:outputLabel value="#{dashBoardBean.aylık.GARANTI}"></p:outputLabel>
+								<td>#{dashBoardBean.aylik.GARANTIaylik}
 								</td>
-								<td><span class="badge bg-green">#{dashBoardBean.aylık.yuzdeGARANTI}%</span></td>
+								<td><span class="badge bg-green">#{dashBoardBean.aylik.yuzdeGARANTIaylik}%</span></td>
 							</tr>
 							<tr>
 								<td>ING</td>
-								<td><p:outputLabel value="#{dashBoardBean.aylık.ING}"></p:outputLabel>
+								<td>#{dashBoardBean.aylik.INGaylik}
 								</td>
-								<td><span class="badge bg-blue">#{dashBoardBean.aylık.yuzdeING}%</span></td>
+								<td><span class="badge bg-blue">#{dashBoardBean.aylik.yuzdeINGaylik}%</span></td>
 							</tr>
 						</table>
 

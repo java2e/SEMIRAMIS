@@ -2,54 +2,104 @@ package pelops.dashboard;
 
 public class bankaTutarModel {
 
-	private String HSBC;
+	private double HSBC;
 	private int yuzdeHSBC;
-	private String AKBANK;
+	private double AKBANK;
 	private int yuzdeAKBANK;
-	private String GARANTI;
+	private double GARANTI;
 	private int yuzdeGARANTI;
-	private String ING;
+	private double ING;
 	private int yuzdeING;
 	
+	private double HSBCaylik;
+	private int yuzdeHSBCaylik;
+	private double AKBANKaylik;
+	private int yuzdeAKBANKaylik;
+	private double GARANTIaylik;
+	private int yuzdeGARANTIaylik;
+	private double INGaylik;
+	private int yuzdeINGaylik;
+	
+		
 	//Hedeflenen Tutarlar
-	private String hedefHSBC;
-	private String hedefAKBANK;
-	private String hedefGARANTI;
-	private String hedefING;
+	private double hedefHSBC;
+	private double hedefAKBANK;
+	private double hedefGARANTI;
+	private double hedefING;
+	private double hedefHSBCaylik;
+	private double hedefAKBANKaylik;
+	private double hedefGARANTIaylik;
+	private double hedefINGaylik;
 	
 	
-	public String getHSBC() {
+	
+	
+	
+	public double getHSBCaylik() {
+		return HSBCaylik;
+	}
+	public void setHSBCaylik(double hSBCaylik) {
+		HSBCaylik = hSBCaylik;
+	}
+	public int getYuzdeHSBCaylik() {
+		return yuzdeHSBCaylik;
+	}
+	public void setYuzdeHSBCaylik(int yuzdeHSBCaylik) {
+		this.yuzdeHSBCaylik = yuzdeHSBCaylik;
+	}
+	public double getAKBANKaylik() {
+		return AKBANKaylik;
+	}
+	public void setAKBANKaylik(double aKBANKaylik) {
+		AKBANKaylik = aKBANKaylik;
+	}
+	public int getYuzdeAKBANKaylik() {
+		return yuzdeAKBANKaylik;
+	}
+	public void setYuzdeAKBANKaylik(int yuzdeAKBANKaylik) {
+		this.yuzdeAKBANKaylik = yuzdeAKBANKaylik;
+	}
+	public double getGARANTIaylik() {
+		return GARANTIaylik;
+	}
+	public void setGARANTIaylik(double gARANTIaylik) {
+		GARANTIaylik = gARANTIaylik;
+	}
+	public int getYuzdeGARANTIaylik() {
+		return yuzdeGARANTIaylik;
+	}
+	public void setYuzdeGARANTIaylik(int yuzdeGARANTIaylik) {
+		this.yuzdeGARANTIaylik = yuzdeGARANTIaylik;
+	}
+	public double getINGaylik() {
+		return INGaylik;
+	}
+	public void setINGaylik(double iNGaylik) {
+		INGaylik = iNGaylik;
+	}
+	public int getYuzdeINGaylik() {
+		return yuzdeINGaylik;
+	}
+	public void setYuzdeINGaylik(int yuzdeINGaylik) {
+		this.yuzdeINGaylik = yuzdeINGaylik;
+	}
+	public double getHSBC() {
 		return HSBC;
 	}
-	public void setHSBC(String hSBC) {
+	public void setHSBC(double hSBC) {
 		HSBC = hSBC;
 	}
-	public String getAKBANK() {
-		return AKBANK;
-	}
-	public void setAKBANK(String aKBANK) {
-		AKBANK = aKBANK;
-	}
-	public String getGARANTI() {
-		return GARANTI;
-	}
-	public void setGARANTI(String gARANTI) {
-		GARANTI = gARANTI;
-	}
-	public String getING() {
-		return ING;
-	}
-	public void setING(String iNG) {
-		ING = iNG;
-	}
-
-	
-	
 	public int getYuzdeHSBC() {
 		return yuzdeHSBC;
 	}
 	public void setYuzdeHSBC(int yuzdeHSBC) {
 		this.yuzdeHSBC = yuzdeHSBC;
+	}
+	public double getAKBANK() {
+		return AKBANK;
+	}
+	public void setAKBANK(double aKBANK) {
+		AKBANK = aKBANK;
 	}
 	public int getYuzdeAKBANK() {
 		return yuzdeAKBANK;
@@ -57,11 +107,23 @@ public class bankaTutarModel {
 	public void setYuzdeAKBANK(int yuzdeAKBANK) {
 		this.yuzdeAKBANK = yuzdeAKBANK;
 	}
+	public double getGARANTI() {
+		return GARANTI;
+	}
+	public void setGARANTI(double gARANTI) {
+		GARANTI = gARANTI;
+	}
 	public int getYuzdeGARANTI() {
 		return yuzdeGARANTI;
 	}
 	public void setYuzdeGARANTI(int yuzdeGARANTI) {
 		this.yuzdeGARANTI = yuzdeGARANTI;
+	}
+	public double getING() {
+		return ING;
+	}
+	public void setING(double iNG) {
+		ING = iNG;
 	}
 	public int getYuzdeING() {
 		return yuzdeING;
@@ -69,29 +131,57 @@ public class bankaTutarModel {
 	public void setYuzdeING(int yuzdeING) {
 		this.yuzdeING = yuzdeING;
 	}
-	public String getHedefHSBC() {
+	public double getHedefHSBC() {
 		return hedefHSBC;
 	}
-	public void setHedefHSBC(String hedefHSBC) {
+	public void setHedefHSBC(double hedefHSBC) {
 		this.hedefHSBC = hedefHSBC;
 	}
-	public String getHedefAKBANK() {
+	public double getHedefAKBANK() {
 		return hedefAKBANK;
 	}
-	public void setHedefAKBANK(String hedefAKBANK) {
+	public void setHedefAKBANK(double hedefAKBANK) {
 		this.hedefAKBANK = hedefAKBANK;
 	}
-	public String getHedefGARANTI() {
+	public double getHedefGARANTI() {
 		return hedefGARANTI;
 	}
-	public void setHedefGARANTI(String hedefGARANTI) {
+	public void setHedefGARANTI(double hedefGARANTI) {
 		this.hedefGARANTI = hedefGARANTI;
 	}
-	public String getHedefING() {
+	public double getHedefING() {
 		return hedefING;
 	}
-	public void setHedefING(String hedefING) {
+	public void setHedefING(double hedefING) {
 		this.hedefING = hedefING;
 	}
+	public double getHedefHSBCaylik() {
+		return hedefHSBCaylik;
+	}
+	public void setHedefHSBCaylik(double hedefHSBCaylik) {
+		this.hedefHSBCaylik = hedefHSBCaylik;
+	}
+	public double getHedefAKBANKaylik() {
+		return hedefAKBANKaylik;
+	}
+	public void setHedefAKBANKaylik(double hedefAKBANKaylik) {
+		this.hedefAKBANKaylik = hedefAKBANKaylik;
+	}
+	public double getHedefGARANTIaylik() {
+		return hedefGARANTIaylik;
+	}
+	public void setHedefGARANTIaylik(double hedefGARANTIaylik) {
+		this.hedefGARANTIaylik = hedefGARANTIaylik;
+	}
+	public double getHedefINGaylik() {
+		return hedefINGaylik;
+	}
+	public void setHedefINGaylik(double hedefINGaylik) {
+		this.hedefINGaylik = hedefINGaylik;
+	}
+	
+	
+	
+	
 	
 }

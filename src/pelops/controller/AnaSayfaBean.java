@@ -19,7 +19,7 @@ public class AnaSayfaBean {
 	FacesContext context = FacesContext.getCurrentInstance();
 	public AnaSayfaBean() {
 
-		formPath = "frm_rapor_dashboard.xhtml";
+		formPath = "frm_anasayfa_default.xhtml";
 
 		tanimlar=new Tanimlar();
 		
@@ -322,7 +322,7 @@ public class AnaSayfaBean {
 				break;
 
 			case 1002:
-				formPath = "frm_rapor_dashboard.xhtml";
+				formPath = "frm_anasayfa_default.xhtml";
 				break;
 
 			// case 1003:
@@ -356,7 +356,7 @@ public class AnaSayfaBean {
 				
 			default:
 
-				formPath = "frm_rapor_dashboard.xhtml"; // ilk sayfa
+				formPath = "frm_anasayfa_default.xhtml"; // ilk sayfa
 			}
 		}
 	}

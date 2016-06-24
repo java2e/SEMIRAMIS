@@ -23,7 +23,7 @@ public class dashboardBean {
 
 	private ArrayList<dashboardModels> DashBorad;
 	private ArrayList<dashboardModels> DashBoradFaces ;
-
+	NumberFormat priceFormat = NumberFormat.getCurrencyInstance();
 	private SimpleDateFormat yearsFormat = new SimpleDateFormat("yyyy");
 	private SimpleDateFormat mountsFormat = new SimpleDateFormat("MM");
 	private SimpleDateFormat fullDateFormat = new SimpleDateFormat("dd-MM-yyyy");
@@ -47,19 +47,14 @@ public class dashboardBean {
 		DashBorad = new ArrayList<dashboardModels>();
 		DashBoradFaces = new ArrayList<dashboardModels>();
 				
-	takimtanimla();
+	//takimtanimla();
 	veriListele();
-	aktar();
+	yuzdeHesapla();
+	//aktar();
 		
 	tarih = fullXDateFormat.format(nowDate);
 	
-	for (int i = 0; i < DashBoradFaces.size(); i++) {
-		System.out.println(DashBoradFaces.get(i).getTakimAdi());
-		System.out.println("Personel Adı...:"+ DashBoradFaces.get(i).getPersonel().get(0).getPersonelAdi());
-		System.out.println("gümlük tutar....:"+ DashBoradFaces.get(i).getPersonel().get(0).getBankamodel().getHSBC());
-	
-	}
-	
+
 	
 	}
 
@@ -102,7 +97,7 @@ public class dashboardBean {
 						tutarhedef.setHedefHSBCaylik(hedefler.Listele(yil, ay).get(i).getAylik_hedef());
 						tutartakim.setHedefHSBC(tutartakim.getHedefHSBC()+hedefler.Listele(yil, ay).get(i).getGunluk_hedef());
 						tutartakim.setHedefHSBCaylik(tutartakim.getHedefHSBCaylik()+hedefler.Listele(yil, ay).get(i).getAylik_hedef());
-						
+					
 						
 				}
 					else if(hedefler.Listele(yil, ay).get(i).getMuvekkil_adi().contains("İNG BANK A.Ş.")==true){
@@ -197,18 +192,29 @@ public class dashboardBean {
 			
 			models.setBankaTutarModel(tutartakim);
 			models.setPersonel(personelList);
-			DashBorad.add(models);
 			
+			
+			models.getBankaTutarModel().setHSBCtl(priceFormat.format(models.getBankaTutarModel().getHSBC()));
+			models.getBankaTutarModel().setAKBANKtl(priceFormat.format(models.getBankaTutarModel().getAKBANK()));
+			models.getBankaTutarModel().setGARANTItl(priceFormat.format(models.getBankaTutarModel().getGARANTI()));
+			models.getBankaTutarModel().setINGtl(priceFormat.format(models.getBankaTutarModel().getING()));
+			
+			
+			
+			DashBorad.add(models);
+		
 			hedeflerAylik.setHedefHSBCaylik(hedeflerAylik.getHedefHSBCaylik()+tutartakim.getHedefHSBCaylik());
 			hedeflerAylik.setHedefAKBANKaylik(hedeflerAylik.getHedefAKBANKaylik()+tutartakim.getHedefAKBANKaylik());
 			hedeflerAylik.setHedefGARANTIaylik(hedeflerAylik.getHedefGARANTIaylik()+tutartakim.getHedefGARANTIaylik());
 			hedeflerAylik.setHedefINGaylik(hedeflerAylik.getHedefINGaylik()+tutartakim.getHedefINGaylik());
+			
 			
 			hedeflerGunluk.setHedefHSBC(hedeflerGunluk.getHedefHSBC()+tutartakim.getHedefHSBC());
 			hedeflerGunluk.setHedefAKBANK(hedeflerGunluk.getHedefAKBANK()+tutartakim.getHedefAKBANK());
 			hedeflerGunluk.setHedefGARANTI(hedeflerGunluk.getHedefGARANTI()+tutartakim.getHedefGARANTI());
 			hedeflerGunluk.setHedefING(hedeflerGunluk.getHedefING()+tutartakim.getHedefING());
 			
+		
 			gunluk.setHSBC(gunluk.getHSBC()+tutartakim.getHSBC());
 			gunluk.setAKBANK(gunluk.getAKBANK()+tutartakim.getAKBANK());
 			gunluk.setGARANTI(gunluk.getGARANTI()+tutartakim.getGARANTI());
@@ -218,9 +224,32 @@ public class dashboardBean {
 			aylik.setAKBANKaylik(aylik.getAKBANKaylik()+tutartakim.getAKBANKaylik());
 			aylik.setGARANTIaylik(aylik.getGARANTIaylik()+tutartakim.getGARANTIaylik());
 			aylik.setINGaylik(aylik.getINGaylik()+tutartakim.getINGaylik());
+		
 			
-		//	DashBoradFaces.get(0).getBankaTutarModel().getHSBC();
-		//	DashBoradFaces.get(0).getBankaTutarModel().getYuzdeHSBC();
+			
+			hedeflerAylik.setHedefHSBCayliktl(priceFormat.format(hedeflerAylik.getHedefHSBCaylik()));
+			hedeflerAylik.setHedefAKBANKayliktl(priceFormat.format(hedeflerAylik.getHedefAKBANKaylik()));
+			hedeflerAylik.setHedefGARANTIayliktl(priceFormat.format(hedeflerAylik.getHedefGARANTIaylik()));
+			hedeflerAylik.setHedefINGayliktl(priceFormat.format(hedeflerAylik.getHedefINGaylik()));
+			
+			hedeflerGunluk.setHedefHSBCtl(priceFormat.format(hedeflerGunluk.getHedefHSBC()));
+			hedeflerGunluk.setHedefAKBANKtl(priceFormat.format(hedeflerGunluk.getHedefAKBANK()));
+			hedeflerGunluk.setHedefGARANTItl(priceFormat.format(hedeflerGunluk.getHedefGARANTI()));
+			hedeflerGunluk.setHedefINGtl(priceFormat.format(hedeflerGunluk.getHedefING()));
+			
+			gunluk.setHSBCtl(priceFormat.format(gunluk.getHSBC()));
+			gunluk.setAKBANKtl(priceFormat.format(gunluk.getAKBANK()));
+			gunluk.setGARANTItl(priceFormat.format(gunluk.getGARANTI()));
+			gunluk.setINGtl(priceFormat.format(gunluk.getING()));
+			
+			aylik.setHSBCayliktl(priceFormat.format(aylik.getHSBCaylik()));
+			aylik.setAKBANKayliktl(priceFormat.format(aylik.getAKBANKaylik()));
+			aylik.setGARANTIayliktl(priceFormat.format(aylik.getGARANTIaylik()));
+			aylik.setINGayliktl(priceFormat.format(aylik.getINGaylik()));
+			
+			System.out.println(aylik.getHSBCayliktl());
+			
+			
 			
 			//DashBoradFaces.get(0).getPersonel().get(0).getPersonelAdi()
 			
@@ -252,7 +281,38 @@ public class dashboardBean {
 	
 	
 	
-	// -------------- TAKIMLARI TANIMLIYORUZ ---------------------
+	public void yuzdeHesapla(){
+		
+		for (dashboardModels item : DashBorad) {
+			
+			item.getBankaTutarModel().setYuzdeAKBANK((int)(item.getBankaTutarModel().getAKBANK()/item.getBankaTutarModel().getHedefAKBANK()*100));
+			item.getBankaTutarModel().setYuzdeHSBC((int)(item.getBankaTutarModel().getHSBC()/item.getBankaTutarModel().getHedefHSBC()*100));
+			item.getBankaTutarModel().setYuzdeGARANTI((int)(item.getBankaTutarModel().getGARANTI()/item.getBankaTutarModel().getHedefGARANTI()*100));
+			item.getBankaTutarModel().setYuzdeING((int)(item.getBankaTutarModel().getING()/item.getBankaTutarModel().getHedefING()*100));
+			
+		}
+		
+		aylik.setYuzdeAKBANKaylik((int)(aylik.getAKBANKaylik()/hedeflerAylik.getHedefAKBANKaylik()*100));
+		aylik.setYuzdeHSBCaylik((int)(aylik.getHSBCaylik()/hedeflerAylik.getHedefHSBCaylik()*100));
+		aylik.setYuzdeGARANTIaylik((int)(aylik.getGARANTIaylik()/hedeflerAylik.getHedefGARANTIaylik()*100));
+		aylik.setYuzdeINGaylik((int)(aylik.getINGaylik()/hedeflerAylik.getHedefINGaylik()*100));
+		
+		gunluk.setYuzdeAKBANK((int)(gunluk.getAKBANK()/hedeflerGunluk.getHedefAKBANK()*100));
+		gunluk.setYuzdeHSBC((int)(gunluk.getHSBC()/hedeflerGunluk.getHedefHSBC()*100));
+		gunluk.setYuzdeGARANTI((int)(gunluk.getGARANTI()/hedeflerGunluk.getHedefGARANTI()*100));
+		gunluk.setYuzdeING((int)(gunluk.getING()/hedeflerGunluk.getHedefING()*100));
+		
+	
+		
+		
+	}
+	
+	
+	
+	
+	
+	
+	
 	//    TOPLAM 6 TAKIM VE HER TAKIMDA 6 KİŞİ OLACAK ŞEKİLDE
 	//------------------------------------------------------------
 	

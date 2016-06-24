@@ -32,9 +32,125 @@ public class bankaTutarModel {
 	private double hedefINGaylik;
 	
 	
+	private String HSBCtl;
+	private String AKBANKtl;
+	private String GARANTItl;
+	private String INGtl;
+	private String HSBCayliktl;
+	private String AKBANKayliktl;
+	private String GARANTIayliktl; 
+	private String INGayliktl;
+	
+	private String hedefHSBCtl;
+	private String hedefAKBANKtl;
+	private String hedefGARANTItl;
+	private String hedefINGtl;
+	private String hedefHSBCayliktl;
+	private String hedefAKBANKayliktl;
+	private String hedefGARANTIayliktl;
+	private String hedefINGayliktl;
 	
 	
 	
+	
+	
+	
+	public String getHSBCtl() {
+		return HSBCtl;
+	}
+	public void setHSBCtl(String hSBCtl) {
+		HSBCtl = hSBCtl;
+	}
+	public String getAKBANKtl() {
+		return AKBANKtl;
+	}
+	public void setAKBANKtl(String aKBANKtl) {
+		AKBANKtl = aKBANKtl;
+	}
+	public String getGARANTItl() {
+		return GARANTItl;
+	}
+	public void setGARANTItl(String gARANTItl) {
+		GARANTItl = gARANTItl;
+	}
+	public String getINGtl() {
+		return INGtl;
+	}
+	public void setINGtl(String iNGtl) {
+		INGtl = iNGtl;
+	}
+	public String getHSBCayliktl() {
+		return HSBCayliktl;
+	}
+	public void setHSBCayliktl(String hSBCayliktl) {
+		HSBCayliktl = hSBCayliktl;
+	}
+	public String getAKBANKayliktl() {
+		return AKBANKayliktl;
+	}
+	public void setAKBANKayliktl(String aKBANKayliktl) {
+		AKBANKayliktl = aKBANKayliktl;
+	}
+	public String getGARANTIayliktl() {
+		return GARANTIayliktl;
+	}
+	public void setGARANTIayliktl(String gARANTIayliktl) {
+		GARANTIayliktl = gARANTIayliktl;
+	}
+	public String getINGayliktl() {
+		return INGayliktl;
+	}
+	public void setINGayliktl(String iNGayliktl) {
+		INGayliktl = iNGayliktl;
+	}
+	public String getHedefHSBCtl() {
+		return hedefHSBCtl;
+	}
+	public void setHedefHSBCtl(String hedefHSBCtl) {
+		this.hedefHSBCtl = hedefHSBCtl;
+	}
+	public String getHedefAKBANKtl() {
+		return hedefAKBANKtl;
+	}
+	public void setHedefAKBANKtl(String hedefAKBANKtl) {
+		this.hedefAKBANKtl = hedefAKBANKtl;
+	}
+	public String getHedefGARANTItl() {
+		return hedefGARANTItl;
+	}
+	public void setHedefGARANTItl(String hedefGARANTItl) {
+		this.hedefGARANTItl = hedefGARANTItl;
+	}
+	public String getHedefINGtl() {
+		return hedefINGtl;
+	}
+	public void setHedefINGtl(String hedefINGtl) {
+		this.hedefINGtl = hedefINGtl;
+	}
+	public String getHedefHSBCayliktl() {
+		return hedefHSBCayliktl;
+	}
+	public void setHedefHSBCayliktl(String hedefHSBCayliktl) {
+		this.hedefHSBCayliktl = hedefHSBCayliktl;
+	}
+	public String getHedefAKBANKayliktl() {
+		return hedefAKBANKayliktl;
+	}
+	public void setHedefAKBANKayliktl(String hedefAKBANKayliktl) {
+		this.hedefAKBANKayliktl = hedefAKBANKayliktl;
+	}
+	public String getHedefGARANTIayliktl() {
+		return hedefGARANTIayliktl;
+	}
+	public void setHedefGARANTIayliktl(String hedefGARANTIayliktl) {
+		this.hedefGARANTIayliktl = hedefGARANTIayliktl;
+	}
+	public String getHedefINGayliktl() {
+		return hedefINGayliktl;
+	}
+	public void setHedefINGayliktl(String hedefINGayliktl) {
+		this.hedefINGayliktl = hedefINGayliktl;
+	}
 	public double getHSBCaylik() {
 		return HSBCaylik;
 	}

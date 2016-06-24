@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 import pelops.db.DBConnection;
@@ -17,7 +18,9 @@ public class tahsilatDAO extends DBConnection {
 	ResultSet rs;
 	Statement stmt;
 	PreparedStatement pstmt;
-	SimpleDateFormat fullDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	private SimpleDateFormat yearsFormat = new SimpleDateFormat("yyyy");
+	private SimpleDateFormat mountsFormat = new SimpleDateFormat("MM");
+	private SimpleDateFormat fullDateFormat = new SimpleDateFormat("dd-MM-yyyy");
 	Date nowDate = new Date();
 	Date gelecekay = new Date();
 	
@@ -68,9 +71,11 @@ public class tahsilatDAO extends DBConnection {
 	 	
 	 @SuppressWarnings("deprecation")
 	public ArrayList<TahsilatViewModel> ListeleBuAy() throws Exception{
-		 gelecekay.setMonth(1);
+		 Calendar c = Calendar.getInstance();
+		 int monthMaxDays = c.getActualMaximum(Calendar.DAY_OF_MONTH);
+		String aybasi= yearsFormat.format(nowDate)+"-"+mountsFormat.format(nowDate)+"-"+"1",aysonu=yearsFormat.format(nowDate)+"-"+mountsFormat.format(nowDate)+"-"+monthMaxDays;
 		 
-		 String SQL ="select * from tbl_tahsilat where tahsilat_tarihi BETWEEN '"+fullDateFormat.format(nowDate)+"' and '"+fullDateFormat.format(gelecekay)+"'";
+		 String SQL ="select * from tbl_tahsilat where tahsilat_tarihi BETWEEN '"+aybasi+"' and '"+aysonu+"'";
 		 newConnectDB();
 
 		ArrayList<TahsilatViewModel> list = new ArrayList<>();

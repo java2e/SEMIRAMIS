@@ -49,22 +49,22 @@
 							<tr>
 								<td>HSBC</td>
 							
-								<td>#{dashBoardBean.hedeflerAylik.hedefHSBCaylik}</td>
+								<td>#{dashBoardBean.hedeflerAylik.hedefHSBCayliktl}</td>
 							
 							</tr>
 							<tr>
 								<td>AKBANK</td>
-								<td>#{dashBoardBean.hedeflerAylik.hedefAKBANKaylik}</td>
+								<td>#{dashBoardBean.hedeflerAylik.hedefAKBANKayliktl}</td>
 							
 							</tr>
 							<tr>
 								<td>GARANTİ</td>
-								<td>#{dashBoardBean.hedeflerAylik.hedefGARANTIaylik}</td>
+								<td>#{dashBoardBean.hedeflerAylik.hedefGARANTIayliktl}</td>
 							
 							</tr>
 							<tr>
 								<td>ING</td>
-								<td>#{dashBoardBean.hedeflerAylik.hedefINGaylik}</td>
+								<td>#{dashBoardBean.hedeflerAylik.hedefINGayliktl}</td>
 						
 							</tr>
 						</table>
@@ -76,23 +76,23 @@
 							<tr>
 								<td>HSBC</td>
 								
-								<td>#{dashBoardBean.aylik.HSBCaylik}</td>
+								<td>#{dashBoardBean.aylik.HSBCayliktl}</td>
 								<td><span class="badge bg-red">#{dashBoardBean.aylik.yuzdeHSBCaylik}%</span></td>
 							</tr>
 							<tr>
 								<td>AKBANK</td>
-								<td>#{dashBoardBean.aylik.AKBANKaylik}	</td>
+								<td>#{dashBoardBean.aylik.AKBANKayliktl}	</td>
 								<td><span class="badge bg-yellow">#{dashBoardBean.aylik.yuzdeAKBANKaylik}%</span></td>
 							</tr>
 							<tr>
 								<td>GARANTİ</td>
-								<td>#{dashBoardBean.aylik.GARANTIaylik}
+								<td>#{dashBoardBean.aylik.GARANTIayliktl}
 								</td>
 								<td><span class="badge bg-green">#{dashBoardBean.aylik.yuzdeGARANTIaylik}%</span></td>
 							</tr>
 							<tr>
 								<td>ING</td>
-								<td>#{dashBoardBean.aylik.INGaylik}
+								<td>#{dashBoardBean.aylik.INGayliktl}
 								</td>
 								<td><span class="badge bg-blue">#{dashBoardBean.aylik.yuzdeINGaylik}%</span></td>
 							</tr>
@@ -126,25 +126,25 @@
 							<tr>
 								<td>HSBC</td>
 								
-								<td>#{dashBoardBean.gunluk.HSBC}
+								<td>#{dashBoardBean.gunluk.HSBCtl}
 								</td>
 								<td><span class="badge bg-red">#{dashBoardBean.gunluk.yuzdeHSBC}%</span></td>
 							</tr>
 							<tr>
 								<td>AKBANK</td>
-								<td>#{dashBoardBean.gunluk.AKBANK}
+								<td>#{dashBoardBean.gunluk.AKBANKtl}
 								</td>
 								<td><span class="badge bg-yellow">#{dashBoardBean.gunluk.yuzdeAKBANK}%</span></td>
 							</tr>
 							<tr>
 								<td>GARANTİ</td>
-								<td>#{dashBoardBean.gunluk.GARANTI}
+								<td>#{dashBoardBean.gunluk.GARANTItl}
 								</td>
 								<td><span class="badge bg-green">#{dashBoardBean.gunluk.yuzdeGARANTI}%</span></td>
 							</tr>
 							<tr>
 								<td>ING</td>
-								<td>#{dashBoardBean.gunluk.ING}
+								<td>#{dashBoardBean.gunluk.INGtl}
 								</td>
 								<td><span class="badge bg-blue">#{dashBoardBean.gunluk.yuzdeING}%</span></td>
 							</tr>
@@ -172,23 +172,23 @@
 						<table class="table table-condensed">
 							<tr>
 								<td>HSBC</td>
-								<td>#{dashBoardBean.genelToplam.HSBC}</td>
+								<td>#{dashBoardBean.genelToplam.HSBCtl}</td>
 								<td><span class="badge bg-red">#{dashBoardBean.genelToplam.yuzdeHSBC}%</span></td>
 							</tr>
 							<tr>
 								<td>AKBANK</td>
-								<td>#{dashBoardBean.genelToplam.AKBANK}</td>
+								<td>#{dashBoardBean.genelToplam.AKBANKtl}</td>
 								<td><span class="badge bg-yellow">#{dashBoardBean.genelToplam.yuzdeAKBANK}%</span></td>
 							</tr>
 							<tr>
 								<td>GARANTİ</td>
-								<td>#{dashBoardBean.genelToplam.GARANTI}
+								<td>#{dashBoardBean.genelToplam.GARANTItl}
 								</td>
 								<td><span class="badge bg-green">#{dashBoardBean.genelToplam.yuzdeGARANTI}%</span></td>
 							</tr>
 							<tr>
 								<td>ING</td>
-								<td>#{dashBoardBean.genelToplam.ING}
+								<td>#{dashBoardBean.genelToplam.INGtl}
 								</td>
 								<td><span class="badge bg-blue">#{dashBoardBean.genelToplam.yuzdeING}%</span></td>
 							</tr>
@@ -204,15 +204,16 @@
 
 		</div>
 
-
-
-		<!--   BU ALANDA ÇEKTİĞİM YERLER GELMİYOR  BAŞLANGIÇ -->
-
-
-		<!--     Resimli OLAN TAG -->
+	
+		
+		
+		
+		
+		<ui:repeat var="takim" value="#{dashBoardBean.dashBorad}">
+		
 		<div class="col-md-4">
 
-			<div class="box box-widget widget-user">
+			<div class="box box-widget widget-user" style="height:500px">
 
 				<div class="widget-user-header bg-aqua-active">
 
@@ -225,136 +226,30 @@
 							</tr>
 							<tr>
 								<td>HSBC</td>
-								<td>
-									#{DashBoradFaces.get(0).getBankaTutarModel().getHSBC()}
-								</td>
-								<td><span class="badge bg-red">#{DashBoradFaces.get(0).getBankaTutarModel().getYuzdeHSBC()}%</span></td>
+								<td>#{takim.bankaTutarModel.HSBC}</td>
+								<td><span class="badge bg-red">#{takim.bankaTutarModel.yuzdeHSBC}%</span></td>
 							</tr>
 							<tr>
 								<td>AKBANK</td>
-								<td>
-									#{DashBoradFaces.get(0).getBankaTutarModel().getAKBANK()}
-								</td>
-								<td><span class="badge bg-yellow">#{DashBoradFaces.get(0).getBankaTutarModel().getYuzdeAKBANK()}%</span></td>
+								<td>#{takim.bankaTutarModel.AKBANK}</td>
+								<td><span class="badge bg-yellow">#{takim.bankaTutarModel.yuzdeAKBANK}%</span></td>
 							</tr>
 							<tr>
 								<td>GARANTİ</td>
-								<td>
-									#{DashBoradFaces.get(0).getBankaTutarModel().getGARANTI()}
-								</td>
-								<td><span class="badge bg-green">#{DashBoradFaces.get(0).getBankaTutarModel().getYuzdeGARANTI()}%</span></td>
+								<td>#{takim.bankaTutarModel.GARANTI}</td>
+								<td><span class="badge bg-green">#{takim.bankaTutarModel.yuzdeGARANTI}%</span></td>
 							</tr>
 							<tr>
 								<td>ING</td>
-								<td>
-									#{DashBoradFaces.get(0).getBankaTutarModel().getING()}
-								</td>
-								<td><span class="badge bg-blue">#{DashBoradFaces.get(0).getBankaTutarModel().getYuzdeING()}%</span></td>
+								<td>#{takim.bankaTutarModel.ING}</td>
+								<td><span class="badge bg-blue">#{takim.bankaTutarModel.yuzdeING}%</span></td>
 							</tr>
 						</table>
 					</div>
 
 					<div class="col-md-5">
 						<h3 class="widget-user-username" style="text-align: center;">
-							
-							#{DashBoradFaces.get(0).getTakimAdi()}</h3>
-					</div>
-
-					<div class="col-md-3">
-						<p:rating value="#{DashBoradFaces.get(0).getStarRate()}" stars="7" cancel="false" onRate=""
-							style="float:right" />
-					</div>
-
-				</div>
-				<div class="widget-user-image">
-
-					<img class="img-circle" src="#{DashBoradFaces.get(0).getTakimResmi()}" alt="User Avatar" />
-
-
-				</div>
-				<div class="box-footer">
-
-																	
-					<div class="box-body no-padding">
-						<ul class="users-list clearfix">
-							<li><img src="../img/user1-128x128.jpg" alt="User Image" />
-								<a class="users-list-name" href="#">#{DashBoradFaces.get(0).getPersonel().get(0).getPersonelAdi()}</a>
-
-							</li>
-							<li><img src="../img/user8-128x128.jpg" alt="User Image" />
-								<a class="users-list-name" href="#">#{DashBoradFaces.get(0).getPersonel().get(1).getPersonelAdi()}</a></li>
-							<li><img src="../img/user7-128x128.jpg" alt="User Image" />
-								<a class="users-list-name" href="#">#{DashBoradFaces.get(0).getPersonel().get(2).getPersonelAdi()}</a></li>
-							<li><img src="../img/user6-128x128.jpg" alt="User Image" />
-								<a class="users-list-name" href="#">#{DashBoradFaces.get(0).getPersonel().get(3).getPersonelAdi()}</a></li>
-							<li><img src="../img/user2-160x160.jpg" alt="User Image" />
-								<a class="users-list-name" href="#">#{DashBoradFaces.get(0).getPersonel().get(4).getPersonelAdi()}</a></li>
-							<li><img src="../img/user5-128x128.jpg" alt="User Image" />
-								<a class="users-list-name" href="#">#{DashBoradFaces.get(0).getPersonel().get(5).getPersonelAdi()}</a></li>
-							<li><img src="../img/user4-128x128.jpg" alt="User Image" />
-								<a class="users-list-name" href="#">#{DashBoradFaces.get(0).getPersonel().get(6).getPersonelAdi()}</a></li>
-							<li><img src="../img/user3-128x128.jpg" alt="User Image" />
-								<a class="users-list-name" href="#">#{DashBoradFaces.get(0).getPersonel().get(7).getPersonelAdi()}</a></li>
-						</ul>
-
-					</div>
-
-				</div>
-			</div>
-
-		</div>
-		
-		
-		<!--     BU ALANDA ÇEKTİĞİM YERLER GELMİYOR  BİTİŞ -->
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		<div class="col-md-4">
-
-			<div class="box box-widget widget-user">
-
-				<div class="widget-user-header bg-aqua-active">
-
-					<div class="col-md-4" style="float: left;">
-						<table class="table table-condensed">
-							<tr>
-								<th></th>
-								<th></th>
-								<th style="width: 40px"></th>
-							</tr>
-							<tr>
-								<td>HSBC</td>
-								<td>15.200 TL</td>
-								<td><span class="badge bg-red">55%</span></td>
-							</tr>
-							<tr>
-								<td>AKBANK</td>
-								<td>24.600 TL</td>
-								<td><span class="badge bg-yellow">70%</span></td>
-							</tr>
-							<tr>
-								<td>GARANTİ</td>
-								<td>4.600 TL</td>
-								<td><span class="badge bg-green">10%</span></td>
-							</tr>
-							<tr>
-								<td>AKBANK</td>
-								<td>2.600 TL</td>
-								<td><span class="badge bg-blue">40%</span></td>
-							</tr>
-						</table>
-					</div>
-
-					<div class="col-md-5">
-						<h3 class="widget-user-username" style="text-align: center;">
-							KARTAL TAKIMI</h3>
+							#{takim.takimAdi}</h3>
 					</div>
 
 					<div class="col-md-3">
@@ -365,7 +260,7 @@
 				</div>
 				<div class="widget-user-image">
 
-					<img class="img-circle" src="../img/fil.jpg" alt="User Avatar" />
+					<img class="img-circle" src="#{takim.takimResmi}" alt="User Avatar" />
 
 
 				</div>
@@ -374,23 +269,11 @@
 
 					<div class="box-body no-padding">
 						<ul class="users-list clearfix">
+							<ui:repeat var="personel" value="#{takim.personel}">
 							<li><img src="../img/user1-128x128.jpg" alt="User Image" />
-								<a class="users-list-name" href="#">Mehmet ÖZGEN</a></li>
-							<li><img src="../img/user8-128x128.jpg" alt="User Image" />
-								<a class="users-list-name" href="#">Muhammet Ali KAYA</a></li>
-							<li><img src="../img/user7-128x128.jpg" alt="User Image" />
-								<a class="users-list-name" href="#">Melis MELİS</a></li>
-							<li><img src="../img/user6-128x128.jpg" alt="User Image" />
-								<a class="users-list-name" href="#">Mehmet DEMİRÇİOĞLU</a></li>
-							<li><img src="../img/user2-160x160.jpg" alt="User Image" />
-								<a class="users-list-name" href="#">Hakan KUZUDİŞLİ</a></li>
-							<li><img src="../img/user5-128x128.jpg" alt="User Image" />
-								<a class="users-list-name" href="#">Sude SUDE</a></li>
-							<li><img src="../img/user4-128x128.jpg" alt="User Image" />
-								<a class="users-list-name" href="#">Bengü BENGÜ</a></li>
-							<li><img src="../img/user3-128x128.jpg" alt="User Image" />
-								<a class="users-list-name" href="#">Bahar BAHAR</a></li>
-						</ul>
+								<a class="users-list-name" href="#">#{personel.personelAdi}</a></li>
+							</ui:repeat>
+							</ul>
 
 					</div>
 
@@ -398,91 +281,8 @@
 			</div>
 
 		</div>
-		<div class="col-md-4">
-
-			<div class="box box-widget widget-user">
-
-				<div class="widget-user-header bg-aqua-active">
-
-					<div class="col-md-4" style="float: left;">
-						<table class="table table-condensed">
-							<tr>
-								<th></th>
-								<th></th>
-								<th style="width: 40px"></th>
-							</tr>
-							<tr>
-								<td>HSBC</td>
-								<td>15.200 TL</td>
-								<td><span class="badge bg-red">55%</span></td>
-							</tr>
-							<tr>
-								<td>AKBANK</td>
-								<td>24.600 TL</td>
-								<td><span class="badge bg-yellow">70%</span></td>
-							</tr>
-							<tr>
-								<td>GARANTİ</td>
-								<td>4.600 TL</td>
-								<td><span class="badge bg-green">10%</span></td>
-							</tr>
-							<tr>
-								<td>AKBANK</td>
-								<td>2.600 TL</td>
-								<td><span class="badge bg-blue">40%</span></td>
-							</tr>
-						</table>
-					</div>
-
-					<div class="col-md-5">
-						<h3 class="widget-user-username" style="text-align: center;">
-							KARTAL TAKIMI</h3>
-					</div>
-
-					<div class="col-md-3">
-						<p:rating value="4" stars="7" cancel="false" onRate=""
-							style="float:right" />
-					</div>
-
-				</div>
-				<div class="widget-user-image">
-
-					<img class="img-circle" src="../img/kedi.jpg" alt="User Avatar" />
-
-
-				</div>
-				<div class="box-footer">
-
-
-					<div class="box-body no-padding">
-						<ul class="users-list clearfix">
-							<li><img src="../img/user1-128x128.jpg" alt="User Image" />
-								<a class="users-list-name" href="#">Mehmet ÖZGEN</a></li>
-							<li><img src="../img/user8-128x128.jpg" alt="User Image" />
-								<a class="users-list-name" href="#">Muhammet Ali KAYA</a></li>
-							<li><img src="../img/user7-128x128.jpg" alt="User Image" />
-								<a class="users-list-name" href="#">Melis MELİS</a></li>
-							<li><img src="../img/user6-128x128.jpg" alt="User Image" />
-								<a class="users-list-name" href="#">Mehmet DEMİRÇİOĞLU</a></li>
-							<li><img src="../img/user2-160x160.jpg" alt="User Image" />
-								<a class="users-list-name" href="#">Hakan KUZUDİŞLİ</a></li>
-							<li><img src="../img/user5-128x128.jpg" alt="User Image" />
-								<a class="users-list-name" href="#">Sude SUDE</a></li>
-							<li><img src="../img/user4-128x128.jpg" alt="User Image" />
-								<a class="users-list-name" href="#">Bengü BENGÜ</a></li>
-							<li><img src="../img/user3-128x128.jpg" alt="User Image" />
-								<a class="users-list-name" href="#">Bahar BAHAR</a></li>
-						</ul>
-
-					</div>
-
-				</div>
-			</div>
-
-		</div>
-
-
 		
+	</ui:repeat>
 
 
 	</h:form>

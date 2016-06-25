@@ -486,8 +486,20 @@ li.ui-menuitem.ui-menubar-options.ui-widget.ui-corner-all {
 							icon="ui-icon-disk" />	
 					
 					</p:submenu>
-						
-							
+
+
+					<p:submenu label="YONETİCİ İŞLEMLERİ" expanded="false"
+						id="yoneticiIslem">
+
+						<p:menuitem value="Görev Tanımlama İşlemleri" ajax="false"
+							update=":OrtaSayfa"
+							actionListener="#{anaSayfaBean.gotoPage(302)}"
+							icon="ui-icon-disk" />
+
+
+					</p:submenu>
+
+
 
 
 				</p:menubar>

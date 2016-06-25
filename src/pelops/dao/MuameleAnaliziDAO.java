@@ -38,7 +38,6 @@ public class MuameleAnaliziDAO {
             Statement stmt;
         ResultSet rs;
         stmt = DB.conn.createStatement();
-        System.out.println(fullSQL);
         rs = stmt.executeQuery(fullSQL);
         MuameleAnalizi muameleanalizi;
         ArrayList<MuameleAnalizi> muamelelist = new ArrayList<MuameleAnalizi>();

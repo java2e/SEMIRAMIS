@@ -10,6 +10,7 @@ import javax.faces.context.FacesContext;
 import org.primefaces.context.RequestContext;
 
 import pelops.dao.HarcBilgisiDAO;
+import pelops.dao.UtilDAO;
 import pelops.model.HarcBilgisi;
 
 @ManagedBean(name = "harcBean")
@@ -39,6 +40,16 @@ public class HarcBilgisiBean {
 	private boolean buttonDisabled;
 
 	private int status = 0;
+	
+	private String icraMd;
+	
+	public String getIcraMd() {
+		return UtilDAO.getInstance().getIcraMdwithID(AktifBean.icraDosyaID);
+	}
+
+	public void setIcraMd(String icraMd) {
+		this.icraMd = icraMd;
+	}
 
 	@SuppressWarnings("unused")
 	private ArrayList<HarcBilgisi> harcList = new ArrayList<HarcBilgisi>();

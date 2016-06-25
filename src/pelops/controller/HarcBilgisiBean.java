@@ -1,6 +1,7 @@
 package pelops.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -126,8 +127,10 @@ public class HarcBilgisiBean {
 	}
 
 	public void PanelOpen() {
+		harcBilgi.setHarc_tarihi(new Date());
 		this.setPanelRender(true);
 		ButtonClose();
+		
 
 	}
 

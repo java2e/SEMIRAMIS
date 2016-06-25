@@ -63,10 +63,18 @@
 				pattern="dd/MM/yyyy" mask="true" />
 
 			<p:outputLabel>Ödeme Sözü Miktarı:</p:outputLabel>
-			<p:inputMask id="odemeMiktari"
+			<p:inputText id="odemeMiktari"
 				value="#{vizitBilgisiKaydiBean.vizitBilgisi.odemeMiktari}"
-				required="false" requiredMessage="Bu alanı doldurunuz"
-				style="width: 250px"></p:inputMask>
+				required="true"
+										requiredMessage="Bu alanı boş bırakamazsınız..." onkeyup="var pos=this.selectionStart;
+								var size = this.value.length;														
+this.value=this.value.replace(/,/g,'.').replace(/[^0-9,'.']+/g, '');
+             						
+             						if(this.value.indexOf('.')!=this.value.lastIndexOf('.'))
+										this.value=this.value.substring(0,size-1);
+             					" onfocus="
+															this.value=''
+									" style="width: 250px"></p:inputText>
 
 
 			<p:outputLabel>Vizit Notu :</p:outputLabel>
@@ -91,7 +99,8 @@
 			update=":#{p:component('dialog')}"></p:commandButton>
 
 		<p:commandButton id="cmdButtonKAYDET" value="Kaydet"
-			actionListener="#{vizitBilgisiKaydiBean.dlgKaydet()}" action="#{kasaBean.sayfaGuncelle()}"
+			actionListener="#{vizitBilgisiKaydiBean.dlgKaydet()}"
+			action="#{kasaBean.sayfaGuncelle()}"
 			update=":#{p:component('dialog')}"></p:commandButton>
 
 

@@ -64,8 +64,21 @@
 
 			<p:outputLabel value="Ödeme Sözü Miktarı" />
 			<p:inputText id="inputTextİzlemeMiktarı" style="width:250px"
-				value="#{izlemebilgisibean.izleme.odemeSozuMiktari}">
-				<f:converter converterId="javax.faces.Double" />
+				value="#{izlemebilgisibean.izleme.odemeSozuMiktari}"
+				
+											required="true"
+											requiredMessage="Bu alanı boş bırakamazsınız..."
+											onkeyup="var pos=this.selectionStart;
+									var size = this.value.length;														
+this.value=this.value.replace(/,/g,'.').replace(/[^0-9,'.']+/g, '');
+             						
+             						if(this.value.indexOf('.')!=this.value.lastIndexOf('.'))
+										this.value=this.value.substring(0,size-1);
+             					"
+											onfocus="
+															this.value=''
+									" >
+				
 			</p:inputText>
 
 			<p:outputLabel value="Açıklama" />

@@ -3,8 +3,8 @@ package pelops.controller;
 
 import java.io.File;
 import java.math.BigDecimal;
-
-
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -45,6 +45,26 @@ public class UyapSorguEntegrasyonu {
 			xlsTablo = workbook.getSheetAt(0);
 	 		 
 			workbook.close();
+			
+
+			String dosyaAdi = uploadedFile.getFileName();
+			String[] Uzanti = dosyaAdi.split("[.]");
+			String DosyaIsmi="";
+			
+			File Klasor = new File("C:\\SEMIRAMIS_ICRA_KLASORU\\SORGU-AKTARMA-XLS");
+			
+			if(!Klasor.exists())Klasor.mkdir();
+			SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy-hh-mm-ss");
+			Date tarih = new Date();
+			if(Uzanti[1].equals("xlsx"))
+			DosyaIsmi = dosyaAdi+"_"+format.format(tarih)+".xlsx";
+			
+			File dosya1= new File("C:\\SEMIRAMIS_ICRA_KLASORU\\SORGU-AKTARMA-XLS"+"\\"+DosyaIsmi);
+			
+			FileUtils.copyInputStreamToFile(uploadedFile.getInputstream(), dosya1);	
+		
+			
+			
 		}
 	
 	 

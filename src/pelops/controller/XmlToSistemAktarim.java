@@ -202,7 +202,7 @@ public class XmlToSistemAktarim {
 		String[] Uzanti = dosyaAdi.split("[.]");
 		String DosyaIsmi="";
 		
-		File Klasor = new File("C:\\SEMIRAMIS_ICRA_KLASORU\\XML");
+		File Klasor = new File("C:\\SEMIRAMIS_ICRA_KLASORU\\AKTARMA-XML");
 		
 		if(!Klasor.exists())Klasor.mkdir();
 		SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy-hh-mm-ss");
@@ -210,7 +210,7 @@ public class XmlToSistemAktarim {
 		if(Uzanti[1].equals("xml"))
 		DosyaIsmi = dosyaAdi+"_"+format.format(tarih)+".xml";
 		
-		File dosya= new File("C:\\SEMIRAMIS_ICRA_KLASORU\\XML"+"\\"+DosyaIsmi);
+		File dosya= new File("C:\\SEMIRAMIS_ICRA_KLASORU\\AKTARMA-XML"+"\\"+DosyaIsmi);
 		
 		FileUtils.copyInputStreamToFile(uploadedFile.getInputstream(), dosya);	
 	
@@ -232,7 +232,7 @@ public class XmlToSistemAktarim {
 		String[] Uzanti = dosyaAdi.split("[.]");
 		String DosyaIsmi="";
 		
-		File Klasor = new File("C:\\SEMIRAMIS_ICRA_KLASORU\\XLS");
+		File Klasor = new File("C:\\SEMIRAMIS_ICRA_KLASORU\\AKTARMA-XLS");
 		
 		if(!Klasor.exists())Klasor.mkdir();
 		SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy-hh-mm-ss");
@@ -240,7 +240,7 @@ public class XmlToSistemAktarim {
 		if(Uzanti[1].equals("xlsx"))
 		DosyaIsmi = dosyaAdi+"_"+format.format(tarih)+".xlsx";
 		
-		File dosya= new File("C:\\SEMIRAMIS_ICRA_KLASORU\\XLS"+"\\"+DosyaIsmi);
+		File dosya= new File("C:\\SEMIRAMIS_ICRA_KLASORU\\AKTARMA-XLS"+"\\"+DosyaIsmi);
 		
 		FileUtils.copyInputStreamToFile(uploadedFile.getInputstream(), dosya);	
 	

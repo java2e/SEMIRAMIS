@@ -154,6 +154,11 @@ public class XMLToSistemAktarimDAO {
 		
 		
 		
+		
+		
+		
+		
+		
 		IcraDosyasiDAO icradosya = new IcraDosyasiDAO();
 
 		IcraDosyasi dosya = new IcraDosyasi();
@@ -202,6 +207,17 @@ public class XMLToSistemAktarimDAO {
 		}
 
 		
+		AlacakBilgisi alacak = new AlacakBilgisi();
+		AlacakBilgisiDAO alacakdao = new AlacakBilgisiDAO();
+		
+		alacak.setIcra_dosyasi_id(IcraDosyaId);
+		alacak.setBelge_miktari(hesapBilgi.getTakip_alacagi());
+		alacak.setDoviz_tipi("TL");
+		alacak.setBelge_tipi_id(7);
+		alacak.setBelge_statusu("TAKİP ALACAĞI");
+		alacak.setFaiz_tipi_id(14);
+		alacak.setTanzim_tarihi(gelisTarihi);
+		alacakdao.kaydet(alacak);
 		
 		
 		
@@ -524,6 +540,21 @@ public class XMLToSistemAktarimDAO {
 				e.printStackTrace();
 			}
 
+			
+			
+			AlacakBilgisi alacak = new AlacakBilgisi();
+			AlacakBilgisiDAO alacakdao = new AlacakBilgisiDAO();
+			
+			alacak.setIcra_dosyasi_id(IcraDosyaId);
+			alacak.setBelge_miktari(hesapBilgi.getTakip_alacagi());
+			alacak.setDoviz_tipi("TL");
+			alacak.setBelge_tipi_id(7);
+			alacak.setBelge_statusu("TAKİP ALACAĞI");
+			alacak.setFaiz_tipi_id(14);
+			alacak.setTanzim_tarihi(gelisTarihi);
+			alacakdao.kaydet(alacak);
+			
+			
 			Baglanti baglanti = new Baglanti();
 
 			baglanti.setAlacakliID(MuvekkilId);

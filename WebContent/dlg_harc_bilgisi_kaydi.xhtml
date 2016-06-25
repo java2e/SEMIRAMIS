@@ -81,8 +81,8 @@
 				<p:commandButton id="cmdButtonVAZGEC" style="margin-top:10px"
 					action="#{harcBean.dlgVazgec}" value="Vazgeç" update=":#{p:component('dialog')}"></p:commandButton>
 
-				<p:commandButton id="cmdButtonKAYDET" action="#{harcBean.dlgKaydet}"
-					update="growl, :#{p:component('dialog')}" value="Kaydet"></p:commandButton>
+				<p:commandButton id="cmdButtonKAYDET" actionListener="#{harcBean.dlgKaydet}" action="#{icradosyaislemleribean.Hesapla()}"
+					update="growl, :#{p:component('dialog')}, :formIcraDosyaTakibi:frmhesapbilgisi:hesapbilgisi" value="Kaydet"></p:commandButton>
 
 			</p:panel>
 

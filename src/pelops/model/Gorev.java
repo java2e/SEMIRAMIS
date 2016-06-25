@@ -9,6 +9,7 @@ public class Gorev {
 	private String aciklama;
 	private Date basTarih;
 	private Date bitTarih;
+	private int userId;
 	public int getId() {
 		return id;
 	}
@@ -39,6 +40,14 @@ public class Gorev {
 	public void setBitTarih(Date bitTarih) {
 		this.bitTarih = bitTarih;
 	}
+	public int getUserId() {
+		return userId;
+	}
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+	
+	
 
 	
 	

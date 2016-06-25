@@ -1,23 +1,24 @@
 package pelops.model;
 
+import java.util.Date;
+
 public class Duyuru {
 
 	private int id; 
-	private String baslik;
 	private String aciklama;
+	private Date gunTarih;
+	
 	public int getId() {
 		return id;
 	}
 	public void setId(int id) {
 		this.id = id;
 	}
-	
-	
-	public String getBaslik() {
-		return baslik;
+	public Date getGunTarih() {
+		return gunTarih;
 	}
-	public void setBaslik(String baslik) {
-		this.baslik = baslik;
+	public void setGunTarih(Date gunTarih) {
+		this.gunTarih = gunTarih;
 	}
 	public String getAciklama() {
 		return aciklama;

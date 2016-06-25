@@ -80,8 +80,8 @@ public class HesapDAO extends DBConnection {
 				+ " alacak_kalemi3_kalem_kod_turu, alacak_kalemi3_kalem_kod, alacak_kalemi3_kalem_kod_aciklama,"
 				+ " alacak_kalemi3_alacak_kalem_adi, alacak_kalemi4_kalem_kod_turu, alacak_kalemi4_kalem_kod_aciklama,"
 				+ " alacak_kalemi4_alacak_kalem_adi, alacak_kalemi4_kalem_kod, alacak_kalemi5_kalem_kod_turu,"
-				+ " alacak_kalemi5_kalem_kod_aciklama, alacak_kalemi5_alacak_kalem_adi, alacak_kalemi5_kalem_kod"
-				+ ") VALUES (?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?); ";
+				+ " alacak_kalemi5_kalem_kod_aciklama, alacak_kalemi5_alacak_kalem_adi, alacak_kalemi5_kalem_kod, urun_adi,urun_no"
+				+ ") VALUES (?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?); ";
 
 		newConnectDB();
 
@@ -122,6 +122,9 @@ public class HesapDAO extends DBConnection {
 		pstmt.setString(33, hesap.getAlacak_kalemi5_kalem_kod_aciklama());
 		pstmt.setString(34, hesap.getAlacak_kalemi5_alacak_kalem_adi());
 		pstmt.setString(35, hesap.getAlacak_kalemi5_kalem_kod());
+		pstmt.setString(36, hesap.getUrunAdi());
+		pstmt.setString(37, hesap.getUrunNo());
+		
 
 		pstmt.executeUpdate();
 		disconnectDB();

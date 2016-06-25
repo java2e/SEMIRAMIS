@@ -7,6 +7,7 @@ import java.sql.Timestamp;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -185,9 +186,6 @@ public class XmlToSistemAktarim {
 	
 		UploadedFile uploadedFile = (UploadedFile) event.getFile();
 		
-			
-		System.out.println(getMuvekkilinAdi());		
-		
 		if(muvekkilinAdi.equals("HSBC BANK A.Ş.")){
 			XMLOku(uploadedFile);
 			
@@ -197,16 +195,57 @@ public class XmlToSistemAktarim {
 		else{
 			FreeXMLOku(uploadedFile, this.getMuvekkilinAdi());
 		btnSistAktar = true;
-		}	
+		}
+		
+
+		String dosyaAdi = uploadedFile.getFileName();
+		String[] Uzanti = dosyaAdi.split("[.]");
+		String DosyaIsmi="";
+		
+		File Klasor = new File("C:\\SEMIRAMIS_ICRA_KLASORU\\XML");
+		
+		if(!Klasor.exists())Klasor.mkdir();
+		SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy-hh-mm-ss");
+		Date tarih = new Date();
+		if(Uzanti[1].equals("xml"))
+		DosyaIsmi = dosyaAdi+"_"+format.format(tarih)+".xml";
+		
+		File dosya= new File("C:\\SEMIRAMIS_ICRA_KLASORU\\XML"+"\\"+DosyaIsmi);
+		
+		FileUtils.copyInputStreamToFile(uploadedFile.getInputstream(), dosya);	
+	
+		
+		
 	}
 	
 	public void XLSDosyaAl(FileUploadEvent event) throws Exception {
 
 		arrayListExcel = new ArrayList<ExcellModel>();
 		UploadedFile uploadedFile = (UploadedFile) event.getFile();
+		
 		arrayListExcel = XLSOku(uploadedFile, XmlList.size()+1);
 		btnTblIsle = true;
 		btnSistAktar = true;
+		
+		
+		String dosyaAdi = uploadedFile.getFileName();
+		String[] Uzanti = dosyaAdi.split("[.]");
+		String DosyaIsmi="";
+		
+		File Klasor = new File("C:\\SEMIRAMIS_ICRA_KLASORU\\XLS");
+		
+		if(!Klasor.exists())Klasor.mkdir();
+		SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy-hh-mm-ss");
+		Date tarih = new Date();
+		if(Uzanti[1].equals("xlsx"))
+		DosyaIsmi = dosyaAdi+"_"+format.format(tarih)+".xlsx";
+		
+		File dosya= new File("C:\\SEMIRAMIS_ICRA_KLASORU\\XLS"+"\\"+DosyaIsmi);
+		
+		FileUtils.copyInputStreamToFile(uploadedFile.getInputstream(), dosya);	
+	
+		
+		
 	}
 
 	

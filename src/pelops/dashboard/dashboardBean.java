@@ -44,20 +44,29 @@ public class dashboardBean {
 	
 	
 	public dashboardBean() throws Exception {
-		DashBorad = new ArrayList<dashboardModels>();
-		DashBoradFaces = new ArrayList<dashboardModels>();
-				
-	//takimtanimla();
-	veriListele();
-	yuzdeHesapla();
-	//aktar();
-		
+	
+	
+getir();
 	tarih = fullXDateFormat.format(nowDate);
 	
-
 	
 	}
 
+	
+	public void getir() throws Exception{
+		System.out.println("selam");
+		DashBorad = new ArrayList<dashboardModels>();
+		DashBoradFaces = new ArrayList<dashboardModels>();
+		 hedeflerGunluk = new bankaTutarModel();
+		 hedeflerAylik = new bankaTutarModel();
+		 hedeflerToplam = new bankaTutarModel();
+		
+		 gunluk = new bankaTutarModel();
+		 aylik = new bankaTutarModel();
+		 genelToplam = new bankaTutarModel();
+		veriListele();
+		yuzdeHesapla();
+	}
 	
 	// -------------- TABLO VERİLERİNİ ÇEKİYORUZ -------------------------
 	//       KASA İŞLEMLERİ - HEDEFLER DEN BİLGİLERİ ÇEKİYORUZ

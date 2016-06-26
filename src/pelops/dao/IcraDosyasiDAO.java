@@ -607,9 +607,10 @@ public class IcraDosyasiDAO extends DBConnection {
 
 	
 	public void hitamTarihiEkle(Date date, int icradosyaid) throws Exception{
-		String SQL = "UPDATE tbl_icra_dosyasi" + "	hitam_tarihi=?,"
+		String SQL = "UPDATE tbl_icra_dosyasi SET " + "	hitam_tarihi=? "
 				 + " WHERE id=" + icradosyaid;
 
+		System.out.println(SQL);
 		DBConnection DB = new DBConnection();
 		DB.newConnectDB();
 		PreparedStatement pstmt = DB.conn.prepareStatement(SQL.toString());

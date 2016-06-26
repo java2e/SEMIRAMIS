@@ -58,7 +58,7 @@ li.ui-menuitem.ui-menubar-options.ui-widget.ui-corner-all {
 
 <div style="float:left;width: 180px;height: 20px;margin-top:10px;">
 
-<p style="font-family:verdana;color:white;">Mehmet DEMİRCİOĞLU</p>
+<p style="font-family:verdana;color:white;">#{loginBean.user.usrAdSoyad}</p>
 </div>
 <div style="float:left;width: 180px;height: 20px;margin-top:2px;">
 <p  style="font-family:verdana;color:white;">YÖNETİCİ</p>
@@ -486,9 +486,9 @@ li.ui-menuitem.ui-menubar-options.ui-widget.ui-corner-all {
 							icon="ui-icon-disk" />	
 					
 					</p:submenu>
-
-
-					<p:submenu label="YONETİCİ İŞLEMLERİ" expanded="false"
+					
+					
+					<p:submenu label="Yönetici İşlemleri" expanded="false"
 						id="yoneticiIslem">
 
 						<p:menuitem value="Görev Tanımlama İşlemleri" ajax="false"
@@ -508,8 +508,8 @@ li.ui-menuitem.ui-menubar-options.ui-widget.ui-corner-all {
 
 
 					</p:submenu>
-
-
+						
+							
 
 
 				</p:menubar>

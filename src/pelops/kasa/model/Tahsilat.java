@@ -32,9 +32,21 @@ public class Tahsilat {
 	private int vizit_id;
 	private int odemeplani_id;
 	private int soz_alan_personel_id;
+	private int hitam_durum;
 	
 	
 	
+	
+	
+	
+
+	public int getHitam_durum() {
+		return hitam_durum;
+	}
+
+	public void setHitam_durum(int hitam_durum) {
+		this.hitam_durum = hitam_durum;
+	}
 
 	public int getSoz_alan_personel_id() {
 		return soz_alan_personel_id;

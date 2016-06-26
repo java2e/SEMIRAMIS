@@ -795,6 +795,7 @@ try{
 		boolean hitam = false;
 		if ((hesap.getKalan_alacak() - bilgiTahsilat.getTahsilat_miktari() <= 1)) {
 			hitam = true;
+			bilgiTahsilat.setHitam_durum(1);
 			for (int i = 1; i < 4; i++) {
 				Reddiyat reddiyat = controller.createReddiyatForStatus(i, hesap, bilgiTahsilat);
 				redList.add(reddiyat);
@@ -1046,6 +1047,7 @@ try{
 		KasaCtrl islem = new KasaCtrl();
 		if(id==null)
 		{
+			
 		islem.printTahsilatMakbuzu(tahsilatID);
 		}
 		else{

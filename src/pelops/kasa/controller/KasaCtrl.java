@@ -405,6 +405,11 @@ public class KasaCtrl {
 	@SuppressWarnings("deprecation")
 	public void printTahsilatMakbuzu(int id) throws Exception {
 		TahsilatView tahsilatView = viewDAO.getTahsilatFromViewByID(id);
+		
+		if(tahsilatView.getHitam_durum()==1){
+			printHitamMakbuzu(id);
+		}else{
+		
 		JasperPrint jasperPrint = generateTahsilatMakbuzu(tahsilatView);
 		HttpServletResponse httpServletResponse = (HttpServletResponse) FacesContext.getCurrentInstance()
 				.getExternalContext().getResponse();
@@ -427,6 +432,7 @@ public class KasaCtrl {
 			//
 		} catch (Exception ex) {
 			//
+		}
 		}
 
 	}

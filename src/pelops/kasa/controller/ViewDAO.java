@@ -454,7 +454,7 @@ public class ViewDAO extends DBConnection {
 		String sql = "SELECT id, icra_dosyasi_id, muvekkil_adi, borclu_adi, gelis_tarihi, "
 				+ "borc_tipi, tahsilat_tarihi, tahsilat_tipi, tahsilat_miktari, "
 				+ "tahsilat_statusu, durum, gelis_yeri, onaylayan_id, kasa_personel_id, "
-				+ "ad_soyad, dosya_tipi, icra_dosya_no, icra_mudurlugu,izleme_id , vizit_id , odemeplani_id " + " FROM vwtahsilat where durum =" + status;
+				+ "ad_soyad, dosya_tipi, icra_dosya_no, icra_mudurlugu,izleme_id , vizit_id , odemeplani_id, hitam_durum " + " FROM vwtahsilat where durum =" + status;
 		
 		String fullSQL=sql;
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
@@ -493,6 +493,7 @@ public class ViewDAO extends DBConnection {
 			view.setOdemeplani_id(rs.getInt("odemeplani_id"));
 			view.setVizit_id(rs.getInt("vizit_id"));
 			view.setTahsilatMiktariTL(convertDoubleToTL(view.getTahsilatMiktari()));
+			view.setHitam_durum(rs.getInt("hitam_durum"));
 			list.add(view);
 		}
 		disconnectDB();
@@ -504,7 +505,7 @@ public class ViewDAO extends DBConnection {
 		String sql = "SELECT id, icra_dosyasi_id, muvekkil_adi, borclu_adi, gelis_tarihi, "
 				+ "borc_tipi, tahsilat_tarihi, tahsilat_tipi, tahsilat_miktari, "
 				+ "tahsilat_statusu, durum, gelis_yeri, onaylayan_id, kasa_personel_id, "
-				+ "ad_soyad, dosya_tipi, icra_dosya_no, icra_mudurlugu,izleme_id , vizit_id , odemeplani_id  FROM vwtahsilat " + " where id = " + id + ";";
+				+ "ad_soyad, dosya_tipi, icra_dosya_no, icra_mudurlugu,izleme_id , vizit_id , odemeplani_id, hitam_durum  FROM vwtahsilat " + " where id = " + id + ";";
 		newConnectDB();
 		Statement stm = conn.createStatement();
 		ResultSet rs = stm.executeQuery(sql);
@@ -532,6 +533,7 @@ public class ViewDAO extends DBConnection {
 			view.setOdemeplani_id(rs.getInt("odemeplani_id"));
 			view.setVizit_id(rs.getInt("vizit_id"));
 			view.setTahsilatMiktariTL(convertDoubleToTL(view.getTahsilatMiktari()));
+			view.setHitam_durum(rs.getInt("hitam_durum"));
 		}
 		disconnectDB();
 		return view;

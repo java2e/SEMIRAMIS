@@ -313,8 +313,8 @@ public class TahsilatDAO extends DBConnection implements IDAO {
 		String SQL = "INSERT INTO tbl_tahsilat( icra_dosyasi_id, muvekkil_adi, borclu_adi, gelis_tarihi, "
 				+ " borc_tipi, tahsilat_tarihi, tahsilat_tipi, tahsilat_miktari,"
 				+ " tahsilat_statusu, durum, gelis_yeri, onaylayan_id, kasa_personel_id,"
-				+ " dosya_tipi, icra_dosya_no, icra_mudurlugu,izleme_id , vizit_id , odemeplani_id, soz_alan_personel_id) "
-				+ "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,  ?, ?, ?,?,?,?,?);";
+				+ " dosya_tipi, icra_dosya_no, icra_mudurlugu,izleme_id , vizit_id , odemeplani_id, soz_alan_personel_id, hitam_durum) "
+				+ "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,  ?, ?, ?,?,?,?,?,?);";
 
 		newConnectDB();
 		if (obj instanceof Tahsilat) {
@@ -343,6 +343,8 @@ public class TahsilatDAO extends DBConnection implements IDAO {
 			pstmt.setInt(18, tahsilat.getVizit_id());
 			pstmt.setInt(19, tahsilat.getOdemeplani_id());
 			pstmt.setInt(20, tahsilat.getSoz_alan_personel_id());
+			pstmt.setInt(21, tahsilat.getHitam_durum());
+			
 			pstmt.execute();
 
 			disconnectDB();

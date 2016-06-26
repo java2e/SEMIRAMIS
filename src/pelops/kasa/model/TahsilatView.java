@@ -37,8 +37,20 @@ public class TahsilatView {
 	private int vizit_id;
 	private int odemeplani_id;
 	
+	private int hitam_durum;
 	
 	
+	
+	
+	
+
+	public int getHitam_durum() {
+		return hitam_durum;
+	}
+
+	public void setHitam_durum(int hitam_durum) {
+		this.hitam_durum = hitam_durum;
+	}
 
 	public int getIzleme_id() {
 		return izleme_id;

@@ -356,6 +356,10 @@ public class AnaSayfaBean {
 				formPath = "frm_gorev_tanimlama.xhtml";
 				break;
 
+			case 303:
+				formPath = "frm_duyuru_tanimlama.xhtml";
+				break;
+				
 //			case 303:
 //				formPath = "/USER/frm_takim.xhtml";
 //				break;

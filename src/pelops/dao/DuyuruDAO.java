@@ -19,8 +19,7 @@ public class DuyuruDAO  extends DBConnection{
 		StringBuffer buffer = new StringBuffer(
 				"insert into tbl_duyuru (aciklama, gunTarih) values (");
 		buffer.append("'" + duyuru.getAciklama() + "'");
-		buffer.append(" ,'" + guncellemeZamani + "')");
-		buffer.append(")");
+		buffer.append(" ,'" + convertFromJAVADateToSQLDate(guncellemeZamani) + "')");
 
 		System.out.println(buffer.toString());
 
@@ -37,7 +36,7 @@ public class DuyuruDAO  extends DBConnection{
 			e.printStackTrace();
 		}
 	}
-
+	
 	/**
 	 * kullanici silmek icin cagrilan metod
 	 * 
@@ -111,7 +110,7 @@ public class DuyuruDAO  extends DBConnection{
 	 * @param user
 	 * @return
 	 */
-	public List<Duyuru> select(int duyuruId)
+	public List<Duyuru> select()
 	{
 		List<Duyuru> duyuruListesi = new ArrayList<Duyuru>();
 		Duyuru duyuru;
@@ -144,6 +143,42 @@ public class DuyuruDAO  extends DBConnection{
 		return duyuruListesi;
 	}
 
+	
+	public Duyuru selectById(int duyuruId)
+	{
+		Duyuru duyuru = new Duyuru();
+
+		StringBuffer buffer = new StringBuffer(
+				"select * from tbl_duyuru where id="+ duyuruId + "");
+
+		try
+		{
+			super.newConnectDB();
+			Statement statement;
+			statement = conn.createStatement();
+			ResultSet rset = statement.executeQuery(buffer.toString());
+
+			while (rset.next())
+			{
+				duyuru = new Duyuru();
+				duyuru.setId(rset.getInt("id"));
+				duyuru.setAciklama(rset.getString("aciklama"));
+				duyuru.setGunTarih(rset.getDate("guntarih"));
+			}
+			super.disconnectDB();
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+
+		return duyuru;
+	}
+	
 
 
 }

@@ -116,6 +116,7 @@ public class LoginBean {
 
 			HttpSession session = Util.getSession();
 			session.setAttribute("username", uname);
+			
 			user.setPage(userDAO.getPages(user.getUsrId()));
 			//user.setWriteList(userDAO.getWriteList(user.getUsrId()));
 			//user.setReadList(userDAO.getReadList(user.getUsrId()));

@@ -113,18 +113,19 @@ this.value=this.value.replace(/,/g,'.').replace(/[^0-9,'.']+/g, '');
 
 	</p:panel>
 
-	<p:commandButton value="Harç Yeni Kayıt" style="float:left"
-		disabled="#{harcBean.buttonDisabled}"
-		update=":#{p:component('dialog')}"
-		actionListener="#{harcBean.dlgYeniKayit}" />
-
-
-	<p:commandButton value="Listeyi Yenile"
-		disabled="#{harcBean.buttonDisabled}"
-		update=":#{p:component('dialog')}" />
 
 	<p:dataTable value="#{harcBean.harcList}" var="hb" id="tblharc"
 		style="width:900px ">
+		
+		<f:facet name="header">
+			<p:panelGrid>
+				<p:commandButton value="Yeni Kayıt" style="float:left"
+					disabled="#{harcBean.buttonDisabled}"
+		update=":#{p:component('dialog')}"
+		actionListener="#{harcBean.dlgYeniKayit}"/>
+				<h:outputText value="Harç Listesi" />
+			</p:panelGrid>
+		</f:facet>
 
 		<p:column headerText="Düzenle" width="145">
 

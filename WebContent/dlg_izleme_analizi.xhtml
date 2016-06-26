@@ -1,0 +1,193 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:body>
+
+	<style type="text/css">
+.green {
+	color: #32CD32;
+	!
+	important;
+}
+
+.red {
+	background: red !important;
+}
+
+.yellow {
+	background: yellow !important;
+}
+
+.white {
+	background: white !important;
+}
+</style>
+
+	<p:panel id="panelPGasd" header="İZLEME ANALİZİ"
+		style="text-align:left;min-height:500px;">
+
+
+		<p:panel>
+			<p:panelGrid columns="7" style=" border-style: hidden !important;">
+				<p:outputLabel value="İcra Müdürlüğü" />
+				<p:selectOneMenu id="icraMudurlukasdas" effect="fold" filter="true"
+					filterMatchMode="startsWith" value="#" style="width: 180px">
+					<f:selectItem itemLabel="" itemValue="" />
+					<f:selectItems
+						value="#{geneltanimbean.ListeGetir('tbl_icra_mudurlugu')}"
+						var="list" itemLabel="#{list.adi}" itemValue="#{list.adi}" />
+				</p:selectOneMenu>
+
+				<p:outputLabel value="Müvekkil Adı" style="width: 100px" />
+				<p:selectOneMenu id="muvekkilasda" effect="fold" filter="true"
+					filterMatchMode="startsWith"
+					value="#{izlemeAnaliziBean.muvekkilAdi}" style="width: 180px">
+					<f:selectItem itemLabel="" itemValue="" />
+					<f:selectItems value="#{alacakliBilgisiBean.Liste()}"
+						var="listeler" itemLabel="#{listeler.muvekkilAdi}"
+						itemValue="#{listeler.id}" />
+				</p:selectOneMenu>
+
+				<p:outputLabel value="Dosya Büyüklüğü" style="width: 100px" />
+				<p:inputText value="#{izlemeAnaliziBean.dosyaBuyuklugu1}" />
+				<p:inputText value="#{izlemeAnaliziBean.dosyaBuyuklugu2}" />
+
+				<p:outputLabel value="Dosya Tipi" />
+				<p:selectOneMenu style="width: 180px" id="dosyaTipiasdas"
+					value="#{izlemeAnaliziBean.dosyaTipi}">
+					<f:selectItem itemLabel="" itemValue="" />
+					<f:selectItems value="#{dosyaTipiBean.ListeGetir()}" var="listeler"
+						itemLabel="#{listeler.adi}" itemValue="#{listeler.id}" />
+				</p:selectOneMenu>
+
+				<p:outputLabel value="Borç Tipi" />
+				<p:selectOneMenu style="width: 180px" id="borcTipasdasdi"
+					value="#{izlemeAnaliziBean.borcluAdi}">
+					<f:selectItem itemLabel="" itemValue="" />
+					<f:selectItems
+						value="#{geneltanimbean.ListeGetir('tbl_borc_tipi')}" var="item"
+						itemValue="#{item.id}" itemLabel="#{item.adi}" />
+				</p:selectOneMenu>
+
+				<p:outputLabel value="Dosya Yaşı" style="width: 100px" />
+				<p:inputText value="#{izlemeAnaliziBean.dosyaYasi1}" />
+				<p:inputText value="#{izlemeAnaliziBean.dosyaYasi2}" />
+
+				<p:outputLabel value="Takip Tipi " />
+				<p:selectOneMenu style="width: 180px" id="takipTipiasdasd"
+					value="#{izlemeAnaliziBean.takipTipi}">
+					<f:selectItem itemLabel="" itemValue="" />
+					<f:selectItems
+						value="#{geneltanimbean.ListeGetir('tbl_takip_tipi')}"
+						var="listeler" itemLabel="#{listeler.adi}"
+						itemValue="#{listeler.id}" />
+				</p:selectOneMenu>
+
+				<p:outputLabel value="Dosya Statüsü" />
+				<p:selectOneMenu style="width: 180px" id="dosyastatusuasdasd"
+					value="#{izlemeAnaliziBean.dosyaStatusu}">
+					<f:selectItem itemLabel="" itemValue="" />
+					<f:selectItems
+						value="#{geneltanimbean.ListeGetir('tbl_dosya_statu')}"
+						var="listeler" itemLabel="#{listeler.adi}"
+						itemValue="#{listeler.id}" />
+				</p:selectOneMenu>
+
+				<p:outputLabel value="Dosya Tahsilat Oranı(%)" style="width: 100px" />
+				<p:inputText value="#{izlemeAnaliziBean.odenmeyuzdesi1}" />
+				<p:inputText value="#{izlemeAnaliziBean.odenmeyuzdesi2}" />
+
+				<p:outputLabel />
+				<p:outputLabel />
+				<p:outputLabel />
+				<p:outputLabel />
+
+
+				<p:outputLabel value="Geliş Tarihi" />
+				<p:calendar id="maskasdasd" value="#{izlemeAnaliziBean.gelisTarihi1}"
+					pattern="dd-MM-yyyy" mask="true" style="width: 250px" />
+				<p:calendar id="mask1asdas" value="#{izlemeAnaliziBean.gelisTarihi2}"
+					pattern="dd-MM-yyyy" mask="true" style="width: 250px" />
+
+				<p:outputLabel />
+				<p:outputLabel />
+				<p:outputLabel />
+				<p:outputLabel />
+
+				<p:outputLabel value="Ödeme Sözü Tarihi" />
+				<p:calendar id="mask2asdasd" value="#{izlemeAnaliziBean.odemeSozuTarihi1}"
+					pattern="dd-MM-yyyy" mask="true" style="width: 250px" />
+				<p:calendar id="mask3asdasd" value="#{izlemeAnaliziBean.odemeSozuTarihi2}"
+					pattern="dd-MM-yyyy" mask="true" style="width: 250px" />
+
+
+				<p:commandButton value="Listele"
+					actionListener="#{izlemeAnaliziBean.Listele}"
+					update="tblizlemeanalizi" />
+
+
+			</p:panelGrid>
+
+		</p:panel>
+
+
+		<p:spacer height="15" />
+		<p:dataTable value="#{izlemeAnaliziBean.analizListesi}" var="hb"
+			id="tblizlemeanalizi" style="width:1400px " rows="10"
+			paginator="true"
+			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			rowsPerPageTemplate="5,10,25,50,100,1000">
+
+			<p:column headerText="İcra Dosya No" width="80">
+				<h:outputText value="#{hb.icra_dosyasi_no}" />
+			</p:column>
+
+			<p:column headerText="Müvekkil Adı" width="205">
+				<h:outputText value="#{hb.muvekkil_adi}" />
+			</p:column>
+
+
+			<p:column headerText="Borçlu Adı" width="115">
+				<h:outputText value="#{hb.ad_soyad}" />
+			</p:column>
+
+
+			<p:column headerText="Dosya Tipi" width="105">
+				<h:outputText value="#{hb.dosyatipi}" />
+			</p:column>
+
+
+			<p:column headerText="Geliş Tarihi" width="85">
+				<h:outputText value="#{hb.gelis_tarihi}" />
+			</p:column>
+
+			<p:column headerText="İzleme Tarihi" width="85">
+				<h:outputText value="#{hb.izleme_tarihi}" />
+			</p:column>
+
+			<p:column headerText="İzleme Sonucu" width="85">
+				<h:outputText value="#{hb.izlemesonucu}" />
+			</p:column>
+
+			<p:column headerText="Ödeme Sözü Tarihi" width="85">
+				<h:outputText value="#{hb.odeme_sozu_tarihi}" />
+			</p:column>
+
+			<p:column headerText="Ödeme Sözü Miktarı" width="85">
+				<h:outputText value="#{hb.odeme_sozu_miktari_tl}" />
+			</p:column>
+
+
+
+
+
+		</p:dataTable>
+	</p:panel>
+
+</h:body>
+</html>

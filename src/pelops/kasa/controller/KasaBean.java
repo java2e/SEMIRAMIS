@@ -1111,7 +1111,7 @@ try{
 		JRBeanCollectionDataSource beanCollectionDataSource = new JRBeanCollectionDataSource(
 				liste);
 		String reportPath = FacesContext.getCurrentInstance().getExternalContext()
-				.getRealPath("/reports/JASPER/Tahsilat_Listesi.jasper");
+				.getRealPath("/reports/JASPER/Tahsilat-Listesi.jasper");
 		jasperPrint = JasperFillManager.fillReport(reportPath, hashMap,
 				beanCollectionDataSource);
 		
@@ -1119,7 +1119,7 @@ try{
 		HttpServletResponse httpServletResponse = (HttpServletResponse) FacesContext
 				.getCurrentInstance().getExternalContext().getResponse();
 		httpServletResponse.addHeader("Content-disposition",
-				"attachment; filename=TebligatListesi.pdf");
+				"attachment; filename=Tahsilat-Listesi.pdf");
 		ServletOutputStream servletOutputStream = httpServletResponse
 				.getOutputStream();
 

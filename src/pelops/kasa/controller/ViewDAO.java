@@ -563,9 +563,10 @@ public class ViewDAO extends DBConnection {
 		newConnectDB();
 		Statement stm = conn.createStatement();
 		ResultSet rs = stm.executeQuery(fullSQL);
+		int sira_no=1;
 		while (rs.next()) {
 			ViewTahsilatListesi model = new ViewTahsilatListesi();
-			
+			model.setSira_no(sira_no);
 			model.setBanka_servis_no(rs.getString("banka_servis_no"));
 			model.setBorclu_adi(rs.getString("borclu_adi"));
 			model.setDosya_statusu(rs.getString("dosya_statusu"));
@@ -579,7 +580,7 @@ public class ViewDAO extends DBConnection {
 			model.setTahsilat_tipi(rs.getString("tahsilat_tipi"));
 			model.setUrun_adi(rs.getString("urun_adi"));
 			model.setUrun_no(rs.getString("urun_no"));
-			
+			sira_no++;
 			list.add(model);
 		}
 		disconnectDB();

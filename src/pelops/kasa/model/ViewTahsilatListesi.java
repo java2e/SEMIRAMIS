@@ -4,6 +4,7 @@ import java.util.Date;
 
 public class ViewTahsilatListesi {
 
+	private int sira_no;
 	private String icra_dosya_no;
 	private String borclu_adi;
 	private double tahsilat_miktari;
@@ -18,6 +19,16 @@ public class ViewTahsilatListesi {
 	private Date tahsilat_tarihi;
 	private String muvekkil_adi;
 	
+	
+	
+	
+	
+	public int getSira_no() {
+		return sira_no;
+	}
+	public void setSira_no(int sira_no) {
+		this.sira_no = sira_no;
+	}
 	public String getIcra_dosya_no() {
 		return icra_dosya_no;
 	}

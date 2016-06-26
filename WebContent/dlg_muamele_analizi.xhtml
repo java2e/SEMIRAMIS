@@ -1,0 +1,207 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fcore="http://java.sun.com/jsf/core">
+
+<h:body>
+	<style type="text/css">
+.green {
+	color: #32CD32;
+	!
+	important;
+}
+
+.red {
+	background: red !important;
+}
+
+.yellow {
+	background: yellow !important;
+}
+
+.white {
+	background: white !important;
+}
+</style>
+	<p:ajaxStatus onstart="PF('statusDialog').show()"
+		onsuccess="PF('statusDialog').hide()" />
+
+	<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+		closable="false" resizable="false" showHeader="false"
+		style="position: absolute; background-color: rgba(0, 0, 0, 0.6); height: 256px; width: 256px; left:0%; top:0%; z-index:2; height: 100%; width: 100%">
+		<p:graphicImage value="img/yukleme.gif" height="80" width="80" />
+	</p:dialog>
+
+	<p:panel id="panelPG" header="MUAMELE ANALİZİ"
+		style="text-align:left;min-height:500px;">
+
+
+
+
+		<p:panel>
+			<p:panelGrid columns="7" style=" border-style: hidden !important;">
+
+				<p:outputLabel value="İcra Dosya No" style="width: 100px" />
+				<p:inputText style="width: 290px"
+					value="#{muameleAnaliziBean.icraDosyaNo}" />
+
+				<p:outputLabel value="Müvekkil Adı" style="width: 100px" />
+				<p:selectOneMenu id="muvekkil" effect="fold" filter="true"
+					filterMatchMode="startsWith"
+					value="#{muameleAnaliziBean.muvekkilAdi}" style="width: 300px">
+					<f:selectItem itemLabel="" itemValue="" />
+					<f:selectItems value="#{alacakliBilgisiBean.Liste()}"
+						var="listeler" itemLabel="#{listeler.muvekkilAdi}"
+						itemValue="#{listeler.id}" />
+				</p:selectOneMenu>
+
+				<p:outputLabel value="Geliş Tarihi" />
+				<p:calendar id="maskzasda" value="#{muameleAnaliziBean.gelisTarihi1}"
+					pattern="dd-MM-yyyy" mask="true" style="width: 250px" />
+				<p:calendar id="mask1asdas" value="#{muameleAnaliziBean.gelisTarihi2}"
+					pattern="dd-MM-yyyy" mask="true" style="width: 250px" />
+
+				<p:outputLabel value="İcra Müdürlüğü" />
+				<p:selectOneMenu id="icraMudurluk343" effect="fold" filter="true"
+					filterMatchMode="startsWith"
+					value="#{muameleAnaliziBean.icraMudurlugu}" style="width: 300px">
+					<f:selectItem itemLabel="" itemValue="" />
+					<f:selectItems
+						value="#{geneltanimbean.ListeGetir('tbl_icra_mudurlugu')}"
+						var="list" itemLabel="#{list.adi}" itemValue="#{list.adi}" />
+				</p:selectOneMenu>
+
+				<p:outputLabel value="Dosya Tipi" />
+				<p:selectOneMenu style="width: 300px" id="dosyaTipi123"
+					value="#{muameleAnaliziBean.dosyaTipi}">
+					<f:selectItem itemLabel="" itemValue="" />
+					<f:selectItems value="#{dosyaTipiBean.ListeGetir()}" var="listeler"
+						itemLabel="#{listeler.adi}" itemValue="#{listeler.id}" />
+				</p:selectOneMenu>
+
+				<p:outputLabel value="Kesinleşme Tarihi" />
+				<p:calendar id="mask22342"
+					value="#{muameleAnaliziBean.kesinlesmeTarihi1}"
+					pattern="dd-MM-yyyy" mask="true" style="width: 250px" />
+				<p:calendar id="mask3adad"
+					value="#{muameleAnaliziBean.kesinlesmeTarihi2}"
+					pattern="dd-MM-yyyy" mask="true" style="width: 250px" />
+
+				<p:outputLabel value="Borç Tipi" />
+				<p:selectOneMenu style="width: 300px" id="borcTipiasdasd"
+					value="#{muameleAnaliziBean.borcTipi}">
+					<f:selectItem itemLabel="" itemValue="" />
+					<f:selectItems
+						value="#{geneltanimbean.ListeGetir('tbl_borc_tipi')}" var="item"
+						itemValue="#{item.id}" itemLabel="#{item.adi}" />
+				</p:selectOneMenu>
+
+				<p:outputLabel value="Takip Tipi " />
+				<p:selectOneMenu style="width: 300px" id="takipTipierwe"
+					value="#{muameleAnaliziBean.takipTipi}">
+					<f:selectItem itemLabel="" itemValue="" />
+					<f:selectItems
+						value="#{geneltanimbean.ListeGetir('tbl_takip_tipi')}"
+						var="listeler" itemLabel="#{listeler.adi}"
+						itemValue="#{listeler.id}" />
+				</p:selectOneMenu>
+
+				<p:outputLabel value="Risk Yöneticisi " />
+				<p:selectOneMenu style="width: 180px" id="riskYoneticisifasdf"
+					value="#{muameleAnaliziBean.riskYoneticisi}">
+					<f:selectItem itemLabel="" itemValue="" />
+					<f:selectItems value="#{userbean.ListeGetir()}" var="item"
+						itemValue="#{item.id}" itemLabel="#{item.adSoyad}" />
+				</p:selectOneMenu>
+
+				<p:commandButton value="Listele"
+					action="#{muameleAnaliziBean.dlgListele}" ajax="false"
+					update=":#{p:component('dialog')}" />
+
+
+			</p:panelGrid>
+
+		</p:panel>
+
+
+		<p:spacer height="15" />
+		<p:dataTable value="#{muameleAnaliziBean.muameleAnaliziListesi}"
+			var="hb" id="tblmuameleanaliz" style="width:1420px "
+			rowStyleClass="#{hb.kalan==0 ? 'green' : null}" rows="10"
+			paginator="true"
+			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			rowsPerPageTemplate="5,10,25,50,100,1000">
+
+			<p:column headerText="İcra Dosya No" width="105"
+				filterBy="#{hb.icra_dosyasi_no}" filterMatchMode="contains"
+				sortBy="#{hb.icra_dosyasi_no}">
+				<h:outputText value="#{hb.icra_dosyasi_no}" />
+			</p:column>
+
+			<p:column headerText="Müvekkil Adı" width="155"
+				filterBy="#{hb.muvekkil_adi}" filterMatchMode="contains"
+				sortBy="#{hb.muvekkil_adi}">
+				<h:outputText value="#{hb.muvekkil_adi}" />
+			</p:column>
+
+			<p:column headerText="Takip Tipi" width="65">
+				<h:outputText value="#{hb.takip_tipi}" />
+			</p:column>
+
+			<p:column headerText="Borç Tipi" width="65">
+				<h:outputText value="#{hb.borc_tipi}" />
+			</p:column>
+
+			<p:column headerText="Geliş Tarihi" width="85"
+				filterBy="#{hb.gelis_tarihi}" filterMatchMode="contains"
+				sortBy="#{hb.gelis_tarihi}">
+				<h:outputText value="#{hb.gelis_tarihi}" />
+			</p:column>
+
+			<p:column headerText="Kesinleşme Tarihi" width="110"
+				filterBy="#{hb.kesinlesme_tarihi}" filterMatchMode="contains"
+				sortBy="#{hb.kesinlesme_tarihi}">
+				<h:outputText value="#{hb.kesinlesme_tarihi}" />
+			</p:column>
+
+
+			<p:column headerText="Borçlu Adı" width="145"
+				filterBy="#{hb.borclu_adi}" filterMatchMode="contains"
+				sortBy="#{hb.borclu_adi}">
+				<h:outputText value="#{hb.borclu_adi}" />
+			</p:column>
+
+			<p:column headerText="Gmnk" width="45">
+				<p:graphicImage
+					value="#{hb.ev != null ? 'img/home.png' : 'img/bos.png' }"
+					height="35" width="35" />
+			</p:column>
+
+			<p:column headerText="Araç" width="45">
+				<p:graphicImage
+					value="#{hb.araba != null ? 'img/car.png' : 'img/bos.png' }"
+					height="35" width="35" />
+			</p:column>
+
+			<p:column headerText="Sgk" width="45">
+				<p:graphicImage
+					value="#{hb.sgk != null ? 'img/para.png' : 'img/bos.png' }"
+					height="35" width="35" />
+			</p:column>
+
+			<p:column headerText="Kalan Alacak" width="100">
+				<h:outputText value="#{hb.kalantl}" />
+			</p:column>
+
+
+		</p:dataTable>
+
+	</p:panel>
+</h:body>
+</html>

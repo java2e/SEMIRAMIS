@@ -48,7 +48,7 @@ style="position: absolute; background-color: rgba(0, 0, 0, 0.6); height: 256px; 
 		
 				<p:commandButton style="width:100%" value="Masraf Bilgisi"  actionListener="#{icradosyaislemleribean.setDialogPage('dlg_masraf_bilgisi_kaydi')}"  oncomplete="PF('dialogWidget').show();" update="dialog"/>
 		
-				<p:commandButton style="width:100%" value="Muamele İşlemleri"  actionListener="#{icradosyaislemleribean.setDialogPage('dlg_muamele_islemleri_kaydi')}"  oncomplete="PF('dialogWidget').show();" update="dialog"/>
+				<p:commandButton style="width:100%" value="Muamele İşlemleri" disabled="true" actionListener="#{icradosyaislemleribean.setDialogPage('dlg_muamele_islemleri_kaydi')}"  oncomplete="PF('dialogWidget').show();" update="dialog"/>
 		
 				<p:commandButton style="width:100%" value="Ödeme Emri"  actionListener="#{icradosyaislemleribean.setDialogPage('dlg_odeme_emri_kaydi')}"  oncomplete="PF('dialogWidget').show();" update="dialog"/>
 		

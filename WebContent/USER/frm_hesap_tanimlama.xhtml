@@ -95,6 +95,10 @@
 						<f:selectItems value="#{hesapTanimlamaBean.getUserRolAcklari()}" var="rol"
 							itemValue="#{rol.getId()}" itemLabel="#{rol.getAck()}" />
 					</p:selectOneMenu>
+					
+					<p:outputLabel value="Kullanıcı Fotoğraf :"/>
+					 <p:fileUpload fileUploadListener="#{hesapTanimlamaBean.handleFileUpload}" mode="advanced" dragDropSupport="false"
+          				 update="msgs" sizeLimit="100000" fileLimit="3" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
 
 					<p:outputLabel value="İptal:" />
 					<p:selectBooleanCheckbox value="#{hesapTanimlamaBean.updatedUser.usrIptal}"/>
@@ -174,6 +178,10 @@
 						<f:selectItems value="#{hesapTanimlamaBean.getUserRolAcklari()}" var="rol"
 							itemValue="#{rol.getId()}" itemLabel="#{rol.getAck()}" />
 					</p:selectOneMenu>
+					
+					<p:outputLabel value="Kullanıcı Fotoğraf :"/>
+					 <p:fileUpload uploadLabel="Yükle" cancelLabel="İptal" label="Resim Seç" fileUploadListener="#{hesapTanimlamaBean.handleFileUpload}" mode="advanced" dragDropSupport="false"
+          				 update="msgsEkle" sizeLimit="100000" fileLimit="3" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
 
 					<p:outputLabel value="İptal:" />
 					<p:selectBooleanCheckbox value="#{hesapTanimlamaBean.updatedUser.usrIptal}"/>

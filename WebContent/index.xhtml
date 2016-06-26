@@ -58,7 +58,7 @@ li.ui-menuitem.ui-menubar-options.ui-widget.ui-corner-all {
 
 <div style="float:left;width: 180px;height: 20px;margin-top:10px;">
 
-<p style="font-family:verdana;color:white;">Mehmet DEMİRCİOĞLU</p>
+<p style="font-family:verdana;color:white;">#{loginBean.user.usrAdSoyad}</p>
 </div>
 <div style="float:left;width: 180px;height: 20px;margin-top:2px;">
 <p  style="font-family:verdana;color:white;">YÖNETİCİ</p>
@@ -457,13 +457,6 @@ li.ui-menuitem.ui-menubar-options.ui-widget.ui-corner-all {
 						
 					</p:submenu>
 
-					<p:submenu label="SEMİRAMİS NETWORK" expanded="false" id="smrmstur">
-						<p:menuitem value="Türkiye Network" update=":OrtaSayfa"
-							actionListener="#" icon="ui-icon-star" />
-						<p:menuitem value="Dünya Network" update=":OrtaSayfa"
-							actionListener="#" icon="ui-icon-star" />
-					</p:submenu>
-
 					<p:submenu label="OTOMATİK PİLOT" expanded="false" id="otopilot">
 
 						<p:menuitem value="Otomatik Pilotu Çalıştır" update=":OrtaSayfa"
@@ -486,9 +479,9 @@ li.ui-menuitem.ui-menubar-options.ui-widget.ui-corner-all {
 							icon="ui-icon-disk" />	
 					
 					</p:submenu>
-
-
-					<p:submenu label="YONETİCİ İŞLEMLERİ" expanded="false"
+					
+					
+					<p:submenu label="YÖNETİCİ İŞLEMLERİ" expanded="false"
 						id="yoneticiIslem">
 
 						<p:menuitem value="Görev Tanımlama İşlemleri" ajax="false"
@@ -508,8 +501,8 @@ li.ui-menuitem.ui-menubar-options.ui-widget.ui-corner-all {
 
 
 					</p:submenu>
-
-
+						
+							
 
 
 				</p:menubar>

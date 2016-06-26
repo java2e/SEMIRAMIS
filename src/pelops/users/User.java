@@ -1,3 +1,4 @@
+
 package pelops.users;
 
 import java.util.Date;
@@ -14,6 +15,7 @@ public class User {
 	private String usrAck; //private String kullaniciAciklama;
 	private int usrKullaniciTipi; //private int kullaniciRolId;
 	private String usrRolAck;//private String kullaniciRolAck;
+	private String usrPhotoUrl;
 	
 	private boolean usrIptal;//private boolean kullaniciIptal;
 	private int guncelleyenKullaniciId; //private int guncelleyenKullaniciId;
@@ -180,6 +182,16 @@ public class User {
 
 	public void setReadList(List<Integer> readList) {
 		this.readList = readList;
+	}
+	
+	
+
+	public String getUsrPhotoUrl() {
+		return usrPhotoUrl;
+	}
+
+	public void setUsrPhotoUrl(String usrPhotoUrl) {
+		this.usrPhotoUrl = usrPhotoUrl;
 	}
 
 	/**

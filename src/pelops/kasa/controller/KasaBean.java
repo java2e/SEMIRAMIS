@@ -1,6 +1,7 @@
 package pelops.kasa.controller;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.SQLException;
 import java.text.NumberFormat;
 import java.text.ParseException;
@@ -8,13 +9,17 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.time.DateUtils;
@@ -22,6 +27,13 @@ import org.primefaces.context.RequestContext;
 
 import com.sun.faces.facelets.tag.TagHandlerImpl;
 
+import net.sf.jasperreports.engine.JRExporterParameter;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.export.JRPdfExporter;
+import net.sf.jasperreports.engine.export.JRPrintServiceExporterParameter;
 import pelops.controller.AktifBean;
 import pelops.controller.GenelTanimBean;
 import pelops.controller.IcraDosyaIslemleriBean;
@@ -34,6 +46,7 @@ import pelops.kasa.model.ReddiyatView;
 import pelops.kasa.model.Tahsilat;
 import pelops.kasa.model.TahsilatView;
 import pelops.kasa.model.TahsilatViewModel;
+import pelops.kasa.model.ViewTahsilatListesi;
 import pelops.model.DetayliArama;
 import pelops.model.GenelTanimSablon;
 import pelops.model.Hesap;
@@ -1085,6 +1098,37 @@ try{
 			}
 
 
+	}
+	
+	
+	public void yazdir() throws Exception{
+		
+		ViewDAO dao = new ViewDAO();
+		Map<String, Object> hashMap = new HashMap<String, Object>();
+		ArrayList<ViewTahsilatListesi> liste = dao.getTahsilatListesiView(null, null, null);
+		JasperPrint jasperPrint;
+		
+		JRBeanCollectionDataSource beanCollectionDataSource = new JRBeanCollectionDataSource(
+				liste);
+		String reportPath = FacesContext.getCurrentInstance().getExternalContext()
+				.getRealPath("/reports/JASPER/Tahsilat_Listesi.jasper");
+		jasperPrint = JasperFillManager.fillReport(reportPath, hashMap,
+				beanCollectionDataSource);
+		
+		
+		HttpServletResponse httpServletResponse = (HttpServletResponse) FacesContext
+				.getCurrentInstance().getExternalContext().getResponse();
+		httpServletResponse.addHeader("Content-disposition",
+				"attachment; filename=TebligatListesi.pdf");
+		ServletOutputStream servletOutputStream = httpServletResponse
+				.getOutputStream();
+
+		JasperExportManager.exportReportToPdfStream(jasperPrint,
+				servletOutputStream);
+
+		 servletOutputStream.flush();
+		    servletOutputStream.close();
+		FacesContext.getCurrentInstance().responseComplete();
 	}
 
 }

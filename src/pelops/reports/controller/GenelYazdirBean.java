@@ -595,6 +595,7 @@ public class GenelYazdirBean {
 			DateFormat dateFormat = new SimpleDateFormat("dd_MM_yyyy");
 			Date date = new Date();
 			String dt = dateFormat.format(date);
+			
 			HttpServletResponse httpServletResponse = (HttpServletResponse) FacesContext
 					.getCurrentInstance().getExternalContext().getResponse();
 			httpServletResponse.addHeader("Content-disposition",

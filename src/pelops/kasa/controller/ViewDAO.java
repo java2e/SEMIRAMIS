@@ -16,6 +16,7 @@ import pelops.kasa.model.KasaSearchParams;
 import pelops.kasa.model.ReddiyatView;
 import pelops.kasa.model.TahsilatView;
 import pelops.kasa.model.TahsilatViewModel;
+import pelops.kasa.model.ViewTahsilatListesi;
 
 public class ViewDAO extends DBConnection {
 
@@ -536,6 +537,60 @@ public class ViewDAO extends DBConnection {
 		return view;
 	}
 
+	
+	public ArrayList<ViewTahsilatListesi> getTahsilatListesiView(Date tarih1, Date tarih2, String MuvekkilAdi) throws Exception {
+
+		ArrayList<ViewTahsilatListesi> list = new ArrayList<ViewTahsilatListesi>();
+
+		String fullSQL = "";
+
+		String SQL = "SELECT * FROM vw_tahsilat_listesi where 1=1";
+		java.sql.Date date1 = convertFromJAVADateToSQLDate(tarih1);
+		java.sql.Date date2 = convertFromJAVADateToSQLDate(tarih2);
+		if (tarih1 != null && tarih2 != null) {
+			fullSQL += " and tahsilat_tarihi between '" + date1 + "' and '" + date2 + "'";
+		}
+		if(MuvekkilAdi!=null){
+			fullSQL += " and muvekkil_adi="+MuvekkilAdi;
+		}
+		
+		if (fullSQL == "") {
+			fullSQL = SQL + ";";
+		} else {
+			fullSQL = SQL + fullSQL + ";";
+		}
+
+		newConnectDB();
+		Statement stm = conn.createStatement();
+		ResultSet rs = stm.executeQuery(fullSQL);
+		while (rs.next()) {
+			ViewTahsilatListesi model = new ViewTahsilatListesi();
+			
+			model.setBanka_servis_no(rs.getString("banka_servis_no"));
+			model.setBorclu_adi(rs.getString("borclu_adi"));
+			model.setDosya_statusu(rs.getString("dosya_statusu"));
+			model.setIcra_dosya_no(rs.getString("icra_dosya_no"));
+			model.setIcra_mudurlugu(rs.getString("icra_mudurlugu"));
+			model.setKullanici_adi(rs.getString("kullanici_adi"));
+			model.setMusteri_no(rs.getString("musteri_no"));
+			model.setMuvekkil_adi(rs.getString("muvekkil_adi"));
+			model.setTahsilat_miktari(rs.getDouble("tahsilat_miktari"));
+			model.setTahsilat_tarihi(rs.getDate("tahsilat_tarihi"));
+			model.setTahsilat_tipi(rs.getString("tahsilat_tipi"));
+			model.setUrun_adi(rs.getString("urun_adi"));
+			model.setUrun_no(rs.getString("urun_no"));
+			
+			list.add(model);
+		}
+		disconnectDB();
+
+		return list;
+	}
+	
+	
+	
+	
+	
 	public String convertDoubleToTL(double tutar) {
 
 		NumberFormat defaultFormat = NumberFormat.getCurrencyInstance();

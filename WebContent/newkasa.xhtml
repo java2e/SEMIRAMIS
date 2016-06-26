@@ -94,14 +94,16 @@ style="position: absolute; background-color: rgba(0, 0, 0, 0.6); height: 256px; 
 <p:column style="width:70%; heigth:100%" headerText="KASA" >
 <p:panel header="KASA İŞLEMLERİ LİSTESİ" style="height:100%; border-style: hidden !important;">
 
-<p:panelGrid columns="5" style="height:100%; border-style: hidden !important;">
+<p:panelGrid columns="7" style="height:100%; border-style: hidden !important;">
 <p:outputLabel value="BAŞLANGIÇ TARİHİ :"/> <p:calendar id="multi"  pages="3" value="#{kasaBean.baslangicTarihi}" />
 																  
 <p:outputLabel value="    BİTİŞ TARİHİ : #{kasaBean.tali}"/> <p:calendar id="multi1"  pages="3" value="#{kasaBean.bitisTarihi}" />
 																	
 <p:commandButton value="Listele"  update=":kasaForm:tabviewlist" action="#{kasaBean.sayfaGuncelle()}"/>
 
-<p:commandButton value="Yazdır"   action="#{kasaBean.yazdir()}" ajax="false"/>
+<p:commandButton value="Tahsilat Listesi Yazdır"   action="#{kasaBean.yazdir()}" ajax="false"/>
+<p:commandButton value="Reddiyat Listesi Yazdır"   action="#{kasaBean.yazdir()}" ajax="false"/>
+
 
 
 </p:panelGrid>

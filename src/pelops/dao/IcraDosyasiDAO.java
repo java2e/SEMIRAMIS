@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
@@ -605,6 +605,24 @@ public class IcraDosyasiDAO extends DBConnection {
 		DB.disconnectDB();
 	}
 
+	
+	public void hitamTarihiEkle(Date date, int icradosyaid) throws Exception{
+		String SQL = "UPDATE tbl_icra_dosyasi" + "	hitam_tarihi=?,"
+				 + " WHERE id=" + icradosyaid;
+
+		DBConnection DB = new DBConnection();
+		DB.newConnectDB();
+		PreparedStatement pstmt = DB.conn.prepareStatement(SQL.toString());
+
+		pstmt.setDate(1,
+				convertFromJAVADateToSQLDate(date));
+	
+
+		pstmt.executeUpdate();
+
+		DB.disconnectDB();
+	}
+	
 	public void ItirazBilgisiGuncelle(IcraDosyasi icradosyasi) throws Exception {
 
 		String SQL = "UPDATE tbl_icra_dosyasi" + " SET itiraz_durumu=?,"

@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import pelops.dao.IcraDosyasiDAO;
 import pelops.db.DBConnection;
 import pelops.kasa.model.Hitam;
 
@@ -61,6 +62,10 @@ public class HitamDAO extends DBConnection implements IDAO {
 
 			psmt.execute();
 			disconnectDB();
+			
+			IcraDosyasiDAO icradao = new IcraDosyasiDAO();
+			icradao.hitamTarihiEkle(convertFromJAVADateToSQLDate(((Hitam) obj).getTarih()), ((Hitam) obj).getIcraDosyaID());
+			
 			id = getID(obj);
 		}
 		return id;

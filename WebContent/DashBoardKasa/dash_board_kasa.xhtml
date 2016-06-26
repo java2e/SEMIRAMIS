@@ -30,6 +30,7 @@
 
 <h:body class=" skin-blue ">
 	<h:form id="dashboardform">
+	<p:poll interval="60" update="dashboardform" listener="#{dashBoardBean.getir}"  /> 
 
 		<section class="content-header">
 		<h1></h1>

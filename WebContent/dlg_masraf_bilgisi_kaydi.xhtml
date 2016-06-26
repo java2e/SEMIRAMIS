@@ -74,7 +74,20 @@
 			<p:outputLabel>Masraf Miktarı :</p:outputLabel>
 			<p:inputText id="inputTextAmount"
 				value="#{masrafBilgisiBean.masrafBilgisi.masrafMiktari}"
-				style="width: 250px">
+				style="width: 250px"
+				
+											required="true"
+											requiredMessage="Bu alanı boş bırakamazsınız..."
+											onkeyup="var pos=this.selectionStart;
+									var size = this.value.length;														
+this.value=this.value.replace(/,/g,'.').replace(/[^0-9,'.']+/g, '');
+             						
+             						if(this.value.indexOf('.')!=this.value.lastIndexOf('.'))
+										this.value=this.value.substring(0,size-1);
+             					"
+											onfocus="
+															this.value=''
+									" >
 				<f:converter converterId="javax.faces.Double" />
 			</p:inputText>
 

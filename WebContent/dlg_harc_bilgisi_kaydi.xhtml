@@ -23,7 +23,7 @@
 
 			<h:outputLabel>İcra Müdürlüğü :</h:outputLabel>
 			<p:inputText id="icraMd" style="width: 250px" readonly="true"
-				value="#{harcBean.icraMd}" >
+				value="#{harcBean.icraMd}">
 
 			</p:inputText>
 
@@ -53,16 +53,38 @@
 
 
 			<p:outputLabel>Harç Oranı :</p:outputLabel>
-			<p:inputText id="inputTextHarcRatio" required="false"
-				value="#{harcBean.harcBilgi.harc_orani}"
-				requiredMessage="Bu alanı doldurunuz" style="width: 250px">
+			<p:inputText id="inputTextHarcRatio"
+				value="#{harcBean.harcBilgi.harc_orani}" style="width: 250px"
+				
+											required="true"
+											requiredMessage="Bu alanı boş bırakamazsınız..."
+											onkeyup="var pos=this.selectionStart;
+									var size = this.value.length;														
+this.value=this.value.replace(/,/g,'.').replace(/[^0-9,'.']+/g, '');
+             						
+             						if(this.value.indexOf('.')!=this.value.lastIndexOf('.'))
+										this.value=this.value.substring(0,size-1);
+             					"
+											onfocus="this.value=''" >
 
 			</p:inputText>
 
 			<p:outputLabel>Harç Miktarı :</p:outputLabel>
-			<p:inputText id="inputTextHarcAmount" required="false"
+			<p:inputText id="inputTextHarcAmount" 
 				value="#{harcBean.harcBilgi.harc_miktari}"
-				requiredMessage="Bu alanı doldurunuz" style="width: 250px">
+				
+											required="true"
+											requiredMessage="Bu alanı boş bırakamazsınız..."
+											onkeyup="var pos=this.selectionStart;
+									var size = this.value.length;														
+this.value=this.value.replace(/,/g,'.').replace(/[^0-9,'.']+/g, '');
+             						
+             						if(this.value.indexOf('.')!=this.value.lastIndexOf('.'))
+										this.value=this.value.substring(0,size-1);
+             					"
+											onfocus="
+															this.value=''
+									"  style="width: 250px">
 
 			</p:inputText>
 

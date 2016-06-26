@@ -4,7 +4,6 @@ public class PrintModel {
 
 	public static final String TAHSILAT_MAKBUZU = "102_makbuz.jasper";
 	public static final String TAHSILAT_MAKBUZUNEW = "Tahsilat-Makbuzu.jasper";
-	
 
 	public static String getTahsilatMakbuzunew() {
 		return TAHSILAT_MAKBUZUNEW;
@@ -35,6 +34,47 @@ public class PrintModel {
 	private String miktari;
 
 	private String adSoyad;
+
+	private String icraMudurlugu;
+
+	private String borcunSebebi;
+
+	private String dosyaGorevlisi;
+	
+	private String dosyaAvukati;
+	
+
+	public String getDosyaAvukati() {
+		return dosyaAvukati;
+	}
+
+	public void setDosyaAvukati(String dosyaAvukati) {
+		this.dosyaAvukati = dosyaAvukati;
+	}
+
+	public String getDosyaGorevlisi() {
+		return dosyaGorevlisi;
+	}
+
+	public void setDosyaGorevlisi(String dosyaGorevlisi) {
+		this.dosyaGorevlisi = dosyaGorevlisi;
+	}
+
+	public String getBorcunSebebi() {
+		return borcunSebebi;
+	}
+
+	public void setBorcunSebebi(String borcunSebebi) {
+		this.borcunSebebi = borcunSebebi;
+	}
+
+	public String getIcraMudurlugu() {
+		return icraMudurlugu;
+	}
+
+	public void setIcraMudurlugu(String icraMudurlugu) {
+		this.icraMudurlugu = icraMudurlugu;
+	}
 
 	public String getAdSoyad() {
 		return adSoyad;

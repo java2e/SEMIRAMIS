@@ -61,7 +61,7 @@ public class ViewDAO extends DBConnection {
 			model.setIcraDosyaNo(rs.getString("icra_dosya_no"));
 			model.setIzleme_id(rs.getInt("id"));
 			model.setSoz_alan_personel_id(rs.getInt("personel_id"));
-			
+
 			list.add(model);
 		}
 		disconnectDB();
@@ -77,7 +77,7 @@ public class ViewDAO extends DBConnection {
 		if (values.length > 0) {
 			String parameter = values[0];
 			int ids = Integer.parseInt(values[1]);
-			if (parameter.equals( "ki")) {
+			if (parameter.equals("ki")) {
 				sql = "select * from vwkasa_izleme where id = " + ids + ";";
 
 				newConnectDB();
@@ -99,7 +99,7 @@ public class ViewDAO extends DBConnection {
 				}
 				disconnectDB();
 
-			} else if (parameter.equals( "op")) {
+			} else if (parameter.equals("op")) {
 				sql = "select * from vwkasa_odeme_plani where id = " + ids + ";";
 				newConnectDB();
 				Statement stm = conn.createStatement();
@@ -116,7 +116,7 @@ public class ViewDAO extends DBConnection {
 					model.setOdemeplani_id(rs.getInt("id"));
 				}
 				disconnectDB();
-			} else if (parameter.equals( "vz")) {
+			} else if (parameter.equals("vz")) {
 				sql = "select * from vwkasa_vizit where id = " + ids + ";";
 
 				newConnectDB();
@@ -160,7 +160,7 @@ public class ViewDAO extends DBConnection {
 		} else {
 			fullSQL = SQL + fullSQL + ";";
 		}
-		
+
 		newConnectDB();
 		Statement stm = conn.createStatement();
 		ResultSet rs = stm.executeQuery(fullSQL);
@@ -198,7 +198,7 @@ public class ViewDAO extends DBConnection {
 		} else {
 			fullSQL = SQL + fullSQL + ";";
 		}
-		
+
 		newConnectDB();
 		Statement stm = conn.createStatement();
 		ResultSet rs = stm.executeQuery(fullSQL);
@@ -343,13 +343,75 @@ public class ViewDAO extends DBConnection {
 
 	}
 
+	public HitamView getHitamFromViewByTahsilatID(int idTahsilat) throws Exception {
+		String sql = "SELECT id, tahsilat_id, reddiyat_id, tarih, icra_dosya_id, hitam_durum, "
+				+ "kasa_personel_id, onaylayan_id, muvekkil_adi, borclu_adi, gelis_tarihi, "
+				+ " borc_tipi, tahsilat_tarihi, tahsilat_tipi, tahsilat_miktari, "
+				+ "tahsilat_statusu, gelis_yeri, dosya_tipi, icra_dosya_no, icra_mudurlugu, "
+				+ " sasa_reddiyat_tutar, devlet_reddiyat_tutar, muvekkil_reddiyat_tutar, "
+				+ "  sasa_durum, devlet_durum, muvekkil_durum, toplam_tutar, ad_soyad" + " FROM vwhitam   where id ="
+				+ idTahsilat + "; ";
+		newConnectDB();
+		Statement stm = conn.createStatement();
+		ResultSet rs = stm.executeQuery(sql);
+		HitamView hitamView = new HitamView();
+		while (rs.next()) {
+
+			hitamView.setId(rs.getInt("id"));
+			hitamView.setTahsilatId(rs.getInt("tahsilat_id"));
+			hitamView.setReddiyatId(rs.getInt("reddiyat_id"));
+			hitamView.setTarih(rs.getDate("tarih"));
+			hitamView.setIcraDosyaId(rs.getInt("icra_dosya_id"));
+			hitamView.setHitamDurum(rs.getInt("hitam_durum"));
+			hitamView.setKasaPersonelId(rs.getInt("kasa_personel_id"));
+			hitamView.setOnaylayanId(rs.getInt("onaylayan_id"));
+			hitamView.setMuvekkilAdi(rs.getString("muvekkil_adi"));
+			hitamView.setBorcluAdi(rs.getString("borclu_adi"));
+			hitamView.setGelisTarihi(rs.getDate("gelis_tarihi"));
+			hitamView.setBorcTipi(rs.getString("borc_tipi"));
+			hitamView.setTahsilatTarihi(rs.getDate("tahsilat_tarihi"));
+			hitamView.setTahsilatTipi(rs.getString("tahsilat_tipi"));
+			hitamView.setTahsilatMiktari(rs.getDouble("tahsilat_miktari"));
+			hitamView.setTahsilatStatusu(rs.getString("tahsilat_statusu"));
+			hitamView.setGelisYeri(rs.getString("gelis_yeri"));
+			hitamView.setDosyaTipi(rs.getString("dosya_tipi"));
+			hitamView.setIcraDosyaNo(rs.getString("icra_dosya_no"));
+			hitamView.setIcraMudurlugu(rs.getString("icra_mudurlugu"));
+			if (hitamView.getSasaReddiyatTutar() == 0) {
+				hitamView.setSasaReddiyatTutar(rs.getDouble("sasa_reddiyat_tutar"));
+			}
+			if (hitamView.getDevletReddiyatTutar() == 0) {
+				hitamView.setDevletReddiyatTutar(rs.getDouble("devlet_reddiyat_tutar"));
+			}
+			if (hitamView.getMuvvekkilReddiyatTutar() == 0) {
+				hitamView.setMuvvekkilReddiyatTutar(rs.getDouble("muvekkil_reddiyat_tutar"));
+			}
+			hitamView.setSasaDurum(rs.getInt("sasa_durum"));
+			hitamView.setDevletDurum(rs.getInt("devlet_durum"));
+			hitamView.setMuvvekkilDurum(rs.getInt("muvekkil_durum"));
+			hitamView.setToplamTutar(rs.getDouble("toplam_tutar"));
+			hitamView.setAdSoyad("ad_soyad");
+
+			hitamView.setTahsilatMiktariTL(convertDoubleToTL(hitamView.getTahsilatMiktari()));
+			hitamView.setDevletReddiyatTutarTL(convertDoubleToTL(hitamView.getDevletReddiyatTutar()));
+			hitamView.setSasaReddiyatTutarTL(convertDoubleToTL(hitamView.getSasaReddiyatTutar()));
+			hitamView.setMuvekkilReddiyatTutarTL(convertDoubleToTL(hitamView.getMuvvekkilReddiyatTutar()));
+			hitamView.setToplamTutarTL(convertDoubleToTL(hitamView.getToplamTutar()));
+		}
+		disconnectDB();
+
+		return hitamView;
+
+	}
+
 	// kimeGore: 1:sasa, 2: muvekkil, 3: devlet
-	public ArrayList<ReddiyatView> getAllReddiyatFromView(int status, Integer kimeGore, Date date1, Date date2) throws Exception {
+	public ArrayList<ReddiyatView> getAllReddiyatFromView(int status, Integer kimeGore, Date date1, Date date2)
+			throws Exception {
 		ArrayList<ReddiyatView> list = new ArrayList<ReddiyatView>();
 		String sql = "SELECT id, tahsilat_id, kasa_personel_id, onaylayan_id, sasa_reddiyat_tutar, "
 				+ "devlet_reddiyat_tutar, muvekkil_reddiyat_tutar, sasa_durum, devlet_durum, "
 				+ " muvekkil_adi, borclu_adi, icra_dosyasi_id, icra_dosya_no, ad_soyad, "
-				+ " muvekkil_durum, toplam_tutar, tarih " + " FROM vwreddiyat where sasa_durum=" + status ;
+				+ " muvekkil_durum, toplam_tutar, tarih " + " FROM vwreddiyat where sasa_durum=" + status;
 
 		if (kimeGore != null) {
 			switch (kimeGore) {
@@ -373,12 +435,12 @@ public class ViewDAO extends DBConnection {
 				break;
 			}
 		}
-		String	fullSQL=sql;
+		String fullSQL = sql;
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		if (date1 != null && date2 != null) {
-		fullSQL = sql+ " and tarih between '" + format.format(date1) + "' and '" + format.format(date2) + "'";
+			fullSQL = sql + " and tarih between '" + format.format(date1) + "' and '" + format.format(date2) + "'";
 		}
-		
+
 		newConnectDB();
 		Statement stm = conn.createStatement();
 		ResultSet rs = stm.executeQuery(fullSQL);
@@ -454,19 +516,21 @@ public class ViewDAO extends DBConnection {
 		String sql = "SELECT id, icra_dosyasi_id, muvekkil_adi, borclu_adi, gelis_tarihi, "
 				+ "borc_tipi, tahsilat_tarihi, tahsilat_tipi, tahsilat_miktari, "
 				+ "tahsilat_statusu, durum, gelis_yeri, onaylayan_id, kasa_personel_id, "
-				+ "ad_soyad, dosya_tipi, icra_dosya_no, icra_mudurlugu,izleme_id , vizit_id , odemeplani_id, hitam_durum " + " FROM vwtahsilat where durum =" + status;
-		
-		String fullSQL=sql;
+				+ "ad_soyad, dosya_tipi, icra_dosya_no, icra_mudurlugu,izleme_id , vizit_id , odemeplani_id, hitam_durum "
+				+ " FROM vwtahsilat where durum =" + status;
+
+		String fullSQL = sql;
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-		
-		if(date1!=null || date2!=null){
-		
-			fullSQL = sql +" and tahsilat_tarihi BETWEEN '"+format.format(date1)+"' AND '"+format.format(date2)+"' ";
-			
+
+		if (date1 != null || date2 != null) {
+
+			fullSQL = sql + " and tahsilat_tarihi BETWEEN '" + format.format(date1) + "' AND '" + format.format(date2)
+					+ "' ";
+
 		}
-		
+
 		newConnectDB();
-		
+
 		Statement stm = conn.createStatement();
 		ResultSet rs = stm.executeQuery(fullSQL);
 		while (rs.next()) {
@@ -505,7 +569,8 @@ public class ViewDAO extends DBConnection {
 		String sql = "SELECT id, icra_dosyasi_id, muvekkil_adi, borclu_adi, gelis_tarihi, "
 				+ "borc_tipi, tahsilat_tarihi, tahsilat_tipi, tahsilat_miktari, "
 				+ "tahsilat_statusu, durum, gelis_yeri, onaylayan_id, kasa_personel_id, "
-				+ "ad_soyad, dosya_tipi, icra_dosya_no, icra_mudurlugu,izleme_id , vizit_id , odemeplani_id, hitam_durum  FROM vwtahsilat " + " where id = " + id + ";";
+				+ "ad_soyad, dosya_tipi, icra_dosya_no, icra_mudurlugu,izleme_id , vizit_id , odemeplani_id, hitam_durum  FROM vwtahsilat "
+				+ " where id = " + id + ";";
 		newConnectDB();
 		Statement stm = conn.createStatement();
 		ResultSet rs = stm.executeQuery(sql);
@@ -539,8 +604,8 @@ public class ViewDAO extends DBConnection {
 		return view;
 	}
 
-	
-	public ArrayList<ViewTahsilatListesi> getTahsilatListesiView(Date tarih1, Date tarih2, String MuvekkilAdi) throws Exception {
+	public ArrayList<ViewTahsilatListesi> getTahsilatListesiView(Date tarih1, Date tarih2, String MuvekkilAdi)
+			throws Exception {
 
 		ArrayList<ViewTahsilatListesi> list = new ArrayList<ViewTahsilatListesi>();
 
@@ -552,10 +617,10 @@ public class ViewDAO extends DBConnection {
 		if (tarih1 != null && tarih2 != null) {
 			fullSQL += " and tahsilat_tarihi between '" + date1 + "' and '" + date2 + "'";
 		}
-		if(MuvekkilAdi!=null){
-			fullSQL += " and muvekkil_adi="+MuvekkilAdi;
+		if (MuvekkilAdi != null) {
+			fullSQL += " and muvekkil_adi=" + MuvekkilAdi;
 		}
-		
+
 		if (fullSQL == "") {
 			fullSQL = SQL + ";";
 		} else {
@@ -565,7 +630,7 @@ public class ViewDAO extends DBConnection {
 		newConnectDB();
 		Statement stm = conn.createStatement();
 		ResultSet rs = stm.executeQuery(fullSQL);
-		int sira_no=1;
+		int sira_no = 1;
 		while (rs.next()) {
 			ViewTahsilatListesi model = new ViewTahsilatListesi();
 			model.setSira_no(sira_no);
@@ -589,11 +654,7 @@ public class ViewDAO extends DBConnection {
 
 		return list;
 	}
-	
-	
-	
-	
-	
+
 	public String convertDoubleToTL(double tutar) {
 
 		NumberFormat defaultFormat = NumberFormat.getCurrencyInstance();

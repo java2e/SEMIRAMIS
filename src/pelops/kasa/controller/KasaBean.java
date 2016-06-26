@@ -1,18 +1,12 @@
 package pelops.kasa.controller;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.sql.SQLException;
 import java.text.NumberFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -25,21 +19,14 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.lang3.time.DateUtils;
 import org.primefaces.context.RequestContext;
 
-import com.sun.faces.facelets.tag.TagHandlerImpl;
-
-import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.engine.export.JRPdfExporter;
-import net.sf.jasperreports.engine.export.JRPrintServiceExporterParameter;
 import pelops.controller.AktifBean;
 import pelops.controller.GenelTanimBean;
 import pelops.controller.IcraDosyaIslemleriBean;
-import pelops.dao.BaglantiDAO;
 import pelops.dao.GelismisAramaDAO;
-import pelops.dao.HesapDAO;
 import pelops.dao.LogErrorDAO;
 import pelops.kasa.model.Reddiyat;
 import pelops.kasa.model.ReddiyatView;
@@ -66,12 +53,9 @@ public class KasaBean {
 	LogError newlog;
 	SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 	FacesContext context = FacesContext.getCurrentInstance();
-	
-	
-	
-	private boolean hitam=true, tahsilat=false, makbuz=true;
-	
-	
+
+	private boolean hitam = true, tahsilat = false, makbuz = true;
+
 	private ArrayList<Kasa> kasaListesi = new ArrayList<Kasa>();
 	private ArrayList<GenelTanimSablon> tahsilatStatuListesi = new ArrayList<GenelTanimSablon>();
 	private ArrayList<GenelTanimSablon> odemeYeriListesi = new ArrayList<GenelTanimSablon>();
@@ -79,22 +63,19 @@ public class KasaBean {
 	private ArrayList<DetayliArama> detayliAramaListesi = new ArrayList<DetayliArama>();
 	private ArrayList<DetayliArama> filterDetayliAramaListesi = new ArrayList<>();
 	private Tahsilat bilgiTahsilat = new Tahsilat();
-	private Date baslangicTarihi = new Date(), bitisTarihi= DateUtils.addMonths(new Date(), 1), olddatenew, enddatenew;
+	private Date baslangicTarihi = new Date(), bitisTarihi = DateUtils.addMonths(new Date(), 1), olddatenew, enddatenew;
 	private ArrayList<TahsilatViewModel> tahsilatYapilacakListe = new ArrayList<TahsilatViewModel>();
-	
-	private IcraDosyaIslemleriBean icdb; 
-	
+
+	private IcraDosyaIslemleriBean icdb;
+
 	private ArrayList<TahsilatViewModel> tahsilatiGecmisListe = new ArrayList<TahsilatViewModel>();
-	
 
 	private ArrayList<TahsilatView> tahsilatYapilmisListe = new ArrayList<TahsilatView>();
-	
 
 	private ArrayList<TahsilatView> tahsilatviewyapilacakListe = new ArrayList<TahsilatView>();
 	private ArrayList<ReddiyatView> reddiyatListesi = new ArrayList<>();
-	
+
 	private ArrayList<ReddiyatView> reddiyatYapilmisListe = new ArrayList<>();
-	
 
 	private KasaCtrl controller = new KasaCtrl();
 	private Reddiyat reddiyatBilgisi = new Reddiyat();
@@ -108,11 +89,6 @@ public class KasaBean {
 	private String hsbc_gunluk1, akbank_gunluk1, garanti_gunluk1, ing_gunluk1;
 
 	private String Ay, gun;
-
-	
-	
-	
-	
 
 	public boolean isHitam() {
 		return hitam;
@@ -331,12 +307,12 @@ public class KasaBean {
 	}
 
 	public ArrayList<TahsilatViewModel> getTahsilatiGecmisListe() throws Exception {
-	
+
 		return this.tahsilatiGecmisListe;
 	}
 
 	public void setTahsilatiGecmisListe(ArrayList<TahsilatViewModel> tahsilatiGecmisListe) {
-		
+
 		this.tahsilatiGecmisListe = tahsilatiGecmisListe;
 	}
 
@@ -354,7 +330,7 @@ public class KasaBean {
 	}
 
 	public void setTahsilatYapilmisListe(ArrayList<TahsilatView> tahsilatYapilmisListe) {
-		
+
 		this.tahsilatYapilmisListe = tahsilatYapilmisListe;
 	}
 
@@ -383,12 +359,12 @@ public class KasaBean {
 	}
 
 	public ArrayList<TahsilatViewModel> getTahsilatYapilacakListe() throws Exception {
-		
+
 		return this.tahsilatYapilacakListe;
 	}
 
 	public void setTahsilatYapilacakListe(ArrayList<TahsilatViewModel> tahsilatYapilacakListe) {
-		
+
 		this.tahsilatYapilacakListe = tahsilatYapilacakListe;
 	}
 
@@ -478,175 +454,185 @@ public class KasaBean {
 	@SuppressWarnings({ "deprecation", "static-access", "unchecked" })
 	public KasaBean() {
 		try {
-//		String oldDate = "01/01/1900";
-//		Date tarih = new Date(oldDate);
-//		GelismisAramaDAO dao = new GelismisAramaDAO();
-//		
-//			detayliAramaListesi = dao.Listele("", "", "", "", "", "", 0, 0, 0, tarih, tarih, tarih, tarih, tarih, tarih);
-//		
-//		bilgiTahsilat = new Tahsilat();
-//
-//		Util usersbilgil = new Util();
-//
-//		bilgiTahsilat.setKasa_islemini_yapan(usersbilgil.getUser().getUsrAdSoyad());
-//
-//		baslangicTarihi = new Date();
-//		Date tson = DateUtils.addMonths(new Date(), 1);
-//		bitisTarihi = tson;
-//
-//		reddiyatListesi = (ArrayList<ReddiyatView>) controller.getListefromView(0, 3, 1);
-//		reddiyatListesi.addAll(controller.getListefromView(0, 3, 2));
-//		reddiyatListesi.addAll(controller.getListefromView(0, 3, 3));
-//
-//		reddiyatListesi = returnReddiyatview(reddiyatListesi);
-//
-//		ViewDAO viewdao = new ViewDAO();
-//		tahsilatYapilmisListe = viewdao.getAllTahsilatFromView(0);
-//
-//		reddiyatYapilmisListe = (ArrayList<ReddiyatView>) controller.getListefromView(1, 3, 1);
-//		reddiyatYapilmisListe.addAll(controller.getListefromView(1, 3, 2));
-//		reddiyatYapilmisListe.addAll(controller.getListefromView(1, 3, 3));
-//
-//		SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy");
-//		String dateInString = "01-01-1900";
-//		Date date = sdf.parse(dateInString);
-//
-//		olddatenew = date;
-//		enddatenew = baslangicTarihi;
-//		enddatenew.setHours(-24);
-		sayfaGuncelle();
-		
-	}catch (Exception e) {
-			
-			String Hata="";
+			// String oldDate = "01/01/1900";
+			// Date tarih = new Date(oldDate);
+			// GelismisAramaDAO dao = new GelismisAramaDAO();
+			//
+			// detayliAramaListesi = dao.Listele("", "", "", "", "", "", 0, 0,
+			// 0, tarih, tarih, tarih, tarih, tarih, tarih);
+			//
+			// bilgiTahsilat = new Tahsilat();
+			//
+			// Util usersbilgil = new Util();
+			//
+			// bilgiTahsilat.setKasa_islemini_yapan(usersbilgil.getUser().getUsrAdSoyad());
+			//
+			// baslangicTarihi = new Date();
+			// Date tson = DateUtils.addMonths(new Date(), 1);
+			// bitisTarihi = tson;
+			//
+			// reddiyatListesi = (ArrayList<ReddiyatView>)
+			// controller.getListefromView(0, 3, 1);
+			// reddiyatListesi.addAll(controller.getListefromView(0, 3, 2));
+			// reddiyatListesi.addAll(controller.getListefromView(0, 3, 3));
+			//
+			// reddiyatListesi = returnReddiyatview(reddiyatListesi);
+			//
+			// ViewDAO viewdao = new ViewDAO();
+			// tahsilatYapilmisListe = viewdao.getAllTahsilatFromView(0);
+			//
+			// reddiyatYapilmisListe = (ArrayList<ReddiyatView>)
+			// controller.getListefromView(1, 3, 1);
+			// reddiyatYapilmisListe.addAll(controller.getListefromView(1, 3,
+			// 2));
+			// reddiyatYapilmisListe.addAll(controller.getListefromView(1, 3,
+			// 3));
+			//
+			// SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy");
+			// String dateInString = "01-01-1900";
+			// Date date = sdf.parse(dateInString);
+			//
+			// olddatenew = date;
+			// enddatenew = baslangicTarihi;
+			// enddatenew.setHours(-24);
+			sayfaGuncelle();
+
+		} catch (Exception e) {
+
+			String Hata = "";
 			for (int i = 0; i < e.getStackTrace().length; i++) {
-				Hata += e.getStackTrace()[i];	
+				Hata += e.getStackTrace()[i];
 			}
 			newlog = new LogError();
 			newlog.setHata_detay(Hata);
 			newlog.setHata_value("KasaBean - KasaBean Constructor da Hata  (STANDART ERROR)");
 			newlog.setPage("frm_Kasa");
 			newlog.setUser_id(99);
-			
-			
+
 			try {
-				log.Kaydet(newlog);	
+				log.Kaydet(newlog);
 			} catch (Exception e2) {
-				
-				context.addMessage(null, new FacesMessage("Beklenmeyen Bir Hata Gerçekleşti Lütfen Sisteme Yetkilisine Başvurunuz..."));
+
+				context.addMessage(null,
+						new FacesMessage("Beklenmeyen Bir Hata Gerçekleşti Lütfen Sisteme Yetkilisine Başvurunuz..."));
 			}
-			
-			context.addMessage(null, new FacesMessage("Beklenmeyen Bir Hata Gerçekleşti Lütfen Sisteme Tekrar Giriş Yapınız..."));
-			
-//			try {
-//				context.getExternalContext().redirect("/SEMIRAMIS/index.jsf");
-//			} catch (IOException e1) {
-//				
-//				context.addMessage(null, new FacesMessage("Beklenmeyen Bir Hata Gerçekleşti Lütfen Sisteme Yetkilisine Başvurunuz..."));
-//			}
-//			
+
+			context.addMessage(null,
+					new FacesMessage("Beklenmeyen Bir Hata Gerçekleşti Lütfen Sisteme Tekrar Giriş Yapınız..."));
+
+			// try {
+			// context.getExternalContext().redirect("/SEMIRAMIS/index.jsf");
+			// } catch (IOException e1) {
+			//
+			// context.addMessage(null, new FacesMessage("Beklenmeyen Bir Hata
+			// Gerçekleşti Lütfen Sisteme Yetkilisine Başvurunuz..."));
+			// }
+			//
 		}
 	}
 
 	public void TahsilatAktar(String id) {
-		
-		if(id==null){
-			context.addMessage(null, new FacesMessage("Müşteri ve Hesap Bilgileri Olmayan Kayıtları Seçemezsiniz Lütfen Sistem Yönetinize Başvurunuz..."));
-		}else{
-		
-		Util usersbilgi = new Util();
-		Tahsilat tahsilat = null;
+
+		if (id == null) {
+			context.addMessage(null, new FacesMessage(
+					"Müşteri ve Hesap Bilgileri Olmayan Kayıtları Seçemezsiniz Lütfen Sistem Yönetinize Başvurunuz..."));
+		} else {
+
+			Util usersbilgi = new Util();
+			Tahsilat tahsilat = null;
+			try {
+				tahsilat = controller.secilenModeliGetir(id);
+			} catch (Exception e) {
+
+				String Hata = "";
+				for (int i = 0; i < e.getStackTrace().length; i++) {
+					Hata += e.getStackTrace()[i];
+				}
+				newlog = new LogError();
+				newlog.setHata_detay(Hata);
+				newlog.setHata_value("KasaBean - TahsilatAktar Prosedürü  (STANDART ERROR)");
+				newlog.setPage("frm_Kasa");
+				newlog.setUser_id(99);
+
+				try {
+					log.Kaydet(newlog);
+				} catch (Exception e2) {
+
+					context.addMessage(null, new FacesMessage(
+							"Beklenmeyen Bir Hata Gerçekleşti Lütfen Sisteme Yetkilisine Başvurunuz..."));
+				}
+
+				context.addMessage(null,
+						new FacesMessage("Beklenmeyen Bir Hata Gerçekleşti Lütfen Sisteme Tekrar Giriş Yapınız..."));
+
+			}
+
+			bilgiTahsilat.setBorclu_adi(AktifBean.getBorcluAdi());
+
+			bilgiTahsilat.setMusteriNo(AktifBean.getMusteriNo());
+			bilgiTahsilat.setIcra_dosya_no(AktifBean.getIcraDosyaNo());
+			bilgiTahsilat.setIcra_dosyasi_id(AktifBean.getIcraDosyaID());
+			bilgiTahsilat.setMuvekkil_adi(AktifBean.getMuvekkilAdi());
+			// bilgiTahsilat.setTahsilat_miktari(this.getTahsilatYapilacakListe().get(returnID(id)).getOdemeMiktari());
+			bilgiTahsilat.setTahsilat_miktari(tahsilat.getTahsilat_miktari());
+			bilgiTahsilat.setIzleme_id(tahsilat.getIzleme_id());
+			bilgiTahsilat.setOdemeplani_id(tahsilat.getOdemeplani_id());
+			bilgiTahsilat.setVizit_id(tahsilat.getVizit_id());
+			bilgiTahsilat.setTahsilat_tarihi(new Date());
+			bilgiTahsilat.setKasa_islemini_yapan(usersbilgi.getUser().getUsrAdSoyad());
+			bilgiTahsilat.setSoz_alan_personel_id(tahsilat.getSoz_alan_personel_id());
+
+			bilgiTahsilat.setTasilati_yapan(tahsilat.getTasilati_yapan());
+			RequestContext.getCurrentInstance().execute("PF('frmtahsilatyap').show();");
+
+			this.setTahsilat(false);
+			makbuz = true;
+			try {
+				icdb = new IcraDosyaIslemleriBean();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			icdb.GelismisListe(AktifBean.getIcraDosyaID());
+			this.hesaplistesi = icdb.getHesaplistesi();
+
+		}
+	}
+
+	public int returnID(int id) {
+		int rID = 0;
 		try {
-			tahsilat = controller.secilenModeliGetir(id);
+			for (int i = 0; i < this.getTahsilatYapilacakListe().size(); i++) {
+				if (this.getTahsilatYapilacakListe().get(i).getId() == id) {
+					rID = i;
+				}
+
+			}
 		} catch (Exception e) {
-			
-			String Hata="";
+
+			String Hata = "";
 			for (int i = 0; i < e.getStackTrace().length; i++) {
-				Hata += e.getStackTrace()[i];	
+				Hata += e.getStackTrace()[i];
 			}
 			newlog = new LogError();
 			newlog.setHata_detay(Hata);
-			newlog.setHata_value("KasaBean - TahsilatAktar Prosedürü  (STANDART ERROR)");
+			newlog.setHata_value("KasaBean - returnID Prosedürü  (STANDART ERROR)");
 			newlog.setPage("frm_Kasa");
 			newlog.setUser_id(99);
-			
-			
+
 			try {
-				log.Kaydet(newlog);	
+				log.Kaydet(newlog);
 			} catch (Exception e2) {
-				
-				context.addMessage(null, new FacesMessage("Beklenmeyen Bir Hata Gerçekleşti Lütfen Sisteme Yetkilisine Başvurunuz..."));
-			}
-			
-			context.addMessage(null, new FacesMessage("Beklenmeyen Bir Hata Gerçekleşti Lütfen Sisteme Tekrar Giriş Yapınız..."));
-		
-		}
 
-		bilgiTahsilat.setBorclu_adi(AktifBean.getBorcluAdi());
-		
-		bilgiTahsilat.setMusteriNo(AktifBean.getMusteriNo());
-		bilgiTahsilat.setIcra_dosya_no(AktifBean.getIcraDosyaNo());
-		bilgiTahsilat.setIcra_dosyasi_id(AktifBean.getIcraDosyaID());
-		bilgiTahsilat.setMuvekkil_adi(AktifBean.getMuvekkilAdi());
-		// bilgiTahsilat.setTahsilat_miktari(this.getTahsilatYapilacakListe().get(returnID(id)).getOdemeMiktari());
-		bilgiTahsilat.setTahsilat_miktari(tahsilat.getTahsilat_miktari());
-		bilgiTahsilat.setIzleme_id(tahsilat.getIzleme_id());
-		bilgiTahsilat.setOdemeplani_id(tahsilat.getOdemeplani_id());
-		bilgiTahsilat.setVizit_id(tahsilat.getVizit_id());
-		bilgiTahsilat.setTahsilat_tarihi(new Date());
-		bilgiTahsilat.setKasa_islemini_yapan(usersbilgi.getUser().getUsrAdSoyad());
-		bilgiTahsilat.setSoz_alan_personel_id(tahsilat.getSoz_alan_personel_id());
-		
-		bilgiTahsilat.setTasilati_yapan(tahsilat.getTasilati_yapan());
-		RequestContext.getCurrentInstance().execute("PF('frmtahsilatyap').show();");
-		
-		this.setTahsilat(false);
-		makbuz=true;
-		try {
-			icdb = new IcraDosyaIslemleriBean();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-			icdb.GelismisListe(AktifBean.getIcraDosyaID());
-			this.hesaplistesi = icdb.getHesaplistesi();
-		
-		}
-	}
-
-	public int returnID(int id)  {
-		int rID = 0;
-try{
-		for (int i = 0; i < this.getTahsilatYapilacakListe().size(); i++) {
-			if (this.getTahsilatYapilacakListe().get(i).getId() == id) {
-				rID = i;
+				context.addMessage(null,
+						new FacesMessage("Beklenmeyen Bir Hata Gerçekleşti Lütfen Sisteme Yetkilisine Başvurunuz..."));
 			}
 
-		}
-} catch (Exception e) {
-	
-	String Hata="";
-	for (int i = 0; i < e.getStackTrace().length; i++) {
-		Hata += e.getStackTrace()[i];	
-	}
-	newlog = new LogError();
-	newlog.setHata_detay(Hata);
-	newlog.setHata_value("KasaBean - returnID Prosedürü  (STANDART ERROR)");
-	newlog.setPage("frm_Kasa");
-	newlog.setUser_id(99);
-	
-	
-	try {
-		log.Kaydet(newlog);	
-	} catch (Exception e2) {
-		
-		context.addMessage(null, new FacesMessage("Beklenmeyen Bir Hata Gerçekleşti Lütfen Sisteme Yetkilisine Başvurunuz..."));
-	}
-	
-	context.addMessage(null, new FacesMessage("Beklenmeyen Bir Hata Gerçekleşti Lütfen Sisteme Tekrar Giriş Yapınız..."));
+			context.addMessage(null,
+					new FacesMessage("Beklenmeyen Bir Hata Gerçekleşti Lütfen Sisteme Tekrar Giriş Yapınız..."));
 
-}
-	
+		}
+
 		return rID;
 
 	}
@@ -666,10 +652,10 @@ try{
 		Util usersbilgi = new Util();
 		RequestContext.getCurrentInstance().execute("PF('dlgdetayliarama').hide()");
 
-		 icdb = new IcraDosyaIslemleriBean();
+		icdb = new IcraDosyaIslemleriBean();
 		icdb.GelismisListe(AktifBean.getIcraDosyaID());
 		this.hesaplistesi = icdb.getHesaplistesi();
-		
+
 		bilgiTahsilat.setBorclu_adi(AktifBean.getBorcluAdi());
 		bilgiTahsilat.setIcra_dosya_no(AktifBean.getIcraDosyaNo());
 		bilgiTahsilat.setMusteriNo(AktifBean.getMusteriNo());
@@ -677,11 +663,11 @@ try{
 		bilgiTahsilat.setMuvekkil_adi(AktifBean.getMuvekkilAdi());
 		bilgiTahsilat.setKasa_islemini_yapan(usersbilgi.getUser().getUsrAdSoyad());
 		bilgiTahsilat.setTasilati_yapan(usersbilgi.getUser().getUsrAdSoyad());
-		
+
 		bilgiTahsilat.setTahsilat_tarihi(new Date());
-		makbuz=true;
-		tahsilat=false;
-		
+		makbuz = true;
+		tahsilat = false;
+
 	}
 
 	public void ReddiyatAktar(int id) {
@@ -690,7 +676,7 @@ try{
 		reddiyatBilgisi = controller.createReddiyatFromReddiyatView(reddiyatListesi.get(returnReddiyatID(id)));
 
 		RequestContext.getCurrentInstance().execute("PF('frmreddiyatyap').show();");
-		
+
 	}
 
 	public ArrayList<ReddiyatView> returnReddiyatview(ArrayList<ReddiyatView> rw) {
@@ -714,69 +700,70 @@ try{
 	}
 
 	public void reddiyatYap() {
-try{
-		if (reddiyatBilgisi.getDevletDurum() == 0)
-			reddiyatBilgisi.setDevletDurum(1);
-		if (reddiyatBilgisi.getSasaDurum() == 0)
-			reddiyatBilgisi.setSasaDurum(1);
-		if (reddiyatBilgisi.getMuvekkilDurum() == 0)
-			reddiyatBilgisi.setMuvekkilDurum(1);
-		controller.guncelle(reddiyatBilgisi);
-		sayfaGuncelle();
-		
-		FacesContext context = FacesContext.getCurrentInstance();
-		context.addMessage(null, new FacesMessage("Reddiyat İşlemi Başarı İle Gerçekleştirildi..."));
-		RequestContext.getCurrentInstance().execute("PF('frmreddiyatyap').hide();");
-} catch (SQLException e) {
-	String Hata="";
-	for (int i = 0; i < e.getStackTrace().length; i++) {
-		Hata += e.getStackTrace()[i];	
-	}
-	newlog = new LogError();
-	newlog.setHata_detay(Hata);
-	newlog.setHata_value("KasaBean - reddiyatYap Prosedürü (SQL ERROR)");
-	newlog.setPage("frm_kasa");
-	newlog.setUser_id(99);
-	
-	
-	try {
-		log.Kaydet(newlog);	
-	} catch (Exception e2) {
-		context.addMessage(null, new FacesMessage("Beklenmeyen Bir Hata Gerçekleşti Lütfen Sisteme Yetkilisine Başvurunuz..."));
-		
-	}
-	
-	context.addMessage(null, new FacesMessage("Beklenmeyen Bir Hata Gerçekleşti Lütfen Sisteme Tekrar Giriş Yapınız..."));
-	
-}catch (Exception e) {
-		
-		String Hata="";
-		for (int i = 0; i < e.getStackTrace().length; i++) {
-			Hata += e.getStackTrace()[i];	
-		}
-		newlog = new LogError();
-		newlog.setHata_detay(Hata);
-		newlog.setHata_value("KasaBean - reddiyatYap Prosedürü  (STANDART ERROR)");
-		newlog.setPage("frm_Kasa");
-		newlog.setUser_id(99);
-		
-		
 		try {
-			log.Kaydet(newlog);	
-		} catch (Exception e2) {
-			
-			context.addMessage(null, new FacesMessage("Beklenmeyen Bir Hata Gerçekleşti Lütfen Sisteme Yetkilisine Başvurunuz..."));
+			if (reddiyatBilgisi.getDevletDurum() == 0)
+				reddiyatBilgisi.setDevletDurum(1);
+			if (reddiyatBilgisi.getSasaDurum() == 0)
+				reddiyatBilgisi.setSasaDurum(1);
+			if (reddiyatBilgisi.getMuvekkilDurum() == 0)
+				reddiyatBilgisi.setMuvekkilDurum(1);
+			controller.guncelle(reddiyatBilgisi);
+			sayfaGuncelle();
+
+			FacesContext context = FacesContext.getCurrentInstance();
+			context.addMessage(null, new FacesMessage("Reddiyat İşlemi Başarı İle Gerçekleştirildi..."));
+			RequestContext.getCurrentInstance().execute("PF('frmreddiyatyap').hide();");
+		} catch (SQLException e) {
+			String Hata = "";
+			for (int i = 0; i < e.getStackTrace().length; i++) {
+				Hata += e.getStackTrace()[i];
+			}
+			newlog = new LogError();
+			newlog.setHata_detay(Hata);
+			newlog.setHata_value("KasaBean - reddiyatYap Prosedürü (SQL ERROR)");
+			newlog.setPage("frm_kasa");
+			newlog.setUser_id(99);
+
+			try {
+				log.Kaydet(newlog);
+			} catch (Exception e2) {
+				context.addMessage(null,
+						new FacesMessage("Beklenmeyen Bir Hata Gerçekleşti Lütfen Sisteme Yetkilisine Başvurunuz..."));
+
+			}
+
+			context.addMessage(null,
+					new FacesMessage("Beklenmeyen Bir Hata Gerçekleşti Lütfen Sisteme Tekrar Giriş Yapınız..."));
+
+		} catch (Exception e) {
+
+			String Hata = "";
+			for (int i = 0; i < e.getStackTrace().length; i++) {
+				Hata += e.getStackTrace()[i];
+			}
+			newlog = new LogError();
+			newlog.setHata_detay(Hata);
+			newlog.setHata_value("KasaBean - reddiyatYap Prosedürü  (STANDART ERROR)");
+			newlog.setPage("frm_Kasa");
+			newlog.setUser_id(99);
+
+			try {
+				log.Kaydet(newlog);
+			} catch (Exception e2) {
+
+				context.addMessage(null,
+						new FacesMessage("Beklenmeyen Bir Hata Gerçekleşti Lütfen Sisteme Yetkilisine Başvurunuz..."));
+			}
+
+			context.addMessage(null,
+					new FacesMessage("Beklenmeyen Bir Hata Gerçekleşti Lütfen Sisteme Tekrar Giriş Yapınız..."));
+
 		}
-		
-		context.addMessage(null, new FacesMessage("Beklenmeyen Bir Hata Gerçekleşti Lütfen Sisteme Tekrar Giriş Yapınız..."));
-		
-	
-	}
 
 	}
-	
+
 	private Hesap hesaplistesi = new Hesap();
-	
+
 	public Hesap getHesaplistesi() {
 		return hesaplistesi;
 	}
@@ -785,86 +772,81 @@ try{
 		this.hesaplistesi = hesaplistesi;
 	}
 
-	public void tahsilatYap() 
-	{
-		
-		try{
-			
-		Hesap hesap = AktifBean.hesaplistesi;
-		ArrayList<Reddiyat> redList = new ArrayList<>();
-		boolean hitam = false;
-		if ((hesap.getKalan_alacak() - bilgiTahsilat.getTahsilat_miktari() <= 1)) {
-			hitam = true;
-			bilgiTahsilat.setHitam_durum(1);
-			for (int i = 1; i < 4; i++) {
-				Reddiyat reddiyat = controller.createReddiyatForStatus(i, hesap, bilgiTahsilat);
-				redList.add(reddiyat);
+	public void tahsilatYap() {
+
+		try {
+
+			Hesap hesap = AktifBean.hesaplistesi;
+			ArrayList<Reddiyat> redList = new ArrayList<>();
+			boolean hitam = false;
+			if ((hesap.getKalan_alacak() - bilgiTahsilat.getTahsilat_miktari() <= 1)) {
+				hitam = true;
+				bilgiTahsilat.setHitam_durum(1);
+				for (int i = 1; i < 4; i++) {
+					Reddiyat reddiyat = controller.createReddiyatForStatus(i, hesap, bilgiTahsilat);
+					redList.add(reddiyat);
+				}
+			} else {
+				hitam = false;
 			}
-		} else {
-			hitam = false;
-		}
-		bilgiTahsilat.setDurum(1);
-		
-		controller.kaydet(bilgiTahsilat, hitam, redList);
-		tahsilat=true;
-		makbuz=false;
-		
-		sayfaGuncelle();
-		
-		
-		FacesContext context = FacesContext.getCurrentInstance();
-		context.addMessage(null, new FacesMessage("Tahsilat İşlemi Başarı İle Gerçekleştirildi..."));
-		
-		
-		
-	
+			bilgiTahsilat.setDurum(1);
+
+			controller.kaydet(bilgiTahsilat, hitam, redList);
+			tahsilat = true;
+			makbuz = false;
+
+			sayfaGuncelle();
+
+			FacesContext context = FacesContext.getCurrentInstance();
+			context.addMessage(null, new FacesMessage("Tahsilat İşlemi Başarı İle Gerçekleştirildi..."));
+
 		} catch (SQLException e) {
-			String Hata="";
+			String Hata = "";
 			for (int i = 0; i < e.getStackTrace().length; i++) {
-				Hata += e.getStackTrace()[i];	
+				Hata += e.getStackTrace()[i];
 			}
 			newlog = new LogError();
 			newlog.setHata_detay(Hata);
 			newlog.setHata_value("KasaBean - tahsilatYAP Prosedürü (SQL ERROR)");
 			newlog.setPage("frm_kasa");
 			newlog.setUser_id(99);
-			
-			
+
 			try {
-				log.Kaydet(newlog);	
+				log.Kaydet(newlog);
 			} catch (Exception e2) {
-				context.addMessage(null, new FacesMessage("Beklenmeyen Bir Hata Gerçekleşti Lütfen Sisteme Yetkilisine Başvurunuz..."));
-				
+				context.addMessage(null,
+						new FacesMessage("Beklenmeyen Bir Hata Gerçekleşti Lütfen Sisteme Yetkilisine Başvurunuz..."));
+
 			}
-			
-			context.addMessage(null, new FacesMessage("Beklenmeyen Bir Hata Gerçekleşti Lütfen Sisteme Tekrar Giriş Yapınız..."));
-			
-		}catch (Exception e) {
-				
-				String Hata="";
-				for (int i = 0; i < e.getStackTrace().length; i++) {
-					Hata += e.getStackTrace()[i];	
-				}
-				newlog = new LogError();
-				newlog.setHata_detay(Hata);
-				newlog.setHata_value("KasaBean - tahsilatYap Prosedürü  (STANDART ERROR)");
-				newlog.setPage("frm_Kasa");
-				newlog.setUser_id(99);
-				
-				
-				try {
-					log.Kaydet(newlog);	
-				} catch (Exception e2) {
-					
-					context.addMessage(null, new FacesMessage("Beklenmeyen Bir Hata Gerçekleşti Lütfen Sisteme Yetkilisine Başvurunuz..."));
-				}
-				
-				context.addMessage(null, new FacesMessage("Beklenmeyen Bir Hata Gerçekleşti Lütfen Sisteme Tekrar Giriş Yapınız..."));
-				
-			
+
+			context.addMessage(null,
+					new FacesMessage("Beklenmeyen Bir Hata Gerçekleşti Lütfen Sisteme Tekrar Giriş Yapınız..."));
+
+		} catch (Exception e) {
+
+			String Hata = "";
+			for (int i = 0; i < e.getStackTrace().length; i++) {
+				Hata += e.getStackTrace()[i];
 			}
-	
-		
+			newlog = new LogError();
+			newlog.setHata_detay(Hata);
+			newlog.setHata_value("KasaBean - tahsilatYap Prosedürü  (STANDART ERROR)");
+			newlog.setPage("frm_Kasa");
+			newlog.setUser_id(99);
+
+			try {
+				log.Kaydet(newlog);
+			} catch (Exception e2) {
+
+				context.addMessage(null,
+						new FacesMessage("Beklenmeyen Bir Hata Gerçekleşti Lütfen Sisteme Yetkilisine Başvurunuz..."));
+			}
+
+			context.addMessage(null,
+					new FacesMessage("Beklenmeyen Bir Hata Gerçekleşti Lütfen Sisteme Tekrar Giriş Yapınız..."));
+
+		}
+
 	}
 
 	@SuppressWarnings("unused")
@@ -875,261 +857,252 @@ try{
 		return sDate;
 
 	}
-	
-	public  void temizle(){
+
+	public void temizle() {
 		bilgiTahsilat = new Tahsilat();
 		hesaplistesi = new Hesap();
-		
+
 	}
 
-//	public ArrayList<TahsilatView> returnTarihTahsilat(ArrayList<TahsilatView> tahsilatListesi,Date date1, Date date2){
-//		ArrayList<TahsilatView> returnList = new ArrayList<>();
-//		if(date1==null || date2==null){
-//		returnList = tahsilatListesi;
-//		}else
-//		{
-//		for (TahsilatView thlist : tahsilatListesi) {
-//			if((thlist.getTahsilatTarihi().after(date1)==true || thlist.getTahsilatTarihi().equals(date1)==true) && (thlist.getTahsilatTarihi().before(date2)==true || thlist.getTahsilatTarihi().equals(date2)))
-//			{
-//			returnList.add(thlist);
-//			}
-//		}
-//		}
-//		return returnList;
-//	}
-	
+	// public ArrayList<TahsilatView>
+	// returnTarihTahsilat(ArrayList<TahsilatView> tahsilatListesi,Date date1,
+	// Date date2){
+	// ArrayList<TahsilatView> returnList = new ArrayList<>();
+	// if(date1==null || date2==null){
+	// returnList = tahsilatListesi;
+	// }else
+	// {
+	// for (TahsilatView thlist : tahsilatListesi) {
+	// if((thlist.getTahsilatTarihi().after(date1)==true ||
+	// thlist.getTahsilatTarihi().equals(date1)==true) &&
+	// (thlist.getTahsilatTarihi().before(date2)==true ||
+	// thlist.getTahsilatTarihi().equals(date2)))
+	// {
+	// returnList.add(thlist);
+	// }
+	// }
+	// }
+	// return returnList;
+	// }
+
 	@SuppressWarnings({ "unused", "unchecked", "deprecation" })
-	public void sayfaGuncelle() 
-	{
-		try{
-			
-		
-		String oldDate = "01/01/1900";
-		Date tarih = new Date(oldDate);
-		GelismisAramaDAO dao = new GelismisAramaDAO();
-		detayliAramaListesi = dao.Listele("", "", "", "", "", "", 0, 0, 0, tarih, tarih, tarih, tarih, tarih, tarih);
-		filterDetayliAramaListesi = detayliAramaListesi;
-		bilgiTahsilat = new Tahsilat();
-		HttpSession session = Util.getSession();
+	public void sayfaGuncelle() {
+		try {
 
-		bilgiTahsilat.setKasa_islemini_yapan(((User) session.getAttribute("user")).getUsrAdSoyad());
-		
-		
-		tahsilatYapilacakListe=controller.getListeFromViewsForTahsilatIslemi(baslangicTarihi, bitisTarihi);
-		
-		reddiyatListesi = (ArrayList<ReddiyatView>) controller.getListefromView(0, 3, 1,null,null);
-		reddiyatListesi.addAll(controller.getListefromView(0, 3, 2,null,null));
-		reddiyatListesi.addAll(controller.getListefromView(0, 3, 3,null,null));
+			String oldDate = "01/01/1900";
+			Date tarih = new Date(oldDate);
+			GelismisAramaDAO dao = new GelismisAramaDAO();
+			detayliAramaListesi = dao.Listele("", "", "", "", "", "", 0, 0, 0, tarih, tarih, tarih, tarih, tarih,
+					tarih);
+			filterDetayliAramaListesi = detayliAramaListesi;
+			bilgiTahsilat = new Tahsilat();
+			HttpSession session = Util.getSession();
 
-		reddiyatListesi = returnReddiyatview(reddiyatListesi);
+			bilgiTahsilat.setKasa_islemini_yapan(((User) session.getAttribute("user")).getUsrAdSoyad());
 
-		ViewDAO viewdao = new ViewDAO();
-		tahsilatYapilmisListe = (ArrayList<TahsilatView>) controller.getListefromView(1, 1, null,baslangicTarihi,bitisTarihi);
-		
-		reddiyatYapilmisListe = (ArrayList<ReddiyatView>) controller.getListefromView(1, 3, 1,baslangicTarihi,bitisTarihi);
-		reddiyatYapilmisListe.addAll(controller.getListefromView(1, 3, 2,baslangicTarihi,bitisTarihi));
-		reddiyatYapilmisListe.addAll(controller.getListefromView(1, 3, 3,baslangicTarihi,bitisTarihi));
-		
-		SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy");
-		String dateInString = "01-01-1900";
-		Date date = sdf.parse(dateInString);
+			tahsilatYapilacakListe = controller.getListeFromViewsForTahsilatIslemi(baslangicTarihi, bitisTarihi);
 
-		olddatenew = date;
-		enddatenew = baslangicTarihi;
-		enddatenew.setHours(-24);
-		
-		tahsilatiGecmisListe=controller.getListeFromViewsForTahsilatIslemi(olddatenew, enddatenew);
+			reddiyatListesi = (ArrayList<ReddiyatView>) controller.getListefromView(0, 3, 1, null, null);
+			reddiyatListesi.addAll(controller.getListefromView(0, 3, 2, null, null));
+			reddiyatListesi.addAll(controller.getListefromView(0, 3, 3, null, null));
 
-		Ay = "2016 - HAZİRAN";
-		gun = tarih_rapor.toString();
-		
-		if(AktifBean.getIcraDosyaID()>0){
-			icdb = new IcraDosyaIslemleriBean();
-			icdb.GelismisListe(AktifBean.getIcraDosyaID());
-			this.hesaplistesi = icdb.getHesaplistesi();
-		}
-		
-		
-		for (int i = 0; i < tahsilatYapilmisListe.size(); i++) {
+			reddiyatListesi = returnReddiyatview(reddiyatListesi);
 
-			if (tahsilatYapilmisListe.get(i).getMuvekkilAdi().equals("HSBC BANK A.Ş.") == true)
-				hsbc_aylik += tahsilatYapilmisListe.get(i).getTahsilatMiktari();
-			if (tahsilatYapilmisListe.get(i).getMuvekkilAdi().equals("AKBANK T.A.Ş.") == true)
-				akbank_aylik += tahsilatYapilmisListe.get(i).getTahsilatMiktari();
-			if (tahsilatYapilmisListe.get(i).getMuvekkilAdi().equals("T. GARANTİ BANKASI A.Ş.") == true)
-				garanti_aylik += tahsilatYapilmisListe.get(i).getTahsilatMiktari();
-			if (tahsilatYapilmisListe.get(i).getMuvekkilAdi().equals("İNG BANK A.Ş.") == true)
-				ing_aylik += tahsilatYapilmisListe.get(i).getTahsilatMiktari();
+			ViewDAO viewdao = new ViewDAO();
+			tahsilatYapilmisListe = (ArrayList<TahsilatView>) controller.getListefromView(1, 1, null, baslangicTarihi,
+					bitisTarihi);
 
-			SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+			reddiyatYapilmisListe = (ArrayList<ReddiyatView>) controller.getListefromView(1, 3, 1, baslangicTarihi,
+					bitisTarihi);
+			reddiyatYapilmisListe.addAll(controller.getListefromView(1, 3, 2, baslangicTarihi, bitisTarihi));
+			reddiyatYapilmisListe.addAll(controller.getListefromView(1, 3, 3, baslangicTarihi, bitisTarihi));
 
-			if (tahsilatYapilmisListe.get(i).getTahsilatTarihi().getTime() == tarih_rapor.getTime()) {
-				if (tahsilatYapilmisListe.get(i).getMuvekkilAdi().equals("HSBC BANK A.Ş.") == true)
-					hsbc_gunluk += tahsilatYapilmisListe.get(i).getTahsilatMiktari();
-				if (tahsilatYapilmisListe.get(i).getMuvekkilAdi().equals("AKBANK T.A.Ş.") == true)
-					akbank_gunluk += tahsilatYapilmisListe.get(i).getTahsilatMiktari();
-				if (tahsilatYapilmisListe.get(i).getMuvekkilAdi().equals("T. GARANTİ BANKASI A.Ş.") == true)
-					garanti_gunluk += tahsilatYapilmisListe.get(i).getTahsilatMiktari();
-				if (tahsilatYapilmisListe.get(i).getMuvekkilAdi().equals("İNG BANK A.Ş.") == true)
-					ing_gunluk += tahsilatYapilmisListe.get(i).getTahsilatMiktari();
+			SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy");
+			String dateInString = "01-01-1900";
+			Date date = sdf.parse(dateInString);
 
+			olddatenew = date;
+			enddatenew = baslangicTarihi;
+			enddatenew.setHours(-24);
+
+			tahsilatiGecmisListe = controller.getListeFromViewsForTahsilatIslemi(olddatenew, enddatenew);
+
+			Ay = "2016 - HAZİRAN";
+			gun = tarih_rapor.toString();
+
+			if (AktifBean.getIcraDosyaID() > 0) {
+				icdb = new IcraDosyaIslemleriBean();
+				icdb.GelismisListe(AktifBean.getIcraDosyaID());
+				this.hesaplistesi = icdb.getHesaplistesi();
 			}
-		}
 
-		NumberFormat defaultFormat = NumberFormat.getCurrencyInstance();
+			for (int i = 0; i < tahsilatYapilmisListe.size(); i++) {
 
-		hsbc_aylik1 = defaultFormat.format(hsbc_aylik);
-		akbank_aylik1 = defaultFormat.format(akbank_aylik);
-		garanti_aylik1 = defaultFormat.format(garanti_aylik);
-		ing_aylik1 = defaultFormat.format(ing_aylik);
+				if (tahsilatYapilmisListe.get(i).getMuvekkilAdi().equals("HSBC BANK A.Ş.") == true)
+					hsbc_aylik += tahsilatYapilmisListe.get(i).getTahsilatMiktari();
+				if (tahsilatYapilmisListe.get(i).getMuvekkilAdi().equals("AKBANK T.A.Ş.") == true)
+					akbank_aylik += tahsilatYapilmisListe.get(i).getTahsilatMiktari();
+				if (tahsilatYapilmisListe.get(i).getMuvekkilAdi().equals("T. GARANTİ BANKASI A.Ş.") == true)
+					garanti_aylik += tahsilatYapilmisListe.get(i).getTahsilatMiktari();
+				if (tahsilatYapilmisListe.get(i).getMuvekkilAdi().equals("İNG BANK A.Ş.") == true)
+					ing_aylik += tahsilatYapilmisListe.get(i).getTahsilatMiktari();
 
-		hsbc_gunluk1 = defaultFormat.format(hsbc_aylik);
-		akbank_gunluk1 = defaultFormat.format(akbank_gunluk);
-		garanti_gunluk1 = defaultFormat.format(garanti_gunluk);
-		ing_gunluk1 = defaultFormat.format(ing_gunluk);
+				SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 
-		
-		
+				if (tahsilatYapilmisListe.get(i).getTahsilatTarihi().getTime() == tarih_rapor.getTime()) {
+					if (tahsilatYapilmisListe.get(i).getMuvekkilAdi().equals("HSBC BANK A.Ş.") == true)
+						hsbc_gunluk += tahsilatYapilmisListe.get(i).getTahsilatMiktari();
+					if (tahsilatYapilmisListe.get(i).getMuvekkilAdi().equals("AKBANK T.A.Ş.") == true)
+						akbank_gunluk += tahsilatYapilmisListe.get(i).getTahsilatMiktari();
+					if (tahsilatYapilmisListe.get(i).getMuvekkilAdi().equals("T. GARANTİ BANKASI A.Ş.") == true)
+						garanti_gunluk += tahsilatYapilmisListe.get(i).getTahsilatMiktari();
+					if (tahsilatYapilmisListe.get(i).getMuvekkilAdi().equals("İNG BANK A.Ş.") == true)
+						ing_gunluk += tahsilatYapilmisListe.get(i).getTahsilatMiktari();
+
+				}
+			}
+
+			NumberFormat defaultFormat = NumberFormat.getCurrencyInstance();
+
+			hsbc_aylik1 = defaultFormat.format(hsbc_aylik);
+			akbank_aylik1 = defaultFormat.format(akbank_aylik);
+			garanti_aylik1 = defaultFormat.format(garanti_aylik);
+			ing_aylik1 = defaultFormat.format(ing_aylik);
+
+			hsbc_gunluk1 = defaultFormat.format(hsbc_aylik);
+			akbank_gunluk1 = defaultFormat.format(akbank_gunluk);
+			garanti_gunluk1 = defaultFormat.format(garanti_gunluk);
+			ing_gunluk1 = defaultFormat.format(ing_gunluk);
+
 		} catch (SQLException e) {
-			String Hata="";
+			String Hata = "";
 			for (int i = 0; i < e.getStackTrace().length; i++) {
-				Hata += e.getStackTrace()[i];	
+				Hata += e.getStackTrace()[i];
 			}
 			newlog = new LogError();
 			newlog.setHata_detay(Hata);
 			newlog.setHata_value("KasaBean - sayfaGuncelle Prosedürü (SQL ERROR)");
 			newlog.setPage("frm_kasa");
 			newlog.setUser_id(99);
-			
-			
+
 			try {
-				log.Kaydet(newlog);	
+				log.Kaydet(newlog);
 			} catch (Exception e2) {
-				context.addMessage(null, new FacesMessage("Beklenmeyen Bir Hata Gerçekleşti Lütfen Sisteme Yetkilisine Başvurunuz..."));
-				
-			}
-			
-			context.addMessage(null, new FacesMessage("Beklenmeyen Bir Hata Gerçekleşti Lütfen Sisteme Tekrar Giriş Yapınız..."));
-			
-		}catch (Exception e) {
-				
-				String Hata="";
-				for (int i = 0; i < e.getStackTrace().length; i++) {
-					Hata += e.getStackTrace()[i];	
-				}
-				newlog = new LogError();
-				newlog.setHata_detay(Hata);
-				newlog.setHata_value("KasaBean - SayfaGuncelle Prosedürü  (STANDART ERROR)");
-				newlog.setPage("frm_Kasa");
-				newlog.setUser_id(99);
-				
-				
-				try {
-					log.Kaydet(newlog);	
-				} catch (Exception e2) {
-					
-					context.addMessage(null, new FacesMessage("Beklenmeyen Bir Hata Gerçekleşti Lütfen Sisteme Yetkilisine Başvurunuz..."));
-				}
-				
-				context.addMessage(null, new FacesMessage("Beklenmeyen Bir Hata Gerçekleşti Lütfen Sisteme Tekrar Giriş Yapınız..."));
-				
-			
+				context.addMessage(null,
+						new FacesMessage("Beklenmeyen Bir Hata Gerçekleşti Lütfen Sisteme Yetkilisine Başvurunuz..."));
+
 			}
 
-		
-		
+			context.addMessage(null,
+					new FacesMessage("Beklenmeyen Bir Hata Gerçekleşti Lütfen Sisteme Tekrar Giriş Yapınız..."));
+
+		} catch (Exception e) {
+
+			String Hata = "";
+			for (int i = 0; i < e.getStackTrace().length; i++) {
+				Hata += e.getStackTrace()[i];
+			}
+			newlog = new LogError();
+			newlog.setHata_detay(Hata);
+			newlog.setHata_value("KasaBean - SayfaGuncelle Prosedürü  (STANDART ERROR)");
+			newlog.setPage("frm_Kasa");
+			newlog.setUser_id(99);
+
+			try {
+				log.Kaydet(newlog);
+			} catch (Exception e2) {
+
+				context.addMessage(null,
+						new FacesMessage("Beklenmeyen Bir Hata Gerçekleşti Lütfen Sisteme Yetkilisine Başvurunuz..."));
+			}
+
+			context.addMessage(null,
+					new FacesMessage("Beklenmeyen Bir Hata Gerçekleşti Lütfen Sisteme Tekrar Giriş Yapınız..."));
+
+		}
+
 	}
 
-	public void print(Integer id)  {
-		
-		try{
-			
-		KasaCtrl islem = new KasaCtrl();
-		if(id==null)
-		{
-			
-		islem.printTahsilatMakbuzu(tahsilatID);
-		}
-		else{
-			islem.printTahsilatMakbuzu(id);			
-		}
+	public void print(Integer id) {
+		try {
+
+			KasaCtrl islem = new KasaCtrl();
+			if (id == null) {
+
+				islem.printTahsilatMakbuzu(tahsilatID);
+			} else {
+				islem.printTahsilatMakbuzu(id);
+			}
 		} catch (SQLException e) {
-			String Hata="";
+			String Hata = "";
 			for (int i = 0; i < e.getStackTrace().length; i++) {
-				Hata += e.getStackTrace()[i];	
+				Hata += e.getStackTrace()[i];
 			}
 			newlog = new LogError();
 			newlog.setHata_detay(Hata);
 			newlog.setHata_value("KasaBean - print Prosedürü (SQL ERROR)");
 			newlog.setPage("frm_kasa");
 			newlog.setUser_id(99);
-			
-			
+
 			try {
-				log.Kaydet(newlog);	
+				log.Kaydet(newlog);
 			} catch (Exception e2) {
-				context.addMessage(null, new FacesMessage("Beklenmeyen Bir Hata Gerçekleşti Lütfen Sisteme Yetkilisine Başvurunuz..."));
-				
-			}
-			
-			context.addMessage(null, new FacesMessage("Beklenmeyen Bir Hata Gerçekleşti Lütfen Sisteme Tekrar Giriş Yapınız..."));
-			
-		}catch (Exception e) {
-				
-				String Hata="";
-				for (int i = 0; i < e.getStackTrace().length; i++) {
-					Hata += e.getStackTrace()[i];	
-				}
-				newlog = new LogError();
-				newlog.setHata_detay(Hata);
-				newlog.setHata_value("KasaBean - print Prosedürü  (STANDART ERROR)");
-				newlog.setPage("frm_Kasa");
-				newlog.setUser_id(99);
-				
-				
-				try {
-					log.Kaydet(newlog);	
-				} catch (Exception e2) {
-					
-					context.addMessage(null, new FacesMessage("Beklenmeyen Bir Hata Gerçekleşti Lütfen Sisteme Yetkilisine Başvurunuz..."));
-				}
-				
-				context.addMessage(null, new FacesMessage("Beklenmeyen Bir Hata Gerçekleşti Lütfen Sisteme Tekrar Giriş Yapınız..."));
-				
-			
+				context.addMessage(null,
+						new FacesMessage("Beklenmeyen Bir Hata Gerçekleşti Lütfen Sisteme Yetkilisine Başvurunuz..."));
+
 			}
 
+			context.addMessage(null,
+					new FacesMessage("Beklenmeyen Bir Hata Gerçekleşti Lütfen Sisteme Tekrar Giriş Yapınız..."));
+
+		} catch (Exception e) {
+
+			String Hata = "";
+			for (int i = 0; i < e.getStackTrace().length; i++) {
+				Hata += e.getStackTrace()[i];
+			}
+			newlog = new LogError();
+			newlog.setHata_detay(Hata);
+			newlog.setHata_value("KasaBean - print Prosedürü  (STANDART ERROR)");
+			newlog.setPage("frm_Kasa");
+			newlog.setUser_id(99);
+
+			try {
+				log.Kaydet(newlog);
+			} catch (Exception e2) {
+
+				context.addMessage(null,
+						new FacesMessage("Beklenmeyen Bir Hata Gerçekleşti Lütfen Sisteme Yetkilisine Başvurunuz..."));
+			}
+			context = FacesContext.getCurrentInstance();
+			context.addMessage(null,
+					new FacesMessage("Beklenmeyen Bir Hata Gerçekleşti Lütfen Sisteme Tekrar Giriş Yapınız..."));
+			System.out.println(e.getMessage().toString());	
+		}
 
 	}
-	
-	
-	public void yazdir() throws Exception{
-		
+
+	public void yazdir() throws Exception {
+
 		ViewDAO dao = new ViewDAO();
 		Map<String, Object> hashMap = new HashMap<String, Object>();
 		ArrayList<ViewTahsilatListesi> liste = dao.getTahsilatListesiView(null, null, null);
 		JasperPrint jasperPrint;
-		
-		JRBeanCollectionDataSource beanCollectionDataSource = new JRBeanCollectionDataSource(
-				liste);
+
+		JRBeanCollectionDataSource beanCollectionDataSource = new JRBeanCollectionDataSource(liste);
 		String reportPath = FacesContext.getCurrentInstance().getExternalContext()
 				.getRealPath("/reports/JASPER/Tahsilat-Listesi.jasper");
-		jasperPrint = JasperFillManager.fillReport(reportPath, hashMap,
-				beanCollectionDataSource);
-		
-		
-		HttpServletResponse httpServletResponse = (HttpServletResponse) FacesContext
-				.getCurrentInstance().getExternalContext().getResponse();
-		httpServletResponse.addHeader("Content-disposition",
-				"attachment; filename=Tahsilat-Listesi.pdf");
-		ServletOutputStream servletOutputStream = httpServletResponse
-				.getOutputStream();
+		jasperPrint = JasperFillManager.fillReport(reportPath, hashMap, beanCollectionDataSource);
 
-		JasperExportManager.exportReportToPdfStream(jasperPrint,
-				servletOutputStream);
+		HttpServletResponse httpServletResponse = (HttpServletResponse) FacesContext.getCurrentInstance()
+				.getExternalContext().getResponse();
+		httpServletResponse.addHeader("Content-disposition", "attachment; filename=Tahsilat-Listesi.pdf");
+		ServletOutputStream servletOutputStream = httpServletResponse.getOutputStream();
 
-		 servletOutputStream.flush();
-		    servletOutputStream.close();
+		JasperExportManager.exportReportToPdfStream(jasperPrint, servletOutputStream);
+
+		servletOutputStream.flush();
+		servletOutputStream.close();
 		FacesContext.getCurrentInstance().responseComplete();
 	}
 

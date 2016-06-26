@@ -357,7 +357,7 @@ public class KasaCtrl {
 
 		return returnYazi;
 	}
-
+	//:TODO Hitam makbuzu için bu method ve içeriği güncellencek
 	private PrintModel generatePrintModelFromHitamView(HitamView view) {
 
 		PrintModel model = new PrintModel();
@@ -367,6 +367,7 @@ public class KasaCtrl {
 		model.setMakbuzNo(String.valueOf(view.getId()));
 		model.setAlinanMiktar(String.valueOf(view.getTahsilatMiktari()));
 		model.setSebebi("");
+		
 		model.setMiktari(String.valueOf(view.getTahsilatMiktari()));
 		model.setSeri("");
 		model.setAdSoyad(view.getAdSoyad());
@@ -438,7 +439,7 @@ public class KasaCtrl {
 	}
 
 	public void printHitamMakbuzu(int id) throws Exception {
-		HitamView hitamView = viewDAO.getHitamFromViewByID(id);
+		HitamView hitamView = viewDAO.getHitamFromViewByTahsilatID(id);
 		JasperPrint jasperPrint = generateHitamMakbuzu(hitamView);
 		HttpServletResponse httpServletResponse = (HttpServletResponse) FacesContext.getCurrentInstance()
 				.getExternalContext().getResponse();
@@ -529,5 +530,7 @@ public class KasaCtrl {
 		}
 		return hitam;
 	}
+	
+	
 
 }

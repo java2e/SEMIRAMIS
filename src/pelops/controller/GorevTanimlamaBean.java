@@ -106,7 +106,6 @@ public class GorevTanimlamaBean {
 		
 		gorevList = gorevDAO.select(id);
 		
-		System.out.println(id);
 	}
 	
 	
@@ -122,7 +121,7 @@ public class GorevTanimlamaBean {
 	
 	
 	public void onGorevSelected(int id){
-		System.out.println(id);
+
 		gorev = gorevDAO.selectById(id);
 		
 		islem = false;

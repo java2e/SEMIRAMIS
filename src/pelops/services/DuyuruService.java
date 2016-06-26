@@ -7,6 +7,7 @@ import java.util.UUID;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 
+import pelops.dao.DuyuruDAO;
 import pelops.model.Duyuru;
 
  
@@ -14,8 +15,26 @@ import pelops.model.Duyuru;
 @ApplicationScoped
 public class DuyuruService {
 
+	
+	private DuyuruDAO duyuruDAO;
+	
+	
      
-    public List<Duyuru> createDuyurular(int size) {
+    public DuyuruDAO getDuyuruDAO() {
+		return duyuruDAO;
+	}
+
+
+	public void setDuyuruDAO(DuyuruDAO duyuruDAO) {
+		this.duyuruDAO = duyuruDAO;
+	}
+
+	
+	public DuyuruService(){
+		duyuruDAO=new DuyuruDAO();
+	}
+
+	public List<Duyuru> createDuyurular(int size) {
         List<Duyuru> list = new ArrayList<Duyuru>();
         for(int i = 0 ; i < size ; i++) {
         	Duyuru duyuru =new Duyuru();
@@ -25,6 +44,11 @@ public class DuyuruService {
         }
          
         return list;
+    }
+    
+    
+    public List<Duyuru> getDuyuruList() {
+       return duyuruDAO.select();
     }
      
 

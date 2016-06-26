@@ -9,17 +9,38 @@ import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 
 import org.primefaces.model.DefaultScheduleEvent;
+import org.primefaces.model.ScheduleEvent;
 import org.primefaces.model.ScheduleModel;
 
+import pelops.dao.EtkinlikDAO;
+import pelops.dao.UserDAO;
 import pelops.model.Duyuru;
+import pelops.model.Etkinlik;
 
 @ManagedBean(name = "etkinlikService")
 @ApplicationScoped
 public class EtkinlikService {
 	
 	
-	   public ScheduleModel createEtkinlikler(ScheduleModel eventModel) {
+		private EtkinlikDAO etkinlikDAO;
+		
+		
+	
+	   public EtkinlikDAO getEtkinlikDAO() {
+			return etkinlikDAO;
+		}
 
+
+		public void setEtkinlikDAO(EtkinlikDAO etkinlikDAO) {
+			this.etkinlikDAO = etkinlikDAO;
+		}
+
+
+	 public EtkinlikService(){
+		 etkinlikDAO=new EtkinlikDAO();
+	 }
+		
+	public ScheduleModel createEtkinlikler(ScheduleModel eventModel) {
 	        eventModel.addEvent(new DefaultScheduleEvent("Şampiyonlar Ligi Maçı", previousDay8Pm(), previousDay11Pm()));
 	        eventModel.addEvent(new DefaultScheduleEvent("Duygu Doğum Günü", today1Pm(), today6Pm()));
 	        eventModel.addEvent(new DefaultScheduleEvent("Öğlen Yemeği", nextDay9Am(), nextDay11Am()));
@@ -27,6 +48,35 @@ public class EtkinlikService {
 	         
 	        return eventModel;
 	    }
+	   
+	   
+	   public ScheduleModel getEtkinlikListByUserId(ScheduleModel eventModel,Integer userId) {
+
+		   List<Etkinlik> etkinlikList =etkinlikDAO.select(userId);
+		   
+		   int i=0;
+		   for(Etkinlik etkinlik :etkinlikList){
+			   eventModel.addEvent(new DefaultScheduleEvent(etkinlik.getAciklama(), etkinlik.getBasTarih(), etkinlik.getBitTarih()));
+			   eventModel.getEvents().get(i).setId(etkinlik.getEventId());
+			   i++;
+		   }
+	         
+	        return eventModel;
+	    }
+	   
+	   
+	   public void addEtkinlik(Etkinlik etkinlik){
+		   etkinlikDAO.insert(etkinlik);
+	   }
+	   
+	   public void updateEtkinlikByEventId(Etkinlik etkinlik){
+		   etkinlikDAO.updateByEventId(etkinlik);
+	   }
+	   
+	   
+	   public void deleteEtkinlikByEventId(String eventId){
+		   etkinlikDAO.deleteByEventId(eventId);
+	   }
 	     
 	    public Date getRandomDate(Date base) {
 	        Calendar date = Calendar.getInstance();

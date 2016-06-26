@@ -16,6 +16,10 @@
 .noHeader.ui-datatable table thead tr {
     display: none;
 }
+
+span.fc-event-time{
+   display:none;
+}
  </style>
  
     <h:body >
@@ -89,7 +93,7 @@
             <!-- Gorevler -->
             
             
-  			<div style="float: left; width: 21%; margin:0px 0px 0px 0px;">
+  			<div style="float: left; width: 23%; margin:0px 0px 0px 0px;">
   			<h2 style="margin:5px 0px 0px 0px;">Görevler</h2>
   				<p:dataTable var="gorev" value="#{defaultAnaSayfaBean.gorevler}"  
 					selectionMode="single" selection="#{defaultAnaSayfaBean.selectedGorev}"
@@ -102,14 +106,14 @@
 					</p:column>
 
 					
-					<p:column  style="width: 19%;padding:4px 2px 2px 6px;">
-						<h:outputText value="#{gorev.basTarih}" style="color:#{gorev.id%2==0 ? 'red' : 'black' };" >
+					<p:column  style="width: 22%;padding:4px 2px 2px 6px;">
+						<h:outputText value="#{gorev.basTarih}" style="font-size: 83%;color:#{gorev.id%2==0 ? 'red' : 'black' };" >
 						    <f:convertDateTime pattern="dd/MM/yyyy" />
 						</h:outputText>
 					</p:column>
 					
-					<p:column  style="width: 19%;padding:4px 4px 2px 6px;">
-						<h:outputText value="#{gorev.bitTarih}" style="color:#{gorev.id%2==0 ? 'red' : 'black' };" >
+					<p:column  style="width: 22%;padding:4px 4px 2px 6px;">
+						<h:outputText value="#{gorev.bitTarih}" style="font-size: 83%;color:#{gorev.id%2==0 ? 'red' : 'black' };" >
 						<f:convertDateTime pattern="dd/MM/yyyy" />
 						</h:outputText>
 					</p:column>
@@ -131,7 +135,7 @@
 			<!-- /Gorevler  -->
 			
 			 <!-- Duyurular -->
-  			<div style="float: left; width: 48%; margin:0px 10px 0px 10px;">
+  			<div style="float: left; width: 46%; margin:0px 10px 0px 10px;">
   			
   			<h2 style="margin:5px 0px 0px 0px;">Duyurular</h2>
 
@@ -189,6 +193,9 @@
 						<p:commandButton id="addButton" value="Kaydet"
 							actionListener="#{defaultAnaSayfaBean.addEvent}"
 							oncomplete="PF('myschedule').update();PF('eventDialog').hide();" />
+						<p:commandButton id="deleteButton" value="Sil"
+							actionListener="#{defaultAnaSayfaBean.deleteEvent}"
+							oncomplete="PF('myschedule').update();PF('eventDialog').hide();" />	
 					</h:panelGrid>
 				</p:dialog>
 

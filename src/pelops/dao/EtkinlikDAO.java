@@ -14,14 +14,13 @@ public class EtkinlikDAO extends DBConnection{
 	@SuppressWarnings("unused")
 	public void insert(Etkinlik etkinlik) {
 		StringBuffer buffer = new StringBuffer(
-				"insert into tbl_etkinlik (aciklama, basTarih, bitTarih, userId) values (");
-		buffer.append(" ,'" + etkinlik.getAciklama() + "'");
+				"insert into tbl_etkinlik (aciklama, bastarih, bittarih,eventid, userid) values (");
+		buffer.append("'" + etkinlik.getAciklama() + "'");
 		buffer.append(" ,'" + etkinlik.getBasTarih() + "'");
 		buffer.append(" ,'" + etkinlik.getBitTarih() + "'");
+		buffer.append(" ,'" + etkinlik.getEventId() + "'");
 		buffer.append(" ," + etkinlik.getUserId());
 		buffer.append(")");
-
-		System.out.println(buffer.toString());
 
 		try {
 			super.newConnectDB();
@@ -37,11 +36,7 @@ public class EtkinlikDAO extends DBConnection{
 		}
 	}
 
-	/**
-	 * kullanici silmek icin cagrilan metod
-	 * 
-	 * @param kullaniciId
-	 */
+
 	public void delete(int etkinlikId)
 	{
 		StringBuffer buffer = new StringBuffer("delete from tbl_etkinlik" + " where id=" + etkinlikId);
@@ -64,24 +59,45 @@ public class EtkinlikDAO extends DBConnection{
 			e.printStackTrace();
 		}
 
-		System.out.println(buffer.toString());
 			
 	}
+	
+	
+	public void deleteByEventId(String eventId)
+	{
+		StringBuffer buffer = new StringBuffer("delete from tbl_etkinlik" + " where eventid='" + eventId+"'");
 
-	/**
-	 * guncelleme yapilirken cagrilan metod
-	 * 
-	 * @param user
-	 */
-	public void update(Etkinlik etkinlik)
+		try
+		{
+			
+			super.newConnectDB();
+			Statement statement;
+			statement = conn.createStatement();
+			statement.execute(buffer.toString());
+			super.disconnectDB();
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+
+			
+	}
+	
+
+	public void updateByEventId(Etkinlik etkinlik)
 	{
 		
 		StringBuffer buffer = new StringBuffer("update tbl_etkinlik set");
-		buffer.append("aciklama = '" + etkinlik.getAciklama() + "'");
-		buffer.append(", basTarih = '" + etkinlik.getBasTarih() + "'");
-		buffer.append(", bitTarih = '" + etkinlik.getBitTarih() + "'");
-		buffer.append(", userId = " + etkinlik.getUserId());
-		buffer.append(" where id = " + etkinlik.getId());
+		buffer.append(" aciklama = '" + etkinlik.getAciklama() + "'");
+		buffer.append(", bastarih = '" + etkinlik.getBasTarih() + "'");
+		buffer.append(", bittarih = '" + etkinlik.getBitTarih() + "'");
+		buffer.append(", userid = " + etkinlik.getUserId());
+		buffer.append(" where eventid = '" + etkinlik.getEventId()+"'");
 		try
 		{
 			super.newConnectDB();
@@ -99,25 +115,18 @@ public class EtkinlikDAO extends DBConnection{
 			e.printStackTrace();
 		}
 
-		System.out.println(buffer.toString());
 		
 		
 	}
 
 
-	/**
-	 * Kullanici instancelarinin tamamini bir listeye doldurulur ve doner.
-	 * 
-	 * @param user
-	 * @return
-	 */
 	public List<Etkinlik> select(int userId)
 	{
 		List<Etkinlik> etkinlikListesi = new ArrayList<Etkinlik>();
 		Etkinlik etkinlik;
 
 		StringBuffer buffer = new StringBuffer(
-				"select * from tbl_etkinlik where userId="+ userId + "");
+				"select * from tbl_etkinlik where userid="+ userId + "");
 		
 		try
 		{
@@ -131,9 +140,10 @@ public class EtkinlikDAO extends DBConnection{
 				etkinlik = new Etkinlik();
 				etkinlik.setId(rset.getInt("id"));
 				etkinlik.setAciklama(rset.getString("aciklama"));
-				etkinlik.setBasTarih(rset.getDate("basTarih"));
-				etkinlik.setBitTarih(rset.getDate("bitTarih"));
-				etkinlik.setUserId(rset.getInt("userId"));
+				etkinlik.setBasTarih(rset.getDate("bastarih"));
+				etkinlik.setBitTarih(rset.getDate("bittarih"));
+				etkinlik.setEventId(rset.getString("eventid"));
+				etkinlik.setUserId(rset.getInt("userid"));
 				etkinlikListesi.add(etkinlik);							
 			}
 			super.disconnectDB();
@@ -146,18 +156,13 @@ public class EtkinlikDAO extends DBConnection{
 		return etkinlikListesi;
 	}
 
-	/**
-	 * Sadece bir kullaniciya ait verileri doner
-	 * 
-	 * @param userId
-	 * @return
-	 */
+
 	public Etkinlik selectById(int userId)
 	{
 		Etkinlik etkinlik = new Etkinlik();
 
 		StringBuffer buffer = new StringBuffer(
-				"select * from tbl_etkinlik where userId="+ userId + "");
+				"select * from tbl_etkinlik where userid="+ userId + "");
 
 		try
 		{
@@ -171,9 +176,10 @@ public class EtkinlikDAO extends DBConnection{
 				etkinlik = new Etkinlik();
 				etkinlik.setId(rset.getInt("id"));
 				etkinlik.setAciklama(rset.getString("aciklama"));
-				etkinlik.setBasTarih(rset.getDate("basTarih"));
-				etkinlik.setBitTarih(rset.getDate("bitTarih"));
-				etkinlik.setUserId(rset.getInt("userId"));
+				etkinlik.setBasTarih(rset.getDate("bastarih"));
+				etkinlik.setBitTarih(rset.getDate("bittarih"));
+				etkinlik.setEventId(rset.getString("eventid"));
+				etkinlik.setUserId(rset.getInt("userid"));
 			}
 			super.disconnectDB();
 		}

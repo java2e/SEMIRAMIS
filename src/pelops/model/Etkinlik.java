@@ -9,6 +9,7 @@ public class Etkinlik {
 	private Date basTarih;
 	private Date bitTarih;
 	private int userId;
+	private String eventId;
 	
 	
 	public int getId() {
@@ -40,6 +41,12 @@ public class Etkinlik {
 	}
 	public void setUserId(int userId) {
 		this.userId = userId;
+	}
+	public String getEventId() {
+		return eventId;
+	}
+	public void setEventId(String eventId) {
+		this.eventId = eventId;
 	}
 
 

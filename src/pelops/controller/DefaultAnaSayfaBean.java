@@ -25,12 +25,15 @@ import org.primefaces.model.LazyDataModel;
 
 import java.util.List;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.RequestScoped;
 
 import pelops.model.Duyuru;
+import pelops.model.Etkinlik;
 import pelops.model.Gorev;
 import pelops.services.DuyuruService;
 import pelops.services.EtkinlikService;
 import pelops.services.GorevService;
+import pelops.util.Util;
 
 @ManagedBean(name="defaultAnaSayfaBean")
 @ViewScoped
@@ -48,7 +51,7 @@ public class DefaultAnaSayfaBean implements Serializable {
 	    private DuyuruService duyuruService;
 	    
 	    public List<Duyuru> getDuyurular() {
-	        return duyurular;
+	    	return duyuruService.getDuyuruList();
 	    }
 	 
 	    public void setDuyuruService(DuyuruService duyuruService) {
@@ -63,7 +66,7 @@ public class DefaultAnaSayfaBean implements Serializable {
 	    private GorevService gorevService;
 	    
 	    public List<Gorev> getGorevler() {
-	        return gorevler;
+	        return gorevService.getGorevListByUserId(Integer.valueOf(new Util().getUser().getUsrId()));
 	    }
 	 
 	    public void setGorevService(GorevService gorevService) {
@@ -103,13 +106,15 @@ public class DefaultAnaSayfaBean implements Serializable {
 	 
 	    @PostConstruct
 	    public void init() {
-	    	duyurular = duyuruService.createDuyurular(10);
 	    	
-	    	gorevler = gorevService.createGorevler(5);
+	    	Util usersbilgi = new Util();
+	    	duyurular = duyuruService.getDuyuruList();
+	    	
+	    	gorevler = gorevService.getGorevListByUserId(Integer.valueOf(usersbilgi.getUser().getUsrId())); //gorevService.createGorevler(5);
 	    	selectedGorev=new Gorev();
 	    	
 	    	eventModel = new DefaultScheduleModel();
-	    	eventModel=etkinlikService.createEtkinlikler(eventModel);
+	    	eventModel=etkinlikService.getEtkinlikListByUserId(eventModel, usersbilgi.getUser().getUsrId());//etkinlikService.createEtkinlikler(eventModel);
 	    	
 	         
 	    }   
@@ -129,14 +134,36 @@ public class DefaultAnaSayfaBean implements Serializable {
 	        this.event = event;
 	    }
 	     
-	    public void addEvent(ActionEvent actionEvent) {
-	        if(event.getId() == null)
-	            eventModel.addEvent(event);
-	        else
-	            eventModel.updateEvent(event);
-	         
-	        event = new DefaultScheduleEvent();
-	    }
+	public void addEvent(ActionEvent actionEvent) {
+		if (event.getId() == null) {
+			eventModel.addEvent(event);
+			Etkinlik etkinlik = new Etkinlik();
+			etkinlik.setAciklama(String.valueOf(event.getTitle()));
+			etkinlik.setBasTarih(event.getStartDate());
+			etkinlik.setBitTarih(event.getEndDate());
+			etkinlik.setUserId(new Util().getUser().getUsrId());
+			etkinlik.setEventId(event.getId());
+			etkinlikService.addEtkinlik(etkinlik);
+		} else {
+			Etkinlik etkinlik = new Etkinlik();
+			etkinlik.setAciklama(String.valueOf(event.getTitle()));
+			etkinlik.setBasTarih(event.getStartDate());
+			etkinlik.setBitTarih(event.getEndDate());
+			etkinlik.setUserId(new Util().getUser().getUsrId());
+			etkinlik.setEventId(event.getId());
+			etkinlikService.updateEtkinlikByEventId(etkinlik);
+			eventModel.updateEvent(event);
+		}
+		event = new DefaultScheduleEvent();
+	}
+	
+	public void deleteEvent(ActionEvent actionEvent) {
+		if (event.getId() != null) {
+			etkinlikService.deleteEtkinlikByEventId(event.getId());
+			eventModel.deleteEvent(event);
+		}
+		event = new DefaultScheduleEvent();
+	}
 	     
 	    public void onEventSelect(SelectEvent selectEvent) {
 	        event = (ScheduleEvent) selectEvent.getObject();

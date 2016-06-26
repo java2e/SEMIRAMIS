@@ -66,7 +66,7 @@ public class DuyuruTanimlamaBean {
     }   
 	
 	public void onDuyuruSelected(int id){
-		System.out.println(id);
+
 		duyuru = duyuruDAO.selectById(id);
 		
 		islem = false;		

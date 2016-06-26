@@ -360,13 +360,11 @@ public class AnaSayfaBean {
 				formPath = "frm_duyuru_tanimlama.xhtml";
 				break;
 				
-//			case 303:
-//				formPath = "/USER/frm_takim.xhtml";
-//				break;
-//
-//			case 304:
-//				formPath = "/USER/frm_kullanici_takim.xhtml";
-//				break;
+			case 304:
+				formPath = "frm_gorev_tanimlama.xhtml";
+				break;
+
+
 				
 			default:
 

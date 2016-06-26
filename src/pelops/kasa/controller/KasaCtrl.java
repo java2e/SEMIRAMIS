@@ -62,7 +62,7 @@ public class KasaCtrl {
 	}
 
 	public ArrayList<TahsilatView> getTahsilatViewForStatus(int durum) throws Exception {
-		return viewDAO.getAllTahsilatFromView(durum,null,null);
+		return viewDAO.getAllTahsilatFromView(durum, null, null);
 	}
 
 	public Tahsilat secilenModeliGetir(String id) throws Exception {
@@ -89,7 +89,9 @@ public class KasaCtrl {
 		if (hitam) {
 			for (Reddiyat reddiyat1 : reddiyat) {
 				reddiyat1.setTahsilatID(tahsilatID);
-				reddiyatDAO.insertObjToDB(reddiyat1);
+				int redId = reddiyatDAO.insertObjToDB(reddiyat1);
+				Hitam hitam2 = generateHitamfromReddiyat(redId, reddiyat1);
+				hitamDAO.insertObjToDB(hitam2);
 			}
 		} else {
 			Reddiyat reddiyat2 = convertTahsilatToReddiyat(tahsilat);
@@ -205,11 +207,11 @@ public class KasaCtrl {
 	public List getListefromView(int status, int obj, Integer kimegore, Date date1, Date date2) throws Exception {
 		if (obj == 1) {
 
-			return viewDAO.getAllTahsilatFromView(status,date1,date2);
+			return viewDAO.getAllTahsilatFromView(status, date1, date2);
 		} else if (obj == 2) {
 			return viewDAO.getAllHitamFromView(status);
 		} else {
-			return viewDAO.getAllReddiyatFromView(status, kimegore,date1,date2);
+			return viewDAO.getAllReddiyatFromView(status, kimegore, date1, date2);
 		}
 
 	}
@@ -293,7 +295,7 @@ public class KasaCtrl {
 			reddiyat.setAktifTutar(reddiyat.getSasaReddiyatTutari());
 			reddiyat.setReddiyatTuru("Sasaya Reddiyat");
 		}
-                      
+
 		return reddiyat;
 	}
 
@@ -302,60 +304,60 @@ public class KasaCtrl {
 		Date nowDate = new Date();
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 		SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy");
-		
+
 		HesapDAO hesapdao = new HesapDAO();
 		BaglantiDAO baglantidao = new BaglantiDAO();
-		int hesapID = baglantidao.BaglantiListele(view.getIcraDosyaId()).get(0).getHesaplamaID(); 
-		
+		int hesapID = baglantidao.BaglantiListele(view.getIcraDosyaId()).get(0).getHesaplamaID();
+
 		NumberFormat priceFormat = NumberFormat.getCurrencyInstance();
-		
+
 		model.setSeri(yearFormat.format(nowDate));
 		model.setAlacakli(view.getMuvekkilAdi());
 		model.setBorclu(view.getBorcluAdi());
 		model.setDosyaNo(view.getIcraDosyaNo());
 		model.setMakbuzNo(String.valueOf(view.getId()));
-		model.setSebebi(hesapdao.Liste(hesapID).getUrunAdi()+ " "+ hesapdao.Liste(hesapID).getUrunNo());
-		model.setMiktari(priceFormat.format(view.getTahsilatMiktari())+" - "+ yaziyaCevir(view.getTahsilatMiktari()));
+		model.setSebebi(hesapdao.Liste(hesapID).getUrunAdi() + " " + hesapdao.Liste(hesapID).getUrunNo());
+		model.setMiktari(
+				priceFormat.format(view.getTahsilatMiktari()) + " - " + yaziyaCevir(view.getTahsilatMiktari()));
 		model.setAdSoyad(view.getAdSoyad());
-		model.setTarih(dateFormat.format(nowDate)+ " - "+nowDate.getHours()+":"+ (nowDate.getMinutes()<10 ? "0"+nowDate.getMinutes(): nowDate.getMinutes()));
-		model.setAlinanMiktar(priceFormat.format(view.getTahsilatMiktari())+" - "+ yaziyaCevir(view.getTahsilatMiktari()));
+		model.setTarih(dateFormat.format(nowDate) + " - " + nowDate.getHours() + ":"
+				+ (nowDate.getMinutes() < 10 ? "0" + nowDate.getMinutes() : nowDate.getMinutes()));
+		model.setAlinanMiktar(
+				priceFormat.format(view.getTahsilatMiktari()) + " - " + yaziyaCevir(view.getTahsilatMiktari()));
 		model.setSiraNo(String.valueOf(view.getId()));
 
 		return model;
 
 	}
 
-	private String yaziyaCevir(double sayi){
-		int  birler, onlar, yuzler, binler, onbinler, yuzbinler, tam, kusurat,kusuronlar, kusurbirler;
+	private String yaziyaCevir(double sayi) {
+		int birler, onlar, yuzler, binler, onbinler, yuzbinler, tam, kusurat, kusuronlar, kusurbirler;
 		tam = (int) sayi;
-        kusurat = (int) (sayi*100 - tam*100);  
-        birler = tam % 10;
-        onlar  = (tam /   10) % 10;
-        yuzler = (tam /  100) % 10;
-        binler = (tam / 1000) % 10;
-        onbinler = (tam / 10000) % 10;
-        yuzbinler = (tam / 100000) % 10;
-          
-        kusuronlar = (kusurat /   10) % 10;
-        kusurbirler = kusurat %10;
-        
-        String[] birlik = { "", "Bir", "İki", "Üç", "Dört", "Beş", "Altı", "Yedi", "Sekiz", 
-                            "Dokuz" }; 
-        String[] onluk  = { "", "On ", "Yirmi ", "Otuz ", "Kırk ", "Elli ", "Altmış ", "Yetmiş ", 
-                            "Seksen ", "Doksan " }; 
-        String[] yuzluk = { "", "Yüz ", "İki Yüz ", "Üç Yüz ", "Dört Yüz ", "Beş Yüz ", "Altı Yüz ", 
-                            "Yedi Yüz ", "Sekiz Yüz ", "Dokuz Yüz " }; 
-        String[] binlik = { "", "Bin ", "İki Bin ", "Üç Bin ", "Dört Bin ", "Beş Bin ", "Altı Bin ", 
-                            "Yedi Bin ", "Sekiz Bin ", "Dokuz Bin " };
-       
-       
-    
-        String returnYazi="#"+yuzluk[yuzbinler]+""+ onluk[onbinler]+""+ binlik[binler]+""+ yuzluk[yuzler]+""+onluk[onlar]+""+birlik[birler]+"# TL "
-        +onluk[kusuronlar]+""+birlik[kusurbirler]+"# KR";   
-        
+		kusurat = (int) (sayi * 100 - tam * 100);
+		birler = tam % 10;
+		onlar = (tam / 10) % 10;
+		yuzler = (tam / 100) % 10;
+		binler = (tam / 1000) % 10;
+		onbinler = (tam / 10000) % 10;
+		yuzbinler = (tam / 100000) % 10;
+
+		kusuronlar = (kusurat / 10) % 10;
+		kusurbirler = kusurat % 10;
+
+		String[] birlik = { "", "Bir", "İki", "Üç", "Dört", "Beş", "Altı", "Yedi", "Sekiz", "Dokuz" };
+		String[] onluk = { "", "On ", "Yirmi ", "Otuz ", "Kırk ", "Elli ", "Altmış ", "Yetmiş ", "Seksen ", "Doksan " };
+		String[] yuzluk = { "", "Yüz ", "İki Yüz ", "Üç Yüz ", "Dört Yüz ", "Beş Yüz ", "Altı Yüz ", "Yedi Yüz ",
+				"Sekiz Yüz ", "Dokuz Yüz " };
+		String[] binlik = { "", "Bin ", "İki Bin ", "Üç Bin ", "Dört Bin ", "Beş Bin ", "Altı Bin ", "Yedi Bin ",
+				"Sekiz Bin ", "Dokuz Bin " };
+
+		String returnYazi = "#" + yuzluk[yuzbinler] + "" + onluk[onbinler] + "" + binlik[binler] + "" + yuzluk[yuzler]
+				+ "" + onluk[onlar] + "" + birlik[birler] + "# TL " + onluk[kusuronlar] + "" + birlik[kusurbirler]
+				+ "# KR";
+
 		return returnYazi;
 	}
-	
+
 	private PrintModel generatePrintModelFromHitamView(HitamView view) {
 
 		PrintModel model = new PrintModel();
@@ -407,27 +409,26 @@ public class KasaCtrl {
 		HttpServletResponse httpServletResponse = (HttpServletResponse) FacesContext.getCurrentInstance()
 				.getExternalContext().getResponse();
 		httpServletResponse.addHeader("Content-disposition", "attachment; filename=" + "makbuz.pdf");
-		
-		try{
-		ServletOutputStream servletOutputStream = httpServletResponse.getOutputStream();
-		JRPdfExporter exporter = new JRPdfExporter();
 
-		exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+		try {
+			ServletOutputStream servletOutputStream = httpServletResponse.getOutputStream();
+			JRPdfExporter exporter = new JRPdfExporter();
 
-		exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, servletOutputStream);
-		exporter.setParameter(JRPrintServiceExporterParameter.DISPLAY_PRINT_DIALOG, Boolean.TRUE);
+			exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
 
-		exporter.exportReport();
-				 servletOutputStream.flush();
-		    servletOutputStream.close();
-		FacesContext.getCurrentInstance().responseComplete();
+			exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, servletOutputStream);
+			exporter.setParameter(JRPrintServiceExporterParameter.DISPLAY_PRINT_DIALOG, Boolean.TRUE);
+
+			exporter.exportReport();
+			servletOutputStream.flush();
+			servletOutputStream.close();
+			FacesContext.getCurrentInstance().responseComplete();
 		} catch (IOException ex) {
-			   //
-			} catch (Exception ex) {
-			       //
-			   }
-	
-		
+			//
+		} catch (Exception ex) {
+			//
+		}
+
 	}
 
 	public void printHitamMakbuzu(int id) throws Exception {
@@ -445,8 +446,8 @@ public class KasaCtrl {
 		exporter.setParameter(JRPrintServiceExporterParameter.DISPLAY_PRINT_DIALOG, Boolean.TRUE);
 
 		exporter.exportReport();
-		 servletOutputStream.flush();
-		    servletOutputStream.close();
+		servletOutputStream.flush();
+		servletOutputStream.close();
 		FacesContext.getCurrentInstance().responseComplete();
 
 	}
@@ -457,7 +458,7 @@ public class KasaCtrl {
 		ArrayList<TahsilatViewModel> list2 = new ArrayList<>();
 		ArrayList<TahsilatView> tahsilatViews;
 		try {
-			tahsilatViews = (ArrayList<TahsilatView>) getListefromView(1, 1, null,null,null);
+			tahsilatViews = (ArrayList<TahsilatView>) getListefromView(1, 1, null, null, null);
 			for (TahsilatViewModel tahsilatViewModel : list) {
 				if (checkTahsilat(tahsilatViewModel, tahsilatViews)) {
 					list2.add(tahsilatViewModel);
@@ -475,40 +476,52 @@ public class KasaCtrl {
 	private boolean checkTahsilat(TahsilatViewModel model, ArrayList<TahsilatView> list) {
 		boolean isTrue = true;
 
-		
-		if(model.getIzleme_id()>0)
-		{
+		if (model.getIzleme_id() > 0) {
 			for (TahsilatView tahsilatView : list) {
-			
+
 				if (model.getIzleme_id() == tahsilatView.getIzleme_id()) {
 					isTrue = false;
 					break;
 				}
 			}
-		}
-		else if(model.getOdemeplani_id()>0)
-		{
+		} else if (model.getOdemeplani_id() > 0) {
 			for (TahsilatView tahsilatView : list) {
-			
+
 				if (model.getOdemeplani_id() == tahsilatView.getOdemeplani_id()) {
 					isTrue = false;
 					break;
 				}
 			}
-		}	
-		else if(model.getVizit_id()>0)
-		{
+		} else if (model.getVizit_id() > 0) {
 			for (TahsilatView tahsilatView : list) {
-			
+
 				if (model.getVizit_id() == tahsilatView.getVizit_id()) {
 					isTrue = false;
 					break;
 				}
 			}
-		}	
-		
-		
+		}
+
 		return isTrue;
+	}
+
+	private Hitam generateHitamfromReddiyat(int reddiyatID, Object object) {
+
+		Hitam hitam = new Hitam();
+
+		if (object instanceof Reddiyat) {
+
+			hitam.setReddiyatID(reddiyatID);
+			// :TODO onaylalama senaryosu eklendiginde durum 0 a çekilecek.
+			hitam.setHitamDurum(1);
+			hitam.setTahsilatID(((Reddiyat) object).getTahsilatID());
+			hitam.setIcraDosyaID(((Reddiyat) object).getIcraDosyaID());
+			hitam.setKasaPersonelID(((Reddiyat) object).getKasaPersonelID());
+			// :TODO onay mekanizmasi eklendiğinde burası değişecek.
+			hitam.setOnaylayanID(0);
+			hitam.setTarih(new Date());
+		}
+		return hitam;
 	}
 
 }

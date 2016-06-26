@@ -42,16 +42,16 @@
 			<f:facet name="header">
             Görev Listesi
             </f:facet>
-			<p:column headerText="Id">
+			<p:column headerText="Konu">
 				<h:outputText value="#{gorev.konu}" />
 			</p:column>
-			<p:column headerText="Year">
+			<p:column headerText="Açıklama">
 				<h:outputText value="#{gorev.aciklama}" />
 			</p:column>
-			<p:column headerText="Brand">
+			<p:column headerText="Başlangıc Tarihi">
 				<h:outputText value="#{gorev.basTarih}" />
 			</p:column>
-			<p:column headerText="Color">
+			<p:column headerText="Bitiş Tarihi">
 				<h:outputText value="#{gorev.bitTarih}" />
 			</p:column>
 			<p:column headerText="Guncelle">
@@ -66,7 +66,7 @@
 
 	</h:form>
 	<h:form id="dlg_form">
-		<p:dialog id="dlg_gorev" header="Basic Dialog" widgetVar="dlg_gorev"
+		<p:dialog id="dlg_gorev" header="Görev Tanımla" widgetVar="dlg_gorev"
 			minHeight="40">
 			<p:panelGrid columns="2">
 				<p:outputLabel value="Konu"></p:outputLabel>

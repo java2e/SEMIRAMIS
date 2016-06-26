@@ -11,6 +11,8 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+
+import org.primefaces.context.RequestContext;
 import org.primefaces.model.StreamedContent;
 
 import com.a.a.a.b.i;
@@ -57,9 +59,6 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 	MuameleIslemleriDAO dao = new MuameleIslemleriDAO();
 	private ArrayList<MuameleIslemleri> muameleList;
 	MuameleIslemleri muamele = new MuameleIslemleri();
-	//private String currentpath = currentpath;
-	private String currentpath = "C:/apache-tomcat-8.0.30/webapps/SEMIRAMIS/pdfler/";
-	
 	TalepMuzekkereUtil util = new TalepMuzekkereUtil();
 	private MuameleIslemleri muameleIslemleri;
 	private JasperPrint jasperPrint;
@@ -89,15 +88,46 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 	JasperPrint cokluBanka5 = new JasperPrint();
 	ArrayList<JasperPrint> list = new ArrayList<JasperPrint>();
 	TalepMuzekkereUtil tmUtil = new TalepMuzekkereUtil();
+	
+	//public String Yol = Yol;
+	//public String Yol = "";
+	public String Yol = "C:/Users/JAVA/workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/SEMIRAMIS/pdfler/";
+//	private String Yol = "C:/apache-tomcat-8.0.30/webapps/SEMIRAMIS/pdfler/";
+	
+	FacesContext context = FacesContext.getCurrentInstance();
+
+	public void getSelectedId(int selectedId) throws Exception {
+
+		AktifBean.icraDosyaID = selectedId;
+		
+		  System.out.println("secilen id :"+ selectedId);
+		
+		getFieldFromIcraDosyaTakibi();
+
+	}
+	
+	
+	public void hidePopup(){
+		
+		
+		RequestContext.getCurrentInstance().execute("PF('arama').hide()");
+		
+	}
 
 	public void getFieldFromIcraDosyaTakibi() throws Exception {
 
+		
+		System.out.println("AktifBean iD "+ AktifBean.icraDosyaID);
+		
+	
+		
 		this.setIptalrender(false);
 		this.setduzenlesilrender(false);
 
 		// Müvekkil ile Alacaklı aynı kişi
 
 		int icraDosyaId = AktifBean.icraDosyaID;
+	
 		if (icraDosyaId != 0) {
 
 			MuameleAutoFields autoFields = new MuameleAutoFields();
@@ -106,16 +136,27 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 
 			int hesapId = baglantidao.Listele(icraDosyaId).getHesaplamaID();
 
+			
+			
 			BorcluBilgisiDAO daoborclu = new BorcluBilgisiDAO();
 			AlacakliDAO daoalacakli = new AlacakliDAO();
 			IcraDosyasiDAO icradosyasidao = new IcraDosyasiDAO();
 			TalepMuzekkereUtil talepMuzekkereUtil = new TalepMuzekkereUtil();
 			int borclubilgisiID = baglantidao.Listele(icraDosyaId).getBorcluID();
+			
+			
+			
+			System.out.println("Borclu Bilgisi ID "+borclubilgisiID);
+			
 			int alacakliID = baglantidao.Listele(icraDosyaId).getAlacakliID();
 
 			autoFields.setBorcMiktari(
 					(hesapDao.Liste(hesapId).getToplam_alacak()) - (hesapDao.Liste(hesapId).getTahsilat_tutari()));
 
+			System.out.println(daoborclu.Liste(borclubilgisiID).getAdSoyad());
+			
+			
+			autoFields.setBorcluAdi(daoborclu.Liste(borclubilgisiID).getAdSoyad());
 			autoFields.setIcraDosyaNo(icradosyasidao.Listele(icraDosyaId).getIcraDosyaNo());
 			autoFields.setIcraMudurluguId(icradosyasidao.Listele(icraDosyaId).getIcraMudurluguId());
 			autoFields.setRiskYoneticisiId(icradosyasidao.Listele(icraDosyaId).getRiskYoneticisiId());
@@ -137,9 +178,9 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 			muamele.setBuroIbanNo("TR3000 1230 0067 1038 9292 8100");
 			muamele.setVergiKimlikNo("Kimlik No ?");
 
+			muamele.setBorcluAdi(autoFields.getBorcluAdi());
 			muamele.setStatus(0);
-			muamele.setBorcluAdi(AktifBean.getBorcluAdi());
-			muamele.setIcraDosyaNo(AktifBean.getIcraDosyaNo());
+			muamele.setIcraDosyaNo(autoFields.getIcraDosyaNo());
 			muamele.setIcraMudurluguAdi(autoFields.getIcraMudurluguText());
 
 			muamele.setRiskYoneticisi(autoFields.getRiskYoneticisiText());
@@ -152,6 +193,14 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 			muamele.setIcraMudurluguId(autoFields.getIcraMudurluguId());
 			muamele.setRiskYoneticisiId(autoFields.getRiskYoneticisiId());
 			muamele.setBorcluAdresi(autoFields.getBorcluAdresiText());
+			
+			
+			
+			System.out.println("Muamele Borclu Adı "+muamele.getBorcluAdi() );
+		
+			
+			
+			
 
 			if (autoFields.getBorcMiktari() == null) {
 
@@ -175,7 +224,9 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 
 			System.out.println(autoFields.getBorcMiktari());
 
-			TümListeyiGetir();
+			muameleList = TümListeyiGetir();
+			
+		
 		}
 
 	}
@@ -1270,11 +1321,11 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 		InputStream inputStream = new FileInputStream(pathName);
 
 		File file = new File(
-				currentpath
+				Yol
 						+ muzekkereTalep + ".pdf");
 		file.delete();
 
-		path = currentpath
+		path = Yol
 				+ muzekkereTalep + ".pdf";
 
 		JRBeanCollectionDataSource beanColDataSource = new JRBeanCollectionDataSource(dataBeanList);
@@ -1291,10 +1342,6 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 	@Override
 	public void Duzenle() throws Exception {
 
-		String pathName = FacesContext.getCurrentInstance().getExternalContext()
-				.getRealPath("/reports/talep_muzekkereler/" + muzekkereTalep + ".jrxml");
-System.out.println(pathName);
-		
 		ArrayList<JasperPrint> list = new ArrayList<JasperPrint>();
 
 		gelisAmaci = (FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("gelis_amaci")
@@ -1348,11 +1395,11 @@ System.out.println(pathName);
 		if (gelisAmaci.equals("duzenle")) {
 
 			// File file = new
-			// File(currentpath+
+			// File(Yol+
 			// muzekkereTalep + ".pdf");
 			// file.delete();
 
-			path = currentpath
+			path = Yol
 					+ muzekkereTalep + ".pdf";
 
 			System.out.println(path);
@@ -1361,12 +1408,12 @@ System.out.println(pathName);
 
 			// gelis_amaci onizleme
 
-			path = currentpath
+			path = Yol
 					+ muzekkereTalep + ".pdf";
 
 		} else if (gelisAmaci.equals("yazdir")) {
 
-			path = currentpath
+			path = Yol
 					+ muzekkereTalep + "_" + muamele.getIcraDosyaNo() + ".pdf";
 		}
 
@@ -1475,7 +1522,7 @@ System.out.println(pathName);
 		onizleButtonVisible = true;
 
 		muzekkereTalep = "default";
-		path = currentpath
+		path = Yol
 				+ muzekkereTalep + ".pdf";
 
 		pdf = path;
@@ -1722,8 +1769,92 @@ System.out.println(pathName);
 	}
 
 	public void checkCheckBoxes() {
+		
+		
+		ctrl.setAciklama(false);
+		ctrl.setAdres(false);
+		ctrl.setAlacakFaizMasrafTutari(false);
+		ctrl.setAlacakFaizTutari(false);
+		ctrl.setAlacakliAdi(false);
+		ctrl.setAlacakliBankasi(false);
+		ctrl.setAlacakliMail(false);
+		ctrl.setAlacakliTel(false);
+		ctrl.setAvukatAdi(false);
+		ctrl.setAvukatId(false);
+		ctrl.setAvukatSoyadi(false);
+		ctrl.setBankaAdi(false);
+		ctrl.setBankaAdlari(false);
+		ctrl.setBankaBilgileri(false);
+		ctrl.setBankaMudurlukler(false);
+		ctrl.setBarcode(false);
+		ctrl.setBaslik(false);
+		ctrl.setBorcluAdi(false);
+		ctrl.setBorcluAdresi(false);
+		ctrl.setBorcluMiktari(false);
+		ctrl.setBorcluTc(false);
+		ctrl.setBorcluTcKimlikNo(false);
+		ctrl.setBuroAdresi(false);
+		ctrl.setBuroIbanNo(false);
+		ctrl.setDogumTarihi(false);
+		ctrl.setEki(false);
+		ctrl.setEmail(false);
+		ctrl.setGondermeTarihi(false);
+		ctrl.setGondermeTarihiText(false);
+		ctrl.setHacizBaslangicTarihi(false);
+		ctrl.setHacizBaslangicTarihiText(false);
+		ctrl.setHacizMiktari(false);
+		ctrl.setHacizSirasi(false);
+		ctrl.setHazirlayan(false);
+		ctrl.setHazirlayanAdSoyad(false);
+		ctrl.setHazirlayanId(false);
+		ctrl.setHazirlayanText(false);
+		ctrl.setIcraDosyaNo(false);
+		ctrl.setIcraMudurluguAdi(false);
+		ctrl.setIcraMudurluguId(false);
+		ctrl.setKonu(false);
+		ctrl.setKurumAdi(false);
+		ctrl.setKurumAdlari(false);
+		ctrl.setMaasMuvafakat(false);
+		ctrl.setMalBilgisi(false);
+		ctrl.setMalTipiAdi(false);
+		ctrl.setMalTipiId(false);
+		ctrl.setMasrafMiktari(false);
+		ctrl.setMasrafTipiAdi(false);
+		ctrl.setMasrafTipiId(false);
+		ctrl.setMernisAdresi(false);
+		ctrl.setMuameleAdi(false);
+		ctrl.setMuameleStatuAdi(false);
+		ctrl.setMuameleStatusuId(false);
+		ctrl.setMuameleTarihi(false);
+		ctrl.setMuameleTarihiText(false);
+		ctrl.setMuhatapAdi(false);
+		ctrl.setMuhatapAdresi(false);
+		ctrl.setPersonelId(false);
+		ctrl.setPlaka(false);
+		ctrl.setPostaneAdi(false);
+		ctrl.setYurticiAdresi(false);
+		ctrl.setVergiNo(false);
+		ctrl.setVergiKimlikNo(false);
+		ctrl.setVekili(false);
+		ctrl.setTel(false);
+		ctrl.setTebligatTarihiText(false);
+		ctrl.setTebligatTarihi(false);
+		ctrl.setTebligatSonucuId(false);
+		ctrl.setTebligatSonucu(false);
+		ctrl.setTapuKayitlari(false);
+		ctrl.setTalepIfadesi(false);
+		ctrl.setSirketAdi(false);
+		ctrl.setSgkAdresi(false);
+		ctrl.setSemiramisNo(false);
+		ctrl.setRiskYoneticisiText(false);
+		ctrl.setRiskYoneticisiId(false);
+		ctrl.setPttIlText(false);
+		ctrl.setPttIlceText(false);
+		
+	
 
 		if (muamele.isDavetiyemuzekkeresi103arac()) {
+		
 			ctrl.setAlacakliTel(true);
 			ctrl.setAlacakliMail(true);
 			ctrl.setBankaBilgileri(true);

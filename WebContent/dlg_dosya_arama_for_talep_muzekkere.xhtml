@@ -1,0 +1,183 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+
+<h:body>
+
+
+	<style type="text/css">
+.green {
+	color: #32CD32;
+	!
+	important;
+}
+
+.red {
+	background: red !important;
+}
+
+.yellow {
+	background: yellow !important;
+}
+
+.white {
+	background: white !important;
+}
+</style>
+
+
+	<p:panel header="Arama Kriterleri... " >
+
+
+		<p:panelGrid columns="9" style=" border-style: hidden !important;">
+
+			<p:outputLabel value="Müvekkil Adı" />
+			<p:selectOneMenu id="detay_muvekkil" effect="fold" filter="true"
+				filterMatchMode="startsWith" value="#{detayliAramaBean.muvekkilAdi}"
+				style="width: 180px">
+				<f:selectItem itemLabel="" itemValue="" />
+				<f:selectItems value="#{alacakliBean.Liste()}" var="listeler"
+					itemLabel="#{listeler.muvekkilAdi}"
+					itemValue="#{listeler.muvekkilAdi}" />
+			</p:selectOneMenu>
+
+			<p:outputLabel value="Borçlu Adı" />
+			<p:inputText value="#{detayliAramaBean.borcluAdi}" />
+
+			<p:outputLabel value="Banka Servis No" />
+			<p:inputText value="#{detayliAramaBean.bankaServisNo}" />
+
+			<p:outputLabel value="Geliş Tarihi" />
+			<p:calendar id="detay_mask" value="#{detayliAramaBean.gelisTarihi1}"
+				pattern="dd-MM-yyyy" mask="true" style="width: 180px" />
+			<p:calendar id="detay_mask1" value="#{detayliAramaBean.gelisTarihi2}"
+				pattern="dd-MM-yyyy" mask="true" style="width: 180px" />
+
+			<p:outputLabel value="İcra Dosya No" />
+			<p:inputText value="#{detayliAramaBean.icraDosyaNo}" />
+
+			<p:outputLabel value="İcra Müdürlüğü" />
+			<p:selectOneMenu id="mask_icra" effect="fold" filter="true"
+				filterMatchMode="startsWith"
+				value="#{detayliAramaBean.icraMudurlugu}" style="width: 180px">
+				<f:selectItem itemLabel="" itemValue="" />
+				<f:selectItems
+					value="#{geneltanimbean.ListeGetir('tbl_icra_mudurlugu')}"
+					var="list" itemLabel="#{list.adi}" itemValue="#{list.adi}" />
+			</p:selectOneMenu>
+
+			<p:outputLabel value="Avukat Çıkış Servis No" />
+			<p:inputText value="#{detayliAramaBean.avukatCikisSevisNo}" />
+
+			<p:outputLabel value="Hitam Tarihi" />
+			<p:calendar id="detay_mask3" value="#{detayliAramaBean.hitamTarihi1}"
+				pattern="dd-MM-yyyy" mask="true" style="width: 180px" />
+			<p:calendar id="detay_mask4" value="#{detayliAramaBean.hitamTarihi2}"
+				pattern="dd-MM-yyyy" mask="true" style="width: 180px" />
+
+
+			<p:outputLabel value="Banka Müşteri No" />
+			<p:inputText value="#{detayliAramaBean.bankaMusteriNo}" />
+
+			<p:outputLabel value="Cep Telefonu" />
+			<p:inputText value="#{detayliAramaBean.cepTel}" />
+
+			<p:outputLabel value="İş Telefonu" />
+			<p:inputText value="#" />
+
+			<p:outputLabel value="Takip Tarihi" />
+			<p:calendar id="detay_mask5" value="#{detayliAramaBean.takipTarihi1}"
+				pattern="dd-MM-yyyy" mask="true" style="width: 180px" />
+			<p:calendar id="detay_mask6" value="#{detayliAramaBean.takipTarihi2}"
+				pattern="dd-MM-yyyy" mask="true" style="width: 180px" />
+
+			<!-- 		<p:commandButton value="Listele" update="tbldetayliarama" action="#{detayliAramaBean.Listele()}"/> -->
+
+			<p:commandButton value="Listele" icon="ui-icon-zoomin "
+				action="#{detayliAramaBean.Listele()}" update="tbldetayliarama" />
+
+		</p:panelGrid>
+	</p:panel>
+
+	<p:spacer height="15" />
+
+	<p:dataTable value="#{detayliAramaBean.detayliAramaListesi}"
+		filteredValue="#{detayliAramaBean.filterDetayliAramaListesi}"
+		emptyMessage="Aradığınız Kritere Uygun Sonuç Bulunamamıştır." var="hb"
+		id="tbldetayliarama" style="width:1500px " rowStyleClass="green"
+		rows="10" paginator="true"
+		paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+		rowsPerPageTemplate="5,10,25,50,100,1000">
+
+
+		<p:column headerText="Banka Servis No" width="105"
+			filterBy="#{hb.bankaServisNo}" filterMatchMode="contains"
+			sortBy="#{hb.bankaServisNo}">
+			<h:outputText value="#{hb.bankaServisNo}" />
+		</p:column>
+
+		<p:column headerText="Avukat Servis No" width="105"
+			filterBy="#{hb.avukatCikisSevisNo}" filterMatchMode="contains"
+			sortBy="#{hb.avukatCikisSevisNo}">
+			<h:outputText value="#{hb.avukatCikisSevisNo}" />
+		</p:column>
+
+		<p:column headerText="İcra Dosya No" width="105"
+			filterBy="#{hb.icraDosyaNo}" filterMatchMode="contains"
+			sortBy="#{hb.icraDosyaNo}">
+			<h:outputText value="#{hb.icraDosyaNo}" />
+		</p:column>
+
+		<p:column headerText="İcra Müdürlüğü" width="195"
+			filterBy="#{hb.icraMudurlugu}" filterMatchMode="contains"
+			sortBy="#{hb.icraMudurlugu}">
+			<h:outputText value="#{hb.icraMudurlugu}" />
+		</p:column>
+
+		<p:column headerText="Müvekkil Adı" width="250"
+			filterBy="#{hb.muvekkilAdi}" filterMatchMode="contains"
+			sortBy="#{hb.muvekkilAdi}">
+			<h:outputText value="#{hb.muvekkilAdi}" />
+		</p:column>
+
+		<p:column headerText="Borçlu Adı" width="195"
+			filterBy="#{hb.borcluAdi}" filterMatchMode="contains"
+			sortBy="#{hb.borcluAdi}">
+			<h:outputText value="#{hb.borcluAdi}" />
+		</p:column>
+
+
+		<p:column headerText="Geliş Tarihi" width="100"
+			filterBy="#{hb.sonucGelisTarihi}" filterMatchMode="contains"
+			sortBy="#{hb.sonucGelisTarihi}">
+			<h:outputText value="#{hb.sonucGelisTarihi}" />
+		</p:column>
+
+		<p:column headerText="Takip Tarihi" width="100"
+			filterBy="#{hb.sonucTakipTarihi}" filterMatchMode="contains"
+			sortBy="#{hb.sonucTakipTarihi}">
+			<h:outputText value="#{hb.sonucTakipTarihi}" />
+		</p:column>
+
+		<p:column headerText="Seç" width="42">
+
+			<p:commandButton value="Seç" type="Button"
+				actionListener="#{muameleislemlerbean.hidePopup()}"
+				action="#{muameleislemlerbean.getSelectedId(hb.id)}" update="@form" />
+
+
+		</p:column>
+
+	</p:dataTable>
+
+
+</h:body>
+
+</html>

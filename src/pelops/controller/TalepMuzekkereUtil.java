@@ -7,6 +7,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+
 import pelops.dao.MuameleIslemleriDAO;
 import pelops.db.DAO;
 import pelops.model.Avukat;
@@ -200,7 +203,7 @@ public class TalepMuzekkereUtil {
 		if (muamele.isMevduathaczimuzekkeresi()) {
 			muameleIslemleri = new MuameleIslemleri();
 			muameleIslemleri = nesneDoldur(muamele);
-		
+
 			muameleIslemleri.setMiktar(muamele.getMevduathaczimuzekkeresiSayi());
 			muameleIslemleri.setMuzekkereTalepAdi("Mevduat Haczi Müzekkeresi");
 			muameleList.add(muameleIslemleri);
@@ -249,6 +252,10 @@ public class TalepMuzekkereUtil {
 				muameleIslemleri.setMuzekkereTalepAdi("Maaş Haciz Talebi(Genel)");
 				muameleList.add(muameleIslemleri);
 
+			} else {
+				FacesContext context = FacesContext.getCurrentInstance();
+				context.addMessage(null, new FacesMessage(
+						"Maaş Haciz Müzekkeresi Genel Oluşturmak için Alacaklı Banka Eklemelisiniz !!!"));
 			}
 
 		}
@@ -319,37 +326,43 @@ public class TalepMuzekkereUtil {
 					}
 
 				}
+
+				for (GayrimenkulModel gayrimenkulItem : gayrimenkulList) {
+
+					StringBuilder builderForGayrimenkul = new StringBuilder();
+
+					builderForGayrimenkul.append(gayrimenkulItem.getIl());
+					builderForGayrimenkul.append(" ");
+					builderForGayrimenkul.append(gayrimenkulItem.getIlce());
+					builderForGayrimenkul.append(" ");
+					builderForGayrimenkul.append(gayrimenkulItem.getAda());
+					builderForGayrimenkul.append(" ");
+					builderForGayrimenkul.append(gayrimenkulItem.getParsel());
+					builderForGayrimenkul.append("/");
+
+					muameleIslemleri = new MuameleIslemleri();
+					muameleIslemleri = nesneDoldur(muamele);
+
+					if (bankaList != null) {
+
+						muameleIslemleri.setAlacakliBankasi(bankaList.get(0).getAdi());
+
+					}
+
+					muameleIslemleri.setTapuKayitlari(builderForGayrimenkul.toString());
+					muameleIslemleri.setMiktar(muamele.getTapuhacizmuzekkeresinoktaSayi());
+					muameleIslemleri.setMuzekkereTalepAdi("Tapu Haciz Müzekkeresi(Nokta)");
+					muameleList.add(muameleIslemleri);
+
+				}
+
+			} else {
+
+				FacesContext context = FacesContext.getCurrentInstance();
+				context.addMessage(null, new FacesMessage(
+						"Tapu Haciz Müzekkeresi Oluşturmak için Mal Tipi ve Alacaklı Banka Eklemelisiniz !!!"));
 			}
 
-			for (GayrimenkulModel gayrimenkulItem : gayrimenkulList) {
-
-				StringBuilder builderForGayrimenkul = new StringBuilder();
-
-				builderForGayrimenkul.append(gayrimenkulItem.getIl());
-				builderForGayrimenkul.append(" ");
-				builderForGayrimenkul.append(gayrimenkulItem.getIlce());
-				builderForGayrimenkul.append(" ");
-				builderForGayrimenkul.append(gayrimenkulItem.getAda());
-				builderForGayrimenkul.append(" ");
-				builderForGayrimenkul.append(gayrimenkulItem.getParsel());
-				builderForGayrimenkul.append("/");
-
-				muameleIslemleri = new MuameleIslemleri();
-				muameleIslemleri = nesneDoldur(muamele);
-				muameleIslemleri.setTapuKayitlari(builderForGayrimenkul.toString());
-				muameleIslemleri.setMiktar(muamele.getTapuhacizmuzekkeresinoktaSayi());
-				muameleIslemleri.setMuzekkereTalepAdi("Tapu Haciz Müzekkeresi(Nokta)");
-				muameleList.add(muameleIslemleri);
-
-			}
-
-			// ilgili Müzekkerenin Talebini Oluşturma
-			// muameleIslemleri = new MuameleIslemleri();
-			// muameleIslemleri = nesneDoldur(muamele);
-			// muameleIslemleri.setMiktar(muamele.getTapuhacizmuzekkeresinoktaSayi());
-			// muameleIslemleri.setMuzekkereTalepAdi("Tapu Haciz
-			// Talebi(Nokta)");
-			// muameleList.add(muameleIslemleri);
 		}
 
 		// *******************************************************************************
@@ -759,7 +772,6 @@ public class TalepMuzekkereUtil {
 		muameleIslemleri.setAvukatAdi(muamele.getAvukatAdi());
 		muameleIslemleri.setAlacakliAdi(muamele.getAlacakliAdi());
 		muameleIslemleri.setDogumTarihi(muamele.getDogumTarihi());
-	
 
 		return muameleIslemleri;
 	}

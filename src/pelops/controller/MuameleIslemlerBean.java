@@ -91,8 +91,8 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 	
 	//public String Yol = Yol;
 	//public String Yol = "";
-	public String Yol = "C:/Users/JAVA/workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/SEMIRAMIS/pdfler/";
-//	private String Yol = "C:/apache-tomcat-8.0.30/webapps/SEMIRAMIS/pdfler/";
+	//public String Yol = "C:/Users/JAVA/workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/SEMIRAMIS/pdfler/";
+	private String Yol = "C:/apache-tomcat-8.0.30/webapps/SEMIRAMIS/pdfler/";
 	
 	FacesContext context = FacesContext.getCurrentInstance();
 

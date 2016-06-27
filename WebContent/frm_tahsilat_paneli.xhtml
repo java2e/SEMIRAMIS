@@ -47,7 +47,21 @@
 	</p:outputLabel>
 	
 	<p:outputLabel value="Tahsilat Miktarı"/>
-	<p:inputText size="30" value="#{kasaBean.bilgiTahsilat.tahsilat_miktari}"/>
+	<p:inputText size="30" value="#{kasaBean.bilgiTahsilat.tahsilat_miktari}"
+	onkeyup="var pos=this.selectionStart;
+									var size = this.value.length;	
+									
+             						this.value=this.value.replace(/,/g,'.').replace(/[^0-9,'.']+/g, '');
+             						
+             						if(this.value.indexOf('.')!=this.value.lastIndexOf('.'))
+										this.value=this.value.substring(0,size-1);
+									
+									"
+									onfocus="
+															this.value=''
+									" 
+	
+	/>
 	
 	<p:outputLabel value="Tahsilat Tarihi"/>
 	 <p:calendar id="hesapTarihi" value="#{kasaBean.bilgiTahsilat.tahsilat_tarihi}" pattern="dd-MM-yyyy" mask="true" style="width:100%" />

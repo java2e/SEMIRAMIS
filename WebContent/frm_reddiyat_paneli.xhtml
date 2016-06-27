@@ -43,7 +43,21 @@
 	<p:inputText size="30" value="#{kasaBean.reddiyatBilgisi.reddiyatTuru}"/>
 	
 	<p:outputLabel value="Reddiyat Miktarı"/>
-	<p:inputText size="30" value="#{kasaBean.reddiyatBilgisi.aktifTutar}"/>
+	<p:inputText size="30" value="#{kasaBean.reddiyatBilgisi.aktifTutar}"
+	onkeyup="var pos=this.selectionStart;
+									var size = this.value.length;	
+									
+             						this.value=this.value.replace(/,/g,'.').replace(/[^0-9,'.']+/g, '');
+             						
+             						if(this.value.indexOf('.')!=this.value.lastIndexOf('.'))
+										this.value=this.value.substring(0,size-1);
+									
+									"
+									onfocus="
+															this.value=''
+									" 
+	
+	/>
 	
 	<p:outputLabel value="Reddiyat Tarihi"/>
 	<p:calendar id="multi"   size="30" pages="3" value="#{kasaBean.reddiyatBilgisi.reddiyatTarihi}"/> 

@@ -27,9 +27,9 @@
 			header="OTOMATİK DOSYA YAZDIRMA PANELİ">
 			<p:panelGrid columns="2" style=" border-style: hidden !important;">
 				<p:panelGrid columns="1" style=" border-style: hidden !important;">
-					<h:outputLabel>Yazdırma Tipi </h:outputLabel>
+					<h:outputLabel rendered="false">Yazdırma Tipi </h:outputLabel>
 					<p:selectOneMenu id="yazdirmaTipi" value="#{printBean.yazdirTipi}"
-						style="width:500px">
+						style="width:500px" rendered="false">
 						<f:selectItem itemValue="0" itemLabel=" "></f:selectItem>
 						<f:selectItem itemValue="1" itemLabel="Operasyonel Yazdırma"></f:selectItem>
 						<f:selectItem itemValue="2" itemLabel="Dava Bölümü Evrak Yazdırma"></f:selectItem>
@@ -44,9 +44,9 @@
 				<p:panelGrid
 					rendered="#{printBean.checkComboboxValue('1', printBean.yazdirTipi)}"
 					columns="1" style=" border-style: hidden !important;">
-					<h:outputLabel>Operasyone Yazdırma </h:outputLabel>
+					<h:outputLabel rendered="false">Operasyone Yazdırma </h:outputLabel>
 					<p:selectOneMenu id="operasyonelYazdirma"
-						value="#{printBean.operasyonelYazdirma}" style="width:500px">
+						value="#{printBean.operasyonelYazdirma}" style="width:500px" rendered="false">
 						<f:selectItem itemValue="0" itemLabel=" "></f:selectItem>
 						<f:selectItem itemValue="5"
 							itemLabel="Takip Açılışı Evrak Yazdırma"></f:selectItem>

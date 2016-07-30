@@ -266,7 +266,7 @@ public class UserDAO extends DBConnection {
 		User user = new User();
 
 		StringBuffer buffer = new StringBuffer(
-				"select id, kullanici_adi, ad_soyad, email, telefon, aciklama, rol_id, iptal from tbl_kullanici where id = ");
+				"select id, kullanici_adi, ad_soyad, email, telefon, aciklama, rol_id, iptal,image_path from tbl_kullanici where id = ");
 		buffer.append(userId);
 
 		try {
@@ -292,6 +292,7 @@ public class UserDAO extends DBConnection {
 				user.setUsrAck(rset.getString("aciklama"));
 				user.setUsrKullaniciTipi(rset.getInt("rol_id"));
 				user.setUsrIptal(rset.getBoolean("iptal"));
+				user.setUsrPhotoUrl(rset.getString("image_path"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

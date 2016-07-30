@@ -95,7 +95,7 @@ getir();
 				dashboardPersonelModel personelmodel = new dashboardPersonelModel();
 			
 				personelmodel.setPersonelAdi(userdao.selectById(itemsTK.getKullaniciId()).getUsrAdSoyad());
-				
+				personelmodel.setPersonelresim(userdao.selectById(itemsTK.getKullaniciId()).getUsrPhotoUrl());
 				bankaTutarModel tutarhedef = new bankaTutarModel(); 
 				for (int i = 0; i < hedefler.Listele(yil, ay).size(); i++) {
 				

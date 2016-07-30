@@ -171,7 +171,6 @@ public class TakimDAO extends DBConnection {
 				tk.setKullaniciId(set.getInt("kullanici_id"));
 				tk.setId(set.getInt("id"));
 				tk.setTakimId(set.getInt("takim_id"));
-				
 				liste.add(tk);
 			}
 			super.disconnectDB();

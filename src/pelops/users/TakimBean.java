@@ -1,5 +1,10 @@
 package pelops.users;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.text.Collator;
 import java.util.ArrayList;
 import java.util.Date;
@@ -11,6 +16,9 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+
+import org.apache.commons.io.IOUtils;
+import org.primefaces.event.FileUploadEvent;
 
 
 
@@ -60,7 +68,31 @@ public class TakimBean
 	}
 
 	
+	
+	
+	public void handleFileUpload(FileUploadEvent event) throws IOException {
 
+		// path adresi değiştirilmelidir.
+		InputStream input = event.getFile().getInputstream();
+
+		File file = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("\\USER\\USER_IMG\\"),
+				event.getFile().getFileName());
+
+		OutputStream output = new FileOutputStream(file);
+		updatedTakim.setTakimUrlImg(event.getFile().getFileName());
+
+		try {
+			IOUtils.copy(input, output);
+			FacesMessage message = new FacesMessage("",
+					event.getFile().getFileName() + " başarılı bir şekilde yüklendi.");
+			FacesContext.getCurrentInstance().addMessage(null, message);
+
+		} finally {
+			IOUtils.closeQuietly(input);
+			IOUtils.closeQuietly(output);
+		}
+	}
+	
 
 	
 

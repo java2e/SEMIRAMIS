@@ -20,7 +20,7 @@ public class tahsilatDAO extends DBConnection {
 	PreparedStatement pstmt;
 	private SimpleDateFormat yearsFormat = new SimpleDateFormat("yyyy");
 	private SimpleDateFormat mountsFormat = new SimpleDateFormat("MM");
-	private SimpleDateFormat fullDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+	private SimpleDateFormat fullDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 	Date nowDate = new Date();
 	Date gelecekay = new Date();
 	

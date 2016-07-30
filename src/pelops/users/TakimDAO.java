@@ -26,12 +26,12 @@ public class TakimDAO extends DBConnection {
            +"  kullanici_id,takim_id) "
            +" values ("+tk.getKullaniciId()+","+tk.getTakimId()+"); ";
 				
-				newConnectDB();
+				super.newConnectDB();
 				
 				Statement stmt=conn.createStatement();
 				
 				boolean result=stmt.execute(sql);
-				
+				super.disconnectDB();
 				return result;
 				
 				
@@ -68,7 +68,7 @@ public class TakimDAO extends DBConnection {
 					+" inner join tbl_takim t on t.id=tk.takim_id";
 					
 					
-					newConnectDB();
+					super.newConnectDB();
 					
 					Statement stmt=conn.createStatement();
 					
@@ -90,7 +90,7 @@ public class TakimDAO extends DBConnection {
 						
 					}
 					
-					
+					super.disconnectDB();
 					return liste;
 					
 			
@@ -112,7 +112,7 @@ public class TakimDAO extends DBConnection {
 			
 			String sql="Select * from tbl_takim_kullanici where id="+id;
 			
-			newConnectDB();
+			super.newConnectDB();
 			
 			Statement stmt=conn.createStatement();
 			
@@ -131,7 +131,7 @@ public class TakimDAO extends DBConnection {
 				
 				
 			}
-			
+			super.disconnectDB();
 			return tk;
 			
 			
@@ -155,7 +155,7 @@ public class TakimDAO extends DBConnection {
 			
 			String sql="Select * from tbl_takim_kullanici where takim_id="+TKid;
 			
-			newConnectDB();
+			super.newConnectDB();
 			
 			Statement stmt=conn.createStatement();
 			
@@ -174,7 +174,7 @@ public class TakimDAO extends DBConnection {
 				
 				liste.add(tk);
 			}
-			
+			super.disconnectDB();
 			return liste;
 			
 			
@@ -205,13 +205,13 @@ public class TakimDAO extends DBConnection {
             +"  VALUES ('"+takim.getTakimAdi()+"','"+takim.getTakimUrlImg()+"',"+takim.getTakimYonetici()+");";
 			
 			
-			newConnectDB();
+			super.newConnectDB();
 			
 			Statement stmt=conn.createStatement();
 			
 			boolean result=stmt.execute(sql.toString());
 			
-			
+			super.disconnectDB();
 			return result;
 			}
 			else
@@ -244,13 +244,13 @@ public class TakimDAO extends DBConnection {
 							+" WHERE id="+takim.getId();
 					
 					
-					newConnectDB();
+					super.newConnectDB();
 					
 					Statement stmt=conn.createStatement();
 					
 					boolean result=stmt.execute(sql);
 					
-					
+					super.disconnectDB();
 					return result;
 					
 				}
@@ -280,12 +280,12 @@ public class TakimDAO extends DBConnection {
 				
 				String sql="Delete from tbl_takim where id="+id;
 				
-				newConnectDB();
+				super.newConnectDB();
 				
 				Statement stmt=conn.createStatement();
 				
 				boolean result=stmt.execute(sql);
-				
+				super.disconnectDB();
 				return result;
 
 				
@@ -308,7 +308,7 @@ public class TakimDAO extends DBConnection {
 				
 				String sql="Select * from tbl_takim";
 				
-				newConnectDB();
+				super.newConnectDB();
 				
 				Statement stmt=conn.createStatement();
 				
@@ -329,7 +329,7 @@ public class TakimDAO extends DBConnection {
 					
 					
 				}
-				
+				super.disconnectDB();
 				return liste;
 				
 				
@@ -351,7 +351,7 @@ public class TakimDAO extends DBConnection {
 				
 				String sql="Select * from tbl_takim";
 				
-				newConnectDB();
+				super.newConnectDB();
 				
 				Statement stmt=conn.createStatement();
 				
@@ -376,6 +376,7 @@ public class TakimDAO extends DBConnection {
 					
 				}
 				
+				super.disconnectDB();
 				return liste;
 				
 				
@@ -398,7 +399,7 @@ public class TakimDAO extends DBConnection {
 				
 				String sql="Select * from tbl_takim where id="+takimId;
 				
-				newConnectDB();
+				super.newConnectDB();
 				
 				Statement stmt=conn.createStatement();
 				
@@ -417,7 +418,7 @@ public class TakimDAO extends DBConnection {
 					
 					
 				}
-				
+				super.disconnectDB();
 				return takim;
 				
 				
@@ -446,12 +447,12 @@ public class TakimDAO extends DBConnection {
 						+"  WHERE id="+updatedTakim.getId();
 				
 				
-				newConnectDB();
+				super.newConnectDB();
 				
 				Statement stmt=conn.createStatement();
 				
 				stmt.executeQuery(sql);
-				
+				super.disconnectDB();
 				
 			} catch (Exception e) {
 				
@@ -475,7 +476,7 @@ public class TakimDAO extends DBConnection {
 	            +"  VALUES ("+takim.getTakimId()+","+takim.getKullaniciId()+");";
 				
 				
-				newConnectDB();
+				super.newConnectDB();
 				
 				Statement stmt=conn.createStatement();
 				
@@ -485,7 +486,7 @@ public class TakimDAO extends DBConnection {
 				else
 					System.out.println("Hata TakimDAO kaydetTK : takim nesnesi bos gelmektedir");
 				 
-				
+				super.disconnectDB();
 				
 			} catch (Exception e) {
 				
@@ -510,13 +511,13 @@ public class TakimDAO extends DBConnection {
 				
 				String sql="Delete from tbl_takim_kullanici where id="+id;
 				
-				newConnectDB();
+				super.newConnectDB();
 				
 				Statement stmt=conn.createStatement();
 				
 				stmt.execute(sql);
 				
-
+				super.disconnectDB();
 				
 				
 			} catch (Exception e) {

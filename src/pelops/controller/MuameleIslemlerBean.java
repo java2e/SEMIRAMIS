@@ -5,6 +5,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -26,6 +28,7 @@ import pelops.dao.MuameleIslemleriDAO;
 import pelops.dao.PostaDAO;
 import pelops.interfaces.ReportCRUDInterface;
 import pelops.model.Avukat;
+import pelops.model.BorcluBilgisi;
 import pelops.model.DortluYapi;
 import pelops.model.Ilce;
 import pelops.model.MuameleAutoFields;
@@ -76,6 +79,11 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 	private StreamedContent content;
 	private TebligatZarfi tebligatZarfi = new TebligatZarfi();
 	private String muzekkereTalep = "";
+	
+	//Tebligat zarfının tipinin ne oldugu tanımlar
+	public String zarfTipi= " ";
+	
+	
 	private String pdfName = "";
 	private static String pdfContent = "";
 	String gelisAmaci;
@@ -92,7 +100,8 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 	//public String Yol = Yol;
 	//public String Yol = "";
 	//public String Yol = "C:/Users/JAVA/workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/SEMIRAMIS/pdfler/";
-	private String Yol = "C:/apache-tomcat-8.0.30/webapps/SEMIRAMIS/pdfler/";
+	private String Yol = FacesContext.getCurrentInstance().getExternalContext().getRealPath("\\pdfler\\")+"\\";    //"C:/apache-tomcat-8.0.30/webapps/SEMIRAMIS/pdfler/";
+			
 	
 	FacesContext context = FacesContext.getCurrentInstance();
 
@@ -143,7 +152,8 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 			IcraDosyasiDAO icradosyasidao = new IcraDosyasiDAO();
 			TalepMuzekkereUtil talepMuzekkereUtil = new TalepMuzekkereUtil();
 			int borclubilgisiID = baglantidao.Listele(icraDosyaId).getBorcluID();
-			
+
+			BorcluBilgisi borclu=daoborclu.Liste(borclubilgisiID);
 			
 			
 			System.out.println("Borclu Bilgisi ID "+borclubilgisiID);
@@ -153,10 +163,14 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 			autoFields.setBorcMiktari(
 					(hesapDao.Liste(hesapId).getToplam_alacak()) - (hesapDao.Liste(hesapId).getTahsilat_tutari()));
 
-			System.out.println(daoborclu.Liste(borclubilgisiID).getAdSoyad());
+			System.out.println(borclu.getAdSoyad());
 			
 			
-			autoFields.setBorcluAdi(daoborclu.Liste(borclubilgisiID).getAdSoyad());
+			
+			autoFields.setBorcluAdi(borclu.getAdSoyad());
+			
+			if(borclu.getDogumTarihi()!=null)
+			autoFields.setBorcluDogumTarihi(new SimpleDateFormat("MM/dd/yyyy").format(borclu.getDogumTarihi()));
 			autoFields.setIcraDosyaNo(icradosyasidao.Listele(icraDosyaId).getIcraDosyaNo());
 			autoFields.setIcraMudurluguId(icradosyasidao.Listele(icraDosyaId).getIcraMudurluguId());
 			autoFields.setRiskYoneticisiId(icradosyasidao.Listele(icraDosyaId).getRiskYoneticisiId());
@@ -164,14 +178,15 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 			autoFields
 					.setRiskYoneticisiText(talepMuzekkereUtil.getRiskYoneticisiText(autoFields.getRiskYoneticisiId()));
 			autoFields.setAlacakliEpostaText(talepMuzekkereUtil.getAlacakliEpostaText(alacakliID));
-			autoFields.setIcraMudurluguText(talepMuzekkereUtil.getAlacakliEpostaText(alacakliID));
+			autoFields.setIcraMudurluguText(talepMuzekkereUtil.getIcraMudurluguText(alacakliID));
 			autoFields.setAlacakliEpostaText(talepMuzekkereUtil.getAlacakliEpostaText(alacakliID));
 			autoFields.setIcraDosyaNoText(talepMuzekkereUtil.getIcraDosyaNoText(icraDosyaId));
 			autoFields.setBorcluAdresiText(talepMuzekkereUtil.getBorcluAdresiText(borclubilgisiID));
 			autoFields.setBuroAdresiText(talepMuzekkereUtil.getBuroAdresiText(icraDosyaId));
 			autoFields.setAlacakliTelText(talepMuzekkereUtil.getAlacakliTelText(alacakliID));
 			autoFields.setBorcluTcText(talepMuzekkereUtil.getBorcluTcText(borclubilgisiID));
-			autoFields.setMuvekkilAdiText(daoalacakli.ListeGetir(alacakliID).getMuvekkilAdi());
+			autoFields.setMuvekkilAdi(daoalacakli.ListeGetir(alacakliID).getMuvekkilAdi());
+			
 
 			// Manuel Giriş Yapılmıştır -- Bad Code :(
 			muamele.setPostaneAdi("PTT İSKİTLER MERKEZ MÜDÜRLÜĞÜ");
@@ -185,7 +200,24 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 
 			muamele.setRiskYoneticisi(autoFields.getRiskYoneticisiText());
 			muamele.setSemiramisNo(icraDosyaId);
-			muamele.setAlacakliAdi(autoFields.getMuvekkilAdi());
+			muamele.setAlacakliAdi(autoFields.getAlacakliEpostaText());
+			muamele.setBankaAdi(autoFields.getMuvekkilAdi());
+			muamele.setBorcluTcKimlikNo(autoFields.getBorcluTcText());
+			muamele.setBorcluAdresi(autoFields.getBorcluAdresiText());
+			muamele.setDogumTarihiText(autoFields.getBorcluDogumTarihi());
+			
+			setBankaAdi(muamele.getAlacakliAdi());
+			
+			// ALACAKLI OLARAK BANKANIN EKLENMESİ
+			
+			BankaModel bankaModel=new BankaModel(1, muamele.getAlacakliAdi(), muamele.getAlacakliAdi());
+			
+			bankaList.add(bankaModel);
+			
+			
+			
+			
+			
 			muamele.setAlacakliMail(autoFields.getAlacakliMail());
 			muamele.setBuroAdresi(autoFields.getBuroAdresiText());
 			muamele.setAlacakliTel(autoFields.getAlacakliTelText());
@@ -207,8 +239,10 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 				muamele.setBorcluMiktari(0.0);
 
 			} else {
+				
+				System.out.println(new DecimalFormat("0.00").format(autoFields.getBorcMiktari()));
 
-				muamele.setBorcluMiktari(autoFields.getBorcMiktari());
+				muamele.setBorcluMiktari(Double.valueOf(new DecimalFormat("0.00").format(autoFields.getBorcMiktari()).replace(",", ".")));
 			}
 
 			if (muamele.getAlacakFaizTutari() == null) {
@@ -239,6 +273,8 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 		standartTalepList = new ArrayList<>();
 		standartTalepList = dao.getStandartTalepTextList();
 		muamele.setMuameleTarihi(util.getCurrentDate());
+		
+		
 
 		// Listenin Getirilmesi sağlanır±r.
 		muameleList = TümListeyiGetir();
@@ -428,7 +464,7 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 		zarf.setIcraMudurluguAdi(muamele.getIcraMudurluguAdi());
 		zarf.setAlacakliAdi(AktifBean.getMuvekkilAdi());
 		zarf.setAvukatAdi(muamele.getAvukatAdi());
-		zarf.setMuzekkereTalepAdi(muzekkereTalep);
+		zarf.setMuzekkereTalepAdi(zarfTipi);
 
 		dataBeanListForTebligat.add(zarf);
 
@@ -819,6 +855,7 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 		case "Maaş Haciz Müzekkeresi(Genel)":
 
 			muzekkereTalep = "maashacizmuzekkeresigenel";
+			zarfTipi="Maaş Haciz Müzekkeresi";
 			muamele.setMaashacizmuzekkeresigenel(true);
 			muamele.setMaashacizmuzekkeresigenelVisible(false);
 
@@ -827,6 +864,7 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 		case "maashacizmuzekkeresigenel":
 
 			muzekkereTalep = "maashacizmuzekkeresigenel";
+			zarfTipi="Maaş Haciz Müzekkeresi";
 			muamele.setMaashacizmuzekkeresigenel(true);
 			muamele.setMaashacizmuzekkeresigenelVisible(false);
 
@@ -872,6 +910,7 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 		case "tapuhacizmuzekkeresinokta":
 
 			muzekkereTalep = "tapuhacizmuzekkeresinokta";
+			zarfTipi="Tapu Haciz Müzekkeresi";
 			muamele.setTapuhacizmuzekkeresinokta(true);
 			muamele.setTapuhacizmuzekkeresinoktaVisible(false);
 			break;
@@ -1009,6 +1048,7 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 			muzekkereTalep = "tapuhaciztalebinokta";
 			muamele.setTapuhaciztalebi(true);
 			muamele.setTapuhaciztalebiVisible(false);
+			zarfTipi="Tapu Haciz Müzekkeresi";
 
 			// Standart Text'lerin getirilmesi sağlanır.
 			yapi = dao.dortluYapiGetir();
@@ -1024,6 +1064,7 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 			muzekkereTalep = "tapuhaciztalebinokta";
 			muamele.setTapuhaciztalebi(true);
 			muamele.setTapuhaciztalebiVisible(false);
+			zarfTipi="Tapu Haciz Müzekkeresi";
 
 			// Standart Text'lerin getirilmesi sağlanır.
 			yapi = dao.dortluYapiGetir();
@@ -1310,6 +1351,8 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 		// ******************************************************************************
 
 		ArrayList<MuameleIslemleri> dataBeanList = new ArrayList<MuameleIslemleri>();
+		
+		muamele.setBankaAdi(getBankaAdi());
 
 		dataBeanList.add(muamele);
 

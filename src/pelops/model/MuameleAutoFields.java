@@ -23,6 +23,8 @@ public class MuameleAutoFields {
 	private String borcluTcText;
 	private String muvekkilAdiText;
 	private Double borcMiktari;
+	private String borcluDogumTarihi;
+	
 	public int getIcraMudurluguId() {
 		return icraMudurluguId;
 	}
@@ -149,7 +151,14 @@ public class MuameleAutoFields {
 	public void setBorcMiktari(Double borcMiktari) {
 		this.borcMiktari = borcMiktari;
 	}
+	public String getBorcluDogumTarihi() {
+		return borcluDogumTarihi;
+	}
+	public void setBorcluDogumTarihi(String borcluDogumTarihi) {
+		this.borcluDogumTarihi = borcluDogumTarihi;
+	}
 
+	
 	
 	
 	

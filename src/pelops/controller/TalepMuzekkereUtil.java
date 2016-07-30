@@ -352,6 +352,7 @@ public class TalepMuzekkereUtil {
 					muameleIslemleri.setTapuKayitlari(builderForGayrimenkul.toString());
 					muameleIslemleri.setMiktar(muamele.getTapuhacizmuzekkeresinoktaSayi());
 					muameleIslemleri.setMuzekkereTalepAdi("Tapu Haciz Müzekkeresi(Nokta)");
+					muameleIslemleri.setBankaAdi(muamele.getBankaAdi());
 					muameleList.add(muameleIslemleri);
 
 				}
@@ -360,7 +361,7 @@ public class TalepMuzekkereUtil {
 
 				FacesContext context = FacesContext.getCurrentInstance();
 				context.addMessage(null, new FacesMessage(
-						"Tapu Haciz Müzekkeresi Oluşturmak için Mal Tipi ve Alacaklı Banka Eklemelisiniz !!!"));
+						"Tapu Haciz Müzekkeresi Oluşturmak için Mal Tipi  Eklemelisiniz !!!"));
 			}
 
 		}

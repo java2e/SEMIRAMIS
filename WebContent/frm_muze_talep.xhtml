@@ -248,7 +248,6 @@
 							requiredMessage="Avukat Adını Doldurunuz !!!"
 							value="#{muameleislemlerbean.muamele.avukatId}"
 							style="width:100%">
-							<f:selectItem itemLabel="Avukat Seçiniz..." itemValue="" />
 							<f:selectItems value="#{muameleislemlerbean.AvukatGetir()}"
 								var="item" itemValue="#{item.id}" itemLabel="#{item.adi}" />
 
@@ -476,6 +475,39 @@
 									<p:panelGrid
 										rendered="#{printBean.checkComboboxValue('3', printBean.takipAcilisEvrakYazdirma )}"
 										columns="12" style=" border-style: hidden !important;">
+										
+											<p:outputLabel>Maaş Haciz Müzekkeresi Genel</p:outputLabel>
+										<p:selectBooleanCheckbox
+											value="#{muameleislemlerbean.muamele.maashacizmuzekkeresigenel}"
+											disabled="#{muameleislemlerbean.muamele.maashacizmuzekkeresigenelVisible}">
+											<p:ajax listener="#{muameleislemlerbean.checkCheckBoxes()}"
+												update="@form" />
+											<p:ajax event="change" />
+										</p:selectBooleanCheckbox>
+
+										<p:outputLabel value="Adeti" />
+										<p:spinner min="1"
+											disabled="#{muameleislemlerbean.muamele.maashacizmuzekkeresigenelVisible}"
+											value="#{muameleislemlerbean.muamele.maashacizmuzekkeresigenelSayi}"
+											size="2" />
+											
+											
+												<p:outputLabel>Tapu Haciz Müzekkeresi(Nokta)</p:outputLabel>
+										<p:selectBooleanCheckbox
+											value="#{muameleislemlerbean.muamele.tapuhacizmuzekkeresinokta}"
+											disabled="#{muameleislemlerbean.muamele.tapuhacizmuzekkeresinoktaVisible}">
+											<p:ajax listener="#{muameleislemlerbean.checkCheckBoxes()}"
+												update="@form" />
+											<p:ajax event="change" />
+
+										</p:selectBooleanCheckbox>
+										<p:outputLabel value="Adeti" />
+										<p:spinner min="1"
+											disabled="#{muameleislemlerbean.muamele.tapuhacizmuzekkeresinoktaVisible}"
+											value="#{muameleislemlerbean.muamele.tapuhacizmuzekkeresinoktaSayi}"
+											size="2" />
+											
+										
 
 
 										<p:outputLabel>103 Davetiyesi Müzekkeresi(Araç)</p:outputLabel>
@@ -561,21 +593,7 @@
 											value="#{muameleislemlerbean.muamele.hacizihbarnamesimuzekkeresi891Sayi}"
 											size="2" />
 
-										<p:outputLabel>Maaş Haciz Müzekkeresi Genel</p:outputLabel>
-										<p:selectBooleanCheckbox
-											value="#{muameleislemlerbean.muamele.maashacizmuzekkeresigenel}"
-											disabled="#{muameleislemlerbean.muamele.maashacizmuzekkeresigenelVisible}">
-											<p:ajax listener="#{muameleislemlerbean.checkCheckBoxes()}"
-												update="@form" />
-											<p:ajax event="change" />
-										</p:selectBooleanCheckbox>
-
-										<p:outputLabel value="Adeti" />
-										<p:spinner min="1"
-											disabled="#{muameleislemlerbean.muamele.maashacizmuzekkeresigenelVisible}"
-											value="#{muameleislemlerbean.muamele.maashacizmuzekkeresigenelSayi}"
-											size="2" />
-
+									
 										<p:outputLabel>Maaş Haciz Müzekkeresi Muvafakat</p:outputLabel>
 										<p:selectBooleanCheckbox
 											value="#{muameleislemlerbean.muamele.maashacizmuzekkeresimuvafakat}"
@@ -606,21 +624,7 @@
 											value="#{muameleislemlerbean.muamele.ptthacizmuzekkeresiSayi}"
 											size="2" />
 
-										<p:outputLabel>Tapu Haciz Müzekkeresi(Nokta)</p:outputLabel>
-										<p:selectBooleanCheckbox
-											value="#{muameleislemlerbean.muamele.tapuhacizmuzekkeresinokta}"
-											disabled="#{muameleislemlerbean.muamele.tapuhacizmuzekkeresinoktaVisible}">
-											<p:ajax listener="#{muameleislemlerbean.checkCheckBoxes()}"
-												update="@form" />
-											<p:ajax event="change" />
-
-										</p:selectBooleanCheckbox>
-										<p:outputLabel value="Adeti" />
-										<p:spinner min="1"
-											disabled="#{muameleislemlerbean.muamele.tapuhacizmuzekkeresinoktaVisible}"
-											value="#{muameleislemlerbean.muamele.tapuhacizmuzekkeresinoktaSayi}"
-											size="2" />
-
+									
 										<p:outputLabel>Adres Araştırma Müzekkeresi(Kurumlar İçin)</p:outputLabel>
 
 										<p:selectBooleanCheckbox

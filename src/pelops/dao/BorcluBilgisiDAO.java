@@ -56,6 +56,7 @@ public class BorcluBilgisiDAO extends DBConnection {
 			borclu.setTelefon_no3(rs.getString("telefon_no3"));
 			borclu.setMusteriNo(rs.getString("musteri_no"));
 			borclu.setUrunNo(rs.getString("urun_no"));
+			borclu.setDogumTarihi(rs.getDate("dogum_tarihi"));
 
 		}
 		DB.disconnectDB();

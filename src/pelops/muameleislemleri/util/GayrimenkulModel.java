@@ -6,8 +6,8 @@ public class GayrimenkulModel {
 		this.id = id;
 		this.il = il;
 		this.ilce = ilce;
-		this.ada = ada;
-		this.parsel = parsel;
+		this.ada = ada +" ADA ";
+		this.parsel = parsel+" PARSEL ";
 		this.aciklama = aciklama;
 	}
 

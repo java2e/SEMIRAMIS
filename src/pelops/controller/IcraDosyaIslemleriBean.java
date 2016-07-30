@@ -24,6 +24,7 @@ import pelops.dao.BorcluBilgisiDAO;
 import pelops.dao.HarcBilgisiDAO;
 import pelops.dao.HesapDAO;
 import pelops.dao.IcraDosyasiDAO;
+import pelops.dao.IcraMudurluguDAO;
 import pelops.dao.LogErrorDAO;
 import pelops.dao.VekaletHarciDAO;
 import pelops.dao.VekaletSinirlariDAO;
@@ -712,6 +713,7 @@ try{
 	gelismisgetir = id;
 		IcraDosyasiDAO icradosyasidao = new IcraDosyasiDAO();
 		String icradosyano = icradosyasidao.Listele(id).getIcraDosyaNo();
+		AktifBean.setIcraMudurlugu((new IcraMudurluguDAO()).Liste(icradosyasidao.Listele(id).getIcraMudurluguId()).get(0).getAdi());
 		int icradosyaID = id;
 		icradosyasi.setId(id);
 

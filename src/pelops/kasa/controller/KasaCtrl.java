@@ -314,7 +314,7 @@ public class KasaCtrl {
 		model.setSeri(yearFormat.format(nowDate));
 		model.setAlacakli(view.getMuvekkilAdi());
 		model.setBorclu(view.getBorcluAdi());
-		model.setDosyaNo(view.getIcraDosyaNo());
+		model.setDosyaNo(view.getIcraDosyaNo()+" "+view.getIcraMudurlugu());
 		model.setMakbuzNo(String.valueOf(view.getId()));
 		model.setSebebi(hesapdao.Liste(hesapID).getUrunAdi() + " " + hesapdao.Liste(hesapID).getUrunNo());
 		model.setMiktari(

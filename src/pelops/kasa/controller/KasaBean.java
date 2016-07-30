@@ -663,7 +663,7 @@ public class KasaBean {
 		bilgiTahsilat.setMuvekkil_adi(AktifBean.getMuvekkilAdi());
 		bilgiTahsilat.setKasa_islemini_yapan(usersbilgi.getUser().getUsrAdSoyad());
 		bilgiTahsilat.setTasilati_yapan(usersbilgi.getUser().getUsrAdSoyad());
-
+		bilgiTahsilat.setIcra_mudurlugu(AktifBean.getIcraMudurlugu());
 		bilgiTahsilat.setTahsilat_tarihi(new Date());
 		makbuz = true;
 		tahsilat = false;

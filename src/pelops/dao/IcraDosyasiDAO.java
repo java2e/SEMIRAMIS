@@ -61,6 +61,10 @@ public class IcraDosyasiDAO extends DBConnection {
 		return id;
 
 	}
+	
+	
+
+
 
 	public ArrayList<IcraDosyasi> Listele() throws Exception {
 

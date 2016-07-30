@@ -13,6 +13,7 @@ public class AktifBean {
 
 	static int  icraDosyaID=0, borcluId=0, hesapID=0;
 	static String icraDosyaNo="";
+	static String icraMudurlugu="";
 	static String muvekkilAdi ="";
     static  String  borcluAdi ="";
     private String chatUserNamey="";
@@ -77,6 +78,12 @@ public class AktifBean {
 	}
 	public static void setBorcluAdi(String borcluAdi) {
 		AktifBean.borcluAdi = borcluAdi;
+	}
+	public static String getIcraMudurlugu() {
+		return icraMudurlugu;
+	}
+	public static void setIcraMudurlugu(String icraMudurlugu) {
+		AktifBean.icraMudurlugu = icraMudurlugu;
 	}
 	
 	

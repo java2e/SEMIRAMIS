@@ -1,41 +1,42 @@
 
 package pelops.users;
 
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Date;
 import java.util.List;
 
 public class User {
-	//Attributes of User
+	// Attributes of User
 	private int usrId; // private int kullaniciId;
-	private String usrName; //private String kullaniciAdi;
-	private String usrPwd; //private String kullaniciSifre;
+	private String usrName; // private String kullaniciAdi;
+	private String usrPwd; // private String kullaniciSifre;
 	private String usrAdSoyad;// private String kullaniciAdSoyad;
-	private String usrMail; //private String kullaniciEmail;
-	private String usrTel; //private String kullaniciTelefon;
-	private String usrAck; //private String kullaniciAciklama;
-	private int usrKullaniciTipi; //private int kullaniciRolId;
-	private String usrRolAck;//private String kullaniciRolAck;
+	private String usrMail; // private String kullaniciEmail;
+	private String usrTel; // private String kullaniciTelefon;
+	private String usrAck; // private String kullaniciAciklama;
+	private int usrKullaniciTipi; // private int kullaniciRolId;
+	private String usrRolAck;// private String kullaniciRolAck;
 	private String usrPhotoUrl;
-	
-	private boolean usrIptal;//private boolean kullaniciIptal;
-	private int guncelleyenKullaniciId; //private int guncelleyenKullaniciId;
+
+	private boolean usrIptal;// private boolean kullaniciIptal;
+	private int guncelleyenKullaniciId; // private int guncelleyenKullaniciId;
 	private String guncelleyenKullaniciAck;
-	private Date guncellemeZamani; //private Date guncellemeZamani;
-	
+	private Date guncellemeZamani; // private Date guncellemeZamani;
+
 	private List<Integer> page;
 	private List<Integer> writeList;
 	private List<Integer> readList;
 
-	//constructor
+	// constructor
 	public User() {
 	}
 
-	//constructor	
-	public User(int usrId, String usrName, String usrPwd, String usrAdSoyad,
-			String usrMail, String usrTel, String usrAck, int usrKullaniciTipi,
-			String usrRolAck, boolean usrIptal, int guncelleyenKullaniciId,
-			String guncelleyenKullaniciAck, Date guncellemeZamani,
-			List<Integer> page, List<Integer> writeList, List<Integer> readList) {
+	// constructor
+	public User(int usrId, String usrName, String usrPwd, String usrAdSoyad, String usrMail, String usrTel,
+			String usrAck, int usrKullaniciTipi, String usrRolAck, boolean usrIptal, int guncelleyenKullaniciId,
+			String guncelleyenKullaniciAck, Date guncellemeZamani, List<Integer> page, List<Integer> writeList,
+			List<Integer> readList) {
 		super();
 		this.usrId = usrId;
 		this.usrName = usrName;
@@ -55,7 +56,7 @@ public class User {
 		this.readList = readList;
 	}
 
-	//getters and setters of attributes
+	// getters and setters of attributes
 	public int getUsrId() {
 		return usrId;
 	}
@@ -183,8 +184,6 @@ public class User {
 	public void setReadList(List<Integer> readList) {
 		this.readList = readList;
 	}
-	
-	
 
 	public String getUsrPhotoUrl() {
 		return usrPhotoUrl;
@@ -197,10 +196,9 @@ public class User {
 	/**
 	 * 
 	 */
-	public User clone() 
-	{
+	public User clone() {
 		User clone = new User();
-		
+
 		clone.setGuncellemeZamani(this.getGuncellemeZamani());
 		clone.setGuncelleyenKullaniciAck(this.getGuncelleyenKullaniciAck());
 		clone.setGuncelleyenKullaniciId(this.getGuncelleyenKullaniciId());
@@ -217,7 +215,8 @@ public class User {
 		clone.setUsrRolAck(this.getUsrRolAck());
 		clone.setUsrTel(this.getUsrTel());
 		clone.setWriteList(this.getWriteList());
-		
+
 		return clone;
 	}
+
 }

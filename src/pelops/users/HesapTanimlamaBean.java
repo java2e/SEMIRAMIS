@@ -23,21 +23,16 @@ import org.apache.commons.io.IOUtils;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
-
-
-
-
 @ManagedBean(name = "hesapTanimlamaBean", eager = true)
 @SessionScoped
-public class HesapTanimlamaBean
-{
+public class HesapTanimlamaBean {
 	private UserDAO userDAO;
 	private List<User> users;
 	private User updatedUser;
 	private boolean updatedVisible;
 	// ekle paneli gorunurlulugunu kontrol eder
 	private boolean updatedVisibleEkle;
-	
+
 	private UploadedFile userPhotoFile;
 
 	private int islem;
@@ -52,129 +47,99 @@ public class HesapTanimlamaBean
 
 	private int selectedIdForSil = -1;
 
-
-	
-
-	public HesapTanimlamaBean()
-	{
+	public HesapTanimlamaBean() {
 		updatedVisible = false;
 		updatedVisibleEkle = false;
 		updatedUser = new User();
 		userDAO = new UserDAO();
-	    users = userDAO.select();
+		users = userDAO.select();
 	}
-	
 
-	 
-	 public void handleFileUpload(FileUploadEvent event) throws IOException {
-	       
-	        
-	        // path adresi değiştirilmelidir.
-	        InputStream input = event.getFile().getInputstream();
-	  
-	           
-	           File file=new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("\\USER\\USER_IMG\\"),event.getFile().getFileName());
-	        
-		    OutputStream output = new FileOutputStream(file);
-		    updatedUser.setUsrPhotoUrl(event.getFile().getFileName());
+	public void handleFileUpload(FileUploadEvent event) throws IOException {
 
-		    try {
-		        IOUtils.copy(input, output);
-		        FacesMessage message = new FacesMessage("", event.getFile().getFileName() + " başarılı bir şekilde yüklendi.");
-		        FacesContext.getCurrentInstance().addMessage(null, message);
-		        
-		    } finally {
-		        IOUtils.closeQuietly(input);
-		        IOUtils.closeQuietly(output);
-		    }
-	    }
-	
-	
-	
-	public List<ComboItem> getUserRolAcklari()
-	{
+		// path adresi değiştirilmelidir.
+		InputStream input = event.getFile().getInputstream();
+
+		File file = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("\\USER\\USER_IMG\\"),
+				event.getFile().getFileName());
+
+		OutputStream output = new FileOutputStream(file);
+		updatedUser.setUsrPhotoUrl(event.getFile().getFileName());
+
+		try {
+			IOUtils.copy(input, output);
+			FacesMessage message = new FacesMessage("",
+					event.getFile().getFileName() + " başarılı bir şekilde yüklendi.");
+			FacesContext.getCurrentInstance().addMessage(null, message);
+
+		} finally {
+			IOUtils.closeQuietly(input);
+			IOUtils.closeQuietly(output);
+		}
+	}
+
+	public List<ComboItem> getUserRolAcklari() {
 		return userDAO.getSelectRolAcklari(Util.getUser());
 	}
 
-	public UserDAO getUserDAO()
-	{
+	public UserDAO getUserDAO() {
 		return userDAO;
 	}
 
-	public void setUserDAO(UserDAO userDAO)
-	{
+	public void setUserDAO(UserDAO userDAO) {
 		this.userDAO = userDAO;
 	}
 
-
-
-	
-
-	public List<User> getUsers()
-	{
+	public List<User> getUsers() {
 		return users;
 	}
 
-	public void setUsers(List<User> users)
-	{
+	public void setUsers(List<User> users) {
 		this.users = users;
 	}
 
-	public List<User> getFilteredUsers()
-	{
+	public List<User> getFilteredUsers() {
 		return filteredUsers;
 	}
 
-	public void setFilteredUsers(List<User> filteredUsers)
-	{
+	public void setFilteredUsers(List<User> filteredUsers) {
 		this.filteredUsers = filteredUsers;
 	}
 
-	public User getUpdatedUser()
-	{
+	public User getUpdatedUser() {
 		return updatedUser;
 	}
 
-	public void setUpdatedUser(User updatedUser)
-	{
+	public void setUpdatedUser(User updatedUser) {
 		this.updatedUser = updatedUser;
 	}
 
-	public boolean isUpdatedVisible()
-	{
+	public boolean isUpdatedVisible() {
 		return updatedVisible;
 	}
 
-	public void setUpdatedVisible(boolean updatedVisible)
-	{
+	public void setUpdatedVisible(boolean updatedVisible) {
 		this.updatedVisible = updatedVisible;
 	}
 
-	public boolean isUpdatedVisibleEkle()
-	{
+	public boolean isUpdatedVisibleEkle() {
 		return updatedVisibleEkle;
 	}
 
-	public void setUpdatedVisibleEkle(boolean updatedVisibleEkle)
-	{
+	public void setUpdatedVisibleEkle(boolean updatedVisibleEkle) {
 		this.updatedVisibleEkle = updatedVisibleEkle;
 	}
 
-	
-
-	public String getGeciciSifre()
-	{
+	public String getGeciciSifre() {
 		return geciciSifre;
 	}
 
-	public void setGeciciSifre(String geciciSifre)
-	{
+	public void setGeciciSifre(String geciciSifre) {
 		this.geciciSifre = geciciSifre;
 	}
 
 	// sayfanin her acilisinda tum panellerin kapatilmasini saglayan metod
-	public void panelKapat()
-	{
+	public void panelKapat() {
 		// filteredBaraGruplari degiskeni bara gruplari degiskenine set edilerek
 		// sayfanin her acilisinda tum listenin data table a dolmasi saglandi
 		filteredUsers = users;
@@ -183,8 +148,7 @@ public class HesapTanimlamaBean
 		sifreIslemi = 0;
 	}
 
-	public void guncellePanelAc(int userId)
-	{
+	public void guncellePanelAc(int userId) {
 		islem = 1;
 		updatedVisible = true;
 		updatedUser = userDAO.selectById(userId);
@@ -193,8 +157,7 @@ public class HesapTanimlamaBean
 		updatedVisibleEkle = false;
 	}
 
-	public void eklePanelAc()
-	{
+	public void eklePanelAc() {
 		islem = 0;
 		updatedUser = new User();
 		updatedVisible = false;
@@ -202,20 +165,19 @@ public class HesapTanimlamaBean
 		sifreIslemi = 0;
 	}
 
-	
-	public void guncelleUser()
-	{
+	public void guncelleUser() {
 		Date date = new Date();
 		updatedUser.setGuncelleyenKullaniciId(Util.getUser().getUsrId());
 		updatedUser.setGuncellemeZamani(date);
-
+		
+		
+		
 		userDAO.update(updatedUser);
 		FacesMessage msg = new FacesMessage("Kullanıcıya ait bilgiler güncellendi");
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 
-	public void ekleUser()
-	{
+	public void ekleUser() {
 		Date date = new Date();
 		updatedUser.setGuncelleyenKullaniciId(Util.getUser().getUsrId());
 		updatedUser.setGuncelleyenKullaniciId(1);
@@ -223,29 +185,27 @@ public class HesapTanimlamaBean
 		updatedUser.setUsrPwd(geciciSifre);
 
 		userDAO.insert(updatedUser);
-		
 
 		FacesMessage msg = new FacesMessage("Kullanıcı eklendi");
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 
 	/**
-	 * islem degiskenine gore kayit uzerinde ekleme ya da guncelleme yapilmasina karar verilir
-	 * @throws IOException 
+	 * islem degiskenine gore kayit uzerinde ekleme ya da guncelleme yapilmasina
+	 * karar verilir
+	 * 
+	 * @throws IOException
 	 */
-	public void ekleGuncelle() throws IOException
-	{
-		if (islem == 1)
-		{
+	public void ekleGuncelle() throws IOException {
+		if (islem == 1) {
 			guncelleUser();
-		}
-		else
-		{
+		} else {
 			ekleUser();
 		}
 		// reset table state
-//		UIComponent table = FacesContext.getCurrentInstance().getViewRoot().findComponent(":form2:dtTableUser");
-//		table.setValueExpression("sortBy", null);
+		// UIComponent table =
+		// FacesContext.getCurrentInstance().getViewRoot().findComponent(":form2:dtTableUser");
+		// table.setValueExpression("sortBy", null);
 
 		users = userDAO.select();
 		updatedVisible = false;
@@ -253,8 +213,7 @@ public class HesapTanimlamaBean
 	}
 
 	/* kullanici kaydi uzerinde guncelleme yapilirken cagrilan metod */
-	public void guncelle()
-	{
+	public void guncelle() {
 		guncelleUser();
 
 		users = userDAO.select();
@@ -264,8 +223,7 @@ public class HesapTanimlamaBean
 	}
 
 	/* kullanici kaydi uzerinde ekleme yapilirken cagrilan metod */
-	public void ekle() throws IOException
-	{
+	public void ekle() throws IOException {
 		ekleUser();
 
 		users = userDAO.select();
@@ -273,8 +231,7 @@ public class HesapTanimlamaBean
 	}
 
 	// silme islemini gerceklestiren metod
-	public void userSil()
-	{
+	public void userSil() {
 		System.out.println("Silinecek kullanicinin id'si: " + getSelectedIdForSil());
 		userDAO.delete(getSelectedIdForSil());
 		users = userDAO.select();
@@ -284,8 +241,7 @@ public class HesapTanimlamaBean
 	}
 
 	// Ekleme ya da guncelleme islemi iptal edildiginde cagrilan metod
-	public void iptal()
-	{
+	public void iptal() {
 
 		updatedVisible = false;
 		sifreIslemi = 0;
@@ -293,8 +249,7 @@ public class HesapTanimlamaBean
 	}
 
 	// Ekleme islemi iptal edildiginde cagrilan metod
-	public void iptalEkle()
-	{
+	public void iptalEkle() {
 
 		updatedVisibleEkle = false;
 
@@ -303,18 +258,14 @@ public class HesapTanimlamaBean
 	}
 
 	// Guncelleme ya da ekleme islemine karar vermek icin cagrilan metod
-	public String getIslem()
-	{
+	public String getIslem() {
 
 		String butonText = "";
 
-		if (islem == 1)
-		{
+		if (islem == 1) {
 
 			butonText = "Güncelle";
-		}
-		else
-		{
+		} else {
 
 			butonText = "Ekle";
 		}
@@ -326,73 +277,59 @@ public class HesapTanimlamaBean
 	 * @throws Exception
 	 * 
 	 */
-	public void retrieveFreshData() throws Exception
-	{
+	public void retrieveFreshData() throws Exception {
 		users = userDAO.select();
 		filteredUsers = new ArrayList<User>();
 
-		for (Iterator iterator = users.iterator(); iterator.hasNext();)
-		{
+		for (Iterator iterator = users.iterator(); iterator.hasNext();) {
 			User user = (User) iterator.next();
 			filteredUsers.add(user.clone());
 		}
 	}
-	
 
 	// Sistemdeki user sayisini doner
-	public String userSayisi()
-	{
+	public String userSayisi() {
 		StringBuilder mesaj = new StringBuilder();
 		mesaj.append("Sistemde " + users.size() + " kullanıcı bulunmaktadır.");
 		return mesaj.toString();
 	}
 
-	
-	
-
-	
-
 	/*
-	 * Sifre degistir butonuna basildiginda cagrilan metod. sifreIslemi degiskenini 1 e set eder bu
-	 * da formda sifre panelinin gorunur olmasını saglar
+	 * Sifre degistir butonuna basildiginda cagrilan metod. sifreIslemi
+	 * degiskenini 1 e set eder bu da formda sifre panelinin gorunur olmasını
+	 * saglar
 	 */
-	public void sifreDegistir()
-	{
+	public void sifreDegistir() {
 		sifreIslemi = 1;
 	}
 
 	/*
-	 * Sifre degistir butonuna basildiginda cagrilan metod. sifreIslemi degiskenini 1 e set eder bu
-	 * da formda sifre panelinin gorunur olmasını saglar
+	 * Sifre degistir butonuna basildiginda cagrilan metod. sifreIslemi
+	 * degiskenini 1 e set eder bu da formda sifre panelinin gorunur olmasını
+	 * saglar
 	 */
-	public void sifreDegistirUygula()
-	{
+	public void sifreDegistirUygula() {
 		userDAO.sifreGuncelle(updatedUser.getUsrId(), geciciSifre);
 		geciciSifre = "";
 	}
 
 	/*
-	 * sifre degistirilmek istediginde sifre panelinin gorunurlulugunu bu metod belirler
+	 * sifre degistirilmek istediginde sifre panelinin gorunurlulugunu bu metod
+	 * belirler
 	 */
-	public boolean isSifreDegistir()
-	{
+	public boolean isSifreDegistir() {
 		// sifreIslemi degiskenine gore panelin gorunurlulugu ayarlanır
-		if (sifreIslemi == 0)
-		{
+		if (sifreIslemi == 0) {
 			return false;
-		}
-		else
-		{
+		} else {
 			return true;
 		}
 	}
 
-
 	/*
 	 * Degistir butonuna basildiginda actionListener tarafindan cagrilan metod
 	 */
-	public void sifreMesaji()
-	{
+	public void sifreMesaji() {
 		sifreIslemi = 0;
 		FacesContext context = FacesContext.getCurrentInstance();
 
@@ -400,65 +337,55 @@ public class HesapTanimlamaBean
 	}
 
 	// arama ozelligini case insensitive yapan metod
-	public boolean filterByName(Object value, Object filter, Locale locale)
-	{
+	public boolean filterByName(Object value, Object filter, Locale locale) {
 		String filterText = (filter == null) ? null : filter.toString().trim();
-		if (filterText == null || filterText.equals(""))
-		{
+		if (filterText == null || filterText.equals("")) {
 			return true;
 		}
 
-		if (value == null)
-		{
+		if (value == null) {
 			return false;
 		}
 
 		String name = value.toString().toUpperCase(new Locale("tr"));
 		filterText = filterText.toUpperCase(new Locale("tr"));
 
-		if (name.contains(filterText))
-		{
+		if (name.contains(filterText)) {
 			return true;
-		}
-		else
-		{
+		} else {
 			return false;
 		}
 	}
 
 	// sortu turkce karakterlere gorede duzenleyen metod
-	public int sortByName(String value1, String value2)
-	{
+	public int sortByName(String value1, String value2) {
 
 		String val1 = value1;
 		String val2 = value2;
 
-		Collator trCollator = Collator.getInstance(new Locale("tr")); // Your locale here
+		Collator trCollator = Collator.getInstance(new Locale("tr")); // Your
+																		// locale
+																		// here
 		trCollator.setStrength(Collator.PRIMARY);
 
 		return trCollator.compare(val1, val2);
 
 	}
 
-	public int getSelectedIdForSil()
-	{
+	public int getSelectedIdForSil() {
 		return selectedIdForSil;
 	}
 
-	public void setSelectedIdForSil(int selectedIdForSil)
-	{
+	public void setSelectedIdForSil(int selectedIdForSil) {
 		this.selectedIdForSil = selectedIdForSil;
 	}
-
 
 	public UploadedFile getUserPhotoFile() {
 		return userPhotoFile;
 	}
 
-
 	public void setUserPhotoFile(UploadedFile userPhotoFile) {
 		this.userPhotoFile = userPhotoFile;
 	}
-	
-	
+
 }

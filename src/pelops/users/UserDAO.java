@@ -1,4 +1,4 @@
- package pelops.users;
+package pelops.users;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -8,22 +8,19 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-
 import pelops.db.DBConnection;
 
-public class UserDAO extends DBConnection
-{
+public class UserDAO extends DBConnection {
 	/*
-	 * veritabanina, kullaniciya ait veriler kaydedilirken kullanici sifresinin md5 e gore
-	 * sifrelenmesi icin olusturulan obje
+	 * veritabanina, kullaniciya ait veriler kaydedilirken kullanici sifresinin
+	 * md5 e gore sifrelenmesi icin olusturulan obje
 	 */
 	private MD5Sifreleme md5;
 
 	/**
 	 * constructor
 	 */
-	public UserDAO()
-	{
+	public UserDAO() {
 	}
 
 	/**
@@ -31,19 +28,15 @@ public class UserDAO extends DBConnection
 	 * 
 	 * @param user
 	 */
-	public void insert(User user)
-	{
+	public void insert(User user) {
 		java.sql.Timestamp guncellemeZamani = null;
 
 		@SuppressWarnings("unused")
 		int iptal;
 
-		if (user.isUsrIptal() == true)
-		{
+		if (user.isUsrIptal() == true) {
 			iptal = 1;
-		}
-		else
-		{
+		} else {
 			iptal = 0;
 		}
 
@@ -53,7 +46,7 @@ public class UserDAO extends DBConnection
 		String pwdKeeper;
 
 		StringBuffer buffer = new StringBuffer(
-				"insert into tbl_kullanici (kullanici_adi, sifre, ad_soyad, email, telefon, aciklama, rol_id, iptal, guncelleyen_kullanici_id, guncelleme_zamani) values (");
+				"insert into tbl_kullanici (kullanici_adi, sifre, ad_soyad, email, telefon, aciklama, rol_id, iptal, guncelleyen_kullanici_id, guncelleme_zamani,image_path) values (");
 		buffer.append("'" + user.getUsrName() + "'");
 		// md5e gore sifrelendi
 		pwdKeeper = md5.sifrele(user.getUsrPwd());
@@ -66,42 +59,33 @@ public class UserDAO extends DBConnection
 		buffer.append(" ," + user.getUsrKullaniciTipi());
 		buffer.append(" ," + user.isUsrIptal());
 		buffer.append(" ," + user.getGuncelleyenKullaniciId());
-		if (user.getGuncellemeZamani() != null)
-		{
+		if (user.getGuncellemeZamani() != null) {
 			guncellemeZamani = new java.sql.Timestamp(user.getGuncellemeZamani().getTime());
 			buffer.append(" ,'" + guncellemeZamani + "'");
 		}
+		buffer.append(" ,'" + user.getUsrPhotoUrl() + "'");
 		buffer.append(")");
-		
-		//System.out.println(buffer.toString());
 
-		try
-		{
+		// System.out.println(buffer.toString());
+
+		try {
 			super.newConnectDB();
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
 		Statement statement;
-		try
-		{
+		try {
 			statement = conn.createStatement();
 			statement.execute(buffer.toString());
-		}
-		catch (SQLException e)
-		{
-			System.out.println("Hata USERDAO insert :"+e.getMessage());
+		} catch (SQLException e) {
+			System.out.println("Hata USERDAO insert :" + e.getMessage());
 			e.printStackTrace();
 		}
 
-		try
-		{
+		try {
 			super.disconnectDB();
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -111,29 +95,22 @@ public class UserDAO extends DBConnection
 	 * 
 	 * @param kullaniciId
 	 */
-	public void delete(int kullaniciId)
-	{
+	public void delete(int kullaniciId) {
 		StringBuffer buffer = new StringBuffer("delete from tbl_kullanici" + " where id=" + kullaniciId);
 
-		try
-		{
+		try {
 			super.newConnectDB();
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
 		System.out.println(buffer.toString());
-		
+
 		Statement statement;
-		try
-		{
+		try {
 			statement = conn.createStatement();
 			statement.execute(buffer.toString());
-		}
-		catch (SQLException e)
-		{
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
@@ -143,64 +120,44 @@ public class UserDAO extends DBConnection
 	 * 
 	 * @param user
 	 */
-	public void update(User user)
-	{
+	public void update(User user) {
 		java.sql.Timestamp guncellemeZamani = null;
 
-		int iptal;
-
-		if (user.isUsrIptal() == false)
-		{
-			iptal = 0;
-		}
-		else
-		{
-			iptal = 1;
-		}
 		StringBuffer buffer = new StringBuffer("update tbl_kullanici set kullanici_adi = '");
 		buffer.append(user.getUsrName() + "'");
 		buffer.append(", ad_soyad = '" + user.getUsrAdSoyad() + "'");
 		buffer.append(", email = '" + user.getUsrMail() + "'");
+		buffer.append(", image_path = '" + user.getUsrPhotoUrl() + "'");
 		buffer.append(", telefon = '" + user.getUsrTel() + "'");
 		if (user.getUsrAck() != null)
 			buffer.append(", aciklama = '" + user.getUsrAck() + "'");
 		buffer.append(", rol_id = " + user.getUsrKullaniciTipi());
-		buffer.append(", iptal = " + iptal);
+		buffer.append(", iptal = " + user.isUsrIptal());
 		buffer.append(", guncelleyen_kullanici_id = " + user.getGuncelleyenKullaniciId());
-		if (user.getGuncellemeZamani() != null)
-		{
+		if (user.getGuncellemeZamani() != null) {
 			guncellemeZamani = new java.sql.Timestamp(user.getGuncellemeZamani().getTime());
 			buffer.append(", guncelleme_zamani = '" + guncellemeZamani + "'");
 		}
 		buffer.append(" where id = " + user.getUsrId());
-		try
-		{
+		try {
 			super.newConnectDB();
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
 		System.out.println(buffer.toString());
-		
+
 		Statement statement;
-		try
-		{
+		try {
 			statement = conn.createStatement();
 			statement.execute(buffer.toString());
-		}
-		catch (SQLException e)
-		{
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
-		try
-		{
+		try {
 			super.disconnectDB();
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -211,8 +168,7 @@ public class UserDAO extends DBConnection
 	 * @param userId
 	 * @param pwd
 	 */
-	public void sifreGuncelle(int userId, String pwd)
-	{
+	public void sifreGuncelle(int userId, String pwd) {
 		// User passwordun md5 sifreleme ile veritabanina yazilmasi icin stringe
 		// atama yapildi
 		md5 = new MD5Sifreleme();
@@ -221,32 +177,23 @@ public class UserDAO extends DBConnection
 		StringBuffer buffer = new StringBuffer("update tbl_kullanici set ");
 		buffer.append(" sifre='" + pwdKeeper + "'");
 		buffer.append(" WHERE id=" + userId);
-		try
-		{
+		try {
 			super.newConnectDB();
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
 		Statement statement;
-		try
-		{
+		try {
 			statement = conn.createStatement();
 			statement.execute(buffer.toString());
-		}
-		catch (SQLException e)
-		{
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
-		try
-		{
+		try {
 			super.disconnectDB();
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -257,8 +204,7 @@ public class UserDAO extends DBConnection
 	 * @param user
 	 * @return
 	 */
-	public List<User> select()
-	{
+	public List<User> select() {
 		List<User> userListesi = new ArrayList<User>();
 		User userTemp;
 
@@ -269,23 +215,18 @@ public class UserDAO extends DBConnection
 		buffer.append(" left outer join tbl_rol_turu t \n");
 		buffer.append("on (k1.rol_id = t.id) where t.alan_id = 1 order by k1.id");
 
-		try
-		{
+		try {
 			super.newConnectDB();
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
 		Statement statement;
-		try
-		{
+		try {
 			statement = conn.createStatement();
 			ResultSet rset = statement.executeQuery(buffer.toString());
 
-			while (rset.next())
-			{
+			while (rset.next()) {
 				userTemp = new User();
 
 				userTemp.setUsrId(rset.getInt("id"));
@@ -302,18 +243,13 @@ public class UserDAO extends DBConnection
 
 				userListesi.add(userTemp);
 			}
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
-		try
-		{
+		try {
 			super.disconnectDB();
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
@@ -326,55 +262,44 @@ public class UserDAO extends DBConnection
 	 * @param userId
 	 * @return
 	 */
-	public User selectById(int userId)
-	{
+	public User selectById(int userId) {
 		User user = new User();
 
 		StringBuffer buffer = new StringBuffer(
 				"select id, kullanici_adi, ad_soyad, email, telefon, aciklama, rol_id, iptal from tbl_kullanici where id = ");
 		buffer.append(userId);
 
-		try
-		{
+		try {
 			super.newConnectDB();
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
 		Statement statement;
-		try
-		{
+		try {
 			statement = conn.createStatement();
 			ResultSet rset = statement.executeQuery(buffer.toString());
 
-			while (rset.next())
-			{
+			while (rset.next()) {
 				user = new User();
 
 				user.setUsrId(rset.getInt("id"));
 				user.setUsrName(rset.getString("kullanici_adi"));
 				user.setUsrAdSoyad(rset.getString("ad_soyad"));
-				
+
 				user.setUsrMail(rset.getString("email"));
 				user.setUsrTel(rset.getString("telefon"));
 				user.setUsrAck(rset.getString("aciklama"));
 				user.setUsrKullaniciTipi(rset.getInt("rol_id"));
 				user.setUsrIptal(rset.getBoolean("iptal"));
 			}
-		}
-		catch (SQLException e)
-		{
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
-		try
-		{
+		try {
 			super.disconnectDB();
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
@@ -386,32 +311,25 @@ public class UserDAO extends DBConnection
 	 * @param usrName
 	 * @return
 	 */
-	public User selectByUsrName(String usrName)
-	{
+	public User selectByUsrName(String usrName) {
 		User user = null;
 		StringBuffer buffer = new StringBuffer(
-				"select id, kullanici_adi, sifre, ad_soyad, email, telefon, aciklama, rol_id, iptal from tbl_kullanici where kullanici_adi = ?");
+				"select id, kullanici_adi, sifre, ad_soyad, email, telefon, aciklama, rol_id, iptal,image_path from tbl_kullanici where kullanici_adi = ?");
 
-		try
-		{
+		try {
 			super.newConnectDB();
-		}
-		catch (Exception e1)
-		{
+		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
 
-		try
-		{
-			PreparedStatement preparedStatement =
-			        conn.prepareStatement(buffer.toString());
+		try {
+			PreparedStatement preparedStatement = conn.prepareStatement(buffer.toString());
 
 			preparedStatement.setString(1, usrName);
 
 			ResultSet rset = preparedStatement.executeQuery();
 
-			while (rset.next())
-			{
+			while (rset.next()) {
 				user = new User();
 				user.setUsrId(rset.getInt("id"));
 				user.setUsrName(rset.getString("kullanici_adi"));
@@ -421,34 +339,27 @@ public class UserDAO extends DBConnection
 				user.setUsrKullaniciTipi(rset.getInt("rol_id"));
 				user.setUsrTel(rset.getString("telefon"));
 				user.setUsrIptal(rset.getBoolean("iptal"));
+				user.setUsrPhotoUrl(rset.getString("image_path"));
 			}
-		}
-		catch (SQLException e)
-		{
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
-		try
-		{
+		try {
 			super.disconnectDB();
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
 		// kullanici iptal edilmisse null don
-		if (user != null && user.isUsrIptal())
-		{
+		if (user != null && user.isUsrIptal()) {
 			user = null;
 		}
 
 		return user;
 	}
-	
-	
-	public List<ComboItem> getSelectRolAcklari(User user)
-	{
+
+	public List<ComboItem> getSelectRolAcklari(User user) {
 		List<ComboItem> rolAcklari = new ArrayList<ComboItem>();
 		StringBuffer buffer = new StringBuffer();
 
@@ -458,46 +369,36 @@ public class UserDAO extends DBConnection
 
 		// Genel admine tum roller dondurulur
 		if (user.getUsrKullaniciTipi() == 1)
-		//if (true)
+		// if (true)
 		{
 			buffer = new StringBuffer("select id, tur_adi as ack from tbl_rol_turu where alan_id = 1");
 
-			try
-			{
+			try {
 				super.newConnectDB();
-			}
-			catch (Exception e)
-			{
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 
 			Statement statement;
-			try
-			{
+			try {
 				statement = conn.createStatement();
 				ResultSet rset = statement.executeQuery(buffer.toString());
 
-				while (rset.next())
-				{
+				while (rset.next()) {
 					ComboItem comboItem = new ComboItem();
 					comboItem.setId(rset.getInt("id"));
 					comboItem.setAck(rset.getString("ack"));
 					rolAcklari.add(comboItem);
 				}
-				
+
 				Collections.sort(rolAcklari);
-			}
-			catch (SQLException e)
-			{
+			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 
-			try
-			{
+			try {
 				super.disconnectDB();
-			}
-			catch (Exception e)
-			{
+			} catch (Exception e) {
 
 				e.printStackTrace();
 			}
@@ -506,49 +407,37 @@ public class UserDAO extends DBConnection
 		return rolAcklari;
 	}
 
-
 	/**
 	 * 
 	 * @param userId
 	 * @return
 	 */
-	public List<Integer> getPages(int userId)
-	{
+	public List<Integer> getPages(int userId) {
 		List<Integer> pages = new ArrayList<Integer>();
-		StringBuffer buffer = new StringBuffer("SELECT sayfa_id from tbl_sayfa where yetki_id="+userId);
+		StringBuffer buffer = new StringBuffer("SELECT sayfa_id from tbl_sayfa where yetki_id=" + userId);
 
-		try
-		{
+		try {
 			super.newConnectDB();
-		}
-		catch (Exception e1)
-		{
+		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
 
 		Statement statement;
-		try
-		{
+		try {
 			statement = (Statement) conn.createStatement();
 			ResultSet rset = (ResultSet) statement.executeQuery(buffer.toString());
 
-			while (rset.next())
-			{
+			while (rset.next()) {
 				pages.add(rset.getInt("sayfa_id"));
 			}
 
-		}
-		catch (SQLException e)
-		{
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
-		try
-		{
+		try {
 			super.disconnectDB();
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
@@ -560,46 +449,35 @@ public class UserDAO extends DBConnection
 	 * @param userId
 	 * @return
 	 */
-	public List<Integer> getWriteList(int userId)
-	{
+	public List<Integer> getWriteList(int userId) {
 		List<Integer> writeList = new ArrayList<Integer>();
 		StringBuffer buffer = new StringBuffer("SELECT tbl_kullanici.id, tur_id, kolon_id ");
 		buffer.append("FROM tbl_kullanici INNER JOIN tbl_rol_kolon ");
 		buffer.append("ON tbl_kullanici.rol_id = tbl_rol_kolon.rol_id ");
 		buffer.append("WHERE 1 = tur_id AND tbl_kullanici.id = " + userId);
 
-		try
-		{
+		try {
 			super.newConnectDB();
-		}
-		catch (Exception e1)
-		{
+		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
 
 		Statement statement;
-		try
-		{
+		try {
 			statement = (Statement) conn.createStatement();
 			ResultSet rset = (ResultSet) statement.executeQuery(buffer.toString());
 
-			while (rset.next())
-			{
+			while (rset.next()) {
 				writeList.add(rset.getInt("kolon_id"));
 			}
-		}
-		catch (SQLException e)
-		{
+		} catch (SQLException e) {
 
 			e.printStackTrace();
 		}
 
-		try
-		{
+		try {
 			super.disconnectDB();
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return writeList;
@@ -611,45 +489,34 @@ public class UserDAO extends DBConnection
 	 * @param userId
 	 * @return
 	 */
-	public List<Integer> getReadList(int userId)
-	{
+	public List<Integer> getReadList(int userId) {
 		List<Integer> readList = new ArrayList<Integer>();
 		StringBuffer buffer = new StringBuffer("select tbl_kullanici.id, tur_id, kolon_id ");
 		buffer.append("from tbl_kullanici inner join tbl_rol_kolon ");
 		buffer.append("on tbl_kullanici.rol_id = tbl_rol_kolon.rol_id ");
 		buffer.append("where (1 = tur_id OR 0 = tur_id) and tbl_kullanici.id = " + userId);
 
-		try
-		{
+		try {
 			super.newConnectDB();
-		}
-		catch (Exception e1)
-		{
+		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
 
 		Statement statement;
-		try
-		{
+		try {
 			statement = (Statement) conn.createStatement();
 			ResultSet rset = (ResultSet) statement.executeQuery(buffer.toString());
 
-			while (rset.next())
-			{
+			while (rset.next()) {
 				readList.add(rset.getInt("kolon_id"));
 			}
-		}
-		catch (SQLException e)
-		{
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
-		try
-		{
+		try {
 			super.disconnectDB();
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 

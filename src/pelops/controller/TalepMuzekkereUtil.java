@@ -339,6 +339,7 @@ public class TalepMuzekkereUtil {
 					builderForGayrimenkul.append(" ");
 					builderForGayrimenkul.append(gayrimenkulItem.getParsel());
 					builderForGayrimenkul.append("/");
+					builderForGayrimenkul.append(" "+gayrimenkulItem.getAciklama());
 
 					muameleIslemleri = new MuameleIslemleri();
 					muameleIslemleri = nesneDoldur(muamele);

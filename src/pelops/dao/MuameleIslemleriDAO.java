@@ -657,7 +657,7 @@ public class MuameleIslemleriDAO extends DBConnection {
 
 			if (rs.isBeforeFirst()) {
 				rs.next();
-				islm.setAvukatAdi(rs.getString("adi"));
+				islm.setAvukatAdi(rs.getString("adi")+" "+rs.getString("soyadi"));
 			}
 
 		}

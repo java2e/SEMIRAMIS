@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.0.final using JasperReports Library version 6.3.0  -->
+<!-- 2016-07-30T20:40:56 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="tapuhacizmuzekkeresinokta" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="15bbab6b-08e6-47a3-b8e5-3d13429efc83">
 	<property name="ireport.zoom" value="1.3310000000000022"/>
 	<property name="ireport.x" value="0"/>
@@ -72,7 +74,7 @@ ANKARA]]></text>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{avukatAdi}   ]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{avukatAdi}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="262" y="29" width="282" height="26" uuid="22fce418-539f-4c91-9ee7-b11aea33cd0f"/>
@@ -202,7 +204,7 @@ Karar gereğince işlem yapılarak taşınmazların gayrimenkul kayıtları üze
 				<textFieldExpression><![CDATA[$F{dogumTarihiText}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="40" y="181" width="491" height="88" uuid="2631264f-9ebc-42ed-97f7-6ce138b0731c"/>
+				<reportElement x="40" y="181" width="491" height="69" uuid="2631264f-9ebc-42ed-97f7-6ce138b0731c"/>
 				<textElement verticalAlignment="Top">
 					<font pdfFontName="Times-Roman" pdfEncoding="Cp1254"/>
 				</textElement>
@@ -218,7 +220,7 @@ Karar gereğince işlem yapılarak taşınmazların gayrimenkul kayıtları üze
 			<textField>
 				<reportElement x="-1" y="29" width="98" height="26" uuid="f5ad2194-744f-4263-a9cb-f1f088bf88af"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="8"/>
+					<font size="8" pdfFontName="Times-Roman" pdfEncoding="Cp1254"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{bankaAdi}]]></textFieldExpression>
 			</textField>

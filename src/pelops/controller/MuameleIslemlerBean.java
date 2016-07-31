@@ -133,6 +133,11 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 		this.setIptalrender(false);
 		this.setduzenlesilrender(false);
 
+		
+		//Gayrimenkul listesi sıfırlanır
+		
+		gayrimenkulList.clear();
+		
 		// Müvekkil ile Alacaklı aynı kişi
 
 		int icraDosyaId = AktifBean.icraDosyaID;
@@ -270,6 +275,7 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 		// İcra Dosya Takibinden bilgilerin alınıp set edilmesi sağlanır
 		getFieldFromIcraDosyaTakibi();
 
+		gayrimenkulList=new ArrayList<GayrimenkulModel>();
 		standartTalepList = new ArrayList<>();
 		standartTalepList = dao.getStandartTalepTextList();
 		muamele.setMuameleTarihi(util.getCurrentDate());
@@ -1352,7 +1358,7 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 
 		ArrayList<MuameleIslemleri> dataBeanList = new ArrayList<MuameleIslemleri>();
 		
-		muamele.setBankaAdi(getBankaAdi());
+		muamele.setBankaAdi(muamele.getAlacakliBankasi());
 
 		dataBeanList.add(muamele);
 

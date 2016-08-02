@@ -7,6 +7,8 @@ public class MuameleIslemleri {
 	// ***********Genel Alanlar***********************************************************
 
 	private int id;
+	private Object barkod;
+	private String barkodTxt;
 	boolean checkControl;
 	private int status;
 	private int icraDosyaId;
@@ -37,6 +39,7 @@ public class MuameleIslemleri {
 	private String bankaBilgileri;
 	private String borcluTc;
 	private String borcluAdresi;
+
 	private String barcode;
 	private int contentId;
 	private int icraMudurluguId;
@@ -2298,5 +2301,22 @@ public class MuameleIslemleri {
 	public void setVekili(String vekili) {
 		this.vekili = vekili;
 	}
+
+
+
+	public Object getBarkod() {
+		return barkod;
+	}
+
+
+
+	public void setBarkod(Object barkod) {
+		this.barkod = barkod;
+	}
+
+
+
+
+	
 
 }

@@ -40,6 +40,8 @@ import pelops.muameleislemleri.util.BankaModel;
 import pelops.muameleislemleri.util.GayrimenkulModel;
 import pelops.muameleislemleri.util.KurumModel;
 import pelops.muameleislemleri.util.MuameleIslemleriRequireCtrl;
+import pelops.reports.controller.GenelYazdirBean;
+
 import java.io.InputStream;
 import java.util.HashMap;
 import net.sf.jasperreports.engine.JRException;
@@ -56,7 +58,7 @@ import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
 import net.sf.jasperreports.export.SimplePdfExporterConfiguration;
 
 @ManagedBean(name = "muameleislemlerbean")
-@ViewScoped
+@RequestScoped
 public class MuameleIslemlerBean implements ReportCRUDInterface {
 
 	MuameleIslemleriDAO dao = new MuameleIslemleriDAO();
@@ -210,6 +212,10 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 			muamele.setBorcluTcKimlikNo(autoFields.getBorcluTcText());
 			muamele.setBorcluAdresi(autoFields.getBorcluAdresiText());
 			muamele.setDogumTarihiText(autoFields.getBorcluDogumTarihi());
+		
+			muamele.setMuhatapAdi(borclu.getIsYeriAdi());
+			muamele.setMuhatapAdresi(borclu.getIsYeriAdres());
+			
 			
 			setBankaAdi(muamele.getAlacakliAdi());
 			
@@ -285,6 +291,9 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 		// Listenin Getirilmesi sağlanır±r.
 		muameleList = TümListeyiGetir();
 	}
+	
+	
+	
 
 	public void setPdf(String pdf) {
 		this.pdf = pdf;
@@ -464,8 +473,23 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 
 		ArrayList<TebligatZarfi> dataBeanListForTebligat = new ArrayList<TebligatZarfi>();
 		TebligatZarfi zarf = new TebligatZarfi();
-		zarf.setBorcluAdi(muamele.getBorcluAdi());
-		zarf.setBorcluAdres(muamele.getBorcluAdresi());
+		
+		// Maaş Müzekkeresi Genel Durumunda 
+		
+		if(muamele.isMaashacizmuzekkeresigenel())
+		{
+		
+		zarf.setBorcluAdi(muamele.getMuhatapAdi());
+		zarf.setBorcluAdres(muamele.getMuhatapAdresi());
+		
+		}
+		else
+		{
+			zarf.setBorcluAdi(muamele.getBorcluAdi());
+			zarf.setBorcluAdres(muamele.getBorcluAdresi());
+				
+		}
+		
 		zarf.setIcraDosyaNo(muamele.getIcraDosyaNo());
 		zarf.setIcraMudurluguAdi(muamele.getIcraMudurluguAdi());
 		zarf.setAlacakliAdi(AktifBean.getMuvekkilAdi());
@@ -656,6 +680,10 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 		// Seçilen Talep ve Müzekkerelerin nesneye aktarılması
 		muameleList = talepMuzekkereUtil.TalepMuzekkereListesiOlustur(muamele, kurumList, bankaList, gayrimenkulList);
 
+		muamele.setBarcode(barkodUret());
+		
+		muamele.setBarkod(new GenelYazdirBean().createBarcode(muamele.getBarcode()));
+		
 		// Bilgilerin DB'ye aktarılması sağlanır.
 		dao.MuzekkereTalepEkle(muamele, muameleList);
 
@@ -671,7 +699,7 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 
 	}
 
-	public JasperPrint OnizleAndKaydet() throws FileNotFoundException, JRException, InterruptedException, SQLException {
+	public JasperPrint OnizleAndKaydet() throws Exception {
 
 		// Müzekkereler
 
@@ -1359,6 +1387,8 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 		ArrayList<MuameleIslemleri> dataBeanList = new ArrayList<MuameleIslemleri>();
 		
 		muamele.setBankaAdi(muamele.getAlacakliBankasi());
+		
+		muamele.setBarkod(new GenelYazdirBean().createBarcode(muamele.getBarcode()));
 
 		dataBeanList.add(muamele);
 

@@ -224,6 +224,15 @@ public class TalepMuzekkereUtil {
 		if (muamele.isMaashacizmuzekkeresigenel()) {
 
 			StringBuilder builder = new StringBuilder();
+			
+			if(muamele.getMuhatapAdi()=="" || muamele.getMuhatapAdresi()=="")
+			{
+				FacesContext context = FacesContext.getCurrentInstance();
+			context.addMessage(null, new FacesMessage(
+					"Maaş Haciz Müzekkeresi Genel Oluşturmak için MUHATTAB ADI VE ADRESİ EKLEMELİSİNİZ !!!"));
+			}
+			else
+			{
 
 			if (bankaList.size() > 0) {
 
@@ -257,6 +266,12 @@ public class TalepMuzekkereUtil {
 				context.addMessage(null, new FacesMessage(
 						"Maaş Haciz Müzekkeresi Genel Oluşturmak için Alacaklı Banka Eklemelisiniz !!!"));
 			}
+			
+			
+			}
+				
+			
+			
 
 		}
 

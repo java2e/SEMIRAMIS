@@ -26,6 +26,7 @@ import pelops.model.CokluBankaFour;
 import pelops.model.DortluYapi;
 import pelops.model.MuameleIslemleri;
 import pelops.model.StandartTalep;
+import pelops.reports.controller.GenelYazdirBean;
 
 public class MuameleIslemleriDAO extends DBConnection {
 
@@ -33,6 +34,8 @@ public class MuameleIslemleriDAO extends DBConnection {
 
 		newConnectDB();
 		Statement stmt = conn.createStatement();
+		
+		GenelYazdirBean genelYazdirBean=new GenelYazdirBean();
 
 		for (int i = 0; i < muameleList.size(); i++) {
 

@@ -145,7 +145,7 @@ public class UserDAO extends DBConnection {
 			e.printStackTrace();
 		}
 
-		System.out.println(buffer.toString());
+		//System.out.println(buffer.toString());
 
 		Statement statement;
 		try {

@@ -196,9 +196,23 @@
 					</p:inputText>
 				</p:panelGrid>
 
+<h4>Çalıştığı Yer/Kurum Bilgisi</h4>
 
+<p:panelGrid columns="2">
 
+<p:outputLabel style="width: 150px; ">Çalışılan Yer/Kurum :</p:outputLabel>
+<p:inputText id="isyeri"
+						value="#{borcluBilgisiBean.borcluBilgisi.isYeriAdi}"
+						style="width: 540px">
+					</p:inputText>
+					
+<p:outputLabel style="width: 150px; ">Adres :</p:outputLabel>
+<p:inputText id="isyeriadres"
+						value="#{borcluBilgisiBean.borcluBilgisi.isYeriAdres}"
+						style="width: 540px">
+					</p:inputText>
 
+</p:panelGrid>
 
 
 

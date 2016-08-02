@@ -66,6 +66,8 @@ public class BorcluBilgisi {
 	private String telefon_no1;
 
 	private String isYeriAdi;
+	
+	private String isYeriAdres;
 
 	private String departman;
 
@@ -546,5 +548,15 @@ public class BorcluBilgisi {
 	public void setTcNo(String tcNo) {
 		this.tcNo = tcNo;
 	}
+
+	public String getIsYeriAdres() {
+		return isYeriAdres;
+	}
+
+	public void setIsYeriAdres(String isYeriAdres) {
+		this.isYeriAdres = isYeriAdres;
+	}
+	
+	
 
 }

@@ -50,6 +50,8 @@ public class BorcluBilgisiDAO extends DBConnection {
 			borclu = new BorcluBilgisi();
 			borclu.setAdres(rs.getString("adres"));
 			borclu.setTcNo(rs.getString("tc_no"));
+			borclu.setIsYeriAdi(rs.getString("is_yeri_adi"));
+			borclu.setIsYeriAdres(rs.getString("isyeri_adres"));
 			borclu.setAdSoyad(rs.getString("ad_soyad"));
 			borclu.setTelefonNo(rs.getInt("telefon_no"));
 			borclu.setTelefon_no2(rs.getString("telefon_no2"));
@@ -77,10 +79,10 @@ public class BorcluBilgisiDAO extends DBConnection {
 					+ "dogum_tarihi, medeni_hali, il_adi, ilce_adi, mahalle, koy, cilt_no, "
 					+ "sira_no, verildigi_yer, veris_nedeni,  vefat,"
 					+ " resim, \"adressTuru\", ilce_id, il_id, adres, semt_adi, telefon_no,"
-					+ " telefon_turu, verilis_tarihi, telefon_no2, telefon_no3, ad, soyad, uyap_rol, uyap_rol_id)"
+					+ " telefon_turu, verilis_tarihi, telefon_no2, telefon_no3, ad, soyad, uyap_rol, uyap_rol_id,is_yeri_adi,isyeri_adres)"
 					+ "  VALUES ( ?, ?, ?, ?, ?, " + " ?, ?, ?, ?, ?," + " ?, ?, ?, ?, ?, ?, " + " ?, ?, ?, ?, ?, ?, "
 					+ " ?, ?, ?, ?, ?, ?, ?," + " ?, ?, ?, ?, ?, " + " ?, ?, ?, ?, ?, ?, ?, "
-					+ " ?, ?, ?, ?, ?, ?, ?);";
+					+ " ?, ?, ?, ?, ?, ?, ?,?,?);";
 
 			PreparedStatement pstm;
 
@@ -134,6 +136,8 @@ public class BorcluBilgisiDAO extends DBConnection {
 			pstm.setString(46, borcluBilgisi.getSoyad());
 			pstm.setString(47, borcluBilgisi.getUyap_rol());
 			pstm.setString(48, borcluBilgisi.getUyap_rol_id());
+			pstm.setString(49, borcluBilgisi.getIsYeriAdi().toUpperCase());
+			pstm.setString(50, borcluBilgisi.getIsYeriAdres().toUpperCase());
 
 			pstm.executeUpdate();
 			disconnectDB();
@@ -175,6 +179,8 @@ public class BorcluBilgisiDAO extends DBConnection {
 			borclu.setAdresTuruId(rs.getInt("adressTuru"));
 			borclu.setIlAdi(rs.getString("il_adi"));
 			borclu.setIlceAdi(rs.getString("ilce_adi"));
+			borclu.setIsYeriAdi(rs.getString("is_yeri_adi"));
+			borclu.setIsYeriAdres(rs.getString("isyeri_adres"));
 
 		}
 		disconnectDB();
@@ -195,7 +201,7 @@ public class BorcluBilgisiDAO extends DBConnection {
 				+ " musteri_no=?, talimat_icra_mud_id=?, email=?, web=?, \"not\"=?, "
 				+ " icra_dosyasi_id=?, \"adressTuru\"=?, ilce_id=?, il_id=?, adres=?, "
 				+ "   semt_adi=?, telefon_no=?, telefon_turu=?, tc_no=?, telefon_no2=?, "
-				+ "  telefon_no3=?  WHERE id = ?;";
+				+ "  telefon_no3=?,is_yeri_adi=?,isyeri_adres=?  WHERE id = ?;";
 
 		PreparedStatement pstm;
 		newConnectDB();
@@ -226,7 +232,10 @@ public class BorcluBilgisiDAO extends DBConnection {
 		pstm.setString(22, borcluBilgisi.getTcNo());
 		pstm.setString(23, borcluBilgisi.getTelefon_no1());
 		pstm.setString(24, borcluBilgisi.getTelefon_no2());
-		pstm.setInt(25, AktifBean.getBorcluId());
+		pstm.setString(25, borcluBilgisi.getIsYeriAdi().toUpperCase());
+		pstm.setString(26, borcluBilgisi.getIsYeriAdres().toUpperCase());
+		pstm.setInt(27, AktifBean.getBorcluId());
+	
 
 		int result = pstm.executeUpdate();
 

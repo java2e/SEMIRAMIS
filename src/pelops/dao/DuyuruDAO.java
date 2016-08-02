@@ -28,11 +28,18 @@ public class DuyuruDAO  extends DBConnection{
 			Statement statement;
 			statement = conn.createStatement();
 			statement.execute(buffer.toString());
-			super.disconnectDB();
+			
 		} catch (SQLException e) {
 			System.out.println("Hata DuyuruDAO insert :" + e.getMessage());
 			e.printStackTrace();
 		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			super.disconnectDB();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -87,7 +94,7 @@ public class DuyuruDAO  extends DBConnection{
 			Statement statement;
 			statement = conn.createStatement();
 			statement.execute(buffer.toString());
-			super.disconnectDB();
+			
 		}
 		catch (SQLException e)
 		{
@@ -100,6 +107,12 @@ public class DuyuruDAO  extends DBConnection{
 
 		System.out.println(buffer.toString());
 		
+		try {
+			super.disconnectDB();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 
@@ -133,10 +146,17 @@ public class DuyuruDAO  extends DBConnection{
 				duyuru.setGunTarih(rset.getDate("gunTarih"));
 				duyuruListesi.add(duyuru);							
 			}
-			super.disconnectDB();
 		}
 		catch (Exception e)
 		{
+			e.printStackTrace();
+		}
+		
+
+		try {
+			super.disconnectDB();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -165,7 +185,6 @@ public class DuyuruDAO  extends DBConnection{
 				duyuru.setAciklama(rset.getString("aciklama"));
 				duyuru.setGunTarih(rset.getDate("guntarih"));
 			}
-			super.disconnectDB();
 		}
 		catch (SQLException e)
 		{
@@ -176,6 +195,14 @@ public class DuyuruDAO  extends DBConnection{
 			e.printStackTrace();
 		}
 
+		try {
+			super.disconnectDB();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		
 		return duyuru;
 	}
 	

@@ -36,13 +36,20 @@ public class GorevDAO extends DBConnection{
 			Statement statement;
 			statement = conn.createStatement();
 			statement.execute(buffer.toString());
-			super.disconnectDB();
 		} catch (SQLException e) {
 			System.out.println("Hata gorevDAO insert :" + e.getMessage());
 			e.printStackTrace();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		try {
+			super.disconnectDB();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 
 	/**
@@ -61,7 +68,6 @@ public class GorevDAO extends DBConnection{
 			Statement statement;
 			statement = conn.createStatement();
 			statement.execute(buffer.toString());
-			super.disconnectDB();
 		}
 		catch (SQLException e)
 		{
@@ -72,8 +78,15 @@ public class GorevDAO extends DBConnection{
 			e.printStackTrace();
 		}
 
-		System.out.println(buffer.toString());
-			
+
+		try {
+			super.disconnectDB();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		
 	}
 
 	/**
@@ -97,7 +110,6 @@ public class GorevDAO extends DBConnection{
 			Statement statement;
 			statement = conn.createStatement();
 			statement.execute(buffer.toString());
-			super.disconnectDB();
 		}
 		catch (SQLException e)
 		{
@@ -108,7 +120,12 @@ public class GorevDAO extends DBConnection{
 			e.printStackTrace();
 		}
 
-		System.out.println(buffer.toString());
+		try {
+			super.disconnectDB();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		
 	}
@@ -146,13 +163,21 @@ public class GorevDAO extends DBConnection{
 				gorevTemp.setUserId(rset.getInt("userid"));
 				gorevListesi.add(gorevTemp);							
 			}
-			super.disconnectDB();
 		}
 		catch (Exception e)
 		{
 			e.printStackTrace();
 		}
 
+		
+		try {
+			super.disconnectDB();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		
 		return gorevListesi;
 	}
 
@@ -186,7 +211,6 @@ public class GorevDAO extends DBConnection{
 				gorev.setBitTarih(rset.getDate("bittarih"));
 				gorev.setUserId(rset.getInt("userid"));
 			}
-			super.disconnectDB();
 		}
 		catch (SQLException e)
 		{
@@ -196,6 +220,15 @@ public class GorevDAO extends DBConnection{
 		{
 			e.printStackTrace();
 		}
+		
+		
+		try {
+			super.disconnectDB();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+ 
 
 		return gorev;
 	}

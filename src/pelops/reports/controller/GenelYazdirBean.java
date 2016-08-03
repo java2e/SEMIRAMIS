@@ -795,6 +795,8 @@ public class GenelYazdirBean {
 					"image/jpeg", resolution, BufferedImage.TYPE_BYTE_BINARY,
 					false, 0);
 			gen.generateBarcode(canvas, number);
+			
+			
 			canvas.finish();
 
 			bufferedImage = canvas.getBufferedImage();

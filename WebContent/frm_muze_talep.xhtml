@@ -10,7 +10,7 @@
 	<meta name="viewport" content="width=980,initial-scale=0.5"></meta>
 
 </h:head>
-<h:body>
+<h:body onload="$('#hh').click();">
 
 	<p:ajaxStatus onstart="PF('statusDialog1').show()"
 		onsuccess="PF('statusDialog1').hide()" />
@@ -30,6 +30,7 @@
 
 	<h:form id="genelForm">
 
+<p:commandButton id="hh" actionListener="#{muameleislemlerbean.init()}" style="display:none" update="genelForm"/>
 
 		<p:panel id="girisPaneli" header="Muamele İşlem" style="width:100%;">
 			<p:panelGrid id="updatePanel" style="width:100%;">
@@ -266,10 +267,7 @@
 
 						</p:selectOneMenu>
 
-						<p:outputLabel value="Muhatap Adı" />
-						<p:inputText value="#{muameleislemlerbean.muamele.muhatapAdi}"
-							style="width:100%" />
-
+					
 
 						<p:outputLabel value="Alacaklı Mail" />
 						<p:inputText value="#{muameleislemlerbean.muamele.alacakliMail}"
@@ -1131,12 +1129,7 @@
 			<ui:include src="dlg_banka_kaydi.xhtml" />
 		</p:dialog>
 
-		<p:dialog header="GAYRİMENKUL" widgetVar="dlgGayrimenkul"
-			minHeight="340" height="690">
-
-			<ui:include src="dlg_gayrimenkul_kaydi.xhtml" />
-		</p:dialog>
-
+	
 
 
 
@@ -1145,11 +1138,17 @@
 			<ui:include src="dlg_dosya_arama_for_talep_muzekkere.xhtml" />
 		</p:dialog>
 
+<p:dialog header="GAYRİMENKUL" widgetVar="dlgGayrimenkul"
+			minHeight="340" height="690">
 
+			<ui:include src="dlg_gayrimenkul_kaydi.xhtml" />
+		</p:dialog>
 
 
 
 
 	</h:form>
+
+	
 </h:body>
 </html>

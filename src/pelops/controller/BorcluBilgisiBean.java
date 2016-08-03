@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
@@ -14,7 +15,7 @@ import pelops.model.BorcluTipi;
 import pelops.model.Ilce;
 
 @ManagedBean(name = "borcluBilgisiBean")
-@SessionScoped
+@RequestScoped
 public class BorcluBilgisiBean extends DBConnection {
 
 	private BorcluBilgisi borcluBilgisi = new BorcluBilgisi();

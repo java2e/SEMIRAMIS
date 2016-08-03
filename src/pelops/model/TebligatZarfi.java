@@ -10,6 +10,7 @@ public class TebligatZarfi {
 	private String muzekkereTalepAdi;
 	private String alacakliAdi;
 	private String avukatAdi;
+	private Object barkod;
 	
 	
 	public String getIcraDosyaNo() {
@@ -57,6 +58,12 @@ public class TebligatZarfi {
 	}
 	public void setAvukatAdi(String avukatAdi) {
 		this.avukatAdi = avukatAdi;
+	}
+	public Object getBarkod() {
+		return barkod;
+	}
+	public void setBarkod(Object barkod) {
+		this.barkod = barkod;
 	}
 	
 	

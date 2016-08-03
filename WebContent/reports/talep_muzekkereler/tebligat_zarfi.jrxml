@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="tebligat_zarfi" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="06aed5c4-0571-4de3-8e18-000cd58016d0">
 	<property name="ireport.zoom" value="1.4641000000000035"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="329"/>
+	<property name="ireport.y" value="19"/>
 	<field name="icraMudurluguAdi" class="java.lang.String"/>
 	<field name="icraDosyaNo" class="java.lang.String"/>
 	<field name="borcluAdi" class="java.lang.String"/>
@@ -10,6 +10,7 @@
 	<field name="alacakliAdi" class="java.lang.String"/>
 	<field name="avukatAdi" class="java.lang.String"/>
 	<field name="muzekkereTalepAdi" class="java.lang.String"/>
+	<field name="barkod" class="java.lang.Object"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -19,7 +20,7 @@
 	<detail>
 		<band height="655" splitType="Stretch">
 			<frame>
-				<reportElement x="10" y="3" width="267" height="257" uuid="c59376d7-aaaa-4dec-a41f-68b7ab1e5c11"/>
+				<reportElement x="10" y="3" width="243" height="257" uuid="c59376d7-aaaa-4dec-a41f-68b7ab1e5c11"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -35,7 +36,7 @@
 					<text><![CDATA[TEBLİĞ MAZBATASI]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="2" y="33" width="265" height="171" uuid="ff490742-827a-4663-acb8-c8be4ac7a640"/>
+					<reportElement x="2" y="33" width="241" height="171" uuid="ff490742-827a-4663-acb8-c8be4ac7a640"/>
 					<textElement>
 						<font size="8" pdfEncoding="Cp1254"/>
 					</textElement>
@@ -67,14 +68,14 @@
 				</staticText>
 			</frame>
 			<textField>
-				<reportElement x="288" y="34" width="127" height="23" uuid="531c1efa-f77c-48e3-9d2b-c6e5b4ff3264"/>
+				<reportElement x="261" y="45" width="127" height="23" uuid="531c1efa-f77c-48e3-9d2b-c6e5b4ff3264"/>
 				<textElement>
 					<font size="8" isBold="false" pdfEncoding="Cp1254"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{icraMudurluguAdi}]]></textFieldExpression>
 			</textField>
 			<frame>
-				<reportElement x="285" y="3" width="265" height="257" uuid="5c617e56-4342-4f76-b6f9-7ec61ce326aa"/>
+				<reportElement x="254" y="3" width="289" height="257" uuid="5c617e56-4342-4f76-b6f9-7ec61ce326aa"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -83,14 +84,14 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<staticText>
-					<reportElement x="97" y="5" width="39" height="15" uuid="153a2d42-142b-4ddd-b74f-4cfa44f28462"/>
+					<reportElement x="64" y="8" width="39" height="15" uuid="153a2d42-142b-4ddd-b74f-4cfa44f28462"/>
 					<textElement verticalAlignment="Middle">
 						<font size="8" pdfEncoding="Cp1254"/>
 					</textElement>
 					<text><![CDATA[Dosya No:]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="141" y="4" width="68" height="16" uuid="3d39c545-0154-4b98-9c3a-ae50ab9815a8"/>
+					<reportElement x="106" y="8" width="68" height="16" uuid="3d39c545-0154-4b98-9c3a-ae50ab9815a8"/>
 					<textElement verticalAlignment="Middle">
 						<font size="8" pdfEncoding="Cp1254"/>
 					</textElement>
@@ -120,13 +121,6 @@
 					<textFieldExpression><![CDATA[$F{borcluAdi}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement x="15" y="214" width="48" height="18" uuid="13ef8de0-81af-4a3e-ad1d-ed55c9212299"/>
-					<textElement verticalAlignment="Middle">
-						<font size="8" pdfEncoding="Cp1254"/>
-					</textElement>
-					<text><![CDATA[Bu Zarfta]]></text>
-				</staticText>
-				<staticText>
 					<reportElement x="141" y="22" width="54" height="20" uuid="93761b29-21d8-4114-9b91-80408aabc1bd"/>
 					<textElement verticalAlignment="Middle">
 						<font size="8" isBold="true" isUnderline="true" pdfEncoding="Cp1254"/>
@@ -141,14 +135,14 @@
 					<textFieldExpression><![CDATA[$F{borcluAdres}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement x="28" y="8" width="37" height="33" uuid="7fab0251-af20-4e68-9ddd-36ffb69cb855"/>
+					<reportElement x="16" y="8" width="37" height="33" uuid="7fab0251-af20-4e68-9ddd-36ffb69cb855"/>
 					<textElement textAlignment="Center">
 						<font size="8" isBold="false" pdfEncoding="Cp1254"/>
 					</textElement>
 					<text><![CDATA[T.C. ANKARA]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="215" y="5" width="50" height="15" uuid="e47e5e62-144f-4921-992a-1d841234827d"/>
+					<reportElement x="232" y="5" width="50" height="15" uuid="e47e5e62-144f-4921-992a-1d841234827d"/>
 					<textElement verticalAlignment="Middle">
 						<font size="8" pdfEncoding="Cp1254"/>
 					</textElement>
@@ -168,13 +162,6 @@
 						<font size="8" isBold="true" isUnderline="true" pdfEncoding="Cp1254"/>
 					</textElement>
 					<text><![CDATA[Muhatabın]]></text>
-				</staticText>
-				<staticText>
-					<reportElement x="223" y="232" width="36" height="18" uuid="645f6d95-07fb-4f9d-87cc-32de62a99982"/>
-					<textElement verticalAlignment="Middle">
-						<font size="8" pdfEncoding="Cp1254"/>
-					</textElement>
-					<text><![CDATA[vardır.]]></text>
 				</staticText>
 				<staticText>
 					<reportElement x="15" y="170" width="36" height="18" uuid="e1ce52c5-357c-483a-a4f3-32b7f15911b5"/>
@@ -198,15 +185,15 @@
 					<textFieldExpression><![CDATA[$F{avukatAdi}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="58" y="214" width="201" height="18" uuid="39b6836a-1935-4193-83f0-82c81f1fa0de"/>
+					<reportElement x="7" y="214" width="222" height="18" uuid="39b6836a-1935-4193-83f0-82c81f1fa0de"/>
 					<textElement verticalAlignment="Middle">
 						<font size="8"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{muzekkereTalepAdi}]]></textFieldExpression>
+					<textFieldExpression><![CDATA["Bu zarfta "+$F{muzekkereTalepAdi}+" vardır."]]></textFieldExpression>
 				</textField>
 			</frame>
 			<frame>
-				<reportElement x="10" y="271" width="540" height="257" uuid="583335b2-c8f2-46db-aba4-2533ac16a836"/>
+				<reportElement x="10" y="289" width="533" height="257" uuid="583335b2-c8f2-46db-aba4-2533ac16a836"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -245,7 +232,7 @@
 					<textFieldExpression><![CDATA[$F{borcluAdi}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement x="183" y="29" width="54" height="20" uuid="fd1ad76b-3719-4b58-8df7-eecbbb074e52"/>
+					<reportElement x="340" y="23" width="54" height="20" uuid="fd1ad76b-3719-4b58-8df7-eecbbb074e52"/>
 					<textElement verticalAlignment="Middle">
 						<font size="8" isBold="true" isUnderline="true" pdfEncoding="Cp1254"/>
 					</textElement>
@@ -266,7 +253,7 @@
 					<text><![CDATA[T.C. ANKARA]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="454" y="5" width="50" height="15" uuid="cdbdf6eb-50b3-4de6-b97e-8c9a0824219f"/>
+					<reportElement x="473" y="8" width="50" height="15" uuid="cdbdf6eb-50b3-4de6-b97e-8c9a0824219f"/>
 					<textElement verticalAlignment="Middle">
 						<font size="8" pdfEncoding="Cp1254"/>
 					</textElement>
@@ -288,7 +275,7 @@
 					<text><![CDATA[Muhatabın]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="183" y="43" width="15" height="19" uuid="d247c70b-6bf2-4f74-802c-de06b55873b0"/>
+					<reportElement x="344" y="44" width="15" height="19" uuid="d247c70b-6bf2-4f74-802c-de06b55873b0"/>
 					<textElement verticalAlignment="Middle">
 						<font size="8" pdfEncoding="Cp1254"/>
 					</textElement>
@@ -309,12 +296,16 @@
 					<textFieldExpression><![CDATA[$F{avukatAdi}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="237" y="215" width="290" height="30" uuid="dfe7ee52-f882-45cb-9dcf-f66589453690"/>
+					<reportElement x="183" y="209" width="290" height="30" uuid="dfe7ee52-f882-45cb-9dcf-f66589453690"/>
 					<textElement verticalAlignment="Middle">
 						<font size="8" pdfFontName="Times-Roman" pdfEncoding="Cp1254"/>
 					</textElement>
 					<textFieldExpression><![CDATA["Bu zarfta "+$F{muzekkereTalepAdi}+" vardır."]]></textFieldExpression>
 				</textField>
+				<image>
+					<reportElement x="408" y="57" width="118" height="30" uuid="e48694f8-d1e0-4aea-8d17-2ea259885a2c"/>
+					<imageExpression><![CDATA[$F{barkod}]]></imageExpression>
+				</image>
 			</frame>
 			<textField>
 				<reportElement x="19" y="315" width="234" height="13" uuid="b8b2fea0-808c-42e8-9a46-5ff46ce15bfe"/>
@@ -352,14 +343,14 @@
 				<text><![CDATA[Tebliğ İsteyen]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="354" y="167" width="37" height="20" uuid="e3dac2d7-c4d8-4c77-bdfc-29f68e778c40"/>
+				<reportElement x="318" y="167" width="37" height="20" uuid="e3dac2d7-c4d8-4c77-bdfc-29f68e778c40"/>
 				<textElement verticalAlignment="Middle">
 					<font size="8" pdfEncoding="Cp1254"/>
 				</textElement>
 				<text><![CDATA[Alacaklı :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="354" y="189" width="37" height="13" uuid="bcb7e54b-3de1-4257-a41f-36bbd0b71c7d"/>
+				<reportElement x="318" y="190" width="37" height="13" uuid="bcb7e54b-3de1-4257-a41f-36bbd0b71c7d"/>
 				<textElement verticalAlignment="Middle">
 					<font size="8" pdfEncoding="Cp1254"/>
 				</textElement>
@@ -371,6 +362,24 @@
 					<font size="8" pdfEncoding="Cp1254"/>
 				</textElement>
 				<text><![CDATA[Mühür ve İmza]]></text>
+			</staticText>
+			<image>
+				<reportElement x="418" y="50" width="118" height="28" uuid="ad260abd-47fc-4a92-b714-2006b1859538"/>
+				<imageExpression><![CDATA[$F{barkod}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="12" y="265" width="531" height="20" uuid="019af28c-0e01-4578-9523-8753144ee653"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[.........................................................................Buradan katlayınız........................................................................................]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="11" y="552" width="531" height="20" uuid="69252975-eb2d-47e7-a0b2-a5185df03b90"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[.........................................................................Buradan katlayınız........................................................................................]]></text>
 			</staticText>
 		</band>
 	</detail>

@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
@@ -35,6 +37,7 @@ import pelops.model.MuameleAutoFields;
 import pelops.model.MuameleIslemleri;
 import pelops.model.Posta;
 import pelops.model.StandartTalep;
+import pelops.model.TebligatListesi;
 import pelops.model.TebligatZarfi;
 import pelops.muameleislemleri.util.BankaModel;
 import pelops.muameleislemleri.util.GayrimenkulModel;
@@ -58,7 +61,7 @@ import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
 import net.sf.jasperreports.export.SimplePdfExporterConfiguration;
 
 @ManagedBean(name = "muameleislemlerbean")
-@RequestScoped
+@ViewScoped
 public class MuameleIslemlerBean implements ReportCRUDInterface {
 
 	MuameleIslemleriDAO dao = new MuameleIslemleriDAO();
@@ -111,7 +114,7 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 
 		AktifBean.icraDosyaID = selectedId;
 		
-		  System.out.println("secilen id :"+ selectedId);
+		System.out.println("secilen id :"+ selectedId);
 		
 		getFieldFromIcraDosyaTakibi();
 
@@ -161,6 +164,9 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 			int borclubilgisiID = baglantidao.Listele(icraDosyaId).getBorcluID();
 
 			BorcluBilgisi borclu=daoborclu.Liste(borclubilgisiID);
+			
+			AktifBean.borcluAdi=borclu.getAdSoyad();
+			AktifBean.borcluId=borclu.getBorcluId();
 			
 			
 			System.out.println("Borclu Bilgisi ID "+borclubilgisiID);
@@ -275,8 +281,27 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 		}
 
 	}
-
+	
+	
 	public MuameleIslemlerBean() throws Exception {
+		// TODO Auto-generated constructor stub
+		
+		// İcra Dosya Takibinden bilgilerin alınıp set edilmesi sağlanır
+				getFieldFromIcraDosyaTakibi();
+
+				gayrimenkulList=new ArrayList<GayrimenkulModel>();
+				standartTalepList = new ArrayList<>();
+				standartTalepList = dao.getStandartTalepTextList();
+				muamele.setMuameleTarihi(util.getCurrentDate());
+				
+				
+
+				// Listenin Getirilmesi sağlanır±r.
+				muameleList = TümListeyiGetir();
+	}
+
+	
+	public void init() throws Exception {
 
 		// İcra Dosya Takibinden bilgilerin alınıp set edilmesi sağlanır
 		getFieldFromIcraDosyaTakibi();
@@ -494,6 +519,7 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 		zarf.setIcraMudurluguAdi(muamele.getIcraMudurluguAdi());
 		zarf.setAlacakliAdi(AktifBean.getMuvekkilAdi());
 		zarf.setAvukatAdi(muamele.getAvukatAdi());
+		zarf.setBarkod(muamele.getBarkod());
 		zarf.setMuzekkereTalepAdi(zarfTipi);
 
 		dataBeanListForTebligat.add(zarf);
@@ -502,6 +528,50 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 
 		String pathName = FacesContext.getCurrentInstance().getExternalContext()
 				.getRealPath("/reports/talep_muzekkereler/tebligat_zarfi.jrxml");
+		InputStream inputStream = new FileInputStream(pathName);
+		JRBeanCollectionDataSource beanColDataSource = new JRBeanCollectionDataSource(dataBeanListForTebligat);
+		JasperDesign jasperDesign = JRXmlLoader.load(inputStream);
+		JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
+		jasperPrint2 = JasperFillManager.fillReport(jasperReport, parameters, beanColDataSource);
+
+		return jasperPrint2;
+
+	}
+	
+	
+	public JasperPrint tebligatListesiJasper(MuameleIslemleri muamele, String muzekkereTalep) throws Exception {
+
+		ArrayList<TebligatListesi> dataBeanListForTebligat = new ArrayList<TebligatListesi>();
+		TebligatListesi liste = new TebligatListesi();
+		
+		// Maaş Müzekkeresi Genel Durumunda 
+		
+		if(muamele.isMaashacizmuzekkeresigenel())
+		{
+		
+		liste.setBorcluAdi(muamele.getMuhatapAdi());
+		
+		
+		}
+		else
+		{
+			liste.setBorcluAdi(muamele.getBorcluAdi());
+				
+		}
+		
+		liste.setIcraDosyaNo(muamele.getIcraDosyaNo());
+		liste.setIcraBilgi(muamele.getIcraMudurluguAdi());
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		liste.setTarih(sdf.format(new java.util.Date()));
+		liste.setBrcd(muamele.getBarkod());
+		liste.setKonu(zarfTipi);
+
+		dataBeanListForTebligat.add(liste);
+
+		HashMap<String, Object> parameters = new HashMap<String, Object>();
+
+		String pathName = FacesContext.getCurrentInstance().getExternalContext()
+				.getRealPath("/reports/tebligat_listesi1.jrxml");
 		InputStream inputStream = new FileInputStream(pathName);
 		JRBeanCollectionDataSource beanColDataSource = new JRBeanCollectionDataSource(dataBeanListForTebligat);
 		JasperDesign jasperDesign = JRXmlLoader.load(inputStream);
@@ -1468,6 +1538,11 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 		if (result) {
 			tebligat = tebligatZarfiJasper(muamele, muzekkereTalep);
 			list.add(tebligat);
+			
+			JasperPrint tebligatListesi=tebligatListesiJasper(muamele, muzekkereTalep);
+			
+			list.add(tebligatListesi);
+			
 		}
 
 		String path = null;

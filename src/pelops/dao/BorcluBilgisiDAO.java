@@ -49,6 +49,7 @@ public class BorcluBilgisiDAO extends DBConnection {
 		while (rs.next()) {
 			borclu = new BorcluBilgisi();
 			borclu.setAdres(rs.getString("adres"));
+			borclu.setBorcluId(rs.getInt("id"));
 			borclu.setTcNo(rs.getString("tc_no"));
 			borclu.setIsYeriAdi(rs.getString("is_yeri_adi"));
 			borclu.setIsYeriAdres(rs.getString("isyeri_adres"));

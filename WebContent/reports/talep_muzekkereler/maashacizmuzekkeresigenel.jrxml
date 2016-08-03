@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="maashacizmuzekkeresigenel" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="cfe93346-2c07-437d-adca-7e7a9777c6a0">
 	<property name="ireport.zoom" value="1.464100000000011"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="673"/>
+	<property name="ireport.y" value="187"/>
 	<field name="alacakliBankasi" class="java.lang.String"/>
 	<field name="avukatAdi" class="java.lang.String"/>
 	<field name="borcluAdi" class="java.lang.String"/>
@@ -452,9 +452,9 @@ veya müstahdemlerin maaş ve ücretlerinden kesilmesi için icra dairelerinden 
 			<staticText>
 				<reportElement x="134" y="49" width="389" height="19" uuid="ec7cc7ac-9eb1-4b44-aea9-13180402e757"/>
 				<textElement verticalAlignment="Middle">
-					<font pdfFontName="Times-Roman" pdfEncoding="Cp1254"/>
+					<font size="8" pdfFontName="Times-Roman" pdfEncoding="Cp1254"/>
 				</textElement>
-				<text><![CDATA[SASA & SASA Yaşam Cad. No:7 Kat 17 viaTower SÖĞÜTÖZÜ Ankara]]></text>
+				<text><![CDATA[SASA & SASA Kızılırmak Mah. Eskişehir Yolu No:3 Next Level İş Merkezi Kat:27 Söğütözü/ANKARA]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="134" y="69" width="100" height="20" uuid="1065b772-4861-4422-b105-e219a6783bf5"/>

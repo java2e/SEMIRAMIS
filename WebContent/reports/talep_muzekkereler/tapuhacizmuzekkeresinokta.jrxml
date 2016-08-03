@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.3.0.final using JasperReports Library version 6.3.0  -->
-<!-- 2016-07-30T20:40:56 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="tapuhacizmuzekkeresinokta" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="15bbab6b-08e6-47a3-b8e5-3d13429efc83">
 	<property name="ireport.zoom" value="1.3310000000000022"/>
 	<property name="ireport.x" value="0"/>
@@ -19,6 +17,7 @@
 	<field name="dogumTarihiText" class="java.lang.String"/>
 	<field name="tapuKayitlari" class="java.lang.String"/>
 	<field name="bankaAdi" class="java.lang.String"/>
+	<field name="barkod" class="java.lang.Object"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -224,6 +223,10 @@ Karar gereğince işlem yapılarak taşınmazların gayrimenkul kayıtları üze
 				</textElement>
 				<textFieldExpression><![CDATA[$F{bankaAdi}]]></textFieldExpression>
 			</textField>
+			<image>
+				<reportElement x="26" y="432" width="171" height="42" uuid="67d79ebb-b20a-4fd4-bb45-12d0f30b72e8"/>
+				<imageExpression><![CDATA[$F{barkod}]]></imageExpression>
+			</image>
 		</band>
 	</detail>
 </jasperReport>

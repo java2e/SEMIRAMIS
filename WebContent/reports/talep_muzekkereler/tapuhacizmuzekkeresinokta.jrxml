@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="tapuhacizmuzekkeresinokta" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="15bbab6b-08e6-47a3-b8e5-3d13429efc83">
-	<property name="ireport.zoom" value="1.3310000000000022"/>
+	<property name="ireport.zoom" value="2.1435888100000047"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="218"/>
 	<field name="icraMudurluguAdi" class="java.lang.String"/>
 	<field name="icraDosyaNo" class="java.lang.String"/>
 	<field name="avukatAdi" class="java.lang.String"/>
@@ -18,6 +18,8 @@
 	<field name="tapuKayitlari" class="java.lang.String"/>
 	<field name="bankaAdi" class="java.lang.String"/>
 	<field name="barkod" class="java.lang.Object"/>
+	<field name="tapuMudurlugu" class="java.lang.String"/>
+	<field name="tapuMudurluguIlIlce" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -43,10 +45,10 @@ ANKARA]]></text>
 				<textElement verticalAlignment="Middle">
 					<font pdfEncoding="Cp1254"/>
 				</textElement>
-				<text><![CDATA[DOSYA/ESAS:]]></text>
+				<text><![CDATA[DOSYA NO :]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="77" y="49" width="170" height="20" uuid="9c5380c5-2255-4c04-8670-a10ffa99cbd1"/>
+				<reportElement x="71" y="48" width="170" height="20" uuid="9c5380c5-2255-4c04-8670-a10ffa99cbd1"/>
 				<textElement verticalAlignment="Middle">
 					<font pdfEncoding="Cp1254"/>
 				</textElement>
@@ -60,130 +62,135 @@ ANKARA]]></text>
 		</band>
 	</title>
 	<detail>
-		<band height="488" splitType="Stretch">
+		<band height="592" splitType="Stretch">
 			<staticText>
-				<reportElement x="97" y="29" width="29" height="26" uuid="ea5ade06-7086-43c6-9b42-f5ab62d39cc4"/>
-				<textElement verticalAlignment="Middle">
-					<font size="10" isBold="false" pdfEncoding="Cp1254"/>
+				<reportElement x="102" y="55" width="29" height="26" uuid="ea5ade06-7086-43c6-9b42-f5ab62d39cc4"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Times New Roman" size="12" isBold="false" pdfEncoding="Cp1254"/>
 				</textElement>
-				<text><![CDATA[Vekili]]></text>
+				<text><![CDATA[vekili]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="126" y="29" width="136" height="26" uuid="cf0aadb2-51d5-4590-84b2-ae9a3bd4cd11"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="8"/>
+				<reportElement x="131" y="55" width="136" height="26" uuid="cf0aadb2-51d5-4590-84b2-ae9a3bd4cd11"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Times New Roman" size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{avukatAdi}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="262" y="29" width="282" height="26" uuid="22fce418-539f-4c91-9ee7-b11aea33cd0f"/>
-				<textElement textAlignment="Justified" verticalAlignment="Middle">
-					<font size="10" isBold="false" pdfEncoding="Cp1254"/>
+				<reportElement x="267" y="55" width="282" height="26" uuid="22fce418-539f-4c91-9ee7-b11aea33cd0f"/>
+				<textElement textAlignment="Justified" verticalAlignment="Bottom">
+					<font fontName="Times New Roman" size="12" isBold="false" pdfEncoding="Cp1254"/>
 				</textElement>
 				<text><![CDATA[ kimlik bilgileri belirtilen borçlu adına kayıtlı bilgileri verilmiş olan]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="-1" y="55" width="545" height="102" uuid="0f4a7ed3-355b-471f-a96e-5cf4a2b69839"/>
+				<reportElement x="4" y="81" width="545" height="102" uuid="0f4a7ed3-355b-471f-a96e-5cf4a2b69839"/>
 				<textElement textAlignment="Justified" verticalAlignment="Top">
-					<font size="10" isBold="false" pdfEncoding="Cp1254"/>
+					<font fontName="Times New Roman" size="12" isBold="false" pdfEncoding="Cp1254"/>
+					<paragraph lineSpacing="Proportional" lineSpacingSize="1.2" spacingBefore="1"/>
 				</textElement>
-				<text><![CDATA[taşınmazların ve adına intikal edecek taşınmaz bulunması halinde kayıtlarına haciz konulmasına ve mevcut adreslerinin sorulmasına karar verilmiştir.
-
-Karar gereğince işlem yapılarak taşınmazların gayrimenkul kayıtları üzerine haczin işlenerek kayıtlarda görülen diğer takdiyatların nitelik ve miktarlarını da içerecek şekilde dosyamıza bilgi verilmesi ile varsa hissedarların adı soyadı adreslerinin tarafımıza bildirilmesi rica olunur]]></text>
+				<text><![CDATA[taşınmazların ve adına intikal edecek taşınmaz bulunması halinde kayıtlarına haciz konulmasına ve
+mevcut adreslerinin sorulmasına karar verilmiştir.
+Karar gereğince işlem yapılarak taşınmazların gayrimenkul kayıtları üzerine haczin işlenerek kayıtlarda
+görülen diğer takdiyatların nitelik ve miktarlarını da içerecek şekilde dosyamıza bilgi verilmesi ile varsa
+hissedarların adı soyadı adreslerinin tarafımıza bildirilmesi rica olunur.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="40" y="157" width="100" height="20" uuid="f48d8546-a7ee-4cab-b67b-1a00b877ff9b"/>
+				<reportElement x="4" y="183" width="100" height="20" uuid="f48d8546-a7ee-4cab-b67b-1a00b877ff9b"/>
 				<textElement verticalAlignment="Middle">
-					<font size="10" isBold="true" pdfEncoding="Cp1254"/>
+					<font fontName="Times New Roman" size="10" isBold="true" pdfEncoding="Cp1254"/>
 				</textElement>
 				<text><![CDATA[TAPU KAYITLARI :]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="292" y="157" width="239" height="20" uuid="7363cf25-61d5-4358-9dd1-a37bb41c68b6"/>
+				<reportElement x="280" y="224" width="239" height="20" uuid="7363cf25-61d5-4358-9dd1-a37bb41c68b6"/>
 				<textElement verticalAlignment="Middle">
-					<font size="10" pdfFontName="Times-Roman" pdfEncoding="Cp1254"/>
+					<font fontName="Times New Roman" size="10" pdfFontName="Times-Roman" pdfEncoding="Cp1254"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{icraMudurluguAdi}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="88" y="277" width="20" height="20" uuid="680ecf24-1a7a-4b67-ab19-8ed2fd788f38"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font size="10" isBold="false" pdfEncoding="Cp1254"/>
+					<font fontName="Times New Roman" size="10" isBold="false" pdfEncoding="Cp1254"/>
 				</textElement>
 				<text><![CDATA[EKİ :]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="40" y="297" width="68" height="20" uuid="2070bf15-eb0d-4d33-8b34-019b6be195ff"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font size="10" isBold="false" pdfEncoding="Cp1254"/>
+					<font fontName="Times New Roman" size="10" isBold="false" pdfEncoding="Cp1254"/>
 				</textElement>
 				<text><![CDATA[BORÇ MİKTARI :]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="8" y="317" width="100" height="20" uuid="2b4c99c7-b46b-4cb8-83b3-9d691decd483"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font size="10" isBold="false" pdfEncoding="Cp1254"/>
+					<font fontName="Times New Roman" size="10" isBold="false" pdfEncoding="Cp1254"/>
 				</textElement>
 				<text><![CDATA[BORÇLU ADI SOYADI :]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="8" y="337" width="100" height="20" uuid="39cf4fbf-65f7-4d34-80a2-390360a78954"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font size="10" isBold="false" pdfEncoding="Cp1254"/>
+					<font fontName="Times New Roman" size="10" isBold="false" pdfEncoding="Cp1254"/>
 				</textElement>
 				<text><![CDATA[DOĞUM TARİHİ :]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="8" y="357" width="100" height="20" uuid="08baee3f-ee13-4b98-9133-e38c0599bf62"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font size="10" isBold="false" pdfEncoding="Cp1254"/>
+					<font fontName="Times New Roman" size="10" isBold="false" pdfEncoding="Cp1254"/>
 				</textElement>
 				<text><![CDATA[T.C. KİMLİK NO :]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="111" y="277" width="125" height="20" uuid="2f2bc721-a6b4-4765-8b79-ca330c7b3c65"/>
 				<textElement verticalAlignment="Middle">
-					<font size="10"/>
+					<font fontName="Times New Roman" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{eki}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="111" y="317" width="125" height="20" uuid="210b6ab5-84c2-4cd3-8d4d-18c3ea4ec664"/>
 				<textElement verticalAlignment="Middle">
-					<font size="10" pdfEncoding="Cp1254"/>
+					<font fontName="Times New Roman" size="10" pdfEncoding="Cp1254"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{borcluAdi}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="316" y="319" width="100" height="20" uuid="38fc0684-3aca-47ae-bb97-006e0d0b6f3a"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font size="10" isBold="false" pdfEncoding="Cp1254"/>
+					<font fontName="Times New Roman" size="10" isBold="false" pdfEncoding="Cp1254"/>
 				</textElement>
 				<text><![CDATA[Semiramis No :]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="419" y="319" width="115" height="20" uuid="4a6080a7-c5df-4457-bf78-1a7771b0de0f"/>
 				<textElement verticalAlignment="Middle">
-					<font size="10"/>
+					<font fontName="Times New Roman" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{semiramisNo}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="316" y="339" width="100" height="20" uuid="ad82830f-0cec-46b6-a6e6-d61933f7c395"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font size="10" isBold="false" pdfEncoding="Cp1254"/>
+					<font fontName="Times New Roman" size="10" isBold="false" pdfEncoding="Cp1254"/>
 				</textElement>
 				<text><![CDATA[Hazırlayan :]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="316" y="359" width="100" height="20" uuid="cae6077b-4632-4b8d-9990-132a789a9e9a"/>
-				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
 				<text><![CDATA[Risk Yöneticisi :]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
 				<reportElement x="112" y="359" width="125" height="20" uuid="6eecdf81-0ac5-47a4-ab68-12d2727a215d"/>
 				<textElement verticalAlignment="Middle">
-					<font size="10"/>
+					<font fontName="Times New Roman" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{borcluTc}]]></textFieldExpression>
 			</textField>
@@ -194,16 +201,20 @@ Karar gereğince işlem yapılarak taşınmazların gayrimenkul kayıtları üze
 			</textField>
 			<textField>
 				<reportElement x="111" y="297" width="125" height="20" uuid="c3183a6c-0235-40f2-a21e-f82faef9105d"/>
-				<textElement verticalAlignment="Middle"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{borcluMiktari}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="111" y="339" width="125" height="20" uuid="04da3c5a-834c-4510-8106-3c1181c00a94"/>
-				<textElement verticalAlignment="Middle"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{dogumTarihiText}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="40" y="181" width="491" height="69" uuid="2631264f-9ebc-42ed-97f7-6ce138b0731c"/>
+				<reportElement x="4" y="203" width="545" height="19" uuid="2631264f-9ebc-42ed-97f7-6ce138b0731c"/>
 				<textElement verticalAlignment="Top">
 					<font pdfFontName="Times-Roman" pdfEncoding="Cp1254"/>
 				</textElement>
@@ -212,14 +223,14 @@ Karar gereğince işlem yapılarak taşınmazların gayrimenkul kayıtları üze
 			<staticText>
 				<reportElement x="419" y="339" width="100" height="20" uuid="9f278910-c9b3-480d-a164-0ac05c27b492"/>
 				<textElement verticalAlignment="Middle">
-					<font isBold="false" pdfFontName="Times-Roman" pdfEncoding="Cp1254"/>
+					<font fontName="Times New Roman" isBold="false" pdfFontName="Times-Roman" pdfEncoding="Cp1254"/>
 				</textElement>
 				<text><![CDATA[M. ORUÇ SASA]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="-1" y="29" width="98" height="26" uuid="f5ad2194-744f-4263-a9cb-f1f088bf88af"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="8" pdfFontName="Times-Roman" pdfEncoding="Cp1254"/>
+				<reportElement x="4" y="55" width="98" height="26" uuid="f5ad2194-744f-4263-a9cb-f1f088bf88af"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Times New Roman" size="12" pdfFontName="Times-Roman" pdfEncoding="Cp1254"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{bankaAdi}]]></textFieldExpression>
 			</textField>
@@ -227,6 +238,20 @@ Karar gereğince işlem yapılarak taşınmazların gayrimenkul kayıtları üze
 				<reportElement x="26" y="432" width="171" height="42" uuid="67d79ebb-b20a-4fd4-bb45-12d0f30b72e8"/>
 				<imageExpression><![CDATA[$F{barkod}]]></imageExpression>
 			</image>
+			<textField>
+				<reportElement x="0" y="11" width="555" height="20" uuid="d13577dd-1de9-4188-8660-5425ae9d6f27"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" pdfEncoding="Cp1254"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tapuMudurlugu}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="31" width="555" height="20" uuid="41654518-1c04-49fc-b3ff-33191337c488"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" pdfEncoding="Cp1254"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tapuMudurluguIlIlce}]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
 </jasperReport>

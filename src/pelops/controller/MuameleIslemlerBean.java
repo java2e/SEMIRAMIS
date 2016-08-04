@@ -504,15 +504,19 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 		if(muamele.isMaashacizmuzekkeresigenel())
 		{
 		
-		zarf.setBorcluAdi(muamele.getMuhatapAdi());
-		zarf.setBorcluAdres(muamele.getMuhatapAdresi());
+		zarf.setBorcluAdi(muamele.getMuhatapAdi().toUpperCase());
+		zarf.setBorcluAdres(muamele.getMuhatapAdresi().toUpperCase());
+		zarf.setMuzekkereTalepAdi("Maaş Haciz Müzekkeresi (Genel)");
+		zarfTipi="Maaş Haciz Müzekkeresi";
+
 		
 		}
-		else
+		else if(muamele.isTapuhacizmuzekkeresinokta())
 		{
-			zarf.setBorcluAdi(muamele.getBorcluAdi());
-			zarf.setBorcluAdres(muamele.getBorcluAdresi());
-				
+			zarf.setBorcluAdi(muamele.getTapuMudurlugu().toUpperCase());
+			zarf.setBorcluAdres(muamele.getTapuIlce().toUpperCase()+" "+muamele.getTapuIl().toUpperCase());
+			zarf.setMuzekkereTalepAdi("Tapu Haciz Müzekkeresi (Nokta)");
+			zarfTipi="Tapu Haciz Müzekkeresi";
 		}
 		
 		zarf.setIcraDosyaNo(muamele.getIcraDosyaNo());
@@ -520,7 +524,7 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 		zarf.setAlacakliAdi(AktifBean.getMuvekkilAdi());
 		zarf.setAvukatAdi(muamele.getAvukatAdi());
 		zarf.setBarkod(muamele.getBarkod());
-		zarf.setMuzekkereTalepAdi(zarfTipi);
+		
 
 		dataBeanListForTebligat.add(zarf);
 
@@ -549,7 +553,7 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 		if(muamele.isMaashacizmuzekkeresigenel())
 		{
 		
-		liste.setBorcluAdi(muamele.getMuhatapAdi());
+		liste.setBorcluAdi(muamele.getMuhatapAdi().toUpperCase());
 		
 		
 		}
@@ -563,6 +567,7 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 		liste.setIcraBilgi(muamele.getIcraMudurluguAdi());
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		liste.setTarih(sdf.format(new java.util.Date()));
+		liste.setIl(muamele.getIl());
 		liste.setBrcd(muamele.getBarkod());
 		liste.setKonu(zarfTipi);
 
@@ -1459,7 +1464,8 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 		muamele.setBankaAdi(muamele.getAlacakliBankasi());
 		
 		muamele.setBarkod(new GenelYazdirBean().createBarcode(muamele.getBarcode()));
-
+		
+	
 		dataBeanList.add(muamele);
 
 		HashMap<String, Object> parameters = new HashMap<String, Object>();

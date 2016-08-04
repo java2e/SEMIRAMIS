@@ -39,6 +39,12 @@ public class MuameleIslemleri {
 	private String bankaBilgileri;
 	private String borcluTc;
 	private String borcluAdresi;
+	
+	private String tapuMudurlugu;
+	private String tapuMudurluguIlIlce;
+	private String tapuIl;
+	private String tapuIlce;
+	
 
 	private String barcode;
 	private int contentId;
@@ -122,6 +128,9 @@ public class MuameleIslemleri {
 	private String postaneIlce;
 	private String banka4;
 	private String banka7;
+	
+	
+	
 
 
 
@@ -2312,6 +2321,54 @@ public class MuameleIslemleri {
 
 	public void setBarkod(Object barkod) {
 		this.barkod = barkod;
+	}
+
+
+
+	public String getTapuMudurlugu() {
+		return tapuMudurlugu;
+	}
+
+
+
+	public void setTapuMudurlugu(String tapuMudurlugu) {
+		this.tapuMudurlugu = tapuMudurlugu;
+	}
+
+
+
+	public String getTapuMudurluguIlIlce() {
+		return tapuMudurluguIlIlce;
+	}
+
+
+
+	public void setTapuMudurluguIlIlce(String tapuMudurluguIlIlce) {
+		this.tapuMudurluguIlIlce = tapuMudurluguIlIlce;
+	}
+
+
+
+	public String getTapuIl() {
+		return tapuIl;
+	}
+
+
+
+	public void setTapuIl(String tapuIl) {
+		this.tapuIl = tapuIl;
+	}
+
+
+
+	public String getTapuIlce() {
+		return tapuIlce;
+	}
+
+
+
+	public void setTapuIlce(String tapuIlce) {
+		this.tapuIlce = tapuIlce;
 	}
 
 

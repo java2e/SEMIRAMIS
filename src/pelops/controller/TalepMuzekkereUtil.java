@@ -364,6 +364,11 @@ public class TalepMuzekkereUtil {
 						muameleIslemleri.setAlacakliBankasi(bankaList.get(0).getAdi());
 
 					}
+					
+					muameleIslemleri.setTapuMudurluguIlIlce(gayrimenkulItem.getIlce()+" "+gayrimenkulItem.getIl());
+					muameleIslemleri.setTapuMudurlugu(gayrimenkulItem.getIlce()+" TAPU SİCİL MÜDÜRLÜĞÜ");
+					muameleIslemleri.setTapuIl(gayrimenkulItem.getIl());
+					muameleIslemleri.setTapuIlce(gayrimenkulItem.getIlce());
 
 					muameleIslemleri.setTapuKayitlari(builderForGayrimenkul.toString());
 					muameleIslemleri.setMiktar(muamele.getTapuhacizmuzekkeresinoktaSayi());

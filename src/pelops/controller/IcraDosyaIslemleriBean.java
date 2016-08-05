@@ -712,8 +712,22 @@ try{
 	
 	gelismisgetir = id;
 		IcraDosyasiDAO icradosyasidao = new IcraDosyasiDAO();
-		String icradosyano = icradosyasidao.Listele(id).getIcraDosyaNo();
-		AktifBean.setIcraMudurlugu((new IcraMudurluguDAO()).Liste(icradosyasidao.Listele(id).getIcraMudurluguId()).get(0).getAdi());
+		
+		IcraDosyasi  icraDosyasi=icradosyasidao.Listele(id);
+		
+		String icradosyano = icraDosyasi.getIcraDosyaNo();
+		
+		if(icraDosyasi.getIcraMudurluguId()==0)
+		{
+			
+			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Üzgünüz !!!",
+					"Seçmiş olduğunuz dosyanın icra müdürlüğü ve icra dosya numarası tanımlı değildir!.");
+			RequestContext.getCurrentInstance().showMessageInDialog(message);
+			
+		}
+		else
+		{
+		AktifBean.setIcraMudurlugu((new IcraMudurluguDAO()).Liste(icraDosyasi.getIcraMudurluguId()).get(0).getAdi());
 		int icradosyaID = id;
 		icradosyasi.setId(id);
 
@@ -726,9 +740,12 @@ try{
 			pelops.controller.AktifBean.setIcraDosyaNo(icradosyano);
 			pelops.controller.AktifBean.setIcraDosyaID(icradosyaID);
 			BaglantiDAO baglantidao = new BaglantiDAO();
-			int borclubilgisiID = baglantidao.Listele(icradosyaID).getBorcluID();
+			
+			Baglanti baglanti= baglantidao.Listele(icradosyaID);
+			
+			int borclubilgisiID =baglanti.getBorcluID();
 
-			int alacakliID = baglantidao.Listele(icradosyaID).getAlacakliID();
+			int alacakliID = baglanti.getAlacakliID();
 
 			BorcluBilgisiDAO daoborclu = new BorcluBilgisiDAO();
 			AlacakliDAO daoalacakli = new AlacakliDAO();
@@ -757,7 +774,7 @@ try{
 				hesaplarlistesi.add(hslist);
 			}
 
-			int hesapID = baglantidao.Listele(icradosyaID).getHesaplamaID();
+			int hesapID = baglanti.getHesaplamaID();
 			AktifBean.setHesapID(hesapID);
 			HesapDAO hesapdao = new HesapDAO();
 			hesaplistesi = hesapdao.Liste(hesapID);
@@ -771,6 +788,7 @@ try{
 			plakaGetir();
 
 			Hesapla();
+		}
 		}
 	
 } catch (SQLException e) {

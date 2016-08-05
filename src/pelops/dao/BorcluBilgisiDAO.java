@@ -80,10 +80,10 @@ public class BorcluBilgisiDAO extends DBConnection {
 					+ "dogum_tarihi, medeni_hali, il_adi, ilce_adi, mahalle, koy, cilt_no, "
 					+ "sira_no, verildigi_yer, veris_nedeni,  vefat,"
 					+ " resim, \"adressTuru\", ilce_id, il_id, adres, semt_adi, telefon_no,"
-					+ " telefon_turu, verilis_tarihi, telefon_no2, telefon_no3, ad, soyad, uyap_rol, uyap_rol_id,is_yeri_adi,isyeri_adres)"
+					+ " telefon_turu, verilis_tarihi, telefon_no2, telefon_no3, ad, soyad, uyap_rol, uyap_rol_id,isyeri_adres)"
 					+ "  VALUES ( ?, ?, ?, ?, ?, " + " ?, ?, ?, ?, ?," + " ?, ?, ?, ?, ?, ?, " + " ?, ?, ?, ?, ?, ?, "
 					+ " ?, ?, ?, ?, ?, ?, ?," + " ?, ?, ?, ?, ?, " + " ?, ?, ?, ?, ?, ?, ?, "
-					+ " ?, ?, ?, ?, ?, ?, ?,?,?);";
+					+ " ?, ?, ?, ?, ?, ?, ?,?);";
 
 			PreparedStatement pstm;
 
@@ -137,8 +137,7 @@ public class BorcluBilgisiDAO extends DBConnection {
 			pstm.setString(46, borcluBilgisi.getSoyad());
 			pstm.setString(47, borcluBilgisi.getUyap_rol());
 			pstm.setString(48, borcluBilgisi.getUyap_rol_id());
-			pstm.setString(49, borcluBilgisi.getIsYeriAdi().toUpperCase());
-			pstm.setString(50, borcluBilgisi.getIsYeriAdres().toUpperCase());
+			pstm.setString(49, borcluBilgisi.getIsYeriAdres());
 
 			pstm.executeUpdate();
 			disconnectDB();

@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 import pelops.chronology.model.Instance;
-import pelops.chronology.model.ReportChronology;
+import pelops.chronology.model.ReportChronology2;
 import pelops.db.DBConnection;
 import pelops.kasa.controller.IDAO;
 import pelops.report.model.ConstructedData;
@@ -39,14 +39,14 @@ public class ReportChronologyUtil extends DBConnection implements IDAO {
 	}
 
 	public void insertAll(ArrayList<ConstructedData> constructedData) throws Exception {
-		ArrayList<ReportChronology> chronologies = new ArrayList<>();
+		ArrayList<ReportChronology2> chronologies = new ArrayList<>();
 		for (ConstructedData constructedData2 : constructedData) {
 			ArrayList<DataToPrint> list = constructedData2.getDataToPrints();
 			ReportGenel reportGenel = constructedData2.getGenel();
 			for (DataToPrint dataToPrint : list) {
 				if (dataToPrint.getBelgeAdi() != ReportUtils.REPORT_UYAPSORGU
 						&& dataToPrint.getBelgeAdi() != ReportUtils.REPORT_IHTARNAME) {
-					ReportChronology chronology = new ReportChronology(dataToPrint.getBelgeAdi(), reportGenel.getId(),
+					ReportChronology2 chronology = new ReportChronology2(dataToPrint.getBelgeAdi(), reportGenel.getId(),
 							ReportUtils.DOSYA_YONU_GIDEN, new Date());
 					chronologies.add(chronology);
 				}
@@ -54,7 +54,7 @@ public class ReportChronologyUtil extends DBConnection implements IDAO {
 		}
 
 		newConnectDB();
-		for (ReportChronology reportChronology : chronologies) {
+		for (ReportChronology2 reportChronology : chronologies) {
 
 			SQL = "INSERT INTO tbl_dosya_belgeleri( adi, icra_dosya_id, belge_yonu, belge_tarihi) VALUES ( ?, ?, ?, ?);";
 			pstm = conn.prepareStatement(SQL);
@@ -69,16 +69,16 @@ public class ReportChronologyUtil extends DBConnection implements IDAO {
 
 	}
 
-	public static ReportChronology convertObjToRC(Object object, String BelgeAdi) {
+	public static ReportChronology2 convertObjToRC(Object object, String BelgeAdi) {
 		if (object instanceof ReportGenel) {
 
-			ReportChronology chronology = new ReportChronology(BelgeAdi, ((ReportGenel) object).getId(),
+			ReportChronology2 chronology = new ReportChronology2(BelgeAdi, ((ReportGenel) object).getId(),
 					ReportUtils.DOSYA_YONU_GIDEN, new Date());
 			return chronology;
 
 		} else if (object instanceof DataToPrint) {
 			if (((DataToPrint) object).getBelgeAdi().equals(ReportUtils.REPORT_TEBLIGAT_LISTESI)) {
-				ReportChronology chronology = new ReportChronology(((DataToPrint) object).getBelgeAdi(), null,
+				ReportChronology2 chronology = new ReportChronology2(((DataToPrint) object).getBelgeAdi(), null,
 						ReportUtils.DOSYA_YONU_GIDEN, new Date());
 				return chronology;
 			}
@@ -94,10 +94,10 @@ public class ReportChronologyUtil extends DBConnection implements IDAO {
 		newConnectDB();
 		stm = conn.createStatement();
 		rs = stm.executeQuery(SQL);
-		ReportChronology chronology = null;
+		ReportChronology2 chronology = null;
 		ArrayList<Object> list = new ArrayList<>();
 		while (rs.next()) {
-			chronology = new ReportChronology(rs.getInt("id"), rs.getString("adi"), rs.getInt("icra_dosya_id"),
+			chronology = new ReportChronology2(rs.getString("adi"), rs.getInt("icra_dosya_id"),
 					rs.getString("belge_yonu"), rs.getDate("belge_tarihi"));
 			list.add(chronology);
 		}
@@ -107,16 +107,16 @@ public class ReportChronologyUtil extends DBConnection implements IDAO {
 
 	@Override
 	public int insertObjToDB(Object obj) throws Exception {
-		if (obj instanceof ReportChronology) {
+		if (obj instanceof ReportChronology2) {
 			SQL = "INSERT INTO tbl_dosya_belgeleri( adi, icra_dosya_id, belge_yonu, belge_tarihi) VALUES ( ?, ?, ?, ?);";
 			newConnectDB();
 			pstm = conn.prepareStatement(SQL);
-			pstm.setString(1, ((ReportChronology) obj).getBelgeAdi());
-			if (((ReportChronology) obj).getIcraDosyaID() != null) {
-				pstm.setInt(2, ((ReportChronology) obj).getIcraDosyaID());
+			pstm.setString(1, ((ReportChronology2) obj).getBelgeAdi());
+			if (((ReportChronology2) obj).getIcraDosyaID() != null) {
+				pstm.setInt(2, ((ReportChronology2) obj).getIcraDosyaID());
 			}
-			pstm.setString(3, ((ReportChronology) obj).getDosyaYonu());
-			pstm.setDate(4, convertFromJAVADateToSQLDate(((ReportChronology) obj).getTarih()));
+			pstm.setString(3, ((ReportChronology2) obj).getDosyaYonu());
+			pstm.setDate(4, convertFromJAVADateToSQLDate(((ReportChronology2) obj).getTarih()));
 			pstm.execute();
 			disconnectDB();
 		}
@@ -126,15 +126,15 @@ public class ReportChronologyUtil extends DBConnection implements IDAO {
 
 	@Override
 	public int updateObjFromDB(Object obj) throws Exception {
-		if (obj instanceof ReportChronology) {
+		if (obj instanceof ReportChronology2) {
 			SQL = "UPDATE tbl_dosya_belgeleri SET  adi=?, icra_dosya_id=?,  belge_yonu=?, belge_tarihi=? WHERE id ="
-					+ ((ReportChronology) obj).getId() + ";";
+					+ ((ReportChronology2) obj).getId() + ";";
 			newConnectDB();
 			pstm = conn.prepareStatement(SQL);
-			pstm.setString(1, ((ReportChronology) obj).getBelgeAdi());
-			pstm.setInt(2, ((ReportChronology) obj).getIcraDosyaID());
-			pstm.setString(3, ((ReportChronology) obj).getDosyaYonu());
-			pstm.setDate(4, convertFromJAVADateToSQLDate(((ReportChronology) obj).getTarih()));
+			pstm.setString(1, ((ReportChronology2) obj).getBelgeAdi());
+			pstm.setInt(2, ((ReportChronology2) obj).getIcraDosyaID());
+			pstm.setString(3, ((ReportChronology2) obj).getDosyaYonu());
+			pstm.setDate(4, convertFromJAVADateToSQLDate(((ReportChronology2) obj).getTarih()));
 			pstm.execute();
 			disconnectDB();
 		}
@@ -158,9 +158,9 @@ public class ReportChronologyUtil extends DBConnection implements IDAO {
 		newConnectDB();
 		stm = conn.createStatement();
 		rs = stm.executeQuery(SQL);
-		ReportChronology chronology = null;
+		ReportChronology2 chronology = null;
 		while (rs.next()) {
-			chronology = new ReportChronology(rs.getInt("id"), rs.getString("adi"), rs.getInt("icra_dosya_id"),
+			chronology = new ReportChronology2(rs.getString("adi"), rs.getInt("icra_dosya_id"),
 					rs.getString("belge_yonu"), rs.getDate("belge_tarihi"));
 		}
 		disconnectDB();
@@ -172,10 +172,10 @@ public class ReportChronologyUtil extends DBConnection implements IDAO {
 		newConnectDB();
 		stm = conn.createStatement();
 		rs = stm.executeQuery(SQL);
-		ReportChronology chronology = null;
-		List list = new ArrayList<ReportChronology>();
+		ReportChronology2 chronology = null;
+		List list = new ArrayList<ReportChronology2>();
 		while (rs.next()) {
-			chronology = new ReportChronology(rs.getInt("id"), rs.getString("adi"), rs.getInt("icra_dosya_id"),
+			chronology = new ReportChronology2(rs.getString("adi"), rs.getInt("icra_dosya_id"),
 					rs.getString("belge_yonu"), rs.getDate("belge_tarihi"));
 			list.add(chronology);
 		}
@@ -185,13 +185,12 @@ public class ReportChronologyUtil extends DBConnection implements IDAO {
 
 	public List getListForDataTable(int id) throws Exception {
 		List list = getObjFromDBWithIcraDosyaID(id);
-		List returnList = new ArrayList<ReportChronology>();
+		List returnList = new ArrayList<ReportChronology2>();
 		for (Object object : list) {
-			if (object instanceof ReportChronology) {
-				ReportChronology chronology = new ReportChronology(((ReportChronology) object).getId(),
-						ReportUtils.convertReportName(((ReportChronology) object).getBelgeAdi()),
-						((ReportChronology) object).getIcraDosyaID(), ((ReportChronology) object).getDosyaYonu(),
-						((ReportChronology) object).getTarih());
+			if (object instanceof ReportChronology2) {
+				ReportChronology2 chronology = new ReportChronology2(ReportUtils.convertReportName(((ReportChronology2) object).getBelgeAdi()),
+						((ReportChronology2) object).getIcraDosyaID(), ((ReportChronology2) object).getDosyaYonu(),
+						((ReportChronology2) object).getTarih());
 				returnList.add(chronology);
 			}
 
@@ -205,10 +204,10 @@ public class ReportChronologyUtil extends DBConnection implements IDAO {
 		newConnectDB();
 		stm = conn.createStatement();
 		rs = stm.executeQuery(SQL);
-		ReportChronology chronology = null;
-		List list = new ArrayList<ReportChronology>();
+		ReportChronology2 chronology = null;
+		List list = new ArrayList<ReportChronology2>();
 		while (rs.next()) {
-			chronology = new ReportChronology(rs.getInt("id"), rs.getString("adi"), rs.getInt("icra_dosya_id"),
+			chronology = new ReportChronology2(rs.getString("adi"), rs.getInt("icra_dosya_id"),
 					rs.getString("belge_yonu"), rs.getDate("belge_tarihi"));
 			list.add(chronology);
 		}

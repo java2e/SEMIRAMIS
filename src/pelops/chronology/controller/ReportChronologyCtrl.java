@@ -8,10 +8,10 @@ import java.util.List;
 
 import org.primefaces.extensions.model.timeline.TimelineEvent;
 
-import pelops.chronology.model.Chronology;
-import pelops.chronology.model.ControlDateAndType;
+import pelops.chronology.model.Chronology2;
+import pelops.chronology.model.ControlDateAndType2;
 import pelops.chronology.model.Instance;
-import pelops.chronology.model.ReportChronology;
+import pelops.chronology.model.ReportChronology2;
 import pelops.chronology.model.Task;
 import pelops.report.model.ReportUtils;
 
@@ -53,16 +53,16 @@ public class ReportChronologyCtrl {
 
 	public ArrayList<Task> getTaskList(int id) throws Exception {
 		ArrayList<Task> tasks = new ArrayList<>();
-		HashSet<ReportChronology> chronologies = getChronologiesFromRC(id);
-		ArrayList<ControlDateAndType> andTypes = new ArrayList<>();
+		HashSet<ReportChronology2> chronologies = getChronologiesFromRC(id);
+		ArrayList<ControlDateAndType2> andTypes = new ArrayList<>();
 		HashSet<Date> dates = new HashSet<>();
-		for (ReportChronology reportChronology : chronologies) {
+		for (ReportChronology2 reportChronology : chronologies) {
 			dates.add(reportChronology.getTarih());
 		}
 		for (Date date : dates) {
-			ControlDateAndType andType = new ControlDateAndType();
+			ControlDateAndType2 andType = new ControlDateAndType2();
 
-			for (ReportChronology reportChronology : chronologies) {
+			for (ReportChronology2 reportChronology : chronologies) {
 				if (date.toGMTString().equals(reportChronology.getTarih().toGMTString())) {
 					if (reportChronology.getBelgeAdi() == ReportUtils.REPORT_IHTARNAME) {
 						andType.setIhtarname(true);
@@ -91,7 +91,7 @@ public class ReportChronologyCtrl {
 
 		}
 
-		for (ControlDateAndType controlDateAndType : andTypes) {
+		for (ControlDateAndType2 controlDateAndType : andTypes) {
 			if (controlDateAndType.isTakipTalebi() && controlDateAndType.isOdemeEmri()) {
 				Task task = new Task(ReportChronologyUtil.ICRADOSYASI_GIRECEK_EVRAK, ReportChronologyUtil.IMAGE_I_D_G_E,
 						false, id, controlDateAndType.getTarih());
@@ -113,13 +113,13 @@ public class ReportChronologyCtrl {
 
 	}
 
-	private HashSet<ReportChronology> getChronologiesFromRC(int icraDosyaID) throws Exception {
+	private HashSet<ReportChronology2> getChronologiesFromRC(int icraDosyaID) throws Exception {
 
-		HashSet<ReportChronology> reportChronologies = new HashSet<>();
+		HashSet<ReportChronology2> reportChronologies = new HashSet<>();
 		List reports = ReportChronologyUtil.getInstance().getObjFromDBWithIcraDosyaID(icraDosyaID);
 		for (Object object2 : reports) {
-			if (object2 instanceof ReportChronology) {
-				reportChronologies.add((ReportChronology) object2);
+			if (object2 instanceof ReportChronology2) {
+				reportChronologies.add((ReportChronology2) object2);
 			}
 		}
 

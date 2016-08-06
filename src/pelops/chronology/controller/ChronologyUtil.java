@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import pelops.chronology.model.Instance;
-import pelops.chronology.model.ReportChronology;
+import pelops.chronology.model.ReportChronology2;
 import pelops.controller.AktifBean;
 import pelops.report.model.ConstructedData;
 
@@ -24,7 +24,7 @@ public class ChronologyUtil {
 	}
 
 	public void insertInstance(Object object) throws Exception {
-		if (object instanceof ReportChronology) {
+		if (object instanceof ReportChronology2) {
 			ReportChronologyUtil.getInstance().insertObjToDB(object);
 		} else if (object instanceof Instance) {
 			String icraDosyaNo = "";
@@ -41,7 +41,7 @@ public class ChronologyUtil {
 		boolean raporCikti = false;
 		boolean olay = false;
 		if (instances.size() > 0) {
-			if (instances.get(0) instanceof ReportChronology) {
+			if (instances.get(0) instanceof ReportChronology2) {
 				raporCikti = true;
 			} else if (instances.get(0) instanceof Instance) {
 				olay = true;

@@ -3,26 +3,19 @@ package pelops.chronology.model;
 import java.io.Serializable;
 import java.util.Date;
 
-public class ReportChronology implements Serializable {
+public class ReportChronology2 implements Serializable {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public ReportChronology(String belgeAdi, Integer icraDosyaID, String dosyaYonu, Date tarih) {
+	public ReportChronology2(String belgeAdi, Integer icraDosyaID, String dosyaYonu, Date tarih) {
 		this.belgeAdi = belgeAdi;
 		this.icraDosyaID = icraDosyaID;
 		this.dosyaYonu = dosyaYonu;
 		this.tarih = tarih;
 	}
 
-	public ReportChronology(int id, String belgeAdi, int icraDosyaID, String dosyaYonu, Date tarih) {
-		this.belgeAdi = belgeAdi;
-		this.icraDosyaID = icraDosyaID;
-		this.dosyaYonu = dosyaYonu;
-		this.tarih = tarih;
-		this.id = id;
-	}
 
 	private int id;
 	private String belgeAdi;

@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import pelops.chronology.model.Chronology;
 import pelops.db.DBConnection;
-import pelops.model.User;
+import pelops.users.User;
 import pelops.util.Util;
 
 public class UtilsDAO extends DBConnection {
@@ -113,36 +113,16 @@ public class UtilsDAO extends DBConnection {
 		HttpSession session = Util.getSession();
 
 		User user = (User) session.getAttribute("user");
-		SQL = "SELECT tur_adi FROM tbl_rol_turu where id =" + user.getRolId() + ";";
 		newConnectDB();
 		String departman = "";
-		try {
-			stm = conn.createStatement();
-
-			rs = stm.executeQuery(SQL);
-
-			while (rs.next()) {
-				departman = rs.getString("tur_adi");
-			}
-			disconnectDB();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			try {
-				disconnectDB();
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
+		departman = user.getUsrRolAck();
 		return departman;
 	}
 
 	public int getUserID() {
 		HttpSession session = Util.getSession();
 		User user = (User) session.getAttribute("user");
-		return user.getId();
+		return user.getUsrId();
 	}
 
 }

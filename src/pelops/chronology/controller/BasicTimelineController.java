@@ -64,8 +64,11 @@ public class BasicTimelineController implements Serializable {
 		try {
 			if (icraDosyaID == 0 && AktifBean.getIcraDosyaID() != 0) {
 				events = utils.getAllTimeLineEventsFromID(AktifBean.getIcraDosyaID());
+				this.panelRender = true;
 			} else {
 				events = utils.getAllTimeLineEventsFromID(icraDosyaID);
+				this.panelRender = true;
+
 			}
 
 			panelRender = false;
@@ -91,6 +94,7 @@ public class BasicTimelineController implements Serializable {
 		icraDosyaID = AktifBean.getIcraDosyaID();
 		initialize();
 		chronologies = utils.getChronologyList(icraDosyaID);
+		System.out.println(chronologies.size());
 
 	}
 

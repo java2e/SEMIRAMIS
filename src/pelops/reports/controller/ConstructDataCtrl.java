@@ -28,6 +28,8 @@ import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import pelops.chronology.controller.Utils;
+import pelops.chronology.model.ChronologyIdentifier;
 import pelops.dao.PostaDAO;
 import pelops.model.Posta;
 import pelops.report.model.ConstructedData;
@@ -36,6 +38,8 @@ import pelops.report.model.ReportGenel;
 import pelops.report.model.ReportUtils;
 
 public class ConstructDataCtrl {
+
+	Utils utils = new Utils();
 
 	public ArrayList<ReportGenel> init(ArrayList<ReportGenel> genels) throws Exception {
 		// s
@@ -139,6 +143,8 @@ public class ConstructDataCtrl {
 			String reportPath = FacesContext.getCurrentInstance().getExternalContext()
 					.getRealPath("/reports/" + dataNew.getJasperFileName());
 			jasperPrint = JasperFillManager.fillReport(reportPath, hashMap, beanCollectionDataSource);
+			utils.saveChronology(genel.getId(), ChronologyIdentifier.ISLEM_YAZDIRMA, 
+					ReportUtils.convertReportName(data.getBelgeAdi())+" belgesi yazdırılmıştır.");
 		}
 
 		return jasperPrint;

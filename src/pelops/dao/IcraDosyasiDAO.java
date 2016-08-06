@@ -4,19 +4,15 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import pelops.chronology.controller.ChronologyUtil;
-import pelops.chronology.model.Instance;
 import pelops.controller.AktifBean;
 import pelops.db.DBConnection;
 import pelops.model.BorcluBilgisi;
 import pelops.model.IcraDosyasi;
 
 public class IcraDosyasiDAO extends DBConnection {
-	public static Connection conn = null;
 	public static PreparedStatement psmt = null;
 	public static ResultSet rs = null;
 
@@ -24,11 +20,17 @@ public class IcraDosyasiDAO extends DBConnection {
 	public void ExcelGuncelle(int id, String icraDosyaNo, String icraMudurlugu)
 			throws Exception {
 
+		
+	
+		try {
+			
+		
+		
+		if(icraDosyaNo!=null && icraMudurlugu!=null)
+		{
 		String SQL = "UPDATE tbl_icra_dosyasi SET icra_dosyasi_no=?, icra_mudurlugu_id=? WHERE id="+id;
-				
-		DBConnection DB = new DBConnection();
-		DB.newConnectDB();
-		PreparedStatement pstmt = DB.conn.prepareStatement(SQL.toString());
+			newConnectDB();
+		PreparedStatement pstmt = conn.prepareStatement(SQL.toString());
 		
 		pstmt.setString(1, icraDosyaNo);
 		pstmt.setInt(2, IcraId(icraMudurlugu));
@@ -36,28 +38,55 @@ public class IcraDosyasiDAO extends DBConnection {
 
 		pstmt.executeUpdate();
 
-		DB.disconnectDB();
-		ChronologyUtil.getInstance().insertInstance(new Instance(id, icraDosyaNo, "İcra Dosya No", "İcra Dosya No Eklendi", 2));
+		}
+		
+		} catch (Exception e) {
+			
+			System.out.println("Hata :"+e.getMessage());
+			// TODO: handle exception
+		}
+		finally {
+			disconnectDB();
+		}
 
 	}
 
 	public int IcraId(String icraMudurlugu) throws Exception {
 
-		DBConnection DB = new DBConnection();
-		DB.newConnectDB();
+		
+		int id = 0;
+		
+		if(icraMudurlugu!=null || icraMudurlugu!="")
+		{
+			
+			try {
+				
+		
 		String SQL = "SELECT * FROM tbl_icra_mudurlugu where adi='"
 				+ icraMudurlugu+"'";
 		Statement stmt;
 		ResultSet rs;
-		stmt = DB.conn.createStatement();
+		stmt = conn.createStatement();
 		rs = stmt.executeQuery(SQL);
-		int id = 0;
+		
 		while (rs.next()) {
 
 			id = rs.getInt("id");
 
 		}
-		DB.disconnectDB();
+		
+			} catch (Exception e) {
+				
+				id=0;
+				
+			}
+			finally {
+				
+			}
+		
+		}
+		
+		
 		return id;
 
 	}

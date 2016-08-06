@@ -21,7 +21,7 @@
 						mode="advanced" allowTypes="/(\.|\/)(xls|xlsx)$/"
 						sizeLimit="10000000" skinSimple="true" />
 						
-				<p:commandButton value="EXCEL KAYITLARINI SİSTEME AKTAR" action="#{excellParserBean.XSLSistemeAktar()}" update="growlMesaj"/>		
+				<p:commandButton value="EXCEL KAYITLARINI SİSTEME AKTAR" ajax="true" action="#{excellParserBean.XSLSistemeAktar()}" update="growlMesaj"/>		
 		
 			
 				
@@ -51,8 +51,8 @@
 				
 									
 							<p:outputLabel value="İşlem Tarihi"/>
-							<p:calendar id="detay_mask3" value="#{excellParserBean.gelisTarihi1}" pattern="dd-MM-yyyy HH:mm:ss"  mask="true" style="width: 180px" />
-							<p:calendar id="detay_mask4" value="#{excellParserBean.gelisTarihi2}" pattern="dd-MM-yyyy HH:mm:ss"  mask="true" style="width: 180px" />
+							<p:calendar id="detay_mask3" value="#{excellParserBean.gelisTarihi1}" pattern="dd-MM-yyyy"  mask="true" style="width: 180px" />
+							<p:calendar id="detay_mask4" value="#{excellParserBean.gelisTarihi2}" pattern="dd-MM-yyyy"  mask="true" style="width: 180px" />
 							
 							<p:commandButton value="Listele" action="#{excellParserBean.Listele()}" update="tbldetayliarama"/>
 							

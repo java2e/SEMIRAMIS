@@ -16,7 +16,7 @@
 							
 							<p:outputLabel value="Müvekkil Adı"/>
 								<p:selectOneMenu id="detay_muvekkil" 	
-									 effect="fold" 
+									 
 									 filter="true" filterMatchMode="startsWith"
 									 value="#{exportBean.muvekkilAdi}"
 									 style="width: 180px">
@@ -32,7 +32,7 @@
 							<p:commandButton value="Aralık Listele" action="#{exportBean.AralikListele()}" update="tbldetayliarama"/>
 							
 												
-							<p:commandButton value="LİSTELENEN KAYITLARI XML' E DÖNÜŞÜR" ajax="false"  action="#{exportBean.exportUyapXML()}">
+							<p:commandButton value="LİSTELENEN KAYITLARI XML' E DÖNÜŞÜR" ajax="false"   actionListener="#{exportBean.exportUyapXML()}">
 							
 							</p:commandButton>
 										

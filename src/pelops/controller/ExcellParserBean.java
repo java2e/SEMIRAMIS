@@ -232,6 +232,9 @@ public class ExcellParserBean {
 			 if(row == null){
 				 
 			 }else{
+				 
+				 	
+				 if(row.getCell(0) != null && row.getCell(2)!=null && row.getCell(1)!=null)
 					dao.ExcelGuncelle((int)row.getCell(0).getNumericCellValue(), row.getCell(2).getStringCellValue(), row.getCell(1).getStringCellValue());
 				
 			 }

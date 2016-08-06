@@ -1,0 +1,601 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<meta name="viewport" content="width=980,initial-scale=0.5"></meta>
+
+</h:head>
+<h:body onload="$('#hh').click();">
+
+	<p:ajaxStatus onstart="PF('statusDialog1').show()"
+		onsuccess="PF('statusDialog1').hide()" />
+
+	<p:dialog widgetVar="statusDialog1" modal="true" draggable="false"
+		closable="false" resizable="false" showHeader="false"
+		style="position: absolute; background-color: rgba(0, 0, 0, 0.6); height: 256px; width: 256px; left:0%; top:0%; z-index:2; height: 100%; width: 100%">
+		<p:graphicImage value="img/yukleme.gif" height="80" width="80" />
+	</p:dialog>
+
+
+	<h:form id="formMsgs">
+		<p:growl id="msgs" showDetail="true" />
+	</h:form>
+
+
+
+	<h:form id="genelForm">
+	
+	
+
+<p:commandButton id="hh" actionListener="#{muameleislemlerbean.init()}" style="display:none" update="genelForm"/>
+
+		<p:panel id="girisPaneli" header="Muamele İşlem" style="width:100%;">
+		
+		<p:focus context="girisPaneli"/>
+		
+			<p:panelGrid id="updatePanel" style="width:100%;">
+				<p:column style="width:60%;">
+				
+				<p:tabView>
+					
+					<ui:include src="/muzekkere/tab_muzekkere.xhtml"></ui:include>
+					<ui:include src="/muzekkere/tab_talep.xhtml"></ui:include>
+						
+					</p:tabView>
+					
+<!-- Müzekkere ve Talep Seçimleri -->
+
+					<p:panel style="margin-top:2%;">
+
+						<!-- Önizleme Butonu -->
+
+						<p:commandButton value="Önizleme"
+							actionListener="#{muameleislemlerbean.PdfOnizle()}"
+							disabled="#{muameleislemlerbean.onizleButtonVisible}"
+							update=":#{p:component('updatePanel')}">
+							<f:param name="gelis_amaci" value="onizleme" />
+							<f:param name="pdfMiktari" value="#{list.miktar}" />
+							<f:param name="muzekkeretalep" value="#{list.muzekkereTalepAdi}" />
+						</p:commandButton>
+
+
+						<!-- Nihai Kayıt Butonu -->
+
+						<p:commandButton value="Nihai Kayıt" style="margin-left:1%;"
+							action="#{muameleislemlerbean.Kaydet()}" update="@form">
+
+
+
+						</p:commandButton>
+
+
+						<!-- Yeni Kayıt Butonu -->
+
+						<p:commandButton value="Yeni Kayıt" style="margin-left:1%;"
+							action="#{muameleislemlerbean.YeniKayitAc()}" update="@form">
+						</p:commandButton>
+
+
+						<!-- Sonradan Eklenecek Alanlar -->
+						<p:inputText style="margin-left:15%" />
+						<p:commandButton value="Mail Gönder" />
+						<p:commandButton value="Uyapa Aktar" />
+
+
+
+					</p:panel>
+
+
+
+					<p:messages autoUpdate="true" />
+
+
+					<p:panelGrid columns="4" style="width:100%">
+
+						<p:outputLabel value="Dosya" />
+
+						<p:commandButton value="Yeni Dosya Seç" icon="ui-icon-zoomin "
+							ajax="false" type="button" onclick="PF('arama').show();"
+							style="width:100%" />
+
+
+						<p:outputLabel  value="İcra Dosya No" />
+						<p:inputText value="#{muameleislemlerbean.muamele.icraDosyaNo}"
+							readonly="true" requiredMessage="İcra Dosya No'yu Doldurunuz !!!"
+							required="#{muameleislemlerbean.ctrl.icraDosyaNo}"
+							style="font-size:16px; font-weight:bold;width:100%" />
+
+
+						<p:outputLabel value="Icra Müdürlüğü" />
+						<p:selectOneMenu id="iMudurlugu"
+							value="#{muameleislemlerbean.muamele.icraMudurluguId}"
+							required="#{muameleislemlerbean.ctrl.icraMudurluguId}"
+							requiredMessage="İcra Müdürlüğünü Doldurunuz !!!"
+							style="width:100%">
+							<f:selectItem itemLabel="İcra Müdürlüğü Seçiniz..." itemValue="" />
+							<f:selectItems
+								value="#{geneltanimbean.ListeGetir('tbl_icra_mudurlugu')}"
+								var="list" itemLabel="#{list.adi}" itemValue="#{list.id}" />
+						</p:selectOneMenu>
+
+
+
+						<p:outputLabel value="Borçlu Adı" />
+						<p:inputText value="#{muameleislemlerbean.muamele.borcluAdi}"
+							readonly="true" requiredMessage="Borçlu Adını Doldurunuz !!!"
+							style="font-size:16px; font-weight:bold;width:100%" />
+
+						<p:outputLabel value="Semiramis No " />
+						<p:inputText value="#{muameleislemlerbean.muamele.semiramisNo}"
+							required="#{muameleislemlerbean.ctrl.semiramisNo}"
+							style="width:100%" />
+
+
+						<p:outputLabel value="Borçlu Miktarı" />
+						<p:inputText value="#{muameleislemlerbean.muamele.borcluMiktari}"
+							required="#{muameleislemlerbean.ctrl.borcluMiktari}"
+							requiredMessage="Borçlu Miktarını Doldurunuz !!!"
+							style="width:100%" />
+
+
+
+
+						<p:outputLabel value="Borçlu Adresi" />
+						<p:inputTextarea rows="5" cols="45" queryDelay="750"
+							required="#{muameleislemlerbean.ctrl.borcluAdresi}"
+							requiredMessage="Borçlu Adresini Doldurunuz !!!"
+							style="width:100%" minQueryLength="4"
+							value="#{muameleislemlerbean.muamele.borcluAdresi}" />
+
+
+
+						<p:outputLabel value="Talep İfadesi" />
+						<p:inputTextarea rows="5" cols="45" queryDelay="750"
+							style="width:100%" minQueryLength="4"
+							requiredMessage="Talep İfadesini Doldurunuz !!!"
+							value="#{muameleislemlerbean.muamele.talepIfadesi}" />
+							
+							
+						<p:outputLabel value="Borçlu İş Yeri Adı(Muhatap)" style="color:#{muameleislemlerbean.muamele.maashacizmuzekkeresigenel ?   'black' : 'red'}"/>
+						<p:inputTextarea rows="5" cols="45" queryDelay="750"
+							style="width:100%" minQueryLength="4" required="#{muameleislemlerbean.muamele.maashacizmuzekkeresigenel}"
+							value="#{muameleislemlerbean.muamele.muhatapAdi}" requiredMessage="Müzekkere için gereklidir!(Muhattap Adı)"/>
+
+
+
+						<p:outputLabel value="Borçlu İş Yeri(Muhatap) Adresi"  style="color:#{muameleislemlerbean.muamele.maashacizmuzekkeresigenel ?   'black' : 'red'}"/>
+						<p:inputTextarea rows="5" cols="45" queryDelay="750"
+							style="width:100%" minQueryLength="4" required="#{muameleislemlerbean.muamele.maashacizmuzekkeresigenel}"
+							value="#{muameleislemlerbean.muamele.muhatapAdresi}" requiredMessage="Müzekkere için gereklidir! (Muhattap Adresi)"/>
+							
+				 	<p:outputLabel value="Büro Adresi" />
+						<p:inputTextarea rows="5" cols="45" queryDelay="750"
+							required="#{muameleislemlerbean.ctrl.buroAdresi}"
+							requiredMessage="Büro Adresini Doldurunuz !!!" style="width:100%"
+							minQueryLength="4"
+							value="#{muameleislemlerbean.muamele.buroAdresi}" />
+
+
+						<p:outputLabel value="Açıklama" />
+						<p:inputTextarea rows="5" cols="45" queryDelay="750"
+							style="width:100%" minQueryLength="4"
+							requiredMessage="Açıklamayı Doldurunuz !!!"
+							value="#{muameleislemlerbean.muamele.aciklama}" />
+
+
+						<p:outputLabel value="Postane Adı" />
+						<p:inputText value="#{muameleislemlerbean.muamele.postaneAdi}"
+							required="#{muameleislemlerbean.ctrl.postaneAdi}"
+							requiredMessage="Postane Adını Doldurunuz !!!" style="width:100%" />
+
+
+						<p:outputLabel value="Büro IBAN No" />
+						<p:inputText value="#{muameleislemlerbean.muamele.buroIbanNo}"
+							required="#{muameleislemlerbean.ctrl.buroIbanNo}"
+							requiredMessage="Büro IBAN No Doldurunuz !!!" style="width:100%" />
+
+
+
+						<p:outputLabel value="Haciz Sırası" />
+						<p:spinner min="0" max="100"
+							value="#{muameleislemlerbean.muamele.hacizSirasi}"
+							style="width:100%" />
+
+
+
+						<p:outputLabel value="Borçlu Vergi/T.C. No" />
+						<p:inputText value="#{muameleislemlerbean.muamele.borcluTc}"
+							required="#{muameleislemlerbean.ctrl.borcluTc}"
+							requiredMessage="Borçlu Vergi/T.C. No Doldurunuz !!!"
+							style="width:100%" />
+
+
+						<p:outputLabel value="Masraf Tipi" />
+						<p:selectOneMenu id="masrafTipi" styleClass="selectMenu"
+							style="width:100%"
+							value="#{muameleislemlerbean.muamele.masrafTipiId}">
+							<p:ajax listener="#{muameleislemlerbean.onMasrafTipiChange()}"
+								update="masrafMiktari" />
+							<f:selectItem itemLabel="Masraf Tipi Seçiniz..." itemValue="" />
+							<f:selectItems
+								value="#{geneltanimbean.ListeGetir('tbl_masraf_tipi')}"
+								var="list" itemLabel="#{list.adi}" itemValue="#{list.id}" />
+						</p:selectOneMenu>
+
+
+
+
+						<p:outputLabel value="Masraf Miktarı" />
+						<p:inputText value="#{muameleislemlerbean.muamele.masrafMiktari}"
+							id="masrafMiktari" readonly="true"
+							onkeyup="var pos=this.selectionStart;
+									var size = this.value.length;														
+             						this.value=this.value.replace(/[^0-9]+/g, '');
+             						if (this.value.length > 10) this.value=this.value.substring(0,10);
+             						if (size > this.value.length)
+             							{this.selectionStart = pos-1; this.selectionEnd = pos-1;}
+             						else
+             							{this.selectionStart = pos; this.selectionEnd = pos;}"
+							style="width:100%" />
+
+
+
+						<p:outputLabel value="Tebligat Sonucu" />
+						<p:selectOneMenu id="tebligatSonucu" styleClass="selectMenu"
+							style="width:100%"
+							value="#{muameleislemlerbean.muamele.tebligatSonucuId}"
+							required="false" requiredMessage="Bu Alanı Boş Bırakamazsınız">
+							<f:selectItem itemLabel="Tebligat Sonucu Seçiniz..." itemValue="" />
+							<f:selectItems
+								value="#{geneltanimbean.ListeGetir('tbl_tebligat_sonucu')}"
+								var="list" itemLabel="#{list.adi}" itemValue="#{list.id}" />
+						</p:selectOneMenu>
+
+
+
+						<p:outputLabel value="Mal Türü" />
+						<p:selectOneMenu id="malTipi" styleClass="selectMenu"
+							value="#{muameleislemlerbean.muamele.malTipiId}"
+							style="width:100%">
+							<f:selectItem itemLabel="Mal Tipi Seçiniz..." itemValue="0" />
+							<f:selectItem itemLabel="Gayrimenkul" itemValue="1" />
+							<p:ajax event="change" oncomplete="PF('dlgGayrimenkul').show();"></p:ajax>
+						</p:selectOneMenu>
+
+
+						<p:outputLabel value="Mal Bilgisi" />
+						<p:inputText value="#{muameleislemlerbean.muamele.malBilgisi}"
+							style="width:100%" />
+
+
+						<p:outputLabel value="Maaş Muvafakat" />
+						<p:inputText value="#{muameleislemlerbean.muamele.maasMuvafakat}"
+							required="#{muameleislemlerbean.ctrl.maasMuvafakat}"
+							requiredMessage="Maaş Muvafakatı Doldurunuz !!!"
+							style="width:100%" />
+
+
+
+						<p:outputLabel value="Muamele Statüsü" />
+						<p:selectOneMenu id="muameleStatusu" styleClass="selectMenu"
+							value="#{muameleislemlerbean.muamele.muameleStatusuId}"
+							style="width:100%">
+							<f:selectItem itemLabel="Statü Seçiniz..." itemValue="" />
+							<f:selectItems
+								value="#{geneltanimbean.ListeGetir('tbl_muamele_statusu')}"
+								var="list" itemLabel="#{list.adi}" itemValue="#{list.id}" />
+						</p:selectOneMenu>
+
+
+
+
+						<p:outputLabel value="Banka Bilgileri" />
+						<p:inputText value="#{muameleislemlerbean.muamele.bankaBilgileri}"
+							required="#{muameleislemlerbean.ctrl.bankaBilgileri}"
+							requiredMessage="Banka Bilgilerini Doldurunuz !!!"
+							style="width:100%" />
+
+
+						<p:outputLabel value="Personel Adı" />
+						<p:selectOneMenu id="personelAdi" styleClass="selectMenu"
+							value="#{muameleislemlerbean.muamele.personelId}"
+							style="width:100%">
+							<f:selectItem itemLabel="Personel Seçiniz..." itemValue="" />
+							<f:selectItems value="#{userbean.ListeGetir()}" var="item"
+								itemValue="#{item.id}" itemLabel="#{item.adSoyad}" />
+						</p:selectOneMenu>
+
+
+
+						<p:outputLabel value="Avukat Adı" />
+						<p:selectOneMenu id="avukatAdi" styleClass="selectMenu"
+							required="#{muameleislemlerbean.ctrl.avukatId}"
+							requiredMessage="Avukat Adını Doldurunuz !!!"
+							value="#{muameleislemlerbean.muamele.avukatId}"
+							style="width:100%">
+							<f:selectItems value="#{muameleislemlerbean.AvukatGetir()}"
+								var="item" itemValue="#{item.id}" itemLabel="#{item.adi}" />
+
+						</p:selectOneMenu>
+
+					
+
+						<p:outputLabel value="Alacaklı Mail" />
+						<p:inputText value="#{muameleislemlerbean.muamele.alacakliMail}"
+							required="#{muameleislemlerbean.ctrl.alacakliMail}"
+							requiredMessage="Alacaklı Mail Adresini Doldurunuz"
+							style="width:100%" />
+
+
+
+						<p:outputLabel value="Alacak Faiz Tutarı" />
+						<p:inputText
+							value="#{muameleislemlerbean.muamele.alacakFaizTutari}"
+							style="width:100%" />
+
+
+
+						<p:outputLabel value="Hazırlayan Kişi" />
+						<p:selectOneMenu id="hazirlayan" styleClass="selectMenu"
+							required="#{muameleislemlerbean.ctrl.hazirlayanText}"
+							requiredMessage="Hazırlayan Kişiyi Doldurunuz !!!"
+							value="#{muameleislemlerbean.muamele.hazirlayanText}"
+							style="width:100%">
+							<f:selectItem itemLabel="Hazırlayan Kişi Seçiniz..." itemValue="" />
+							<f:selectItems value="#{userbean.ListeGetir()}" var="item"
+								itemValue="#{item.adSoyad}" itemLabel="#{item.adSoyad}" />
+						</p:selectOneMenu>
+
+						<p:outputLabel value="Alacaklı Tel" />
+						<p:inputText value="#{muameleislemlerbean.muamele.alacakliTel}"
+							required="#{muameleislemlerbean.ctrl.alacakliTel}"
+							requiredMessage="Alacaklı Teli Doldurununz !!!"
+							style="width:100%" />
+
+
+						<p:outputLabel value="Alacaklı Bankası" />
+						<p:commandButton value="Alacaklı Bankası Ekle"
+							onclick="PF('dlgBanka').show();" style="width:100%" />
+
+
+
+
+
+						<p:outputLabel value="Adres Araştırma Kurum Adı" />
+
+						<p:commandButton value="Kurum Ekle"
+							onclick="PF('dlgKurum').show();" style="width:100%" />
+
+
+
+						<p:outputLabel value="İşlem Türü" />
+						<p:selectOneMenu id="islemturu" styleClass="selectMenu"
+							value="#{muameleislemlerbean.muamele.islemTuruId}"
+							style="width:100%">
+							<f:selectItem itemLabel="Tek Sayfa Yapısı Oluştur" itemValue="1" />
+						</p:selectOneMenu>
+
+
+
+						<p:outputLabel value="Plaka" />
+
+						<p:inputText value="#{muameleislemlerbean.muamele.plaka}"
+							required="#{muameleislemlerbean.ctrl.plaka}" style="width:100%"
+							requiredMessage="Plakayı Doldurunuz !!!" />
+
+
+
+						<p:outputLabel value="Mevduat Banka Adresi" />
+						<p:inputText
+							value="#{muameleislemlerbean.muamele.mevduatBankaAdresi}"
+							style="width:100%" />
+
+						<p:outputLabel value="Mevduat Banka Adı" />
+						<p:inputText
+							value="#{muameleislemlerbean.muamele.mevduatBankaAdi}"
+							style="width:100%" />
+
+						<p:outputLabel value="Mevduat Alacaklı Adı" />
+
+						<p:inputText value="#{muameleislemlerbean.muamele.alacakliAdi}"
+							style="width:100%" />
+
+
+						<p:outputLabel value="PTT İl" />
+
+						<p:selectOneMenu id="il_ptt"
+							value="#{muameleislemlerbean.muamele.pttIlText}"
+							required="#{muameleislemlerbean.ctrl.pttIlText}"
+							requiredMessage="PTT İli Doldurunuz !!!" style="width:100%">
+
+							<p:ajax event="change" update="ilce_ptt"
+								listener="#{muameleislemlerbean.ilceListeEkle()}" />
+
+							<f:selectItem itemLabel="PTT İl Seçiniz..." itemValue="" />
+							<f:selectItems value="#{genelSehirlerBean.ListeGetirForIl()}"
+								var="iller" itemLabel="#{iller.il_adi}"
+								itemValue="#{iller.il_adi}">
+							</f:selectItems>
+						</p:selectOneMenu>
+
+						<p:outputLabel value="Konu " />
+						<p:inputText value="#{muameleislemlerbean.muamele.konu}"
+							required="#{muameleislemlerbean.ctrl.konu}" style="width:100%"
+							requiredMessage="Konuyu Doldurunuz !!!" />
+
+						<p:outputLabel value=" PTT İlce" />
+
+						<p:selectOneMenu id="ilce_ptt"
+							value="#{muameleislemlerbean.muamele.pttIlceText}"
+							required="#{muameleislemlerbean.ctrl.pttIlceText}"
+							requiredMessage="PTT İlceyi Doldurunuz !!!" style="width:100%">
+							<f:selectItem itemLabel="PTT İlçe Seçiniz..." itemValue="" />
+							<f:selectItems value="#{muameleislemlerbean.ilceList}"
+								var="ilceler" itemLabel="#{ilceler.ilce_adi}"
+								itemValue="#{ilceler.ilce_adi}"></f:selectItems>
+						</p:selectOneMenu>
+
+
+
+
+
+						<p:outputLabel value="Risk Yöneticisi" />
+						<p:selectOneMenu id="riskYoneticisi" styleClass="selectMenu"
+							value="#{muameleislemlerbean.muamele.riskYoneticisiText}"
+							required="#{muameleislemlerbean.ctrl.riskYoneticisiText}"
+							requiredMessage="Risk Yöneticisini Doldurunuz !!!"
+							style="width:100%">
+							<f:selectItem itemLabel="Risk Yönetici Seçiniz..." itemValue="" />
+							<f:selectItems value="#{userbean.ListeGetir()}" var="item"
+								itemValue="#{item.adSoyad}" itemLabel="#{item.adSoyad}" />
+						</p:selectOneMenu>
+
+
+
+						<p:outputLabel value="Mernis Adresi" />
+						<p:inputText value="#{muameleislemlerbean.muamele.mernisAdresi}"
+							required="#{muameleislemlerbean.ctrl.mernisAdresi}"
+							requiredMessage="Mernis Adresini Doldurunuz !!!"
+							style="width:100%" />
+
+
+
+						<p:outputLabel value="SGK Adresi" />
+						<p:inputText value="#{muameleislemlerbean.muamele.sgkAdresi}"
+							required="#{muameleislemlerbean.ctrl.yurticiAdresi}"
+							requiredMessage="SGK Adresini Doldurunuz !!!" style="width:100%" />
+
+						<p:outputLabel value="Yurtiçi Adresi" />
+						<p:inputText value="#{muameleislemlerbean.muamele.yurticiAdresi}"
+							style="width:100%" />
+
+
+
+						<p:outputLabel value="Eki" />
+						<p:inputText value="#{muameleislemlerbean.muamele.eki}"
+							style="width:100%" />
+
+
+
+						<p:outputLabel value="Gönderme Tarihi" />
+						<p:calendar id="gondermeTarihi"
+							value="#{muameleislemlerbean.muamele.gondermeTarihi}"
+							required="#{muameleislemlerbean.ctrl.gondermeTarihi}"
+							requiredMessage="Gönderme Tarihini Doldurunuz !!!"
+							pattern="dd/MM/yyyy" mask="true" style="width:100%" />
+
+
+
+
+
+						<p:outputLabel value="Doğum Tarihi" />
+						<p:calendar id="dogumTarihi"
+							value="#{muameleislemlerbean.muamele.dogumTarihi}"
+							pattern="dd/MM/yyyy" mask="true" style="width:100%" />
+
+
+						<p:outputLabel value="Tebligat Tarihi" />
+						<p:calendar id="mask1" style="width:100%"
+							value="#{muameleislemlerbean.muamele.tebligatTarihi}"
+							pattern="dd/MM/yyyy" mask="true" />
+
+						<p:outputLabel value="Haczin Yapıldığı Tarih" />
+						<p:calendar id="mask2"
+							value="#{muameleislemlerbean.muamele.hacizBaslangicTarihi}"
+							pattern="dd/MM/yyyy" mask="true" style="width:100%" />
+
+
+
+
+						<p:outputLabel value="Muamele Tarihi" />
+						<p:calendar id="mask"
+							value="#{muameleislemlerbean.muamele.muameleTarihi}"
+							pattern="dd/MM/yyyy" mask="true" style="width:100%" />
+
+
+
+
+
+					</p:panelGrid>
+
+
+<!-- Müzekkere ve Talep Seçimleri -->
+
+					
+				</p:column>
+
+				<p:column rowspan="2" style="width:40%;">
+
+					<p:panel id="pdfGoruntuleme" header="PDF GÖRÜNTÜLEME"
+						style="width:100%">
+						<p:panelGrid>
+							<object type="application/pdf" data="#{muameleislemlerbean.pdf}"
+								height="850px" style="padding-left: 2%; width: 100%"> </object>
+						</p:panelGrid>
+					</p:panel>
+
+					<p:panel header="ALANLAR" id="alanlarId">
+						<p:panelGrid columns="2" style="margin-left:12%">
+							<p:outputLabel value="Başlık" />
+							<p:inputText size="60"
+								value="#{muameleislemlerbean.muamele.baslik}" />
+							<p:outputLabel value="Paragraf 1" />
+							<p:inputTextarea rows="9" cols="60" queryDelay="750"
+								minQueryLength="4"
+								value="#{muameleislemlerbean.muamele.paragraf1}" />
+							<p:outputLabel value="Paragraf 2" />
+							<p:inputTextarea rows="9" cols="60" queryDelay="750"
+								minQueryLength="3"
+								value="#{muameleislemlerbean.muamele.paragraf2}" />
+						</p:panelGrid>
+					</p:panel>
+				</p:column>
+
+
+			</p:panelGrid>
+		</p:panel>
+
+
+		<ui:include src="/muzekkere/muzekkere_liste.xhtml"></ui:include>
+
+		<p:dialog header="KURUM" widgetVar="dlgKurum" minHeight="340"
+			height="690">
+
+			<ui:include src="../dlg_kurum_kaydi.xhtml" />
+
+		</p:dialog>
+
+		<p:dialog header="BANKA" widgetVar="dlgBanka" minHeight="340"
+			height="690">
+
+			<ui:include src="../dlg_banka_kaydi.xhtml" />
+		</p:dialog>
+
+	
+
+
+
+		<p:dialog header="DETAYLI ARAMA" widgetVar="arama" minHeight="340"
+			height="690">
+			<ui:include src="../dlg_dosya_arama_for_talep_muzekkere.xhtml" />
+		</p:dialog>
+
+<p:dialog header="GAYRİMENKUL" widgetVar="dlgGayrimenkul"
+			minHeight="340" height="690">
+
+			<ui:include src="../dlg_gayrimenkul_kaydi.xhtml" />
+		</p:dialog>
+
+
+
+
+	</h:form>
+
+	
+</h:body>
+</html>

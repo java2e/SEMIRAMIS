@@ -345,6 +345,9 @@ public class AnaSayfaBean {
 			case 1010:
 				formPath ="frm_muze_talep.xhtml";
 				break;
+			case 1111:
+				formPath ="/muzekkere/frm_muze_talep.xhtml";
+				break;
 			case 1011:
 				formPath = "frm_dosya_chronology.xhtml";
 				break;

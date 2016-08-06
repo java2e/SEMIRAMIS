@@ -599,7 +599,6 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 		panel2Visible = false;
 		panel1Visible = true;
 	}
-
 	public void display2() {
 		panel1Visible = false;
 		panel2Visible = true;

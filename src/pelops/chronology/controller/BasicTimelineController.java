@@ -18,6 +18,7 @@ import org.primefaces.extensions.event.timeline.TimelineSelectEvent;
 import org.primefaces.extensions.model.timeline.TimelineEvent;
 import org.primefaces.extensions.model.timeline.TimelineModel;
 
+import pelops.chronology.model.Chronology;
 import pelops.chronology.model.ReportChronology2;
 import pelops.chronology.model.Task;
 import pelops.controller.AktifBean;
@@ -46,7 +47,7 @@ public class BasicTimelineController implements Serializable {
 	TimelineEvent event;
 
 	private String icraDosyaNo;
-	private List<ReportChronology2> chronologies = new ArrayList<>();
+	private List<Chronology> chronologies = new ArrayList<>();
 
 	private int icraDosyaID = 0;
 
@@ -83,25 +84,13 @@ public class BasicTimelineController implements Serializable {
 
 	}
 
-	public void onSelect(TimelineSelectEvent e) {
-
-		try {
-
-			chronologies = ReportChronologyUtil.getInstance().getListForDataTable(icraDosyaID);
-			this.panelRender = true;
-		} catch (Exception e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-
-	}
-
 	public void icraDosyaSec(int id) {
 
 		RequestContext.getCurrentInstance().execute("PF('dlgdetayliarama').hide()");
 		this.icraDosyaNo = AktifBean.getIcraDosyaNo();
 		icraDosyaID = AktifBean.getIcraDosyaID();
 		initialize();
+		chronologies = utils.getChronologyList(icraDosyaID);
 
 	}
 
@@ -189,11 +178,11 @@ public class BasicTimelineController implements Serializable {
 		this.showNavigation = showNavigation;
 	}
 
-	public List<ReportChronology2> getChronologies() {
+	public List<Chronology> getChronologies() {
 		return chronologies;
 	}
 
-	public void setChronologies(List<ReportChronology2> chronologies) {
+	public void setChronologies(List<Chronology> chronologies) {
 		this.chronologies = chronologies;
 	}
 

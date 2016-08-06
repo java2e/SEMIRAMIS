@@ -113,15 +113,24 @@
 			rowIndexVar="rowIndex"
 			rendered="#{basicTimelineController.panelRender}">
 
-			<p:column headerText="Adı" width="10%">
-				<p:outputLabel value="#{list.belgeAdi}" />
+			<p:column headerText="Departman" width="10%">
+				<p:outputLabel value="#{list.departman}" />
 			</p:column>
 
-			<p:column headerText="Belge Yönü" width="15%">
-				<p:outputLabel value="#{list.dosyaYonu}" />
+			<p:column headerText="Borclu Adı" width="15%">
+				<p:outputLabel value="#{list.borcluAdi}" />
+			</p:column>
+			<p:column headerText="İşlem" width="15%">
+				<p:outputLabel value="#{list.islem}" />
+			</p:column>
+			<p:column headerText="Açıklama" width="15%">
+				<p:outputLabel value="#{list.aciklama}" />
 			</p:column>
 			<p:column headerText="Belge Tarihi" width="15%">
 				<p:outputLabel value="#{list.tarih}" />
+			</p:column>
+			<p:column headerText="Personel" width="15%">
+				<p:outputLabel value="#{list.personelAdi}" />
 			</p:column>
 
 		</p:dataTable>

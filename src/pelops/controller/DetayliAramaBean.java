@@ -53,7 +53,6 @@ public class DetayliAramaBean {
 	}
 	public void setDetayliAramaListesi(ArrayList<DetayliArama> detayliAramaListesi) {
 		this.detayliAramaListesi = detayliAramaListesi;
-		this.filterDetayliAramaListesi = detayliAramaListesi;
 	}
 	public String getMuvekkilAdi() {
 		return muvekkilAdi;

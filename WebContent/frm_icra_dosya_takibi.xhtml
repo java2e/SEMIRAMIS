@@ -38,33 +38,31 @@ style="position: absolute; background-color: rgba(0, 0, 0, 0.6); height: 256px; 
 		
 		
 		
-		<p:panel style=" border-style: hidden !important; width:100%">
+		<p:panel style=" border-style: hidden !important; width:100%" id="panelDialog">
 		
-		<p:panelGrid columns="7" style=" border-style: hidden !important;width:100%">
+		<p:panelGrid columns="6" style=" border-style: hidden !important;width:100%">
 		
 		
-		        <p:commandButton style="width:100%" value="Haciz Bilgisi"  actionListener="#{icradosyaislemleribean.setDialogPage('dlg_haciz_bilgisi_kaydi')}"  oncomplete="PF('dialogWidget').show();" update="dialog"/>
-				<p:commandButton style="width:100%" value="Harç Bilgisi"  actionListener="#{icradosyaislemleribean.setDialogPage('dlg_harc_bilgisi_kaydi')}"  oncomplete="PF('dialogWidget').show();" update="dialog"/>
+		        <p:commandButton style="width:100%" value="Haciz Bilgisi"  disabled="#{icradosyaislemleribean.isdialogsVisible}" actionListener="#{icradosyaislemleribean.setDialogPage('dlg_haciz_bilgisi_kaydi')}"  oncomplete="PF('dialogWidget').show();" update="dialog"/>
+				<p:commandButton style="width:100%" value="Harç Bilgisi" disabled="#{icradosyaislemleribean.isdialogsVisible}" actionListener="#{icradosyaislemleribean.setDialogPage('dlg_harc_bilgisi_kaydi')}"  oncomplete="PF('dialogWidget').show();" update="dialog"/>
 		
-				<p:commandButton style="width:100%" value="Masraf Bilgisi"  actionListener="#{icradosyaislemleribean.setDialogPage('dlg_masraf_bilgisi_kaydi')}"  oncomplete="PF('dialogWidget').show();" update="dialog"/>
+				<p:commandButton style="width:100%" value="Masraf Bilgisi" disabled="#{icradosyaislemleribean.isdialogsVisible}" actionListener="#{icradosyaislemleribean.setDialogPage('dlg_masraf_bilgisi_kaydi')}"  oncomplete="PF('dialogWidget').show();" update="dialog"/>
 		
-				<p:commandButton style="width:100%" value="Muamele İşlemleri" ajax="false"
-							update=":OrtaSayfa"
-							actionListener="#{anaSayfaBean.gotoPage(1010)}"/>
+				
 		
-				<p:commandButton style="width:100%" value="Ödeme Emri"  actionListener="#{icradosyaislemleribean.setDialogPage('dlg_odeme_emri_kaydi')}"  oncomplete="PF('dialogWidget').show();" update="dialog"/>
+				<p:commandButton style="width:100%" value="Ödeme Emri" disabled="#{icradosyaislemleribean.isdialogsVisible}" actionListener="#{icradosyaislemleribean.setDialogPage('dlg_odeme_emri_kaydi')}"  oncomplete="PF('dialogWidget').show();" update="dialog"/>
 		
-				<p:commandButton style="width:100%" value="Vizit Bilgisi"  actionListener="#{icradosyaislemleribean.setDialogPage('dlg_vizit_bilgisi_kaydi')}"  oncomplete="PF('dialogWidget').show();" update="dialog"/>
+				<p:commandButton style="width:100%" value="Vizit Bilgisi" disabled="#{icradosyaislemleribean.isdialogsVisible}" actionListener="#{icradosyaislemleribean.setDialogPage('dlg_vizit_bilgisi_kaydi')}"  oncomplete="PF('dialogWidget').show();" update="dialog"/>
 		
-				<p:commandButton style="width:100%" value="Ses Kaydı"  actionListener="#{icradosyaislemleribean.setDialogPage('dlg_icra_borc_ses_kayit')}"  oncomplete="PF('dialogWidget').show();" update="dialog"/>
+				<p:commandButton style="width:100%" value="Ses Kaydı" disabled="#{icradosyaislemleribean.isdialogsVisible}" actionListener="#{icradosyaislemleribean.setDialogPage('dlg_icra_borc_ses_kayit')}"  oncomplete="PF('dialogWidget').show();" update="dialog"/>
 		
-				<p:commandButton style="width:100%" value="İzleme Bilgisi"  actionListener="#{icradosyaislemleribean.setDialogPage('dlg_izleme_bilgisi_kaydi')}"  oncomplete="PF('dialogWidget').show();" update="dialog"/>
-				<p:commandButton style="width:100%" value="Alacak Bilgisi"  actionListener="#{icradosyaislemleribean.setDialogPage('dlg_alacak_bilgisi_kaydi')}"  oncomplete="PF('dialogWidget').show();" update="dialog"/>
+				<p:commandButton style="width:100%" value="İzleme Bilgisi" disabled="#{icradosyaislemleribean.isdialogsVisible}" actionListener="#{icradosyaislemleribean.setDialogPage('dlg_izleme_bilgisi_kaydi')}"  oncomplete="PF('dialogWidget').show();" update="dialog"/>
+				<p:commandButton style="width:100%" value="Alacak Bilgisi" disabled="#{icradosyaislemleribean.isdialogsVisible}" actionListener="#{icradosyaislemleribean.setDialogPage('dlg_alacak_bilgisi_kaydi')}"  oncomplete="PF('dialogWidget').show();" update="dialog"/>
 				<p:commandButton style="width:100%" value="Muamele Analizi"  actionListener="#{icradosyaislemleribean.setDialogPage('dlg_muamele_analizi')}"  oncomplete="PF('dialogWidget').show();" update="dialog"/>
 				<p:commandButton style="width:100%" value="İzleme Analizi "  actionListener="#{icradosyaislemleribean.setDialogPage('dlg_izleme_analizi')}"  oncomplete="PF('dialogWidget').show();" update="dialog"/>
-				<p:commandButton style="width:100%" value="Gönderi Takibi"  rendered="false" actionListener="#{icradosyaislemleribean.setDialogPage('dlg_gonderi_takibi')}"  oncomplete="PF('dialogWidget').show();" update="dialog"/>
-				<p:commandButton style="width:100%" value="Dosya Kronolojisi"  ajax="false" update=":OrtaSayfa"
-							actionListener="#{anaSayfaBean.gotoPage(1011)}"/>
+				<p:commandButton style="width:100%" value="Gönderi Takibi" disabled="#{icradosyaislemleribean.isdialogsVisible}" rendered="false" actionListener="#{icradosyaislemleribean.setDialogPage('dlg_gonderi_takibi')}"  oncomplete="PF('dialogWidget').show();" update="dialog"/>
+				<p:commandButton style="width:100%" value="Dosya Kronolojisi"   
+						disabled="#{icradosyaislemleribean.isdialogsVisible}"	actionListener="#{icradosyaislemleribean.setDialogPage('dlg_dosya_chronology')}" oncomplete="PF('dialogWidget').show();" update="dialog"/>
 				<p:commandButton style="width:100%" value="İCRA KLASÖRÜ"  actionListener="#{icradosyaislemleribean.setDialogPage('dlg_dosya_ekleme')}"  oncomplete="PF('dialogWidget').show();" update="dialog"/>
 		
 			

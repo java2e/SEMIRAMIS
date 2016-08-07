@@ -22,7 +22,8 @@ public class UtilsDAO extends DBConnection {
 	private PreparedStatement pstm;
 
 	public void insertChronology(Chronology chronology) {
-		SQL = "INSERT INTO tbl_kronoloji(icra_dosya_id, departman, borclu, islem, aciklama, tarih) VALUES ( ?, ?, ?, ?, ?, ?);";
+		SQL = "INSERT INTO tbl_kronoloji(icra_dosya_id, departman, borclu, islem, aciklama, tarih, userid) "
+				+ "VALUES ( ?, ?, ?, ?, ?, ?, ?);";
 		newConnectDB();
 		try {
 			pstm = conn.prepareStatement(SQL);
@@ -32,6 +33,7 @@ public class UtilsDAO extends DBConnection {
 			pstm.setString(4, chronology.getIslem());
 			pstm.setString(5, chronology.getAciklama());
 			pstm.setDate(6, convertFromJAVADateToSQLDate(new Date()));
+			pstm.setInt(7, chronology.getUserid());
 			pstm.execute();
 			disconnectDB();
 		} catch (Exception e) {
@@ -51,7 +53,7 @@ public class UtilsDAO extends DBConnection {
 	public List getListFromIcraDosyaID(int id) {
 		List list = new ArrayList<Chronology>();
 		SQL = "SELECT  k.icra_dosya_id, k.departman, k.borclu, k.islem, k.aciklama, k.tarih,"
-				+ " u.ad_soyad as ad_soyad FROM tbl_kronoloji k inner join tbl_kullanici u on k.userid= u.id "
+				+ " u.ad_soyad as ad_soyad, k.userid  FROM tbl_kronoloji k inner join tbl_kullanici u on k.userid= u.id "
 				+ "where k.icra_dosya_id = " + id + ";";
 
 		newConnectDB();

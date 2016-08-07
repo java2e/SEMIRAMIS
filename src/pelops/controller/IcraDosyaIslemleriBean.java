@@ -46,12 +46,22 @@ public class IcraDosyaIslemleriBean {
 	Date nowDate = new Date();
 	LogError newlog;
 	FacesContext context = FacesContext.getCurrentInstance();
-	
+
 	private ArrayList<HesaplarList> hesaplarlistesi;
+
+	private boolean isdialogsVisible = true;
 
 	private int HesapTumId;
 
 	private String dialogUrl = "dlg_common";
+
+	public boolean getIsdialogsVisible() {
+		return isdialogsVisible;
+	}
+
+	public void setIsdialogsVisible(boolean isdialogsVisible) {
+		this.isdialogsVisible = isdialogsVisible;
+	}
 
 	public void setDialogPage(String arg) {
 		setDialogUrl(arg);
@@ -570,7 +580,7 @@ public class IcraDosyaIslemleriBean {
 		icradosyasi.setBK84("E");
 		icradosyasi.setKKDF("H");
 		icradosyasi.setBSMV("E");
-		icradosyasi.setTakipSekliId(0); 
+		icradosyasi.setTakipSekliId(0);
 		icradosyasi.setTakipTipiId(1);
 		icradosyasi.setTalepEdilenHak(
 				"Alacağımızın asıl alacağa takip tarihinden tahsiline kadar sözleşme gereğince takip tarihinden itibaren işleyecek %30.24 temerrüt faizi, faizin %5 gider vergisi, icra harç ve masrafları, avukatlık vekalet ücreti ile birlikte, TBK.Madde 100 gereğince kısmi ödemelerin öncelikle faiz ve masraflara mahsup edileceği, (artan faiz oranlarının tatbiki kaydı ile talep) haklarımız saklı kalmak ve tahsilde tekerrür etmemek kaydı ile tahsili talebidir.");
@@ -702,140 +712,140 @@ public class IcraDosyaIslemleriBean {
 	}
 
 	private static int gelismisgetir;
-	
-	public void listelegelismis(){
+
+	public void listelegelismis() {
 		GelismisListe(gelismisgetir);
 	}
-	
+
 	public void GelismisListe(int id) {
-try{
-	
-	gelismisgetir = id;
-		IcraDosyasiDAO icradosyasidao = new IcraDosyasiDAO();
-		
-		IcraDosyasi  icraDosyasi=icradosyasidao.Listele(id);
-		
-		String icradosyano = icraDosyasi.getIcraDosyaNo();
-		
-		if(icraDosyasi.getIcraMudurluguId()==0)
-		{
-			
-			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Üzgünüz !!!",
-					"Seçmiş olduğunuz dosyanın icra müdürlüğü ve icra dosya numarası tanımlı değildir!.");
-			RequestContext.getCurrentInstance().showMessageInDialog(message);
-			
-		}
-		else
-		{
-		AktifBean.setIcraMudurlugu((new IcraMudurluguDAO()).Liste(icraDosyasi.getIcraMudurluguId()).get(0).getAdi());
-		int icradosyaID = id;
-		icradosyasi.setId(id);
+		try {
 
-		if (icradosyaID == 0) {
-			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Üzgünüz !!!",
-					"Girmiş Olduğunuz Kritere Uygun Kayıt Bulunamamıştır.");
-			RequestContext.getCurrentInstance().showMessageInDialog(message);
+			gelismisgetir = id;
+			IcraDosyasiDAO icradosyasidao = new IcraDosyasiDAO();
 
-		} else {
-			pelops.controller.AktifBean.setIcraDosyaNo(icradosyano);
-			pelops.controller.AktifBean.setIcraDosyaID(icradosyaID);
-			BaglantiDAO baglantidao = new BaglantiDAO();
-			
-			Baglanti baglanti= baglantidao.Listele(icradosyaID);
-			
-			int borclubilgisiID =baglanti.getBorcluID();
+			IcraDosyasi icraDosyasi = icradosyasidao.Listele(id);
 
-			int alacakliID = baglanti.getAlacakliID();
+			String icradosyano = icraDosyasi.getIcraDosyaNo();
 
-			BorcluBilgisiDAO daoborclu = new BorcluBilgisiDAO();
-			AlacakliDAO daoalacakli = new AlacakliDAO();
+			if (icraDosyasi.getIcraMudurluguId() == 0) {
 
-			pelops.controller.AktifBean.setBorcluId(borclubilgisiID);
-			pelops.controller.AktifBean.setMuvekkilAdi(daoalacakli.ListeGetir(alacakliID).getMuvekkilAdi());
-			pelops.controller.AktifBean.setBorcluAdi(daoborclu.Liste(borclubilgisiID).getAdSoyad());
-			pelops.controller.AktifBean.setMusteriNo(daoborclu.Liste(borclubilgisiID).getMusteriNo());
-			icradosyasilistesi = icradosyasidao.Listele(icradosyaID);
+				FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Üzgünüz !!!",
+						"Seçmiş olduğunuz dosyanın icra müdürlüğü ve icra dosya numarası tanımlı değildir!.");
+				RequestContext.getCurrentInstance().showMessageInDialog(message);
 
-			BorcluBilgisiDAO borcludao = new BorcluBilgisiDAO();
-			borclubilgisilistesi = borcludao.Liste(borclubilgisiID);
+			} else {
+				AktifBean.setIcraMudurlugu(
+						(new IcraMudurluguDAO()).Liste(icraDosyasi.getIcraMudurluguId()).get(0).getAdi());
+				int icradosyaID = id;
+				icradosyasi.setId(id);
 
-			hesaplarlistesi.clear();
-			HesaplarList hslist = new HesaplarList();
-			hslist.setHesapAdi("Tüm Hesap Tutarı");
-			hslist.setHesapId(99);
-			hesaplarlistesi.add(hslist);
+				if (icradosyaID == 0) {
+					FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Üzgünüz !!!",
+							"Girmiş Olduğunuz Kritere Uygun Kayıt Bulunamamıştır.");
+					RequestContext.getCurrentInstance().showMessageInDialog(message);
 
-			for (int i = 0; i < baglantidao.BaglantiListele(icradosyaID).size(); i++) {
+				} else {
+					pelops.controller.AktifBean.setIcraDosyaNo(icradosyano);
+					pelops.controller.AktifBean.setIcraDosyaID(icradosyaID);
+					BaglantiDAO baglantidao = new BaglantiDAO();
 
-				hslist = new HesaplarList();
-				hslist.setHesapAdi((i + 1) + ". Hesap Tutarı");
-				hslist.setHesapId(baglantidao.BaglantiListele(icradosyaID).get(i).getHesaplamaID());
+					Baglanti baglanti = baglantidao.Listele(icradosyaID);
 
-				hesaplarlistesi.add(hslist);
+					int borclubilgisiID = baglanti.getBorcluID();
+
+					int alacakliID = baglanti.getAlacakliID();
+
+					BorcluBilgisiDAO daoborclu = new BorcluBilgisiDAO();
+					AlacakliDAO daoalacakli = new AlacakliDAO();
+
+					pelops.controller.AktifBean.setBorcluId(borclubilgisiID);
+					pelops.controller.AktifBean.setMuvekkilAdi(daoalacakli.ListeGetir(alacakliID).getMuvekkilAdi());
+					pelops.controller.AktifBean.setBorcluAdi(daoborclu.Liste(borclubilgisiID).getAdSoyad());
+					pelops.controller.AktifBean.setMusteriNo(daoborclu.Liste(borclubilgisiID).getMusteriNo());
+					icradosyasilistesi = icradosyasidao.Listele(icradosyaID);
+
+					BorcluBilgisiDAO borcludao = new BorcluBilgisiDAO();
+					borclubilgisilistesi = borcludao.Liste(borclubilgisiID);
+
+					hesaplarlistesi.clear();
+					HesaplarList hslist = new HesaplarList();
+					hslist.setHesapAdi("Tüm Hesap Tutarı");
+					hslist.setHesapId(99);
+					hesaplarlistesi.add(hslist);
+
+					for (int i = 0; i < baglantidao.BaglantiListele(icradosyaID).size(); i++) {
+
+						hslist = new HesaplarList();
+						hslist.setHesapAdi((i + 1) + ". Hesap Tutarı");
+						hslist.setHesapId(baglantidao.BaglantiListele(icradosyaID).get(i).getHesaplamaID());
+
+						hesaplarlistesi.add(hslist);
+					}
+
+					int hesapID = baglanti.getHesaplamaID();
+					AktifBean.setHesapID(hesapID);
+					HesapDAO hesapdao = new HesapDAO();
+					hesaplistesi = hesapdao.Liste(hesapID);
+					hesaplistesi.setId(hesapID);
+
+					AlacakliDAO alacaklidao = new AlacakliDAO();
+					alacaklilistesi = alacaklidao.ListeGetir(alacakliID);
+
+					hesapTarihi = new Date();
+
+					plakaGetir();
+
+					Hesapla();
+					refreshPanelVisible();
+				}
 			}
 
-			int hesapID = baglanti.getHesaplamaID();
-			AktifBean.setHesapID(hesapID);
-			HesapDAO hesapdao = new HesapDAO();
-			hesaplistesi = hesapdao.Liste(hesapID);
-			hesaplistesi.setId(hesapID);
+		} catch (SQLException e) {
+			String Hata = "";
+			for (int i = 0; i < e.getStackTrace().length; i++) {
+				Hata += e.getStackTrace()[i] + " : ";
+			}
+			newlog = new LogError();
+			newlog.setHata_detay(Hata);
+			newlog.setHata_value("GelismisListele Prosedürü (SQL ERROR)");
+			newlog.setPage("IcraDosyaIslemleriBean");
+			newlog.setUser_id(99);
 
-			AlacakliDAO alacaklidao = new AlacakliDAO();
-			alacaklilistesi = alacaklidao.ListeGetir(alacakliID);
+			try {
+				log.Kaydet(newlog);
+			} catch (Exception e2) {
+				context.addMessage(null,
+						new FacesMessage("Beklenmeyen Bir Hata Gerçekleşti Lütfen Sisteme Yetkilisine Başvurunuz..."));
 
-			hesapTarihi = new Date();
+			}
 
-			plakaGetir();
+			context.addMessage(null,
+					new FacesMessage("Beklenmeyen Bir Hata Gerçekleşti Lütfen Sisteme Tekrar Giriş Yapınız..."));
 
-			Hesapla();
+		} catch (Exception e) {
+
+			String Hata = "";
+			for (int i = 0; i < e.getStackTrace().length; i++) {
+				Hata += e.getStackTrace()[i] + " : ";
+			}
+			newlog = new LogError();
+			newlog.setHata_detay(Hata);
+			newlog.setHata_value("GelismisListele Prosedürü  (STANDART ERROR)");
+			newlog.setPage("IcraDosyaIslemleriBean");
+			newlog.setUser_id(99);
+
+			try {
+				log.Kaydet(newlog);
+			} catch (Exception e2) {
+
+				context.addMessage(null,
+						new FacesMessage("Beklenmeyen Bir Hata Gerçekleşti Lütfen Sisteme Yetkilisine Başvurunuz..."));
+			}
+
+			context.addMessage(null,
+					new FacesMessage("Beklenmeyen Bir Hata Gerçekleşti Lütfen Sisteme Tekrar Giriş Yapınız..."));
+
 		}
-		}
-	
-} catch (SQLException e) {
-	String Hata="";
-	for (int i = 0; i < e.getStackTrace().length; i++) {
-		Hata += e.getStackTrace()[i]+" : ";	
-	}
-	newlog = new LogError();
-	newlog.setHata_detay(Hata);
-	newlog.setHata_value("GelismisListele Prosedürü (SQL ERROR)");
-	newlog.setPage("IcraDosyaIslemleriBean");
-	newlog.setUser_id(99);
-	
-	
-	try {
-		log.Kaydet(newlog);	
-	} catch (Exception e2) {
-		context.addMessage(null, new FacesMessage("Beklenmeyen Bir Hata Gerçekleşti Lütfen Sisteme Yetkilisine Başvurunuz..."));
-		
-	}
-	
-	context.addMessage(null, new FacesMessage("Beklenmeyen Bir Hata Gerçekleşti Lütfen Sisteme Tekrar Giriş Yapınız..."));
-	
-}catch (Exception e) {
-		
-		String Hata="";
-		for (int i = 0; i < e.getStackTrace().length; i++) {
-			Hata += e.getStackTrace()[i]+" : ";	
-		}
-		newlog = new LogError();
-		newlog.setHata_detay(Hata);
-		newlog.setHata_value("GelismisListele Prosedürü  (STANDART ERROR)");
-		newlog.setPage("IcraDosyaIslemleriBean");
-		newlog.setUser_id(99);
-		
-		
-		try {
-			log.Kaydet(newlog);	
-		} catch (Exception e2) {
-			
-			context.addMessage(null, new FacesMessage("Beklenmeyen Bir Hata Gerçekleşti Lütfen Sisteme Yetkilisine Başvurunuz..."));
-		}
-		
-		context.addMessage(null, new FacesMessage("Beklenmeyen Bir Hata Gerçekleşti Lütfen Sisteme Tekrar Giriş Yapınız..."));
-		
-	
-	}
 
 	}
 
@@ -859,7 +869,7 @@ try{
 			hesaplistesi = tmpHesap;
 			hesaplistesi.setId(99);
 			AktifBean.setHesapID(99);
-			
+
 		} else {
 
 			AktifBean.setHesapID(HesapTumId);
@@ -900,40 +910,49 @@ try{
 
 		} else {
 			if (hesaplistesi.getTakip_alacagi() <= vekaletsinirlar.Liste(yil).getSinir_2()) {
-				hesaplistesi.setVekalet_ucreti((vekaletsinirlar.Liste(yil).getSinir_1()*vekaletsinirlar.Liste(yil).getYuzde_1() / 100) 
-											 + (hesaplistesi.getTakip_alacagi() - vekaletsinirlar.Liste(yil).getSinir_1()) 
-											 *  vekaletsinirlar.Liste(yil).getYuzde_2() / 100);
+				hesaplistesi.setVekalet_ucreti(
+						(vekaletsinirlar.Liste(yil).getSinir_1() * vekaletsinirlar.Liste(yil).getYuzde_1() / 100)
+								+ (hesaplistesi.getTakip_alacagi() - vekaletsinirlar.Liste(yil).getSinir_1())
+										* vekaletsinirlar.Liste(yil).getYuzde_2() / 100);
 			} else {
 				if (hesaplistesi.getTakip_alacagi() <= vekaletsinirlar.Liste(yil).getSinir_3()) {
-					hesaplistesi.setVekalet_ucreti((vekaletsinirlar.Liste(yil).getSinir_2()*vekaletsinirlar.Liste(yil).getYuzde_2() / 100) 
-												 + (hesaplistesi.getTakip_alacagi() - vekaletsinirlar.Liste(yil).getSinir_2()) 
-												 *  vekaletsinirlar.Liste(yil).getYuzde_3() / 100);
+					hesaplistesi.setVekalet_ucreti(
+							(vekaletsinirlar.Liste(yil).getSinir_2() * vekaletsinirlar.Liste(yil).getYuzde_2() / 100)
+									+ (hesaplistesi.getTakip_alacagi() - vekaletsinirlar.Liste(yil).getSinir_2())
+											* vekaletsinirlar.Liste(yil).getYuzde_3() / 100);
 				} else {
 					if (hesaplistesi.getTakip_alacagi() <= vekaletsinirlar.Liste(yil).getSinir_4()) {
-						hesaplistesi.setVekalet_ucreti((vekaletsinirlar.Liste(yil).getSinir_3()*vekaletsinirlar.Liste(yil).getYuzde_3() / 100) 
-													 + (hesaplistesi.getTakip_alacagi() - vekaletsinirlar.Liste(yil).getSinir_3()) 
-													 *  vekaletsinirlar.Liste(yil).getYuzde_4() / 100);
+						hesaplistesi.setVekalet_ucreti((vekaletsinirlar.Liste(yil).getSinir_3()
+								* vekaletsinirlar.Liste(yil).getYuzde_3() / 100)
+								+ (hesaplistesi.getTakip_alacagi() - vekaletsinirlar.Liste(yil).getSinir_3())
+										* vekaletsinirlar.Liste(yil).getYuzde_4() / 100);
 
 					} else {
 						if (hesaplistesi.getTakip_alacagi() <= vekaletsinirlar.Liste(yil).getSinir_5()) {
-							hesaplistesi.setVekalet_ucreti((vekaletsinirlar.Liste(yil).getSinir_4()*vekaletsinirlar.Liste(yil).getYuzde_4() / 100) 
-														 + (hesaplistesi.getTakip_alacagi() - vekaletsinirlar.Liste(yil).getSinir_4()) 
-														 *  vekaletsinirlar.Liste(yil).getYuzde_5() / 100);
+							hesaplistesi.setVekalet_ucreti((vekaletsinirlar.Liste(yil).getSinir_4()
+									* vekaletsinirlar.Liste(yil).getYuzde_4() / 100)
+									+ (hesaplistesi.getTakip_alacagi() - vekaletsinirlar.Liste(yil).getSinir_4())
+											* vekaletsinirlar.Liste(yil).getYuzde_5() / 100);
 						} else {
 							if (hesaplistesi.getTakip_alacagi() <= vekaletsinirlar.Liste(yil).getSinir_6()) {
-								hesaplistesi.setVekalet_ucreti((vekaletsinirlar.Liste(yil).getSinir_5()*vekaletsinirlar.Liste(yil).getYuzde_5() / 100) 
-															 + (hesaplistesi.getTakip_alacagi() - vekaletsinirlar.Liste(yil).getSinir_5()) 
-															 *  vekaletsinirlar.Liste(yil).getYuzde_6() / 100);
+								hesaplistesi.setVekalet_ucreti((vekaletsinirlar.Liste(yil).getSinir_5()
+										* vekaletsinirlar.Liste(yil).getYuzde_5() / 100)
+										+ (hesaplistesi.getTakip_alacagi() - vekaletsinirlar.Liste(yil).getSinir_5())
+												* vekaletsinirlar.Liste(yil).getYuzde_6() / 100);
 							} else {
 
 								if (hesaplistesi.getTakip_alacagi() <= vekaletsinirlar.Liste(yil).getSinir_7()) {
-									hesaplistesi.setVekalet_ucreti((vekaletsinirlar.Liste(yil).getSinir_6()*vekaletsinirlar.Liste(yil).getYuzde_6() / 100) 
-																 + (hesaplistesi.getTakip_alacagi() - vekaletsinirlar.Liste(yil).getSinir_6()) 
-																 *  vekaletsinirlar.Liste(yil).getYuzde_7() / 100);
+									hesaplistesi.setVekalet_ucreti((vekaletsinirlar.Liste(yil).getSinir_6()
+											* vekaletsinirlar.Liste(yil).getYuzde_6() / 100)
+											+ (hesaplistesi.getTakip_alacagi()
+													- vekaletsinirlar.Liste(yil).getSinir_6())
+													* vekaletsinirlar.Liste(yil).getYuzde_7() / 100);
 								} else {
-									hesaplistesi.setVekalet_ucreti((vekaletsinirlar.Liste(yil).getSinir_7()*vekaletsinirlar.Liste(yil).getYuzde_7() / 100) 
-											 + (hesaplistesi.getTakip_alacagi() - vekaletsinirlar.Liste(yil).getSinir_7()) 
-											 *  vekaletsinirlar.Liste(yil).getYuzde_8() / 100);
+									hesaplistesi.setVekalet_ucreti((vekaletsinirlar.Liste(yil).getSinir_7()
+											* vekaletsinirlar.Liste(yil).getYuzde_7() / 100)
+											+ (hesaplistesi.getTakip_alacagi()
+													- vekaletsinirlar.Liste(yil).getSinir_7())
+													* vekaletsinirlar.Liste(yil).getYuzde_8() / 100);
 
 								}
 
@@ -991,12 +1010,8 @@ try{
 
 		double pesinHarc = hesaplistesi.getTakip_alacagi() * 0.5 / 100;
 
-		
-		
 		double digerHarc = basvuruHarci + vekaletHarci + pesinHarc + toplamharc();
 
-		
-		
 		double harcoran = this.getHarcoranTL();
 
 		this.setPesinHarcTL(pesinHarc);
@@ -1227,7 +1242,7 @@ try{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	
+
 	}
 
 	public String hacizDurum() {
@@ -1336,26 +1351,30 @@ try{
 	public void setDlgURL(String dlgURL) {
 		this.dlgURL = dlgURL;
 	}
-	
-	
-	
-	public double toplamharc(){
-		
+
+	public double toplamharc() {
+
 		HarcBilgisiDAO dao = new HarcBilgisiDAO();
 		double returndouble = 0;
-		
+
 		try {
 			for (HarcBilgisi harc : dao.getAllListFromIcraDosyaID(AktifBean.getIcraDosyaID())) {
-				
+
 				returndouble += harc.getHarc_miktari();
 			}
-			
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return returndouble;
-		
+
+	}
+
+	public void refreshPanelVisible() {
+		if (AktifBean.getIcraDosyaID() != 0) {
+			this.isdialogsVisible = false;
+		}
 	}
 
 	// public void getirURL(int deger){

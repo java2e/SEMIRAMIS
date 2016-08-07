@@ -83,7 +83,7 @@
 			</h:panelGrid>
 		</p:fieldset>
 
-		<p:panel >
+		<p:panel>
 			<p:spacer width="100%" height="10" />
 
 			<pe:timeline id="timeline" value="#{basicTimelineController.model}"
@@ -101,17 +101,13 @@
 					<h:outputText value="#{task.title}" />
 				</h:panelGroup>
 				<h:graphicImage library="images" name="#{task.imagePath}" />
-				<p:ajax event="select"
-					listener="#{basicTimelineController.onSelect}"
-					update=":formChr" />
 			</pe:timeline>
 		</p:panel>
 		<p:spacer width="100%" height="20" />
 
 		<p:dataTable id="datatable" var="list" rows="10" paginator="true"
 			value="#{basicTimelineController.chronologies}"
-			rowIndexVar="rowIndex"
-			rendered="#{basicTimelineController.panelRender}">
+			rowIndexVar="rowIndex">
 
 			<p:column headerText="Departman" width="10%">
 				<p:outputLabel value="#{list.departman}" />

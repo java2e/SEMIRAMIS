@@ -23,6 +23,8 @@ import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import pelops.chronology.controller.Utils;
+import pelops.chronology.model.ChronologyIdentifier;
 import pelops.controller.AktifBean;
 import pelops.controller.GenelTanimBean;
 import pelops.controller.IcraDosyaIslemleriBean;
@@ -53,6 +55,7 @@ public class KasaBean {
 	LogError newlog;
 	SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 	FacesContext context = FacesContext.getCurrentInstance();
+	private Utils utils = new Utils();
 
 	private boolean hitam = true, tahsilat = false, makbuz = true;
 
@@ -709,7 +712,9 @@ public class KasaBean {
 				reddiyatBilgisi.setMuvekkilDurum(1);
 			controller.guncelle(reddiyatBilgisi);
 			sayfaGuncelle();
-
+			utils.saveChronology(AktifBean.getIcraDosyaID(), ChronologyIdentifier.ISLEM_REDDIYAT,
+					reddiyatBilgisi.getBorcluAdi() + "---" + reddiyatBilgisi.getToplamReddiyatTutari()
+							+ " reddiyat yapılmıştır");
 			FacesContext context = FacesContext.getCurrentInstance();
 			context.addMessage(null, new FacesMessage("Reddiyat İşlemi Başarı İle Gerçekleştirildi..."));
 			RequestContext.getCurrentInstance().execute("PF('frmreddiyatyap').hide();");
@@ -786,6 +791,9 @@ public class KasaBean {
 					Reddiyat reddiyat = controller.createReddiyatForStatus(i, hesap, bilgiTahsilat);
 					redList.add(reddiyat);
 				}
+				utils.saveChronology(AktifBean.getIcraDosyaID(), ChronologyIdentifier.ISLEM_HITAM,
+						bilgiTahsilat.getBorclu_adi() + "----" + bilgiTahsilat.getTahsilat_miktari()
+								+ "TL Hitam yapılmıştır.");
 			} else {
 				hitam = false;
 			}
@@ -794,6 +802,9 @@ public class KasaBean {
 			controller.kaydet(bilgiTahsilat, hitam, redList);
 			tahsilat = true;
 			makbuz = false;
+			utils.saveChronology(AktifBean.getIcraDosyaID(), ChronologyIdentifier.ISLEM_TAHSILAT,
+					bilgiTahsilat.getBorclu_adi() + "----" +  bilgiTahsilat.getTahsilat_miktari()
+							+ " TL Tahsilat yapılmıştır.");
 
 			sayfaGuncelle();
 
@@ -1030,6 +1041,7 @@ public class KasaBean {
 			if (id == null) {
 
 				islem.printTahsilatMakbuzu(tahsilatID);
+				
 			} else {
 				islem.printTahsilatMakbuzu(id);
 			}
@@ -1077,7 +1089,7 @@ public class KasaBean {
 			context = FacesContext.getCurrentInstance();
 			context.addMessage(null,
 					new FacesMessage("Beklenmeyen Bir Hata Gerçekleşti Lütfen Sisteme Tekrar Giriş Yapınız..."));
-			System.out.println(e.getMessage().toString());	
+			System.out.println(e.getMessage().toString());
 		}
 
 	}
@@ -1100,6 +1112,8 @@ public class KasaBean {
 		ServletOutputStream servletOutputStream = httpServletResponse.getOutputStream();
 
 		JasperExportManager.exportReportToPdfStream(jasperPrint, servletOutputStream);
+		
+		
 
 		servletOutputStream.flush();
 		servletOutputStream.close();

@@ -260,6 +260,10 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 				System.out.println(new DecimalFormat("0.00").format(autoFields.getBorcMiktari()));
 
 				muamele.setBorcluMiktari(Double.valueOf(new DecimalFormat("0.00").format(autoFields.getBorcMiktari()).replace(",", ".")));
+				
+				
+			
+				
 			}
 
 			if (muamele.getAlacakFaizTutari() == null) {
@@ -567,7 +571,7 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 		liste.setIcraBilgi(muamele.getIcraMudurluguAdi());
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		liste.setTarih(sdf.format(new java.util.Date()));
-		liste.setIl(muamele.getIl());
+		liste.setIl(muamele.getIcraMudurluguAdi().split(" ")[0]);
 		liste.setBrcd(muamele.getBarkod());
 		liste.setKonu(zarfTipi);
 
@@ -1516,6 +1520,10 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 
 		// Önizlemede Kullanılacak
 		muamele = dao.getMuameleFromList(onizleDuzenleID);
+		
+		
+		muamele.setBorcluMiktariTxt(new DecimalFormat("###,###.##").format(muamele.getBorcluMiktari()));
+		
 
 		// Önizleme yapılırken text'lerin yeniden gelmesi için sağlanır
 

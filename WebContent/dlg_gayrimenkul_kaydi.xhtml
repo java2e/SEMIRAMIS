@@ -62,7 +62,22 @@
 					<p:outputLabel value="Parsel"></p:outputLabel>
 					<p:inputText value="#{muameleislemlerbean.parsel}"></p:inputText>
 					<p:outputLabel value="Açıklama"></p:outputLabel>
-					<p:inputText value="#{muameleislemlerbean.aciklama}"></p:inputText>
+					
+					<p:selectOneMenu id="aciklama"  value="#{muameleislemlerbean.aciklama}">
+					
+					<f:selectItem itemLabel="Gayrimenkul Açıklaması Seçiniz" itemValue="Gayrimenkul"/>
+						<f:selectItem itemLabel="BAĞ" itemValue="BAĞ"/>
+							<f:selectItem itemLabel="BAHÇE" itemValue="BAHÇE"/>
+								<f:selectItem itemLabel="MESKEN" itemValue="MESKEN"/>
+									<f:selectItem itemLabel="BAĞIMSIZ BÖLÜM" itemValue="BAĞIMSIZ BÖLÜM"/>
+										<f:selectItem itemLabel="ARSA" itemValue="ARSA"/>
+											<f:selectItem itemLabel="ARAZİ" itemValue="ARAZİ"/>
+												<f:selectItem itemLabel="ANA TAŞINMAZ" itemValue="ANA TAŞINMAZ"/>
+													<f:selectItem itemLabel="DİĞER" itemValue="DİĞER"/>	
+													
+					</p:selectOneMenu>
+					
+					
 				</p:panelGrid>
 				<p:commandButton value="Ekle"
 					action="#{muameleislemlerbean.addGayrimenkulList}"

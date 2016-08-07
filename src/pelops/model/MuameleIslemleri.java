@@ -48,7 +48,11 @@ public class MuameleIslemleri {
 
 	private String barcode;
 	private int contentId;
+	
+	
 	private int icraMudurluguId;
+	
+	
 	private int hazirlayanId;
 	private String baslik;
 	private String pdf;
@@ -80,6 +84,10 @@ public class MuameleIslemleri {
 	private String tel;
 	private String email;
 	private Double borcluMiktari;
+	
+	private String borcluMiktariTxt;
+	
+	
 	private String alacakliAdi;
 	private String buroIbanNo;
 	private String borcluTcKimlikNo;
@@ -2370,6 +2378,20 @@ public class MuameleIslemleri {
 	public void setTapuIlce(String tapuIlce) {
 		this.tapuIlce = tapuIlce;
 	}
+
+
+
+	public String getBorcluMiktariTxt() {
+		return borcluMiktariTxt;
+	}
+
+
+
+	public void setBorcluMiktariTxt(String borcluMiktariTxt) {
+		this.borcluMiktariTxt = borcluMiktariTxt;
+	}
+
+
 
 
 

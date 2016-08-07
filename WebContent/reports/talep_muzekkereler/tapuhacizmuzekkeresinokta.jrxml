@@ -13,7 +13,7 @@
 	<field name="hazirlayan" class="java.lang.String"/>
 	<field name="riskYoneticisi" class="java.lang.String"/>
 	<field name="muameleTarihiText" class="java.lang.String"/>
-	<field name="borcluMiktari" class="java.lang.String"/>
+	<field name="borcluMiktariTxt" class="java.lang.String"/>
 	<field name="dogumTarihiText" class="java.lang.String"/>
 	<field name="tapuKayitlari" class="java.lang.String"/>
 	<field name="bankaAdi" class="java.lang.String"/>
@@ -204,7 +204,7 @@ hissedarların adı soyadı adreslerinin tarafımıza bildirilmesi rica olunur.]
 				<textElement verticalAlignment="Middle">
 					<font fontName="Times New Roman"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{borcluMiktari}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{borcluMiktariTxt}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="111" y="339" width="125" height="20" uuid="04da3c5a-834c-4510-8106-3c1181c00a94"/>
@@ -250,7 +250,7 @@ hissedarların adı soyadı adreslerinin tarafımıza bildirilmesi rica olunur.]
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="12" pdfEncoding="Cp1254"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{tapuMudurluguIlIlce}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{tapuMudurluguIlIlce}.toUpperCase()]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

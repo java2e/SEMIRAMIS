@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="maashacizmuzekkeresigenel" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="cfe93346-2c07-437d-adca-7e7a9777c6a0">
 	<property name="ireport.zoom" value="1.464100000000011"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="411"/>
+	<property name="ireport.y" value="267"/>
 	<field name="alacakliBankasi" class="java.lang.String"/>
 	<field name="avukatAdi" class="java.lang.String"/>
 	<field name="borcluAdi" class="java.lang.String"/>
@@ -16,7 +16,7 @@
 	<field name="muameleTarihiText" class="java.lang.String"/>
 	<field name="alacakliTel" class="java.lang.String"/>
 	<field name="alacakliMail" class="java.lang.String"/>
-	<field name="borcluMiktari" class="java.lang.String"/>
+	<field name="borcluMiktariTxt" class="java.lang.String"/>
 	<field name="buroIbanNo" class="java.lang.String"/>
 	<field name="buroAdresi" class="java.lang.String"/>
 	<field name="borcluTc" class="java.lang.String"/>
@@ -400,12 +400,12 @@ veya müstahdemlerin maaş ve ücretlerinden kesilmesi için icra dairelerinden 
 				</textElement>
 				<text><![CDATA[Risk Yöneticisi :]]></text>
 			</staticText>
-			<textField pattern="" isBlankWhenNull="true">
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="106" y="174" width="105" height="20" uuid="3d47e182-1dcd-4862-a4aa-87bf75c35a71"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="10" pdfEncoding="Cp1254"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{borcluMiktari}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{borcluMiktariTxt}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="340" y="620" width="183" height="15" uuid="edb32705-ca53-4f6d-a51d-71bd0da77c9f"/>

@@ -64,6 +64,8 @@ public class KasaBean {
 	private ArrayList<GenelTanimSablon> odemeYeriListesi = new ArrayList<GenelTanimSablon>();
 	private Kasa modelKasa = new Kasa();
 	private ArrayList<DetayliArama> detayliAramaListesi = new ArrayList<DetayliArama>();
+	private ArrayList<DetayliArama> filteredDetayliAramaListesi = new ArrayList<DetayliArama>();
+
 	private ArrayList<DetayliArama> filterDetayliAramaListesi = new ArrayList<>();
 	private Tahsilat bilgiTahsilat = new Tahsilat();
 	private Date baslangicTarihi = new Date(), bitisTarihi = DateUtils.addMonths(new Date(), 1), olddatenew, enddatenew;
@@ -92,6 +94,15 @@ public class KasaBean {
 	private String hsbc_gunluk1, akbank_gunluk1, garanti_gunluk1, ing_gunluk1;
 
 	private String Ay, gun;
+
+	
+	public ArrayList<DetayliArama> getFilteredDetayliAramaListesi() {
+		return filteredDetayliAramaListesi;
+	}
+
+	public void setFilteredDetayliAramaListesi(ArrayList<DetayliArama> filteredDetayliAramaListesi) {
+		this.filteredDetayliAramaListesi = filteredDetayliAramaListesi;
+	}
 
 	public boolean isHitam() {
 		return hitam;

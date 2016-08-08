@@ -63,7 +63,7 @@ style="position: absolute; background-color: rgba(0, 0, 0, 0.6); height: 256px; 
 				<p:commandButton style="width:100%" value="Gönderi Takibi" disabled="#{icradosyaislemleribean.isdialogsVisible}" rendered="false" actionListener="#{icradosyaislemleribean.setDialogPage('dlg_gonderi_takibi')}"  oncomplete="PF('dialogWidget').show();" update="dialog"/>
 				<p:commandButton style="width:100%" value="Dosya Kronolojisi"   
 						disabled="#{icradosyaislemleribean.isdialogsVisible}"	actionListener="#{icradosyaislemleribean.setDialogPage('dlg_dosya_chronology')}" oncomplete="PF('dialogWidget').show();" update="dialog"/>
-				<p:commandButton style="width:100%" value="İCRA KLASÖRÜ"  actionListener="#{icradosyaislemleribean.setDialogPage('dlg_dosya_ekleme')}"  oncomplete="PF('dialogWidget').show();" update="dialog"/>
+				<p:commandButton style="width:100%" value="İCRA KLASÖRÜ" disabled="#{icradosyaislemleribean.isdialogsVisible}" actionListener="#{icradosyaislemleribean.setDialogPage('dlg_dosya_ekleme')}"  oncomplete="PF('dialogWidget').show();" update="dialog"/>
 		
 			
 				

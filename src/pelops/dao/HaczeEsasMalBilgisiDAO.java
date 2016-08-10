@@ -7,6 +7,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import pelops.chronology.controller.ChronologyUtil;
+import pelops.chronology.controller.Utils;
+import pelops.chronology.model.ChronologyIdentifier;
 import pelops.chronology.model.Instance;
 import pelops.controller.AktifBean;
 import pelops.db.DBConnection;
@@ -18,6 +20,7 @@ public class HaczeEsasMalBilgisiDAO extends DBConnection {
 	String SQL = "";
 	Statement stmt;
 	ResultSet rs;
+	Utils utils = new Utils();
 
 	public boolean kaydet(HaczeEsasMalBilgisi haczeEsasMalBilgisi) throws Exception {
 
@@ -58,6 +61,9 @@ public class HaczeEsasMalBilgisiDAO extends DBConnection {
 		disconnectDB();
 		if (sonuc == 1) {
 			kaydedildi = true;
+			utils.saveChronology(AktifBean.getIcraDosyaID(), ChronologyIdentifier.ISLEM_HESAP,
+					utils.getBocluAdi() + " Borçluya hacze esas mal bilgisi eklendi Mal Bilgisi: "
+							+ haczeEsasMalBilgisi.getMenkulBilgisi());
 		}
 		return kaydedildi;
 	}
@@ -102,8 +108,7 @@ public class HaczeEsasMalBilgisiDAO extends DBConnection {
 		if (sonuc == 1) {
 			kaydedildi = true;
 		}
-		ChronologyUtil.getInstance().insertInstance(
-				new Instance(haczeEsasMalBilgisi.getIcraDosyaId(), null, "EGM Sorgu", "EGM sorgusu yapıldı", 2));
+		
 		return kaydedildi;
 	}
 

@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import pelops.chronology.controller.Utils;
+import pelops.chronology.model.ChronologyIdentifier;
 import pelops.controller.AktifBean;
 import pelops.db.DBConnection;
 import pelops.model.User;
@@ -19,20 +21,17 @@ public class VizitBilgisiDAO extends DBConnection {
 	Statement stmt;
 	ResultSet rs;
 
-	public boolean vizitBilgisiKaydet(VizitBilgisi vizitBilgisi)
-			throws Exception {
+	public boolean vizitBilgisiKaydet(VizitBilgisi vizitBilgisi) throws Exception {
 		boolean kaydedildi = false;
 
 		SQL = "INSERT INTO tbl_vizit_bilgisi( borclu_id, vizit_tarihi, vizit_statusu, odeme_sozu_tarihi, "
-				+ "odeme_sozu_miktari, vizit_notu, personel_id, icra_dosyasi)"
-				+ "VALUES ( ?, ?, ?, ?,  ?, ?, ?, ?);";
+				+ "odeme_sozu_miktari, vizit_notu, personel_id, icra_dosyasi)" + "VALUES ( ?, ?, ?, ?,  ?, ?, ?, ?);";
 
 		newConnectDB();
 
 		prpst = conn.prepareStatement(SQL);
 		prpst.setInt(1, AktifBean.getBorcluId());
-		java.sql.Date date = convertFromJAVADateToSQLDate(vizitBilgisi
-				.getVizitTarihi());
+		java.sql.Date date = convertFromJAVADateToSQLDate(vizitBilgisi.getVizitTarihi());
 		prpst.setDate(2, date);
 		prpst.setString(3, vizitBilgisi.getVizitStatusu());
 		date = convertFromJAVADateToSQLDate(vizitBilgisi.getOdemeSozuTarihi());
@@ -46,20 +45,22 @@ public class VizitBilgisiDAO extends DBConnection {
 		disconnectDB();
 		if (sonuc == 1) {
 			kaydedildi = true;
+			Utils utils = new Utils();
+			utils.saveChronology(AktifBean.getIcraDosyaID(), ChronologyIdentifier.ISLEM_VIZIT, utils.getUserName()
+					+ " Personel " + utils.getBocluAdi() + " adlı borclunun vizit bilgisini kaydetmiştir.");
 		}
 
 		return kaydedildi;
 	}
 
-	public ArrayList<VizitBilgisi> getAllListFromIcraDosyaID(int id)
-			throws Exception {
+	public ArrayList<VizitBilgisi> getAllListFromIcraDosyaID(int id) throws Exception {
 
 		ArrayList<VizitBilgisi> list = new ArrayList<VizitBilgisi>();
 
 		SQL = "SELECT w.id, w.vizit_tarihi, w.vizit_statusu, w.odeme_sozu_tarihi,"
 				+ "w.odeme_sozu_miktari, w.vizit_notu, u.\"adSoyad\", w.icra_dosyasi, w.personel_id "
-				+ "FROM tbl_vizit_bilgisi w  inner join tbl_user u on u.id = w.personel_id "
-				+ "where w.icra_dosyasi=" + id;
+				+ "FROM tbl_vizit_bilgisi w  inner join tbl_user u on u.id = w.personel_id " + "where w.icra_dosyasi="
+				+ id;
 
 		newConnectDB();
 		stmt = conn.createStatement();
@@ -72,10 +73,8 @@ public class VizitBilgisiDAO extends DBConnection {
 				VizitBilgisi vizitBilgisi = new VizitBilgisi();
 
 				vizitBilgisi.setId(rs.getInt("id"));
-				vizitBilgisi
-						.setOdemeMiktari(rs.getDouble("odeme_sozu_miktari"));
-				vizitBilgisi
-						.setOdemeSozuTarihi(rs.getDate("odeme_sozu_tarihi"));
+				vizitBilgisi.setOdemeMiktari(rs.getDouble("odeme_sozu_miktari"));
+				vizitBilgisi.setOdemeSozuTarihi(rs.getDate("odeme_sozu_tarihi"));
 				vizitBilgisi.setVizitTarihi(rs.getDate("vizit_tarihi"));
 				vizitBilgisi.setUserName(rs.getString("adSoyad"));
 				vizitBilgisi.setVizitStatusu(rs.getString("vizit_statusu"));
@@ -118,18 +117,16 @@ public class VizitBilgisiDAO extends DBConnection {
 
 	public boolean guncelle(VizitBilgisi vizitBilgisi) throws Exception {
 		boolean duzenlendi = false;
-		SQL = "UPDATE tbl_vizit_bilgisi SET  "
-				+ "borclu_id=?, vizit_tarihi=?, vizit_statusu=?, odeme_sozu_tarihi=?,"
-				+ " odeme_sozu_miktari=?, vizit_notu=?, personel_id=?, icra_dosyasi=? "
-				+ "WHERE id=" + vizitBilgisi.getId() + " ;";
+		SQL = "UPDATE tbl_vizit_bilgisi SET  " + "borclu_id=?, vizit_tarihi=?, vizit_statusu=?, odeme_sozu_tarihi=?,"
+				+ " odeme_sozu_miktari=?, vizit_notu=?, personel_id=?, icra_dosyasi=? " + "WHERE id="
+				+ vizitBilgisi.getId() + " ;";
 
 		newConnectDB();
 
 		prpst = conn.prepareStatement(SQL);
 
 		prpst.setInt(1, AktifBean.getBorcluId());
-		java.sql.Date date = convertFromJAVADateToSQLDate(vizitBilgisi
-				.getVizitTarihi());
+		java.sql.Date date = convertFromJAVADateToSQLDate(vizitBilgisi.getVizitTarihi());
 		prpst.setDate(2, date);
 		prpst.setString(3, vizitBilgisi.getVizitStatusu());
 		date = convertFromJAVADateToSQLDate(vizitBilgisi.getOdemeSozuTarihi());

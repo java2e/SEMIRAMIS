@@ -9,6 +9,7 @@ import org.primefaces.extensions.model.timeline.TimelineEvent;
 import pelops.chronology.model.Chronology;
 import pelops.chronology.model.ChronologyIdentifier;
 import pelops.chronology.model.Task;
+import pelops.controller.AktifBean;
 
 public class Utils {
 
@@ -44,6 +45,18 @@ public class Utils {
 	public List getChronologyList(int id) {
 
 		return dao.getListFromIcraDosyaID(id);
+	}
+
+	public String getUserName() {
+		return dao.getPersoneAdi();
+	}
+	
+	public String getBocluAdi(){
+		String name = null;
+		if(AktifBean.getBorcluId()!=0){
+			name = dao.getBorcluAdi(AktifBean.getBorcluId());
+		}
+		return name;
 	}
 
 }

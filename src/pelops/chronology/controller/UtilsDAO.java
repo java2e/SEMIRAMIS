@@ -126,5 +126,11 @@ public class UtilsDAO extends DBConnection {
 		User user = (User) session.getAttribute("user");
 		return user.getUsrId();
 	}
+	
+	public String getPersoneAdi(){
+		HttpSession session = Util.getSession();
+		User user = (User) session.getAttribute("user");
+		return user.getUsrAdSoyad();
+	}
 
 }

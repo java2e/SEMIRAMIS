@@ -6,6 +6,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import pelops.chronology.controller.ChronologyUtil;
+import pelops.chronology.controller.Utils;
+import pelops.chronology.model.ChronologyIdentifier;
 import pelops.chronology.model.Instance;
 import pelops.model.AlacakBilgisi;
 import pelops.model.Baglanti;
@@ -413,6 +415,8 @@ public class XMLToSistemAktarimDAO {
 		alacakBilgisiBilgileri.setBelge_miktari(doubleYap(xmlVeri.get_digerAlacak_tutar()));
 		alacakBilgisiBilgileri.setDoviz_tipi(xmlVeri.get_digerAlacak_tutarAdi());
 		alacakBilgisiDAO.kaydet(alacakBilgisiBilgileri);
+		Utils utils = new Utils();
+		utils.saveChronology(IcraDosyaId, ChronologyIdentifier.ISLEM_EXCELL, dosya.getIcraDosyaNo()+" Dosyası excell entegrasyonu ile açılmıştır.");
 	}
 
 	public void FreeXMLSave(FreeXML freeXmlVeri) {

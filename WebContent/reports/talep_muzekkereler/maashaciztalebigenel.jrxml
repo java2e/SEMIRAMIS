@@ -10,11 +10,13 @@
 	<field name="tapu_standart_text" class="java.lang.String"/>
 	<field name="posta_standart_text" class="java.lang.String"/>
 	<field name="muameleTarihiText" class="java.lang.String"/>
+	<field name="muhatapAdi" class="java.lang.String"/>
+	<field name="muhatapAdresi" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="69" splitType="Stretch">
+		<band height="121" splitType="Stretch">
 			<staticText>
 				<reportElement x="60" y="0" width="48" height="29" uuid="9ce465da-b5a1-463a-964c-db42c1e10cec"/>
 				<textElement textAlignment="Center">
@@ -24,71 +26,68 @@
 ANKARA]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="10" y="29" width="320" height="20" uuid="c72a6285-2aae-408e-b92a-afb07dc3a023"/>
+				<reportElement x="10" y="29" width="275" height="20" uuid="c72a6285-2aae-408e-b92a-afb07dc3a023"/>
 				<textElement verticalAlignment="Middle">
 					<font pdfEncoding="Cp1254"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{icraMudurluguAdi}]]></textFieldExpression>
 			</textField>
-			<staticText>
-				<reportElement x="0" y="49" width="87" height="19" uuid="2b6c1f73-ee97-4138-b346-7d38c33c0de0"/>
-				<textElement verticalAlignment="Middle">
-					<font pdfEncoding="Cp1254"/>
-				</textElement>
-				<text><![CDATA[DOSYA/ESAS:]]></text>
-			</staticText>
 			<textField>
-				<reportElement x="72" y="49" width="258" height="20" uuid="9c5380c5-2255-4c04-8670-a10ffa99cbd1"/>
+				<reportElement x="10" y="49" width="275" height="20" uuid="9c5380c5-2255-4c04-8670-a10ffa99cbd1"/>
 				<textElement verticalAlignment="Middle">
 					<font pdfEncoding="Cp1254"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{icraDosyaNo}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["DOSYA/ESAS NO :"+$F{icraDosyaNo}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>
 	<detail>
 		<band height="407" splitType="Stretch">
-			<textField pattern="">
-				<reportElement x="26" y="8" width="509" height="52" uuid="4ea4c3a9-73d6-44fa-b302-545e02561ec9"/>
-				<textElement textAlignment="Justified" verticalAlignment="Top">
-					<font pdfEncoding="Cp1254"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{sgk_standart_text}]]></textFieldExpression>
-			</textField>
 			<staticText>
-				<reportElement x="26" y="60" width="191" height="18" uuid="2d7382fb-8e1b-44df-8f29-96f530bf8d60"/>
-				<textElement verticalAlignment="Middle">
-					<font pdfEncoding="Cp1254"/>
-				</textElement>
-				<text><![CDATA[İş bu talep uyap üzerinden e-imza ile ]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="289" y="60" width="115" height="18" uuid="8554c365-4e6f-4fcf-86e0-36059c2eebce"/>
-				<textElement verticalAlignment="Middle">
-					<font pdfEncoding="Cp1254"/>
-				</textElement>
-				<text><![CDATA[tarihinde gönderilmiştir.]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="26" y="97" width="115" height="20" uuid="7e47f8d6-ce81-44fe-b813-5cf26bb06891"/>
+				<reportElement x="21" y="359" width="115" height="20" uuid="7e47f8d6-ce81-44fe-b813-5cf26bb06891"/>
 				<textElement verticalAlignment="Middle">
 					<font isUnderline="true" pdfEncoding="Cp1254"/>
 				</textElement>
 				<text><![CDATA[SORGU SONUÇLARI]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="26" y="118" width="34" height="20" uuid="64dfed5d-4432-47ad-a497-81f498ea2acd"/>
+				<reportElement x="21" y="380" width="34" height="20" uuid="64dfed5d-4432-47ad-a497-81f498ea2acd"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font pdfEncoding="Cp1254"/>
 				</textElement>
 				<text><![CDATA[SGK]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="198" y="60" width="108" height="18" uuid="5426bfbe-bcb4-4b5c-b6ba-85e8c7e44324"/>
+				<reportElement x="21" y="331" width="473" height="18" uuid="5426bfbe-bcb4-4b5c-b6ba-85e8c7e44324"/>
 				<textElement verticalAlignment="Middle">
 					<font pdfEncoding="Cp1254"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{muameleTarihiText}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["İş bu talep uyap üzerinden  e-imza ile "+$F{muameleTarihiText}+" tarihinde gönderilmiştir."]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="36" y="19" width="473" height="214" uuid="0bb54fda-6262-441d-8471-56d9c795fb5e"/>
+				<textElement textAlignment="Justified">
+					<font size="11" pdfFontName="Times-Roman" pdfEncoding="Cp1254" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Proportional" lineSpacingSize="1.2"/>
+				</textElement>
+				<text><![CDATA[Maaş Haciz Talebi
+
+Borçlunun uyap üzerinden e-imza ile uyap üzerinden sgk sorgusu yapılmıştır.Sonuçlarına ilişkin bilgi ve belgeler icra dosyası içerisine evrak olarak konmuştur. Buna göre SGK’SI AKTİF OLAN borçlu hakkında çalıştığı işyerine,işverenine maaş ,ek ücret, ÇİFT MAAŞ veya ÜCRET ALAMAKTA ise ve borçlu ikramiye almakta ise borç miktarını geçmemek üzere bu ikramiyenin de TAMAMININ haczine, NEMA VE VERGİ İDARELERİ ile borçlunun başkaca hak ve alacağı var ise bu hak ve alacaklarının da borç miktarını geçmemek üzere TAMAMININ haczi için maaş haczi müzekkeresinin gönderilmesine, haciz konulması halinde paranın dosyamıza gönderilmesini  talep ederim dedi.
+]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="22" y="252" width="285" height="20" uuid="1eedcee4-af45-49e7-82a4-9d53b3f6f030"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Calibri" size="11" pdfFontName="Times-Roman" pdfEncoding="Cp1254"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{muhatapAdi}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="22" y="275" width="285" height="56" uuid="6614f82d-0289-4345-ab16-31833c9d8502"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Calibri" size="11" pdfFontName="Times-Roman" pdfEncoding="Cp1254"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{muhatapAdresi}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

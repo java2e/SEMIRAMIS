@@ -6,6 +6,7 @@ import java.util.Date;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 
 import org.primefaces.context.RequestContext;
 
@@ -13,7 +14,7 @@ import pelops.dao.GelismisAramaDAO;
 import pelops.model.DetayliArama;
 
 @ManagedBean(name="detayliAramaBean")
-@SessionScoped
+@ViewScoped
 public class DetayliAramaBean {
 
 	ArrayList<DetayliArama> detayliAramaListesi;

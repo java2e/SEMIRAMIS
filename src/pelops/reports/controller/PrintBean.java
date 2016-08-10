@@ -782,7 +782,6 @@ public class PrintBean {
 
 		// Dosya Chronolojisine Kayit
 
-		ReportChronologyUtil.getInstance().insertAll(list);
 		for (int i = 0; i < list.size(); i++) {
 			for (int j = 0; j < list.get(i).getDataToPrints().size(); j++) {
 				for (int j2 = 0; j2 < list.get(i).getDataToPrints().get(j).getJasperPrint().size(); j2++) {
@@ -888,7 +887,7 @@ public class PrintBean {
 
 			if (msg == null) {
 				ArrayList<ConstructedData> listeC = ctrl.createConstructedData(list, filteredList);
-				if (listeC.size() > 0) {
+				if (listeC.size() > 1) {
 					printConstructedData(listeC);
 				}
 			} else if (tebligatListesi) {
@@ -933,7 +932,6 @@ public class PrintBean {
 			}
 			if (list.size() > 0 || tebligatListesi) {
 				if (msg == null && list.size() > 0) {
-
 					ConstructDataCtrl ctrl = new ConstructDataCtrl();
 					ArrayList<ConstructedData> listC = ctrl.createConstructedData(list, rList);
 					if (listC.size() > 0)
@@ -966,10 +964,7 @@ public class PrintBean {
 
 		ArrayList<JasperPrint> liste = ctrl.getTebligatListesiJasperPrint(createTebligatListesiDP(), genels);
 
-		// Report Chronology Kayit
-		ReportChronologyUtil.getInstance()
-				.insertObjToDB(ReportChronologyUtil.convertObjToRC(createTebligatListesiDP(), null));
-
+		
 		// icra müdürlüğü ekli olmayan nesne varsa uyarı verir...
 		boolean İcraMd = false;
 		for (ReportGenel reportGenel : genels) {

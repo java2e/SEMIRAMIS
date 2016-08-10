@@ -143,8 +143,10 @@ public class ConstructDataCtrl {
 			String reportPath = FacesContext.getCurrentInstance().getExternalContext()
 					.getRealPath("/reports/" + dataNew.getJasperFileName());
 			jasperPrint = JasperFillManager.fillReport(reportPath, hashMap, beanCollectionDataSource);
-			utils.saveChronology(genel.getId(), ChronologyIdentifier.ISLEM_YAZDIRMA, 
-					ReportUtils.convertReportName(data.getBelgeAdi())+" belgesi yazdırılmıştır.");
+			if (!dataNew.getJasperFileName().equals(ReportUtils.JASPERFILE_NAME_TEBLIGAT)) {
+				utils.saveChronology(genel.getId(), ChronologyIdentifier.ISLEM_YAZDIRMA,
+						ReportUtils.convertReportName(data.getBelgeAdi()) + " belgesi yazdırılmıştır.");
+			}
 		}
 
 		return jasperPrint;

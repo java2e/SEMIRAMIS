@@ -78,6 +78,7 @@ public class PrintBean {
 
 	private ArrayList<ReportGenel> rgList = new ArrayList<ReportGenel>();
 	private ArrayList<ReportGenel> PrivateList = new ArrayList<ReportGenel>();
+	private ArrayList<ReportGenel> filteredList = new ArrayList<>();
 	GenelRaporDAO dao = new GenelRaporDAO();
 	private Date tarih2 = new Date();
 	String oldDate = "01/01/1900";
@@ -88,6 +89,16 @@ public class PrintBean {
 	private SearchParams searchParams = new SearchParams();
 
 	private ExternalContext eContext;
+	
+	
+
+	public ArrayList<ReportGenel> getFilteredList() {
+		return filteredList;
+	}
+
+	public void setFilteredList(ArrayList<ReportGenel> filteredList) {
+		this.filteredList = filteredList;
+	}
 
 	public boolean getCheckboxPanelDisabled() {
 		return checkboxPanelDisabled;
@@ -666,7 +677,11 @@ public class PrintBean {
 	}
 
 	public void insertAll() {
-		PrivateList = rgList;
+		if(filteredList.size()<rgList.size()){
+			PrivateList = filteredList;
+		}else {
+			PrivateList = rgList;
+		}
 	}
 
 	public void print() throws Exception {
@@ -844,9 +859,12 @@ public class PrintBean {
 
 		rgList.clear();
 		for (int i = 0; i < tmp.size(); i++) {
-			rgList.add(dao.getPrintableList(null, tmp.get(i).getId()).get(0));
+			ReportGenel  rpt = dao.getPrintableList(null, tmp.get(i).getId()).get(0);
+			rgList.add(rpt);
+			filteredList.add(rpt);
 
 		}
+		 
 	}
 
 	public void printAll() throws Exception {
@@ -868,12 +886,12 @@ public class PrintBean {
 			}
 
 			if (msg == null) {
-				ArrayList<ConstructedData> listeC = ctrl.createConstructedData(list, rgList);
+				ArrayList<ConstructedData> listeC = ctrl.createConstructedData(list, filteredList);
 				if (listeC.size() > 0) {
 					printConstructedData(listeC);
 				}
 			} else if (tebligatListesi) {
-				printOnlyTebligatListesi(rgList);
+				printOnlyTebligatListesi(filteredList);
 			} else {
 				FacesContext context = FacesContext.getCurrentInstance();
 				context.addMessage(null, new FacesMessage(msg));
@@ -888,6 +906,7 @@ public class PrintBean {
 	public void clearLists() {
 		PrivateList = new ArrayList<ReportGenel>();
 		rgList = new ArrayList<ReportGenel>();
+		filteredList = new ArrayList<>();
 	}
 
 	public void printOne() throws Exception {

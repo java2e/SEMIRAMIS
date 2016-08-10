@@ -407,8 +407,8 @@
 						
 						
 						
-						<p:dataTable value="#{printBean.rgList}" paginator="true"
-							rows="10" var="rl" id="tblReport"
+						<p:dataTable value="#{printBean.rgList}" paginator="true" filteredValue="#{printBean.filteredList}"
+							rows="10" var="rl" id="tblReport" emptyMessage="Aradığınız Kritere Uygun Sonuç Bulunamamıştır."
 							style="width:100%; margin-top:10px;  height:400px ">
 
 							<f:facet name="header">
@@ -427,15 +427,15 @@
 								</h:commandButton>
 
 							</p:column>
-							<p:column headerText="İcra Dosya No" width="90">
+							<p:column headerText="İcra Dosya No" width="90" filterBy="#{rl.icraDosyaNo}" filterMatchMode="contains">
 								<h:outputText value="#{rl.icraDosyaNo}" />
 							</p:column>
 
-							<p:column headerText="Borçlu Adı" width="270">
+							<p:column headerText="Borçlu Adı" width="270" filterBy="#{rl.borclu}" filterMatchMode="contains">
 								<h:outputText value="#{rl.borclu}" />
 							</p:column>
 
-							<p:column headerText="İcra Md.lüğü" width="80">
+							<p:column headerText="İcra Md.lüğü" width="80" filterBy="#{rl.icraBilgi}" filterMatchMode="contains">
 								<h:outputText value="#{rl.icraBilgi}" />
 							</p:column>
 
@@ -462,7 +462,7 @@
 
 
 						<p:commandButton value="Listeyi Yazdır"
-							actionListener="#{printBean.print}" process="@all" ajax="false" />
+							action="#{printBean.print}" process="@all" ajax="false" />
 
 
 

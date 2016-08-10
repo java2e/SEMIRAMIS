@@ -14,7 +14,6 @@ import javax.faces.event.AjaxBehaviorEvent;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
-
 import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -89,8 +88,6 @@ public class PrintBean {
 	private SearchParams searchParams = new SearchParams();
 
 	private ExternalContext eContext;
-	
-	
 
 	public ArrayList<ReportGenel> getFilteredList() {
 		return filteredList;
@@ -677,9 +674,9 @@ public class PrintBean {
 	}
 
 	public void insertAll() {
-		if(filteredList.size()<rgList.size()){
+		if (filteredList.size() < rgList.size()) {
 			PrivateList = filteredList;
-		}else {
+		} else {
 			PrivateList = rgList;
 		}
 	}
@@ -818,8 +815,9 @@ public class PrintBean {
 				report = reportGenel;
 			}
 			if (!İcraMd) {
-				//ReportChronologyUtil.getInstance()
-				//		.insertObjToDB(ReportChronologyUtil.convertObjToRC(createTebligatListesiDP(), null));
+				// ReportChronologyUtil.getInstance()
+				// .insertObjToDB(ReportChronologyUtil.convertObjToRC(createTebligatListesiDP(),
+				// null));
 				for (JasperPrint print : liste) {
 					printList.add(print);
 				}
@@ -845,8 +843,8 @@ public class PrintBean {
 		exporter.setParameter(JRPrintServiceExporterParameter.DISPLAY_PRINT_DIALOG, Boolean.TRUE);
 
 		exporter.exportReport();
-		 servletOutputStream.flush();
-		    servletOutputStream.close();
+		servletOutputStream.flush();
+		servletOutputStream.close();
 		FacesContext.getCurrentInstance().responseComplete();
 
 	}
@@ -855,16 +853,19 @@ public class PrintBean {
 		ArrayList<ReportGenel> tmp = new ArrayList<ReportGenel>();
 		GenelRaporDAO daom = new GenelRaporDAO();
 
-		tmp = daom.getFilteredReports1(searchParams);
+		tmp = daom.getPrintableList(searchParams, null);
 
 		rgList.clear();
-		for (int i = 0; i < tmp.size(); i++) {
-			ReportGenel  rpt = dao.getPrintableList(null, tmp.get(i).getId()).get(0);
-			rgList.add(rpt);
-			filteredList.add(rpt);
+		// for (int i = 0; i < tmp.size(); i++) {
+		// ReportGenel rpt = dao.getPrintableList(null,
+		// tmp.get(i).getId()).get(0);
+		// rgList.add(rpt);
+		// filteredList.add(rpt);
+		//
+		// }
+		rgList.addAll(tmp);
+		filteredList.addAll(tmp);
 
-		}
-		 
 	}
 
 	public void printAll() throws Exception {
@@ -999,8 +1000,8 @@ public class PrintBean {
 		exporter.setParameter(JRPrintServiceExporterParameter.DISPLAY_PRINT_DIALOG, Boolean.TRUE);
 
 		exporter.exportReport();
-		 servletOutputStream.flush();
-		    servletOutputStream.close();
+		servletOutputStream.flush();
+		servletOutputStream.close();
 		FacesContext.getCurrentInstance().responseComplete();
 	}
 

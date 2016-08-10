@@ -418,9 +418,9 @@
 
 
 
-							<p:column headerText="Yazdır">
+							<p:column headerText="Yazdır"  width="50">
 
-								<h:commandButton id="yazdir" value="Yazdır" width="110"
+								<h:commandButton id="yazdir" value="Yazdır" width="50"
 									actionListener="#{printBean.printOne}" update=":formListe1">
 									<f:param name="pdf" value="#{rl.id}" />
 
@@ -435,7 +435,7 @@
 								<h:outputText value="#{rl.borclu}" />
 							</p:column>
 
-							<p:column headerText="İcra Md.lüğü" width="80" filterBy="#{rl.icraBilgi}" filterMatchMode="contains">
+							<p:column headerText="İcra Md.lüğü" width="150" filterBy="#{rl.icraBilgi}" filterMatchMode="contains">
 								<h:outputText value="#{rl.icraBilgi}" />
 							</p:column>
 

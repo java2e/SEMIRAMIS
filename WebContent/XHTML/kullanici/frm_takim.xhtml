@@ -1,0 +1,272 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+	<style type="text/css">
+.dialog_style_warn {
+	font-weight: normal;
+	font-size: 1.0em;
+	text-align: left;
+	color: #9F6000;
+	background-color: #FEEFB3;
+}
+
+.dialog_style_info {
+	font-weight: normal;
+	font-size: 1.0em;
+	text-align: left;
+	color: #00529B;
+	background-color: #BDE5F8;
+}
+</style>
+
+	<title>Takım Tanımlama</title>
+</h:head>
+<h:body onload="#{takimBean.panelKapat()}">
+
+	<div style="overflow: auto !important; width: 100%; height: 100%;">
+		<p:panel id="tbl" header="TAKIM TANIMLAMA"
+			style="width:200 ;height:100;">
+			<h:form id="form" onkeypress="return event.keyCode !=13">
+				<p:growl id="msgs" showDetail="true" />
+
+				<p:panel id="duzenlePaneli" header="TAKIM BİLGİLERİ GÜNCELLEME"
+					visible="#{takimBean.updatedVisible}">
+					<h:panelGrid columns="4" cellpadding="3">
+
+						<p:outputLabel for="usrName" value="Takım Adı:" />
+						<p:inputText id="usrName" style="width: 4.30cm"
+							value="#{takimBean.updatedTakim.takimAdi}" required="true"
+							requiredMessage="Takım Adı gereklidir"
+							validatorMessage="Takım Adı gereklidir">
+							<f:validateRegex
+								pattern="[^ \u00F6\u00D6\u00E7\u00c7\u015f\u015E\u0131\u0130\u011f\u011e\u00fc\u00dc\t\r\n\v\f]{3,}" />
+						</p:inputText>
+
+
+						<p:outputLabel for="rolAck" value="Takım Yönetici :" />
+						<p:selectOneMenu id="rolAck" style="width: 4.50cm"
+							value="#{takimBean.updatedTakim.takimYonetici}" required="true"
+							requiredMessage="Yönetici boş bırakılamaz">
+							<f:selectItems value="#{takimBean.userDAO.select()}" var="rol"
+								itemValue="#{rol.getUsrId()}" itemLabel="#{rol.getUsrName()}" />
+						</p:selectOneMenu>
+
+					</h:panelGrid>
+					<h:panelGrid columns="3" cellpadding="3">
+						<p:commandButton id="guncelle" value="Güncelle"
+							actionListener="#{takimBean.guncelle}"
+							update=":form:duzenlePaneli, :form:msgs, :form2, :formEkle:eklePaneli"
+							process="@form" oncomplete="PF('userTable').clearFilters()" />
+						<p:commandButton id="iptal" value="İptal"
+							action="#{takimBean.iptal()}" update=":form:duzenlePaneli"
+							immediate="true" resetValues="true" />
+
+
+					</h:panelGrid>
+				</p:panel>
+			</h:form>
+
+			<h:form id="formEkle" onkeypress="return event.keyCode !=13">
+				<p:growl id="msgsEkle" showDetail="true" />
+
+				<p:panel id="eklePaneli" header="YENİ TAKIM TANIMI"
+					visible="#{takimBean.updatedVisibleEkle}">
+					<h:panelGrid columns="4" cellpadding="3">
+
+						<p:outputLabel for="usrName" value="Takım Adı:" />
+						<p:inputText id="usrName" style="width: 4.30cm"
+							value="#{takimBean.updatedTakim.takimAdi}" required="true"
+							requiredMessage="Takım Adı gereklidir"
+							validatorMessage="Takım Adı gereklidir">
+							<f:validateRegex
+								pattern="[^ \u00F6\u00D6\u00E7\u00c7\u015f\u015E\u0131\u0130\u011f\u011e\u00fc\u00dc\t\r\n\v\f]{3,}" />
+						</p:inputText>
+
+
+						<p:outputLabel for="rolAck" value="Takım Yönetici :" />
+						<p:selectOneMenu id="rolAck" style="width: 4.50cm"
+							value="#{takimBean.updatedTakim.takimYonetici}" required="true"
+							requiredMessage="Yönetici boş bırakılamaz">
+							<f:selectItems value="#{takimBean.userDAO.select()}" var="rol"
+								itemValue="#{rol.getUsrId()}" itemLabel="#{rol.getUsrName()}" />
+						</p:selectOneMenu>
+
+
+
+
+						<p:outputLabel value="Takım Fotoğraf :" />
+						<p:fileUpload
+							fileUploadListener="#{takimBean.handleFileUpload}"
+							mode="advanced" dragDropSupport="false" update=":form:msgs"
+							sizeLimit="100000" fileLimit="3"
+							allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
+
+
+
+
+					</h:panelGrid>
+
+					<h:panelGrid columns="2" cellpadding="3">
+						<p:commandButton id="ekleButton" value="Kaydet"
+							icon="ui-icon-disk" actionListener="#{takimBean.ekle}"
+							update=":formEkle:eklePaneli,:formEkle:msgsEkle,:form2"
+							process="@form" oncomplete="PF('userTable').clearFilters()" />
+
+						<p:commandButton id="iptal" value="İptal" icon="ui-icon-cancel"
+							action="#{takimBean.iptalEkle()}" immediate="true"
+							update=":formEkle:eklePaneli,:formEkle:msgsEkle"
+							resetValues="true" />
+
+					</h:panelGrid>
+				</p:panel>
+			</h:form>
+
+
+
+			<h:form id="form2" onkeypress="return event.keyCode !=13">
+
+				<p:commandButton id="refresh" style="display:none" update=":form2" />
+
+				<p:toolbar id="toolbar">
+					<f:facet name="left">
+
+						<p:commandButton value="Ekle"
+							actionListener="#{takimBean.eklePanelAc()}"
+							style="float:left !important;margin-right:10px;margin-left:8px"
+							update=":formEkle:eklePaneli, :form:duzenlePaneli" />
+
+						<p:commandButton value="Listeyi Yenile" icon="ui-icon-refresh"
+							actionListener="#{takimBean.retrieveFreshData}"
+							oncomplete="document.getElementById('form2:refresh').click();"
+							style="float:left !important;margin-right:10px" />
+
+					</f:facet>
+					<f:facet name="right">
+						<h:outputText value="TAKIM TANIMLARI" />
+					</f:facet>
+				</p:toolbar>
+
+				<div style="overflow: auto !important; width: 100%; height: 100%;">
+					<p:dataTable id="dtTableUser" var="kullanici" widgetVar="userTable"
+						value="#{takimBean.takims}"
+						emptyMessage="Kriterlere uygun sonuç bulunamadı."
+						styleClass="dataTable" filteredValue="#{takimBean.filteredTakims}"
+						paginator="true" rows="20" paginatorPosition="bottom">
+
+
+						<p:column headerText="Düzenle" width="100">
+							<p:commandButton id="duzenle" value="Düzenle"
+								update=":form:duzenlePaneli, :form:msgs, :formEkle:eklePaneli"
+								actionListener="#{takimBean.guncellePanelAc(kullanici.id)}" />
+						</p:column>
+
+						<p:column headerText="Sil" width="50">
+							<p:commandButton value="Sil"
+								oncomplete="PF('silConfirmDialogVar').show();"
+								update=":form2:silConfirmDialog" process="@form">
+								<f:setPropertyActionListener value="#{kullanici.id}"
+									target="#{takimBean.selectedIdForSil}" />
+							</p:commandButton>
+						</p:column>
+
+						<p:column headerText="Kullanıcı ID" width="75"
+							sortBy="#{kullanici.id}" filterBy="#{kullanici.id}"
+							filterMatchMode="contains" filterStyleClass="smallFilter">
+							<h:outputText value="#{kullanici.id}" style="float:right" />
+						</p:column>
+
+						<p:column headerText="Takim Adı" width="200"
+							sortBy="#{kullanici.takimAdi}"
+							sortFunction="#{takimBean.sortByName}"
+							filterBy="#{kullanici.takimAdi}" filterMatchMode="contains"
+							filterFunction="#{takimBean.filterByName}">
+							<h:outputText value="#{kullanici.takimAdi}" />
+						</p:column>
+
+						<p:column headerText="Takim Yönetici" width="200"
+							sortBy="#{kullanici.takimYonetici}"
+							sortFunction="#{takimBean.sortByName}"
+							filterBy="#{kullanici.takimYonetici}" filterMatchMode="contains"
+							filterFunction="#{takimBean.filterByName}">
+							<h:outputText value="#{kullanici.takimYonetici}" />
+						</p:column>
+
+
+						<p:column headerText="Takım Resim" width="200"
+							sortBy="#{kullanici.takimUrlImg}"
+							sortFunction="#{takimBean.sortByName}"
+							filterBy="#{kullanici.takimUrlImg}" filterMatchMode="contains"
+							filterFunction="#{takimBean.filterByName}">
+							<h:outputText value="#{kullanici.takimUrlImg}" />
+						</p:column>
+
+
+
+						<p:column headerText="Güncelleyen Kullanıcı" width="200"
+							sortBy="#{kullanici.guncelleyenKullaniciAck}"
+							sortFunction="#{takimBean.sortByName}"
+							filterBy="#{kullanici.guncelleyenKullaniciAck}"
+							filterMatchMode="contains"
+							filterFunction="#{takimBean.filterByName}">
+							<h:outputText value="#{kullanici.guncelleyenKullaniciAck}" />
+						</p:column>
+
+						<p:column headerText="Güncelleme Zamanı" width="175"
+							sortBy="#{kullanici.guncellemeZamani}"
+							filterBy="#{kullanici.guncellemeZamani}"
+							filterMatchMode="contains">
+							<div style="text-align: center;">
+								<h:outputText value="#{kullanici.guncellemeZamani}" />
+							</div>
+						</p:column>
+
+						<f:facet name="footer">
+							<h:outputText id="kullaniciSayisi"
+								value="Toplam #{takimBean.filteredTakims.size()} adet takım listeleniyor." />
+						</f:facet>
+
+						<p:ajax event="filter" oncomplete="kullaniciSayisiniGuncelle();" />
+
+					</p:dataTable>
+
+					<p:dialog id="silConfirmDialog" widgetVar="silConfirmDialogVar"
+						modal="true" closable="true" styleClass="dialog_style_info"
+						resizable="false" header="SEMİRAMİS">
+						<h:panelGrid columns="2">
+							<span class="ui-messages-info-icon" />
+							<h:outputText
+								value="Bu takımı silmek istediğinizden emin misiniz?"
+								escape="false" style="text-align: center" />
+						</h:panelGrid>
+						<center>
+							<p:commandButton id="confirmSil" value="Evet"
+								oncomplete="PF('silConfirmDialogVar').hide();PF('userTable').clearFilters();"
+								actionListener="#{takimBean.userSil()}"
+								update=":form2, :form:msgs" />
+							<p:commandButton id="declineSil" value="Hayır"
+								onclick="PF('silConfirmDialogVar').hide();" />
+						</center>
+					</p:dialog>
+
+					<p:outputLabel id="userSayisi" value="#{takimBean.takimSayisi()}" />
+				</div>
+
+				<p:remoteCommand name="kullaniciSayisiniGuncelle"
+					update="dtTableUser:kullaniciSayisi" />
+
+			</h:form>
+		</p:panel>
+	</div>
+
+</h:body>
+
+
+</html>

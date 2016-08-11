@@ -47,250 +47,298 @@ public class AnaSayfaBean {
 		} else {
 			switch (id) {
 
-			case 222: formPath="/USER/frm_hesap_tanimlama.xhtml"; 
-			break;
-			
-		case 223: formPath="/USER/frm_takim.xhtml"; 
-		break;
-		
-		case 224: formPath="/USER/frm_kullanici_takim.xhtml"; 
-		break;
 		
 			case 1:
-				formPath = "/Tanimlar/frm_adres_statusu.xhtml";
+				formPath = "/XHTML/tanimlar/frm_adres_statusu.xhtml";
 				break;
 			case 2:
-				formPath = "/Tanimlar/frm_adres_tipi.xhtml";
+				formPath = "/XHTML/XHTML/tanimlar/frm_adres_tipi.xhtml";
 				break;
 			case 3:
-				formPath = "/Tanimlar/frm_adres_turu.xhtml";
+				formPath = "/XHTML/XHTML/tanimlar/frm_adres_turu.xhtml";
 				break;
 			case 4:
-				formPath = "/Tanimlar/frm_alacak_belge_tipi.xhtml";
+				formPath = "/XHTML/tanimlar/frm_alacak_belge_tipi.xhtml";
 				break;
 			case 5:
-				formPath = "/Tanimlar/frm_alacak_tipi.xhtml";
+				formPath = "/XHTML/tanimlar/frm_alacak_tipi.xhtml";
 				break;
 			case 6:
-				formPath = "/Tanimlar/frm_analiz_tipi.xhtml";
+				formPath = "/XHTML/tanimlar/frm_analiz_tipi.xhtml";
 				break;
 			case 7:
-				formPath = "/Tanimlar/frm_avans_turu.xhtml";
+				formPath = "/XHTML/tanimlar/frm_avans_turu.xhtml";
 				break;
 			case 8:
-				formPath = "/Tanimlar/frm_belge_tipi.xhtml";
+				formPath = "/XHTML/tanimlar/frm_belge_tipi.xhtml";
 				break;
 			case 9:
-				formPath = "/Tanimlar/frm_borc_tipi.xhtml";
+				formPath = "/XHTML/tanimlar/frm_borc_tipi.xhtml";
 				break;
 			case 10:
-				formPath = "/Tanimlar/frm_dava_masraflari.xhtml";
+				formPath = "/XHTML/tanimlar/frm_dava_masraflari.xhtml";
 				break;
 			case 11:
-				formPath = "/Tanimlar/frm_dokuman_tipi.xhtml";
+				formPath = "/XHTML/tanimlar/frm_dokuman_tipi.xhtml";
 				break;
 			case 12:
-				formPath = "/Tanimlar/frm_dosya_statu.xhtml";
+				formPath = "/XHTML/tanimlar/frm_dosya_statu.xhtml";
 				break;
 			case 13:
-				formPath = "/Tanimlar/frm_dosya_turu.xhtml";
+				formPath = "/XHTML/tanimlar/frm_dosya_turu.xhtml";
 				break;
 			case 14:
-				formPath = "/Tanimlar/frm_faiz_tipi.xhtml";
+				formPath = "/XHTML/tanimlar/frm_faiz_tipi.xhtml";
 				break;
 			case 15:
-				formPath = "/Tanimlar/frm_gonderi_tipi.xhtml";
+				formPath = "/XHTML/tanimlar/frm_gonderi_tipi.xhtml";
 				break;
 			case 16:
-				formPath = "/Tanimlar/frm_haciz_masrafi.xhtml";
+				formPath = "/XHTML/tanimlar/frm_haciz_masrafi.xhtml";
 				break;
 			case 17:
-				formPath = "/Tanimlar/frm_haciz_tipi.xhtml";
+				formPath = "/XHTML/tanimlar/frm_haciz_tipi.xhtml";
 				break;
 			case 18:
-				formPath = "/Tanimlar/frm_harc_tipi.xhtml";
+				formPath = "/XHTML/tanimlar/frm_harc_tipi.xhtml";
 				break;
 			case 19:
-				formPath = "/Tanimlar/frm_icra_dosya_asamasi.xhtml";
+				formPath = "/XHTML/tanimlar/frm_icra_dosya_asamasi.xhtml";
 				break;
 			case 20:
-				formPath = "/Tanimlar/frm_il.xhtml";
+				formPath = "/XHTML/tanimlar/frm_il.xhtml";
 				break;
 			case 21:
-				formPath = "/Tanimlar/frm_ilce.xhtml";
+				formPath = "/XHTML/tanimlar/frm_ilce.xhtml";
 				break;
 			case 22:
-				formPath = "/Tanimlar/frm_islem_statusu.xhtml";
+				formPath = "/XHTML/tanimlar/frm_islem_statusu.xhtml";
 				break;
 			case 23:
-				formPath = "/Tanimlar/frm_izleme_sonucu.xhtml";
+				formPath = "/XHTML/tanimlar/frm_izleme_sonucu.xhtml";
 				break;
 			case 24:
-				formPath = "/Tanimlar/frm_kasa_gelir_kalemi.xhtml";
+				formPath = "/XHTML/tanimlar/frm_kasa_gelir_kalemi.xhtml";
 				break;
 			case 25:
-				formPath = "/Tanimlar/frm_kasa_gider_kalemi.xhtml";
+				formPath = "/XHTML/tanimlar/frm_kasa_gider_kalemi.xhtml";
 				break;
 			case 26:
-				formPath = "/Tanimlar/frm_kasa_tahsilat_statu.xhtml";
+				formPath = "/XHTML/tanimlar/frm_kasa_tahsilat_statu.xhtml";
 				break;
 			case 27:
-				formPath = "/Tanimlar/frm_kasa_tahsilat_tipi.xhtml";
+				formPath = "/XHTML/tanimlar/frm_kasa_tahsilat_tipi.xhtml";
 				break;
 			case 28:
-				formPath = "/Tanimlar/frm_kurum_tipi.xhtml";
+				formPath = "/XHTML/tanimlar/frm_kurum_tipi.xhtml";
 				break;
 			case 29:
-				formPath = "/Tanimlar/frm_mal_tipi.xhtml";
+				formPath = "/XHTML/tanimlar/frm_mal_tipi.xhtml";
 				break;
 			case 30:
-				formPath = "/Tanimlar/frm_masraf_tipi.xhtml";
+				formPath = "/XHTML/tanimlar/frm_masraf_tipi.xhtml";
 				break;
 			case 31:
-				formPath = "/Tanimlar/frm_meslek.xhtml";
+				formPath = "/XHTML/tanimlar/frm_meslek.xhtml";
 				break;
 			case 32:
-				formPath = "/Tanimlar/frm_muamele_statusu.xhtml";
+				formPath = "/XHTML/tanimlar/frm_muamele_statusu.xhtml";
 				break;
 			case 33:
-				formPath = "/Tanimlar/frm_muamele_tipi.xhtml";
+				formPath = "/XHTML/tanimlar/frm_muamele_tipi.xhtml";
 				break;
 			case 34:
-				formPath = "/Tanimlar/frm_muvekkil_tipi.xhtml";
+				formPath = "/XHTML/tanimlar/frm_muvekkil_tipi.xhtml";
 				break;
 			case 35:
-				formPath = "/Tanimlar/frm_para_birimi.xhtml";
+				formPath = "/XHTML/tanimlar/frm_para_birimi.xhtml";
 				break;
 			case 36:
-				formPath = "/Tanimlar/frm_rapor_tipi.xhtml";
+				formPath = "/XHTML/tanimlar/frm_rapor_tipi.xhtml";
 				break;
 			case 37:
-				formPath = "/Tanimlar/frm_satis_masraflari.xhtml";
+				formPath = "/XHTML/tanimlar/frm_satis_masraflari.xhtml";
 				break;
 			case 38:
-				formPath = "/Tanimlar/frm_tahsilat_statusu.xhtml";
+				formPath = "/XHTML/tanimlar/frm_tahsilat_statusu.xhtml";
 				break;
 			case 39:
-				formPath = "/Tanimlar/frm_tahsilat_tipi.xhtml";
+				formPath = "/XHTML/tanimlar/frm_tahsilat_tipi.xhtml";
 				break;
 			case 40:
-				formPath = "/Tanimlar/frm_takip_masraflari.xhtml";
+				formPath = "/XHTML/tanimlar/frm_takip_masraflari.xhtml";
 				break;
 			case 41:
-				formPath = "/Tanimlar/frm_takip_sekli.xhtml";
+				formPath = "/XHTML/tanimlar/frm_takip_sekli.xhtml";
 				break;
 			case 42:
-				formPath = "/Tanimlar/frm_takip_tipi.xhtml";
+				formPath = "/XHTML/tanimlar/frm_takip_tipi.xhtml";
 				break;
 			case 43:
-				formPath = "/Tanimlar/frm_takip_yolu.xhtml";
+				formPath = "/XHTML/tanimlar/frm_takip_yolu.xhtml";
 				break;
 			case 44:
-				formPath = "/Tanimlar/frm_taraf_rolu.xhtml";
+				formPath = "/XHTML/tanimlar/frm_taraf_rolu.xhtml";
 				break;
 			case 45:
-				formPath = "/Tanimlar/frm_taraf_tipi.xhtml";
+				formPath = "/XHTML/tanimlar/frm_taraf_tipi.xhtml";
 				break;
 			case 46:
-				formPath = "/Tanimlar/frm_tebligat_tipi.xhtml";
+				formPath = "/XHTML/tanimlar/frm_tebligat_tipi.xhtml";
 				break;
 
 			case 47:
-				formPath = "/Tanimlar/frm_vizit_statusu.xhtml";
+				formPath = "/XHTML/tanimlar/frm_vizit_statusu.xhtml";
 				break;
 				
-			case 1047:
-				formPath = "/Tanimlar/frm_basvuru_harci.xhtml";
-				break;
-				
-			case 1048:
-				formPath = "/Tanimlar/frm_vekalet_harci.xhtml";
-				break;
-				
-			case 1049:
-				formPath = "/Tanimlar/frm_vekalet_sinirlari.xhtml";
-				break;
-				
-				
-			case 301:
-				formPath = "/Tanimlar/frm_muvekkil_bilgisi_kaydi.xhtml";
-				break;
-
-			// �CRA DOSYA ��LEMLER� ALANI
-
 			case 48:
-				formPath = "frm_hizli_takip.xhtml";
+				formPath = "/XHTML/tanimlar/frm_basvuru_harci.xhtml";
 				break;
+				
 			case 49:
-				formPath = "frm_icra_dosya_takibi.xhtml";
+				formPath = "/XHTML/tanimlar/frm_vekalet_harci.xhtml";
 				break;
+				
 			case 50:
-				formPath = "frm_alacak_bilgisi_kaydi.xhtml";
+				formPath = "/XHTML/tanimlar/frm_vekalet_sinirlari.xhtml";
 				break;
+				
+				
 			case 51:
-				formPath = "frm_alacakli_bilgisi_kaydi.xhtml";
-				break;
-			case 52:
-				formPath = "frm_borclu_bilgisi_kaydi.xhtml";
-				break;
-			case 53:
-				formPath = "frm_haciz_bilgisi_kaydi.xhtml";
-				break;
-			case 54:
-				formPath = "frm_hacze_esas_mal_bilgisi_kaydi.xhtml";
-				break;
-			case 55:
-				formPath = "frm_harc_bilgisi_kaydi.xhtml";
-				break;
-			case 56:
-				formPath = "frm_masraf_bilgisi_kaydi.xhtml";
-				break;
-			case 57:
-				formPath = "frm_muamele_islemleri_kaydi.xhtml";
-				break;
-			case 58:
-				formPath = "frm_odeme_emri_kaydi.xhtml";
-				break;
-			case 59:
-				formPath = "frm_vizit_bilgisi_kaydi.xhtml";
-				break;
-			case 60:
-				formPath = "frm_ses_kayit.xhtml";
-				break;
-			case 61:
-				formPath = "frm_izleme_bilgisi_kaydi.xhtml";
-				break;
-			case 62:
-				formPath = "frm_otomatik_dosya_yukleme.xhtml";
+				formPath = "/XHTML/tanimlar/frm_muvekkil_bilgisi_kaydi.xhtml";
 				break;
 
-			// ANAL�Z ALANI
-
-			case 63:
-				formPath = "frm_muamele_analizi.xhtml";
-				break;
-			case 64:
-				formPath = "frm_izleme_analizi.xhtml";
-				break;
-			case 65:
-				formPath = "frm_tahsilat_analizi.xhtml";
-				break;
-			case 68:
-				formPath = "frm_UyapXML.xhtml";
-				break;
-
-			case 70:
-				formPath = "frm_excell_entegrasyonu.xhtml";
-				break;
-			case 71:
-				formPath = "frm_XMLtoUyap.xhtml";
-				break;
-
-			case 100:
-				formPath = "frm_odeme_plani.xhtml";
-				break;
+			
 
 			case 101:
+				formPath = "/XHTML/icra_dosyasi/frm_hizli_takip.xhtml";
+				break;
+			case 102:
+				formPath = "/XHTML/icra_dosyasi/frm_icra_dosya_takibi.xhtml";
+				break;
+			case 103:
+				formPath = "/XHTML/icra_dosyasi/frm_alacak_bilgisi_kaydi.xhtml";
+				break;
+			case 104:
+				formPath = "/XHTML/icra_dosyasi/frm_alacakli_bilgisi_kaydi.xhtml";
+				break;
+			case 105:
+				formPath = "/XHTML/icra_dosyasi/frm_borclu_bilgisi_kaydi.xhtml";
+				break;
+				
+				
+				
+			case 201:
+				formPath = "/XHTML/operasyonel/frm_haciz_bilgisi_kaydi.xhtml";
+				break;
+			case 202:
+				formPath = "/XHTML/operasyonel/frm_hacze_esas_mal_bilgisi_kaydi.xhtml";
+				break;
+			case 203:
+				formPath = "/XHTML/operasyonel/frm_harc_bilgisi_kaydi.xhtml";
+				break;
+			case 204:
+				formPath = "/XHTML/operasyonel/frm_masraf_bilgisi_kaydi.xhtml";
+				break;
+			case 205:
+				formPath = "/XHTML/operasyonel/frm_odeme_emri_kaydi.xhtml";
+				break;
+			case 206:
+				formPath = "/XHTML/operasyonel/frm_vizit_bilgisi_kaydi.xhtml";
+				break;
+			case 207:
+				formPath = "/XHTML/operasyonel/frm_ses_kayit.xhtml";
+				break;
+			case 208:
+				formPath = "/XHTML/operasyonel/frm_izleme_bilgisi_kaydi.xhtml";
+				break;
+			case 209:
+				formPath = "/XHTML/operasyonel/frm_otomatik_dosya_yukleme.xhtml";
+				break;
+			case 210:
+				formPath = "/XHTML/operasyonel/frm_odeme_plani.xhtml";
+				break;
+			case 211:
+				formPath = "/XHTML/operasyonel/frm_tahsilat_listesi.xhtml";
+				break;
+			case 212:
+				formPath = "/XHTML/operasyonel/frm_muamele_islemleri_kaydi.xhtml";
+				break;
+			case 213:
+				formPath = "/XHTML/operasyonel/frm_print.xhtml";
+				break;
+			case 214:
+				formPath = "/XHTML/operasyonel/frm_dosya_chronology.xhtml";
+				break;
+			case 215:
+				formPath = "/XHTML/operasyonel/frm_hedef.xhtml";
+				break;
+			
+			
+			
+			
+
+			case 301:
+				formPath = "/XHTML/analiz/frm_muamele_analizi.xhtml";
+				break;
+			case 302:
+				formPath = "/XHTML/analiz/frm_izleme_analizi.xhtml";
+				break;
+			case 303:
+				formPath = "/XHTML/analiz/frm_tahsilat_analizi.xhtml";
+				break;
+			case 304:
+				formPath = "/XHTML/analiz/frm_haciz_analizi.xhtml";
+				break;
+			case 305:
+				formPath = "/XHTML/analiz/frm_kasa_analizi.xhtml";
+				break;
+				
+				
+				
+			case 401:
+				formPath = "/XHTML/uyap/frm_uyap_XML.xhtml";
+				break;
+			case 403:
+				formPath = "/XHTML/uyap/frm_excel_entegrasyonu.xhtml";
+				break;
+			case 404:
+				formPath = "/XHTML/uyap/frm_uyap_sorgu_entegrasyonu.xhtml";
+				break;	
+			case 405:
+				formPath = "/XHTML/uyap/frm_XML_to_uyap.xhtml";
+				break;	
+				
+				
+			case 501:
+				formPath = "/XHTML/kasa/frm_kasa2.xhtml";
+				break;
+				
+				
+			case 901: 
+				formPath="/XHTML/kullanici/frm_hesap_tanimlama.xhtml"; 
+			break;	
+			case 902: 
+				formPath="/XHTML/kullanici/frm_takim.xhtml"; 
+			break;
+			case 903: 
+				formPath="/XHTML/kullanici/frm_kullanici_takim.xhtml"; 
+			break;
+			
+			
+			case 1001:
+				formPath = "/XHTML/yonetici/frm_gorev_tanimlama.xhtml";
+				break;
+			case 1002:
+				formPath = "/XHTML/yonetici/frm_duyuru_tanimlama.xhtml";
+				break;
+			case 1003:
+				formPath = "/XHTML/yonetici/frm_gorev_tanimlama.xhtml";
+				break;
+
+		
+
+		/*	case 101:
 				formPath = "frm_muamele_islemleri.xhtml";
 				break;
 
@@ -301,17 +349,8 @@ public class AnaSayfaBean {
 			case 103:
 				formPath = "frm_reddiyat_listesi_kaydi.xhtml";
 				break;
-				
-			case 104:
-				formPath = "frm_kasa.xhtml";
-				break;
-			case 1044:
-				formPath = "newkasa.xhtml";
-				break;
-				
-			case 105:
-				formPath = "frm_tahsilat_listesi.xhtml";
-				break;
+		
+			
 				
 			case 169:
 				formPath = "frm_uyap_sorgu_entegrasyonu.xhtml";
@@ -327,20 +366,18 @@ public class AnaSayfaBean {
 
 			// case 1003:
 			// formPath = "newYazdir.xhtml";
-			// break;
+			// break;F_
 
 			case 1003:
 				formPath = "frm_otomatik_dosya_yazdirma.xhtml";
 				break;
-
-			case 1005:
-				formPath = "frm_print.xhtml";
-				break;
+*/
+			
 			case 1004:
 				formPath = "frm_otorobot.xhtml";
 				break;
 			case 2210:
-				formPath = "/Tanimlar/frm_dosya_yukleme.xhtml";
+				formPath = "/XHTML/tanimlar/frm_dosya_yukleme.xhtml";
 				break;
 			case 1010:
 				formPath ="frm_muze_talep.xhtml";
@@ -348,25 +385,9 @@ public class AnaSayfaBean {
 			case 1111:
 				formPath ="/muzekkere/frm_muze_talep.xhtml";
 				break;
-			case 1011:
-				formPath = "frm_dosya_chronology.xhtml";
-				break;
-			case 1012:
-				formPath = "frm_hedef.xhtml";
-				break;
 			
-			case 302:
-				formPath = "frm_gorev_tanimlama.xhtml";
-				break;
-
-			case 303:
-				formPath = "frm_duyuru_tanimlama.xhtml";
-				break;
-				
-			case 304:
-				formPath = "frm_gorev_tanimlama.xhtml";
-				break;
-
+		
+			
 
 				
 			default:

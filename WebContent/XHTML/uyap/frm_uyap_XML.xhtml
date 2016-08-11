@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<h:body>
+	<p:panel header="UYAP XML OLUŞTURMA ">
+		<h:form id="formXML" enctype="multipart/form-data">
+			<p:panel header="Arama Kriterleri... ">
+			<p:panelGrid columns="8" style=" border-style: hidden !important;">
+							
+							<p:outputLabel value="Müvekkil Adı"/>
+								<p:selectOneMenu id="detay_muvekkil" 	
+									 
+									 filter="true" filterMatchMode="startsWith"
+									 value="#{exportBean.muvekkilAdi}"
+									 style="width: 180px">
+									 <f:selectItem itemLabel="" itemValue=""/>
+									 <f:selectItems value="#{alacakliBean.Liste()}" var="listeler" itemLabel="#{listeler.muvekkilAdi}"	itemValue="#{listeler.muvekkilAdi}" />
+									</p:selectOneMenu>
+									
+							<p:outputLabel value="İşlem Tarihi"/>
+							<p:calendar id="detay_mask3" value="#{exportBean.gelisTarihi1}" pattern="dd-MM-yyyy HH:mm:ss"  mask="true" style="width: 180px" />
+							<p:calendar id="detay_mask4" value="#{exportBean.gelisTarihi2}" pattern="dd-MM-yyyy HH:mm:ss"  mask="true" style="width: 180px" />
+							
+							<p:commandButton value="Tümünü Listele" action="#{exportBean.Listele()}" update="tbldetayliarama"/>
+							<p:commandButton value="Aralık Listele" action="#{exportBean.AralikListele()}" update="tbldetayliarama"/>
+							
+												
+							<p:commandButton value="LİSTELENEN KAYITLARI XML' E DÖNÜŞÜR" ajax="false"   actionListener="#{exportBean.exportUyapXML()}">
+							
+							</p:commandButton>
+										
+														
+						
+			</p:panelGrid>
+			
+						</p:panel>
+			
+			<p:panel header="Takip Tarihine Göre XML Oluşturma ">
+			<p:panelGrid columns="3"  style=" border-style: hidden !important;">
+			<p:outputLabel> Yeni Takip Tarihi :</p:outputLabel>
+							
+							<p:calendar id="takipTarihi_mask4" value="#{exportBean.takip_Tarihi}" pattern="dd-MM-yyyy" mask="true" style="width: 180px" />
+							
+							
+							<p:commandButton value="YENİ TAKİP TARİHİNE GÖRE XML' E DÖNÜŞÜR" ajax="false"  action="#{exportBean.exportTakipTarihiUyapXML()}"/>	
+			
+			</p:panelGrid>
+			</p:panel>
+			
+			
+											
+							
+		
+			<p:spacer height="15"/>
+	
+			<p:dataTable value="#{exportBean.uyapModel}"
+						 var="hb"		
+						 id="tbldetayliarama" style="width:1400px "
+						 rowStyleClass="green"
+						  rows="20"
+						 paginator="true"
+                    	 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                    	 rowsPerPageTemplate="5,10,25,50,100,1000"
+						 			 >
+
+
+				<p:column headerText="İşlem Tarihi" width="100" >
+				<h:outputText value="#{hb.ekleme_tarihi}" />
+				</p:column>
+				
+				<p:column headerText="Takip Tarihi" width="100" >
+				
+				<h:outputText value="#{hb.baslangicTarihi_alacakKalemi_2}" />
+				</p:column>
+				
+
+				<p:column headerText="Borçlu Adı" width="150" >
+				<h:outputText value="#{hb.borcluAdSoyad}" />
+				</p:column>
+
+				<p:column headerText="Asil Alacak" width="85">
+					<h:outputText value="#{hb.asil_alacak}" />
+				</p:column>
+				
+				<p:column headerText="Toplam Faiz" width="85">
+					<h:outputText value="#{hb.toplam_faiz}" />
+				</p:column>
+				
+							
+				<p:column headerText="Faizin %5 Vergisi" width="85">
+					<h:outputText value="#{hb.faiz_vergi}" />
+				</p:column>
+				
+				<p:column headerText="Masraflar" width="85">
+					<h:outputText value="#{hb.masraf}" />
+				</p:column>
+			
+				<p:column headerText="Takip Tutarı" width="85">
+					<h:outputText value="#{hb.takip_tutari}" />
+				</p:column>
+			
+				
+			</p:dataTable>
+
+		</h:form>
+	</p:panel>
+</h:body>
+</html>

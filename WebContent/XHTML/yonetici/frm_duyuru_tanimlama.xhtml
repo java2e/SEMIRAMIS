@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Duyuru Tanımlama</title>
+</h:head>
+<h:body>
+
+	<h:form id="form">
+
+		<p:commandButton value="Yeni Kayıt"
+			oncomplete="PF('dlg_duyuru').show()"
+			action="#{duyuruTanimlamaBean.onKaydetClicked()}"
+			update=":dlg_form:dlg_duyuru">
+		</p:commandButton>
+
+
+		<p:dataTable id="duyuruList" var="duyuru"
+			value="#{duyuruTanimlamaBean.duyuruList}">
+			<f:facet name="header">
+            Duyuru Listesi
+            </f:facet>
+			<p:column headerText="Açıklama" style="width:70%;">
+				<h:outputText value="#{duyuru.aciklama}" />
+			</p:column>
+			<p:column headerText="Güncelleme Tarihi" style="width:15%;">
+				<h:outputText value="#{duyuru.gunTarih}" />
+			</p:column>
+			<p:column headerText="Guncelle" style="width:15%;">
+				<p:commandButton value="Guncelle"
+					oncomplete="PF('dlg_duyuru').show()" update=":dlg_form:dlg_duyuru"
+					action="#{duyuruTanimlamaBean.onDuyuruSelected(duyuru.id)}">
+				</p:commandButton>
+			</p:column>
+			
+
+		</p:dataTable>
+		
+	</h:form>
+	
+	
+	<h:form id="dlg_form">
+		<p:dialog id="dlg_duyuru" header="Basic Dialog" widgetVar="dlg_duyuru"
+			minHeight="40">
+			<p:panelGrid columns="2">
+				<p:outputLabel value="Açıklama"></p:outputLabel>
+				<p:inputTextarea value="#{duyuruTanimlamaBean.duyuru.aciklama}"></p:inputTextarea>				
+			</p:panelGrid>
+			
+			<p:commandButton value="Kaydet"
+				action="#{duyuruTanimlamaBean.kaydet()}" update=":form:duyuruList"
+				oncomplete="PF('dlg_duyuru').hide()"
+				rendered="#{duyuruTanimlamaBean.islem}"></p:commandButton>
+			<p:commandButton value="Güncelle"
+				action="#{duyuruTanimlamaBean.guncelle()}" update=":form:duyuruList"
+				oncomplete="PF('dlg_duyuru').hide()"
+				rendered="#{!duyuruTanimlamaBean.islem}"></p:commandButton>
+			<p:commandButton value="Sil" action="#{duyuruTanimlamaBean.sil()}"
+				update=":form:duyuruList" oncomplete="PF('dlg_duyuru').hide()"
+				rendered="#{!duyuruTanimlamaBean.islem}"></p:commandButton>
+		</p:dialog>
+	</h:form>
+
+	
+</h:body>
+
+
+</html>

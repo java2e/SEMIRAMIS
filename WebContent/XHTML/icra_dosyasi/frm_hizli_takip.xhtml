@@ -1,0 +1,532 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+
+<h:body>
+
+
+	<p:panel id="hizliTakip" header="HIZLI TAKİP AÇILIŞI"
+		style="text-align:left;min-height:715px;">
+
+		<p:ajaxStatus onstart="PF('statusDialog').show()"
+			onsuccess="PF('statusDialog').hide()" />
+
+		<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+			closable="false" resizable="false" showHeader="false"
+			style="position: absolute; background-color: rgba(0, 0, 0, 0.6); height: 256px; width: 256px; left:0%; top:0%; z-index:2; height: 100%; width: 100%">
+			<p:graphicImage value="img/yukleme.gif" height="80" width="80" />
+		</p:dialog>
+
+		<h:form id="formMsgs">
+			<p:growl id="msgs" showDetail="true" />
+		</h:form>
+
+		<h:form id="formHizliTakip">
+
+			<p:spacer height="15" />
+
+			<p:panel style=" border-style: hidden !important; width:100%">
+				<p:panelGrid style=" border-style: hidden !important; width:100%">
+					<p:column style="width:35%;">
+	
+						<p:panel header="Genel Alanlar" style="width :100%; height:100%; border-style: hidden !important; margin-top: 0px;">
+							<p:panelGrid columns="2" style="width:100%;">
+								<p:outputLabel value="İcra Müdürlüğü :" />
+								<p:selectOneMenu id="icraMudurluk" effect="fold" filter="true"
+									filterMatchMode="startsWith"
+									value="#{icradosyaislemleribean.icradosyasi.icraMudurluguId}"
+									style="width: 260px">
+									<f:selectItem itemLabel="" itemValue="" />
+									<f:selectItems
+										value="#{geneltanimbean.ListeGetir('tbl_icra_mudurlugu')}"
+										var="list" itemLabel="#{list.adi}" itemValue="#{list.id}" />
+								</p:selectOneMenu>
+
+								<p:outputLabel value="İcra Dosya No :"></p:outputLabel>
+								<p:inputText
+									value="#{icradosyaislemleribean.icradosyasi.icraDosyaNo}"
+									style="width: 250px"
+									 />
+
+								<p:outputLabel value="Borç Tipi :" for="borcTipi" />
+								<p:selectOneMenu style="width: 260px" id="borcTipi"
+									value="#{icradosyaislemleribean.icradosyasi.borcTipiId}">
+									<f:selectItem itemLabel="" itemValue="" />
+									<f:selectItems
+										value="#{geneltanimbean.ListeGetir('tbl_borc_tipi')}"
+										var="item" itemValue="#{item.id}" itemLabel="#{item.adi}" />
+								</p:selectOneMenu>
+
+								<p:outputLabel value="Faiz Tipi :" />
+								<p:selectOneMenu id="faizTipi" style="width: 260px">
+									<f:selectItem itemLabel="" itemValue="" />
+									<f:selectItems
+										value="#{geneltanimbean.ListeGetir('tbl_faiz_tipi')}"
+										var="item" itemLabel="#{item.adi}" itemValue="#{item.id}" />
+								</p:selectOneMenu>
+
+
+								<p:outputLabel value="Risk Yöneticisi :" for="riskYoneticisi" />
+								<p:selectOneMenu style="width: 260px" id="riskYoneticisi"
+									value="#{icradosyaislemleribean.icradosyasi.riskYoneticisiId}">
+									<f:selectItem itemLabel="" itemValue="" />
+									<f:selectItems value="#{userbean.ListeGetir()}" var="item"
+										itemValue="#{item.id}" itemLabel="#{item.adSoyad}" />
+								</p:selectOneMenu>
+
+								<p:outputLabel value="Şube Adı :" for="subeAdi" />
+								<p:selectOneMenu style="width: 260px" id="subeAdi">
+									<f:selectItem itemLabel="" itemValue="" />
+									<f:selectItems
+										value="#{geneltanimbean.ListeGetir('tbl_sube_adi')}"
+										var="listeler" itemLabel="#{listeler.adi}"
+										itemValue="#{listeler.id}" />
+								</p:selectOneMenu>
+
+
+								<p:outputLabel value="Borca Esas Evrak :" for="borcaEsasEvrak" />
+								<p:selectOneMenu style="width: 260px" id="borcaEsasEvrak"
+									value="#{icradosyaislemleribean.icradosyasi.borcaEsasEvrak}">
+									<f:selectItem itemLabel="" itemValue="" />
+									<f:selectItems
+										value="#{geneltanimbean.ListeGetir('tbl_borca_esas_evrak')}"
+										var="item" itemValue="#{item.id}" itemLabel="#{item.adi}" />
+								</p:selectOneMenu>
+
+								<p:outputLabel value="Vade Tarihi :" />
+								<p:calendar id="mask3"
+									value="#{icradosyaislemleribean.icradosyasi.vadeTarihi}"
+									pattern="dd-MM-yyyy" mask="true" style="width: 250px" size="33" />
+
+								<p:outputLabel value="İhtar Name Tarihi :" />
+								<p:calendar id="mask"
+									value="#{icradosyaislemleribean.icradosyasi.ihtarnameTarihi}"
+									pattern="dd-MM-yyyy" mask="true" style="width: 250px" size="33" />
+
+								<p:outputLabel value="Vekalet Ücret Tipi :"
+									for="vekaletUcretTipi" />
+								<p:selectOneMenu style="width: 260px" id="vekaletUcretTipi"
+									value="#{icradosyaislemleribean.icradosyasi.vekaletUcretTipi}">
+									<f:selectItem itemLabel="" itemValue="" />
+									<f:selectItems
+										value="#{geneltanimbean.ListeGetir('tbl_vekalet_ucret_tipi')}"
+										var="item" itemValue="#{item.id}" itemLabel="#{item.adi}" />
+								</p:selectOneMenu>
+
+
+
+								<p:outputLabel value="Hesap Tipi :" for="hesapTipi" />
+								<p:selectOneMenu style="width: 260px" id="hesapTipi"
+									value="#{icradosyaislemleribean.icradosyasi.hesapTipi}">
+									<f:selectItem itemLabel="" itemValue="" />
+									<f:selectItem itemValue="1" itemLabel="Standart Hesap" />
+									<f:selectItem itemValue="2" itemLabel="Özel Hesap" />
+
+								</p:selectOneMenu>
+
+								<p:outputLabel value="Ticaret Sicil No :" />
+								<p:inputText
+									value="#{icradosyaislemleribean.borclubilgisi.ticaretSicilNo}"
+									style="width: 250px"
+									onkeyup="var pos=this.selectionStart;
+									var size = this.value.length;														
+             						this.value=this.value.replace(/[^0-9]+/g, '');
+             						if (this.value.length > 10) this.value=this.value.substring(0,10);
+             						if (size > this.value.length)
+             							{this.selectionStart = pos-1; this.selectionEnd = pos-1;}
+             						else
+             							{this.selectionStart = pos; this.selectionEnd = pos;}" />
+
+											
+							</p:panelGrid>
+							<p:spacer height="75" />
+								<p:panel style=" border-style: hidden !important;">
+				
+
+				<p:commandButton value="TAKİP AÇILIŞINI YAP" style="float:right; height:70px"
+					action="#{icradosyaislemleribean.Kaydet}"
+					update=":formMsgs,:hizliTakip" />
+			
+			</p:panel>
+							
+						</p:panel>
+										
+					</p:column>
+					<p:column>
+						
+						<p:panelGrid columns="2" style=" border-style: hidden !important; width:100%">
+						<p:panel header="Takip Açılış Bilgileri" style="width :100%;border-style: hidden !important;" >
+							<p:panelGrid columns="2" style="width:100%">
+								<p:outputLabel value="Takip Yolu :" for="takipYolu" />
+								<p:selectOneMenu style="width: 260px" id="takipYolu"
+									value="#{icradosyaislemleribean.icradosyasi.takipYoluId}"
+									required="true"
+									requiredMessage="Bu alanı boş bırakamazsınız...">
+									<f:selectItem itemLabel="" itemValue="" />
+									<f:selectItems
+										value="#{geneltanimbean.ListeGetir('tbl_takip_yolu')}"
+										var="listeler" itemLabel="#{listeler.adi}"
+										itemValue="#{listeler.id}" />
+								</p:selectOneMenu>
+
+
+								<p:outputLabel value="Takip Tipi :" for="takipTipi" />
+								<p:selectOneMenu style="width: 260px" id="takipTipi"
+									value="#{icradosyaislemleribean.icradosyasi.takipTipiId}"
+									required="true"
+									requiredMessage="Bu alanı boş bırakamazsınız...">
+									<f:selectItem itemLabel="" itemValue="" />
+									<f:selectItems
+										value="#{geneltanimbean.ListeGetir('tbl_takip_tipi')}"
+										var="listeler" itemLabel="#{listeler.adi}"
+										itemValue="#{listeler.id}" />
+								</p:selectOneMenu>
+
+								<p:outputLabel value="Takip Şekli :" />
+								<p:selectOneMenu id="takipSekli"
+									value="#{icradosyaislemleribean.icradosyasi.takipSekliId}"
+									style="width: 260px" required="true"
+									requiredMessage="Bu alanı boş bırakamazsınız...">
+									<f:selectItem itemLabel="" itemValue="" />
+									<f:selectItems
+										value="#{geneltanimbean.ListeGetir('tbl_takip_sekli')}"
+										var="list" itemLabel="#{list.adi}" itemValue="#{list.id}" />
+								</p:selectOneMenu>
+
+								<p:outputLabel value="Dosya Tipi :" />
+								<p:selectOneMenu style="width: 260px" id="dosyaTipi"
+									value="#{icradosyaislemleribean.icradosyasi.dosyaTipiId}"
+									required="true"
+									requiredMessage="Bu alanı boş bırakamazsınız...">
+									<f:selectItem itemLabel="" itemValue="" />
+									<f:selectItems value="#{dosyaTipiBean.ListeGetir()}"
+										var="listeler" itemLabel="#{listeler.adi}"
+										itemValue="#{listeler.id}" />
+								</p:selectOneMenu>
+
+								<p:outputLabel value="Talep Edilen Hak :" />
+								<p:inputTextarea
+									value="#{icradosyaislemleribean.icradosyasi.talepEdilenHak}"
+									style="width: 250px" required="true"
+									requiredMessage="Bu alanı boş bırakamazsınız..." />
+
+
+
+								<p:outputLabel value="Tutar Adı :" />
+								<p:selectOneMenu style="width: 260px" required="true"
+									value="#{icradosyaislemleribean.icradosyasi.para_birimi}"
+									requiredMessage="Bu alanı boş bırakamazsınız..." >
+									<f:selectItem itemLabel="TL - Türk Lirası" itemValue="TL - Türk Lirası" />
+									</p:selectOneMenu>
+
+								<p:outputLabel value="Muvekkil Adı :" for="muvekkilAdi" />
+								<p:selectOneMenu
+									style="width: 260px; background-color:NavajoWhite "
+									value="#{icradosyaislemleribean.alacakliID}" id="muvekkilAdi"
+									required="true"
+									requiredMessage="Müvekkil Adını Boş Bırakamazsınız">
+									<f:selectItem itemLabel="" itemValue="" />
+									<f:selectItems value="#{alacakliBean.Liste()}" var="listeler"
+										itemLabel="#{listeler.muvekkilAdi}" itemValue="#{listeler.id}" />
+								</p:selectOneMenu>
+							</p:panelGrid>
+						</p:panel>
+					
+						
+						<p:panel header="Asıl Alacak" style="width :100%; border-style: hidden !important; margin-top: -25px " >
+							<p:panelGrid columns="2" style="width:100%">
+								<p:outputLabel value="Asıl Alacak :" />
+								<p:inputText value="#{icradosyaislemleribean.hesap.asil_alacak}"
+									style="width: 145px;  background-color:NavajoWhite"
+									required="true" requiredMessage=" Alanı Boş Bıramakazsınız..."
+									onkeyup="var pos=this.selectionStart;
+									var size = this.value.length;	
+									
+             						this.value=this.value.replace(/,/g,'.').replace(/[^0-9,'.']+/g, '');
+             						
+             						if(this.value.indexOf('.')!=this.value.lastIndexOf('.'))
+										this.value=this.value.substring(0,size-1);
+									
+									"
+									onfocus="
+															this.value=''
+									" 
+									
+									/>
+
+
+								<p:outputLabel value="Akdi Gecikme Faizi Oranı / Tutarı " />
+								<p:outputLabel>
+									<p:inputText
+										value="#{icradosyaislemleribean.hesap.akdi_faiz_orani}"
+										style="width: 40px; background-color:NavajoWhite"
+										required="true"
+										requiredMessage="Bu alanı boş bırakamazsınız..."
+										onkeyup="var pos=this.selectionStart;
+									var size = this.value.length;														
+this.value=this.value.replace(/,/g,'.').replace(/[^0-9,'.']+/g, '');
+             						
+             						if(this.value.indexOf('.')!=this.value.lastIndexOf('.'))
+										this.value=this.value.substring(0,size-1);
+             					" onfocus="
+															this.value=''
+									"/>
+				/
+					<p:inputText value="#{icradosyaislemleribean.hesap.gecikme_faizi}"
+										style="width: 85px; background-color:NavajoWhite"
+										required="true"
+										requiredMessage="Bu alanı boş bırakamazsınız..." onkeyup="var pos=this.selectionStart;
+									var size = this.value.length;														
+this.value=this.value.replace(/,/g,'.').replace(/[^0-9,'.']+/g, '');
+             						
+             						if(this.value.indexOf('.')!=this.value.lastIndexOf('.'))
+										this.value=this.value.substring(0,size-1);
+             					" onfocus="
+															this.value=''
+									"/>
+								</p:outputLabel>
+
+
+								<p:outputLabel value="Temerrüt Faizi Oranı / Tutarı " />
+								<p:outputLabel>
+									<p:inputText
+										value="#{icradosyaislemleribean.hesap.temerrut_faiz_orani}"
+										style="width: 40px;  background-color:NavajoWhite" required="true"
+										requiredMessage="Bu alanı boş bırakamazsınız..." onkeyup="var pos=this.selectionStart;
+									var size = this.value.length;														
+this.value=this.value.replace(/,/g,'.').replace(/[^0-9,'.']+/g, '');
+             						
+             						if(this.value.indexOf('.')!=this.value.lastIndexOf('.'))
+										this.value=this.value.substring(0,size-1);
+             					" onfocus="
+															this.value=''
+									"/>
+				/
+					<p:inputText value="#{icradosyaislemleribean.hesap.temerrut_faizi}"
+										style="width: 85px;  background-color:NavajoWhite" required="true"
+										requiredMessage="Bu alanı boş bırakamazsınız..." onkeyup="var pos=this.selectionStart;
+									var size = this.value.length;														
+this.value=this.value.replace(/,/g,'.').replace(/[^0-9,'.']+/g, '');
+             						
+             						if(this.value.indexOf('.')!=this.value.lastIndexOf('.'))
+										this.value=this.value.substring(0,size-1);
+             					" onfocus="
+															this.value=''
+									"/>
+								</p:outputLabel>
+
+								<p:outputLabel value="Faiz %5 :" />
+								<p:inputText style="width: 145px;  background-color:NavajoWhite"
+									value="#{icradosyaislemleribean.hesap.faiz_gider_vergisi}"
+									required="true"
+									requiredMessage="Bu alanı boş bırakamazsınız..." onkeyup="var pos=this.selectionStart;
+									var size = this.value.length;														
+this.value=this.value.replace(/,/g,'.').replace(/[^0-9,'.']+/g, '');
+             						
+             						if(this.value.indexOf('.')!=this.value.lastIndexOf('.'))
+										this.value=this.value.substring(0,size-1);
+             					"
+             					onfocus="
+															this.value=''
+									"/>
+
+								<p:outputLabel value="Masraf :" />
+								<p:inputText style="width: 145px;  background-color:NavajoWhite" required="true"
+									value="#{icradosyaislemleribean.hesaplistesi.noter_masrafi}"
+									requiredMessage="Bu alanı boş bırakamazsınız..." onkeyup="var pos=this.selectionStart;
+									var size = this.value.length;
+this.value=this.value.replace(/,/g,'.').replace(/[^0-9,'.']+/g, '');
+             						
+             						if(this.value.indexOf('.')!=this.value.lastIndexOf('.'))
+										this.value=this.value.substring(0,size-1);	"
+									onfocus="
+															this.value=''
+									"
+									/>
+
+
+								<p:outputLabel value="Takip Tarihi :" />
+								<p:calendar id="mask1"
+									value="#{icradosyaislemleribean.icradosyasi.takipTarihi}"
+									pattern="dd-MM-yyyy" mask="true" style=" background-color:NavajoWhite" size="18"
+									required="true"
+									requiredMessage="Bu alanı boş bırakamazsınız..." />
+
+							</p:panelGrid>
+						</p:panel>
+		
+					</p:panelGrid>
+						
+						
+						
+						<p:panel header="Müvekkil / Borçlu Bilgileri" style="width :100%; border-style: hidden !important;">
+							<p:panelGrid columns="4" style="width:100%; border-style: hidden !important;">
+
+								
+
+								<p:outputLabel value="Borçlu Adı / Soyadı:" />
+								<p:outputLabel>
+								<p:inputText
+									value="#{icradosyaislemleribean.borclubilgisi.ad}"
+									style="width: 125px" required="true"
+									requiredMessage="Bu alanı boş bırakamazsınız..."
+									onkeyup="var pos=this.selectionStart;
+									var size = this.value.length;														
+             						this.value=this.value.replace(/[0-9,'.']+/g, '')
+             											 .replace(/i/g, 'İ')
+             											 .replace(/ş/g, 'Ş')
+             											 .replace(/ç/g, 'Ç')
+             											 .replace(/ö/g, 'Ö')
+             											 .replace(/ü/g, 'Ü')
+             											 .toUpperCase();
+             						" />
+								/
+								<p:inputText
+									value="#{icradosyaislemleribean.borclubilgisi.soyad}"
+									style="width: 115px" required="true"
+									requiredMessage="Bu alanı boş bırakamazsınız..."
+									onkeyup="var pos=this.selectionStart;
+									var size = this.value.length;														
+             						this.value=this.value.replace(/[0-9,'.']+/g, '')
+             											 .replace(/i/g, 'İ')
+             											 .replace(/ş/g, 'Ş')
+             											 .replace(/ç/g, 'Ç')
+             											 .replace(/ö/g, 'Ö')
+             											 .replace(/ü/g, 'Ü')
+             											 .toUpperCase();
+             						" />
+
+								</p:outputLabel>
+								<p:outputLabel value="TC Kimlik No :" />
+								<p:inputText
+									value="#{icradosyaislemleribean.borclubilgisi.tcNo}"
+									style="width: 250px"
+									onkeyup="var pos=this.selectionStart;
+									var size = this.value.length;														
+             						this.value=this.value.replace(/[^0-9]+/g, '');
+             						if (this.value.length > 11) this.value=this.value.substring(0,11);
+             						if (size > this.value.length)
+             							{this.selectionStart = pos-1; this.selectionEnd = pos-1;}
+             						else
+             							{this.selectionStart = pos; this.selectionEnd = pos;}"
+									required="true" requiredMessage=" Alanı Boş Bıramakazsınız..." />
+
+								<p:outputLabel value="Adres Türü :" for="adresTipi">
+									
+								</p:outputLabel>
+								<p:selectOneMenu style="width: 260px"
+									value="#{icradosyaislemleribean.borclubilgisi.adresTuruId}"
+									id="adresTipi" required="true"
+									requiredMessage="Bu alanı boş bırakamazsınız...">
+									<f:selectItem itemLabel="" itemValue="" />
+								<f:selectItems
+										value="#{geneltanimbean.ListeGetir('tbl_adres_turu')}"
+										var="item" itemValue="#{item.id}" itemLabel="#{item.adi}" />
+								</p:selectOneMenu>
+
+								<p:outputLabel value="Adres Statüsü :" for="adresStatu" />
+								<p:selectOneMenu style="width: 260px" id="adresStatu"
+									required="true"
+									requiredMessage="Bu alanı boş bırakamazsınız..."
+									>
+									<f:selectItem itemLabel="" itemValue="" />
+									<f:selectItems
+										value="#{geneltanimbean.ListeGetir('tbl_adres_statusu')}"
+										var="item" itemValue="#{item.id}" itemLabel="#{item.adi}" />
+
+								</p:selectOneMenu>
+
+								<p:outputLabel value="Adres :" />
+								<p:inputTextarea
+									value="#{icradosyaislemleribean.borclubilgisi.adres}"
+									style="width: 250px" required="true"
+									requiredMessage="Bu alanı boş bırakamazsınız..."
+									onkeyup="var pos=this.selectionStart;
+									var size = this.value.length;														
+             						this.value=this.value.replace(/i/g, 'İ')
+             											 .replace(/ş/g, 'Ş')
+             											 .replace(/ç/g, 'Ç')
+             											 .replace(/ö/g, 'Ö')
+             											 .replace(/ü/g, 'Ü')
+             											 .toUpperCase();
+             						"	 />
+
+								<p:outputLabel value="Tel -1 :" />
+								<p:inputMask
+									value="#{icradosyaislemleribean.borclubilgisi.telefon_no2}"
+									style="width: 250px" mask="(999) 999-9999" required="true"
+									requiredMessage="Bu alanı boş bırakamazsınız..." />
+
+
+
+								<p:outputLabel value="Tel -2 :" />
+								<p:inputMask
+									value="#{icradosyaislemleribean.borclubilgisi.telefon_no3}"
+									style="width: 250px" mask="(999) 999-9999" required="true"
+									requiredMessage="Bu alanı boş bırakamazsınız..." />
+
+
+
+								<p:outputLabel value="İl Adı :" />
+
+								<p:selectOneMenu id="il"
+									value="#{icradosyaislemleribean.borclubilgisi.ilId}"
+									style="width: 260px" required="true"
+									requiredMessage="Bu alanı boş bırakamazsınız...">
+									<p:ajax listener="#{icradosyaislemleribean.ilceListeEkle()}"
+										update="ilce" />
+									<f:selectItems value="#{genelSehirlerBean.ListeGetirForIl()}"
+										var="iller" itemLabel="#{iller.il_adi}"
+										itemValue="#{iller.il_kodu}">
+									</f:selectItems>
+								</p:selectOneMenu>
+
+								<p:outputLabel value="İlçe Adı :" />
+								<p:selectOneMenu id="ilce"
+									value="#{icradosyaislemleribean.borclubilgisi.ilceId}"
+									style="width: 260px" required="true"
+									requiredMessage="Bu alanı boş bırakamazsınız...">
+									<f:selectItems value="#{icradosyaislemleribean.ilceList}"
+										var="ilceler" itemLabel="#{ilceler.ilce_adi}"
+										itemValue="#{ilceler.id}"></f:selectItems>
+								</p:selectOneMenu>
+								
+								<p:outputLabel value="Avukat Servis No :" />
+								<p:inputText
+									value="#{icradosyaislemleribean.icradosyasi.avukat_sevis_no}"
+									style="width: 250px" required="true"
+									requiredMessage="Avukat Servis No Alanını Boş Bıramakazsınız..." />
+
+
+
+								<p:outputLabel value="Banka Servis No :" />
+								<p:inputText
+									value="#{icradosyaislemleribean.icradosyasi.banka_servis_no}"
+									style="width: 250px" required="true"
+									requiredMessage="Banka Servis No Alanını Boş Bıramakazsınız..." />
+
+								<p:outputLabel value="Müşteri No :" />
+								<p:inputText style="width: 250px" required="true"
+									requiredMessage="Müşteri No Alanını Boş Bıramakazsınız..." />
+									
+							</p:panelGrid>
+						</p:panel>
+						
+					</p:column>
+				</p:panelGrid>
+			</p:panel>
+
+		
+		</h:form>
+	</p:panel>
+
+</h:body>
+
+</html>

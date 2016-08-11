@@ -1,0 +1,245 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<h:body>
+	<h:form id="form">
+		<p:panel id="panelPG" header="VEKALET SINIRLARI TANIMLAMA PANELİ"
+			style="text-align:left;min-height:500px;">
+
+			<p:ajaxStatus onstart="PF('statusDialog').show()"
+				onsuccess="PF('statusDialog').hide()" />
+
+			<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+				closable="false" resizable="false" showHeader="false"
+				style="position: absolute; background-color: rgba(0, 0, 0, 0.6); height: 256px; width: 256px; left:0%; top:0%; z-index:2; height: 100%; width: 100%">
+				<p:graphicImage value="img/yukleme.gif" height="80" width="80" />
+			</p:dialog>
+
+
+
+			<p:panel id="girisPaneli" header="Vekalet Sınırı Ekleme"
+				style="margin-bottom:10px" rendered="#{vekaletSinirlariBean.panelRender}">
+				<p:panelGrid columns="4" style="margin-top:10px">
+
+					<p:outputLabel>Yil:</p:outputLabel>
+					<p:inputText  value="#{vekaletSinirlariBean.secimVekaletSinirlari.yil}"
+						style="width: 250px"></p:inputText>
+						
+						
+					<p:outputLabel>Yuzde_1:</p:outputLabel>
+					<p:inputText  value="#{vekaletSinirlariBean.secimVekaletSinirlari.yuzde_1}"
+						style="width: 250px"></p:inputText>
+						
+					<p:outputLabel>Sınır_1:</p:outputLabel>
+					<p:inputText  value="#{vekaletSinirlariBean.secimVekaletSinirlari.sinir_1}"
+						style="width: 250px"></p:inputText>
+					
+					
+					<p:outputLabel>Yuzde_2:</p:outputLabel>
+					<p:inputText  value="#{vekaletSinirlariBean.secimVekaletSinirlari.yuzde_2}"
+						style="width: 250px"></p:inputText>
+						
+					<p:outputLabel>Sınır_2:</p:outputLabel>
+					<p:inputText  value="#{vekaletSinirlariBean.secimVekaletSinirlari.sinir_2}"
+						style="width: 250px"></p:inputText>
+						
+					
+					<p:outputLabel>Yuzde_3:</p:outputLabel>
+					<p:inputText  value="#{vekaletSinirlariBean.secimVekaletSinirlari.yuzde_3}"
+						style="width: 250px"></p:inputText>
+						
+					<p:outputLabel>Sınır_3:</p:outputLabel>
+					<p:inputText  value="#{vekaletSinirlariBean.secimVekaletSinirlari.sinir_3}"
+						style="width: 250px"></p:inputText>
+						
+					
+					<p:outputLabel>Yuzde_4:</p:outputLabel>
+					<p:inputText  value="#{vekaletSinirlariBean.secimVekaletSinirlari.yuzde_4}"
+						style="width: 250px"></p:inputText>
+						
+					<p:outputLabel>Sınır_4:</p:outputLabel>
+					<p:inputText  value="#{vekaletSinirlariBean.secimVekaletSinirlari.sinir_4}"
+						style="width: 250px"></p:inputText>
+						
+					<p:outputLabel>Yuzde_5:</p:outputLabel>
+					<p:inputText  value="#{vekaletSinirlariBean.secimVekaletSinirlari.yuzde_5}"
+						style="width: 250px"></p:inputText>
+						
+					<p:outputLabel>Sinir_5:</p:outputLabel>
+					<p:inputText  value="#{vekaletSinirlariBean.secimVekaletSinirlari.sinir_5}"
+						style="width: 250px"></p:inputText>
+						
+					<p:outputLabel>Yuzde_5:</p:outputLabel>
+					<p:inputText  value="#{vekaletSinirlariBean.secimVekaletSinirlari.yuzde_5}"
+						style="width: 250px"></p:inputText>
+						
+					<p:outputLabel>Sınır_6:</p:outputLabel>
+					<p:inputText  value="#{vekaletSinirlariBean.secimVekaletSinirlari.sinir_6}"
+						style="width: 250px"></p:inputText>
+					
+					<p:outputLabel>Yuzde_6:</p:outputLabel>
+					<p:inputText  value="#{vekaletSinirlariBean.secimVekaletSinirlari.yuzde_6}"
+						style="width: 250px"></p:inputText>
+						
+					<p:outputLabel>Yuzde_7:</p:outputLabel>
+					<p:inputText  value="#{vekaletSinirlariBean.secimVekaletSinirlari.yuzde_7}"
+						style="width: 250px"></p:inputText>
+						
+					<p:outputLabel>Sınır_7:</p:outputLabel>
+					<p:inputText  value="#{vekaletSinirlariBean.secimVekaletSinirlari.sinir_7}"
+						style="width: 250px"></p:inputText>
+						
+						
+					<p:outputLabel>Yuzde_8:</p:outputLabel>
+					<p:inputText  value="#{vekaletSinirlariBean.secimVekaletSinirlari.yuzde_8}"
+						style="width: 250px"></p:inputText>
+						
+					<p:outputLabel>Sınır_8:</p:outputLabel>
+					<p:inputText  value="#{vekaletSinirlariBean.secimVekaletSinirlari.sinir_8}"
+						style="width: 250px"></p:inputText>
+					
+					<p:outputLabel>Vekalet Ücret:</p:outputLabel>
+					<p:inputText  value="#{vekaletSinirlariBean.secimVekaletSinirlari.vekalet_ucret}"
+						style="width: 250px"></p:inputText>
+						
+					<p:outputLabel>Vekalet Ücret Sınır:</p:outputLabel>
+					<p:inputText  value="#{vekaletSinirlariBean.secimVekaletSinirlari.vekalet_ucret_sinir}"
+						style="width: 250px"></p:inputText>
+						
+				</p:panelGrid>
+				<p:growl id="growl" showDetail="true" sticky="true" />
+
+				<p:commandButton value="Kaydet" update="@form"
+					actionListener="#{vekaletSinirlariBean.Kayit}"
+					style="margin-top:10px;margin-right:5px">
+
+				</p:commandButton>
+
+				<p:commandButton value="Vazgeç" action="#{vekaletSinirlariBean.Vazgec}"
+					update="@form"></p:commandButton>
+
+			</p:panel>
+
+
+			<p:commandButton value="Yeni Kayıt" style="float:left"
+				disabled="#{vekaletSinirlariBean.buttonDisabled}"
+				action="#{vekaletSinirlariBean.YeniKayit()}" update="@form" />
+
+			<p:commandButton value="Listeyi Yenile" style="float:left"
+				disabled="#{vekaletSinirlariBean.buttonDisabled}" update="@form" />
+
+
+
+			<p:dataTable value="#{vekaletSinirlariBean.Liste()}" var="Belge"
+				id="tblBelgeTipi">
+
+				<p:column headerText="Düzenle" width="145">
+					<div align="center">
+						<p:commandButton icon="ui-icon-disk" id="duzenle" value="Düzenle"
+							action="#{vekaletSinirlariBean.Duzenle}" update="@form" rendered="true">
+							<f:param name="adi" value="#{Belge.yil}" />
+							<f:param name="id" value="#{Belge.id}" />
+						</p:commandButton>
+					</div>
+				</p:column>
+
+
+				<p:column headerText="SİL" width="115">
+					<div align="center">
+						<p:commandButton icon="ui-icon-cancel" id="sil" value="SİL"
+							action="#{vekaletSinirlariBean.Sil()}" update="@form" rendered="true">
+							<f:param name="sil" value="#{Belge.id}" />
+							<p:confirm header="Uyarı Mesajı"
+								message="Silmek istediğinize emin misiniz ?"
+								icon="ui-icon-alert" />
+						</p:commandButton>
+						<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+
+							<p:commandButton value="Evet" type="button"
+								styleClass="ui-confirmdialog-yes" icon="ui-icon-check">
+
+
+							</p:commandButton>
+
+							<p:commandButton value="Hayır" type="button"
+								styleClass="ui-confirmdialog-no" icon="ui-icon-close">
+
+							</p:commandButton>
+
+						</p:confirmDialog>
+					</div>
+				</p:column>
+
+				<p:column headerText="YIL" width="250px">
+					<h:outputText value="#{Belge.yil}" />
+				</p:column>
+				
+				<p:column headerText="YUZDE_1" width="250px">
+					<h:outputText value="#{Belge.yuzde_1}" />
+				</p:column>
+				
+				<p:column headerText="SINIR_1" width="250px">
+					<h:outputText value="#{Belge.sinir_1}" />
+				</p:column>
+				<p:column headerText="YUZDE_2" width="250px">
+					<h:outputText value="#{Belge.yuzde_2}" />
+				</p:column>
+				
+				<p:column headerText="SINIR_2" width="250px">
+					<h:outputText value="#{Belge.sinir_2}" />
+				</p:column>
+				<p:column headerText="YUZDE_3" width="250px">
+					<h:outputText value="#{Belge.yuzde_3}" />
+				</p:column>
+				
+				<p:column headerText="SINIR_3" width="250px">
+					<h:outputText value="#{Belge.sinir_3}" />
+				</p:column>
+				<p:column headerText="YUZDE_4" width="250px">
+					<h:outputText value="#{Belge.yuzde_4}" />
+				</p:column>
+				
+				<p:column headerText="SINIR_4" width="250px">
+					<h:outputText value="#{Belge.sinir_4}" />
+				</p:column>
+				<p:column headerText="YUZDE_5" width="250px">
+					<h:outputText value="#{Belge.yuzde_5}" />
+				</p:column>
+				
+				<p:column headerText="SINIR_5" width="250px">
+					<h:outputText value="#{Belge.sinir_5}" />
+				</p:column>
+				<p:column headerText="YUZDE_6" width="250px">
+					<h:outputText value="#{Belge.yuzde_6}" />
+				</p:column>
+				
+				<p:column headerText="SINIR_6" width="250px">
+					<h:outputText value="#{Belge.sinir_6}" />
+				</p:column>
+				<p:column headerText="YUZDE_7" width="250px">
+					<h:outputText value="#{Belge.yuzde_7}" />
+				</p:column>
+				
+				<p:column headerText="SINIR_7" width="250px">
+					<h:outputText value="#{Belge.sinir_7}" />
+				</p:column>
+				<p:column headerText="YUZDE_8" width="250px">
+					<h:outputText value="#{Belge.yuzde_8}" />
+				</p:column>
+				<p:column headerText="SINIR_8" width="250px">
+					<h:outputText value="#{Belge.sinir_8}" />
+				</p:column>
+			</p:dataTable>
+
+		</p:panel>
+	</h:form>
+</h:body>
+
+</html>

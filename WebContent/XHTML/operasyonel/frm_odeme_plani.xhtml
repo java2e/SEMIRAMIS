@@ -1,0 +1,175 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<body>
+
+	<p:panel id="panelPG" header="ÖDEME PLANI KAYIT PANELİ"
+		style="text-align:left;min-height:500px;">
+
+		<p:growl id="growl" showDetail="true" sticky="false" />
+
+		<p:ajaxStatus onstart="PF('statusDialog').show()"
+			onsuccess="PF('statusDialog').hide()" />
+
+		<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+			closable="false" resizable="false" showHeader="false"
+			style="position: absolute; background-color: rgba(0, 0, 0, 0.6); height: 256px; width: 256px; left:0%; top:0%; z-index:2; height: 100%; width: 100%">
+			<p:graphicImage value="img/yukleme.gif" height="80" width="80" />
+		</p:dialog>
+
+		<h:form id="odemePlaniForm">
+			<p:panel rendered="#{odemePlaniBean.panelRender}">
+				<p:panelGrid columns="2"
+					style="margin-top:10px;border-style: hidden !important ">
+
+					<p:outputLabel style="width: 150px">İcra Dosya No :</p:outputLabel>
+					<p:inputText id="icraDosyaNo"
+						value="#{odemePlaniBean.staticDegerler.icraDosyaNo}"
+						style="width: 250px" readonly="true">
+					</p:inputText>
+
+					<h:outputLabel>Borçlu Adı :</h:outputLabel>
+					<p:inputText id="borcluAdi"
+						value="#{odemePlaniBean.staticDegerler.borcluAdi}"
+						style="width: 250px" readonly="true">
+					</p:inputText>
+
+					<p:outputLabel>Kalan Alacak Miktarı :</p:outputLabel>
+					<p:inputMask id="alacakMiktari"
+						convertMessage="Sayısal bir değer giriniz" readonly="false"
+						value="#{odemePlaniBean.plan.kalanAlacakMiktari}" required="false"
+						requiredMessage="Bu alanı doldurunuz" style="width: 250px">
+						<f:validateDoubleRange minimum="0.0" />
+					</p:inputMask>
+
+					<p:outputLabel>Peşinat Miktarı :</p:outputLabel>
+					<p:inputText id="pesinatMiktari"
+						convertMessage="Sayısal bir değer giriniz"
+						value="#{odemePlaniBean.plan.pesinatMiktari}" required="false"
+						requiredMessage="Bu alanı doldurunuz" style="width: 250px"
+						onkeyup=" var pos=this.selectionStart;
+									var size = this.value.length;	
+									
+             						var kalan = document.getElementById('odemePlaniForm:alacakMiktari').value - this.value;
+             						
+             						if(0 >  parseFloat(kalan)){
+             							document.getElementById('odemePlaniForm:odenecekMiktar').value=0;
+             							alert('ÖDENECEK MİKTAR EKSİ BİR DEĞER OLAMAZ');
+             						}else{
+             						if (this.value.length == 0 || this.value==null || this.value==''){
+             							document.getElementById('odemePlaniForm:odenecekMiktar').value = document.getElementById('odemePlaniForm:alacakMiktari').value;
+             						} 						
+             						else
+             							{
+             							document.getElementById('odemePlaniForm:odenecekMiktar').value = parseFloat(kalan).toFixed(2);
+             							}
+             						}
+             						" />
+					
+					
+					<p:outputLabel>Ödenecek Miktar :</p:outputLabel>
+					<p:inputMask id="odenecekMiktar"
+						convertMessage="Sayısal bir değer giriniz"
+						value="#{odemePlaniBean.plan.odenecekMiktar}" required="false"
+						requiredMessage="Bu alanı doldurunuz" style="width: 250px">
+						<f:validateDoubleRange minimum="0.0" />
+					</p:inputMask>
+					
+
+					<p:outputLabel>Taksit Adedi:</p:outputLabel>
+					<p:inputText id="taksitAdedi"
+						value="#{odemePlaniBean.plan.taksitAdedi}" required="true"
+						requiredMessage="Bu alanı doldurunuz" style="width: 250px"></p:inputText>
+
+					<p:outputLabel for="inputTextDate">İlk Ödeme Tarihi :</p:outputLabel>
+					<p:calendar id="inputTextDate" size="32"
+						requiredMessage="Bu alanı doldurunuz" required="true"
+						value="#{odemePlaniBean.plan.ilkOdemeTarihi}" pattern="dd/MM/yyyy"
+						errorMessage="Sayısal bir değer giriniz" mask="true" />
+
+				</p:panelGrid>
+
+
+
+				<p:commandButton id="cmdButtonVAZGEC" value="Vazgeç"
+					action="#{odemePlaniBean.Vazgec}" style="margin-top:10px"
+					immediate="true" update=":odemePlaniForm"></p:commandButton>
+
+				<p:commandButton id="cmdButtonOlustur" value="Ödeme Planı Oluştur"
+					actionListener="#{odemePlaniBean.OdemeOlustur}"
+					update=":odemePlaniForm"></p:commandButton>
+
+				<p:commandButton id="cmdButtonKayit" value="Nihai Kayıt"
+					actionListener="#{odemePlaniBean.Kaydet}"
+					update=":growl,:odemePlaniForm"></p:commandButton>
+
+
+
+			</p:panel>
+
+			<p:commandButton value="Yeni Kayıt" style="float:left"
+				disabled="#{odemePlaniBean.buttonDisabled}"
+				action="#{odemePlaniBean.YeniKayit}" update=":odemePlaniForm" />
+
+			<p:commandButton value="Listeyi Yenile" style="float:left"
+				disabled="#{odemePlaniBean.buttonDisabled}" update=":odemePlaniForm" />
+
+			<p:dataTable value="#{odemePlaniBean.odemePlaniList}" var="list"
+				update="tblOdemePlani" id="tblOdemePlani" style="width:900px ">
+
+
+
+				<p:column headerText="SİL" width="115">
+
+					<p:commandButton icon="ui-icon-cancel" value="Sil"
+						action="#{odemePlaniBean.Sil}"
+						disabled="#{odemePlaniBean.buttonDisabled}"
+						update=":growl,:odemePlaniForm">
+						<f:param name="buttonSil" value="#{list.id}" />
+						<p:confirm header="Uyarı Mesajı"
+							message="Silmek istediğinize emin misiniz ?" icon="ui-icon-alert" />
+
+					</p:commandButton>
+
+					<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+						<p:commandButton value="Evet" type="button"
+							styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+						<p:commandButton value="Hayır" type="button"
+							styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+					</p:confirmDialog>
+
+				</p:column>
+
+
+
+				<p:column headerText="Takist Tarihleri">
+					<h:outputText value="#{list.taksitTarihleri}" />
+				</p:column>
+
+				<p:column headerText="Taksit Aylar">
+					<h:outputText value="#{list.taksitAylikMiktar}" />
+				</p:column>
+
+				<p:column headerText="Ödeme Durumu">
+					<h:outputText value="#{list.durum}" />
+				</p:column>
+
+
+			</p:dataTable>
+
+
+		</h:form>
+
+
+	</p:panel>
+
+
+
+</body>
+</html>

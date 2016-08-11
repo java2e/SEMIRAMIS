@@ -1,0 +1,432 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+<style type="text/css">
+
+	.dialog_style_warn 
+	{
+		font-weight: normal;
+		font-size: 1.0em;
+		text-align: left;
+		color: #9F6000;
+		background-color: #FEEFB3;
+	}
+	
+	.dialog_style_info 
+	{
+		font-weight: normal;
+		font-size: 1.0em;
+		text-align: left;
+		color: #00529B;
+		background-color: #BDE5F8;
+	}
+	
+</style>
+
+	<title>Kullanıcı Hesabı Tanımlama</title>
+</h:head>
+<h:body onload="#{hesapTanimlamaBean.panelKapat()}">
+
+	<div style="overflow:auto !important; width:100%; height:100%;"> 
+	<p:panel id="tbl" header="KULLANICI HESABI TANIMLAMA"
+		style="width:200 ;height:100;">
+		<h:form id="form" onkeypress="return event.keyCode !=13">
+			<p:growl id="msgs" showDetail="true" />
+
+			<p:panel id="duzenlePaneli" header="KULLANICI HESAP BİLGİLERİ GÜNCELLEME"
+				visible="#{hesapTanimlamaBean.updatedVisible}">
+				<h:panelGrid columns="4" cellpadding="3">
+
+					<p:outputLabel for="usrName"
+						value="Kullanıcı Adı:" />
+					<p:inputText id="usrName" style="width: 4.30cm"
+						value="#{hesapTanimlamaBean.updatedUser.usrName}" required="true"
+						requiredMessage="Kullanıcı rumuzu gereklidir"
+						validatorMessage="Kullanıcı rumuzu geçerli değil">
+						<f:validateRegex
+							pattern="[^ \u00F6\u00D6\u00E7\u00c7\u015f\u015E\u0131\u0130\u011f\u011e\u00fc\u00dc\t\r\n\v\f]{3,}" />
+					</p:inputText>
+
+					<p:outputLabel for="usrAdSoyad"
+						value="Adı Soyadı:" />
+					<p:inputText id="usrAdSoyad" style="width: 4.30cm"
+						value="#{hesapTanimlamaBean.updatedUser.usrAdSoyad}" 
+						required="true" requiredMessage="Kullanıcı adı boş bırakılamaz"
+						maxlength="100"/>
+
+					<p:outputLabel for="usrMail"
+						value="Email:" />
+					<p:inputText id="usrMail" style="width: 4.30cm"
+						value="#{hesapTanimlamaBean.updatedUser.usrMail}" />
+
+					<p:outputLabel for="usrTel"
+						value="Telefon:" />
+					<p:inputText id="usrTel" style="width: 4.30cm"
+						value="#{hesapTanimlamaBean.updatedUser.usrTel}" 
+						maxlength="100"
+						onkeyup="var pos=this.selectionStart;
+								var size = this.value.length;														
+								this.value = this.value.replace(/[^0-9]+/g, '');
+								if (this.value.length > 12) this.value=this.value.substring(0, 12);
+								if (size > this.value.length)
+									{this.selectionStart = pos-1; this.selectionEnd = pos-1;}
+								else
+									{this.selectionStart = pos; this.selectionEnd = pos;}"/>
+
+					<p:outputLabel for="usrAck"
+						value="Açıklama:" />
+					<p:inputText id="usrAck" style="width: 4.30cm"
+						value="#{hesapTanimlamaBean.updatedUser.usrAck}" 
+						maxlength="100"/>
+
+					<p:outputLabel for="rolAck"
+						value="Kullanıcı Rolü:" />
+					<p:selectOneMenu id="rolAck" style="width: 4.50cm"
+						value="#{hesapTanimlamaBean.updatedUser.usrKullaniciTipi}"
+						required="true" requiredMessage="Kullanıcı türü boş bırakılamaz">
+						<f:selectItems value="#{hesapTanimlamaBean.getUserRolAcklari()}" var="rol"
+							itemValue="#{rol.getId()}" itemLabel="#{rol.getAck()}" />
+					</p:selectOneMenu>
+					
+					<p:outputLabel value="Kullanıcı Fotoğraf :"/>
+					 <p:fileUpload fileUploadListener="#{hesapTanimlamaBean.handleFileUpload}" mode="advanced" dragDropSupport="false"
+          				 update="msgs" sizeLimit="100000" fileLimit="3" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
+
+					<p:outputLabel value="İptal:" />
+					<p:selectBooleanCheckbox value="#{hesapTanimlamaBean.updatedUser.usrIptal}"/>
+					</h:panelGrid>
+					<h:panelGrid columns="3" cellpadding="3">
+					<p:commandButton id="guncelle" value="Güncelle"
+						actionListener="#{hesapTanimlamaBean.guncelle}"
+						update=":form:duzenlePaneli, :form:msgs, :form2, :formEkle:eklePaneli,:formSifre:sifrePaneli" 
+						process="@form" oncomplete="PF('userTable').clearFilters()"/>
+					<p:commandButton id="iptal" value="İptal"
+						action="#{hesapTanimlamaBean.iptal()}"
+						update=":form:duzenlePaneli,:formSifre:sifrePaneli" 
+						immediate="true" resetValues="true"/>
+
+					<p:commandButton id="sifreDegistir" value="Şifre Değiştir" immediate="true"
+						action="#{hesapTanimlamaBean.sifreDegistir()}" update=":formSifre" />
+
+				</h:panelGrid>
+			</p:panel>
+		</h:form>
+
+		<h:form id="formEkle" onkeypress="return event.keyCode !=13">
+			<p:growl id="msgsEkle" showDetail="true" />
+
+			<p:panel id="eklePaneli" header="YENİ KULLANICI HESABI TANIMI"
+				visible="#{hesapTanimlamaBean.updatedVisibleEkle}">
+				<h:panelGrid columns="4" cellpadding="3">
+
+					<p:outputLabel for="usrName"
+						value="Kullanıcı Adı:" />
+					<p:inputText id="usrName" style="width: 4.30cm"
+						value="#{hesapTanimlamaBean.updatedUser.usrName}" required="true"
+						requiredMessage="Kullanıcı rumuzu gereklidir"
+						validatorMessage="Kullanıcı rumuzu geçerli değil">
+						<f:validateRegex
+							pattern="[^ \u00F6\u00D6\u00E7\u00c7\u015f\u015E\u0131\u0130\u011f\u011e\u00fc\u00dc\t\r\n\v\f]{3,}" />
+						
+					</p:inputText>
+
+					<p:outputLabel for="usrAdSoyad"
+						value="Adı Soyadı:" />
+					<p:inputText id="usrAdSoyad" style="width: 4.30cm"
+						required="true" requiredMessage="Kullanıcı adı boş bırakılamaz"
+						value="#{hesapTanimlamaBean.updatedUser.usrAdSoyad}" 
+						maxlength="100"/>
+
+					<p:outputLabel for="usrMail"
+						value="Email:" />
+					<p:inputText id="usrMail" style="width: 4.30cm"
+						value="#{hesapTanimlamaBean.updatedUser.usrMail}" />
+
+					<p:outputLabel for="usrTel"
+						value="Telefon:" />
+					<p:inputText id="usrTel" style="width: 4.30cm"
+						value="#{hesapTanimlamaBean.updatedUser.usrTel}" 
+						maxlength="100"
+						onkeyup="var pos=this.selectionStart;
+								var size = this.value.length;														
+								this.value = this.value.replace(/[^0-9]+/g, '');
+								if (this.value.length > 12) this.value=this.value.substring(0, 12);
+								if (size > this.value.length)
+									{this.selectionStart = pos-1; this.selectionEnd = pos-1;}
+								else
+									{this.selectionStart = pos; this.selectionEnd = pos;}"/>
+
+					<p:outputLabel for="usrAck"
+						value="Açıklama:" />
+					<p:inputText id="usrAck" style="width: 4.30cm"
+						value="#{hesapTanimlamaBean.updatedUser.usrAck}" 
+						maxlength="100"/>
+
+					<p:outputLabel for="rolAck2"
+						value="Kullanıcı Rolü:" />
+					<p:selectOneMenu id="rolAck2" style="width: 4.50cm"
+						value="#{hesapTanimlamaBean.updatedUser.usrKullaniciTipi}"
+						required="true" requiredMessage="Kullanıcı türü boş bırakılamaz">
+						<f:selectItems value="#{hesapTanimlamaBean.getUserRolAcklari()}" var="rol"
+							itemValue="#{rol.getId()}" itemLabel="#{rol.getAck()}" />
+					</p:selectOneMenu>
+					
+					<p:outputLabel value="Kullanıcı Fotoğraf :"/>
+					 <p:fileUpload uploadLabel="Yükle" cancelLabel="İptal" label="Resim Seç" fileUploadListener="#{hesapTanimlamaBean.handleFileUpload}" mode="advanced" dragDropSupport="false"
+          				 update="msgsEkle" sizeLimit="100000" fileLimit="3" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
+
+					<p:outputLabel value="İptal:" />
+					<p:selectBooleanCheckbox value="#{hesapTanimlamaBean.updatedUser.usrIptal}"/>
+					</h:panelGrid>
+					<h:panelGrid columns="2" cellpadding="3">
+					<p:outputLabel for="pwd1" value="ŞİFRE:" />
+					<p:password id="pwd1" value="#{hesapTanimlamaBean.geciciSifre}" match="pwd2"
+						label="Password 1" required="true"
+						requiredMessage="Şifre gereklidir" feedback="true"
+						promptLabel="Lütfen şifre giriniz" weakLabel="zayıf"
+						goodLabel="Orta seviye" strongLabel="Güçlü"
+						validatorMessage="Şifre geçerli değil, lütfen başka bir şifre deneyin.">
+						<f:validateRegex
+							pattern="[^ \u00F6\u00D6\u00E7\u00c7\u015f\u015E\u0131\u0130\u011f\u011e\u00fc\u00dc\t\r\n\v\f]{3,}"></f:validateRegex>
+					</p:password>
+
+					<p:outputLabel for="pwd2" value="ŞİFRE TEKRAR:" />
+					<p:password id="pwd2" value="#{hesapTanimlamaBean.geciciSifre}"
+						label="Password 2" required="true" requiredMessage="Şifre gereklidir" />
+					</h:panelGrid>
+					<h:panelGrid columns="2" cellpadding="3">
+					<p:commandButton id="ekleButton" value="Kaydet"
+						icon="ui-icon-disk"
+						actionListener="#{hesapTanimlamaBean.ekle}"
+						update=":formEkle:eklePaneli,:formEkle:msgsEkle,:form2" 
+						process="@form" oncomplete="PF('userTable').clearFilters()"/>
+
+					<p:commandButton id="iptal" value="İptal"
+						icon="ui-icon-cancel"
+						action="#{hesapTanimlamaBean.iptalEkle()}" immediate="true"
+						update=":formEkle:eklePaneli,:formEkle:msgsEkle" resetValues="true"/>
+
+				</h:panelGrid>
+			</p:panel>
+		</h:form>
+
+		<h:form id="formSifre">
+			<p:panel id="sifrePaneli" header="Şifre Değiştirme Paneli"
+				visible="#{hesapTanimlamaBean.isSifreDegistir()}">
+				<p:growl id="messages" showDetail="true" autoUpdate="true" />
+
+				<h:panelGrid columns="2" id="matchGrid">
+					<p:outputLabel for="pwd1" value="ŞİFRE:" />
+					<p:password id="pwd1" value="#{hesapTanimlamaBean.geciciSifre}" match="pwd2"
+						label="Password 1" required="true"
+						requiredMessage="Şifre gereklidir" feedback="true"
+						promptLabel="Lütfen şifre giriniz" weakLabel="zayıf"
+						goodLabel="Orta seviye" strongLabel="Güçlü"
+						validatorMessage="Şifre geçerli değil, lütfen başka bir şifre deneyin." >
+							<f:validateRegex pattern="[^ \u00F6\u00D6\u00E7\u00c7\u015f\u015E\u0131\u0130\u011f\u011e\u00fc\u00dc\t\r\n\v\f]{3,}" />
+					</p:password>
+
+					<p:outputLabel for="pwd2" value="ŞİFRE TEKRAR:" />
+					<p:password id="pwd2" value="#{hesapTanimlamaBean.geciciSifre}"
+						label="Password 2" required="true" requiredMessage="Şifre gereklidir"/>
+				</h:panelGrid>
+
+				<p:commandButton id="saveButton" value="Değiştir"
+					action="#{hesapTanimlamaBean.sifreDegistirUygula()}"
+					actionListener="#{hesapTanimlamaBean.sifreMesaji()}"
+					update=":formSifre, :formSifre:messages" />
+
+			</p:panel>
+		</h:form>
+
+		<h:form id="form2" onkeypress="return event.keyCode !=13">
+		
+			<p:commandButton id="refresh" style="display:none" update=":form2" />
+			
+	    	<p:toolbar id="toolbar">
+	        	<f:facet name="left">		
+				
+				<p:commandButton value="Ekle"
+					actionListener="#{hesapTanimlamaBean.eklePanelAc()}"
+					style="float:left !important;margin-right:10px;margin-left:8px"
+					update=":formEkle:eklePaneli, :form:duzenlePaneli, :formSifre"/>
+					
+				<p:commandButton value="Listeyi Yenile"
+					 icon="ui-icon-refresh"
+					 actionListener="#{hesapTanimlamaBean.retrieveFreshData}" 
+					 oncomplete="document.getElementById('form2:refresh').click();"
+					 style="float:left !important;margin-right:10px" />
+	
+				</f:facet>
+				<f:facet name="right">
+					 	<h:outputText value="KULLANICI TANIMLARI"/>
+				</f:facet>
+			</p:toolbar>
+			
+			<div style="overflow:auto !important; width:100%; height:100%;">
+			<p:dataTable id="dtTableUser" var="kullanici" widgetVar="userTable"
+				value="#{hesapTanimlamaBean.users}"
+				emptyMessage="Kriterlere uygun sonuç bulunamadı."
+				styleClass="dataTable" filteredValue="#{hesapTanimlamaBean.filteredUsers}"
+				paginator="true" rows="20" paginatorPosition="bottom">
+
+
+				<p:column headerText="Düzenle" width="100">
+					<p:commandButton id="duzenle" value="Düzenle"
+						update=":form:duzenlePaneli, :form:msgs, :formEkle:eklePaneli"
+						actionListener="#{hesapTanimlamaBean.guncellePanelAc(kullanici.usrId)}" />
+				</p:column>
+
+				<p:column headerText="Sil" width="50">
+					<p:commandButton value="Sil"
+						oncomplete="PF('silConfirmDialogVar').show();" update=":form2:silConfirmDialog"
+						process="@form" >
+						<f:setPropertyActionListener value="#{kullanici.usrId}" target="#{hesapTanimlamaBean.selectedIdForSil}" />
+					</p:commandButton>
+				</p:column>
+
+				<p:column headerText="Kullanıcı ID"
+					width="75" 
+					sortBy="#{kullanici.usrId}"
+					filterBy="#{kullanici.usrId}" 
+					filterMatchMode="contains"
+					filterStyleClass="smallFilter">
+					<h:outputText value="#{kullanici.usrId}" style="float:right" />
+				</p:column>
+
+				<p:column headerText="Kullanıcı Adı"
+					width="200" 
+					sortBy="#{kullanici.usrName}"
+					sortFunction="#{hesapTanimlamaBean.sortByName}"
+					filterBy="#{kullanici.usrName}" 
+					filterMatchMode="contains" 
+					filterFunction="#{hesapTanimlamaBean.filterByName}">
+					<h:outputText value="#{kullanici.usrName}" />
+				</p:column>
+
+				<p:column headerText="Adı Soyadı"
+					width="200" 
+					sortBy="#{kullanici.usrAdSoyad}"
+					sortFunction="#{hesapTanimlamaBean.sortByName}"
+					filterBy="#{kullanici.usrAdSoyad}" 
+					filterMatchMode="contains" 
+					filterFunction="#{hesapTanimlamaBean.filterByName}">
+					<h:outputText value="#{kullanici.usrAdSoyad}" />
+				</p:column>
+
+
+				<p:column headerText="Email"
+					width="200" 
+					sortBy="#{kullanici.usrMail}"
+					sortFunction="#{hesapTanimlamaBean.sortByName}"
+					filterBy="#{kullanici.usrMail}" 
+					filterMatchMode="contains" 
+					filterFunction="#{hesapTanimlamaBean.filterByName}">
+					<h:outputText value="#{kullanici.usrMail}" />
+				</p:column>
+
+				<p:column headerText="Telefon"
+					width="200" 
+					sortBy="#{kullanici.usrTel}"
+					filterBy="#{kullanici.usrTel}" 
+					filterMatchMode="contains">
+					<h:outputText value="#{kullanici.usrTel}" style="float:right" />
+				</p:column>
+
+				<p:column headerText="Açıklama"
+					width="200" 
+					sortBy="#{kullanici.usrAck}"
+					sortFunction="#{hesapTanimlamaBean.sortByName}"
+					filterBy="#{kullanici.usrAck}" 
+					filterMatchMode="contains" 
+					filterFunction="#{hesapTanimlamaBean.filterByName}">
+					<h:outputText value="#{kullanici.usrAck}" />
+				</p:column>
+
+				<p:column headerText="Kullanıcı Rolü"
+					width="200" 
+					sortBy="#{kullanici.usrRolAck}"
+					sortFunction="#{hesapTanimlamaBean.sortByName}"
+					filterBy="#{kullanici.usrRolAck}" 
+					filterMatchMode="contains" 
+					filterFunction="#{hesapTanimlamaBean.filterByName}">
+					<h:outputText value="#{kullanici.usrRolAck}" />
+				</p:column>
+
+
+				<p:column headerText="İptal"
+					width="75" 
+					sortBy="#{kullanici.usrIptal}">
+					<div style="text-align: center;">
+						<p:selectBooleanCheckbox value="#{kullanici.usrIptal}"
+							disabled="true" />
+					</div>
+				</p:column>
+
+				<p:column headerText="Güncelleyen Kullanıcı"
+					width="200" 
+					sortBy="#{kullanici.guncelleyenKullaniciAck}"
+					sortFunction="#{hesapTanimlamaBean.sortByName}"
+					filterBy="#{kullanici.guncelleyenKullaniciAck}"
+					filterMatchMode="contains" 
+					filterFunction="#{hesapTanimlamaBean.filterByName}"> 
+					<h:outputText value="#{kullanici.guncelleyenKullaniciAck}"/>
+				</p:column>
+
+				<p:column headerText="Güncelleme Zamanı"
+					width="175" 
+					sortBy="#{kullanici.guncellemeZamani}"
+					filterBy="#{kullanici.guncellemeZamani}" 
+					filterMatchMode="contains">
+					<div style="text-align: center;">
+						<h:outputText value="#{kullanici.guncellemeZamani}" />
+					</div>
+				</p:column>
+				
+				<f:facet name="footer"> 
+				    <h:outputText id="kullaniciSayisi" value="Toplam #{hesapTanimlamaBean.filteredUsers.size()} adet kullanıcı listeleniyor."/>
+				</f:facet>
+				
+				<p:ajax event="filter" oncomplete="kullaniciSayisiniGuncelle();" />
+
+			</p:dataTable>
+
+			<p:dialog id="silConfirmDialog"
+				widgetVar="silConfirmDialogVar" modal="true" closable="true"
+				styleClass="dialog_style_info" resizable="false" header="SEMİRAMİS">
+				<h:panelGrid columns="2">
+					<span class="ui-messages-info-icon" />
+						<h:outputText value="Bu kullanıcıyı silmek istediğinizden emin misiniz?"
+							escape="false" style="text-align: center"/>
+				</h:panelGrid>
+				<center>
+					<p:commandButton id="confirmSil" value="Evet"
+					oncomplete="PF('silConfirmDialogVar').hide();PF('userTable').clearFilters();"
+					actionListener="#{hesapTanimlamaBean.userSil()}"
+					update=":form2, :form:msgs" /> 
+					<p:commandButton id="declineSil" value="Hayır" 
+					onclick="PF('silConfirmDialogVar').hide();"/> 
+				</center>
+			</p:dialog>
+
+			<p:outputLabel id="userSayisi" value="#{hesapTanimlamaBean.userSayisi()}" />
+			</div>
+			
+			<p:remoteCommand name="kullaniciSayisiniGuncelle" update="dtTableUser:kullaniciSayisi" /> 
+			
+		</h:form>
+	</p:panel>
+	</div>
+
+</h:body>
+
+
+</html>

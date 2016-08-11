@@ -1,0 +1,289 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<h:body>
+
+	<p:panel id="panelPG" header="MÜVEKKİL BİLGİSİ KAYIT PANELİ"
+		style="text-align:left;min-height:500px;">
+		
+		<p:growl id="growl" showDetail="true" sticky="false" />
+
+		<p:ajaxStatus onstart="PF('statusDialog').show()"
+			onsuccess="PF('statusDialog').hide()" />
+
+		<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+			closable="false" resizable="false" showHeader="false"
+			style="position: absolute; background-color: rgba(0, 0, 0, 0.6); height: 256px; width: 256px; left:0%; top:0%; z-index:2; height: 100%; width: 100%">
+			<p:graphicImage value="img/yukleme.gif" height="80" width="80" />
+		</p:dialog>
+
+		<h:form id="muvekkilForm">
+
+
+			<p:panel id="girisPaneli" header="Müvekkil Bilgisi"
+				rendered="#{muvekkilBean.panelRender}">
+				<p:panelGrid columns="4" style="margin-top:10px">
+
+					<p:outputLabel style="width: 150px">İcra Dosya No :</p:outputLabel>
+
+					<p:inputText id="icraDosyaNo"
+						value="#{muvekkilBean.muvekkilBilgisi.icraDosyasiNo}"
+						style="width: 250px" readonly="true"></p:inputText>
+
+					<p:outputLabel style="width: 150px"> Müvekkil Adı :</p:outputLabel>
+
+					<p:inputText id="müvekkilAdi" readonly="true"
+						value="#{muvekkilBean.muvekkilBilgisi.muvekkilAdi}"
+						style="width: 250px"
+						converterMessage="Eksik veya Fazla Giriş Yaptınız.">
+					</p:inputText>
+
+
+
+					<p:outputLabel style="width: 250px">Müvekkil Tipi :</p:outputLabel>
+
+					<p:selectOneMenu id="müvekkilTipi"
+						value="#{muvekkilBean.muvekkilBilgisi.muvekkilTipiId}"
+						style="width:260px">
+						<f:selectItems
+							value="#{geneltanimbean.Liste('tbl_muvekkil_tipi')}"
+							var="list" itemLabel="#{list.adi}" itemValue="#{list.id}"></f:selectItems>
+					</p:selectOneMenu>
+
+					<p:outputLabel style="width: 150px"> Müvekkil Şube Adı :</p:outputLabel>
+
+					<p:inputText id="müvekkilSubeAdi"
+						value="#{muvekkilBean.muvekkilBilgisi.muvekkilSubeAdi}"
+						style="width: 250px"
+						converterMessage="Eksik veya Fazla Giriş Yaptınız.">
+					</p:inputText>
+
+
+					<p:outputLabel style="width: 150px">Şube Adı :</p:outputLabel>
+
+					<p:selectOneMenu id="subeAdi"
+						value="#{muvekkilBean.muvekkilBilgisi.subeTipiId}"
+						style="width:260px">
+						<f:selectItems
+							value="#{geneltanimbean.ListeGetir('tbl_sube_adi')}" var="list"
+							itemLabel="#{list.adi}" itemValue="#{list.id}"></f:selectItems>
+					</p:selectOneMenu>
+
+					<p:outputLabel style="width:150px">Ticaret Sicil No:</p:outputLabel>
+
+					<p:inputText id="ticaretSicilNo"
+						value="#{muvekkilBean.muvekkilBilgisi.ticaretSicilNo}"
+						style="width: 250px">
+
+					</p:inputText>
+
+
+
+					<p:outputLabel style="width: 150px">Müsteri No :</p:outputLabel>
+
+					<p:inputText id="musteriNo"
+						value="#{muvekkilBean.muvekkilBilgisi.musteriNo}"
+						style="width: 250px">
+
+					</p:inputText>
+
+					<p:outputLabel style="width: 150px">Vergi No :</p:outputLabel>
+
+					<p:inputText id="vergiNo"
+						value="#{muvekkilBean.muvekkilBilgisi.vergiNo}"
+						style="width: 250px">
+
+					</p:inputText>
+
+
+					<p:outputLabel style="width: 150px">Vergi Dairesi :</p:outputLabel>
+
+					<p:inputText id="vergiDairesi"
+						value="#{muvekkilBean.muvekkilBilgisi.vergiDairesi}"
+						style="width: 250px">
+					</p:inputText>
+
+					<p:outputLabel style="width: 150px">E-Posta :</p:outputLabel>
+
+					<p:inputText id="eposta"
+						value="#{muvekkilBean.muvekkilBilgisi.ePosta}"
+						style="width: 250px">
+					</p:inputText>
+
+				</p:panelGrid>
+
+
+
+				<h4 style="font-family: sans-serif;">Adres ve İletişim Bilgisi</h4>
+
+
+				<p:panelGrid columns="4" style="margin-bottom:10px">
+
+					<p:outputLabel style="width: 150px;padding-right:18px">Adres Türü :</p:outputLabel>
+
+					<p:selectOneMenu id="adrestipi"
+						value="#{muvekkilBean.muvekkilBilgisi.adresTuruId}"
+						style="width:260px">
+						<f:selectItems
+							value="#{geneltanimbean.ListeGetir('tbl_adres_turu')}" var="list"
+							itemLabel="#{list.adi}" itemValue="#{list.id}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel style="width: 150px">Telefon Tipi :</p:outputLabel>
+
+					<p:selectOneMenu id="telefon_tipi"
+						value="#{muvekkilBean.muvekkilBilgisi.telefonTipiId}"
+						style="width: 260px">
+						<f:selectItems
+							value="#{geneltanimbean.ListeGetir('tbl_telefon_tipi')}"
+							var="list" itemLabel="#{list.adi}" itemValue="#{list.id}">
+						</f:selectItems>
+					</p:selectOneMenu>
+
+					<p:outputLabel style="width: 150px">İl :</p:outputLabel>
+					<p:selectOneMenu id="il"
+						value="#{muvekkilBean.muvekkilBilgisi.ilId}" style="width: 260px">
+						<p:ajax listener="#{alacakliBean.ilceListeEkle()}" update="ilce" />
+						<f:selectItems value="#{genelSehirlerBean.ListeGetirForIl()}"
+							var="iller" itemLabel="#{iller.il_adi}"
+							itemValue="#{iller.il_kodu}">
+						</f:selectItems>
+					</p:selectOneMenu>
+
+					<p:outputLabel style="width: 150px">Telefon No :</p:outputLabel>
+					<p:inputText id="telefonNo"
+						value="#{muvekkilBean.muvekkilBilgisi.telefonNo}"
+						style="width: 250px">
+					</p:inputText>
+
+
+
+					<p:outputLabel style="width: 150px">İlçe :</p:outputLabel>
+					<p:selectOneMenu id="ilce"
+						value="#{muvekkilBean.muvekkilBilgisi.ilceId}"
+						style="width: 260px">
+						<f:selectItems value="#{alacakliBean.ilceList}" var="ilceler"
+							itemLabel="#{ilceler.ilce_adi}" itemValue="#{ilceler.id}"></f:selectItems>
+					</p:selectOneMenu>
+
+
+					<p:outputLabel style="width: 150px">Semt Adı :</p:outputLabel>
+
+					<p:inputText id="semtAdi"
+						value="#{muvekkilBean.muvekkilBilgisi.semtAdi}"
+						style="width: 250px">
+					</p:inputText>
+
+					<p:outputLabel style="width: 150px">Adres Statüsü:</p:outputLabel>
+					<p:selectOneMenu id="adresStatusu"
+						value="#{muvekkilBean.muvekkilBilgisi.adresStatusuId}"
+						style="width: 260px">
+						<f:selectItems
+							value="#{geneltanimbean.ListeGetir('tbl_adres_statusu')}"
+							var="list" itemLabel="#{list.adi}" itemValue="#{list.id}"></f:selectItems>
+					</p:selectOneMenu>
+
+					<p:outputLabel style="width: 150px">Adres :</p:outputLabel>
+					<p:inputTextarea id="adres" rows="6" cols="30"
+						value="#{muvekkilBean.muvekkilBilgisi.adres}" style="width: 250px"></p:inputTextarea>
+
+
+					<p:outputLabel style="width:150px"> Notlar :</p:outputLabel>
+					<p:inputTextarea id="notlar" rows="4" cols="30"
+						value="#{muvekkilBean.muvekkilBilgisi.notlar}" style="width:250px"></p:inputTextarea>
+
+
+				</p:panelGrid>
+
+
+
+
+
+				<p:commandButton id="cmdButtonVazgec" style="margin-top:10px"
+					value="Vazgeç" update=":muvekkilForm" immedidate="true"
+					action="#{muvekkilBean.Vazgec}"></p:commandButton>
+
+				<p:commandButton id="cmdButtonKaydet" value="Kaydet" 
+					update=":muvekkilForm,:growl" action="#{muvekkilBean.Kaydet()}">
+				</p:commandButton>
+
+			</p:panel>
+
+
+
+
+
+			<p:commandButton value="Yeni Kayıt" style="float:left"
+				disabled="#{muvekkilBean.buttonDisabled}"
+				action="#{muvekkilBean.YeniKayit}" update=":muvekkilForm" />
+
+			<p:commandButton value="Listeyi Yenile" style="float:left"
+				disabled="#{muvekkilBean.buttonDisabled}" update=":muvekkilForm" />
+
+
+
+			<p:dataTable value="#{muvekkilBean.tamListe}" var="list"
+				id="tblmuvekkilBilgisi" update="tblmuvekkilBilgisi"
+				style="width:900px">
+
+				<p:column headerText="Düzenle" width="145">
+
+					<p:commandButton icon="ui-icon-disk" value="Düzenle"
+						disabled="#{muvekkilBean.buttonDisabled}"
+						action="#{muvekkilBean.Duzenle}" update=":muvekkilForm">
+						<f:param name="buttonDuzenle" value="#{list.id}" />
+					</p:commandButton>
+
+				</p:column>
+
+				<p:column headerText="SİL" width="115">
+
+					<p:commandButton icon="ui-icon-cancel" value="Sil"
+						action="#{muvekkilBean.Sil}"
+						disabled="#{muvekkilBean.buttonDisabled}" update=":muvekkilForm,:growl">
+						<f:param name="buttonSil" value="#{list.id}" />
+					</p:commandButton>
+
+				</p:column>
+
+				<p:column headerText="Müvekkil Adı" width="450px">
+					<p:outputLabel value="#{list.muvekkilAdi}" />
+				</p:column>
+
+				<p:column headerText="Adres" width="450px">
+					<p:outputLabel value="#{list.adres}" />
+				</p:column>
+
+				<p:column headerText="Vergi Dairesi" width="450px">
+					<p:outputLabel value="#{list.vergiDairesi}" />
+				</p:column>
+
+				<p:column headerText="Telefon No" width="450px">
+					<p:outputLabel value="#{list.telefonNo}" />
+				</p:column>
+
+				<p:column headerText="Notlar" width="450px">
+					<p:outputLabel value="#{list.notlar}" />
+				</p:column>
+
+			</p:dataTable>
+
+
+
+
+
+
+		</h:form>
+
+
+
+	</p:panel>
+</h:body>
+</html>

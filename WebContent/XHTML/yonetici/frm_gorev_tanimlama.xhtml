@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Görev Tanımlama</title>
+</h:head>
+<h:body>
+
+	<h:form id="form">
+		<p:growl id="growl" showDetail="true" sticky="true" />
+		<p:outputLabel value="Atanan Kişi :" />
+
+		<p:selectOneMenu id="kullanici"
+			value="#{gorevTanimlamaBean.selectedUserId}" style="width: 260px"
+			required="true" requiredMessage="Bu alanı boş bırakamazsınız...">
+			<p:ajax listener="#{gorevTanimlamaBean.onUserSelected()}"
+				update="gorevList" />
+			<f:selectItems value="#{gorevTanimlamaBean.getUserList()}"
+				var="userList" itemLabel="#{userList.usrAdSoyad}"
+				itemValue="#{userList.usrId}">
+			</f:selectItems>
+		</p:selectOneMenu>
+
+		<p:commandButton value="Yeni Kayıt"
+			oncomplete="PF('dlg_gorev').show()"
+			action="#{gorevTanimlamaBean.onKaydetClicked()}"
+			update=":dlg_form:dlg_gorev">
+
+			<f:param name="name" value="#{gorevTanimlamaBean.selectedUserId}"></f:param>
+			<f:param name="name" value="#{gorevTanimlamaBean.selectedUserId}"></f:param>
+		</p:commandButton>
+
+
+		<p:dataTable id="gorevList" var="gorev"
+			value="#{gorevTanimlamaBean.gorevList}">
+			<f:facet name="header">
+            Görev Listesi
+            </f:facet>
+			<p:column headerText="Konu">
+				<h:outputText value="#{gorev.konu}" />
+			</p:column>
+			<p:column headerText="Açıklama">
+				<h:outputText value="#{gorev.aciklama}" />
+			</p:column>
+			<p:column headerText="Başlangıc Tarihi">
+				<h:outputText value="#{gorev.basTarih}" />
+			</p:column>
+			<p:column headerText="Bitiş Tarihi">
+				<h:outputText value="#{gorev.bitTarih}" />
+			</p:column>
+			<p:column headerText="Guncelle">
+				<p:commandButton value="Guncelle"
+					oncomplete="PF('dlg_gorev').show()" update=":dlg_form:dlg_gorev"
+					action="#{gorevTanimlamaBean.onGorevSelected(gorev.id)}">
+				</p:commandButton>
+			</p:column>
+
+
+		</p:dataTable>
+
+	</h:form>
+	<h:form id="dlg_form">
+		<p:dialog id="dlg_gorev" header="Görev Tanımla" widgetVar="dlg_gorev"
+			minHeight="40">
+			<p:panelGrid columns="2">
+				<p:outputLabel value="Konu"></p:outputLabel>
+				<p:inputText value="#{gorevTanimlamaBean.gorev.konu}"></p:inputText>
+				<p:outputLabel value="Açıklama"></p:outputLabel>
+				<p:inputTextarea value="#{gorevTanimlamaBean.gorev.aciklama}"></p:inputTextarea>
+				<p:outputLabel value="Başlangıç Tarihi"></p:outputLabel>
+				<p:calendar value="#{gorevTanimlamaBean.gorev.basTarih}"></p:calendar>
+				<p:outputLabel value="Bitiş Tarihi"></p:outputLabel>
+				<p:calendar value="#{gorevTanimlamaBean.gorev.bitTarih}"></p:calendar>
+			</p:panelGrid>
+			<p:commandButton value="Kaydet"
+				action="#{gorevTanimlamaBean.kaydet()}" update=":form:gorevList"
+				oncomplete="PF('dlg_gorev').hide()"
+				rendered="#{gorevTanimlamaBean.islem}"></p:commandButton>
+			<p:commandButton value="Güncelle"
+				action="#{gorevTanimlamaBean.guncelle()}" update=":form:gorevList"
+				oncomplete="PF('dlg_gorev').hide()"
+				rendered="#{!gorevTanimlamaBean.islem}"></p:commandButton>
+			<p:commandButton value="Sil" action="#{gorevTanimlamaBean.sil()}"
+				update=":form:gorevList" oncomplete="PF('dlg_gorev').hide()"
+				rendered="#{!gorevTanimlamaBean.islem}"></p:commandButton>
+		</p:dialog>
+	</h:form>
+
+
+
+
+</h:body>
+
+
+</html>

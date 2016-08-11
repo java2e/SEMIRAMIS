@@ -1,0 +1,327 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+
+
+<h:body>
+
+
+
+	<p:panel id="panelPG" header="BORÇLU BİLGİSİ KAYIT PANELİ"
+		style="text-align:left;min-height:500px;">
+
+		<p:ajaxStatus onstart="PF('statusDialog').show()"
+			onsuccess="PF('statusDialog').hide()" />
+
+		<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+			closable="false" resizable="false" showHeader="false"
+			style="position: absolute; background-color: rgba(0, 0, 0, 0.6); height: 256px; width: 256px; left:0%; top:0%; z-index:2; height: 100%; width: 100%">
+			<p:graphicImage value="img/yukleme.gif" height="80" width="80" />
+		</p:dialog>
+
+		<h:form id="formTanim">
+			<p:panel>
+				<p:panelGrid columns="4" style="margin-top:10px">
+					<p:outputLabel style="width: 150px">İcra Dosya No :</p:outputLabel>
+					<p:inputText id="icraDosyaNo"
+						value="#{borcluBilgisiBean.icraDosyaNo}" style="width: 250px"
+						readonly="true">
+					</p:inputText>
+
+					<h:outputLabel>İcra Müdürlüğü :</h:outputLabel>
+					<p:inputText id="icraMd" style="width: 250px" readonly="true">
+					</p:inputText>
+
+					<p:outputLabel style="width: 150px">TC Kimlik No :</p:outputLabel>
+					<p:inputText id="tcKimlikNo"
+						value="#{borcluBilgisiBean.borcluBilgisi.tcNo}"
+						onkeyup="var pos=this.selectionStart;
+									var size = this.value.length;														
+             						this.value=this.value.replace(/[^0-9]+/g, '');
+             						if (this.value.length > 11) this.value=this.value.substring(0,11);
+             						if (size > this.value.length)
+             							{this.selectionStart = pos-1; this.selectionEnd = pos-1;}
+             						else
+             							{this.selectionStart = pos; this.selectionEnd = pos;}"
+						style="width: 250px">
+					</p:inputText>
+
+					<p:outputLabel style="width: 150px">Servis No :</p:outputLabel>
+					<p:inputText id="servisNo"
+						value="#{borcluBilgisiBean.borcluBilgisi.servisNo}"
+						style="width: 250px"
+						onkeyup="var pos=this.selectionStart;
+									var size = this.value.length;														
+             						this.value=this.value.replace(/[^0-9]+/g, '');
+             						if (this.value.length > 10) this.value=this.value.substring(0,10);
+             						if (size > this.value.length)
+             							{this.selectionStart = pos-1; this.selectionEnd = pos-1;}
+             						else
+             							{this.selectionStart = pos; this.selectionEnd = pos;}">
+					</p:inputText>
+
+
+					<p:outputLabel>Ticari Sicil No:</p:outputLabel>
+					<p:inputText id="ticariSicilNo"
+						value="#{borcluBilgisiBean.borcluBilgisi.ticariSicilNo}"
+						style="width: 250px"
+						onkeyup="var pos=this.selectionStart;
+									var size = this.value.length;														
+             						this.value=this.value.replace(/[^0-9]+/g, '');
+             						if (this.value.length > 10) this.value=this.value.substring(0,10);
+             						if (size > this.value.length)
+             							{this.selectionStart = pos-1; this.selectionEnd = pos-1;}
+             						else
+             							{this.selectionStart = pos; this.selectionEnd = pos;}">
+					</p:inputText>
+
+					<p:outputLabel>Müsteri No :</p:outputLabel>
+					<p:inputText id="musteriNo"
+						value="#{borcluBilgisiBean.borcluBilgisi.musteriNo}"
+						style="width: 250px"
+						onkeyup="var pos=this.selectionStart;
+									var size = this.value.length;														
+             						this.value=this.value.replace(/[^0-9]+/g, '');
+             						if (this.value.length > 10) this.value=this.value.substring(0,10);
+             						if (size > this.value.length)
+             							{this.selectionStart = pos-1; this.selectionEnd = pos-1;}
+             						else
+             							{this.selectionStart = pos; this.selectionEnd = pos;}">
+					</p:inputText>
+
+					<p:outputLabel>Ürün No :</p:outputLabel>
+					<p:inputText id="urunNo"
+						value="#{borcluBilgisiBean.borcluBilgisi.urunNo}"
+						style="width: 250px"
+						onkeyup="var pos=this.selectionStart;
+									var size = this.value.length;														
+             						this.value=this.value.replace(/[^0-9]+/g, '');
+             						if (this.value.length > 10) this.value=this.value.substring(0,10);
+             						if (size > this.value.length)
+             							{this.selectionStart = pos-1; this.selectionEnd = pos-1;}
+             						else
+             							{this.selectionStart = pos; this.selectionEnd = pos;}"></p:inputText>
+
+					<p:outputLabel>Talimat İcra Müdr. :</p:outputLabel>
+					<p:selectOneMenu id="selectOneMenuUygulamaAsamasi"
+						style="width:260px"
+						value="#{borcluBilgisiBean.borcluBilgisi.talimatIcraMudId}">
+
+						<f:selectItems var="listeler"
+							value="#{geneltanimbean.ListeGetir('tbl_talimat_icra_mudurlugu')}"
+							itemLabel="#{listeler.adi}" itemValue="#{listeler.id}"
+							noSelectionValue="true">
+
+						</f:selectItems>
+					</p:selectOneMenu>
+
+					<p:outputLabel style="width: 150px">Adı :</p:outputLabel>
+					<p:inputText id="adi"
+						value="#{borcluBilgisiBean.borcluBilgisi.adSoyad}"
+						style="width: 250px">
+					</p:inputText>
+
+					<p:outputLabel style="width: 150px">Tipi :</p:outputLabel>
+					<p:selectOneMenu id="tipi"
+						value="#{borcluBilgisiBean.borcluBilgisi.borcluTipiId}"
+						style="width:260px">
+						<f:selectItems value="#{borcluBilgisiBean.borcluTipiList}"
+							var="list" itemLabel="#{list.adi}" itemValue="#{list.id}"
+							noSelectionValue="true" />
+
+					</p:selectOneMenu>
+
+					<p:outputLabel style="width: 150px">Ticaret Sicil No:</p:outputLabel>
+					<p:inputText id="ticaretSicilNo"
+						value="#{borcluBilgisiBean.borcluBilgisi.ticaretSicilNo}"
+						style="width: 250px">
+					</p:inputText>
+
+					<p:outputLabel style="width: 150px">Vergi No :</p:outputLabel>
+					<p:inputText id="vergiNo"
+						value="#{borcluBilgisiBean.borcluBilgisi.vergiNo}"
+						style="width: 250px"
+						onkeyup="var pos=this.selectionStart;
+									var size = this.value.length;														
+             						this.value=this.value.replace(/[^0-9]+/g, '');
+             						if (this.value.length > 15) this.value=this.value.substring(0,15);
+             						if (size > this.value.length)
+             							{this.selectionStart = pos-1; this.selectionEnd = pos-1;}
+             						else
+             							{this.selectionStart = pos; this.selectionEnd = pos;}">
+					</p:inputText>
+
+					<p:outputLabel>Vergi Dairesi :</p:outputLabel>
+					<p:selectOneMenu id="vergi_dairesi"
+						value="#{borcluBilgisiBean.borcluBilgisi.vergiDairesiId}"
+						style="width: 260px">
+						<f:selectItems
+							value="#{geneltanimbean.ListeGetir('tbl_vergi_dairesi')}"
+							var="list" itemLabel="#{list.adi}" itemValue="#{list.id}">
+						</f:selectItems>
+					</p:selectOneMenu>
+
+
+					<p:outputLabel style="width: 150px">Ssk İş Yeri No :</p:outputLabel>
+					<p:inputText id="sskIsYeriNo"
+						value="#{borcluBilgisiBean.borcluBilgisi.sskIsyeriNo}"
+						style="width: 250px"
+						onkeyup="var pos=this.selectionStart;
+									var size = this.value.length;														
+             						this.value=this.value.replace(/[^0-9]+/g, '');
+             						if (this.value.length > 15) this.value=this.value.substring(0,15);
+             						if (size > this.value.length)
+             							{this.selectionStart = pos-1; this.selectionEnd = pos-1;}
+             						else
+             							{this.selectionStart = pos; this.selectionEnd = pos;}">
+					</p:inputText>
+
+					<p:outputLabel>E-Posta :</p:outputLabel>
+					<p:inputText id="eposta"
+						value="#{borcluBilgisiBean.borcluBilgisi.email}"
+						style="width: 250px">
+					</p:inputText>
+
+					<p:outputLabel>Web Adresi :</p:outputLabel>
+					<p:inputText id="web"
+						value="#{borcluBilgisiBean.borcluBilgisi.webAdres}"
+						style="width: 250px">
+					</p:inputText>
+				</p:panelGrid>
+
+<h4>Çalıştığı Yer/Kurum Bilgisi</h4>
+
+<p:panelGrid columns="2">
+
+<p:outputLabel style="width: 150px; ">Çalışılan Yer/Kurum :</p:outputLabel>
+<p:inputText id="isyeri"
+						value="#{borcluBilgisiBean.borcluBilgisi.isYeriAdi}"
+						style="width: 540px">
+					</p:inputText>
+					
+<p:outputLabel style="width: 150px; ">Adres :</p:outputLabel>
+<p:inputText id="isyeriadres"
+						value="#{borcluBilgisiBean.borcluBilgisi.isYeriAdres}"
+						style="width: 540px">
+					</p:inputText>
+
+</p:panelGrid>
+
+
+
+				<h4>Adres ve İletişim Bilgisi</h4>
+
+				<p:panelGrid columns="4" style="margin-top:10px">
+
+					<p:outputLabel style="width: 150px; ">Adres Türü :</p:outputLabel>
+					<p:selectOneMenu id="adrestipi"
+						value="#{borcluBilgisiBean.borcluBilgisi.adresTuruId}"
+						style="width:280px">
+						<f:selectItems
+							value="#{geneltanimbean.ListeGetir('tbl_adres_turu')}" var="list"
+							itemLabel="#{list.adi}" itemValue="#{list.id}"
+							noSelectionValue="true" />
+					</p:selectOneMenu>
+
+					<p:outputLabel style="align-left: 20px">Cep Tel-1   :</p:outputLabel>
+					<p:inputMask id="telefon1"
+						value="#{borcluBilgisiBean.borcluBilgisi.telefon_no}"
+						style="width: 270px" mask="(999)-999-99-99"></p:inputMask>
+
+
+
+					<p:outputLabel style="width: 150px;">İl :</p:outputLabel>
+					<p:selectOneMenu id="il"
+						value="#{borcluBilgisiBean.borcluBilgisi.ilId}"
+						style="width: 280px">
+
+						<p:ajax event="change" update="ilce"
+							listener="#{borcluBilgisiBean.ilceListeEkle()}" />
+						<f:selectItem ></f:selectItem>
+						<f:selectItems value="#{genelSehirlerBean.ListeGetirForIl()}"
+							var="iller" itemLabel="#{iller.il_adi}"
+							itemValue="#{iller.il_kodu}">
+						</f:selectItems>
+
+					</p:selectOneMenu>
+
+
+
+					<p:outputLabel style="width: 150px">Cep Tel-2 :</p:outputLabel>
+					<p:inputMask id="telefonNo2"
+						value="#{borcluBilgisiBean.borcluBilgisi.telefon_no1}"
+						style="width: 270px" mask="(999)-999-99-99">
+					</p:inputMask>
+
+					<p:outputLabel style="width: 150px">İlçe :</p:outputLabel>
+					<p:selectOneMenu id="ilce"
+						value="#{borcluBilgisiBean.borcluBilgisi.ilceId}"
+						style="width: 280px">
+						<f:selectItems value="#{borcluBilgisiBean.ilceList}" var="ilceler"
+							itemLabel="#{ilceler.ilce_adi}" itemValue="#{ilceler.id}"></f:selectItems>
+					</p:selectOneMenu>
+
+					<p:outputLabel style="width: 150px">İş Tel-1 :</p:outputLabel>
+					<p:inputMask id="telefonNo3"
+						value="#{borcluBilgisiBean.borcluBilgisi.telefon_no2}"
+						style="width: 270px" mask="(999)-999-99-99">
+					</p:inputMask>
+
+
+					<p:outputLabel style="width: 150px">Semt Adı :</p:outputLabel>
+					<p:inputText id="semtAdi"
+						value="#{borcluBilgisiBean.borcluBilgisi.semtAdi}"
+						style="width: 270px">
+					</p:inputText>
+
+					<p:outputLabel></p:outputLabel>
+					<p:outputLabel></p:outputLabel>
+
+
+					<p:outputLabel style="width: 150px">Adres :</p:outputLabel>
+					<p:inputTextarea id="adres" rows="4" cols="30"
+						value="#{borcluBilgisiBean.borcluBilgisi.adres}"
+						style="width: 270px"></p:inputTextarea>
+
+					<p:outputLabel style="width: 180px">İstihbari Notlar :</p:outputLabel>
+					<p:inputTextarea id="istihbariNotlar"
+						value="#{borcluBilgisiBean.borcluBilgisi.istihbariNotlar}"
+						rows="4" style="width: 270px" cols="30"></p:inputTextarea>
+
+				</p:panelGrid>
+
+
+
+				<p:growl id="growl" showDetail="true" />
+
+
+				<p:commandButton id="cmdButtonVazgec"
+					style="width:80px;margin-left:15px; margin-top:10px;"
+					value="Vazgeç" action="#{borcluBilgisiBean.Vazgec}"
+					update=":formTanim"></p:commandButton>
+
+				<p:commandButton id="cmdButtonKaydet" style="width:80px"
+					value="Güncelle" action="#{borcluBilgisiBean.saveBorclu}"
+					update="growl,:formTanim"></p:commandButton>
+
+
+			</p:panel>
+
+
+
+
+
+
+		</h:form>
+
+	</p:panel>
+
+</h:body>
+</html>

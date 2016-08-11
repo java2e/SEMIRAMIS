@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+
+<h:body>
+<div id="wrapper">
+
+	<div id="content">
+<h:form id="reddiyatyap">
+
+<p:panel >
+	<p:panelGrid columns="2" style=" border-style: hidden !important;">
+	
+	<p:panel id="reddiyat" header="REDDİYAT GİRİŞ PANELİ" style="width:100%; min-width:500px; margin-top: 0;border-style: hidden !important;">
+	
+	<p:panelGrid columns="2" style=" border-style: hidden !important;">
+	
+	<p:outputLabel value="İcra Dosya No"/>
+	<p:outputLabel>
+	
+	<p:inputText size="30" value="#{kasaBean.reddiyatBilgisi.icraDosyaNo}"/>
+	  
+	</p:outputLabel>
+	
+	<p:outputLabel value="Müvekkil Adı"/>
+	<p:inputText size="30" value="#{kasaBean.reddiyatBilgisi.muvekkilAdi}"/>
+	
+	<p:outputLabel value="Borçlu Adı"/>
+	<p:outputLabel>
+	
+	<p:inputText size="30" value="#{kasaBean.reddiyatBilgisi.borcluAdi}"/>
+	  
+	</p:outputLabel>
+	
+	<p:outputLabel value="Reddiyat Türü"/>
+	<p:inputText size="30" value="#{kasaBean.reddiyatBilgisi.reddiyatTuru}"/>
+	
+	<p:outputLabel value="Reddiyat Miktarı"/>
+	<p:inputText size="30" value="#{kasaBean.reddiyatBilgisi.aktifTutar}"
+	onkeyup="var pos=this.selectionStart;
+									var size = this.value.length;	
+									
+             						this.value=this.value.replace(/,/g,'.').replace(/[^0-9,'.']+/g, '');
+             						
+             						if(this.value.indexOf('.')!=this.value.lastIndexOf('.'))
+										this.value=this.value.substring(0,size-1);
+									
+									"
+									onfocus="
+															this.value=''
+									" 
+	
+	/>
+	
+	<p:outputLabel value="Reddiyat Tarihi"/>
+	<p:calendar id="multi"   size="30" pages="3" value="#{kasaBean.reddiyatBilgisi.reddiyatTarihi}"/> 
+
+		
+	<p:outputLabel value="Kasa İşlemini Yapan Kişi"/>
+	<p:inputText size="30" disabled="true" value="#{kasaBean.bilgiTahsilat.kasa_islemini_yapan}"/>
+	
+	
+	</p:panelGrid>
+	
+	<center>
+	<p:spacer height="50"/>
+	<p:commandButton value="REDDİYAT YAP" style="width:120px;height:55px; " action="#{kasaBean.reddiyatYap}" update=":formMsgs, :kasaForm:tabviewlist:tblreddiyat, :kasaForm"/>
+    </center>
+	
+	</p:panel>
+
+   
+		
+</p:panelGrid>
+</p:panel>
+
+</h:form>
+</div>
+</div>
+
+			
+		
+</h:body>
+</html>

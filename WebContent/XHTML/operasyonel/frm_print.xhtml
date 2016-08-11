@@ -1,0 +1,515 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+
+
+	<p:ajaxStatus style="display:block;margin-bottom:2em;height:24px;">
+
+	</p:ajaxStatus>
+
+	<p:ajaxStatus onstart="PF('statusDialog').show()"
+		onsuccess="PF('statusDialog').hide()" />
+
+	<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+		closable="false" resizable="false" showHeader="false">
+		<img src="img/loading.gif"></img>
+	</p:dialog>
+
+	<h:form id="form">
+		<p:panel style=" border-style: hidden !important;"
+			header="OTOMATİK DOSYA YAZDIRMA PANELİ">
+			<p:panelGrid columns="2" style=" border-style: hidden !important;">
+				<p:panelGrid columns="1" style=" border-style: hidden !important;">
+					<h:outputLabel >Yazdırma Tipi </h:outputLabel>
+					<p:selectOneMenu id="yazdirmaTipi" value="#{printBean.yazdirTipi}"
+						style="width:500px" disabled="true">
+						<f:selectItem itemValue="0" itemLabel=" "></f:selectItem>
+						<f:selectItem itemValue="1" itemLabel="Operasyonel Yazdırma"></f:selectItem>
+						<f:selectItem itemValue="2" itemLabel="Dava Bölümü Evrak Yazdırma"></f:selectItem>
+						<f:selectItem itemValue="3"
+							itemLabel="İzleme Bölümü Evrak Yazdırma "></f:selectItem>
+						<f:selectItem itemValue="4" itemLabel="Kasa Bölümü Evrak Yazdırma"></f:selectItem>
+						<p:ajax event="change" update=":form"
+							listener="#{printBean.subjectSelectionChanged}" />
+					</p:selectOneMenu>
+				</p:panelGrid>
+				<br></br>
+				<p:panelGrid
+					rendered="#{printBean.checkComboboxValue('1', printBean.yazdirTipi)}"
+					columns="1" style=" border-style: hidden !important;">
+					<h:outputLabel >Operasyone Yazdırma </h:outputLabel>
+					<p:selectOneMenu id="operasyonelYazdirma"
+						value="#{printBean.operasyonelYazdirma}" style="width:500px" disabled="true">
+						<f:selectItem itemValue="0" itemLabel=" "></f:selectItem>
+						<f:selectItem itemValue="5"
+							itemLabel="Takip Açılışı Evrak Yazdırma"></f:selectItem>
+						<f:selectItem itemValue="6"
+							itemLabel="Müzekkere ve Talep Yazdırma"></f:selectItem>
+						<f:selectItem itemValue="7" itemLabel="Vizit Evrak Yazdırma "></f:selectItem>
+						<p:ajax event="change" update=":form"
+							listener="#{printBean.subjectSelectionChanged}" />
+					</p:selectOneMenu>
+
+				</p:panelGrid>
+				<br></br>
+				<p:panelGrid
+					rendered="#{printBean.checkComboboxValue('2', printBean.operasyonelYazdirma)}"
+					columns="1" style=" border-style: hidden !important;">
+					<h:outputLabel>Takip Açılışı Evrak Yazdırma </h:outputLabel>
+					<p:selectOneMenu id="yazdirmaTipi2" style="width:500px"
+						value="#{printBean.takipAcilisEvrakYazdirma}">
+						<f:selectItem itemValue="0" itemLabel=" "></f:selectItem>
+						<f:selectItem itemValue="8"
+							itemLabel="İcra Dosyasına Girecek Evrak Yazdırma"></f:selectItem>
+						<f:selectItem itemValue="9"
+							itemLabel="Borçluya Gidecek Evrak Yazdırma"></f:selectItem>
+						<f:selectItem itemValue="10" itemLabel="Tebligat Listesi "></f:selectItem>
+						<f:selectItem itemValue="11"
+							itemLabel="Bankaya Gönderilecek Evrak Yazdırma"></f:selectItem>
+						<f:selectItem itemValue="12" itemLabel="Diğer"></f:selectItem>
+						<p:ajax event="change" update=":formListe1"
+							listener="#{printBean.subjectSelectionChanged}" />
+					</p:selectOneMenu>
+
+				</p:panelGrid>
+
+
+
+			</p:panelGrid>
+
+
+		</p:panel>
+
+		<p:panel id="panelArama" header="ARAMA"
+			rendered="#{printBean.checkComboboxValue('3', printBean.takipAcilisEvrakYazdirma)}">
+			<h:panelGrid style="text-align:left;min-height:100%;max-width:100%;">
+				<p:panelGrid columns="11"
+					style="width:100%; border-style: hidden !important;">
+					<h:outputLabel>Tarih </h:outputLabel>
+					<p:calendar id="detay_mask5"
+						value="#{printBean.searchParams.tarih1}" pattern="dd-MM-yyyy"
+						mask="true" style="width:100px" />
+
+					<p:calendar id="detay_mask6"
+						value="#{printBean.searchParams.tarih2}" pattern="dd-MM-yyyy"
+						mask="true" style="width: 100px" />
+
+					<p:outputLabel value="Muvekkil Adı" />
+					<p:selectOneMenu id="muvekkkilAdi" effect="fold" filter="true"
+						filterMatchMode="startsWith" required="false"
+						value="#{printBean.searchParams.muvekkilAdi}" style="width: 100px">
+						<f:selectItem itemLabel="" itemValue="" />
+						<f:selectItems value="#{printBean.muvvekkilAdiModel}" var="list"
+							itemLabel="#{list.name}" itemValue="#{list.value}" />
+					</p:selectOneMenu>
+					<p:outputLabel value="Borçlu Adı" />
+					<p:selectOneMenu id="borcluAdi" effect="fold" filter="true"
+						filterMatchMode="startsWith"
+						value="#{printBean.searchParams.borcluAdi}" style="width: 100px">
+						<f:selectItem itemLabel="" itemValue="" />
+						<f:selectItems value="#{printBean.borcluAdiModel}" var="list"
+							itemLabel="#{list.name}" itemValue="#{list.value}" />
+					</p:selectOneMenu>
+					<p:outputLabel value="Dosya No" />
+					<p:selectOneMenu id="dosyaNo" effect="fold" filter="true"
+						filterMatchMode="startsWith"
+						value="#{printBean.searchParams.icraDosyaNo}" style="width: 100px">
+						<f:selectItem itemLabel="" itemValue="" />
+						<f:selectItems value="#{printBean.icraDosyaNoModel}" var="list"
+							itemLabel="#{list.name}" itemValue="#{list.value}" />
+					</p:selectOneMenu>
+					<p:outputLabel value="İcra Müdürlüğü" />
+					<p:selectOneMenu id="icraMudurluk" effect="fold" filter="true"
+						filterMatchMode="startsWith"
+						value="#{printBean.searchParams.icraMudurlugu}"
+						style="width: 150px">
+						<f:selectItem itemLabel="" itemValue="" />
+						<f:selectItems value="#{printBean.icraMdModel}" var="list"
+							itemLabel="#{list.name}" itemValue="#{list.value}" />
+					</p:selectOneMenu>
+
+				</p:panelGrid>
+				<p:panelGrid columns="11" style=" border-style: hidden !important;">
+					<p:commandButton value="Listele" process="@all"
+						action="#{printBean.listele}" update=":formListe1" />
+
+					<p:commandButton value="Temizle" action="#{printBean.clearParams}"
+						ajax="false" update=":form:panelArama" />
+				</p:panelGrid>
+			</h:panelGrid>
+		</p:panel>
+
+	</h:form>
+
+	<h:form id="formListe1">
+
+		<p:panel header="SEÇİMSEL ALAN İLE YAZDIR"
+			rendered="#{printBean.checkComboboxValue('3', printBean.takipAcilisEvrakYazdirma)}">
+
+
+			<p:panelGrid
+				rendered="#{printBean.checkComboboxValue('3', printBean.takipAcilisEvrakYazdirma )}"
+				columns="2" style=" border-style: hidden !important;">
+
+
+
+				<p:panelGrid
+					rendered="#{printBean.checkComboboxValue('3', printBean.takipAcilisEvrakYazdirma )}"
+					columns="12" style=" border-style: hidden !important;">
+					<p:outputLabel>Talep Kağıdı:</p:outputLabel>
+					<p:selectBooleanCheckbox value="#{printBean.talepKagidi}"
+						disabled="#{printBean.checkboxPanelDisabled}">
+						<p:ajax event="change" />
+					</p:selectBooleanCheckbox>
+					<p:outputLabel value="Adeti" />
+					<p:inputText disabled="#{printBean.checkboxPanelDisabled}"
+						style="width: 45px; background-color:Gainsboro  !important"
+						value="#{printBean.talepKagidiAdedi}" type="number"
+						onkeyup="var pos=this.selectionStart;
+									var size = this.value.length;														
+             						this.value=this.value.replace(/[^0-9]+/g, '');
+             						if (this.value.length > 2) this.value=this.value.substring(0,2);
+             						if (size > this.value.length)
+             							{this.selectionStart = pos-1; this.selectionEnd = pos-1;}
+             						else
+             							{this.selectionStart = pos; this.selectionEnd = pos;}">
+
+					</p:inputText>
+					<p:outputLabel>Takip Talebi:</p:outputLabel>
+					<p:selectBooleanCheckbox value="#{printBean.takipTalebi}"
+						disabled="#{printBean.checkboxPanelDisabled}">
+						<p:ajax event="change" />
+					</p:selectBooleanCheckbox>
+
+					<p:outputLabel value="Adeti" />
+					<p:inputText
+						style="width: 45px; background-color:Gainsboro  !important"
+						disabled="#{printBean.checkboxPanelDisabled}"
+						value="#{printBean.takipTalebiAdedi}" type="number"
+						onkeyup="var pos=this.selectionStart;
+									var size = this.value.length;														
+             						this.value=this.value.replace(/[^0-9]+/g, '');
+             						if (this.value.length > 2) this.value=this.value.substring(0,2);
+             						if (size > this.value.length)
+             							{this.selectionStart = pos-1; this.selectionEnd = pos-1;}
+             						else
+             							{this.selectionStart = pos; this.selectionEnd = pos;}">
+
+					</p:inputText>
+
+					<p:outputLabel>Ödeme Emri:</p:outputLabel>
+					<p:selectBooleanCheckbox value="#{printBean.odemeEmri}"
+						disabled="#{printBean.checkboxPanelDisabled}">
+
+					</p:selectBooleanCheckbox>
+					<p:outputLabel value="Adeti" />
+					<p:inputText
+						style="width: 45px; background-color:Gainsboro  !important"
+						value="#{printBean.odemeEmriAdedi}" type="number"
+						disabled="#{printBean.checkboxPanelDisabled}"
+						onkeyup="var pos=this.selectionStart;
+									var size = this.value.length;														
+             						this.value=this.value.replace(/[^0-9]+/g, '');
+             						if (this.value.length > 2) this.value=this.value.substring(0,2);
+             						if (size > this.value.length)
+             							{this.selectionStart = pos-1; this.selectionEnd = pos-1;}
+             						else
+             							{this.selectionStart = pos; this.selectionEnd = pos;}">
+
+					</p:inputText>
+
+					<p:outputLabel>Vekaletname:</p:outputLabel>
+					<p:selectBooleanCheckbox value="#{printBean.vekaletname}"
+						disabled="#{printBean.checkboxPanelDisabled}">
+
+					</p:selectBooleanCheckbox>
+					<p:outputLabel value="Adeti" />
+					<p:inputText
+						style="width: 45px; background-color:Gainsboro  !important"
+						value="#{printBean.vekaletnameAdedi}" type="number"
+						disabled="#{printBean.checkboxPanelDisabled}"
+						onkeyup="var pos=this.selectionStart;
+									var size = this.value.length;														
+             						this.value=this.value.replace(/[^0-9]+/g, '');
+             						if (this.value.length > 2) this.value=this.value.substring(0,2);
+             						if (size > this.value.length)
+             							{this.selectionStart = pos-1; this.selectionEnd = pos-1;}
+             						else
+             							{this.selectionStart = pos; this.selectionEnd = pos;}">
+
+					</p:inputText>
+
+					<p:outputLabel>İhtarname:</p:outputLabel>
+					<p:selectBooleanCheckbox value="#{printBean.ihtarname}"
+						disabled="#{printBean.checkboxPanelDisabled}">
+
+					</p:selectBooleanCheckbox>
+					<p:outputLabel value="Adeti" />
+					<p:inputText
+						style="width: 45px; background-color:Gainsboro  !important"
+						disabled="#{printBean.checkboxPanelDisabled}"
+						value="#{printBean.ihtarnameAdedi}" type="number"
+						onkeyup="var pos=this.selectionStart;
+									var size = this.value.length;														
+             						this.value=this.value.replace(/[^0-9]+/g, '');
+             						if (this.value.length > 2) this.value=this.value.substring(0,2);
+             						if (size > this.value.length)
+             							{this.selectionStart = pos-1; this.selectionEnd = pos-1;}
+             						else
+             							{this.selectionStart = pos; this.selectionEnd = pos;}">
+
+					</p:inputText>
+
+					<p:outputLabel>Uyap Verisi:</p:outputLabel>
+					<p:selectBooleanCheckbox value="#{printBean.uyapVeri}"
+						disabled="#{printBean.checkboxPanelDisabled}">
+
+					</p:selectBooleanCheckbox>
+					<p:outputLabel value="Adeti" />
+					<p:inputText
+						style="width: 45px; background-color:Gainsboro  !important"
+						type="number" value="#{printBean.uyapVeriAdedi}"
+						disabled="#{printBean.checkboxPanelDisabled}"
+						onkeyup="var pos=this.selectionStart;
+									var size = this.value.length;														
+             						this.value=this.value.replace(/[^0-9]+/g, '');
+             						if (this.value.length > 2) this.value=this.value.substring(0,2);
+             						if (size > this.value.length)
+             							{this.selectionStart = pos-1; this.selectionEnd = pos-1;}
+             						else
+             							{this.selectionStart = pos; this.selectionEnd = pos;}">
+
+					</p:inputText>
+
+					<p:outputLabel>Tebligat Zarfı:</p:outputLabel>
+					<p:selectBooleanCheckbox value="#{printBean.tebligatZarfi}"
+						disabled="#{printBean.checkboxPanelDisabled}">
+
+					</p:selectBooleanCheckbox>
+					<p:outputLabel value="Adeti" />
+					<p:inputText
+						style="width: 45px; background-color:Gainsboro  !important"
+						type="number" value="#{printBean.tebligatZarfiAdedi}"
+						disabled="#{printBean.checkboxPanelDisabled}"
+						onkeyup="var pos=this.selectionStart;
+									var size = this.value.length;														
+             						this.value=this.value.replace(/[^0-9]+/g, '');
+             						if (this.value.length > 2) this.value=this.value.substring(0,2);
+             						if (size > this.value.length)
+             							{this.selectionStart = pos-1; this.selectionEnd = pos-1;}
+             						else
+             							{this.selectionStart = pos; this.selectionEnd = pos;}">
+
+					</p:inputText>
+
+					<p:outputLabel>Postaneden Gelen Evrak:</p:outputLabel>
+					<p:selectBooleanCheckbox value="#{printBean.postanedenGelenEvrak}"
+						disabled="#{printBean.checkboxPanelDisabled}">
+
+					</p:selectBooleanCheckbox>
+					<p:outputLabel value="Adeti" />
+					<p:inputText
+						style="width: 45px; background-color:Gainsboro  !important"
+						type="number" value="#{printBean.postanedenGelenEvrakAdedi}"
+						disabled="#{printBean.checkboxPanelDisabled}"
+						onkeyup="var pos=this.selectionStart;
+									var size = this.value.length;														
+             						this.value=this.value.replace(/[^0-9]+/g, '');
+             						if (this.value.length > 2) this.value=this.value.substring(0,2);
+             						if (size > this.value.length)
+             							{this.selectionStart = pos-1; this.selectionEnd = pos-1;}
+             						else
+             							{this.selectionStart = pos; this.selectionEnd = pos;}">
+
+					</p:inputText>
+
+					<p:outputLabel>Tebligat Listesi:</p:outputLabel>
+					<p:selectBooleanCheckbox value="#{printBean.tebligatListesi}"
+						disabled="#{printBean.checkboxPanelDisabled}">
+
+					</p:selectBooleanCheckbox>
+					<p:outputLabel value="Adeti" />
+					<p:inputText
+						style="width: 45px; background-color:Gainsboro  !important"
+						disabled="#{printBean.checkboxPanelDisabled}" type="number"
+						value="#{printBean.tebligatListesiAdedi}"
+						onkeyup="var pos=this.selectionStart;
+									var size = this.value.length;														
+             						this.value=this.value.replace(/[^0-9]+/g, '');
+             						if (this.value.length > 2) this.value=this.value.substring(0,2);
+             						if (size > this.value.length)
+             							{this.selectionStart = pos-1; this.selectionEnd = pos-1;}
+             						else
+             							{this.selectionStart = pos; this.selectionEnd = pos;}">
+
+					</p:inputText>
+
+
+				</p:panelGrid>
+
+
+			</p:panelGrid>
+
+			<p:panelGrid columns="3" style=" border-style: hidden !important;">
+
+				<p:outputLabel value="Semiramis Numaraları" />
+				<p:inputTextarea style="width:250px"
+					value="#{printBean.semiNumbers}" />
+				<p:commandButton icon="ui-icon-disk"
+					value="Alandaki Dosyaları Yazdır"
+					action="#{printBean.SemiNoYazdir}" ajax="false" />
+			</p:panelGrid>
+
+
+		</p:panel>
+
+
+
+
+		<p:panel header="LİSTELER" style="width:100%;">
+
+			<p:spacer height="25" />
+
+
+			<p:panelGrid columns="2"
+				style=" border-style: hidden !important; width:100%;">
+
+
+
+				<p:outputPanel id="listeAsil">
+
+					<p:panelGrid columns="1"
+						style=" border-style: hidden !important; width:100%;">
+
+						<p:outputLabel>
+
+							<p:commandButton value="Temizle" action="#{printBean.clearLists}"
+								ajax="false" update="formListe1" />
+
+
+							<p:commandButton value="Hepsini Yazdır"
+								action="#{printBean.printAll()}" process="@all" ajax="false" />
+								
+								<p:commandButton value="Hepsini Ekle"
+								action="#{printBean.insertAll()}" update="tblReport2" />
+						</p:outputLabel>
+
+
+
+							
+						
+						
+						
+						<p:dataTable value="#{printBean.rgList}" paginator="true" filteredValue="#{printBean.filteredList}"
+							rows="10" var="rl" id="tblReport" emptyMessage="Aradığınız Kritere Uygun Sonuç Bulunamamıştır."
+							style="width:100%; margin-top:10px;  height:400px ">
+
+							<f:facet name="header">
+								<font color="red"> Toplam yazdırılacak dosya sayısı :
+									#{printBean.rgList.size()} </font>
+							</f:facet>
+
+
+
+							<p:column headerText="Yazdır"  width="50">
+
+								<h:commandButton id="yazdir" value="Yazdır" width="50"
+									actionListener="#{printBean.printOne}" update=":formListe1">
+									<f:param name="pdf" value="#{rl.id}" />
+
+								</h:commandButton>
+
+							</p:column>
+							<p:column headerText="İcra Dosya No" width="90" filterBy="#{rl.icraDosyaNo}" filterMatchMode="contains">
+								<h:outputText value="#{rl.icraDosyaNo}" />
+							</p:column>
+
+							<p:column headerText="Borçlu Adı" width="270" filterBy="#{rl.borclu}" filterMatchMode="contains">
+								<h:outputText value="#{rl.borclu}" />
+							</p:column>
+
+							<p:column headerText="İcra Md.lüğü" width="150" filterBy="#{rl.icraBilgi}" filterMatchMode="contains">
+								<h:outputText value="#{rl.icraBilgi}" />
+							</p:column>
+
+							<p:column headerText="Ekle" width="50">
+								<h:commandButton value="Ekle"
+									update=":formListe1:listeSecilen:tblReport2"
+									action="#{printBean.privateListEkle}">
+									<f:param name="ekle" value="#{rl.id}" />
+								</h:commandButton>
+							</p:column>
+
+						</p:dataTable>
+
+					</p:panelGrid>
+
+				</p:outputPanel>
+
+
+				<p:outputPanel id="listeSecilen">
+
+
+					<p:panelGrid columns="1"
+						style=" border-style: hidden !important; width:100%;">
+
+
+						<p:commandButton value="Listeyi Yazdır"
+							action="#{printBean.print}" process="@all" ajax="false" />
+
+
+
+						<p:dataTable value="#{printBean.privateList}" var="rl"
+							id="tblReport2" style="width:100%; margin-top:10px; height:400px"
+							reflow="true" rows="10" paginator="true">
+
+							<f:facet name="header">
+								<font color="red"> Toplam yazdırılacak seçilen dosya
+									sayısı : #{printBean.privateList.size()} </font>
+							</f:facet>
+
+
+							<p:column headerText="İcra Dosya No" width="80">
+								<h:outputText value="#{rl.icraDosyaNo}" />
+							</p:column>
+
+							<p:column headerText="Borçlu Adı" width="300">
+								<h:outputText value="#{rl.borclu}" />
+							</p:column>
+
+							<p:column headerText="İcra Md.lüğü" width="80">
+								<h:outputText value="#{rl.icraBilgi}" />
+							</p:column>
+							<p:column headerText="Çıkar" width="80">
+								<h:commandButton value="Çıkar"
+									actionListener="#{printBean.privateListeCikar}" ajax="false"
+									update="listeSecilen">
+									<f:param name="cikar" value="#{rl.id}" />
+								</h:commandButton>
+							</p:column>
+
+
+						</p:dataTable>
+
+					</p:panelGrid>
+
+
+
+				</p:outputPanel>
+
+			</p:panelGrid>
+
+
+
+		</p:panel>
+	</h:form>
+</h:body>
+
+</html>

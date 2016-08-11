@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<h:body>
+	<p:panel header="XML DOSYASINDAN SEMİRAMİS' E AKTARIM ">
+	
+			<p:ajaxStatus onstart="PF('statusDialog1').show()" onsuccess="PF('statusDialog1').hide()" />
+		 
+			<p:dialog widgetVar="statusDialog1" modal="true" draggable="false" closable="false" resizable="false" showHeader="false" 
+			style="position: absolute; background-color: rgba(0, 0, 0, 0.6); height: 256px; width: 256px; left:0%; top:0%; z-index:2; height: 100%; width: 100%">
+			    <p:graphicImage value="img/yukleme.gif" height="80" width="80" />
+			</p:dialog>
+	
+	
+		<h:form id="formXML" enctype="multipart/form-data">
+			<p:panel style=" border-style: hidden !important;">
+			<p:panelGrid columns="8" style=" border-style: hidden !important;">
+					
+				
+					
+					<p:outputLabel value="Muvekkil Seçiniz :" />
+					<p:selectOneMenu 
+					    style="width: 260px"
+					    value="#{xmltosistem.muvekkilinAdi}"
+						id="muvekkilinAdi"
+						
+						>
+						<f:selectItems value="#{alacakliBean.Liste()}" var="listeler" itemLabel="#{listeler.muvekkilAdi}"	itemValue="#{listeler.muvekkilAdi}" />
+					</p:selectOneMenu>
+					
+					<p:commandButton value="onayla" action="#{xmltosistem.goster()}" update=":formXML" />
+					
+					<p:fileUpload label="XML Dosyasını Seç "
+						fileUploadListener="#{xmltosistem.XMLDosyaAl}"
+						mode="advanced" allowTypes="/(\.|\/)(xml)$/" 
+						sizeLimit="10000000" skinSimple="true" rendered="#{xmltosistem.btnXml}" update=":formXML" />
+					
+					
+						
+					<p:fileUpload label="ECXEL Dosyasını Seç "
+						fileUploadListener="#{xmltosistem.XLSDosyaAl}"
+						mode="advanced" allowTypes="/(\.|\/)(xls|xlsx)$/"
+						sizeLimit="10000000" skinSimple="true" rendered="#{xmltosistem.btnExcel}" update=":formXML"/>
+							
+							<p:commandButton value="SEMİRAMİS SİSTEMİNE AKTAR..." action="#{xmltosistem.SistemeAktar}" rendered="#{xmltosistem.btnSistAktar}"/>
+							
+			</p:panelGrid>
+			</p:panel>
+			<p:spacer height="15"/>
+		
+	
+   
+	 <p:spacer height="20"/>
+	
+			<p:dataTable value="#{xmltosistem.xmlList}"
+						 var="xml"		
+						 id="xmllistesi" style="width:1400px "
+						 rowIndexVar="rowId"
+						 rowStyleClass="green"
+						 rows="10"
+						 paginator="true"
+                    	 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                    	 rowsPerPageTemplate="5,10,25,50,100,1000"
+						 >
+
+				<p:column headerText="Sıra No" width="20" >
+				<h:outputText value="#{rowId}" />
+				</p:column>
+
+				<p:column headerText="İşlem Tarihi" width="80" >
+				<h:outputText value="#{xmltosistem.islemTarihi}" />
+				</p:column>
+				
+				<p:column headerText="Takip Tarihi" width="80" >
+				<h:outputText value="#{xml.___alacakKalemi2_faiz2_baslangicTarihi}" />
+				</p:column>
+				
+
+				<p:column headerText="Borçlu Adı" width="100" >
+				<h:outputText value="#{xml.dosyaBelirleyicisi}" />
+				</p:column>
+
+				<p:column headerText="Asil Alacak" width="80">
+					<h:outputText value="#{xml.__alacakKalemi2_alacakKalemTutar_Tl}" />
+				</p:column>
+				
+				<p:column headerText="Toplam Faiz" width="80">
+					<h:outputText value="#{xml.__alacakKalemi3_alacakKalemTutar_Tl}" />
+				</p:column>
+				
+							
+				<p:column headerText="Faizin %5 Vergisi" width="80">
+					<h:outputText value="#{xml.__alacakKalemi4_alacakKalemTutar_Tl}" />
+				</p:column>
+				
+				<p:column headerText="Masraflar" width="80">
+					<h:outputText value="#{xml.__alacakKalemi5_alacakKalemTutar_Tl}" />
+				</p:column>
+			
+				<p:column headerText="Takip Tutarı" width="80">
+					<h:outputText value="#{xml._digerAlacak_tutar_tl}" />
+				</p:column>
+			
+				
+			</p:dataTable>
+
+		</h:form>
+	</p:panel>
+</h:body>
+</html>

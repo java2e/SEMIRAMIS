@@ -265,7 +265,10 @@ public class GenelRaporDAO extends DBConnection {
 				idListe.add(rs.getInt("id"));
 
 			}
-		} else {
+		} 
+		
+		else
+		{
 			idListe.add(ID);
 		}
 		disconnectDB();

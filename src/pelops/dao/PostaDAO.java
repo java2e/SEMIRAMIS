@@ -30,7 +30,7 @@ public class PostaDAO extends DBConnection {
 
 		String SQL = "UPDATE tbl_posta_barkod SET icra_dosya_id=?, barkod=?, durum=? WHERE id="
 				+ posta.getId();
-		newConnectDB();
+		
 		PreparedStatement ps = conn.prepareStatement(SQL);
 
 		ps.setInt(1, posta.getIcra_dosya_id());
@@ -38,7 +38,7 @@ public class PostaDAO extends DBConnection {
 		ps.setInt(3, posta.getDurum());
 
 		ps.executeUpdate();
-		disconnectDB();
+	
 
 	}
 

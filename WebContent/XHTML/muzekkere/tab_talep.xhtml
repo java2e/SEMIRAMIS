@@ -1,0 +1,267 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<ui:composition>
+	
+	
+						<p:tab title="Talepler">
+							<p:panel header="TALEP ALAN İLE YAZDIR"
+								rendered="true" id="panel2"
+								style="width:100%;">
+
+
+								<p:panelGrid
+									rendered="#{printBean.checkComboboxValue('3', printBean.takipAcilisEvrakYazdirma )}"
+									columns="2" style=" border-style: hidden !important;">
+
+
+
+									<p:panelGrid
+										rendered="#{printBean.checkComboboxValue('3', printBean.takipAcilisEvrakYazdirma )}"
+										columns="12" style=" border-style: hidden !important;">
+
+
+
+										<p:outputLabel>103 Davetiyesi Talebi</p:outputLabel>
+										<p:selectBooleanCheckbox
+											value="#{muameleislemlerbean.muamele.davetiyetalebi103}"
+											disabled="#{muameleislemlerbean.muamele.davetiyetalebi103Visible}">
+											<p:ajax listener="#{muameleislemlerbean.checkCheckBoxes()}"
+												update="@form" />
+
+										</p:selectBooleanCheckbox>
+										<p:outputLabel value="Adeti" />
+
+										<p:spinner min="1"
+											disabled="#{muameleislemlerbean.muamele.davetiyetalebi103Visible}"
+											value="#{muameleislemlerbean.muamele.davetiyetalebi103Sayi}"
+											size="2" />
+
+
+
+										<p:outputLabel>Maaş Haciz Talebi(Genel)</p:outputLabel>
+										<p:selectBooleanCheckbox
+											value="#{muameleislemlerbean.muamele.maashaciztalebigenel}"
+											disabled="#{muameleislemlerbean.muamele.maashaciztalebigenelVisible}">
+											<p:ajax listener="#{muameleislemlerbean.checkCheckBoxes()}"
+												update="@form" />
+										</p:selectBooleanCheckbox>
+										<p:outputLabel value="Adeti" />
+
+										<p:spinner min="1"
+											disabled="#{muameleislemlerbean.muamele.maashaciztalebigenelVisible}"
+											value="#{muameleislemlerbean.muamele.maashaciztalebigenelSayi}"
+											size="2" />
+
+
+
+										<p:outputLabel>Araç Yakalama Talebi</p:outputLabel>
+										<p:selectBooleanCheckbox
+											value="#{muameleislemlerbean.muamele.aracyakalamatalebi}"
+											disabled="#{muameleislemlerbean.muamele.aracyakalamatalebiVisible}">
+											<p:ajax listener="#{muameleislemlerbean.checkCheckBoxes()}"
+												update="@form" />
+										</p:selectBooleanCheckbox>
+										<p:outputLabel value="Adeti" />
+										<p:spinner min="1"
+											disabled="#{muameleislemlerbean.muamele.aracyakalamatalebiVisible}"
+											value="#{muameleislemlerbean.muamele.aracyakalamatalebiSayi}"
+											size="2" />
+
+
+
+
+										<p:outputLabel>Dosya İşlemden Kaldırılma Talebi (Harç Borçluda)</p:outputLabel>
+										<p:selectBooleanCheckbox
+											value="#{muameleislemlerbean.muamele.dosyaislemdenkaldirilmatalebiharcborcluda}"
+											disabled="#{muameleislemlerbean.muamele.dosyaislemdenkaldirilmatalebiharcborcludaVisible}">
+											<p:ajax listener="#{muameleislemlerbean.checkCheckBoxes()}"
+												update="@form" />
+										</p:selectBooleanCheckbox>
+										<p:outputLabel value="Adeti" />
+										<p:spinner min="1"
+											disabled="#{muameleislemlerbean.muamele.dosyaislemdenkaldirilmatalebiharcborcludaVisible}"
+											value="#{muameleislemlerbean.muamele.dosyaislemdenkaldirilmatalebiharcborcludaSayi}"
+											size="2" />
+
+
+										<p:outputLabel>Dosya İşlemden Kaldırılma Talebi (Harç Büroda)</p:outputLabel>
+										<p:selectBooleanCheckbox
+											value="#{muameleislemlerbean.muamele.dosyaislemdenkaldirilmatalebiharcburoda}"
+											disabled="#{muameleislemlerbean.muamele.dosyaislemdenkaldirilmatalebiharcburodaVisible}">
+											<p:ajax listener="#{muameleislemlerbean.checkCheckBoxes()}"
+												update="@form" />
+										</p:selectBooleanCheckbox>
+										<p:outputLabel value="Adeti" />
+										<p:spinner min="1"
+											disabled="#{muameleislemlerbean.muamele.dosyaislemdenkaldirilmatalebiharcburodaVisible}"
+											value="#{muameleislemlerbean.muamele.dosyaislemdenkaldirilmatalebiharcburodaSayi}"
+											size="2" />
+
+										<p:outputLabel>Menkul Haciz Talebi</p:outputLabel>
+										<p:selectBooleanCheckbox
+											value="#{muameleislemlerbean.muamele.menkulhaciztalebi}"
+											disabled="#{muameleislemlerbean.muamele.menkulhaciztalebiVisible}">
+											<p:ajax listener="#{muameleislemlerbean.checkCheckBoxes()}"
+												update="@form" />
+											<p:ajax event="change" />
+										</p:selectBooleanCheckbox>
+										<p:outputLabel value="Adeti" />
+										<p:spinner min="1"
+											disabled="#{muameleislemlerbean.muamele.menkulhaciztalebiVisible}"
+											value="#{muameleislemlerbean.muamele.menkulhaciztalebiSayi}"
+											size="2" />
+
+
+
+
+
+										<p:outputLabel>Aile Kayıt Tablosu Talebi</p:outputLabel>
+										<p:selectBooleanCheckbox
+											value="#{muameleislemlerbean.muamele.ailekayittablosutalebi}"
+											disabled="#{muameleislemlerbean.muamele.ailekayittablosutalebiVisible}">
+											<p:ajax listener="#{muameleislemlerbean.checkCheckBoxes()}"
+												update="@form" />
+											<p:ajax event="change" />
+										</p:selectBooleanCheckbox>
+										<p:outputLabel value="Adeti" />
+										<p:spinner min="1"
+											disabled="#{muameleislemlerbean.muamele.ailekayittablosutalebiVisible}"
+											value="#{muameleislemlerbean.muamele.ailekayittablosutalebiSayi}"
+											size="2" />
+
+
+										<p:outputLabel>Mernis Adresi Ödeme Emri Talebi</p:outputLabel>
+										<p:selectBooleanCheckbox
+											value="#{muameleislemlerbean.muamele.mernisadresineodemeemritalebi}"
+											disabled="#{muameleislemlerbean.muamele.mernisadresineodemeemritalebiVisible}">
+											<p:ajax listener="#{muameleislemlerbean.checkCheckBoxes()}"
+												update="@form" />
+											<p:ajax event="change" />
+										</p:selectBooleanCheckbox>
+										<p:outputLabel value="Adeti" />
+										<p:spinner min="1"
+											disabled="#{muameleislemlerbean.muamele.mernisadresineodemeemritalebiVisible}"
+											value="#{muameleislemlerbean.muamele.mernisadresineodemeemritalebiSayi}"
+											size="2" />
+
+										<p:outputLabel>Mevduat Haczi Talebi</p:outputLabel>
+										<p:selectBooleanCheckbox
+											value="#{muameleislemlerbean.muamele.mevduathaczitalebi}"
+											disabled="#{muameleislemlerbean.muamele.mevduathaczitalebiVisible}">
+											<p:ajax listener="#{muameleislemlerbean.checkCheckBoxes()}"
+												update="@form" />
+											<p:ajax event="change" />
+										</p:selectBooleanCheckbox>
+										<p:outputLabel value="Adeti" />
+										<p:spinner min="1"
+											disabled="#{muameleislemlerbean.muamele.mevduathaczitalebiVisible}"
+											value="#{muameleislemlerbean.muamele.mevduathaczitalebiSayi}"
+											size="2" />
+
+
+
+
+
+										<p:outputLabel>Ticaret Sicil Adresi Sorma Talebi</p:outputLabel>
+										<p:selectBooleanCheckbox
+											value="#{muameleislemlerbean.muamele.ticaretsiciladressormatalebi}"
+											disabled="#{muameleislemlerbean.muamele.ticaretsiciladressormatalebiVisible}">
+											<p:ajax listener="#{muameleislemlerbean.checkCheckBoxes()}"
+												update="@form" />
+											<p:ajax event="change" />
+										</p:selectBooleanCheckbox>
+										<p:outputLabel value="Adeti" />
+										<p:spinner min="1"
+											disabled="#{muameleislemlerbean.muamele.ticaretsiciladressormatalebiVisible}"
+											value="#{muameleislemlerbean.muamele.ticaretsiciladressormatalebiSayi}"
+											size="2" />
+
+
+										<p:outputLabel>TK/21 Talebi</p:outputLabel>
+										<p:selectBooleanCheckbox
+											value="#{muameleislemlerbean.muamele.tk21talebi}"
+											disabled="#{muameleislemlerbean.muamele.tk21talebiVisible}">
+											<p:ajax listener="#{muameleislemlerbean.checkCheckBoxes()}"
+												update="@form" />
+											<p:ajax event="change" />
+										</p:selectBooleanCheckbox>
+										<p:outputLabel value="Adeti" />
+										<p:spinner min="1"
+											disabled="#{muameleislemlerbean.muamele.tk21talebiVisible}"
+											value="#{muameleislemlerbean.muamele.tk21talebiSayi}"
+											size="2" />
+
+										<p:outputLabel>Yenileme Talebi</p:outputLabel>
+										<p:selectBooleanCheckbox
+											value="#{muameleislemlerbean.muamele.yenilemetalebi}"
+											disabled="#{muameleislemlerbean.muamele.yenilemetalebiVisible}">
+											<p:ajax listener="#{muameleislemlerbean.checkCheckBoxes()}"
+												update="@form" />
+											<p:ajax event="change" />
+										</p:selectBooleanCheckbox>
+										<p:outputLabel value="Adeti" />
+										<p:spinner min="1"
+											disabled="#{muameleislemlerbean.muamele.yenilemetalebiVisible}"
+											value="#{muameleislemlerbean.muamele.yenilemetalebiSayi}"
+											size="2" />
+
+										<p:outputLabel>Yurtiçi Adresi Ödeme Emri Talebi</p:outputLabel>
+										<p:selectBooleanCheckbox
+											value="#{muameleislemlerbean.muamele.yurticiadresiodemeemritalebi}"
+											disabled="#{muameleislemlerbean.muamele.yurticiadresiodemeemritalebiVisible}">
+											<p:ajax listener="#{muameleislemlerbean.checkCheckBoxes()}"
+												update="@form" />
+											<p:ajax event="change" />
+										</p:selectBooleanCheckbox>
+										<p:outputLabel value="Adeti" />
+										<p:spinner min="1"
+											disabled="#{muameleislemlerbean.muamele.yurticiadresiodemeemritalebiVisible}"
+											value="#{muameleislemlerbean.muamele.yurticiadresiodemeemritalebiSayi}"
+											size="2" />
+
+
+										<p:outputLabel>4'lü( 5 Banka ) Talebi</p:outputLabel>
+										<p:selectBooleanCheckbox
+											value="#{muameleislemlerbean.muamele.coklu4lu5bankatalebi}"
+											disabled="#{muameleislemlerbean.muamele.coklu4lu5bankatalebiVisible}">
+											<p:ajax listener="#{muameleislemlerbean.checkCheckBoxes()}"
+												update="@form" />
+											<p:ajax event="change" />
+										</p:selectBooleanCheckbox>
+										<p:outputLabel value="Adeti" />
+										<p:spinner min="1"
+											disabled="#{muameleislemlerbean.muamele.coklu4lu5bankatalebiVisible}"
+											value="#{muameleislemlerbean.muamele.coklu4lu5bankatalebiSayi}"
+											size="2" />
+
+
+										<p:outputLabel>4'lü( 7 Banka ) Talebi</p:outputLabel>
+										<p:selectBooleanCheckbox
+											value="#{muameleislemlerbean.muamele.coklu4lu7bankatalebi}"
+											disabled="#{muameleislemlerbean.muamele.coklu4lu7bankatalebiVisible}">
+											<p:ajax listener="#{muameleislemlerbean.checkCheckBoxes()}"
+												update="@form" />
+											<p:ajax event="change" />
+										</p:selectBooleanCheckbox>
+										<p:outputLabel value="Adeti" />
+										<p:spinner min="1"
+											disabled="#{muameleislemlerbean.muamele.coklu4lu7bankatalebiVisible}"
+											value="#{muameleislemlerbean.muamele.coklu4lu7bankatalebiSayi}"
+											size="2" />
+
+
+
+									</p:panelGrid>
+								</p:panelGrid>
+							</p:panel>
+						</p:tab>
+	
+	</ui:composition>
+	
+	</html>

@@ -25,9 +25,9 @@
 	<p:outputLabel value="İcra Dosya No"/>
 	<p:outputLabel>
 	 
-	<p:inputText size="30" value="#{kasaBean.bilgiTahsilat.icra_dosya_no}"/>
+	<p:inputText size="30" value="#{kasaBean.bilgiTahsilat.icra_dosya_no}" disabled="true"/>
 	  ||
-	  <p:commandButton icon="ui-icon-search" style="color:red" value="Ara !" onclick="PF('dlgdetayliarama').show();"/>
+	  <p:commandButton icon="ui-icon-search" style="color:red" value="DETAYLI ARAMA !" onclick="PF('dlgdetayliarama').show();"/>
 	
 	
 	</p:outputLabel>
@@ -103,7 +103,7 @@
 	<p:panelGrid columns="4" style=" border-style: hidden !important;">
 	<p:commandButton value="HİTAM BELGESİ" disabled="#{kasaBean.hitam}" style="width:120px;height:55px;" />
 	<p:commandButton value="TAHSİLAT MAKBUZU" disabled="#{kasaBean.makbuz}" style="width:120px;height:55px;" ajax="false" action="#{kasaBean.print(null)}" update=":tahsilatyap"/>
-	<p:commandButton value="TAHSİLAT YAP" style="width:120px;height:55px;" disabled="#{kasaBean.tahsilat}"  action="#{kasaBean.tahsilatYap}"  update=":tahsilatyap,:tahsilatyap:hesapbilgisi,:kasaForm:reddiyatlistesi,:kasaForm:tabviewlist:tblaktifodeme, :kasaForm:tabviewlist:tblodenmisler,:formMsgs">
+	<p:commandButton value="TAHSİLAT YAP" style="width:120px;height:55px;" disabled="#{kasaBean.tahsilat}"  action="#{kasaBean.tahsilatYap}"  update=":tahsilatyap,:tahsilatyap:hesapbilgisi,:kasaForm:reddiyatlistesi,:kasaForm:panelRapor,:kasaForm:tabviewlist:tblaktifodeme, :kasaForm:tabviewlist:tblodenmisler,:formMsgs">
 	
 	</p:commandButton>
 <!-- 	<p:commandButton value="İNDİRİM ONAYI" style="width:120px;height:55px; "/> -->
@@ -249,7 +249,7 @@
 
 		<p:dialog header="DETAYLI ARAMA" widgetVar="dlgdetayliarama" minHeight="340" height="690" >
      
-     	    <ui:include  src="../../dlg_icra_dosya_listesi.xhtml" />
+     	    <ui:include  src="../dialog/dlg_icra_dosya_listesi.xhtml" />
 				</p:dialog>
 
 		

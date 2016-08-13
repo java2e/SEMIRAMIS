@@ -43,7 +43,7 @@ public class AnaSayfaBean {
 					"ÜZGÜNÜZ !!!",
 					"İCRA DOSYASINI SEÇMEDEN BU ALANDA İŞLEM YAPAMAZSINIZ...İCRA DOSYA TAKİP SAYFASINA YÖNLENDİRİLDİNİZ....");
 			RequestContext.getCurrentInstance().showMessageInDialog(message);
-			formPath = "frm_icra_dosya_takibi.xhtml";
+			formPath = "XHTML/icra_dosyasi/frm_icra_dosya_takibi.xhtml";
 		} else {
 			switch (id) {
 
@@ -380,7 +380,7 @@ public class AnaSayfaBean {
 				formPath = "/XHTML/tanimlar/frm_dosya_yukleme.xhtml";
 				break;
 			case 1010:
-				formPath ="frm_muze_talep.xhtml";
+				formPath ="/XHTML/muzekkere/frm_muze_talep.xhtml";
 				break;
 			case 1111:
 				formPath ="/muzekkere/frm_muze_talep.xhtml";

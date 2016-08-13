@@ -10,7 +10,10 @@
 <h:body>
 	<h:form>
 		<p:growl id="growl" showDetail="true" sticky="true" />
-		<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
+		<p:panel id="tbl" header="ETKİNLİK TANIMLAMA"
+		style="width:200 ;height:100;">
+		
+		<p:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5" paginator="true" rows="20" paginatorPosition="bottom">
 			<p:outputLabel for="console" value="Durum Seçiniz:" />
 			<p:selectOneMenu id="console" required="true"
 				value="#{etkinlikTanimlamaBean.comboBoxState}" style="width:125px">
@@ -36,8 +39,9 @@
 
 			<p:commandButton value="Kaydet"
 				action="#{etkinlikTanimlamaBean.kaydet()}" update="@form"></p:commandButton>
-		</h:panelGrid>
+		</p:panelGrid>
 
+</p:panel>
 
 
 	</h:form>

@@ -13,7 +13,8 @@
 <h:body>
 
 	<h:form id="form">
-
+	<p:panel id="tbl" header="DUYURU TANIMLAMA"
+		style="width:200 ;height:100;">
 		<p:commandButton value="Yeni Kayıt"
 			oncomplete="PF('dlg_duyuru').show()"
 			action="#{duyuruTanimlamaBean.onKaydetClicked()}"
@@ -22,7 +23,7 @@
 
 
 		<p:dataTable id="duyuruList" var="duyuru"
-			value="#{duyuruTanimlamaBean.duyuruList}">
+			value="#{duyuruTanimlamaBean.duyuruList}" paginator="true" rows="20" paginatorPosition="bottom">
 			<f:facet name="header">
             Duyuru Listesi
             </f:facet>
@@ -41,6 +42,8 @@
 			
 
 		</p:dataTable>
+		
+		</p:panel>
 		
 	</h:form>
 	

@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition>
+	<div id="wrapper">
+
+		<div id="content">
+
+			
+			
+							
+	<p:panel  id="muhatapPaneli" header="Muhattap Bilgisi" style="width:100%;">	
+				
+						<p:panelGrid columns="4" style="width:100%">
+						
+						<p:outputLabel value="Borçlu İş Yeri Adı(Muhatap)" style="color:#{muameleislemlerbean.muamele.maashacizmuzekkeresigenel ?   'black' : 'red'}"/>
+						<p:inputTextarea rows="5" cols="45" queryDelay="750"
+							style="width:100%" minQueryLength="4" 
+							value="#{muameleislemlerbean.muamele.muhatapAdi}" />
+
+
+
+						<p:outputLabel value="Borçlu İş Yeri(Muhatap) Adresi"  style="color:#{muameleislemlerbean.muamele.maashacizmuzekkeresigenel ?   'black' : 'red'}"/>
+						<p:inputTextarea rows="5" cols="45" queryDelay="750"
+							style="width:100%" minQueryLength="4" 
+							value="#{muameleislemlerbean.muamele.muhatapAdresi}" />
+							
+			
+			</p:panelGrid>
+			</p:panel>	
+
+
+		</div>
+	</div>
+
+</ui:composition>
+</html>

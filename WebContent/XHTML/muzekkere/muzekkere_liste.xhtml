@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<ui:composition>
+	
+	
+	<p:panel header="MÜZEKKERE VE TALEP LİSTESİ" style="width:100%;">
+			<p:panelGrid columns="2">
+				<p:dataTable id="datatable" var="list" reflow="true" rows="10"
+					paginator="true" sortMode="multiple" draggableColumns="true"
+					resizableColumns="true" value="#{muameleislemlerbean.muameleList}"
+					rowIndexVar="rowIndex">
+
+
+					<p:column headerText="Düzenle" width="10%"
+						style="text-align:center">
+						<p:commandButton value="Düzenle"
+							actionListener="#{muameleislemlerbean.Duzenle()}"
+							update=":#{p:component('updatePanel')}">
+
+							<f:param name="gelis_amaci" value="duzenle" />
+							<f:param name="buttonDuzenle" value="#{list.id}" />
+							<f:param name="muzekkeretalep" value="#{list.muzekkereTalepAdi}" />
+
+						</p:commandButton>
+
+
+
+					</p:column>
+
+
+					<p:column headerText="Sil" width="10%" style="text-align:center">
+
+
+						<p:commandButton value="Sil" action="#{muameleislemlerbean.Sil()}"
+							immediate="true" update="@form">
+							<f:param name="muzekkereTalepAdi"
+								value="#{list.muzekkereTalepAdi}" />
+							<f:param name="icraDosyaNumarasi"
+								value="#{muameleislemlerbean.muamele.icraDosyaNo}" />
+
+							<f:param name="kurumAdi" value="#{list.kurumAdi}" />
+
+							<f:param name="alacakliBankasi" value="#{list.alacakliBankasi}" />
+
+							<f:param name="tapuKayitlari" value="#{list.tapuKayitlari}" />
+						</p:commandButton>
+
+
+					</p:column>
+
+
+					<p:column headerText="İcra Dosya No" width="10%"
+						filterBy="#{muameleislemlerbean.muamele.icraDosyaNo}"
+						filterMatchMode="contains" style="text-align:center">
+						<p:outputLabel value="#{muameleislemlerbean.muamele.icraDosyaNo}" />
+					</p:column>
+
+					<p:column headerText="Borçlu Adı" width="15%"
+						filterBy="#{list.borcluAdi}" filterMatchMode="contains"
+						style="text-align:center">
+						<p:outputLabel value="#{list.borcluAdi}" />
+					</p:column>
+
+					<p:column headerText="Müzekkere/Talep" width="25%"
+						filterBy="#{list.muzekkereTalepAdi}" filterMatchMode="contains"
+						style="text-align:center">
+						<p:outputLabel value="#{list.muzekkereTalepAdi}" />
+					</p:column>
+
+
+					<p:column headerText="İlgili Kurum Adı" width="25%"
+						filterBy="#{list.kurumAdi}" filterMatchMode="contains"
+						style="text-align:center">
+						<p:outputLabel value="#{list.kurumAdi}" />
+					</p:column>
+
+
+					<p:column headerText="Alacaklı Bankası" width="25%"
+						filterBy="#{list.alacakliBankasi}" filterMatchMode="contains"
+						style="text-align:center">
+						<p:outputLabel value="#{list.alacakliBankasi}" />
+					</p:column>
+
+
+					<p:column headerText="Tapu Kayıtları" width="25%"
+						filterBy="#{list.tapuKayitlari}" filterMatchMode="contains"
+						style="text-align:center">
+						<p:outputLabel value="#{list.tapuKayitlari}" />
+					</p:column>
+
+
+					<p:column headerText="Miktar" width="10%"
+						filterBy="#{list.muzekkereTalepMiktari}"
+						filterMatchMode="contains" style="text-align:center">
+						<p:outputLabel value="#{list.muzekkereTalepMiktari}" />
+					</p:column>
+					<p:column headerText="Tarih" width="15%"
+						filterBy="#{list.muameleTarihi}" filterMatchMode="contains"
+						style="text-align:center">
+						<p:outputLabel value="#{list.muameleTarihi}" />
+					</p:column>
+
+				</p:dataTable>
+			</p:panelGrid>
+		</p:panel>
+	
+	</ui:composition>
+	
+	</html>

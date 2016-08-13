@@ -13,6 +13,8 @@
 <h:body>
 
 	<h:form id="form">
+		<p:panel id="tbl" header="GÖREV TANIMLAMA"
+		style="width:200 ;height:100;">
 		<p:growl id="growl" showDetail="true" sticky="true" />
 		<p:outputLabel value="Atanan Kişi :" />
 
@@ -38,7 +40,7 @@
 
 
 		<p:dataTable id="gorevList" var="gorev"
-			value="#{gorevTanimlamaBean.gorevList}">
+			value="#{gorevTanimlamaBean.gorevList}" paginator="true" rows="20" paginatorPosition="bottom">
 			<f:facet name="header">
             Görev Listesi
             </f:facet>
@@ -63,7 +65,7 @@
 
 
 		</p:dataTable>
-
+</p:panel>
 	</h:form>
 	<h:form id="dlg_form">
 		<p:dialog id="dlg_gorev" header="Görev Tanımla" widgetVar="dlg_gorev"

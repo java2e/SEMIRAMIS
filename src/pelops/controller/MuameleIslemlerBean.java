@@ -2342,6 +2342,8 @@ public class MuameleIslemlerBean implements ReportCRUDInterface {
 			ctrl.setBorcluMiktari(true);
 			ctrl.setDogumTarihi(true);
 			ctrl.setKonu(true);
+			
+			RequestContext.getCurrentInstance().execute("PF('dlgGayrimenkul').show();");
 
 		}
 

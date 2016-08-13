@@ -10,6 +10,8 @@ import java.util.Calendar;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
+import org.primefaces.context.RequestContext;
+
 import pelops.dao.MuameleIslemleriDAO;
 import pelops.db.DAO;
 import pelops.model.Avukat;
@@ -230,6 +232,8 @@ public class TalepMuzekkereUtil {
 				FacesContext context = FacesContext.getCurrentInstance();
 			context.addMessage(null, new FacesMessage(
 					"Maaş Haciz Müzekkeresi Genel Oluşturmak için MUHATTAB ADI VE ADRESİ EKLEMELİSİNİZ !!!"));
+			RequestContext.getCurrentInstance().execute("PF('dlgMuhatap').show();");
+
 			}
 			else
 			{
@@ -265,6 +269,7 @@ public class TalepMuzekkereUtil {
 				FacesContext context = FacesContext.getCurrentInstance();
 				context.addMessage(null, new FacesMessage(
 						"Maaş Haciz Müzekkeresi Genel Oluşturmak için Alacaklı Banka Eklemelisiniz !!!"));
+				
 			}
 			
 			
@@ -381,6 +386,9 @@ public class TalepMuzekkereUtil {
 			} else {
 
 				FacesContext context = FacesContext.getCurrentInstance();
+				
+				RequestContext.getCurrentInstance().execute("PF('dlgGayrimenkul').show();");
+				
 				context.addMessage(null, new FacesMessage(
 						"Tapu Haciz Müzekkeresi Oluşturmak için Mal Tipi  Eklemelisiniz !!!"));
 			}

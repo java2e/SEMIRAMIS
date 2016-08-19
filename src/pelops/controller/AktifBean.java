@@ -11,13 +11,13 @@ import pelops.util.Util;
 @SessionScoped
 public class AktifBean {
 
-	static int  icraDosyaID=0, borcluId=0, hesapID=0;
-	static String icraDosyaNo="";
-	static String icraMudurlugu="";
-	static String muvekkilAdi ="";
-    static  String  borcluAdi ="";
+	public static int  icraDosyaID=0, borcluId=0, hesapID=0;
+	public static String icraDosyaNo="";
+	public static String icraMudurlugu="";
+	public static String muvekkilAdi ="";
+    public static  String  borcluAdi ="";
     private String chatUserNamey="";
-    static String musteriNo="";
+    public static String musteriNo="";
     public static Hesap hesaplistesi = new Hesap();
     
     

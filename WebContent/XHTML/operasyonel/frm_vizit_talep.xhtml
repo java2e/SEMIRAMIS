@@ -1,0 +1,174 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition>
+
+<script type="text/javascript">
+        PrimeFaces.locales['tr'] = {
+            closeText: 'kapat',
+            prevText: 'geri',
+            nextText: 'ileri',
+            currentText: 'bugün',
+            monthNames: ['Ocak','Şubat','Mart','Nisan','Mayıs','Haziran','Temmuz','Ağustos','Eylül','Ekim','Kasım','Aralık'],
+            monthNamesShort: ['Oca','Şub','Mar','Nis','May','Haz', 'Tem','Ağu','Eyl','Eki','Kas','Ara'],
+            dayNames: ['Pazar','Pazartesi','Salı','Çarşamba','Perşembe','Cuma','Cumartesi'],
+            dayNamesShort: ['Pz','Pt','Sa','Ça','Pe','Cu','Ct'],
+            dayNamesMin: ['Pz','Pt','Sa','Ça','Pe','Cu','Ct'],
+            weekHeader: 'Hf',
+            firstDay: 1,
+            isRTL: false,
+            showMonthAfterYear: false,
+            yearSuffix: '',
+            timeOnlyTitle: 'Zaman Seçiniz',
+            timeText: 'Zaman',
+            hourText: 'Saat',
+            minuteText: 'Dakika',
+            secondText: 'Saniye',
+            ampm: false,
+            month: 'Ay',
+            week: 'Hafta',
+            day: 'Gün',
+            allDayText : 'Tüm Gün'
+        };
+    </script>
+
+
+	<h:form>
+
+
+
+		<p:panel header="VİZİT TALEP LİSTESİ">
+
+			<h:panelGrid columns="2" width="300px;">
+				<p:outputLabel value="İcra Müdürlüğü" />
+				<p:selectOneMenu value="#{vizitTalepBean.icraMudId}" style="width:300px;">
+					<f:selectItem itemLabel="" itemValue="" />
+					<f:selectItems
+						value="#{geneltanimbean.ListeGetir('tbl_icra_mudurlugu')}"
+						var="list" itemLabel="#{list.adi}" itemValue="#{list.id}" />
+				</p:selectOneMenu>
+
+				<p:outputLabel style="width: 150px">İl :</p:outputLabel>
+					<p:selectOneMenu id="il"
+						value="#{vizitTalepBean.il}"
+						style="width: 260px">
+						<f:selectItem itemValue="" itemLabel=""></f:selectItem>
+						<p:ajax event="change" update="ilce" />
+						<f:selectItems value="#{genelSehirlerBean.ListeGetirForIl()}"
+							var="iller" itemLabel="#{iller.il_adi}"
+							itemValue="#{iller.id}">
+						</f:selectItems>
+					</p:selectOneMenu>
+
+
+					<p:outputLabel>İlçe :</p:outputLabel>
+					<p:selectOneMenu id="ilce"
+						value="#{vizitTalepBean.ilce}"
+						style="width: 260px">
+
+						<f:selectItems value="#{genelSehirlerBean.handleValueChange(6)}"
+							var="ilceler" itemLabel="#{ilceler.ilce_adi}"
+							itemValue="#{ilceler.ilce_adi}"></f:selectItems>
+					</p:selectOneMenu>
+
+				<p:outputLabel value="İzleme Tarihi" />
+				<p:calendar locale="tr" id="mask" size="32" value="#{vizitTalepBean.tarih}"
+					pattern="dd-MM-yyyy" mask="true" />
+			</h:panelGrid>
+
+<p:commandButton value="LİSTELE" update="pnlListe" actionListener="#{vizitTalepBean.getList}"/>
+
+
+		</p:panel>
+		
+		<style>
+		.excel {
+    background-image: url(img/excel.png)
+}
+
+		.pdf {
+    background-image: url(img/pdf.png)
+}
+
+		</style>
+		
+		<p:panel>
+<h:panelGrid columns="2">
+<h:commandButton image="/img/pdf.png"  style="width:60px;height:80px;" />
+<h:commandButton image="/img/excel.png" style="width:60px;height:80px;"  />
+</h:panelGrid>
+		</p:panel>
+
+		<p:panel id="pnlListe">
+
+
+			<p:dataTable var="vizit" value="#{vizitTalepBean.liste}">
+		
+
+				<p:column headerText="İcra Dosya No">
+					<h:outputText value="#{vizit.icraDosyaNo}" />
+				</p:column>
+
+				<p:column headerText="İcra Müdürlüğü">
+					<h:outputText value="#{vizit.icraMudurlugu}" />
+				</p:column>
+
+
+				<p:column headerText="Borçlu Adı">
+					<h:outputText value="#{vizit.borcluAdi}" />
+				</p:column>
+
+				<p:column headerText="Borçlu TCNO">
+					<h:outputText value="#{vizit.borcluTCNo}" />
+				</p:column>
+
+
+				<p:column headerText="Borçlu IL">
+					<h:outputText value="#{vizit.il}" />
+				</p:column>
+				
+				<p:column headerText="Borçlu İLCE">
+					<h:outputText value="#{vizit.ilce}" />
+				</p:column>
+
+				<p:column headerText="Açıklama">
+					<h:outputText value="#{vizit.aciklama}" />
+				</p:column>
+
+				<p:column headerText="Personel">
+					<h:outputText value="#{vizit.personelAdSoyad}" />
+				</p:column>
+
+
+
+
+
+
+
+			</p:dataTable>
+
+
+
+
+		</p:panel>
+
+
+
+
+
+
+	</h:form>
+
+
+
+
+
+
+</ui:composition>
+</html>

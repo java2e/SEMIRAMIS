@@ -43,7 +43,6 @@
 	
 	
 
-<p:commandButton id="hh" actionListener="#{muameleislemlerbean.init()}" style="display:none" update="genelForm"/>
 
 		<p:panel id="girisPaneli" styleClass="titleColor" header="MÜZEKKERE VE TALEP İŞLEMLERİ" style="width:100%;">
 		
@@ -68,17 +67,14 @@
 
 
 						<p:outputLabel  value="İcra Dosya No" />
-						<p:inputText value="#{muameleislemlerbean.muamele.icraDosyaNo}"
+						<p:inputText value="#{muameleBean.muamele.icraDosyaNo}"
 							readonly="true" requiredMessage="İcra Dosya No'yu Doldurunuz !!!"
-							required="#{muameleislemlerbean.ctrl.icraDosyaNo}"
 							style="font-size:16px; font-weight:bold;width:100%" />
 
 
 						<p:outputLabel value="Icra Müdürlüğü" />
 						<p:selectOneMenu id="iMudurlugu"
-							value="#{muameleislemlerbean.muamele.icraMudurluguId}"
-							required="#{muameleislemlerbean.ctrl.icraMudurluguId}"
-							requiredMessage="İcra Müdürlüğünü Doldurunuz !!!"
+							value="#{muameleBean.muamele.icraMudurluguID}"
 							style="width:100%;font-size:16px; font-weight:bold;">
 							<f:selectItem itemLabel="İcra Müdürlüğü Seçiniz..." itemValue="" />
 							<f:selectItems
@@ -89,20 +85,17 @@
 
 
 						<p:outputLabel value="Borçlu Adı" />
-						<p:inputText value="#{muameleislemlerbean.muamele.borcluAdi}"
+						<p:inputText value="#{muameleBean.muamele.borcluAdSoyad}"
 							readonly="true" requiredMessage="Borçlu Adını Doldurunuz !!!"
 							style="font-size:16px; font-weight:bold;width:100%" />
 
 						<p:outputLabel value="Semiramis No " />
-						<p:inputText value="#{muameleislemlerbean.muamele.semiramisNo}"
-							required="#{muameleislemlerbean.ctrl.semiramisNo}"
+						<p:inputText value="#{muameleBean.muamele.icraDosyaID}"
 							style="width:100%;font-size:16px; font-weight:bold;" />
 
 
 						<p:outputLabel value="Borçlu Miktarı" />
-						<p:inputText value="#{muameleislemlerbean.muamele.borcluMiktari}"
-							required="#{muameleislemlerbean.ctrl.borcluMiktari}"
-							requiredMessage="Borçlu Miktarını Doldurunuz !!!"
+						<p:inputText value="#{muameleBean.muamele.borcMiktari}"
 							style="width:100%;font-size:16px; font-weight:bold;" />
 
 
@@ -110,10 +103,9 @@
 
 						<p:outputLabel value="Borçlu Adresi" />
 						<p:inputTextarea rows="5" cols="45" queryDelay="750"
-							required="#{muameleislemlerbean.ctrl.borcluAdresi}"
 							requiredMessage="Borçlu Adresini Doldurunuz !!!"
 							style="width:100%;font-size:16px; font-weight:bold;" minQueryLength="4"
-							value="#{muameleislemlerbean.muamele.borcluAdresi}" />
+							value="#{muameleBean.muamele.borcluAdres}" />
 
 
 
@@ -133,7 +125,7 @@
 			
 				<p:tabView styleClass="titleColor">
 					
-					<ui:include src="/muzekkere/tab_muzekkere.xhtml"></ui:include>
+					<ui:include src="/XHTML/muzekkere/tab_muzekkere2.xhtml"></ui:include>
 					<ui:include src="/muzekkere/tab_talep.xhtml"></ui:include>
 						
 					</p:tabView>
@@ -157,7 +149,7 @@
 						<!-- Nihai Kayıt Butonu -->
 
 						<p:commandButton value="Nihai Kayıt" style="margin-left:1%;"
-							action="#{muameleislemlerbean.Kaydet()}" update="@form">
+							action="#{muameleBean.nihaiKayit}" update="@form">
 
 
 
@@ -194,7 +186,7 @@
 							required="#{muameleislemlerbean.ctrl.buroAdresi}"
 							requiredMessage="Büro Adresini Doldurunuz !!!" style="width:100%"
 							minQueryLength="4"
-							value="#{muameleislemlerbean.muamele.buroAdresi}" />
+							value="#{muameleBean.muamele.avukatAdres}" />
 
 
 						<p:outputLabel value="Açıklama" />
@@ -206,12 +198,12 @@
 
 						<p:outputLabel value="Postane Adı" />
 						<p:inputText value="#{muameleislemlerbean.muamele.postaneAdi}"
-							required="#{muameleislemlerbean.ctrl.postaneAdi}"
+							required="#{muameleBean.muamele.pttAdi}"
 							requiredMessage="Postane Adını Doldurunuz !!!" style="width:100%" />
 
 
 						<p:outputLabel value="Büro IBAN No" />
-						<p:inputText value="#{muameleislemlerbean.muamele.buroIbanNo}"
+						<p:inputText value="#{muameleBean.muamele.avukatIBAN}"
 							required="#{muameleislemlerbean.ctrl.buroIbanNo}"
 							requiredMessage="Büro IBAN No Doldurunuz !!!" style="width:100%" />
 
@@ -225,7 +217,7 @@
 
 
 						<p:outputLabel value="Borçlu Vergi/T.C. No" />
-						<p:inputText value="#{muameleislemlerbean.muamele.borcluTc}"
+						<p:inputText value="#{muameleBean.muamele.borcluTcNo}"
 							required="#{muameleislemlerbean.ctrl.borcluTc}"
 							requiredMessage="Borçlu Vergi/T.C. No Doldurunuz !!!"
 							style="width:100%" />
@@ -247,7 +239,7 @@
 
 
 						<p:outputLabel value="Masraf Miktarı" />
-						<p:inputText value="#{muameleislemlerbean.muamele.masrafMiktari}"
+						<p:inputText value="#{muameleBean.muamele.masrafTutari}"
 							id="masrafMiktari" readonly="true"
 							onkeyup="var pos=this.selectionStart;
 									var size = this.value.length;														
@@ -264,7 +256,7 @@
 						<p:outputLabel value="Tebligat Sonucu" />
 						<p:selectOneMenu id="tebligatSonucu" styleClass="selectMenu"
 							style="width:100%"
-							value="#{muameleislemlerbean.muamele.tebligatSonucuId}"
+							value="#{muameleBean.muamele.tebligatSonucu}"
 							required="false" requiredMessage="Bu Alanı Boş Bırakamazsınız">
 							<f:selectItem itemLabel="Tebligat Sonucu Seçiniz..." itemValue="" />
 							<f:selectItems
@@ -299,7 +291,7 @@
 
 						<p:outputLabel value="Muamele Statüsü" />
 						<p:selectOneMenu id="muameleStatusu" styleClass="selectMenu"
-							value="#{muameleislemlerbean.muamele.muameleStatusuId}"
+							value="#{muameleBean.muamele.muameleStatusu}"
 							style="width:100%">
 							<f:selectItem itemLabel="Statü Seçiniz..." itemValue="" />
 							<f:selectItems
@@ -319,7 +311,7 @@
 
 						<p:outputLabel value="Personel Adı" />
 						<p:selectOneMenu id="personelAdi" styleClass="selectMenu"
-							value="#{muameleislemlerbean.muamele.personelId}"
+							value="#{muameleBean.muamele.personelId}"
 							style="width:100%">
 							<f:selectItem itemLabel="Personel Seçiniz..." itemValue="" />
 							<f:selectItems value="#{userbean.ListeGetir()}" var="item"
@@ -332,7 +324,7 @@
 						<p:selectOneMenu id="avukatAdi" styleClass="selectMenu"
 							required="#{muameleislemlerbean.ctrl.avukatId}"
 							requiredMessage="Avukat Adını Doldurunuz !!!"
-							value="#{muameleislemlerbean.muamele.avukatId}"
+							value="#{muameleBean.muamele.avukatId}"
 							style="width:100%">
 							<f:selectItems value="#{muameleislemlerbean.AvukatGetir()}"
 								var="item" itemValue="#{item.id}" itemLabel="#{item.adi}" />
@@ -530,7 +522,7 @@
 
 						<p:outputLabel value="Muamele Tarihi" />
 						<p:calendar id="mask"
-							value="#{muameleislemlerbean.muamele.muameleTarihi}"
+							value="#{muameleBean.muamele.mumaleTarihi}"
 							pattern="dd/MM/yyyy" mask="true" style="width:100%" />
 
 
@@ -554,7 +546,7 @@
 					<p:panel id="pdfGoruntuleme" styleClass="titleColor" header="PDF GÖRÜNTÜLEME"
 						style="width:100%">
 						<p:panelGrid>
-							<object type="application/pdf" data="#{muameleislemlerbean.pdf}"
+							<object type="application/pdf" data="#{muameleBean.pdf}"
 								height="850px" style="padding-left: 2%; width: 100%"> </object>
 						</p:panelGrid>
 					</p:panel>
@@ -583,7 +575,7 @@
 		</p:panel>
 
 
-		<ui:include src="muzekkere_liste.xhtml"></ui:include>
+		<ui:include src="muzekkere_liste2.xhtml"></ui:include>
 
 		<p:dialog header="KURUM" widgetVar="dlgKurum" minHeight="340"
 			height="690">
@@ -604,20 +596,20 @@
 
 		<p:dialog header="DETAYLI ARAMA" widgetVar="arama" minHeight="340"
 			height="690">
-			<ui:include src="../dialog/dlg_dosya_arama_for_talep_muzekkere.xhtml" />
+			<ui:include src="../dialog/dlg_dosya_arama_for_talep_muzekkere2.xhtml" />
 		</p:dialog>
 
         <p:dialog header="GAYRİMENKUL" widgetVar="dlgGayrimenkul"
 			minHeight="340" height="690">
 
-			<ui:include src="../dialog/dlg_gayrimenkul_kaydi.xhtml" />
+			<ui:include src="../dialog/dlg_gayrimenkul_kaydi2.xhtml" />
 		</p:dialog>
 
 
  		<p:dialog header="MUHATAP BİLGİSİ" widgetVar="dlgMuhatap"
 			minHeight="340">
 
-			<ui:include src="../dialog/dlg_muhatap_bilgisi2.xhtml" />
+			<ui:include src="../dialog/dlg_muhatap_bilgisi.xhtml" />
 		</p:dialog>
 
 

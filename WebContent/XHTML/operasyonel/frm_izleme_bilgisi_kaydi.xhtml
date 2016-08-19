@@ -9,6 +9,25 @@
 
 <h:body>
 
+<style>
+
+.ui-panelgrid-cell{
+	border-width:0px !important;
+	
+}
+
+	.titleColor > .ui-panel-titlebar {
+    background: white;
+    height: 20px;
+    text-align: center !important;
+    font-size: 15px;
+    color:red;
+    }
+    
+	
+</style>
+
+
 	<p:panel id="izlemebilgisi" header="İZLEME BİLGİSİ KAYDI"
 		style="text-align:left;">
 		<p:growl id="growl" showDetail="true" sticky="false" />
@@ -25,10 +44,12 @@
 
 		<h:form id="formIzlemeBilgisi">
 
-			<p:panel id="girisPaneli" header="İzleme Bilgisi"
+			<p:panel id="girisPaneli"
 				style="margin-bottom:10px"
 				rendered="#{izlemebilgisibean.panelRender}">
 
+
+<p:panel styleClass="titleColor" header="#{izlemebilgisibean.izleme.cagriAdet} ÇAGRI YAPILDI" style="width:600px;">
 				<p:panelGrid columns="2" style="border-style: hidden !important">
 
 					<p:outputLabel>İcra Dosyası No :</p:outputLabel>
@@ -58,7 +79,6 @@
 						style="width:260px"
 						value="#{izlemebilgisibean.izleme.izlemeSonucuId}"
 						requiredMessage="Bu alanı doldurunuz">
-						<f:selectItem itemLabel="" itemValue="0" />
 						<f:selectItems
 							value="#{geneltanimbean.ListeGetir('tbl_izleme_sonucu')}"
 							var="list" itemLabel="#{list.adi}" itemValue="#{list.id}"></f:selectItems>
@@ -88,6 +108,9 @@
 						<f:selectItems value="#{userbean.ListeGetir()}" var="list"
 							itemLabel="#{list.adSoyad}" itemValue="#{list.id}"></f:selectItems>
 					</p:selectOneMenu>
+					
+					<p:outputLabel value="Vizit Talebi" />
+                 	  <p:selectBooleanCheckbox value="#{izlemebilgisibean.izleme.vizitDurumu}" />
 
 				</p:panelGrid>
 
@@ -101,7 +124,7 @@
 					action="#{izlemebilgisibean.Kaydet()}"
 					update=":growl,:formIzlemeBilgisi" />
 
-
+</p:panel>
 
 
 			</p:panel>

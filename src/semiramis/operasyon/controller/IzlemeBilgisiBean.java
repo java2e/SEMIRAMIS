@@ -1,7 +1,8 @@
-package pelops.controller;
+package semiramis.operasyon.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -11,18 +12,38 @@ import javax.faces.context.FacesContext;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
-import pelops.dao.IzlemeBilgisiDAO;
-import pelops.model.IzlemeBilgisiKaydi;
+import pelops.controller.AktifBean;
 import pelops.model.StaticDegerler;
+import pelops.users.Util;
+import semiramis.operasyon.dao.IzlemeBilgisiDAO;
+import semiramis.operasyon.model.IzlemeBilgisi;
 
 @ManagedBean(name = "izlemebilgisibean")
 @SessionScoped
 public class IzlemeBilgisiBean {
 
-	ArrayList<IzlemeBilgisiKaydi> izlemeList = new ArrayList<IzlemeBilgisiKaydi>();
-	IzlemeBilgisiKaydi izleme = new IzlemeBilgisiKaydi();
+	ArrayList<IzlemeBilgisi> izlemeList = new ArrayList<IzlemeBilgisi>();
+	IzlemeBilgisi izleme = new IzlemeBilgisi();
 	IzlemeBilgisiDAO dao = new IzlemeBilgisiDAO();
 	StaticDegerler staticDegerler = new StaticDegerler();
+	
+	private int status;
+	boolean panelRender;
+	boolean buttonDisabled;
+	
+	public IzlemeBilgisiBean() {
+
+		status = 0;
+		PanelClose();
+		ButtonOpen();
+		izleme = new IzlemeBilgisi();
+		izleme.setCagriAdet(dao.izlemeSayisi(AktifBean.icraDosyaID));
+		izleme.setIzlemeTarihi(new Date());
+		izleme.setPersonelId(Util.getUser().getUsrId());
+	}
+	
+	
+	
 
 	public StaticDegerler getStaticDegerler() {
 		staticDegerler.setBorcluAdi(AktifBean.borcluAdi);
@@ -33,16 +54,17 @@ public class IzlemeBilgisiBean {
 
 		return staticDegerler;
 	}
+	
+	
+	
+	
 
 	public void setStaticDegerler(StaticDegerler staticDegerler) {
 		this.staticDegerler = staticDegerler;
 	}
 
-	private int status;
-	boolean panelRender;
-	boolean buttonDisabled;
 
-	public ArrayList<IzlemeBilgisiKaydi> getIzlemeList() throws Exception {
+	public ArrayList<IzlemeBilgisi> getIzlemeList() throws Exception {
 
 		izlemeList = dao.getAllListFromIcraDosyaID(AktifBean.getIcraDosyaID());
 
@@ -50,15 +72,15 @@ public class IzlemeBilgisiBean {
 
 	}
 
-	public void setIzlemeList(ArrayList<IzlemeBilgisiKaydi> izlemeList) {
+	public void setIzlemeList(ArrayList<IzlemeBilgisi> izlemeList) {
 		this.izlemeList = izlemeList;
 	}
 
-	public IzlemeBilgisiKaydi getIzleme() {
+	public IzlemeBilgisi getIzleme() {
 		return izleme;
 	}
 
-	public void setIzleme(IzlemeBilgisiKaydi izleme) {
+	public void setIzleme(IzlemeBilgisi izleme) {
 		this.izleme = izleme;
 	}
 
@@ -86,13 +108,7 @@ public class IzlemeBilgisiBean {
 		this.buttonDisabled = buttonDisabled;
 	}
 
-	public IzlemeBilgisiBean() {
-
-		status = 0;
-		PanelClose();
-		ButtonOpen();
-		izleme = new IzlemeBilgisiKaydi();
-	}
+	
 
 	public void onDateSelect(SelectEvent event) {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -103,7 +119,7 @@ public class IzlemeBilgisiBean {
 
 	public void YeniKayit() {
 
-		izleme = new IzlemeBilgisiKaydi();
+		izleme = new IzlemeBilgisi();
 		status = 0;
 		PanelOpen();
 
@@ -111,6 +127,10 @@ public class IzlemeBilgisiBean {
 
 	public void PanelOpen() {
 		this.setPanelRender(true);
+		
+		izleme=new IzlemeBilgisi();
+		izleme.setIzlemeTarihi(new Date());
+		
 		ButtonClose();
 
 	}
@@ -159,6 +179,9 @@ public class IzlemeBilgisiBean {
 					if (result) {
 
 						context.addMessage(null, new FacesMessage("Kaydedildi!"));
+						
+						izleme.setCagriAdet(izleme.getCagriAdet()+1);
+						
 
 					} else {
 
@@ -190,6 +213,9 @@ public class IzlemeBilgisiBean {
 
 			}
 		}
+		
+		izleme=new IzlemeBilgisi();
+		
 
 	}
 
@@ -197,17 +223,19 @@ public class IzlemeBilgisiBean {
 
 		status = 1;
 
-		ArrayList<IzlemeBilgisiKaydi> list = dao.getAllListFromIcraDosyaID(AktifBean.icraDosyaID);
+		ArrayList<IzlemeBilgisi> list = dao.getAllListFromIcraDosyaID(AktifBean.icraDosyaID);
 
 		int id = Integer.parseInt(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap()
 				.get("buttonDuzenle").toString());
 
-		for (IzlemeBilgisiKaydi hem : list) {
+		for (IzlemeBilgisi hem : list) {
 			if (hem.getId() == id) {
 				izleme = hem;
 			}
 		}
 		izlemeList = dao.getAllListFromIcraDosyaID(AktifBean.icraDosyaID);
+		izleme.setCagriAdet(dao.izlemeSayisi(AktifBean.icraDosyaID));
+		
 		PanelOpen();
 		ButtonClose();
 

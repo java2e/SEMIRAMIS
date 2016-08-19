@@ -42,6 +42,8 @@ import pelops.model.LogError;
 @SessionScoped
 public class IcraDosyaIslemleriBean {
 
+	
+	private String dosyaStatusu="Dosya Seçilmedi!";
 	LogErrorDAO log = new LogErrorDAO();
 	Date nowDate = new Date();
 	LogError newlog;
@@ -182,7 +184,7 @@ public class IcraDosyaIslemleriBean {
 	private String Ev_1 = "img/acikgri.png", Ev_2 = "img/acikgri.png", Ev_3 = "img/acikgri.png",
 			Ev_4 = "img/acikgri.png";
 
-	private String kart_1 = "img/HSBC-ADVANCE.jpg", kart2 = "img/HSBC-GOLD.jpg", kart_3 = "img/HSBC-PLATİNİUM.jpg",
+	private String kart_1 = "img/hsbc_kart.jpg", kart2 = "img/HSBC-GOLD.jpg", kart_3 = "img/HSBC-PLATİNİUM.jpg",
 			kart_4 = "HSBC-PREMİER.jpg";
 
 	public String getKart_1() {
@@ -463,7 +465,7 @@ public class IcraDosyaIslemleriBean {
 		hesap = new Hesap();
 		baglanti = new Baglanti();
 		borclubilgisi = new BorcluBilgisi();
-		plakaGetir();
+		//plakaGetir();
 		hesaplarlistesi = new ArrayList<HesaplarList>();
 		icradosyasi.setBK84("E");
 		icradosyasi.setKKDF("H");
@@ -575,7 +577,7 @@ public class IcraDosyaIslemleriBean {
 		hesap = new Hesap();
 		baglanti = new Baglanti();
 		borclubilgisi = new BorcluBilgisi();
-		plakaGetir();
+		//plakaGetir();
 		hesaplarlistesi = new ArrayList<HesaplarList>();
 		icradosyasi.setBK84("E");
 		icradosyasi.setKKDF("H");
@@ -697,6 +699,8 @@ public class IcraDosyaIslemleriBean {
 			pelops.controller.AktifBean.setBorcluAdi(daoborclu.Liste(borclubilgisiID).getAdSoyad());
 
 			icradosyasilistesi = icradosyasidao.Listele(icradosyaID);
+			
+			dosyaStatusu=icradosyasidao.getDosyaStatusu(icradosyasilistesi.getDosyaStatusuId());
 
 			BorcluBilgisiDAO borcludao = new BorcluBilgisiDAO();
 			borclubilgisilistesi = borcludao.Liste(borclubilgisiID);
@@ -705,7 +709,7 @@ public class IcraDosyaIslemleriBean {
 
 			AlacakliDAO alacaklidao = new AlacakliDAO();
 			alacaklilistesi = alacaklidao.ListeGetir(alacakliID);
-			plakaGetir();
+			//plakaGetir();
 			Hesapla();
 		}
 
@@ -724,6 +728,8 @@ public class IcraDosyaIslemleriBean {
 			IcraDosyasiDAO icradosyasidao = new IcraDosyasiDAO();
 
 			IcraDosyasi icraDosyasi = icradosyasidao.Listele(id);
+			
+			dosyaStatusu=icradosyasidao.getDosyaStatusu(icraDosyasi.getDosyaStatusuId());
 
 			String icradosyano = icraDosyasi.getIcraDosyaNo();
 
@@ -793,7 +799,7 @@ public class IcraDosyaIslemleriBean {
 
 					hesapTarihi = new Date();
 
-					plakaGetir();
+					//plakaGetir();
 
 					Hesapla();
 					refreshPanelVisible();
@@ -1062,87 +1068,7 @@ public class IcraDosyaIslemleriBean {
 		AktifBean.hesaplistesi = hesaplistesi;
 	} // PROSEDÜR SONU
 
-	public void plakaGetir() throws Exception {
-		IcraDosyasiDAO icd = new IcraDosyasiDAO();
-		AracSayisi = icd.MalSayisi("Araç", AktifBean.getBorcluId());
-		EvSayisi = icd.MalSayisi("Ev", AktifBean.getBorcluId());
-
-		if (EvSayisi == 0) {
-			Ev = "img/acikgri.png";
-			Ev_1 = "img/acikgri.png";
-			Ev_2 = "img/acikgri.png";
-			Ev_3 = "img/acikgri.png";
-			Ev_4 = "img/acikgri.png";
-		} else if (EvSayisi == 1) {
-			Ev = "img/Gayrimenkul.png";
-			Ev_1 = "img/Gayrimenkul.png";
-			Ev_2 = "img/acikgri.png";
-			Ev_3 = "img/acikgri.png";
-			Ev_4 = "img/acikgri.png";
-
-		} else if (EvSayisi == 2) {
-			Ev = "img/Gayrimenkul_2.png";
-			Ev_1 = "img/Gayrimenkul.png";
-			Ev_2 = "img/Gayrimenkul.png";
-			Ev_3 = "img/acikgri.png";
-			Ev_4 = "img/acikgri.png";
-		} else if (EvSayisi == 3) {
-			Ev = "img/Gayrimenkul_3.png";
-			Ev_1 = "img/Gayrimenkul.png";
-			Ev_2 = "img/Gayrimenkul.png";
-			Ev_3 = "img/Gayrimenkul.png";
-			Ev_4 = "img/acikgri.png";
-		} else {
-			Ev = "img/Gayrimenkul_4.png";
-			Ev_1 = "img/Gayrimenkul.png";
-			Ev_2 = "img/Gayrimenkul.png";
-			Ev_3 = "img/Gayrimenkul.png";
-			Ev_4 = "img/Gayrimenkul.png";
-		}
-
-		if (AracSayisi == 0) {
-			Arac = "img/acikgri.png";
-			Arac_1 = "img/acikgri.png";
-			Arac_2 = "img/acikgri.png";
-			Arac_3 = "img/acikgri.png";
-			Arac_4 = "img/acikgri.png";
-
-		} else if (AracSayisi == 1) {
-			Arac = "img/Arac.png";
-			Arac_1 = "img/Arac.png";
-			Arac_2 = "img/acikgri.png";
-			Arac_3 = "img/acikgri.png";
-			Arac_4 = "img/acikgri.png";
-		} else if (AracSayisi == 2) {
-			Arac = "img/Arac_2.png";
-			Arac_1 = "img/Arac.png";
-			Arac_2 = "img/Arac.png";
-			Arac_3 = "img/acikgri.png";
-			Arac_4 = "img/acikgri.png";
-		} else if (AracSayisi == 3) {
-			Arac = "img/Arac_3.png";
-			Arac_1 = "img/Arac.png";
-			Arac_2 = "img/Arac.png";
-			Arac_3 = "img/Arac.png";
-			Arac_4 = "img/acikgri.png";
-		} else if (AracSayisi >= 4) {
-			Arac = "img/Arac_4.png";
-			Arac_1 = "img/Arac.png";
-			Arac_2 = "img/Arac.png";
-			Arac_3 = "img/Arac.png";
-			Arac_4 = "img/Arac.png";
-		}
-
-		itirazDurum();
-		bilaDurum();
-		hitamDurum();
-		maasDurum();
-		hacizDurum();
-		hacizDurumAraba();
-		hacizDurumEv();
-		hacizDurumMaas();
-
-	}
+	
 
 	public void itirazDurum() {
 		IcraDosyasiDAO icd = new IcraDosyasiDAO();
@@ -1376,6 +1302,17 @@ public class IcraDosyaIslemleriBean {
 			this.isdialogsVisible = false;
 		}
 	}
+
+	public String getDosyaStatusu() {
+		return dosyaStatusu;
+	}
+
+	public void setDosyaStatusu(String dosyaStatusu) {
+		this.dosyaStatusu = dosyaStatusu;
+	}
+	
+	
+	
 
 	// public void getirURL(int deger){
 	//

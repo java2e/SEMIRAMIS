@@ -25,9 +25,11 @@
 			</p:outputLabel>
 
 		</p:panel>
-		<p:growl id="growl" showSummary="true" showDetail="true"
-			autoUpdate="true" />
+	
+<p:panel header="Dosya Zaman Çizelgesi" toggleable="true" collapsed="true">
 
+	<p:growl id="growl" showSummary="true" showDetail="true"
+			autoUpdate="true" />
 		<p:fieldset style="white-space:nowrap;" rendered="false">
 			<h:panelGrid columns="8"
 				columnClasses="formColumn,,formColumn,,formColumn,,formColumn,,">
@@ -103,8 +105,9 @@
 				<h:graphicImage library="images" name="#{task.imagePath}" />
 			</pe:timeline>
 		</p:panel>
+		
 		<p:spacer width="100%" height="20" />
-
+</p:panel>
 		<p:dataTable id="datatable" var="list" rows="10" paginator="true"
 			value="#{basicTimelineController.chronologies}"
 			rowIndexVar="rowIndex">

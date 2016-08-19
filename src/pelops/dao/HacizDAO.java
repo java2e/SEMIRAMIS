@@ -270,7 +270,9 @@ public class HacizDAO extends DBConnection {
 	public ArrayList<String> getHaczeEsasMalBilgisiFromBorcluID(int id)
 			throws Exception {
 		ArrayList<String> malList = new ArrayList<String>();
-		SQL = "SELECT mal_tipi FROM tbl_hacze_esas_mal_bilgisi where borclu_id ="
+		SQL = "SELECT mal.adi as mal_tipi FROM tbl_hacze_esas_mal_bilgisi hcz "
+				+ " INNER JOIN tbl_mal_tipi mal on hcz.mal_tipi_id=mal.id"
+				+ " where hcz.borclu_id ="
 				+ id + ";";
 		
 		newConnectDB();

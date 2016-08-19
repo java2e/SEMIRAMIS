@@ -8,17 +8,6 @@
 
 <h:head>
 	<meta name="viewport" content="width=980,initial-scale=0.5"></meta>
-	
-	
-	<style>
-	
-	.titleColor > .ui-panel-titlebar {
-    background: #2E9AFE;
-    }
-    
-	
-	</style>
-	
 
 </h:head>
 <h:body onload="$('#hh').click();">
@@ -43,95 +32,14 @@
 	
 	
 
-<p:commandButton id="hh" actionListener="#{muameleislemlerbean.init()}" style="display:none" update="genelForm"/>
-
-		<p:panel id="girisPaneli" styleClass="titleColor" header="MÜZEKKERE VE TALEP İŞLEMLERİ" style="width:100%;">
+		<p:panel id="girisPaneli" header="Muamele İşlem" style="width:100%;">
 		
 		<p:focus context="girisPaneli"/>
 		
-		
-		<p:layout style="min-width:400px; height:1000px;" id="updatePanel">
-		
-		<p:layoutUnit position="west" size="60%">
-			
+			<p:panelGrid id="updatePanel" style="width:100%;">
+				<p:column style="width:60%;">
 				
-			
-
-<p:panel id="dosyaPaneli" styleClass="titleColor" header="İCRA DOSYA GENEL BİLGİSİ" style="width:100%;">
-					<p:panelGrid columns="4" style="width:100%">
-
-						<p:outputLabel value="Dosya" />
-
-						<p:commandButton value="Yeni Dosya Seç" icon="ui-icon-zoomin "
-							ajax="false" type="button" onclick="PF('arama').show();"
-							style="width:100%;color:red"/>
-
-
-						<p:outputLabel  value="İcra Dosya No" />
-						<p:inputText value="#{muameleislemlerbean.muamele.icraDosyaNo}"
-							readonly="true" requiredMessage="İcra Dosya No'yu Doldurunuz !!!"
-							required="#{muameleislemlerbean.ctrl.icraDosyaNo}"
-							style="font-size:16px; font-weight:bold;width:100%" />
-
-
-						<p:outputLabel value="Icra Müdürlüğü" />
-						<p:selectOneMenu id="iMudurlugu"
-							value="#{muameleislemlerbean.muamele.icraMudurluguId}"
-							required="#{muameleislemlerbean.ctrl.icraMudurluguId}"
-							requiredMessage="İcra Müdürlüğünü Doldurunuz !!!"
-							style="width:100%;font-size:16px; font-weight:bold;">
-							<f:selectItem itemLabel="İcra Müdürlüğü Seçiniz..." itemValue="" />
-							<f:selectItems
-								value="#{geneltanimbean.ListeGetir('tbl_icra_mudurlugu')}"
-								var="list" itemLabel="#{list.adi}" itemValue="#{list.id}" />
-						</p:selectOneMenu>
-
-
-
-						<p:outputLabel value="Borçlu Adı" />
-						<p:inputText value="#{muameleislemlerbean.muamele.borcluAdi}"
-							readonly="true" requiredMessage="Borçlu Adını Doldurunuz !!!"
-							style="font-size:16px; font-weight:bold;width:100%" />
-
-						<p:outputLabel value="Semiramis No " />
-						<p:inputText value="#{muameleislemlerbean.muamele.semiramisNo}"
-							required="#{muameleislemlerbean.ctrl.semiramisNo}"
-							style="width:100%;font-size:16px; font-weight:bold;" />
-
-
-						<p:outputLabel value="Borçlu Miktarı" />
-						<p:inputText value="#{muameleislemlerbean.muamele.borcluMiktari}"
-							required="#{muameleislemlerbean.ctrl.borcluMiktari}"
-							requiredMessage="Borçlu Miktarını Doldurunuz !!!"
-							style="width:100%;font-size:16px; font-weight:bold;" />
-
-
-
-
-						<p:outputLabel value="Borçlu Adresi" />
-						<p:inputTextarea rows="5" cols="45" queryDelay="750"
-							required="#{muameleislemlerbean.ctrl.borcluAdresi}"
-							requiredMessage="Borçlu Adresini Doldurunuz !!!"
-							style="width:100%;font-size:16px; font-weight:bold;" minQueryLength="4"
-							value="#{muameleislemlerbean.muamele.borcluAdresi}" />
-
-
-
-						<p:outputLabel value="Talep İfadesi" />
-						<p:inputTextarea rows="5" cols="45" queryDelay="750"
-							style="width:100%;font-size:16px; font-weight:bold;" minQueryLength="4"
-							requiredMessage="Talep İfadesini Doldurunuz !!!"
-							value="#{muameleislemlerbean.muamele.talepIfadesi}" />
-							
-							
-			</p:panelGrid>
-			
-			</p:panel>	
-			
-			
-			
-			
-				<p:tabView styleClass="titleColor">
+				<p:tabView>
 					
 					<ui:include src="/muzekkere/tab_muzekkere.xhtml"></ui:include>
 					<ui:include src="/muzekkere/tab_talep.xhtml"></ui:include>
@@ -183,11 +91,85 @@
 
 
 					<p:messages autoUpdate="true" />
-			
+
+
+					<p:panelGrid columns="4" style="width:100%">
+
+						<p:outputLabel value="Dosya" />
+
+						<p:commandButton value="Yeni Dosya Seç" icon="ui-icon-zoomin "
+							ajax="false" type="button" onclick="PF('arama').show();"
+							style="width:100%" />
+
+
+						<p:outputLabel  value="İcra Dosya No" />
+						<p:inputText value="#{muameleislemlerbean.muamele.icraDosyaNo}"
+							readonly="true" requiredMessage="İcra Dosya No'yu Doldurunuz !!!"
+							required="#{muameleislemlerbean.ctrl.icraDosyaNo}"
+							style="font-size:16px; font-weight:bold;width:100%" />
+
+
+						<p:outputLabel value="Icra Müdürlüğü" />
+						<p:selectOneMenu id="iMudurlugu"
+							value="#{muameleislemlerbean.muamele.icraMudurluguId}"
+							required="#{muameleislemlerbean.ctrl.icraMudurluguId}"
+							requiredMessage="İcra Müdürlüğünü Doldurunuz !!!"
+							style="width:100%">
+							<f:selectItem itemLabel="İcra Müdürlüğü Seçiniz..." itemValue="" />
+							<f:selectItems
+								value="#{geneltanimbean.ListeGetir('tbl_icra_mudurlugu')}"
+								var="list" itemLabel="#{list.adi}" itemValue="#{list.id}" />
+						</p:selectOneMenu>
+
+
+
+						<p:outputLabel value="Borçlu Adı" />
+						<p:inputText value="#{muameleislemlerbean.muamele.borcluAdi}"
+							readonly="true" requiredMessage="Borçlu Adını Doldurunuz !!!"
+							style="font-size:16px; font-weight:bold;width:100%" />
+
+						<p:outputLabel value="Semiramis No " />
+						<p:inputText value="#{muameleislemlerbean.muamele.semiramisNo}"
+							required="#{muameleislemlerbean.ctrl.semiramisNo}"
+							style="width:100%" />
+
+
+						<p:outputLabel value="Borçlu Miktarı" />
+						<p:inputText value="#{muameleislemlerbean.muamele.borcluMiktari}"
+							required="#{muameleislemlerbean.ctrl.borcluMiktari}"
+							requiredMessage="Borçlu Miktarını Doldurunuz !!!"
+							style="width:100%" />
+
+
+
+
+						<p:outputLabel value="Borçlu Adresi" />
+						<p:inputTextarea rows="5" cols="45" queryDelay="750"
+							required="#{muameleislemlerbean.ctrl.borcluAdresi}"
+							requiredMessage="Borçlu Adresini Doldurunuz !!!"
+							style="width:100%" minQueryLength="4"
+							value="#{muameleislemlerbean.muamele.borcluAdresi}" />
+
+
+
+						<p:outputLabel value="Talep İfadesi" />
+						<p:inputTextarea rows="5" cols="45" queryDelay="750"
+							style="width:100%" minQueryLength="4"
+							requiredMessage="Talep İfadesini Doldurunuz !!!"
+							value="#{muameleislemlerbean.muamele.talepIfadesi}" />
 							
-					<p:panel id="digerPanel" styleClass="titleColor" header="İCRA DOSYASI DİĞER BİLGİLERİ" style="width:100%;" toggleable="true" collapsed="true">	
-				
-						<p:panelGrid columns="4" style="width:100%">			
+							
+						<p:outputLabel value="Borçlu İş Yeri Adı(Muhatap)" style="color:#{muameleislemlerbean.muamele.maashacizmuzekkeresigenel ?   'black' : 'red'}"/>
+						<p:inputTextarea rows="5" cols="45" queryDelay="750"
+							style="width:100%" minQueryLength="4" required="#{muameleislemlerbean.muamele.maashacizmuzekkeresigenel}"
+							value="#{muameleislemlerbean.muamele.muhatapAdi}" requiredMessage="Müzekkere için gereklidir!(Muhattap Adı)"/>
+
+
+
+						<p:outputLabel value="Borçlu İş Yeri(Muhatap) Adresi"  style="color:#{muameleislemlerbean.muamele.maashacizmuzekkeresigenel ?   'black' : 'red'}"/>
+						<p:inputTextarea rows="5" cols="45" queryDelay="750"
+							style="width:100%" minQueryLength="4" required="#{muameleislemlerbean.muamele.maashacizmuzekkeresigenel}"
+							value="#{muameleislemlerbean.muamele.muhatapAdresi}" requiredMessage="Müzekkere için gereklidir! (Muhattap Adresi)"/>
 							
 				 	<p:outputLabel value="Büro Adresi" />
 						<p:inputTextarea rows="5" cols="45" queryDelay="750"
@@ -538,20 +520,16 @@
 
 
 					</p:panelGrid>
-					
-					</p:panel>
 
 
 <!-- Müzekkere ve Talep Seçimleri -->
 
 					
-				
-				</p:layoutUnit>
-				
-				<p:layoutUnit position="center" >
+				</p:column>
 
+				<p:column rowspan="2" style="width:40%;">
 
-					<p:panel id="pdfGoruntuleme" styleClass="titleColor" header="PDF GÖRÜNTÜLEME"
+					<p:panel id="pdfGoruntuleme" header="PDF GÖRÜNTÜLEME"
 						style="width:100%">
 						<p:panelGrid>
 							<object type="application/pdf" data="#{muameleislemlerbean.pdf}"
@@ -574,28 +552,26 @@
 								value="#{muameleislemlerbean.muamele.paragraf2}" />
 						</p:panelGrid>
 					</p:panel>
+				</p:column>
 
 
-</p:layoutUnit>
-
-</p:layout>
-
+			</p:panelGrid>
 		</p:panel>
 
 
-		<ui:include src="muzekkere_liste.xhtml"></ui:include>
+		<ui:include src="/muzekkere/muzekkere_liste.xhtml"></ui:include>
 
 		<p:dialog header="KURUM" widgetVar="dlgKurum" minHeight="340"
 			height="690">
 
-			<ui:include src="../dialog/dlg_kurum_kaydi.xhtml" />
+			<ui:include src="../dlg_kurum_kaydi.xhtml" />
 
 		</p:dialog>
 
 		<p:dialog header="BANKA" widgetVar="dlgBanka" minHeight="340"
 			height="690">
 
-			<ui:include src="../dialog/dlg_banka_kaydi.xhtml" />
+			<ui:include src="../dlg_banka_kaydi.xhtml" />
 		</p:dialog>
 
 	
@@ -604,20 +580,13 @@
 
 		<p:dialog header="DETAYLI ARAMA" widgetVar="arama" minHeight="340"
 			height="690">
-			<ui:include src="../dialog/dlg_dosya_arama_for_talep_muzekkere.xhtml" />
+			<ui:include src="../dlg_dosya_arama_for_talep_muzekkere.xhtml" />
 		</p:dialog>
 
-        <p:dialog header="GAYRİMENKUL" widgetVar="dlgGayrimenkul"
+<p:dialog header="GAYRİMENKUL" widgetVar="dlgGayrimenkul"
 			minHeight="340" height="690">
 
-			<ui:include src="../dialog/dlg_gayrimenkul_kaydi.xhtml" />
-		</p:dialog>
-
-
- 		<p:dialog header="MUHATAP BİLGİSİ" widgetVar="dlgMuhatap"
-			minHeight="340">
-
-			<ui:include src="../dialog/dlg_muhatap_bilgisi2.xhtml" />
+			<ui:include src="../dlg_gayrimenkul_kaydi.xhtml" />
 		</p:dialog>
 
 

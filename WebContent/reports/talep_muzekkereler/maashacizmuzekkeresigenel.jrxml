@@ -2,28 +2,20 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="maashacizmuzekkeresigenel" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="cfe93346-2c07-437d-adca-7e7a9777c6a0">
 	<property name="ireport.zoom" value="1.464100000000011"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="267"/>
-	<field name="alacakliBankasi" class="java.lang.String"/>
+	<property name="ireport.y" value="0"/>
+	<field name="muvekkilAdi" class="java.lang.String"/>
 	<field name="avukatAdi" class="java.lang.String"/>
-	<field name="borcluAdi" class="java.lang.String"/>
-	<field name="borcluTcKimlikNo" class="java.lang.String"/>
-	<field name="konu" class="java.lang.String"/>
-	<field name="icraMudurluguAdi" class="java.lang.String"/>
+	<field name="borcluAdSoyad" class="java.lang.String"/>
+	<field name="icraMudurlugu" class="java.lang.String"/>
 	<field name="icraDosyaNo" class="java.lang.String"/>
-	<field name="semiramisNo" class="java.lang.String"/>
-	<field name="hazirlayan" class="java.lang.String"/>
-	<field name="riskYoneticisi" class="java.lang.String"/>
-	<field name="muameleTarihiText" class="java.lang.String"/>
-	<field name="alacakliTel" class="java.lang.String"/>
-	<field name="alacakliMail" class="java.lang.String"/>
-	<field name="borcluMiktariTxt" class="java.lang.String"/>
-	<field name="buroIbanNo" class="java.lang.String"/>
-	<field name="buroAdresi" class="java.lang.String"/>
-	<field name="borcluTc" class="java.lang.String"/>
-	<field name="hazirlayanText" class="java.lang.String"/>
-	<field name="riskYoneticisiText" class="java.lang.String"/>
-	<field name="muhatapAdi" class="java.lang.String"/>
-	<field name="muhatapAdresi" class="java.lang.String"/>
+	<field name="icraDosyaID" class="java.lang.Integer"/>
+	<field name="muameleTarihiTxt" class="java.lang.String"/>
+	<field name="borcMiktariTxt" class="java.lang.String"/>
+	<field name="avukatIBAN" class="java.lang.String"/>
+	<field name="borcluTcNo" class="java.lang.String"/>
+	<field name="personelAdSoyad" class="java.lang.String"/>
+	<field name="borcluIsyeriAdi" class="java.lang.String"/>
+	<field name="borcluIsyeriAdres" class="java.lang.String"/>
 	<field name="barkod" class="java.lang.Object"/>
 	<background>
 		<band splitType="Stretch"/>
@@ -50,7 +42,7 @@ ANKARA]]></text>
 				<textElement verticalAlignment="Middle">
 					<font size="8" isBold="true" pdfEncoding="Cp1254"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{icraMudurluguAdi}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{icraMudurlugu}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="70" y="42" width="195" height="20" uuid="55d9d696-79c6-452d-ac82-120a809ccf3b"/>
@@ -64,21 +56,21 @@ ANKARA]]></text>
 				<textElement verticalAlignment="Middle">
 					<font pdfEncoding="Cp1254"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{muameleTarihiText}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{muameleTarihiTxt}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="5" y="62" width="546" height="20" uuid="00e65a00-63d6-46ca-96be-c023253009cd"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="12" isBold="true" pdfFontName="Times-Roman" pdfEncoding="Cp1254"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{muhatapAdi}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{borcluIsyeriAdi}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="5" y="82" width="548" height="20" uuid="586faed9-99e4-4140-95ce-6b72f2a2c857"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="12" isBold="true" pdfEncoding="Cp1254"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{muhatapAdresi}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{borcluIsyeriAdres}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>
@@ -151,7 +143,7 @@ ANKARA]]></text>
 				<textElement textAlignment="Justified" verticalAlignment="Middle">
 					<font pdfEncoding="Cp1254"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{alacakliBankasi}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{muvekkilAdi}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="97" y="29" width="37" height="20" uuid="a60262e1-c6bb-48e0-b23b-55ceae888771"/>
@@ -193,7 +185,7 @@ ANKARA]]></text>
 				<textElement textAlignment="Justified" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="10" pdfEncoding="Cp1254"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{borcluAdi}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{borcluAdSoyad}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="239" y="113" width="60" height="19" uuid="bfe5289f-ca02-4382-b5f0-21ef88900356"/>
@@ -370,7 +362,7 @@ veya müstahdemlerin maaş ve ücretlerinden kesilmesi için icra dairelerinden 
 				<textElement>
 					<font fontName="Times New Roman" pdfEncoding="Cp1254"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{icraMudurluguAdi}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{icraMudurlugu}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="327" y="640" width="69" height="15" uuid="dd3ae404-31f3-4e5d-9ce8-3bc6275d7769"/>
@@ -384,7 +376,7 @@ veya müstahdemlerin maaş ve ücretlerinden kesilmesi için icra dairelerinden 
 				<textElement verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="8" isItalic="true" pdfEncoding="Cp1254"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{semiramisNo}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{icraDosyaID}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="327" y="656" width="69" height="17" uuid="9401c871-8649-4373-9536-e986f530ee3d"/>
@@ -401,39 +393,39 @@ veya müstahdemlerin maaş ve ücretlerinden kesilmesi için icra dairelerinden 
 				<text><![CDATA[Risk Yöneticisi :]]></text>
 			</staticText>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="106" y="174" width="105" height="20" uuid="3d47e182-1dcd-4862-a4aa-87bf75c35a71"/>
+				<reportElement x="106" y="174" width="128" height="20" uuid="3d47e182-1dcd-4862-a4aa-87bf75c35a71"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="10" pdfEncoding="Cp1254"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{borcluMiktariTxt}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{borcMiktariTxt}+" TL"]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="340" y="620" width="183" height="15" uuid="edb32705-ca53-4f6d-a51d-71bd0da77c9f"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Times New Roman" pdfEncoding="Cp1254"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{buroIbanNo}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{avukatIBAN}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="136" y="89" width="289" height="20" uuid="21da9847-3a49-4026-a091-21b5b7b12ca6"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Times New Roman" pdfEncoding="Cp1254"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{buroIbanNo}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{avukatIBAN}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="302" y="113" width="100" height="19" uuid="c8b12600-c5d7-4a24-9a7a-47a283f6fc57"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Times New Roman" pdfEncoding="Cp1254"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{borcluTc}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{borcluTcNo}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="397" y="671" width="126" height="20" uuid="bc002155-483a-4ce7-b5b3-408d3cc7dd88"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="8" isItalic="true" pdfEncoding="Cp1254"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{riskYoneticisiText}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{personelAdSoyad}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="106" y="142" width="275" height="20" uuid="7d9ed329-a73d-4887-81c3-e557ec4dd865"/>

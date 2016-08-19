@@ -22,20 +22,17 @@
 						<p:outputLabel value="Borçlu İş Yeri Adı(Muhatap)" style="color:#{muameleislemlerbean.muamele.maashacizmuzekkeresigenel ?   'black' : 'red'}"/>
 						<p:inputTextarea rows="5" cols="45" queryDelay="750"
 							style="width:100%" minQueryLength="4" 
-							value="#{muameleBean.muamele.borcluIsyeriAdi}" />
+							value="#{muameleislemlerbean.muamele.muhatapAdi}" />
 
 
 
 						<p:outputLabel value="Borçlu İş Yeri(Muhatap) Adresi"  style="color:#{muameleislemlerbean.muamele.maashacizmuzekkeresigenel ?   'black' : 'red'}"/>
 						<p:inputTextarea rows="5" cols="45" queryDelay="750"
 							style="width:100%" minQueryLength="4" 
-							value="#{muameleBean.muamele.borcluIsyeriAdres}" />
+							value="#{muameleislemlerbean.muamele.muhatapAdresi}" />
 							
 			
 			</p:panelGrid>
-			<center>
-			<p:commandButton value="KAYDET" action="#{muameleBean.borcluMuhatapGuncelleme}" />
-			</center>
 			</p:panel>	
 
 

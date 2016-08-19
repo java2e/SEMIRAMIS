@@ -3,15 +3,11 @@
 	<property name="ireport.zoom" value="1.3310000000000008"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<field name="icraMudurluguAdi" class="java.lang.String"/>
+	<field name="icraMudurlugu" class="java.lang.String"/>
 	<field name="icraDosyaNo" class="java.lang.String"/>
-	<field name="sgk_standart_text" class="java.lang.String"/>
-	<field name="egm_standart_text" class="java.lang.String"/>
-	<field name="tapu_standart_text" class="java.lang.String"/>
-	<field name="posta_standart_text" class="java.lang.String"/>
-	<field name="muameleTarihiText" class="java.lang.String"/>
-	<field name="muhatapAdi" class="java.lang.String"/>
-	<field name="muhatapAdresi" class="java.lang.String"/>
+	<field name="muameleTarihiTxt" class="java.lang.String"/>
+	<field name="borcluIsyeriAdi" class="java.lang.String"/>
+	<field name="borcluIsyeriAdres" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -30,7 +26,7 @@ ANKARA]]></text>
 				<textElement verticalAlignment="Middle">
 					<font pdfEncoding="Cp1254"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{icraMudurluguAdi}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{icraMudurlugu}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="10" y="49" width="275" height="20" uuid="9c5380c5-2255-4c04-8670-a10ffa99cbd1"/>
@@ -62,7 +58,7 @@ ANKARA]]></text>
 				<textElement verticalAlignment="Middle">
 					<font pdfEncoding="Cp1254"/>
 				</textElement>
-				<textFieldExpression><![CDATA["İş bu talep uyap üzerinden  e-imza ile "+$F{muameleTarihiText}+" tarihinde gönderilmiştir."]]></textFieldExpression>
+				<textFieldExpression><![CDATA["İş bu talep uyap üzerinden  e-imza ile "+$F{muameleTarihiTxt}+" tarihinde gönderilmiştir."]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="36" y="19" width="473" height="214" uuid="0bb54fda-6262-441d-8471-56d9c795fb5e"/>
@@ -80,14 +76,14 @@ Borçlunun uyap üzerinden e-imza ile uyap üzerinden sgk sorgusu yapılmıştı
 				<textElement verticalAlignment="Middle">
 					<font fontName="Calibri" size="11" pdfFontName="Times-Roman" pdfEncoding="Cp1254"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{muhatapAdi}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{borcluIsyeriAdi}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="22" y="275" width="285" height="56" uuid="6614f82d-0289-4345-ab16-31833c9d8502"/>
 				<textElement verticalAlignment="Top">
 					<font fontName="Calibri" size="11" pdfFontName="Times-Roman" pdfEncoding="Cp1254"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{muhatapAdresi}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{borcluIsyeriAdres}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

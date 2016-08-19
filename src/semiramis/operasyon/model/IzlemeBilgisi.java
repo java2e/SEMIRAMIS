@@ -1,9 +1,9 @@
-package pelops.model;
+package semiramis.operasyon.model;
 
 import java.util.Date;
 
 
-public class IzlemeBilgisiKaydi {
+public class IzlemeBilgisi {
 
 	private int id;
 	private Date izlemeTarihi;
@@ -15,6 +15,8 @@ public class IzlemeBilgisiKaydi {
 	private int icraDosyasiId;
 	private int IzlemeSonucuId;
 	private String izlemeSonucu;
+	private boolean vizitDurumu;
+	private int cagriAdet;
 
 	
 
@@ -98,5 +100,26 @@ public class IzlemeBilgisiKaydi {
 	public void setPersonelId(int personelId) {
 		PersonelId = personelId;
 	}
+
+	public boolean isVizitDurumu() {
+		return vizitDurumu;
+	}
+
+	public void setVizitDurumu(boolean vizitDurumu) {
+		this.vizitDurumu = vizitDurumu;
+	}
+
+	public int getCagriAdet() {
+		return cagriAdet;
+	}
+
+	public void setCagriAdet(int cagriAdet) {
+		this.cagriAdet = cagriAdet;
+	}
+
+
+	
+	
+	
 
 }

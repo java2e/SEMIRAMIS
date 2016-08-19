@@ -149,6 +149,36 @@ public class BorcluBilgisiDAO extends DBConnection {
 		return id;
 
 	}
+	
+	public void guncellemeMuhattapBilgisi(String isYeriAdi,String isYeriAdres,int borcluId)
+	{
+		
+		
+		try {
+			
+			String sql="UPDATE tbl_borclu SET is_yeri_adi='"+isYeriAdi+"',isyeri_adres='"+isYeriAdres+"' WHERE id="+borcluId;
+			
+			newConnectDB();
+			
+			Statement stmt=conn.createStatement();
+			
+			stmt.execute(sql);
+			
+			disconnectDB();
+			
+			
+			
+		} catch (Exception e) {
+			
+
+			System.out.println("HATA borcluDAO guncellemeMuhattapBilgisi :"+e.getMessage());
+			
+			
+		}
+		
+		
+		
+	}
 
 	public BorcluBilgisi getBorcluBilgisi(String ad) throws Exception {
 		String sql = "select * from tbl_borclu where ad_soyad = '" + ad + "';";

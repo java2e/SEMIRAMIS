@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<ui:composition>
+	
+	
+	
+	<p:tab title="Müzekkereler">
+
+							<!-- PANEL1 BAŞLANGIÇ -->
+
+
+							<p:panel header="MUZEKKERE ALAN İLE YAZDIR"
+								rendered="true" id="panel1"
+								style="width:100%">
+								
+								
+								
+								<p:panelGrid rendered="#{printBean.checkComboboxValue('3', printBean.takipAcilisEvrakYazdirma )}"
+									columns="4" style=" border-style: hidden !important;">
+									
+									<p:outputLabel>Müzekkere Tipi Seçiniz :</p:outputLabel>
+									
+									<p:selectOneMenu value="#{muameleBean.muamele.muzekkereId}">
+									
+									<f:selectItem itemLabel="MÜZEKKERE TİPİ SEÇİNİZ" itemValue="0"/>
+									<f:selectItems value="#{muameleBean.muzekkereList}" var="muzekkere" itemLabel="#{muzekkere.adi}" itemValue="#{muzekkere.id}"/>
+									
+									<f:ajax event="change" listener="#{muameleBean.changeMuzekkereTipi}"/>
+									
+									
+									</p:selectOneMenu>
+									
+									<p:outputLabel value="Adeti" />
+										<p:spinner min="1"
+											disabled="#{muameleislemlerbean.muamele.maashacizmuzekkeresigenelVisible}"
+											value="#{muameleBean.muamele.muzekkereTalepMiktari}"
+											size="1" />
+										
+									
+									
+									</p:panelGrid>
+								
+								
+								
+								
+							
+							</p:panel>
+
+						</p:tab>
+	
+	
+	</ui:composition>
+	
+	
+	</html>

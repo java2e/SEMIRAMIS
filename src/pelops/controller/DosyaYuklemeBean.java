@@ -19,8 +19,8 @@ import org.primefaces.model.UploadedFile;
 
 import pelops.dao.DosyaYuklemeDAO;
 import pelops.model.DosyaYukleme;
-import pelops.model.IzlemeBilgisiKaydi;
 import pelops.model.Tipi;
+import semiramis.operasyon.model.IzlemeBilgisi;
 
 @ManagedBean(name = "DosyaYuklemeBean")
 @SessionScoped

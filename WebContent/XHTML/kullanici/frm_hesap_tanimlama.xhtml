@@ -98,7 +98,7 @@
 					
 					<p:outputLabel value="Kullanıcı Fotoğraf :"/>
 					 <p:fileUpload fileUploadListener="#{hesapTanimlamaBean.handleFileUpload}" mode="advanced" dragDropSupport="false"
-          				 update="msgs" sizeLimit="100000" fileLimit="3" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
+          				 update="msgs" sizeLimit="100000000" fileLimit="3" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
 
 					<p:outputLabel value="İptal:" />
 					<p:selectBooleanCheckbox value="#{hesapTanimlamaBean.updatedUser.usrIptal}"/>

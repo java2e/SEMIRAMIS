@@ -5,7 +5,9 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Date;
 
-public class DBConnection {
+import semimis.utils.ConvertDate;
+
+public class DBConnection extends ConvertDate {
 
 	public Connection conn = null;
 

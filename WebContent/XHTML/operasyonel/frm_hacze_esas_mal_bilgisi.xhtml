@@ -1,0 +1,325 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fcore="http://java.sun.com/jsf/core">
+
+
+
+<h:body>
+
+	<p:panel id="tbl"
+		style="width:200 ;height:100;">
+		<h:form id="form" onkeypress="return event.keyCode !=13">
+			<p:growl id="msgs" showDetail="true" />
+			<p:panel id="girisPanel" header="Hacze Esas Mal Bilgisi Ekleme/Güncelleme Paneli"
+				visible="#{haczeEsasMalBilgisiBean2.updatedVisible}">
+				
+				<p:panelGrid columns="2"
+					style="margin-top:10px;border-style: hidden !important">
+
+					<p:outputLabel style="width: 150px">İcra Dosya No :</p:outputLabel>
+
+					<p:inputText id="icraDosyaNo"
+						value="#{haczeEsasMalBilgisiBean2.icraDosyaNO}"
+						style="width: 250px" readonly="true"></p:inputText>
+
+
+					<p:outputLabel style="width: 150px"> Müvekkil Adı :</p:outputLabel>
+
+					<p:inputText id="müvekkilAdi" readonly="true"
+						value="#{haczeEsasMalBilgisiBean2.muvekkliAdi}"
+						style="width: 250px"
+						converterMessage="Eksik veya Fazla Giriş Yaptınız.">
+					</p:inputText>
+
+
+					<h:outputLabel>Borçlu Adı :</h:outputLabel>
+
+					<p:inputText id="borcluAdi"
+						value="#{haczeEsasMalBilgisiBean2.borcluAdi}" style="width: 250px"
+						readonly="true"></p:inputText>
+
+
+				</p:panelGrid>
+				
+				
+		<p:panel header="Mal Tipi" style="width:50%;">		
+		<p:panelGrid columns="4" id="maltipi"
+					style="border-style: hidden !important">
+				
+				<h:outputLabel>Mal Tipi:</h:outputLabel>
+
+					<p:selectOneMenu id="selectOneMalTipi" required="false"
+						value="#{haczeEsasMalBilgisiBean2.updatedHczEsasMal.malTipiId}"
+						requiredMessage="Bu alanı doldurunuz" style="width:260px">
+
+						<p:ajax event="change"  update="form" listener="#{haczeEsasMalBilgisiBean2.changePanel}" />
+
+						<f:selectItem itemValue="" itemLabel=""></f:selectItem>
+
+						<f:selectItems
+							value="#{geneltanimbean.ListeGetir('tbl_mal_tipi')}" var="list"
+							itemLabel="#{list.adi}" itemValue="#{list.id}"></f:selectItems>
+					</p:selectOneMenu>
+
+					<p:outputLabel>Menkul Bilgisi :</p:outputLabel>
+					<p:inputTextarea id="inputTextMenkulBilgisi" required="false"
+						requiredMessage="Bu alanı doldurunuz"
+						value="#{haczeEsasMalBilgisiBean2.updatedHczEsasMal.menkulBilgisi}"
+						style="width: 250px"></p:inputTextarea>
+						
+						</p:panelGrid>
+		</p:panel>		
+
+			<p:panel id="pnlMaas" header="Mevduat ve Maaş Bilgisi" style="width:50%;" visible="#{haczeEsasMalBilgisiBean2.panelMaas}">
+
+
+				<p:panelGrid columns="4" id="malMev"
+					style="border-style: hidden !important">
+
+					
+					<h:outputLabel>Mevduat Bilgisi:</h:outputLabel>
+					<p:inputText id="inputTextMevduatBilgisi"
+						value="#{haczeEsasMalBilgisiBean2.updatedHczEsasMal.mevduatBilgisi}"
+						style="width: 250px">
+
+					</p:inputText>
+
+					<h:outputLabel>Muhatap Adı:</h:outputLabel>
+					<p:inputText id="inputTextMuhatapAdı"
+						value="#{haczeEsasMalBilgisiBean2.updatedHczEsasMal.muhatapAdi}"
+						style="width: 250px">
+
+					</p:inputText>
+
+					<p:outputLabel>Muahatap Adresi :</p:outputLabel>
+					<p:inputTextarea id="inputTextMuhatapAdresi" required="false"
+						requiredMessage="Bu alanı doldurunuz"
+						value="#{haczeEsasMalBilgisiBean2.updatedHczEsasMal.muhatapAdresi}"
+						style="width: 250px"></p:inputTextarea>
+
+
+					<p:outputLabel>Diğer Bilgiler :</p:outputLabel>
+					<p:inputTextarea id="inputTextDiger" required="false"
+						requiredMessage="Bu alanı doldurunuz"
+						value="#{haczeEsasMalBilgisiBean2.updatedHczEsasMal.digerBilgiler}"
+						style="width: 250px"></p:inputTextarea>
+
+				</p:panelGrid>
+				
+				</p:panel>
+
+
+<p:panel id="pnlTapu" header="Tapu Bilgisi" style="width:50%;" rendered="#{haczeEsasMalBilgisiBean2.panelTapu}">
+
+			
+				<p:panelGrid columns="4"
+					style="margin-bottom:10px;border-style: hidden !important"
+					id="tapuArac">
+
+
+					<p:outputLabel style="width: 150px">Tapu İl :</p:outputLabel>
+					<p:selectOneMenu id="il"
+						value="#{haczeEsasMalBilgisiBean2.updatedHczEsasMal.tapuIlId}"
+						style="width: 260px">
+						<f:selectItem itemValue="" itemLabel=""></f:selectItem>
+						<p:ajax event="change" update="ilce" />
+						<f:selectItems value="#{genelSehirlerBean.ListeGetirForIl()}"
+							var="iller" itemLabel="#{iller.il_adi}"
+							itemValue="#{iller.id}">
+						</f:selectItems>
+					</p:selectOneMenu>
+
+
+					<p:outputLabel>Tapu İlçe :</p:outputLabel>
+					<p:selectOneMenu id="ilce"
+						value="#{haczeEsasMalBilgisiBean2.updatedHczEsasMal.tapuIlceId}"
+						style="width: 260px">
+
+						<f:selectItems value="#{genelSehirlerBean.handleValueChange(6)}"
+							var="ilceler" itemLabel="#{ilceler.ilce_adi}"
+							itemValue="#{ilceler.id}"></f:selectItems>
+					</p:selectOneMenu>
+					
+					<p:outputLabel>Mahalle Adı :</p:outputLabel>
+					<p:inputText id="inputTextMahalleAdi"
+						value="#{haczeEsasMalBilgisiBean2.updatedHczEsasMal.tapuMahalleAdi}"
+						style="width: 250px">
+					</p:inputText>
+
+					<h:outputLabel>Mülk Tipi:</h:outputLabel>
+
+					<p:selectOneMenu id="selectOneMülkTipi" required="false"
+						value="#{haczeEsasMalBilgisiBean2.updatedHczEsasMal.mulkTipiId}"
+						requiredMessage="Bu alanı doldurunuz" style="width:260px">
+						<f:selectItem itemValue="" itemLabel=""></f:selectItem>
+						<f:selectItems
+							value="#{geneltanimbean.ListeGetir('tbl_mulk_tipi')}" var="list"
+							itemLabel="#{list.adi}" itemValue="#{list.id}"></f:selectItems>
+					</p:selectOneMenu>
+
+					<h:outputLabel>Parsel:</h:outputLabel>
+
+					<p:inputText id="inputTextParsel"
+						value="#{haczeEsasMalBilgisiBean2.updatedHczEsasMal.tapuParsel}"
+						style="width: 250px">
+					</p:inputText>
+
+					<h:outputLabel>Sayfa No:</h:outputLabel>
+
+					<p:inputText id="inputTextSayfaNo"
+						value="#{haczeEsasMalBilgisiBean2.updatedHczEsasMal.tapuSayfaNo}"
+						style="width: 250px">
+					</p:inputText>
+
+					<h:outputLabel>Cilt No:</h:outputLabel>
+
+					<p:inputText id="inputTextCiltNo"
+						value="#{haczeEsasMalBilgisiBean2.updatedHczEsasMal.tapuCiltNo}"
+						style="width: 250px">
+
+					</p:inputText>
+
+		
+
+				</p:panelGrid>
+	</p:panel>
+	
+	<p:panel id="pnlArac" header="Araç Bilgisi" style="width:50%;" rendered="#{haczeEsasMalBilgisiBean2.panelArac}">			
+				
+				<p:panelGrid columns="6"
+					style="margin-bottom:10px;border-style: hidden !important"
+					id="arac">
+
+					<h:outputLabel>Plaka No:</h:outputLabel>
+
+					<p:inputText id="inputTextPlakaNo"
+						value="#{haczeEsasMalBilgisiBean2.updatedHczEsasMal.aracPlakaNo}"
+						style="width: 250px">
+
+					</p:inputText>
+
+					<h:outputLabel>Araç Tipi:</h:outputLabel>
+
+					<p:selectOneMenu id="selectOneAracTipi" required="false"
+						value="#{haczeEsasMalBilgisiBean2.updatedHczEsasMal.aracTipiId}"
+						requiredMessage="Bu alanı doldurunuz" style="width:260px">
+						<f:selectItem itemValue="" itemLabel=""></f:selectItem>
+						<f:selectItems
+							value="#{geneltanimbean.ListeGetir('tbl_arac_tipi')}" var="list"
+							itemLabel="#{list.adi}" itemValue="#{list.id}"></f:selectItems>
+					</p:selectOneMenu>
+
+
+				</p:panelGrid>
+			</p:panel>	
+				
+				<h:panelGrid columns="2" cellpadding="3">						
+					<p:commandButton id="guncelleEkle"
+						actionListener="#{haczeEsasMalBilgisiBean2.kaydet}"
+						value="#{haczeEsasMalBilgisiBean2.getIslem()}"
+						update="msgs, :form:girisPanel, :form2" process="@form"
+						oncomplete="PF('baraTable').clearFilters()" />
+					<p:commandButton id="cancel" action="#{haczeEsasMalBilgisiBean2.iptal()}"
+						value="İptal" update=":form:girisPanel" immediate="true" resetValues="true"/>
+				</h:panelGrid>
+
+			
+				</p:panel>
+				
+				</h:form>
+				
+				
+		<h:form id="form2" onkeypress="return event.keyCode !=13">
+			    
+		<p:toolbar id="toolbar">
+        	<f:facet name="left">		
+			
+			<p:commandButton value="Ekle"
+				actionListener="#{haczeEsasMalBilgisiBean2.eklePanelAc()}"
+				update=":form:girisPanel"	 />
+				<span class="ui-separator">
+				<span class="ui-icon ui-icon-grip-dotted-vertical" />
+				</span>
+			</f:facet>
+			
+			
+	
+			
+			<f:facet name="left">
+				 	<h:outputText value="HACZE ESAS MAL BİLGİSİ TANIMLARI"/>
+			</f:facet>
+			</p:toolbar>
+		
+		
+		
+		 	<div style="overflow:auto !important; width:100%; height:100%;">
+		 	
+	 			            
+           
+		 	
+			<p:dataTable id="dtTableBara" var="bara" widgetVar="baraTable"
+				value="#{haczeEsasMalBilgisiBean2.hczEsasMallar}"
+				emptyMessage="Kriterlere uygun sonuç bulunamadı."
+				styleClass="dataTable"
+				filteredValue="#{haczeEsasMalBilgisiBean2.filteredHczEsasMallar}"
+			    paginator="true" rows="20">
+				<p:ajax update=":form2:dtTableBara" event="filter" />
+
+				<p:column headerText="Düzenle" width="100">
+					<p:commandButton id="duzenle" value="Düzenle"
+						update=":form:girisPanel"
+						actionListener="#{haczeEsasMalBilgisiBean2.guncellePanelAc(bara.id)}" />
+				</p:column>
+
+				<p:column headerText="Sil" width="50">
+					<p:commandButton value="Sil"
+						actionListener="#{haczeEsasMalBilgisiBean2.sil(bara.id)}"
+						update=":form2, :form:msgs" process="@form"
+						oncomplete="PF('baraTable').clearFilters()">
+						<p:confirm header="Uyarı" message="Emin misiniz?"
+							icon="ui-icon-alert" />
+					</p:commandButton>
+				</p:column>
+				
+				
+				<p:column headerText="Borclu ID">
+					<h:outputText value="#{bara.borcluId}" />
+				</p:column>
+
+				<p:column headerText="Borclu Asıl Alacak">
+					<h:outputText value="#{bara.borcMiktari}" />
+				</p:column>
+
+				<p:column headerText="Mal Tipi ID" width="70">
+					<p:graphicImage value="/img/#{bara.maltipiId==1 ? 'Gayrimenkul_1':bara.maltipiId==2 ? 'Maas' :'arac_1'}.png" height="50" width="50" />
+					
+				</p:column>
+
+			
+
+
+			</p:dataTable>
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+				<p:commandButton value="Evet" type="button"
+					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+				<p:commandButton value="Hayır" type="button"
+					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			</p:confirmDialog>
+
+			</div>
+		</h:form>
+				
+				
+				
+				
+				</p:panel>
+
+</h:body>
+</html>

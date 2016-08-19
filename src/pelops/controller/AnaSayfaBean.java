@@ -232,7 +232,7 @@ public class AnaSayfaBean {
 				formPath = "/XHTML/operasyonel/frm_haciz_bilgisi_kaydi.xhtml";
 				break;
 			case 202:
-				formPath = "/XHTML/operasyonel/frm_hacze_esas_mal_bilgisi_kaydi.xhtml";
+				formPath = "/XHTML/operasyonel/frm_hacze_esas_mal_bilgisi.xhtml";
 				break;
 			case 203:
 				formPath = "/XHTML/operasyonel/frm_harc_bilgisi_kaydi.xhtml";
@@ -272,6 +272,9 @@ public class AnaSayfaBean {
 				break;
 			case 215:
 				formPath = "/XHTML/operasyonel/frm_hedef.xhtml";
+				break;
+			case 216:
+				formPath = "/XHTML/operasyonel/frm_vizit_talep.xhtml";
 				break;
 			
 			
@@ -380,7 +383,7 @@ public class AnaSayfaBean {
 				formPath = "/XHTML/tanimlar/frm_dosya_yukleme.xhtml";
 				break;
 			case 1010:
-				formPath ="/XHTML/muzekkere/frm_muze_talep.xhtml";
+				formPath ="/XHTML/muzekkere/frm_muze_talep2.xhtml";
 				break;
 			case 1111:
 				formPath ="/muzekkere/frm_muze_talep.xhtml";

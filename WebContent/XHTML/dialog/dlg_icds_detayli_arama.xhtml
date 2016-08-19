@@ -101,7 +101,7 @@
 					filteredValue="#{detayliAramaBean.filterDetayliAramaListesi}"
 					emptyMessage="Aradığınız Kritere Uygun Sonuç Bulunamamıştır."
 					var="hb"		
-					id="tbldetayliarama" style="width:1500px "
+					id="tbldetayliarama" style="width:100%; "
 					rowStyleClass="green"
 					rows="10"
 					paginator="true"
@@ -147,7 +147,7 @@
 				<p:column headerText="Seç" width="42" >
 									
                 <p:commandButton value="Seç" type="Button" actionListener="#{detayliAramaBean.arama(hb.id)}" action="#{icradosyaislemleribean.GelismisListe(hb.id)}" 
-                update=":formIcraDosyaTakibi:borclubilgisi,:formIcraDosyaTakibi:tarihbilgisi,:formIcraDosyaTakibi:itirazbilgisi,
+                update=":formIcraDosyaTakibi:panel,:formIcraDosyaTakibi:borclubilgisi,:formIcraDosyaTakibi:tarihbilgisi,:formIcraDosyaTakibi:itirazbilgisi,
                 :formIcraDosyaTakibi:frmhesapbilgisi:hesapbilgisi,:formIcraDosyaTakibi:alacaklibilgisi,:formIcraDosyaTakibi:genelhacizbilgisi,:formIcraDosyaTakibi:icralevhalari, :formIcraDosyaTakibi:panelDialog" />
 				
 			                      

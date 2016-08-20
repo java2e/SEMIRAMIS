@@ -14,7 +14,7 @@
 
 
 	<p:panel id="panelPG" header="MASRAF BİLGİSİ KAYIT PANELİ"
-		style="text-align:left;min-height:500px;">
+		style="text-align:left;">
 
 		<p:growl id="growl" showDetail="true" />
 
@@ -135,9 +135,9 @@
 				update=":MasrafBilgisiKaydi" />
 
 			<p:dataTable value="#{masrafBilgisiBean.masrafBilListesi}" var="mb"
-				id="tblMasrafBilgisi" style="width:900px ">
+				id="tblMasrafBilgisi" style="width:100%;">
 
-				<p:column headerText="Düzenle" width="145">
+				<p:column headerText="Düzenle" width="110">
 
 					<p:commandButton icon="ui-icon-disk" value="Düzenle"
 						action="#{masrafBilgisiBean.Duzenle}" update=":MasrafBilgisiKaydi"
@@ -149,9 +149,9 @@
 
 				</p:column>
 
-				<p:column headerText="SİL" width="115">
+				<p:column headerText="SİL" width="70">
 
-					<p:commandButton icon="ui-icon-cancel" value="Sil"
+					<p:commandButton icon="ui-icon-cancel" value="Sil" 
 						action="#{masrafBilgisiBean.Sil}"
 						disabled="#{masrafBilgisiBean.buttonDisabled}"
 						update=":MasrafBilgisiKaydi,:growl">
@@ -175,12 +175,16 @@
 					<h:outputText value="#{mb.masrafTarihi}" />
 				</p:column>
 
-				<p:column headerText="Masraf Miktarı">
+				<p:column headerText="Masraf Miktarı (TL)">
 					<h:outputText value="#{mb.masrafMiktari}" />
 				</p:column>
 
 				<p:column headerText="Masraf Tipi">
 					<h:outputText value="#{mb.masrafTipiName}" />
+				</p:column>
+				
+			  <p:column headerText="Açıklama" width="500">
+					<h:outputText value="#{mb.masrafAciklama}" />
 				</p:column>
 
 				<p:column headerText="Uygulama Aşaması">

@@ -110,6 +110,15 @@
 				<p:column headerText="Açıklama" width="100px">
 					<h:outputText value="#{tapu.aciklama}" />
 				</p:column>
+				
+					<p:column headerText="Çıkar" width="100px">
+
+					<p:commandButton value="Çıkar" type="Button"
+						actionListener="#{muameleBean.removeGayrimenkulList(tapu.id)}"
+						update="tblgarimenkul" />
+
+
+				</p:column>
 
 			</p:dataTable>
 

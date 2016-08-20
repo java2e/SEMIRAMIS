@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.2.0.final using JasperReports Library version 6.2.0  -->
-<!-- 2016-04-19T12:53:50 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="tebligat_listesi" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1ea6d139-3560-4137-8d74-92280d778dd3">
-	<property name="ireport.zoom" value="2.143588810000002"/>
-	<property name="ireport.x" value="0"/>
+	<property name="ireport.zoom" value="3.138428376721005"/>
+	<property name="ireport.x" value="422"/>
 	<property name="ireport.y" value="0"/>
+	<parameter name="muvekkilAdi" class="java.lang.String"/>
+	<parameter name="konu" class="java.lang.String"/>
 	<field name="tarih" class="java.lang.String"/>
 	<field name="icraDosyaNo" class="java.lang.String"/>
 	<field name="borcluAdi" class="java.lang.String"/>
@@ -73,7 +73,7 @@
 				<text><![CDATA[İCRA DOSYA NO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="101" y="0" width="125" height="20" uuid="3b22073e-a6f7-483a-9da5-afb101f18640"/>
+				<reportElement x="101" y="0" width="101" height="20" uuid="3b22073e-a6f7-483a-9da5-afb101f18640"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="8" isBold="true" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1254"/>
 					<paragraph leftIndent="2"/>
@@ -81,7 +81,7 @@
 				<text><![CDATA[ALICI]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="226" y="0" width="85" height="20" uuid="b903fe55-e854-4b87-a250-8224a02cf9f3"/>
+				<reportElement x="202" y="0" width="102" height="20" uuid="b903fe55-e854-4b87-a250-8224a02cf9f3"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="8" isBold="true" pdfEncoding="Cp1254"/>
 					<paragraph leftIndent="2"/>
@@ -89,7 +89,7 @@
 				<text><![CDATA[KONU]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="311" y="0" width="118" height="20" uuid="929c69b4-b21d-4401-a3e0-ac2df37159bc"/>
+				<reportElement x="304" y="0" width="69" height="20" uuid="929c69b4-b21d-4401-a3e0-ac2df37159bc"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="8" isBold="true" pdfEncoding="Cp1254"/>
 					<paragraph leftIndent="2"/>
@@ -103,6 +103,13 @@
 					<paragraph leftIndent="2"/>
 				</textElement>
 				<text><![CDATA[BARKOD]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="373" y="0" width="56" height="20" uuid="2c729adf-69b1-4a4a-8d4b-5407925355bc"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="8" isBold="true" pdfFontName="Times-Roman" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[MASRAF]]></text>
 			</staticText>
 		</band>
 	</pageHeader>
@@ -131,7 +138,7 @@
 				<textFieldExpression><![CDATA[$F{icraDosyaNo}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="101" y="0" width="125" height="30" uuid="bc8e09c1-be03-407f-b3c9-d7b18c04d998"/>
+				<reportElement x="101" y="0" width="101" height="30" uuid="bc8e09c1-be03-407f-b3c9-d7b18c04d998"/>
 				<box>
 					<topPen lineWidth="0.5" lineStyle="Dotted"/>
 					<bottomPen lineWidth="0.5" lineStyle="Dotted"/>
@@ -142,7 +149,7 @@
 				<textFieldExpression><![CDATA[$F{borcluAdi}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="226" y="0" width="85" height="30" uuid="05133a89-35c8-4d38-b3d1-d19bb34bdca5"/>
+				<reportElement x="202" y="0" width="102" height="30" uuid="05133a89-35c8-4d38-b3d1-d19bb34bdca5"/>
 				<box>
 					<topPen lineWidth="0.5" lineStyle="Dotted"/>
 					<bottomPen lineWidth="0.5" lineStyle="Dotted"/>
@@ -153,7 +160,7 @@
 				<textFieldExpression><![CDATA[$F{konu}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="311" y="0" width="118" height="30" uuid="453d9c06-0bef-4d9e-a71d-a99e1e4cb9e4"/>
+				<reportElement x="304" y="0" width="69" height="30" uuid="453d9c06-0bef-4d9e-a71d-a99e1e4cb9e4"/>
 				<box>
 					<topPen lineWidth="0.5" lineStyle="Dotted"/>
 					<bottomPen lineWidth="0.5" lineStyle="Dotted"/>
@@ -171,10 +178,21 @@
 				</box>
 				<imageExpression><![CDATA[$F{brcd}]]></imageExpression>
 			</image>
+			<staticText>
+				<reportElement x="373" y="0" width="56" height="30" uuid="cf82dca8-7b53-4adf-8a49-27fa2799c9b6"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.5" lineStyle="Dotted"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[11.0 TL]]></text>
+			</staticText>
 		</band>
 	</detail>
 	<lastPageFooter>
-		<band height="70" splitType="Stretch">
+		<band height="81" splitType="Stretch">
 			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 			<staticText>
 				<reportElement x="12" y="20" width="100" height="50" uuid="9aa08635-82c0-470e-a177-c12e5d13ae30"/>
@@ -182,12 +200,12 @@
 				<text><![CDATA[Tarih]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="280" y="20" width="100" height="50" uuid="f2f52d97-7b87-4fc7-be0a-80c342826687"/>
+				<reportElement x="139" y="20" width="100" height="50" uuid="f2f52d97-7b87-4fc7-be0a-80c342826687"/>
 				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
 				<text><![CDATA[Tarih]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="280" y="1" width="100" height="20" uuid="78ac8ece-687b-4491-9a9b-91ff3817ee34"/>
+				<reportElement x="139" y="1" width="100" height="20" uuid="78ac8ece-687b-4491-9a9b-91ff3817ee34"/>
 				<textElement textAlignment="Center">
 					<font isBold="true" pdfEncoding="Cp1254"/>
 				</textElement>
@@ -200,6 +218,62 @@
 				</textElement>
 				<text><![CDATA[TESLİM EDEN]]></text>
 			</staticText>
+			<staticText>
+				<reportElement x="301" y="3" width="110" height="15" uuid="252565f8-3e96-4d29-9fd6-40dd7f0a5bd1"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="true" pdfFontName="Times-Bold" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[TOPLAM ADET : ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="411" y="3" width="69" height="15" uuid="19812794-c8ab-4887-a055-5a5a53f6101b"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{COLUMN_COUNT}+" ADET"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="301" y="18" width="110" height="15" uuid="a9b647d4-d3dc-4784-9c0f-9275cc5c9060"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="true" pdfFontName="Times-Bold" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[TOPLAM MİKTAR (TL) :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="411" y="18" width="69" height="15" uuid="2816b797-8cc5-4a88-8b5e-1b19ad387ebf"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{COLUMN_COUNT}*11]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="301" y="48" width="110" height="15" uuid="118a9457-72cc-44b4-8058-1871923f72c3"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true" pdfFontName="Times-Bold" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[KONU :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="301" y="33" width="110" height="15" uuid="8c3d09e5-ce80-4aae-876e-4d66e105e20c"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true" pdfFontName="Times-Bold" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[MÜVEKKİL ADI :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="411" y="33" width="116" height="15" uuid="2654f9f3-b5f6-4b31-9852-04e2f06b0cfe"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true" pdfEncoding="Cp1254"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{muvekkilAdi}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="411" y="48" width="116" height="15" uuid="d034718f-3ea8-4296-ba51-8ff31a2298bc"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true" pdfFontName="Times-Bold" pdfEncoding="Cp1254"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{konu}]]></textFieldExpression>
+			</textField>
 		</band>
 	</lastPageFooter>
 </jasperReport>

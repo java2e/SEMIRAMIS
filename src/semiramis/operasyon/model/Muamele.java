@@ -61,11 +61,13 @@ public class Muamele {
 	private int personelId;
 	private String personelAdSoyad;
 	
-	private HashMap<String, List<TapuBilgisi>> tapuKayitlar;
 	
 	private String haczeEsasMalId;
-	
+	private String tapuMudurlugu;
 	private String tapuAciklama="";
+	private String eki;
+	
+	private List<SubReport> subReportList;
 	
 	
 	
@@ -73,6 +75,14 @@ public class Muamele {
 	
 	
 	
+
+	public List<SubReport> getSubReportList() {
+		return subReportList;
+	}
+
+	public void setSubReportList(List<SubReport> subReportList) {
+		this.subReportList = subReportList;
+	}
 
 	public String getTapuAciklama() {
 		return tapuAciklama;
@@ -418,12 +428,22 @@ public class Muamele {
 		this.personelAdSoyad = personelAdSoyad;
 	}
 
-	public HashMap<String, List<TapuBilgisi>> getTapuKayitlar() {
-		return tapuKayitlar;
+	
+
+	public String getTapuMudurlugu() {
+		return tapuMudurlugu;
 	}
 
-	public void setTapuKayitlar(HashMap<String, List<TapuBilgisi>> tapuKayitlar) {
-		this.tapuKayitlar = tapuKayitlar;
+	public void setTapuMudurlugu(String tapuMudurlugu) {
+		this.tapuMudurlugu = tapuMudurlugu;
+	}
+
+	public String getEki() {
+		return eki;
+	}
+
+	public void setEki(String eki) {
+		this.eki = eki;
 	}
 
 

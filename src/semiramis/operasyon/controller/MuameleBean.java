@@ -15,6 +15,7 @@ import javax.faces.context.FacesContext;
 import org.primefaces.context.RequestContext;
 
 import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.convert.SubreportConverter;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
 import net.sf.jasperreports.export.SimpleExporterInput;
 import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
@@ -22,8 +23,10 @@ import net.sf.jasperreports.export.SimplePdfExporterConfiguration;
 import pelops.controller.AktifBean;
 import pelops.dao.BaglantiDAO;
 import pelops.dao.BorcluBilgisiDAO;
+import pelops.dao.MasrafDAO;
 import pelops.dao.PostaDAO;
 import pelops.model.Baglanti;
+import pelops.model.MasrafBilgisi;
 import pelops.model.Posta;
 import pelops.reports.controller.GenelYazdirBean;
 import semiramis.operasyon.dao.HaczeEsasMalBilgisiDAO;
@@ -31,6 +34,7 @@ import semiramis.operasyon.dao.MuameleDAO;
 import semiramis.operasyon.model.ComboItem;
 import semiramis.operasyon.model.HaczeEsasMalBilgisi;
 import semiramis.operasyon.model.Muamele;
+import semiramis.operasyon.model.SubReport;
 import semiramis.operasyon.model.TapuBilgisi;
 
 @ManagedBean(name = "muameleBean", eager = true)
@@ -52,9 +56,13 @@ public class MuameleBean {
 
 	private List<TapuBilgisi> tapuList;
 
-	HaczeEsasMalBilgisiDAO haczeEsasdao = new HaczeEsasMalBilgisiDAO();
+	public HaczeEsasMalBilgisiDAO haczeEsasdao = new HaczeEsasMalBilgisiDAO();
 
-	HaczeEsasMalBilgisi haczeEsasMalBilgisi = new HaczeEsasMalBilgisi();
+	public HaczeEsasMalBilgisi haczeEsasMalBilgisi = new HaczeEsasMalBilgisi();
+
+	public MasrafDAO masrafDAO=new MasrafDAO();
+	
+	public MasrafBilgisi masraf;
 
 	public String genelPath = FacesContext.getCurrentInstance().getExternalContext().getRealPath("\\pdfler\\") + "\\";
 
@@ -89,6 +97,8 @@ public class MuameleBean {
 
 		AktifBean.borcluId = baglanti.getBorcluID();
 		AktifBean.hesapID = baglanti.getHesaplamaID();
+		
+		
 
 		System.out.println("secilen id :" + selectedId);
 
@@ -96,6 +106,14 @@ public class MuameleBean {
 
 		alanDoldur();
 
+	}
+	
+	public void removeGayrimenkulList(int id) {
+		for (int i = 0; i < tapuList.size(); i++) {
+			if (tapuList.get(i).getId() == id) {
+				tapuList.remove(i);
+			}
+		}
 	}
 
 	public void hidePopup() {
@@ -183,6 +201,8 @@ public class MuameleBean {
 		if (muamele.getMuzekkereId() == MUZEKKERE_MAAS) {
 
 			// Hacze Esas Mal Bilgisine Ekleniyor..
+			
+			muameleDAO.kaydet(muamele);
 
 			haczeEsasMalBilgisi.setMalTipiId(2); // SGK
 			haczeEsasMalBilgisi.setMuhatapAdi(muamele.getBorcluIsyeriAdi());
@@ -192,6 +212,19 @@ public class MuameleBean {
 
 			muamele.setMuzekkereId(MUZEKKERE_MAAS_TALEP);
 			muameleDAO.kaydet(muamele);
+			
+			muamele.setMuzekkereId(MUZEKKERE_MAAS);
+			
+			masraf=masrafEkle();
+			
+			masraf.setMasrafMiktari(11.0);
+			masraf.setMasrafAciklama("Maaş Müzekkere Tebligat Masrafı");
+			
+			masrafDAO.kaydet(masraf);
+			
+			
+			
+			
 
 		}
 
@@ -201,7 +234,6 @@ public class MuameleBean {
 
 			HashMap<String, List<TapuBilgisi>> map = new HashMap<String, List<TapuBilgisi>>();
 
-			muamele.setTapuKayitlar(map);
 
 			for (int i = 0; i < tapuList.size(); i++) {
 
@@ -248,6 +280,7 @@ public class MuameleBean {
 				String aciklama="";
 				for (int i = 0; i < value.size(); i++) {
 				
+					
 					aciklama=aciklama+value.get(i).getTapuKayitAciklama();
 					
 					if(value.size()-1!=i)
@@ -268,6 +301,23 @@ public class MuameleBean {
 				muameleDAO.kaydet(muamele);
 				
 			}
+			
+			masraf=masrafEkle();
+			
+			masraf.setMasrafMiktari(11.0);
+			masraf.setMasrafAciklama("Tapu Müzekkere Tebligat Masrafı");
+			
+			
+			masrafDAO.kaydet(masraf);
+			
+			masraf=masrafEkle();
+			
+			masraf.setMasrafMiktari(5.10);
+			masraf.setMasrafAciklama("Tapu Posta Pulu Masrafı");
+			
+			
+			masrafDAO.kaydet(masraf);
+			
 
 		}
 
@@ -275,6 +325,19 @@ public class MuameleBean {
 
 		muameleList = muameleDAO.getMuameleList(muamele.getIcraDosyaNo());
 
+	}
+	
+	public MasrafBilgisi masrafEkle()
+	{
+		MasrafBilgisi masrafT=new MasrafBilgisi();
+		
+		masrafT.setBorcluId(muamele.getBorcluId());
+		masrafT.setIcra_dosyasi_id(muamele.getIcraDosyaID());
+		masrafT.setIcra_dosyasi_no(muamele.getIcraDosyaNo());
+		masrafT.setMasrafTarihi(new Date());
+		masrafT.setMuvekkilAdi(muamele.getMuvekkilAdi());
+		
+		return masrafT;
 	}
 
 	public void duzenle(int id) {
@@ -296,6 +359,25 @@ public class MuameleBean {
 		else if(muamele.getMuzekkereId()==MUZEKKERE_TAPU)
 		{
 			muzekkereTalep="tapuhacizmuzekkeresinokta";
+			
+			
+			muamele.setTapuMudurlugu(muamele.getTapuAciklama().split(" ")[1]);
+			
+			List<SubReport> liste=new ArrayList<SubReport>();
+			
+			for(int i=0;i<muamele.getTapuAciklama().split("<br>").length;i++)
+			{
+				SubReport report=new SubReport();
+				report.setKayit(muamele.getTapuAciklama().split("<br>")[i]);
+				liste.add(report);
+				
+			}
+			
+			muamele.setSubReportList(liste);
+			
+			
+			
+			
 		}
 
 		try {
@@ -331,6 +413,16 @@ public class MuameleBean {
 
 		}
 
+	}
+	
+	public void sil(int id)
+	{
+		
+		muameleDAO.sil(id);
+		
+		muameleList=muameleDAO.getMuameleList(AktifBean.icraDosyaNo);
+		
+		
 	}
 
 	public void borcluMuhatapGuncelleme() {

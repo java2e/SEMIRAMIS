@@ -99,7 +99,7 @@ public class MuameleDAO extends DBConnection {
 
 		try {
 
-			String sql = "select mb.id,mb.barkod,mb.muamele_tarihi, "
+			String sql = "select mb.id,mb.barkod,mb.muamele_tarihi,mb.tapu_aciklama,mb.hacze_esas_id, "
 					+ "  borclu.ad_soyad,borclu.adres as borclu_adres,borclu.is_yeri_adi,borclu.isyeri_adres,borclu.urun_no,borclu.tc_no,borclu.musteri_no, "
 					+ "  alacakli.muvekkil_adi, "
 					+ "  icra.icra_dosyasi_no,icra.id as icra_dosyasi_id,imud.adi as icra_mudurluk,imud.id as icra_mudurluk_id,  "
@@ -141,6 +141,8 @@ public class MuameleDAO extends DBConnection {
 				muamele.setToplamAlacak(set.getDouble("toplam_alacak"));
 				muamele.setTakipAlacak(set.getDouble("takip_alacagi"));
 				muamele.setAsilAlacak(set.getDouble("asil_alacak"));
+				muamele.setTapuAciklama(set.getString("tapu_aciklama"));
+				muamele.setHaczeEsasMalId(set.getString("hacze_esas_id"));
 
 			}
 
@@ -229,7 +231,7 @@ public class MuameleDAO extends DBConnection {
 
 		try {
 
-			String sql = "SELECT muamele.id,mtip.adi as muzekkere_adi,borclu.ad_soyad,icra.icra_dosyasi_no,muamele.muzekkere_talep_miktari,alacakli.muvekkil_adi,muamele.muamele_tarihi "
+			String sql = "SELECT muamele.tapu_aciklama, muamele.id,mtip.adi as muzekkere_adi,borclu.ad_soyad,icra.icra_dosyasi_no,muamele.muzekkere_talep_miktari,alacakli.muvekkil_adi,muamele.muamele_tarihi "
 					+ " FROM tbl_muamele_bilgisi muamele "
 					+ " inner join tbl_icra_dosyasi icra on icra.id=muamele.icra_dosyasi_id "
 					+ " inner join tbl_muzekkere_tipi mtip on mtip.sira=muamele.muzekkere_talep_id "
@@ -257,6 +259,7 @@ public class MuameleDAO extends DBConnection {
 				muamele.setMuzekkereTalepMiktari(set.getInt("muzekkere_talep_miktari"));
 				muamele.setMuvekkilAdi(set.getString("muvekkil_adi"));
 				muamele.setMumaleTarihi(set.getDate("muamele_tarihi"));
+				muamele.setTapuAciklama(set.getString("tapu_aciklama"));
 
 				liste.add(muamele);
 
@@ -310,6 +313,31 @@ public class MuameleDAO extends DBConnection {
 
 		return liste;
 
+	}
+	
+	
+	public void sil(int id)
+	{
+		
+		
+		try {
+			
+			String sql="DELETE FROM tbl_muamele_bilgisi WHERE id="+id;
+			
+			
+			newConnectDB();
+			
+			Statement stmt=conn.createStatement();
+			
+			stmt.execute(sql);
+			
+			
+		} catch (Exception e) {
+			
+			System.out.println("Hata muameleDAO SİL :"+e.getMessage());
+			// TODO: handle exception
+		}
+		
 	}
 
 }

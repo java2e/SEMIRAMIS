@@ -132,7 +132,7 @@ style="position: absolute; background-color: rgba(0, 0, 0, 0.6); height: 256px; 
 		
 		<p:panel id="panel"  styleClass="titleColor" header="#{icradosyaislemleribean.dosyaStatusu}" >
 		
-		<div style="z-index:99;width: 95%;height: 55%; position:absolute;display:none; background-image: url(img/divBack.png);background-repeat: repeat;">
+		<div style="z-index:99;width: 95%;height: 55%; position:absolute; display:none; background-image: url(img/divBack.png);background-repeat: repeat;">
 		<center>
 		<img src="img/vefat2.png" style="margin-top: 30px;"/>
 		</center>
@@ -490,7 +490,7 @@ style="position: absolute; background-color: rgba(0, 0, 0, 0.6); height: 256px; 
 								
 													       	
 						        <p:outputLabel />
-							   	<p:commandButton value="Genel Haciz Bilgisini Güncelle" style="width:100%" actionListener="#{icradosyaislemleribean.guncelleHaciz}"/>					       	
+							   	<p:commandButton value="Genel Haciz Bilgisini Güncelle" ajax="false" style="width:100%" action="#{icradosyaislemleribean.guncelleHaciz()}"/>					       	
 						       	
 						</p:panelGrid>
 				</p:panel>

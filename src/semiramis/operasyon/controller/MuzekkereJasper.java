@@ -101,8 +101,8 @@ public class MuzekkereJasper
 		}
 		else if(muamele.getMuzekkereId()==2)
 		{
-			zarf.setBorcluAdi(muamele.getBorcluIsyeriAdi().toUpperCase());
-			//zarf.setBorcluAdres(muamele.get).toUpperCase()+" "+muamele.getTapuIl().toUpperCase());
+			zarf.setBorcluAdi(muamele.getTapuAciklama().split(" ")[1]+" TAPU SİCİL MÜDÜRLÜĞÜ");
+			zarf.setBorcluAdres(muamele.getTapuAciklama().split(" ")[1]);
 			zarf.setMuzekkereTalepAdi("Tapu Haciz Müzekkeresi (Nokta)");
 			zarfTipi="Tapu Haciz Müzekkeresi";
 		}
@@ -134,6 +134,8 @@ public class MuzekkereJasper
 	public JasperPrint tebligatListesiJasper(Muamele muamele, String muzekkereTalep) throws Exception {
 		
 		JasperPrint jasperPrint=null;
+		
+		HashMap<String, Object> parameters = new HashMap<String, Object>();
 
 		ArrayList<TebligatListesi> dataBeanListForTebligat = new ArrayList<TebligatListesi>();
 		TebligatListesi liste = new TebligatListesi();
@@ -144,13 +146,21 @@ public class MuzekkereJasper
 		{
 		
 		liste.setBorcluAdi(muamele.getBorcluIsyeriAdi().toUpperCase());
+		liste.setIl(muamele.getIcraMudurlugu().split(" ")[0]);
 		zarfTipi="Maaş Müzekkeresi";
+		parameters.put("konu", zarfTipi);
+		parameters.put("muvekkilAdi", muamele.getMuvekkilAdi());
 		
 		
 		}
-		else
+		else if(muamele.getMuzekkereId()==2)
 		{
 			liste.setBorcluAdi(muamele.getBorcluAdSoyad());
+			liste.setIl(muamele.getTapuAciklama().split(" ")[1]);
+			zarfTipi="Tapu Talep Müzekkeresi";
+			parameters.put("konu", zarfTipi);
+			parameters.put("muvekkilAdi", muamele.getMuvekkilAdi());
+		
 				
 		}
 		
@@ -158,13 +168,13 @@ public class MuzekkereJasper
 		liste.setIcraBilgi(muamele.getIcraMudurlugu());
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		liste.setTarih(sdf.format(new java.util.Date()));
-		liste.setIl(muamele.getIcraMudurlugu().split(" ")[0]);
+		
 		liste.setBrcd(muamele.getBarkod());
 		liste.setKonu(zarfTipi);
 
 		dataBeanListForTebligat.add(liste);
 
-		HashMap<String, Object> parameters = new HashMap<String, Object>();
+		
 
 		String pathName = FacesContext.getCurrentInstance().getExternalContext()
 				.getRealPath("/reports/tebligat_listesi1.jrxml");

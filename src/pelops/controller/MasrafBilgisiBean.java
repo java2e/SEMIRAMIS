@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
@@ -20,7 +21,7 @@ import pelops.model.MasrafBilgisi;
  *
  */
 @ManagedBean(name = "masrafBilgisiBean")
-@SessionScoped
+@RequestScoped
 public class MasrafBilgisiBean extends DBConnection {
 
 	private MasrafBilgisi masrafBilgisi = new MasrafBilgisi();
@@ -58,19 +59,17 @@ public class MasrafBilgisiBean extends DBConnection {
 		this.masrafBilgisi = masrafBilgisi;
 	}
 
-	public MasrafBilgisiBean() {
+	public MasrafBilgisiBean() throws Exception {
+		
+		 masrafBilListesi=dao.getAllListFromIcraDosyaID(AktifBean.icraDosyaID);
 
 		PanelClose();
 		ButtonOpen();
 	}
 
-	public ArrayList<MasrafBilgisi> getMasrafBilListesi() throws Exception {
-		return dao.getAllListFromIcraDosyaID(AktifBean.icraDosyaID);
-	}
 
-	public void setMasrafBilListesi(ArrayList<MasrafBilgisi> masrafBilListesi) {
-		this.masrafBilListesi = masrafBilListesi;
-	}
+	
+	
 
 	@SuppressWarnings("unused")
 	public void Kaydet() throws Exception {
@@ -125,28 +124,7 @@ public class MasrafBilgisiBean extends DBConnection {
 		}
 	}
 
-	public String getIcraMd() {
-		return UtilDAO.getInstance().getIcraMdwithID(AktifBean.icraDosyaID);
-	}
 
-	public void setIcraMd(String icraMd) {
-		this.icraMd = icraMd;
-	}
-
-	public boolean isPanelRender() {
-		return panelRender;
-	}
-
-	public void setPanelRender(boolean panelRender) {
-		this.panelRender = panelRender;
-	}
-
-	public void Vazgec() {
-		status = 0;
-		PanelClose();
-		ButtonOpen();
-
-	}
 
 	public void Duzenle() throws Exception {
 
@@ -276,5 +254,39 @@ public class MasrafBilgisiBean extends DBConnection {
 		YeniKayit();
 		RequestContext.getCurrentInstance().execute("PF('dialogWidget').show()");
 	}
+	
+	
+	public String getIcraMd() {
+		return UtilDAO.getInstance().getIcraMdwithID(AktifBean.icraDosyaID);
+	}
+
+	public void setIcraMd(String icraMd) {
+		this.icraMd = icraMd;
+	}
+
+	public boolean isPanelRender() {
+		return panelRender;
+	}
+
+	public void setPanelRender(boolean panelRender) {
+		this.panelRender = panelRender;
+	}
+
+	public void Vazgec() {
+		status = 0;
+		PanelClose();
+		ButtonOpen();
+
+	}
+
+	public ArrayList<MasrafBilgisi> getMasrafBilListesi() {
+		return masrafBilListesi;
+	}
+
+	public void setMasrafBilListesi(ArrayList<MasrafBilgisi> masrafBilListesi) {
+		this.masrafBilListesi = masrafBilListesi;
+	}
+	
+	
 
 }

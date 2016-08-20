@@ -153,15 +153,20 @@
 						style="width: 250px">
 					</p:inputText>
 
-					<h:outputLabel>Mülk Tipi:</h:outputLabel>
-
-					<p:selectOneMenu id="selectOneMülkTipi" required="false"
-						value="#{haczeEsasMalBilgisiBean2.updatedHczEsasMal.mulkTipiId}"
-						requiredMessage="Bu alanı doldurunuz" style="width:260px">
-						<f:selectItem itemValue="" itemLabel=""></f:selectItem>
-						<f:selectItems
-							value="#{geneltanimbean.ListeGetir('tbl_mulk_tipi')}" var="list"
-							itemLabel="#{list.adi}" itemValue="#{list.id}"></f:selectItems>
+				<p:outputLabel value="Açıklama"></p:outputLabel>
+					
+					<p:selectOneMenu id="aciklama"  value="#{haczeEsasMalBilgisiBean2.updatedHczEsasMal.tapuAciklama}">
+					
+					<f:selectItem itemLabel="Gayrimenkul Açıklaması Seçiniz" itemValue="Gayrimenkul"/>
+						<f:selectItem itemLabel="BAĞ" itemValue="BAĞ"/>
+							<f:selectItem itemLabel="BAHÇE" itemValue="BAHÇE"/>
+								<f:selectItem itemLabel="MESKEN" itemValue="MESKEN"/>
+									<f:selectItem itemLabel="BAĞIMSIZ BÖLÜM" itemValue="BAĞIMSIZ BÖLÜM"/>
+										<f:selectItem itemLabel="ARSA" itemValue="ARSA"/>
+											<f:selectItem itemLabel="ARAZİ" itemValue="ARAZİ"/>
+												<f:selectItem itemLabel="ANA TAŞINMAZ" itemValue="ANA TAŞINMAZ"/>
+													<f:selectItem itemLabel="DİĞER" itemValue="DİĞER"/>	
+													
 					</p:selectOneMenu>
 
 					<h:outputLabel>Parsel:</h:outputLabel>
@@ -171,10 +176,10 @@
 						style="width: 250px">
 					</p:inputText>
 
-					<h:outputLabel>Sayfa No:</h:outputLabel>
+					<h:outputLabel>Ada:</h:outputLabel>
 
 					<p:inputText id="inputTextSayfaNo"
-						value="#{haczeEsasMalBilgisiBean2.updatedHczEsasMal.tapuSayfaNo}"
+						value="#{haczeEsasMalBilgisiBean2.updatedHczEsasMal.tapuAda}"
 						style="width: 250px">
 					</p:inputText>
 

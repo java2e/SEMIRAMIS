@@ -2,24 +2,25 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="tapuhacizmuzekkeresinokta" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="15bbab6b-08e6-47a3-b8e5-3d13429efc83">
 	<property name="ireport.zoom" value="2.1435888100000047"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="218"/>
-	<field name="icraMudurluguAdi" class="java.lang.String"/>
+	<property name="ireport.y" value="192"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\Mehmet Demircioglu\\git\\SEMIRAMIS\\WebContent\\reports\\talep_muzekkereler\\"]]></defaultValueExpression>
+	</parameter>
+	<field name="icraMudurlugu" class="java.lang.String"/>
 	<field name="icraDosyaNo" class="java.lang.String"/>
 	<field name="avukatAdi" class="java.lang.String"/>
 	<field name="eki" class="java.lang.String"/>
-	<field name="borcluAdi" class="java.lang.String"/>
-	<field name="borcluTc" class="java.lang.String"/>
-	<field name="semiramisNo" class="java.lang.String"/>
-	<field name="hazirlayan" class="java.lang.String"/>
-	<field name="riskYoneticisi" class="java.lang.String"/>
-	<field name="muameleTarihiText" class="java.lang.String"/>
-	<field name="borcluMiktariTxt" class="java.lang.String"/>
-	<field name="dogumTarihiText" class="java.lang.String"/>
-	<field name="tapuKayitlari" class="java.lang.String"/>
-	<field name="bankaAdi" class="java.lang.String"/>
+	<field name="borcluAdSoyad" class="java.lang.String"/>
+	<field name="borcluTcNo" class="java.lang.String"/>
+	<field name="icraDosyaID" class="java.lang.String"/>
+	<field name="personelAdSoyad" class="java.lang.String"/>
+	<field name="muameleTarihiTxt" class="java.lang.String"/>
+	<field name="borcMiktariTxt" class="java.lang.String"/>
+	<field name="borcluDogumTarihi" class="java.lang.String"/>
+	<field name="subReportList" class="java.util.List"/>
+	<field name="muvekkilAdi" class="java.lang.String"/>
 	<field name="barkod" class="java.lang.Object"/>
 	<field name="tapuMudurlugu" class="java.lang.String"/>
-	<field name="tapuMudurluguIlIlce" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -38,7 +39,7 @@ ANKARA]]></text>
 				<textElement verticalAlignment="Middle">
 					<font pdfEncoding="Cp1254"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{icraMudurluguAdi}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{icraMudurlugu}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="10" y="49" width="87" height="19" uuid="2b6c1f73-ee97-4138-b346-7d38c33c0de0"/>
@@ -57,7 +58,7 @@ ANKARA]]></text>
 			<textField>
 				<reportElement x="386" y="9" width="145" height="20" uuid="9025deeb-bd09-4480-b9d9-f4fe99bdb39e"/>
 				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{muameleTarihiText}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{muameleTarihiTxt}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>
@@ -104,11 +105,11 @@ hissedarların adı soyadı adreslerinin tarafımıza bildirilmesi rica olunur.]
 				<text><![CDATA[TAPU KAYITLARI :]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="280" y="224" width="239" height="20" uuid="7363cf25-61d5-4358-9dd1-a37bb41c68b6"/>
+				<reportElement x="280" y="268" width="239" height="20" uuid="7363cf25-61d5-4358-9dd1-a37bb41c68b6"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="10" pdfFontName="Times-Roman" pdfEncoding="Cp1254"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{icraMudurluguAdi}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{icraMudurlugu}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="88" y="277" width="20" height="20" uuid="680ecf24-1a7a-4b67-ab19-8ed2fd788f38"/>
@@ -157,7 +158,7 @@ hissedarların adı soyadı adreslerinin tarafımıza bildirilmesi rica olunur.]
 				<textElement verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="10" pdfEncoding="Cp1254"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{borcluAdi}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{borcluAdSoyad}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="316" y="319" width="100" height="20" uuid="38fc0684-3aca-47ae-bb97-006e0d0b6f3a"/>
@@ -171,7 +172,7 @@ hissedarların adı soyadı adreslerinin tarafımıza bildirilmesi rica olunur.]
 				<textElement verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{semiramisNo}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{icraDosyaID}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="316" y="339" width="100" height="20" uuid="ad82830f-0cec-46b6-a6e6-d61933f7c395"/>
@@ -192,33 +193,26 @@ hissedarların adı soyadı adreslerinin tarafımıza bildirilmesi rica olunur.]
 				<textElement verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{borcluTc}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{borcluTcNo}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="40" y="399" width="145" height="20" uuid="5e358c84-9e66-4e84-8e21-71de1ec88145"/>
 				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{muameleTarihiText}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{muameleTarihiTxt}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="111" y="297" width="125" height="20" uuid="c3183a6c-0235-40f2-a21e-f82faef9105d"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Times New Roman"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{borcluMiktariTxt}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{borcMiktariTxt}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="111" y="339" width="125" height="20" uuid="04da3c5a-834c-4510-8106-3c1181c00a94"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Times New Roman"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{dogumTarihiText}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="4" y="203" width="545" height="19" uuid="2631264f-9ebc-42ed-97f7-6ce138b0731c"/>
-				<textElement verticalAlignment="Top">
-					<font pdfFontName="Times-Roman" pdfEncoding="Cp1254"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{tapuKayitlari}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{borcluDogumTarihi}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="419" y="339" width="100" height="20" uuid="9f278910-c9b3-480d-a164-0ac05c27b492"/>
@@ -232,7 +226,7 @@ hissedarların adı soyadı adreslerinin tarafımıza bildirilmesi rica olunur.]
 				<textElement textAlignment="Center" verticalAlignment="Bottom">
 					<font fontName="Times New Roman" size="12" pdfFontName="Times-Roman" pdfEncoding="Cp1254"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{bankaAdi}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{muvekkilAdi}]]></textFieldExpression>
 			</textField>
 			<image>
 				<reportElement x="26" y="432" width="171" height="42" uuid="67d79ebb-b20a-4fd4-bb45-12d0f30b72e8"/>
@@ -243,15 +237,20 @@ hissedarların adı soyadı adreslerinin tarafımıza bildirilmesi rica olunur.]
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="12" pdfEncoding="Cp1254"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{tapuMudurlugu}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{tapuMudurlugu}.toUpperCase()+" TAPU SİCİL MÜDÜRLÜĞÜ"]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="0" y="31" width="555" height="20" uuid="41654518-1c04-49fc-b3ff-33191337c488"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="12" pdfEncoding="Cp1254"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{tapuMudurluguIlIlce}.toUpperCase()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{tapuMudurlugu}.toUpperCase()]]></textFieldExpression>
 			</textField>
+			<subreport>
+				<reportElement x="4" y="203" width="545" height="45" uuid="9c16a7ea-04ef-4604-8fcf-9f9568a390de"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{subReportList})]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "tapuhacizmuzekkeresinokta_subreport1.jasper"]]></subreportExpression>
+			</subreport>
 		</band>
 	</detail>
 </jasperReport>

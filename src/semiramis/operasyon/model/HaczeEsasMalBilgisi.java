@@ -18,6 +18,7 @@ public class HaczeEsasMalBilgisi {
 	
 	private String tapuMulkTipi;
 	private String tapuParsel;
+	private String tapuAda;
 	private String tapuSayfaNo;
 	private String tapuCiltNo;
 	private String tapuAciklama;
@@ -292,6 +293,14 @@ public class HaczeEsasMalBilgisi {
 
 	public void setTapuSicilMudurluk(String tapuSicilMudurluk) {
 		this.tapuSicilMudurluk = tapuSicilMudurluk;
+	}
+
+	public String getTapuAda() {
+		return tapuAda;
+	}
+
+	public void setTapuAda(String tapuAda) {
+		this.tapuAda = tapuAda;
 	}
 
 	

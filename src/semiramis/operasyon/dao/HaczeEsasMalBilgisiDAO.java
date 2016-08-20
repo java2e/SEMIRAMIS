@@ -19,28 +19,25 @@ import semiramis.operasyon.model.HaczeEsasMalBilgisi;
 import semiramis.operasyon.model.HaczeEsasMalBilgisiView;
 
 public class HaczeEsasMalBilgisiDAO extends DBConnection implements IDAO<HaczeEsasMalBilgisi> {
-	
+
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 	@Override
 	public boolean kaydet(HaczeEsasMalBilgisi t) {
-		
+
 		java.sql.Timestamp guncellemeZamani = null;
 
-
 		try {
-			
+
 			guncellemeZamani = new java.sql.Timestamp(new java.util.Date().getTime());
-			
 
 			String sql = "INSERT INTO tbl_hacze_esas_mal_bilgisi( "
 					+ " borclu_id, menkul_bilgisi, tapu_mahalle_adi, tapu_parsel,  "
 					+ " tapu_sayfa_no, tapu_cilt_no, arac_plaka_no, arac_aractipi, banka_hesap_no,  "
 					+ " muhatap_adi, muhatap_adresi, diger_bilgiler, mal_tutari, icra_dosyasi_id,  "
 					+ " mevduat_bilgisi, tapu_il_id,  "
-					+ " tapu_ilce_id, mulk_tipi_id, arac_tipi_id, mal_tipi_id, guncelleyen_kullanici_id, ekleme_tarihi, guncelleme_tarihi,haciz_durum) "
-					+ " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,  "
-					+ " ?, ?,now(),now(),1); ";
+					+ " tapu_ilce_id, mulk_tipi_id, arac_tipi_id, mal_tipi_id, guncelleyen_kullanici_id, ekleme_tarihi, guncelleme_tarihi,haciz_durum,tapu_ada,tapu_aciklama) "
+					+ " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,  " + " ?, ?,now(),now(),1,?); ";
 
 			newConnectDB();
 
@@ -67,6 +64,8 @@ public class HaczeEsasMalBilgisiDAO extends DBConnection implements IDAO<HaczeEs
 			stmt.setInt(19, t.getAracTipiId());
 			stmt.setInt(20, t.getMalTipiId());
 			stmt.setInt(21, Util.getUser().getUsrId());
+			stmt.setString(22, t.getTapuAda());
+			stmt.setString(23, t.getTapuAciklama());
 
 			int sonuc = stmt.executeUpdate();
 
@@ -105,7 +104,7 @@ public class HaczeEsasMalBilgisiDAO extends DBConnection implements IDAO<HaczeEs
 					+ " banka_hesap_no=?, muhatap_adi=?, muhatap_adresi=?, diger_bilgiler=?, "
 					+ " mal_tutari=?, icra_dosyasi_id=?, mevduat_bilgisi=?,  "
 					+ " guncelleme_tarihi=?, tapu_il_id=?, tapu_ilce_id=?, mulk_tipi_id=?,  "
-					+ " arac_tipi_id=?, mal_tipi_id=?, guncelleyen_kullanici_id=?" + " WHERE borclu_id="
+					+ " arac_tipi_id=?, mal_tipi_id=?, guncelleyen_kullanici_id=?,tapu_ada=?,tapu_aciklama=?" + " WHERE borclu_id="
 					+ t.getBorcluId();
 
 			newConnectDB();
@@ -134,6 +133,8 @@ public class HaczeEsasMalBilgisiDAO extends DBConnection implements IDAO<HaczeEs
 			stmt.setInt(20, t.getAracTipiId());
 			stmt.setInt(21, t.getMalTipiId());
 			stmt.setInt(22, Util.getUser().getUsrId());
+			stmt.setString(23, t.getTapuAda());
+			stmt.setString(24, t.getTapuAciklama());
 
 			int sonuc = stmt.executeUpdate();
 
@@ -286,7 +287,7 @@ public class HaczeEsasMalBilgisiDAO extends DBConnection implements IDAO<HaczeEs
 			while (set.next()) {
 
 				haczeEsasMalBilgisi = new HaczeEsasMalBilgisiView();
-				
+
 				haczeEsasMalBilgisi.setId(set.getInt("id"));
 				haczeEsasMalBilgisi.setBorcluId(set.getInt("borclu_id"));
 				haczeEsasMalBilgisi.setIcraDosyaId(set.getInt("icra_dosyasi_id"));
@@ -310,7 +311,7 @@ public class HaczeEsasMalBilgisiDAO extends DBConnection implements IDAO<HaczeEs
 	}
 
 	@Override
-	public List<HaczeEsasMalBilgisi> liste(int borcluId,int malTipiId) {
+	public List<HaczeEsasMalBilgisi> liste(int borcluId, int malTipiId) {
 
 		List<HaczeEsasMalBilgisi> liste = null;
 
@@ -325,9 +326,9 @@ public class HaczeEsasMalBilgisiDAO extends DBConnection implements IDAO<HaczeEs
 					+ " left join tbl_ilce ilce on hcz.tapu_ilce_id=ilce.id "
 					+ " left join tbl_arac_tipi arac on hcz.arac_tipi_id=arac.id "
 					+ " left join tbl_mal_tipi mal on hcz.mal_tipi_id=mal.id ";
-			
-			if(borcluId!=0)
-				sql=sql+" where hcz.borclu_id="+borcluId+" and hcz.mal_tipi_id="+malTipiId; 
+
+			if (borcluId != 0)
+				sql = sql + " where hcz.borclu_id=" + borcluId + " and hcz.mal_tipi_id=" + malTipiId;
 
 			newConnectDB();
 

@@ -21,8 +21,6 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
 import net.sf.jasperreports.engine.export.JRPrintServiceExporterParameter;
-import pelops.chronology.controller.Utils;
-import pelops.chronology.model.ChronologyIdentifier;
 import pelops.controller.AktifBean;
 import pelops.dao.BaglantiDAO;
 import pelops.dao.BasvuruHarciDAO;
@@ -42,6 +40,8 @@ import pelops.model.IcraDosyasi;
 import pelops.model.LogError;
 import pelops.users.User;
 import pelops.users.Util;
+import semiramis.chronology.controller.Utils;
+import semiramis.chronology.model.ChronologyIdentifier;
 
 public class KasaCtrl {
 	ViewDAO viewDAO = new ViewDAO();

@@ -15,8 +15,6 @@ import javax.faces.context.FacesContext;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
-import pelops.chronology.controller.ChronologyUtil;
-import pelops.chronology.model.Instance;
 import pelops.dao.AlacakliDAO;
 import pelops.dao.BaglantiDAO;
 import pelops.dao.BasvuruHarciDAO;
@@ -37,13 +35,14 @@ import pelops.model.HesaplarList;
 import pelops.model.IcraDosyasi;
 import pelops.model.Ilce;
 import pelops.model.LogError;
+import semiramis.chronology.controller.Utils;
+import semiramis.chronology.model.ChronologyIdentifier;
 
 @ManagedBean(name = "icradosyaislemleribean")
 @SessionScoped
 public class IcraDosyaIslemleriBean {
 
-	
-	private String dosyaStatusu="Dosya Seçilmedi!";
+	private String dosyaStatusu = "Dosya Seçilmedi!";
 	LogErrorDAO log = new LogErrorDAO();
 	Date nowDate = new Date();
 	LogError newlog;
@@ -465,7 +464,7 @@ public class IcraDosyaIslemleriBean {
 		hesap = new Hesap();
 		baglanti = new Baglanti();
 		borclubilgisi = new BorcluBilgisi();
-		//plakaGetir();
+		// plakaGetir();
 		hesaplarlistesi = new ArrayList<HesaplarList>();
 		icradosyasi.setBK84("E");
 		icradosyasi.setKKDF("H");
@@ -568,7 +567,9 @@ public class IcraDosyaIslemleriBean {
 
 		BaglantiDAO daobaglanti = new BaglantiDAO();
 		daobaglanti.Kaydet(baglanti);
-		ChronologyUtil.getInstance().insertInstance(new Instance(icradosyaid, null, "Dosya Açıldı", null, 1));
+		Utils utils = new Utils();
+		utils.saveChronology(icradosyaid, ChronologyIdentifier.ISLEM_TAKIP_ACILISI,
+				borclubilgisi.getAdSoyad() + " isimli borclunun icra dosyası açılmıştır.");
 
 		FacesContext context = FacesContext.getCurrentInstance();
 		context.addMessage(null, new FacesMessage("Kayıt İşlemi Başarı İle Gerçekleştirildi..."));
@@ -577,7 +578,7 @@ public class IcraDosyaIslemleriBean {
 		hesap = new Hesap();
 		baglanti = new Baglanti();
 		borclubilgisi = new BorcluBilgisi();
-		//plakaGetir();
+		// plakaGetir();
 		hesaplarlistesi = new ArrayList<HesaplarList>();
 		icradosyasi.setBK84("E");
 		icradosyasi.setKKDF("H");
@@ -699,8 +700,8 @@ public class IcraDosyaIslemleriBean {
 			pelops.controller.AktifBean.setBorcluAdi(daoborclu.Liste(borclubilgisiID).getAdSoyad());
 
 			icradosyasilistesi = icradosyasidao.Listele(icradosyaID);
-			
-			dosyaStatusu=icradosyasidao.getDosyaStatusu(icradosyasilistesi.getDosyaStatusuId());
+
+			dosyaStatusu = icradosyasidao.getDosyaStatusu(icradosyasilistesi.getDosyaStatusuId());
 
 			BorcluBilgisiDAO borcludao = new BorcluBilgisiDAO();
 			borclubilgisilistesi = borcludao.Liste(borclubilgisiID);
@@ -709,7 +710,7 @@ public class IcraDosyaIslemleriBean {
 
 			AlacakliDAO alacaklidao = new AlacakliDAO();
 			alacaklilistesi = alacaklidao.ListeGetir(alacakliID);
-			//plakaGetir();
+			// plakaGetir();
 			Hesapla();
 		}
 
@@ -728,8 +729,8 @@ public class IcraDosyaIslemleriBean {
 			IcraDosyasiDAO icradosyasidao = new IcraDosyasiDAO();
 
 			IcraDosyasi icraDosyasi = icradosyasidao.Listele(id);
-			
-			dosyaStatusu=icradosyasidao.getDosyaStatusu(icraDosyasi.getDosyaStatusuId());
+
+			dosyaStatusu = icradosyasidao.getDosyaStatusu(icraDosyasi.getDosyaStatusuId());
 
 			String icradosyano = icraDosyasi.getIcraDosyaNo();
 
@@ -799,7 +800,7 @@ public class IcraDosyaIslemleriBean {
 
 					hesapTarihi = new Date();
 
-					//plakaGetir();
+					// plakaGetir();
 
 					Hesapla();
 					refreshPanelVisible();
@@ -1068,8 +1069,6 @@ public class IcraDosyaIslemleriBean {
 		AktifBean.hesaplistesi = hesaplistesi;
 	} // PROSEDÜR SONU
 
-	
-
 	public void itirazDurum() {
 		IcraDosyasiDAO icd = new IcraDosyasiDAO();
 
@@ -1310,9 +1309,6 @@ public class IcraDosyaIslemleriBean {
 	public void setDosyaStatusu(String dosyaStatusu) {
 		this.dosyaStatusu = dosyaStatusu;
 	}
-	
-	
-	
 
 	// public void getirURL(int deger){
 	//

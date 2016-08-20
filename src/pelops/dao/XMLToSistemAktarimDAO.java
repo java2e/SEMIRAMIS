@@ -5,10 +5,6 @@ import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-import pelops.chronology.controller.ChronologyUtil;
-import pelops.chronology.controller.Utils;
-import pelops.chronology.model.ChronologyIdentifier;
-import pelops.chronology.model.Instance;
 import pelops.model.AlacakBilgisi;
 import pelops.model.Baglanti;
 import pelops.model.BorcluBilgisi;
@@ -17,6 +13,8 @@ import pelops.model.FreeXML;
 import pelops.model.Hesap;
 import pelops.model.IcraDosyasi;
 import pelops.model.XMLToUyap;
+import semiramis.chronology.controller.Utils;
+import semiramis.chronology.model.ChronologyIdentifier;
 
 public class XMLToSistemAktarimDAO {
 

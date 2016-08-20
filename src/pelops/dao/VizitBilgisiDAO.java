@@ -6,13 +6,13 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import pelops.chronology.controller.Utils;
-import pelops.chronology.model.ChronologyIdentifier;
 import pelops.controller.AktifBean;
 import pelops.db.DBConnection;
 import pelops.model.User;
 import pelops.model.VizitBilgisi;
 import pelops.model.VizitStatusu;
+import semiramis.chronology.controller.Utils;
+import semiramis.chronology.model.ChronologyIdentifier;
 
 public class VizitBilgisiDAO extends DBConnection {
 

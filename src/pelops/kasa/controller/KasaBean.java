@@ -23,8 +23,6 @@ import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import pelops.chronology.controller.Utils;
-import pelops.chronology.model.ChronologyIdentifier;
 import pelops.controller.AktifBean;
 import pelops.controller.GenelTanimBean;
 import pelops.controller.IcraDosyaIslemleriBean;
@@ -43,6 +41,8 @@ import pelops.model.Kasa;
 import pelops.model.LogError;
 import pelops.users.User;
 import pelops.util.Util;
+import semiramis.chronology.controller.Utils;
+import semiramis.chronology.model.ChronologyIdentifier;
 
 @SessionScoped
 @ManagedBean(name = "kasaBean")

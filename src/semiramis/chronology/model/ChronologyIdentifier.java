@@ -1,4 +1,4 @@
-package pelops.chronology.model;
+package semiramis.chronology.model;
 
 public class ChronologyIdentifier {
 

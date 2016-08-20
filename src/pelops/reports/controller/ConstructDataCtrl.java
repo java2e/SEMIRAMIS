@@ -28,14 +28,14 @@ import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import pelops.chronology.controller.Utils;
-import pelops.chronology.model.ChronologyIdentifier;
 import pelops.dao.PostaDAO;
 import pelops.model.Posta;
 import pelops.report.model.ConstructedData;
 import pelops.report.model.DataToPrint;
 import pelops.report.model.ReportGenel;
 import pelops.report.model.ReportUtils;
+import semiramis.chronology.controller.Utils;
+import semiramis.chronology.model.ChronologyIdentifier;
 
 public class ConstructDataCtrl {
 

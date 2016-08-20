@@ -1,4 +1,4 @@
-package pelops.chronology.model;
+package semiramis.chronology.model;
 
 import java.util.Date;
 

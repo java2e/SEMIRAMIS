@@ -1,29 +1,15 @@
-package pelops.chronology.controller;
+package semiramis.chronology.controller;
 
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-
-import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
-
 import org.primefaces.context.RequestContext;
-import org.primefaces.extensions.event.timeline.TimelineSelectEvent;
 import org.primefaces.extensions.model.timeline.TimelineEvent;
 import org.primefaces.extensions.model.timeline.TimelineModel;
-
-import pelops.chronology.model.Chronology;
-import pelops.chronology.model.ReportChronology2;
-import pelops.chronology.model.Task;
 import pelops.controller.AktifBean;
-import pelops.util.Util;
+import semiramis.chronology.model.Chronology;
 
 @ManagedBean
 @SessionScoped

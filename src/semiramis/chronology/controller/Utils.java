@@ -1,4 +1,4 @@
-package pelops.chronology.controller;
+package semiramis.chronology.controller;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -6,10 +6,10 @@ import java.util.List;
 
 import org.primefaces.extensions.model.timeline.TimelineEvent;
 
-import pelops.chronology.model.Chronology;
-import pelops.chronology.model.ChronologyIdentifier;
-import pelops.chronology.model.Task;
 import pelops.controller.AktifBean;
+import semiramis.chronology.model.Chronology;
+import semiramis.chronology.model.ChronologyIdentifier;
+import semiramis.chronology.model.Task;
 
 public class Utils {
 

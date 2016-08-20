@@ -20,7 +20,6 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperPrintManager;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
 import net.sf.jasperreports.engine.export.JRPrintServiceExporterParameter;
-import pelops.chronology.controller.ReportChronologyUtil;
 import pelops.controller.AktifBean;
 import pelops.report.model.ConstructedData;
 import pelops.report.model.DataToPrint;

@@ -9,12 +9,12 @@ import java.util.List;
 
 import com.a.a.a.b.h;
 
-import pelops.chronology.controller.Utils;
-import pelops.chronology.model.ChronologyIdentifier;
 import pelops.controller.AktifBean;
 import pelops.db.DBConnection;
 import pelops.users.Util;
 import semimis.utils.IDAO;
+import semiramis.chronology.controller.Utils;
+import semiramis.chronology.model.ChronologyIdentifier;
 import semiramis.operasyon.model.HaczeEsasMalBilgisi;
 import semiramis.operasyon.model.HaczeEsasMalBilgisiView;
 

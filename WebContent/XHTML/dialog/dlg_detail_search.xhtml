@@ -16,7 +16,7 @@
 
 
 			<p:dataTable value="#{kasaBean.detayliAramaListesi}"
-				filteredValue="#{kasaBean.filteredDetayliAramaListesi}"
+				filteredValue="#{kasaBean.filterDetayliAramaListesi}"
 				emptyMessage="Aradığınız Kritere Uygun Sonuç Bulunamamıştır."
 				var="hb" id="tbldetayliarama" style="width:720px "
 				rowStyleClass="green" rows="15" paginator="true"
@@ -46,7 +46,7 @@
 					<p:commandButton value="Seç" type="Button"
 						action="#{basicTimelineController.icraDosyaSec(hb.id)}"
 						actionListener="#{icradosyaislemleribean.GelismisListe(hb.id)}"
-						update=":formChr" />
+						update=":formChr:kronolojiDt" />
 
 
 				</p:column>

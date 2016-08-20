@@ -25,115 +25,34 @@
 			</p:outputLabel>
 
 		</p:panel>
-	
-<p:panel header="Dosya Zaman Çizelgesi" >
 
-	<p:growl id="growl" showSummary="true" showDetail="true"
-			autoUpdate="true" />
-		<p:fieldset style="white-space:nowrap;" rendered="false">
-			<h:panelGrid columns="8"
-				columnClasses="formColumn,,formColumn,,formColumn,,formColumn,,">
-				<h:outputText value="Selectable" />
-				<p:selectBooleanButton id="selectable" onLabel="Yes" offLabel="No"
-					value="#{basicTimelineController.selectable}">
-					<p:ajax event="change" process="@this" update="timeline" />
-				</p:selectBooleanButton>
+		<p:panel id="kronolojiDt">
+			<p:dataTable id="datatable" var="list" rows="10" paginator="true"
+				value="#{basicTimelineController.chronologies}"
+				rowIndexVar="rowIndex">
 
-				<h:outputText value="Zoomable" />
-				<p:selectBooleanButton id="zoomable" onLabel="Yes" offLabel="No"
-					value="#{basicTimelineController.zoomable}">
-					<p:ajax event="change" process="@this" update="timeline" />
-				</p:selectBooleanButton>
+				<p:column headerText="Departman" width="10%">
+					<p:outputLabel value="#{list.departman}" />
+				</p:column>
 
-				<h:outputText value="Moveable" />
-				<p:selectBooleanButton id="moveable" onLabel="Yes" offLabel="No"
-					value="#{basicTimelineController.moveable}">
-					<p:ajax event="change" process="@this" update="timeline" />
-				</p:selectBooleanButton>
+				<p:column headerText="Borclu Adı" width="15%">
+					<p:outputLabel value="#{list.borcluAdi}" />
+				</p:column>
+				<p:column headerText="İşlem" width="15%">
+					<p:outputLabel value="#{list.islem}" />
+				</p:column>
+				<p:column headerText="Açıklama" width="15%">
+					<p:outputLabel value="#{list.aciklama}" />
+				</p:column>
+				<p:column headerText="Belge Tarihi" width="15%">
+					<p:outputLabel value="#{list.tarih}" />
+				</p:column>
+				<p:column headerText="Personel" width="15%">
+					<p:outputLabel value="#{list.personelAdi}" />
+				</p:column>
 
-				<h:outputText value="Stack Events" />
-				<p:selectBooleanButton id="stackEvents" onLabel="Yes" offLabel="No"
-					value="#{basicTimelineController.stackEvents}">
-					<p:ajax event="change" process="@this" update="timeline" />
-				</p:selectBooleanButton>
-
-				<h:outputText value="Event Style" />
-				<p:selectOneButton id="eventStyle"
-					value="#{basicTimelineController.eventStyle}">
-					<f:selectItem itemLabel="Dot" itemValue="dot" />
-					<f:selectItem itemLabel="Box" itemValue="box" />
-					<p:ajax event="change" process="@this" update="timeline" />
-				</p:selectOneButton>
-
-				<h:outputText value="Axis On Top" />
-				<p:selectBooleanButton id="axisOnTop" onLabel="Yes" offLabel="No"
-					value="#{basicTimelineController.axisOnTop}">
-					<p:ajax event="change" process="@this" update="timeline" />
-				</p:selectBooleanButton>
-
-				<h:outputText value="Show Current Time" />
-				<p:selectBooleanButton id="currentTime" onLabel="Yes" offLabel="No"
-					value="#{basicTimelineController.showCurrentTime}">
-					<p:ajax event="change" process="@this" update="timeline" />
-				</p:selectBooleanButton>
-
-				<h:outputText value="Show Navigation" />
-				<p:selectBooleanButton id="navigation" onLabel="Yes" offLabel="No"
-					value="#{basicTimelineController.showNavigation}">
-					<p:ajax event="change" process="@this" update="timeline" />
-				</p:selectBooleanButton>
-			</h:panelGrid>
-		</p:fieldset>
-
-		<p:panel>
-			<p:spacer width="100%" height="10" />
-
-			<pe:timeline id="timeline" value="#{basicTimelineController.model}"
-				var="task" height="400px" widgetVar="timelineWdgt"
-				selectable="#{basicTimelineController.selectable}"
-				zoomable="#{basicTimelineController.zoomable}"
-				moveable="#{basicTimelineController.moveable}"
-				stackEvents="#{basicTimelineController.stackEvents}"
-				axisOnTop="#{basicTimelineController.axisOnTop}"
-				eventStyle="#{basicTimelineController.eventStyle}"
-				showCurrentTime="#{basicTimelineController.showCurrentTime}"
-				showNavigation="#{basicTimelineController.showNavigation}">
-
-				<h:panelGroup layout="block" style="padding-bottom:5px">
-					<h:outputText value="#{task.title}" />
-				</h:panelGroup>
-				<h:graphicImage library="images" name="#{task.imagePath}" />
-			</pe:timeline>
+			</p:dataTable>
 		</p:panel>
-		
-		<p:spacer width="100%" height="20" />
-</p:panel>
-		<p:dataTable id="datatable" var="list" rows="10" paginator="true"
-			value="#{basicTimelineController.chronologies}"
-			rowIndexVar="rowIndex">
-
-			<p:column headerText="Departman" width="10%">
-				<p:outputLabel value="#{list.departman}" />
-			</p:column>
-
-			<p:column headerText="Borclu Adı" width="15%">
-				<p:outputLabel value="#{list.borcluAdi}" />
-			</p:column>
-			<p:column headerText="İşlem" width="15%">
-				<p:outputLabel value="#{list.islem}" />
-			</p:column>
-			<p:column headerText="Açıklama" width="15%">
-				<p:outputLabel value="#{list.aciklama}" />
-			</p:column>
-			<p:column headerText="Belge Tarihi" width="15%">
-				<p:outputLabel value="#{list.tarih}" />
-			</p:column>
-			<p:column headerText="Personel" width="15%">
-				<p:outputLabel value="#{list.personelAdi}" />
-			</p:column>
-
-		</p:dataTable>
-
 		<h:outputStylesheet id="timelineCSS">  
     table .formColumn {  
         padding: 0 5px 0 20px;  

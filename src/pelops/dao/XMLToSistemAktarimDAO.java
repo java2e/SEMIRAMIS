@@ -13,8 +13,8 @@ import pelops.model.FreeXML;
 import pelops.model.Hesap;
 import pelops.model.IcraDosyasi;
 import pelops.model.XMLToUyap;
-import semiramis.chronology.controller.Utils;
-import semiramis.chronology.model.ChronologyIdentifier;
+import semiramis.operasyon.controller.Utils;
+import semiramis.operasyon.model.ChronologyIdentifier;
 
 public class XMLToSistemAktarimDAO {
 

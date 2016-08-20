@@ -1,4 +1,4 @@
-package semiramis.chronology.controller;
+package semiramis.operasyon.controller;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -10,7 +10,7 @@ import org.primefaces.context.RequestContext;
 import org.primefaces.extensions.model.timeline.TimelineEvent;
 import org.primefaces.extensions.model.timeline.TimelineModel;
 import pelops.controller.AktifBean;
-import semiramis.chronology.model.Chronology;
+import semiramis.operasyon.model.Chronology;
 
 @ManagedBean
 @ViewScoped

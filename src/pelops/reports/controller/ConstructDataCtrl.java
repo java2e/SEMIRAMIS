@@ -34,8 +34,8 @@ import pelops.report.model.ConstructedData;
 import pelops.report.model.DataToPrint;
 import pelops.report.model.ReportGenel;
 import pelops.report.model.ReportUtils;
-import semiramis.chronology.controller.Utils;
-import semiramis.chronology.model.ChronologyIdentifier;
+import semiramis.operasyon.controller.Utils;
+import semiramis.operasyon.model.ChronologyIdentifier;
 
 public class ConstructDataCtrl {
 

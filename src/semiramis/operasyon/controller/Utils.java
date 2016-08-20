@@ -1,4 +1,4 @@
-package semiramis.chronology.controller;
+package semiramis.operasyon.controller;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -7,9 +7,10 @@ import java.util.List;
 import org.primefaces.extensions.model.timeline.TimelineEvent;
 
 import pelops.controller.AktifBean;
-import semiramis.chronology.model.Chronology;
-import semiramis.chronology.model.ChronologyIdentifier;
-import semiramis.chronology.model.Task;
+import semiramis.operasyon.dao.UtilsDAO;
+import semiramis.operasyon.model.Chronology;
+import semiramis.operasyon.model.ChronologyIdentifier;
+import semiramis.operasyon.model.Task;
 
 public class Utils {
 

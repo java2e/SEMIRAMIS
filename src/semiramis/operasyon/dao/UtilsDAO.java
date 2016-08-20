@@ -1,4 +1,4 @@
-package semiramis.chronology.controller;
+package semiramis.operasyon.dao;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 import pelops.db.DBConnection;
 import pelops.users.User;
 import pelops.util.Util;
-import semiramis.chronology.model.Chronology;
+import semiramis.operasyon.model.Chronology;
 
 public class UtilsDAO extends DBConnection {
 	private String SQL = "";

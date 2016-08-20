@@ -13,8 +13,8 @@ import pelops.controller.AktifBean;
 import pelops.db.DBConnection;
 import pelops.users.Util;
 import semimis.utils.IDAO;
-import semiramis.chronology.controller.Utils;
-import semiramis.chronology.model.ChronologyIdentifier;
+import semiramis.operasyon.controller.Utils;
+import semiramis.operasyon.model.ChronologyIdentifier;
 import semiramis.operasyon.model.HaczeEsasMalBilgisi;
 import semiramis.operasyon.model.HaczeEsasMalBilgisiView;
 

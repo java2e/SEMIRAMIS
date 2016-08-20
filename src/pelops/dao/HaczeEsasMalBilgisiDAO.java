@@ -9,8 +9,8 @@ import java.util.ArrayList;
 import pelops.controller.AktifBean;
 import pelops.db.DBConnection;
 import pelops.model.HaczeEsasMalBilgisi;
-import semiramis.chronology.controller.Utils;
-import semiramis.chronology.model.ChronologyIdentifier;
+import semiramis.operasyon.controller.Utils;
+import semiramis.operasyon.model.ChronologyIdentifier;
 
 public class HaczeEsasMalBilgisiDAO extends DBConnection {
 

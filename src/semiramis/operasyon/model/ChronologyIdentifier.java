@@ -1,4 +1,4 @@
-package semiramis.chronology.model;
+package semiramis.operasyon.model;
 
 public class ChronologyIdentifier {
 

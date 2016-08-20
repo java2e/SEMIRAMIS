@@ -11,8 +11,8 @@ import pelops.db.DBConnection;
 import pelops.model.User;
 import pelops.model.VizitBilgisi;
 import pelops.model.VizitStatusu;
-import semiramis.chronology.controller.Utils;
-import semiramis.chronology.model.ChronologyIdentifier;
+import semiramis.operasyon.controller.Utils;
+import semiramis.operasyon.model.ChronologyIdentifier;
 
 public class VizitBilgisiDAO extends DBConnection {
 

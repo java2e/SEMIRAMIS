@@ -35,8 +35,8 @@ import pelops.model.HesaplarList;
 import pelops.model.IcraDosyasi;
 import pelops.model.Ilce;
 import pelops.model.LogError;
-import semiramis.chronology.controller.Utils;
-import semiramis.chronology.model.ChronologyIdentifier;
+import semiramis.operasyon.controller.Utils;
+import semiramis.operasyon.model.ChronologyIdentifier;
 
 @ManagedBean(name = "icradosyaislemleribean")
 @SessionScoped

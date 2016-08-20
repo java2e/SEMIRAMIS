@@ -41,8 +41,8 @@ import pelops.model.Kasa;
 import pelops.model.LogError;
 import pelops.users.User;
 import pelops.util.Util;
-import semiramis.chronology.controller.Utils;
-import semiramis.chronology.model.ChronologyIdentifier;
+import semiramis.operasyon.controller.Utils;
+import semiramis.operasyon.model.ChronologyIdentifier;
 
 @SessionScoped
 @ManagedBean(name = "kasaBean")

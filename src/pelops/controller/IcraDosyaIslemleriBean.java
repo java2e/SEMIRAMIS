@@ -56,6 +56,16 @@ public class IcraDosyaIslemleriBean {
 
 	private String dialogUrl = "dlg_common";
 
+	private boolean showPic = false;
+
+	public boolean getShowPic() {
+		return showPic;
+	}
+
+	public void setShowPic(boolean showPic) {
+		this.showPic = showPic;
+	}
+
 	public boolean getIsdialogsVisible() {
 		return isdialogsVisible;
 	}
@@ -724,11 +734,13 @@ public class IcraDosyaIslemleriBean {
 
 	public void GelismisListe(int id) {
 		try {
-
+			IcraDosyaIslemleriBean dosyaIslemleriBean = new IcraDosyaIslemleriBean();
+			
 			gelismisgetir = id;
 			IcraDosyasiDAO icradosyasidao = new IcraDosyasiDAO();
 
 			IcraDosyasi icraDosyasi = icradosyasidao.Listele(id);
+			checkDosyaStatusu(icraDosyasi);
 
 			dosyaStatusu = icradosyasidao.getDosyaStatusu(icraDosyasi.getDosyaStatusuId());
 
@@ -1308,6 +1320,16 @@ public class IcraDosyaIslemleriBean {
 
 	public void setDosyaStatusu(String dosyaStatusu) {
 		this.dosyaStatusu = dosyaStatusu;
+	}
+
+	public void checkDosyaStatusu(IcraDosyasi dosyasi) {
+		System.out.println("burda");
+		if (dosyasi.getDosyaStatusuId() == 7 || dosyasi.getDosyaStatusuId() == 9) {
+			showPic = true;
+		} else {
+			showPic = false;
+		}
+		System.out.println(showPic);
 	}
 
 	// public void getirURL(int deger){

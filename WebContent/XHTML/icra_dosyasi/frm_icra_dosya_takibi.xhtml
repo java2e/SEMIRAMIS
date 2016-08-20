@@ -45,7 +45,7 @@
 		</h:form>
 
 		<h:form id="formDialogs">
-			<p:panelGrid columns="6" 
+			<p:panelGrid columns="6"
 				style=" border-style: hidden !important;width:100%">
 
 
@@ -180,18 +180,20 @@
 				</p:panelGrid>
 
 			</p:panel>
+			<p:panel id="panelPic" rendered="#{icradosyaislemleribean.showPic}"
+				style="z-index: 99; width: 95%; height: 55%; position: absolute; background-image: url(img/divBack.png); background-repeat: repeat; background-color: transparent !important;">
 
+				<center>
+					<img src="img/vefat2.png" style="margin-top: 30px;" />
+				</center>
+
+			</p:panel>
 
 
 			<p:panel id="panel" styleClass="titleColor"
 				header="#{icradosyaislemleribean.dosyaStatusu}">
 
-				<div
-					style="z-index: 99; width: 95%; height: 55%; position: absolute; display: none; background-image: url(img/divBack.png); background-repeat: repeat;">
-					<center>
-						<img src="img/vefat2.png" style="margin-top: 30px;" />
-					</center>
-				</div>
+
 
 				<p:panelGrid style=" border-style: hidden !important;">
 
@@ -691,7 +693,8 @@
 									<p:outputLabel />
 									<p:commandButton value="Genel Haciz Bilgisini Güncelle"
 										ajax="false" style="width:100%"
-										action="#{icradosyaislemleribean.guncelleHaciz()}" />
+										action="#{icradosyaislemleribean.guncelleHaciz()}" 
+										update=":panelPic"/>
 
 								</p:panelGrid>
 							</p:panel>

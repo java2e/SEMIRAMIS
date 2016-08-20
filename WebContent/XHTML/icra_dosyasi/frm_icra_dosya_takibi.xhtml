@@ -6,602 +6,850 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
-	
+
 
 <h:body>
 
-<style>
-
-.ui-panelgrid-cell{
-	border-width:0px !important;
-	
+	<style>
+.ui-panelgrid-cell {
+	border-width: 0px !important;
 }
 
-	.titleColor > .ui-panel-titlebar {
-    background-image: url('img/panel.png');
-    background-repeat:repeat-x;
-    height: 25px;
-    text-align: center !important;
-    font-size: 20px;
-    color:white;
-    }
-    
-	
+.titleColor>.ui-panel-titlebar {
+	background-image: url('img/panel.png');
+	background-repeat: repeat-x;
+	height: 25px;
+	text-align: center !important;
+	font-size: 20px;
+	color: white;
+}
 </style>
 
 
 
-	<p:panel id="icradosyatakibi" header="İCRA DOSYA TAKİBİ" style="text-align:left;">
+	<p:panel id="icradosyatakibi" header="İCRA DOSYA TAKİBİ"
+		style="text-align:left;">
 
-<p:ajaxStatus onstart="PF('statusDialog1').show()" onsuccess="PF('statusDialog1').hide()" />
- 
-<p:dialog widgetVar="statusDialog1" modal="true" draggable="false" closable="false" resizable="false" showHeader="false" 
-style="position: absolute; background-color: rgba(0, 0, 0, 0.6); height: 256px; width: 256px; left:0%; top:0%; z-index:2; height: 100%; width: 100%">
-    <p:graphicImage value="img/yukleme.gif" height="80" width="80" />
-</p:dialog>
+		<p:ajaxStatus onstart="PF('statusDialog1').show()"
+			onsuccess="PF('statusDialog1').hide()" />
+
+		<p:dialog widgetVar="statusDialog1" modal="true" draggable="false"
+			closable="false" resizable="false" showHeader="false"
+			style="position: absolute; background-color: rgba(0, 0, 0, 0.6); height: 256px; width: 256px; left:0%; top:0%; z-index:2; height: 100%; width: 100%">
+			<p:graphicImage value="img/yukleme.gif" height="80" width="80" />
+		</p:dialog>
 
 
 		<h:form id="formMsgs">
 			<p:growl id="msgs" showDetail="true" />
 		</h:form>
-		
-		<h:form id="formIcraDosyaTakibi" style="width:100%">
-		
-		
-		
-		<p:panel style=" border-style: hidden !important; width:100%" id="panelDialog">
-		
-		<p:panelGrid columns="6" style=" border-style: hidden !important;width:100%">
-		
-		
-		        <p:commandButton style="width:100%" value="HACİZ BİLGİSİ"  disabled="#{icradosyaislemleribean.isdialogsVisible}" actionListener="#{icradosyaislemleribean.setDialogPage('dlg_haciz_bilgisi_kaydi')}"  oncomplete="PF('dialogWidget').show();" update="dialog"/>
-				<p:commandButton style="width:100%" value="HARÇ BİLGİSİ" disabled="#{icradosyaislemleribean.isdialogsVisible}" actionListener="#{icradosyaislemleribean.setDialogPage('dlg_harc_bilgisi_kaydi')}"  oncomplete="PF('dialogWidget').show();" update="dialog"/>
-		
-				<p:commandButton style="width:100%" value="MASRAF BİLGİSİ" disabled="#{icradosyaislemleribean.isdialogsVisible}" actionListener="#{icradosyaislemleribean.setDialogPage('dlg_masraf_bilgisi_kaydi')}"  oncomplete="PF('dialogWidget').show();" update="dialog"/>
-		
-				
-		
-				<p:commandButton style="width:100%" value="KASA DURUMU" disabled="#{icradosyaislemleribean.isdialogsVisible}" actionListener="#{icradosyaislemleribean.setDialogPage('dlg_odeme_emri_kaydi')}"  oncomplete="PF('dialogWidget').show();" update="dialog"/>
-		
-				<p:commandButton style="width:100%" value="VİZİT BİLGİSİ" disabled="#{icradosyaislemleribean.isdialogsVisible}" actionListener="#{icradosyaislemleribean.setDialogPage('dlg_vizit_bilgisi_kaydi')}"  oncomplete="PF('dialogWidget').show();" update="dialog"/>
-		
-				<p:commandButton style="width:100%" value="SES KAYDI" disabled="#{icradosyaislemleribean.isdialogsVisible}" actionListener="#{icradosyaislemleribean.setDialogPage('dlg_icra_borc_ses_kayit')}"  oncomplete="PF('dialogWidget').show();" update="dialog"/>
-		
-				<p:commandButton style="width:100%" value="İZLEME BİLGİSİ" disabled="#{icradosyaislemleribean.isdialogsVisible}" actionListener="#{icradosyaislemleribean.setDialogPage('dlg_izleme_bilgisi_kaydi')}"  oncomplete="PF('dialogWidget').show();" update="dialog"/>
-				<p:commandButton style="width:100%" value="ALACAK BİLGİSİ" disabled="#{icradosyaislemleribean.isdialogsVisible}" actionListener="#{icradosyaislemleribean.setDialogPage('dlg_alacak_bilgisi_kaydi')}"  oncomplete="PF('dialogWidget').show();" update="dialog"/>
-				<p:commandButton style="width:100%" value="MUAMELE ANALİZİ"  actionListener="#{icradosyaislemleribean.setDialogPage('dlg_muamele_analizi')}"  oncomplete="PF('dialogWidget').show();" update="dialog"/>
-				<p:commandButton style="width:100%" value="İZLEME ANALİZİ "  actionListener="#{icradosyaislemleribean.setDialogPage('dlg_izleme_analizi')}"  oncomplete="PF('dialogWidget').show();" update="dialog"/>
-				<p:commandButton style="width:100%" value="GÖNDERİ TAKİBİ" disabled="#{icradosyaislemleribean.isdialogsVisible}" rendered="false" actionListener="#{icradosyaislemleribean.setDialogPage('dlg_gonderi_takibi')}"  oncomplete="PF('dialogWidget').show();" update="dialog"/>
-				<p:commandButton style="width:100%" value="DOSYA KRONOLOJİSİ"   
-						disabled="#{icradosyaislemleribean.isdialogsVisible}"	actionListener="#{icradosyaislemleribean.setDialogPage('dlg_dosya_chronology')}" oncomplete="PF('dialogWidget').show();" update="dialog"/>
-				<p:commandButton style="width:100%" value="İCRA KLASÖRÜ" disabled="#{icradosyaislemleribean.isdialogsVisible}" actionListener="#{icradosyaislemleribean.setDialogPage('dlg_dosya_ekleme')}"  oncomplete="PF('dialogWidget').show();" update="dialog"/>
-		
-			
-				
-		
-		
-				
-		</p:panelGrid>
-		
+
+		<h:form id="formDialogs">
+			<p:panelGrid columns="6" 
+				style=" border-style: hidden !important;width:100%">
+
+
+				<p:commandButton style="width:100%" value="HACİZ BİLGİSİ"
+					disabled="#{icradosyaislemleribean.isdialogsVisible}"
+					actionListener="#{icradosyaislemleribean.setDialogPage('dlg_haciz_bilgisi_kaydi')}"
+					oncomplete="PF('dialogWidget').show();" update="dialog" />
+				<p:commandButton style="width:100%" value="HARÇ BİLGİSİ"
+					disabled="#{icradosyaislemleribean.isdialogsVisible}"
+					actionListener="#{icradosyaislemleribean.setDialogPage('dlg_harc_bilgisi_kaydi')}"
+					oncomplete="PF('dialogWidget').show();" update="dialog" />
+
+				<p:commandButton style="width:100%" value="MASRAF BİLGİSİ"
+					disabled="#{icradosyaislemleribean.isdialogsVisible}"
+					actionListener="#{icradosyaislemleribean.setDialogPage('dlg_masraf_bilgisi_kaydi')}"
+					oncomplete="PF('dialogWidget').show();" update="dialog" />
+
+
+
+				<p:commandButton style="width:100%" value="KASA DURUMU"
+					disabled="#{icradosyaislemleribean.isdialogsVisible}"
+					actionListener="#{icradosyaislemleribean.setDialogPage('dlg_odeme_emri_kaydi')}"
+					oncomplete="PF('dialogWidget').show();" update="dialog" />
+
+				<p:commandButton style="width:100%" value="VİZİT BİLGİSİ"
+					disabled="#{icradosyaislemleribean.isdialogsVisible}"
+					actionListener="#{icradosyaislemleribean.setDialogPage('dlg_vizit_bilgisi_kaydi')}"
+					oncomplete="PF('dialogWidget').show();" update="dialog" />
+
+				<p:commandButton style="width:100%" value="SES KAYDI"
+					disabled="#{icradosyaislemleribean.isdialogsVisible}"
+					actionListener="#{icradosyaislemleribean.setDialogPage('dlg_icra_borc_ses_kayit')}"
+					oncomplete="PF('dialogWidget').show();" update="dialog" />
+
+				<p:commandButton style="width:100%" value="İZLEME BİLGİSİ"
+					disabled="#{icradosyaislemleribean.isdialogsVisible}"
+					actionListener="#{icradosyaislemleribean.setDialogPage('dlg_izleme_bilgisi_kaydi')}"
+					oncomplete="PF('dialogWidget').show();" update="dialog" />
+				<p:commandButton style="width:100%" value="ALACAK BİLGİSİ"
+					disabled="#{icradosyaislemleribean.isdialogsVisible}"
+					actionListener="#{icradosyaislemleribean.setDialogPage('dlg_alacak_bilgisi_kaydi')}"
+					oncomplete="PF('dialogWidget').show();" update="dialog" />
+				<p:commandButton style="width:100%" value="MUAMELE ANALİZİ"
+					actionListener="#{icradosyaislemleribean.setDialogPage('dlg_muamele_analizi')}"
+					oncomplete="PF('dialogWidget').show();" update="dialog" />
+				<p:commandButton style="width:100%" value="İZLEME ANALİZİ "
+					actionListener="#{icradosyaislemleribean.setDialogPage('dlg_izleme_analizi')}"
+					oncomplete="PF('dialogWidget').show();" update="dialog" />
+				<p:commandButton style="width:100%" value="GÖNDERİ TAKİBİ"
+					disabled="#{icradosyaislemleribean.isdialogsVisible}"
+					rendered="false"
+					actionListener="#{icradosyaislemleribean.setDialogPage('dlg_gonderi_takibi')}"
+					oncomplete="PF('dialogWidget').show();" update="dialog" />
+				<p:commandButton style="width:100%" value="DOSYA KRONOLOJİSİ"
+					disabled="#{icradosyaislemleribean.isdialogsVisible}"
+					actionListener="#{icradosyaislemleribean.setDialogPage('dlg_dosya_chronology')}"
+					oncomplete="PF('dialogWidget').show();" update="dialog" />
+				<p:commandButton style="width:100%" value="İCRA KLASÖRÜ"
+					disabled="#{icradosyaislemleribean.isdialogsVisible}"
+					actionListener="#{icradosyaislemleribean.setDialogPage('dlg_dosya_ekleme')}"
+					oncomplete="PF('dialogWidget').show();" update="dialog" />
+
+
+
+
+
+
+			</p:panelGrid>
+
 			<p:dialog id="dialog" header="İŞLEM PANELİ" widgetVar="dialogWidget"
 				minHeight="340" height="768" width="1424">
-				<ui:include src="../dialog/#{icradosyaislemleribean.dialogUrl}.xhtml" />
+				<ui:include
+					src="../dialog/#{icradosyaislemleribean.dialogUrl}.xhtml" />
 			</p:dialog>
-	
-		
-	
-		
-		<p:spacer height="25"/>
-		
-		<p:panelGrid columns="8" style=" border-style: hidden !important; width:100%" columnClasses="ui-grid-col-1,ui-grid-col-3,ui-grid-col-1,ui-grid-col-3,ui-grid-col-1,ui-grid-col-1,ui-grid-col-1,ui-grid-col-1">
-		<p:outputLabel value="İCRA MÜDÜRLÜĞÜ :" style="width:100%" />
-		<p:selectOneMenu id="icraMudurluk" 	
-					 effect="fold" 
-					 filter="true" filterMatchMode="startsWith"
-					 value="#{icradosyaislemleribean.icraMudurluguID}"
-					 style=" width:100%;">
-					 <f:selectItem itemLabel="" itemValue=""/>
-									<f:selectItems
-										value="#{geneltanimbean.ListeGetir('tbl_icra_mudurlugu')}"
-										var="list" itemLabel="#{list.adi}" itemValue="#{list.id}" />
-		</p:selectOneMenu>
-						
-		<p:outputLabel value="DOSYA NUMARASI :" style="width:100%" />
-		
-		<p:outputLabel style="width:100%">
-		<p:remoteCommand name="test"  actionListener="#{icradosyaislemleribean.Liste()}" update="borclubilgisi,tarihbilgisi,itirazbilgisi,frmhesapbilgisi:hesapbilgisi,alacaklibilgisi,genelhacizbilgisi,icralevhalari"/>
-		<p:inputMask mask="9999/99999" id="grow" style=" width:100%" value="#{icradosyaislemleribean.icraDosyaNo}" onkeypress="if (event.keyCode == 13) { test(); return false; }"/>
-		</p:outputLabel>
-		
-		<p:outputLabel style="width:100%">
-		<p:tooltip id="toolTipGrow" for="grow" value="BU ALANA İŞLEM YAPILACAK İCRA DOSYA NUMARASINI GİREREK 'ENTER' TUŞUNA BASINIZ.... "
-               showEffect="clip" hideEffect="explode" />
-		<p:commandButton icon="ui-icon-search " style="width:100%; " actionListener="#{icradosyaislemleribean.Liste()}" update="borclubilgisi,tarihbilgisi,itirazbilgisi,frmhesapbilgisi:hesapbilgisi,alacaklibilgisi,genelhacizbilgisi,icralevhalari"/>
-		</p:outputLabel>
-	 	
-	 <p:commandButton value="Detaylı Arama" icon="ui-icon-zoomin " ajax="false" type="button" onclick="PF('dlgdetayliarama').show();" style="width:100%" /> 
-	
-		<p:graphicImage value="#{icradosyaislemleribean.kart_1}" height="75" width="100%" />
-		<p:graphicImage value="img/HSBC.png" height="75" width="100%" />
-	
-	</p:panelGrid>
-		
-		</p:panel>
-	
-			
-		
-		<p:panel id="panel"  styleClass="titleColor" header="#{icradosyaislemleribean.dosyaStatusu}" >
-		
-		<div style="z-index:99;width: 95%;height: 55%; position:absolute; display:none; background-image: url(img/divBack.png);background-repeat: repeat;">
-		<center>
-		<img src="img/vefat2.png" style="margin-top: 30px;"/>
-		</center>
-		</div>
-		
-		<p:panelGrid style=" border-style: hidden !important;" >
-		
-		<p:row style="width:100% ;vertical-align: top;">
-		
-			<p:column style="width:30%;vertical-align: top;">
-				<p:panel header="BORÇLU BİLGİSİ" id="borclubilgisi" style=" width:100%; ">
-					<p:panelGrid columns="2" style=" border-style: hidden !important; width:100%; background: darkgreen;" columnClasses="ui-grid-col-4,ui-grid-col-8" >
-							<p:outputLabel value="Müşteri No:"  />
-							
-							<p:inputText style="width:100%" value="#{icradosyaislemleribean.borclubilgisilistesi.musteriNo}" readonly="false" />
-					     	<p:outputLabel value="Banka Servis No :"/>
-							<p:inputText style="width:100%" value="#{icradosyaislemleribean.icradosyasilistesi.banka_servis_no}" readonly="true" />
-							<p:outputLabel value="Avukat Servis No :"/>
-							<p:inputText style="width:100%" value="#{icradosyaislemleribean.icradosyasilistesi.avukat_sevis_no}" readonly="true" />
-							<p:outputLabel value="TC Kimlik :"/>
-							<p:inputText style="width:100%" value="#{icradosyaislemleribean.borclubilgisilistesi.tcNo}" styleClass="green" readonly="false"/>
-							<p:outputLabel value="Adı Soyadı :"/>
-							<p:inputText style="width:100%" value="#{icradosyaislemleribean.borclubilgisilistesi.adSoyad}" readonly="false" />
-							<p:outputLabel value="Telefon :"/>
-							<p:inputText style="width:100%" value="#{icradosyaislemleribean.borclubilgisilistesi.telefon_no2}" readonly="false"/>
-							<p:outputLabel value="Adresi :"/>
-							<p:inputTextarea rows="3" style="width:100%"  queryDelay="750" minQueryLength="4" value="#{icradosyaislemleribean.borclubilgisilistesi.adres}" readonly="false"/>
-							
-							<p:outputLabel></p:outputLabel>
-								   	<p:commandButton value="Borçlu Bilgisini Güncelle" style="width:100%" action="#{icradosyaislemleribean.guncelleBorclu()}"
-								   	  update=":formIcraDosyaTakibi:borclubilgisi,:formIcraDosyaTakibi:tarihbilgisi,:formIcraDosyaTakibi:itirazbilgisi,
-                :formIcraDosyaTakibi:frmhesapbilgisi:hesapbilgisi,:formIcraDosyaTakibi:alacaklibilgisi,:formIcraDosyaTakibi:genelhacizbilgisi,:formIcraDosyaTakibi:icralevhalari" />
-			
-							
-					</p:panelGrid>
-				</p:panel>
-			</p:column>
-		
-			
-			
-			<!-- LEVHALAR KISMI -->
-			
-			<ui:include src="/XHTML/icra_dosyasi/frm_levhalar.xhtml"></ui:include>
-			
-							
-			<p:column rowspan="4" style="width:30% ; vertical-align: top;">
-			<h:form id="frmhesapbilgisi">
-				<p:panel header="HESAP BİLGİSİ" id="hesapbilgisi">
-				
-						<p:panelGrid columns="2" style=" border-style: hidden !important;  width:100%" columnClasses="ui-grid-col-8,ui-grid-col-4">
-							
-								<p:selectOneMenu
-								id="Borclar" 	
-					 		    value="#{icradosyaislemleribean.hesapTumId}"
-					 			style="width: 100%">
-					 			<f:selectItem itemLabel="" itemValue=""/>
-								<f:selectItems
-										value="#{icradosyaislemleribean.hesaplarlistesi}"
-										var="list" itemLabel="#{list.hesapAdi}" itemValue="#{list.hesapId}" />
-								</p:selectOneMenu>
-								<p:commandButton value="Listele" style="width:100%" ajax="false" action="#{icradosyaislemleribean.HesapGetir()}" update=":formIcraDosyaTakibi"/>
-								
-									<p:outputLabel style="width:100%">
-									İşlem Tarihi :
-								 <p:calendar id="hesapTarihi" value="#{icradosyaislemleribean.hesapTarihi}" pattern="dd-MM-yyyy" mask="true" style="width:100%" />
-								 </p:outputLabel>
-								<p:commandButton   action="#{icradosyaislemleribean.Hesapla}" ajax="false" value="  Hesapla  " update=":formIcraDosyaTakibi" style="width:100%" />
-								
-								<p:outputLabel value="Asıl Alacak        " style="font-weight:bold" />
-								
-			 					<p:inputText style="width: 100%; font-weight:bold;font-size:15px; background-color:GhostWhite  !important" value="#{icradosyaislemleribean.hesaplistesi.asil_alacak_tl}"  >
-			 					
-			 					</p:inputText>     
-								
-								<p:outputLabel  style="width:100%; text-align:right">
-								<p:outputLabel value="Gecikme Faizi  %  " style="width:60%"/>
-								  
-								<p:inputText style="width:30%; text-align:rigth" value="#{icradosyaislemleribean.hesaplistesi.akdi_faiz_orani}"/>
-								      
-								</p:outputLabel> 
-								  
-								<p:inputText style="width: 100%" value="#{icradosyaislemleribean.hesaplistesi.gecikme_faizi}" />
-								
-							
-								
-								<p:outputLabel value="Temerrüt Faizi" >
-								
-								<p:spacer width="15"/> %
-								<p:inputText style="width: 45px" value="#{icradosyaislemleribean.hesaplistesi.temerrut_faiz_orani}"/>
-								      
+		</h:form>
 
-								</p:outputLabel> 
-								    
-								<p:inputText style="width: 100%" value="#{icradosyaislemleribean.hesaplistesi.temerrut_faizi}" />
-						
-															
-								<p:outputLabel value="Faiz' in %5 Gider Vergisi" />  
-								<p:inputText style="width: 100%" value="#{icradosyaislemleribean.hesaplistesi.faiz_gider_vergisi}" />
-								
-								
-								<p:outputLabel value="Masraf Tutarı" />  
-								<p:inputText style="width: 100%" value="#{icradosyaislemleribean.hesaplistesi.masraf_tutari}" />
-								
-								<p:spacer width="10" />
-								<p:inputText style="width: 100%; background-color:Gainsboro  !important" value="0,00" readonly="true"/>
-								
-								
-								<p:spacer width="10" />
-								<p:inputText style="width: 100%; background-color:Gainsboro  !important" value="0,00" readonly="true"/>
-								
-								<p:spacer width="10" />
-								<p:inputText style="width: 100%; background-color:Gainsboro  !important" value="0,00" readonly="true"/>
-								
-								<p:spacer width="10" />
-								<p:inputText style="width: 100%; background-color:Gainsboro  !important" value="0,00" readonly="true"/>
-								
-								<p:spacer width="10" />
-								<p:inputText style="width: 100%; background-color:Gainsboro  !important" value="0,00" readonly="true" />
-								
-								<p:outputLabel value="Takip Alacağı" style="font-weight:bold" /> 
-			 					<p:inputText style="width: 100%; font-weight:bold;font-size:15px; background-color:GhostWhite  !important" value="#{icradosyaislemleribean.hesaplistesi.takip_alacagi_tl}" readonly="true" >
-			 					
-								</p:inputText>
-								     
+		<h:form id="formIcraDosyaTakibi" style="width:100%">
+
+
+
+			<p:panel style=" border-style: hidden !important; width:100%"
+				id="panelDialog">
+
+
+
+
+
+				<p:spacer height="25" />
+
+				<p:panelGrid columns="8"
+					style=" border-style: hidden !important; width:100%"
+					columnClasses="ui-grid-col-1,ui-grid-col-3,ui-grid-col-1,ui-grid-col-3,ui-grid-col-1,ui-grid-col-1,ui-grid-col-1,ui-grid-col-1">
+					<p:outputLabel value="İCRA MÜDÜRLÜĞÜ :" style="width:100%" />
+					<p:selectOneMenu id="icraMudurluk" effect="fold" filter="true"
+						filterMatchMode="startsWith"
+						value="#{icradosyaislemleribean.icraMudurluguID}"
+						style=" width:100%;">
+						<f:selectItem itemLabel="" itemValue="" />
+						<f:selectItems
+							value="#{geneltanimbean.ListeGetir('tbl_icra_mudurlugu')}"
+							var="list" itemLabel="#{list.adi}" itemValue="#{list.id}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel value="DOSYA NUMARASI :" style="width:100%" />
+
+					<p:outputLabel style="width:100%">
+						<p:remoteCommand name="test"
+							actionListener="#{icradosyaislemleribean.Liste()}"
+							update="borclubilgisi,tarihbilgisi,itirazbilgisi,frmhesapbilgisi:hesapbilgisi,alacaklibilgisi,genelhacizbilgisi,icralevhalari" />
+						<p:inputMask mask="9999/99999" id="grow" style=" width:100%"
+							value="#{icradosyaislemleribean.icraDosyaNo}"
+							onkeypress="if (event.keyCode == 13) { test(); return false; }" />
+					</p:outputLabel>
+
+					<p:outputLabel style="width:100%">
+						<p:tooltip id="toolTipGrow" for="grow"
+							value="BU ALANA İŞLEM YAPILACAK İCRA DOSYA NUMARASINI GİREREK 'ENTER' TUŞUNA BASINIZ.... "
+							showEffect="clip" hideEffect="explode" />
+						<p:commandButton icon="ui-icon-search " style="width:100%; "
+							actionListener="#{icradosyaislemleribean.Liste()}"
+							update="borclubilgisi,tarihbilgisi,itirazbilgisi,frmhesapbilgisi:hesapbilgisi,alacaklibilgisi,genelhacizbilgisi,icralevhalari" />
+					</p:outputLabel>
+
+					<p:commandButton value="Detaylı Arama" icon="ui-icon-zoomin "
+						ajax="false" type="button" onclick="PF('dlgdetayliarama').show();"
+						style="width:100%" />
+
+					<p:graphicImage value="#{icradosyaislemleribean.kart_1}"
+						height="75" width="100%" />
+					<p:graphicImage value="img/HSBC.png" height="75" width="100%" />
+
+				</p:panelGrid>
+
+			</p:panel>
+
+
+
+			<p:panel id="panel" styleClass="titleColor"
+				header="#{icradosyaislemleribean.dosyaStatusu}">
+
+				<div
+					style="z-index: 99; width: 95%; height: 55%; position: absolute; display: none; background-image: url(img/divBack.png); background-repeat: repeat;">
+					<center>
+						<img src="img/vefat2.png" style="margin-top: 30px;" />
+					</center>
+				</div>
+
+				<p:panelGrid style=" border-style: hidden !important;">
+
+					<p:row style="width:100% ;vertical-align: top;">
+
+						<p:column style="width:30%;vertical-align: top;">
+							<p:panel header="BORÇLU BİLGİSİ" id="borclubilgisi"
+								style=" width:100%; ">
+								<p:panelGrid columns="2"
+									style=" border-style: hidden !important; width:100%; background: darkgreen;"
+									columnClasses="ui-grid-col-4,ui-grid-col-8">
+									<p:outputLabel value="Müşteri No:" />
+
+									<p:inputText style="width:100%"
+										value="#{icradosyaislemleribean.borclubilgisilistesi.musteriNo}"
+										readonly="false" />
+									<p:outputLabel value="Banka Servis No :" />
+									<p:inputText style="width:100%"
+										value="#{icradosyaislemleribean.icradosyasilistesi.banka_servis_no}"
+										readonly="true" />
+									<p:outputLabel value="Avukat Servis No :" />
+									<p:inputText style="width:100%"
+										value="#{icradosyaislemleribean.icradosyasilistesi.avukat_sevis_no}"
+										readonly="true" />
+									<p:outputLabel value="TC Kimlik :" />
+									<p:inputText style="width:100%"
+										value="#{icradosyaislemleribean.borclubilgisilistesi.tcNo}"
+										styleClass="green" readonly="false" />
+									<p:outputLabel value="Adı Soyadı :" />
+									<p:inputText style="width:100%"
+										value="#{icradosyaislemleribean.borclubilgisilistesi.adSoyad}"
+										readonly="false" />
+									<p:outputLabel value="Telefon :" />
+									<p:inputText style="width:100%"
+										value="#{icradosyaislemleribean.borclubilgisilistesi.telefon_no2}"
+										readonly="false" />
+									<p:outputLabel value="Adresi :" />
+									<p:inputTextarea rows="3" style="width:100%" queryDelay="750"
+										minQueryLength="4"
+										value="#{icradosyaislemleribean.borclubilgisilistesi.adres}"
+										readonly="false" />
+
+									<p:outputLabel></p:outputLabel>
+									<p:commandButton value="Borçlu Bilgisini Güncelle"
+										style="width:100%"
+										action="#{icradosyaislemleribean.guncelleBorclu()}"
+										update=":formIcraDosyaTakibi:borclubilgisi,:formIcraDosyaTakibi:tarihbilgisi,:formIcraDosyaTakibi:itirazbilgisi,
+                :formIcraDosyaTakibi:frmhesapbilgisi:hesapbilgisi,:formIcraDosyaTakibi:alacaklibilgisi,:formIcraDosyaTakibi:genelhacizbilgisi,:formIcraDosyaTakibi:icralevhalari" />
+
+
 								</p:panelGrid>
-								
-								<p:panel header="HESAP DİĞER BİLGİLER" toggleable="true" collapsed="true">
-								<p:panelGrid columns="2" style=" border-style: hidden !important;  width:100%" columnClasses="ui-grid-col-8,ui-grid-col-4">
-						
-								
-								<p:outputLabel value="Vekalet Ücreti"/> 
-			 					<p:inputText style="width: 100%; background-color:Gainsboro  !important" value="#{icradosyaislemleribean.hesaplistesi.vekalet_ucreti_tl}" readonly="true" >
-			 					
-								</p:inputText>
-								     
-								
-								<p:outputLabel value="Takip Faizi"/> 
-			 					<p:inputText style="width: 100%; background-color:Gainsboro  !important" value="#{icradosyaislemleribean.hesaplistesi.takip_faizi_tl}" readonly="true" >
-			 					<f:convertNumber pattern="#0.00"/>
-								</p:inputText>
-								     
-								
-								<p:outputLabel value="İndirimli Faiz Oranı"/> 
-			 					<p:inputText style="width: 100%; background-color:Gainsboro  !important" value="#{icradosyaislemleribean.hesaplistesi.indirim_faiz_orani_tl}" readonly="true" >
-			 					<f:convertNumber pattern="#0.00"/>
-								</p:inputText>
-								     
-								
-								<p:outputLabel value="Faiz' in %5 Gider Vergisi"/> 
-			 					<p:inputText style="width: 100%; background-color:Gainsboro  !important" value="#{icradosyaislemleribean.hesaplistesi.faiz_gider_vergisi2_tl}" readonly="true" >
-			 					<f:convertNumber pattern="#0.00"/>
-			 					</p:inputText>     
-								
-								<p:spacer width="10" />
-								<p:inputText style="width: 100%; background-color:Gainsboro  !important" value="0,00" readonly="true"/>
-								
-								<p:spacer width="10" />
-								<p:inputText style="width: 100%; background-color:Gainsboro  !important" value="0,00" readonly="true"/>
-								
-								<p:spacer width="10" />
-								<p:inputText style="width: 100%; background-color:Gainsboro  !important" value="0,00" readonly="true"/>
-								
-								<p:spacer width="10" />
-								<p:inputText style="width: 100%; background-color:Gainsboro  !important" value="0,00" readonly="true"/>
-								
-								<p:spacer width="10" />
-								<p:inputText style="width: 100%; background-color:Gainsboro  !important" value="0,00" readonly="true"/>
-								
-								
-								<p:outputLabel value="Başvuru Harcı"/> 
-			 					<p:inputText style="width: 100%; background-color:Gainsboro  !important" value="#{icradosyaislemleribean.basvuruHarciTL}" readonly="true" >
-			 					<f:convertNumber pattern="#0.00"/>
-								</p:inputText>
-								
-								<p:outputLabel value="Vekalet Harcı"/> 
-			 					<p:inputText style="width: 100%; background-color:Gainsboro  !important" value="#{icradosyaislemleribean.vekaletHarciTL}" readonly="true" >
-			 					<f:convertNumber pattern="#0.00"/>
-								</p:inputText>
-								
-								<p:outputLabel value="Peşin Harç"/> 
-			 					<p:inputText style="width: 100%; background-color:Gainsboro  !important" value="#{icradosyaislemleribean.pesinHarcTL}" readonly="true" >
-			 					<f:convertNumber pattern="#0.00"/>
-								</p:inputText>
-								
-															
-								<p:outputLabel value="Diğer Harçlar"/> 
-			 					<p:inputText style="width: 100%; background-color:Gainsboro  !important" value="#{icradosyaislemleribean.hesaplistesi.diger_harclar_tl}" readonly="true" >
-			 					<f:convertNumber pattern="#0.00"/>
-								</p:inputText>
-								     
-								
-								<p:outputLabel value="Masraf Tutarı"/> 
-			 					<p:inputText style="width: 100%; background-color:Gainsboro  !important" value="#{icradosyaislemleribean.hesaplistesi.masraf_tutari_tl}" readonly="true" >
-			 					<f:convertNumber pattern="#0.00"/>
-								</p:inputText>
-								     
-								
-								<p:outputLabel value="Tahsil Harcı  : ">
-								 <p:spacer width="15"/>
-									<p:selectOneMenu id="tahsilharci" 	
-										 value="#{icradosyaislemleribean.harcoranTL}"
-										 style="width: 80px">
-					 					<f:selectItem itemLabel="2,27" itemValue="2.27"/>
-					 					<f:selectItem itemLabel="4,55" itemValue="4.55"/>
-					 					<f:selectItem itemLabel="9,10" itemValue="9.10"/>
-					 					<f:selectItem itemLabel="11,38" itemValue="11.38"/>
-					 					
+							</p:panel>
+						</p:column>
+
+
+
+						<!-- LEVHALAR KISMI -->
+
+						<ui:include src="/XHTML/icra_dosyasi/frm_levhalar.xhtml"></ui:include>
+
+
+						<p:column rowspan="4" style="width:30% ; vertical-align: top;">
+							<h:form id="frmhesapbilgisi">
+								<p:panel header="HESAP BİLGİSİ" id="hesapbilgisi">
+
+									<p:panelGrid columns="2"
+										style=" border-style: hidden !important;  width:100%"
+										columnClasses="ui-grid-col-8,ui-grid-col-4">
+
+										<p:selectOneMenu id="Borclar"
+											value="#{icradosyaislemleribean.hesapTumId}"
+											style="width: 100%">
+											<f:selectItem itemLabel="" itemValue="" />
+											<f:selectItems
+												value="#{icradosyaislemleribean.hesaplarlistesi}" var="list"
+												itemLabel="#{list.hesapAdi}" itemValue="#{list.hesapId}" />
+										</p:selectOneMenu>
+										<p:commandButton value="Listele" style="width:100%"
+											ajax="false" action="#{icradosyaislemleribean.HesapGetir()}"
+											update=":formIcraDosyaTakibi" />
+
+										<p:outputLabel style="width:100%">
+									İşlem Tarihi :
+								 <p:calendar id="hesapTarihi"
+												value="#{icradosyaislemleribean.hesapTarihi}"
+												pattern="dd-MM-yyyy" mask="true" style="width:100%" />
+										</p:outputLabel>
+										<p:commandButton action="#{icradosyaislemleribean.Hesapla}"
+											ajax="false" value="  Hesapla  "
+											update=":formIcraDosyaTakibi" style="width:100%" />
+
+										<p:outputLabel value="Asıl Alacak        "
+											style="font-weight:bold" />
+
+										<p:inputText
+											style="width: 100%; font-weight:bold;font-size:15px; background-color:GhostWhite  !important"
+											value="#{icradosyaislemleribean.hesaplistesi.asil_alacak_tl}">
+
+										</p:inputText>
+
+										<p:outputLabel style="width:100%; text-align:right">
+											<p:outputLabel value="Gecikme Faizi  %  " style="width:60%" />
+
+											<p:inputText style="width:30%; text-align:rigth"
+												value="#{icradosyaislemleribean.hesaplistesi.akdi_faiz_orani}" />
+
+										</p:outputLabel>
+
+										<p:inputText style="width: 100%"
+											value="#{icradosyaislemleribean.hesaplistesi.gecikme_faizi}" />
+
+
+
+										<p:outputLabel value="Temerrüt Faizi">
+
+											<p:spacer width="15" /> %
+								<p:inputText style="width: 45px"
+												value="#{icradosyaislemleribean.hesaplistesi.temerrut_faiz_orani}" />
+
+
+										</p:outputLabel>
+
+										<p:inputText style="width: 100%"
+											value="#{icradosyaislemleribean.hesaplistesi.temerrut_faizi}" />
+
+
+										<p:outputLabel value="Faiz' in %5 Gider Vergisi" />
+										<p:inputText style="width: 100%"
+											value="#{icradosyaislemleribean.hesaplistesi.faiz_gider_vergisi}" />
+
+
+										<p:outputLabel value="Masraf Tutarı" />
+										<p:inputText style="width: 100%"
+											value="#{icradosyaislemleribean.hesaplistesi.masraf_tutari}" />
+
+										<p:spacer width="10" />
+										<p:inputText
+											style="width: 100%; background-color:Gainsboro  !important"
+											value="0,00" readonly="true" />
+
+
+										<p:spacer width="10" />
+										<p:inputText
+											style="width: 100%; background-color:Gainsboro  !important"
+											value="0,00" readonly="true" />
+
+										<p:spacer width="10" />
+										<p:inputText
+											style="width: 100%; background-color:Gainsboro  !important"
+											value="0,00" readonly="true" />
+
+										<p:spacer width="10" />
+										<p:inputText
+											style="width: 100%; background-color:Gainsboro  !important"
+											value="0,00" readonly="true" />
+
+										<p:spacer width="10" />
+										<p:inputText
+											style="width: 100%; background-color:Gainsboro  !important"
+											value="0,00" readonly="true" />
+
+										<p:outputLabel value="Takip Alacağı" style="font-weight:bold" />
+										<p:inputText
+											style="width: 100%; font-weight:bold;font-size:15px; background-color:GhostWhite  !important"
+											value="#{icradosyaislemleribean.hesaplistesi.takip_alacagi_tl}"
+											readonly="true">
+
+										</p:inputText>
+
+									</p:panelGrid>
+
+									<p:panel header="HESAP DİĞER BİLGİLER" toggleable="true"
+										collapsed="true">
+										<p:panelGrid columns="2"
+											style=" border-style: hidden !important;  width:100%"
+											columnClasses="ui-grid-col-8,ui-grid-col-4">
+
+
+											<p:outputLabel value="Vekalet Ücreti" />
+											<p:inputText
+												style="width: 100%; background-color:Gainsboro  !important"
+												value="#{icradosyaislemleribean.hesaplistesi.vekalet_ucreti_tl}"
+												readonly="true">
+
+											</p:inputText>
+
+
+											<p:outputLabel value="Takip Faizi" />
+											<p:inputText
+												style="width: 100%; background-color:Gainsboro  !important"
+												value="#{icradosyaislemleribean.hesaplistesi.takip_faizi_tl}"
+												readonly="true">
+												<f:convertNumber pattern="#0.00" />
+											</p:inputText>
+
+
+											<p:outputLabel value="İndirimli Faiz Oranı" />
+											<p:inputText
+												style="width: 100%; background-color:Gainsboro  !important"
+												value="#{icradosyaislemleribean.hesaplistesi.indirim_faiz_orani_tl}"
+												readonly="true">
+												<f:convertNumber pattern="#0.00" />
+											</p:inputText>
+
+
+											<p:outputLabel value="Faiz' in %5 Gider Vergisi" />
+											<p:inputText
+												style="width: 100%; background-color:Gainsboro  !important"
+												value="#{icradosyaislemleribean.hesaplistesi.faiz_gider_vergisi2_tl}"
+												readonly="true">
+												<f:convertNumber pattern="#0.00" />
+											</p:inputText>
+
+											<p:spacer width="10" />
+											<p:inputText
+												style="width: 100%; background-color:Gainsboro  !important"
+												value="0,00" readonly="true" />
+
+											<p:spacer width="10" />
+											<p:inputText
+												style="width: 100%; background-color:Gainsboro  !important"
+												value="0,00" readonly="true" />
+
+											<p:spacer width="10" />
+											<p:inputText
+												style="width: 100%; background-color:Gainsboro  !important"
+												value="0,00" readonly="true" />
+
+											<p:spacer width="10" />
+											<p:inputText
+												style="width: 100%; background-color:Gainsboro  !important"
+												value="0,00" readonly="true" />
+
+											<p:spacer width="10" />
+											<p:inputText
+												style="width: 100%; background-color:Gainsboro  !important"
+												value="0,00" readonly="true" />
+
+
+											<p:outputLabel value="Başvuru Harcı" />
+											<p:inputText
+												style="width: 100%; background-color:Gainsboro  !important"
+												value="#{icradosyaislemleribean.basvuruHarciTL}"
+												readonly="true">
+												<f:convertNumber pattern="#0.00" />
+											</p:inputText>
+
+											<p:outputLabel value="Vekalet Harcı" />
+											<p:inputText
+												style="width: 100%; background-color:Gainsboro  !important"
+												value="#{icradosyaislemleribean.vekaletHarciTL}"
+												readonly="true">
+												<f:convertNumber pattern="#0.00" />
+											</p:inputText>
+
+											<p:outputLabel value="Peşin Harç" />
+											<p:inputText
+												style="width: 100%; background-color:Gainsboro  !important"
+												value="#{icradosyaislemleribean.pesinHarcTL}"
+												readonly="true">
+												<f:convertNumber pattern="#0.00" />
+											</p:inputText>
+
+
+											<p:outputLabel value="Diğer Harçlar" />
+											<p:inputText
+												style="width: 100%; background-color:Gainsboro  !important"
+												value="#{icradosyaislemleribean.hesaplistesi.diger_harclar_tl}"
+												readonly="true">
+												<f:convertNumber pattern="#0.00" />
+											</p:inputText>
+
+
+											<p:outputLabel value="Masraf Tutarı" />
+											<p:inputText
+												style="width: 100%; background-color:Gainsboro  !important"
+												value="#{icradosyaislemleribean.hesaplistesi.masraf_tutari_tl}"
+												readonly="true">
+												<f:convertNumber pattern="#0.00" />
+											</p:inputText>
+
+
+											<p:outputLabel value="Tahsil Harcı  : ">
+												<p:spacer width="15" />
+												<p:selectOneMenu id="tahsilharci"
+													value="#{icradosyaislemleribean.harcoranTL}"
+													style="width: 80px">
+													<f:selectItem itemLabel="2,27" itemValue="2.27" />
+													<f:selectItem itemLabel="4,55" itemValue="4.55" />
+													<f:selectItem itemLabel="9,10" itemValue="9.10" />
+													<f:selectItem itemLabel="11,38" itemValue="11.38" />
+
+												</p:selectOneMenu>
+
+											</p:outputLabel>
+											<p:inputText
+												style="width: 100%; background-color:Gainsboro  !important"
+												value="#{icradosyaislemleribean.hesaplistesi.tahsil_harci_tl}"
+												readonly="true">
+
+											</p:inputText>
+
+
+											<p:outputLabel value="Toplam Alacak" style="font-weight:bold" />
+											<p:inputText
+												style="width: 100%;font-weight:bold;font-size:15px; background-color:GhostWhite  !important"
+												value="#{icradosyaislemleribean.hesaplistesi.toplam_alacak_tl}"
+												readonly="true">
+
+											</p:inputText>
+
+
+											<p:outputLabel value="Tahsilat Tutarı"
+												style="font-weight:bold" />
+											<p:inputText
+												style="width: 100%;font-weight:bold;font-size:15px; background-color:GhostWhite  !important"
+												value="#{icradosyaislemleribean.hesaplistesi.tahsilat_tutari_tl}"
+												readonly="true">
+
+											</p:inputText>
+
+
+											<p:outputLabel value="İndirim Tutarı"
+												style="font-weight:bold" />
+											<p:inputText
+												style="width: 100%;font-weight:bold;font-size:15px; background-color:GhostWhite  !important"
+												value="#{icradosyaislemleribean.hesaplistesi.indirim_tutari_tl}"
+												readonly="true">
+
+											</p:inputText>
+
+
+											<p:outputLabel value="Kalan Alacak" style="font-weight:bold" />
+											<p:inputText
+												style="width: 100%;font-weight:bold;font-size:15px; background-color:GhostWhite  !important"
+												value="#{icradosyaislemleribean.hesaplistesi.kalan_alacak_tl}"
+												readonly="true">
+
+											</p:inputText>
+
+
+
+										</p:panelGrid>
+									</p:panel>
+								</p:panel>
+							</h:form>
+						</p:column>
+
+					</p:row>
+
+					<p:row style="width:100%;vertical-align: top;">
+						<p:column style="width:30%; vertical-align: top;">
+							<p:panel header="MÜVEKKİL BİLGİSİ" id="alacaklibilgisi"
+								style="width:100%" toggleable="true" collapsed="true">
+								<p:panelGrid columns="2"
+									style=" border-style: hidden !important; width:100%"
+									columnClasses="ui-grid-col-4,ui-grid-col-8">
+									<p:outputLabel value="Müvekkil Adı :" />
+									<p:inputText style="width:100%"
+										value="#{icradosyaislemleribean.alacaklilistesi.muvekkilAdi}"
+										readonly="true" />
+									<p:outputLabel value="Adresi :" />
+									<p:inputTextarea rows="3" style="width:100%" queryDelay="750"
+										minQueryLength="4"
+										value="#{icradosyaislemleribean.alacaklilistesi.adres}"
+										readonly="true" />
+									<p:outputLabel value="Vergi Numarası :" />
+									<p:inputText style="width:100%"
+										value="#{icradosyaislemleribean.alacaklilistesi.vergiNo}"
+										readonly="true" />
+									<p:outputLabel value="Vergi Dairesi" />
+									<p:inputText style="width:100%"
+										value="#{icradosyaislemleribean.alacaklilistesi.vergiDairesi}"
+										readonly="true" />
+
+								</p:panelGrid>
+							</p:panel>
+
+
+							<p:panel header="GENEL HACİZ BİLGİSİ" id="genelhacizbilgisi"
+								style="width:100%" toggleable="true" collapsed="true">
+								<p:panelGrid columns="2"
+									style=" border-style: hidden !important; width:100%">
+
+									<p:outputLabel value="İcra Dosya No" />
+									<p:inputText
+										value="#{icradosyaislemleribean.icradosyasilistesi.icraDosyaNo}"
+										style="width:100%" />
+
+									<p:outputLabel value="İcra Müdürlüğü" />
+
+
+
+									<p:selectOneMenu id="icraMudurlugu" effect="fold" filter="true"
+										filterMatchMode="startsWith" styleClass="selectMenu"
+										value="#{icradosyaislemleribean.icradosyasilistesi.icraMudurluguId}"
+										style="width: 100%">
+										<f:selectItem itemLabel="" itemValue="" />
+										<f:selectItems
+											value="#{geneltanimbean.ListeGetir('tbl_icra_mudurlugu')}"
+											var="list" itemLabel="#{list.adi}" itemValue="#{list.id}" />
+
 									</p:selectOneMenu>
-								
-								</p:outputLabel> 
-			 					<p:inputText style="width: 100%; background-color:Gainsboro  !important" value="#{icradosyaislemleribean.hesaplistesi.tahsil_harci_tl}" readonly="true" >
-			 					
-								</p:inputText>
-								     
-								
-								<p:outputLabel value="Toplam Alacak" style="font-weight:bold"/> 
-			 					<p:inputText style="width: 100%;font-weight:bold;font-size:15px; background-color:GhostWhite  !important" value="#{icradosyaislemleribean.hesaplistesi.toplam_alacak_tl}" readonly="true" >
-			 					
-								</p:inputText>
-								     
-								
-								<p:outputLabel value="Tahsilat Tutarı" style="font-weight:bold"/> 
-			 					<p:inputText style="width: 100%;font-weight:bold;font-size:15px; background-color:GhostWhite  !important" value="#{icradosyaislemleribean.hesaplistesi.tahsilat_tutari_tl}" readonly="true" >
-			 					
-								</p:inputText>
-								     
-								
-								<p:outputLabel value="İndirim Tutarı" style="font-weight:bold"/> 
-			 					<p:inputText style="width: 100%;font-weight:bold;font-size:15px; background-color:GhostWhite  !important" value="#{icradosyaislemleribean.hesaplistesi.indirim_tutari_tl}" readonly="true" >
-			 					
-								</p:inputText>
-								     
-								
-								<p:outputLabel value="Kalan Alacak" style="font-weight:bold"/> 
-			 					<p:inputText style="width: 100%;font-weight:bold;font-size:15px; background-color:GhostWhite  !important" value="#{icradosyaislemleribean.hesaplistesi.kalan_alacak_tl}" readonly="true" >
-			 					
-								</p:inputText>
-								     
-								
-								
-						</p:panelGrid>
-						</p:panel>
-				</p:panel>
-			</h:form>
-			</p:column>
-		
-		</p:row>
-		
-		<p:row style="width:100%;vertical-align: top;" >
-			<p:column style="width:30%; vertical-align: top;">
-					<p:panel header="MÜVEKKİL BİLGİSİ" id="alacaklibilgisi" style="width:100%" toggleable="true" collapsed="true">
-						<p:panelGrid columns="2" style=" border-style: hidden !important; width:100%" columnClasses="ui-grid-col-4,ui-grid-col-8" >
-								<p:outputLabel value="Müvekkil Adı :"/>
-								<p:inputText style="width:100%" value="#{icradosyaislemleribean.alacaklilistesi.muvekkilAdi}" readonly="true"/>
-								<p:outputLabel value="Adresi :"/>
-								<p:inputTextarea rows="3" style="width:100%" queryDelay="750" minQueryLength="4" value="#{icradosyaislemleribean.alacaklilistesi.adres}" readonly="true"/>
-								<p:outputLabel value="Vergi Numarası :"/>
-								<p:inputText style="width:100%" value="#{icradosyaislemleribean.alacaklilistesi.vergiNo}" readonly="true"/>
-								<p:outputLabel value="Vergi Dairesi"/>
-								<p:inputText style="width:100%" value="#{icradosyaislemleribean.alacaklilistesi.vergiDairesi}" readonly="true"/>
-								
-						</p:panelGrid>
-					</p:panel>
-					
-					
-					<p:panel header="GENEL HACİZ BİLGİSİ" id="genelhacizbilgisi" style="width:100%" toggleable="true" collapsed="true">
-						<p:panelGrid columns="2" style=" border-style: hidden !important; width:100%">
-						
-								<p:outputLabel value="İcra Dosya No" />
-						       	<p:inputText value="#{icradosyaislemleribean.icradosyasilistesi.icraDosyaNo}" style="width:100%"/>
-											
-								<p:outputLabel value="İcra Müdürlüğü" />
-								
-								
-								
-								<p:selectOneMenu id="icraMudurlugu"  
-								 effect="fold" 
-								 filter="true" filterMatchMode="startsWith"
-								styleClass="selectMenu"	 
-								value="#{icradosyaislemleribean.icradosyasilistesi.icraMudurluguId}"
-								style="width: 100%">
-							   <f:selectItem itemLabel="" itemValue=""/>
-							    <f:selectItems 	
-							    value="#{geneltanimbean.ListeGetir('tbl_icra_mudurlugu')}"	
-							    var="list" itemLabel="#{list.adi}" itemValue="#{list.id}" /> 
-						       
-						        </p:selectOneMenu>
-						        
-						        <p:outputLabel value="Dosya Statüsü" />
-						        <p:selectOneMenu id="dosyaStatusu"  styleClass="selectMenu"	 value="#{icradosyaislemleribean.icradosyasilistesi.dosyaStatusuId}"	  style="width: 100%">
-								<f:selectItem itemLabel="" itemValue=""/>
-								<f:selectItems 	value="#{geneltanimbean.ListeGetir('tbl_dosya_statu')}"	var="list" itemLabel="#{list.adi}" itemValue="#{list.id}" /> 
-								</p:selectOneMenu>
-						       
-						        <p:outputLabel value="Dosya Tipi" />
-						        <p:selectOneMenu id="dosyaTipi"  styleClass="selectMenu"	 value="#{icradosyaislemleribean.icradosyasilistesi.dosyaTipiId}"	  style="width: 100%">
-								<f:selectItem itemLabel="" itemValue=""/>
-								<f:selectItems 	value="#{geneltanimbean.ListeGetir('tbl_dosya_tipi')}"	var="list" itemLabel="#{list.adi}" itemValue="#{list.id}" /> 
-								</p:selectOneMenu>
-						       	 
-						       	<p:outputLabel value="Takip Tipi" />
-						       	<p:selectOneMenu id="takipTipi"  styleClass="selectMenu"	 value="#{icradosyaislemleribean.icradosyasilistesi.takipTipiId}"	  style="width: 100%">
-								<f:selectItem itemLabel="" itemValue=""/>
-								<f:selectItems 	value="#{geneltanimbean.ListeGetir('tbl_takip_tipi')}"	var="list" itemLabel="#{list.adi}" itemValue="#{list.id}" /> 
-								</p:selectOneMenu>
-						       	
-						       	<p:outputLabel value="Takip Yolu" />
-						       	<p:selectOneMenu id="takipYolu"  styleClass="selectMenu"	 value="#{icradosyaislemleribean.icradosyasilistesi.takipYoluId}"	  style="width: 100%">
-								<f:selectItem itemLabel="" itemValue=""/>
-								<f:selectItems 	value="#{geneltanimbean.ListeGetir('tbl_takip_yolu')}"	var="list" itemLabel="#{list.adi}" itemValue="#{list.id}" /> 
-								</p:selectOneMenu>
-						       	
-						       	<p:outputLabel value="Takip Şekli" />
-						       	<p:selectOneMenu id="takipSekli"  styleClass="selectMenu"	 value="#{icradosyaislemleribean.icradosyasilistesi.takipSekliId}"	  style="width: 100%">
-								<f:selectItem itemLabel="" itemValue=""/>
-								<f:selectItems 	value="#{geneltanimbean.ListeGetir('tbl_takip_sekli')}"	var="list" itemLabel="#{list.adi}" itemValue="#{list.id}" />
-								</p:selectOneMenu>
-						       	
-						       	<p:outputLabel value="Borç Tipi" />
-						     	<p:selectOneMenu style="width: 100%"
-								id="borcTipi"
-								value="#{icradosyaislemleribean.icradosyasilistesi.borcTipiId}">
-								<f:selectItem itemLabel="" itemValue=""/>
-								<f:selectItems value="#{geneltanimbean.ListeGetir('tbl_borc_tipi')}" 
-								var="item"	itemValue="#{item.id}" itemLabel="#{item.adi}" />
-							</p:selectOneMenu>
-								       	
-						       	<p:outputLabel value="Borca Esas Evrak" />
-						       	<p:inputText value="#{icradosyaislemleribean.icradosyasilistesi.diger_alacak_aciklama}" style="width:100%"/>
-						       	
-						       	<p:outputLabel value="Talep Edilen Hak" />
-						       	<p:inputTextarea rows="5" style="width:100%"  queryDelay="750" minQueryLength="4" value="#{icradosyaislemleribean.icradosyasilistesi.talepEdilenHak}"/>
-						       	
-								<p:selectOneMenu style="width: 100%"
-								value="#{icradosyaislemleribean.icradosyasilistesi.BK84}">
-								<f:selectItem itemLabel="Hayır" itemValue="H"/>
-								<f:selectItem itemLabel="Evet" itemValue="E"/>
-								</p:selectOneMenu>						      
-						       	<p:outputLabel value="BK 84 Madde Uygulansın"/>
-								
-								
-								<p:selectOneMenu style="width: 100%"
-								value="#{icradosyaislemleribean.icradosyasilistesi.BSMV}">
-								<f:selectItem itemLabel="Hayır" itemValue="H"/>
-								<f:selectItem itemLabel="Evet" itemValue="E"/>
-								</p:selectOneMenu>
-								<p:outputLabel value="BSMV Uygulansın"/>
-								
-								<p:selectOneMenu style="width: 100%"
-								value="#{icradosyaislemleribean.icradosyasilistesi.KKDF}">
-								<f:selectItem itemLabel="Hayır" itemValue="H"/>
-								<f:selectItem itemLabel="Evet" itemValue="E"/>
-								</p:selectOneMenu>
-								<p:outputLabel value="KKDF Uygulansın"/>
-								
-													       	
-						        <p:outputLabel />
-							   	<p:commandButton value="Genel Haciz Bilgisini Güncelle" ajax="false" style="width:100%" action="#{icradosyaislemleribean.guncelleHaciz()}"/>					       	
-						       	
-						</p:panelGrid>
-				</p:panel>
-					
-					
-				</p:column>
-				
-			<p:column rowspan="2" style="width:40% ; vertical-align: top;">
-				<p:panel header="TARİH BİLGİSİ" id="tarihbilgisi" style="width:100%" toggleable="true" collapsed="true">
-					<p:panelGrid columns="2" style=" border-style: hidden !important;width:100%" columnClasses="ui-grid-col-4,ui-grid-col-8" >
-					 <p:outputLabel value="İhtarname Tarihi" />	
-					 <p:calendar id="mask" value="#{icradosyaislemleribean.icradosyasilistesi.ihtarnameTarihi}"	 pattern="dd-MM-yyyy" mask="true" />
-					                                                                                              
-					 <p:outputLabel value="Vade Tarihi" />	                                                       
-					 <p:calendar id="mask1" value="#{icradosyaislemleribean.icradosyasilistesi.vadeTarihi}"			style="width:100%" pattern="dd-MM-yyyy" mask="true" />
-					                                                                                                
-					 <p:outputLabel value="Geliş Tarihi" />                                                         
-					 <p:calendar id="mask2" value="#{icradosyaislemleribean.icradosyasilistesi.gelisTarihi}"		style="width:100%" pattern="dd-MM-yyyy" mask="true" />
-					                                                                                               
-					 <p:outputLabel value="Takip Tarihi" />                                                         
-					 <p:calendar id="mask3" value="#{icradosyaislemleribean.icradosyasilistesi.takipTarihi}"		style="width:100%" pattern="dd-MM-yyyy" mask="true" /> 
-					                                                                                               
-					 <p:outputLabel value="Tebliğ Tarihi" />                                                        
-					 <p:calendar id="mask4" value="#{icradosyaislemleribean.icradosyasilistesi.tebligTarihi}"		style="width:100%" pattern="dd-MM-yyyy" mask="true" /> 
-					                                                                                               
-					 <p:outputLabel value="Bila Tarihi" />                                                          
-					 <p:calendar id="mask5" value="#{icradosyaislemleribean.icradosyasilistesi.bilaTarihi}" style="width:100%"  pattern="dd-MM-yyyy" mask="true" />
-					                                                                                               
-					 <p:outputLabel value="Kesinleşme Tarihi" />                                                    
-					 <p:calendar id="mask6" value="#{icradosyaislemleribean.icradosyasilistesi.kesinlesmeTarihi}"	style="width:100%" pattern="dd-MM-yyyy" mask="true" /> 
-					                                                                                               
-					 <p:outputLabel value="Hitam Tarihi" />                                                         
-					 <p:calendar id="mask7" value="#{icradosyaislemleribean.icradosyasilistesi.hitamTarihi}"		style="width:100%" pattern="dd-MM-yyyy" mask="true" />
-					                                                                                               
-					 <p:outputLabel value="İcra Kapanış Tarihi" />                                                 
-					 <p:calendar id="mask8" value="#{icradosyaislemleribean.icradosyasilistesi.icraKapanisTarihi}"	style="width:100%" pattern="dd-MM-yyyy" mask="true" /> 
-					                                                                                             
-					 <p:outputLabel value="Banka Kapanış Tarihi" />                                               
-					 <p:calendar id="mask9" value="#{icradosyaislemleribean.icradosyasilistesi.bankaKapanisTarihi}"	style="width:100%" pattern="dd-MM-yyyy" mask="true" /> 
-					                                                                                                
-					 <p:outputLabel value="Gidiş Tarihi" />                                                        
-					 <p:calendar id="mask10" value="#{icradosyaislemleribean.icradosyasilistesi.gidisTarihi}"		style="width:100%" pattern="dd-MM-yyyy" mask="true" />
-					 
-					 <p:outputLabel value="Vekalet Ücret Tipi" />
-					 <p:selectOneMenu id="vekaletUcretTipi"  styleClass="selectMenu"	 value="#{icradosyaislemleribean.icradosyasilistesi.vekaletUcretTipi}"	  style="width: 100%">
-				  	  <f:selectItem itemLabel="" itemValue=""/>
-				  	 <f:selectItems 	value="#{geneltanimbean.ListeGetir('tbl_vekalet_ucret_tipi')}"	var="list" itemLabel="#{list.adi}" itemValue="#{list.id}" />  
-				     </p:selectOneMenu>
-					 
-					 <p:outputLabel value="Risk Yöneticisi" /> 
-					 <p:selectOneMenu id="riskYoneticisi"  styleClass="selectMenu"	 value="#{icradosyaislemleribean.icradosyasilistesi.riskYoneticisiId}"	  style="width: 100%">
-					  <f:selectItem itemLabel="" itemValue=""/>
-					 <f:selectItem itemLabel="Muhammet Ali KAYA" itemValue="2"/>
-					 <f:selectItem itemLabel="Diğer" itemValue="1"/>			
-<!-- 				 <f:selectItems 	value="#{geneltanimbean.ListeGetir('tbl_icra_mudurlugu')}"	var="list" itemLabel="#{list.adi}" itemValue="#{list.id}" />  -->
-					 </p:selectOneMenu>
-					
-					    <p:outputLabel />
-							   	<p:commandButton value="Tarih Bilgisini Güncelle" style="width:100%" action="#{icradosyaislemleribean.guncelleTarih()}"/> 
-				
-					 
-					 </p:panelGrid>  
-				
-				
-				</p:panel>
-				<p:panel header="İTİRAZ BİLGİSİ" id="itirazbilgisi" style="width:100%" toggleable="true" collapsed="true">
-						<p:panelGrid columns="2" style=" border-style: hidden !important;width:100%" columnClasses="ui-grid-col-4,ui-grid-col-8" >
-								<p:outputLabel value="Borca İtiraz Edildi  :"/>
-								<p:selectBooleanCheckbox value="#{icradosyaislemleribean.icradosyasilistesi.itirazDurumu}" />
-								
-								<p:outputLabel value="İtiraz Tarihi  :"/>
-								<p:calendar id="mask11" value="#{icradosyaislemleribean.icradosyasilistesi.itirazTarihi}" pattern="dd-MM-yyyy" mask="true" style="width:100%" />
-								
-								<p:outputLabel value="İtiraz Tipi  :"/>
-							 	<p:selectOneMenu id="itirazTipi"  styleClass="selectMenu"	 value="#{icradosyaislemleribean.icradosyasilistesi.itirazTipi}" style="width: 100%">
-								  <f:selectItem itemLabel="" itemValue=""/>
-								<f:selectItems 	value="#{geneltanimbean.ListeGetir('tbl_itiraz_tipi')}"	var="list" itemLabel="#{list.adi}" itemValue="#{list.id}" /> 
-								</p:selectOneMenu>
-							
-								  <p:outputLabel />
-							   	<p:commandButton value="İtiraz Bilgisini Güncelle" style="width:100%" action="#{icradosyaislemleribean.guncelleItiraz()}" update="icralevhalari"/>	
-							
-						</p:panelGrid>
-				</p:panel>
-			</p:column >
-			
-		</p:row>
-		
-		
-		
-		</p:panelGrid>
-		</p:panel>
-		
+
+									<p:outputLabel value="Dosya Statüsü" />
+									<p:selectOneMenu id="dosyaStatusu" styleClass="selectMenu"
+										value="#{icradosyaislemleribean.icradosyasilistesi.dosyaStatusuId}"
+										style="width: 100%">
+										<f:selectItem itemLabel="" itemValue="" />
+										<f:selectItems
+											value="#{geneltanimbean.ListeGetir('tbl_dosya_statu')}"
+											var="list" itemLabel="#{list.adi}" itemValue="#{list.id}" />
+									</p:selectOneMenu>
+
+									<p:outputLabel value="Dosya Tipi" />
+									<p:selectOneMenu id="dosyaTipi" styleClass="selectMenu"
+										value="#{icradosyaislemleribean.icradosyasilistesi.dosyaTipiId}"
+										style="width: 100%">
+										<f:selectItem itemLabel="" itemValue="" />
+										<f:selectItems
+											value="#{geneltanimbean.ListeGetir('tbl_dosya_tipi')}"
+											var="list" itemLabel="#{list.adi}" itemValue="#{list.id}" />
+									</p:selectOneMenu>
+
+									<p:outputLabel value="Takip Tipi" />
+									<p:selectOneMenu id="takipTipi" styleClass="selectMenu"
+										value="#{icradosyaislemleribean.icradosyasilistesi.takipTipiId}"
+										style="width: 100%">
+										<f:selectItem itemLabel="" itemValue="" />
+										<f:selectItems
+											value="#{geneltanimbean.ListeGetir('tbl_takip_tipi')}"
+											var="list" itemLabel="#{list.adi}" itemValue="#{list.id}" />
+									</p:selectOneMenu>
+
+									<p:outputLabel value="Takip Yolu" />
+									<p:selectOneMenu id="takipYolu" styleClass="selectMenu"
+										value="#{icradosyaislemleribean.icradosyasilistesi.takipYoluId}"
+										style="width: 100%">
+										<f:selectItem itemLabel="" itemValue="" />
+										<f:selectItems
+											value="#{geneltanimbean.ListeGetir('tbl_takip_yolu')}"
+											var="list" itemLabel="#{list.adi}" itemValue="#{list.id}" />
+									</p:selectOneMenu>
+
+									<p:outputLabel value="Takip Şekli" />
+									<p:selectOneMenu id="takipSekli" styleClass="selectMenu"
+										value="#{icradosyaislemleribean.icradosyasilistesi.takipSekliId}"
+										style="width: 100%">
+										<f:selectItem itemLabel="" itemValue="" />
+										<f:selectItems
+											value="#{geneltanimbean.ListeGetir('tbl_takip_sekli')}"
+											var="list" itemLabel="#{list.adi}" itemValue="#{list.id}" />
+									</p:selectOneMenu>
+
+									<p:outputLabel value="Borç Tipi" />
+									<p:selectOneMenu style="width: 100%" id="borcTipi"
+										value="#{icradosyaislemleribean.icradosyasilistesi.borcTipiId}">
+										<f:selectItem itemLabel="" itemValue="" />
+										<f:selectItems
+											value="#{geneltanimbean.ListeGetir('tbl_borc_tipi')}"
+											var="item" itemValue="#{item.id}" itemLabel="#{item.adi}" />
+									</p:selectOneMenu>
+
+									<p:outputLabel value="Borca Esas Evrak" />
+									<p:inputText
+										value="#{icradosyaislemleribean.icradosyasilistesi.diger_alacak_aciklama}"
+										style="width:100%" />
+
+									<p:outputLabel value="Talep Edilen Hak" />
+									<p:inputTextarea rows="5" style="width:100%" queryDelay="750"
+										minQueryLength="4"
+										value="#{icradosyaislemleribean.icradosyasilistesi.talepEdilenHak}" />
+
+									<p:selectOneMenu style="width: 100%"
+										value="#{icradosyaislemleribean.icradosyasilistesi.BK84}">
+										<f:selectItem itemLabel="Hayır" itemValue="H" />
+										<f:selectItem itemLabel="Evet" itemValue="E" />
+									</p:selectOneMenu>
+									<p:outputLabel value="BK 84 Madde Uygulansın" />
+
+
+									<p:selectOneMenu style="width: 100%"
+										value="#{icradosyaislemleribean.icradosyasilistesi.BSMV}">
+										<f:selectItem itemLabel="Hayır" itemValue="H" />
+										<f:selectItem itemLabel="Evet" itemValue="E" />
+									</p:selectOneMenu>
+									<p:outputLabel value="BSMV Uygulansın" />
+
+									<p:selectOneMenu style="width: 100%"
+										value="#{icradosyaislemleribean.icradosyasilistesi.KKDF}">
+										<f:selectItem itemLabel="Hayır" itemValue="H" />
+										<f:selectItem itemLabel="Evet" itemValue="E" />
+									</p:selectOneMenu>
+									<p:outputLabel value="KKDF Uygulansın" />
+
+
+									<p:outputLabel />
+									<p:commandButton value="Genel Haciz Bilgisini Güncelle"
+										ajax="false" style="width:100%"
+										action="#{icradosyaislemleribean.guncelleHaciz()}" />
+
+								</p:panelGrid>
+							</p:panel>
+
+
+						</p:column>
+
+						<p:column rowspan="2" style="width:40% ; vertical-align: top;">
+							<p:panel header="TARİH BİLGİSİ" id="tarihbilgisi"
+								style="width:100%" toggleable="true" collapsed="true">
+								<p:panelGrid columns="2"
+									style=" border-style: hidden !important;width:100%"
+									columnClasses="ui-grid-col-4,ui-grid-col-8">
+									<p:outputLabel value="İhtarname Tarihi" />
+									<p:calendar id="mask"
+										value="#{icradosyaislemleribean.icradosyasilistesi.ihtarnameTarihi}"
+										pattern="dd-MM-yyyy" mask="true" />
+
+									<p:outputLabel value="Vade Tarihi" />
+									<p:calendar id="mask1"
+										value="#{icradosyaislemleribean.icradosyasilistesi.vadeTarihi}"
+										style="width:100%" pattern="dd-MM-yyyy" mask="true" />
+
+									<p:outputLabel value="Geliş Tarihi" />
+									<p:calendar id="mask2"
+										value="#{icradosyaislemleribean.icradosyasilistesi.gelisTarihi}"
+										style="width:100%" pattern="dd-MM-yyyy" mask="true" />
+
+									<p:outputLabel value="Takip Tarihi" />
+									<p:calendar id="mask3"
+										value="#{icradosyaislemleribean.icradosyasilistesi.takipTarihi}"
+										style="width:100%" pattern="dd-MM-yyyy" mask="true" />
+
+									<p:outputLabel value="Tebliğ Tarihi" />
+									<p:calendar id="mask4"
+										value="#{icradosyaislemleribean.icradosyasilistesi.tebligTarihi}"
+										style="width:100%" pattern="dd-MM-yyyy" mask="true" />
+
+									<p:outputLabel value="Bila Tarihi" />
+									<p:calendar id="mask5"
+										value="#{icradosyaislemleribean.icradosyasilistesi.bilaTarihi}"
+										style="width:100%" pattern="dd-MM-yyyy" mask="true" />
+
+									<p:outputLabel value="Kesinleşme Tarihi" />
+									<p:calendar id="mask6"
+										value="#{icradosyaislemleribean.icradosyasilistesi.kesinlesmeTarihi}"
+										style="width:100%" pattern="dd-MM-yyyy" mask="true" />
+
+									<p:outputLabel value="Hitam Tarihi" />
+									<p:calendar id="mask7"
+										value="#{icradosyaislemleribean.icradosyasilistesi.hitamTarihi}"
+										style="width:100%" pattern="dd-MM-yyyy" mask="true" />
+
+									<p:outputLabel value="İcra Kapanış Tarihi" />
+									<p:calendar id="mask8"
+										value="#{icradosyaislemleribean.icradosyasilistesi.icraKapanisTarihi}"
+										style="width:100%" pattern="dd-MM-yyyy" mask="true" />
+
+									<p:outputLabel value="Banka Kapanış Tarihi" />
+									<p:calendar id="mask9"
+										value="#{icradosyaislemleribean.icradosyasilistesi.bankaKapanisTarihi}"
+										style="width:100%" pattern="dd-MM-yyyy" mask="true" />
+
+									<p:outputLabel value="Gidiş Tarihi" />
+									<p:calendar id="mask10"
+										value="#{icradosyaislemleribean.icradosyasilistesi.gidisTarihi}"
+										style="width:100%" pattern="dd-MM-yyyy" mask="true" />
+
+									<p:outputLabel value="Vekalet Ücret Tipi" />
+									<p:selectOneMenu id="vekaletUcretTipi" styleClass="selectMenu"
+										value="#{icradosyaislemleribean.icradosyasilistesi.vekaletUcretTipi}"
+										style="width: 100%">
+										<f:selectItem itemLabel="" itemValue="" />
+										<f:selectItems
+											value="#{geneltanimbean.ListeGetir('tbl_vekalet_ucret_tipi')}"
+											var="list" itemLabel="#{list.adi}" itemValue="#{list.id}" />
+									</p:selectOneMenu>
+
+									<p:outputLabel value="Risk Yöneticisi" />
+									<p:selectOneMenu id="riskYoneticisi" styleClass="selectMenu"
+										value="#{icradosyaislemleribean.icradosyasilistesi.riskYoneticisiId}"
+										style="width: 100%">
+										<f:selectItem itemLabel="" itemValue="" />
+										<f:selectItem itemLabel="Muhammet Ali KAYA" itemValue="2" />
+										<f:selectItem itemLabel="Diğer" itemValue="1" />
+										<!-- 				 <f:selectItems 	value="#{geneltanimbean.ListeGetir('tbl_icra_mudurlugu')}"	var="list" itemLabel="#{list.adi}" itemValue="#{list.id}" />  -->
+									</p:selectOneMenu>
+
+									<p:outputLabel />
+									<p:commandButton value="Tarih Bilgisini Güncelle"
+										style="width:100%"
+										action="#{icradosyaislemleribean.guncelleTarih()}" />
+
+
+								</p:panelGrid>
+
+
+							</p:panel>
+							<p:panel header="İTİRAZ BİLGİSİ" id="itirazbilgisi"
+								style="width:100%" toggleable="true" collapsed="true">
+								<p:panelGrid columns="2"
+									style=" border-style: hidden !important;width:100%"
+									columnClasses="ui-grid-col-4,ui-grid-col-8">
+									<p:outputLabel value="Borca İtiraz Edildi  :" />
+									<p:selectBooleanCheckbox
+										value="#{icradosyaislemleribean.icradosyasilistesi.itirazDurumu}" />
+
+									<p:outputLabel value="İtiraz Tarihi  :" />
+									<p:calendar id="mask11"
+										value="#{icradosyaislemleribean.icradosyasilistesi.itirazTarihi}"
+										pattern="dd-MM-yyyy" mask="true" style="width:100%" />
+
+									<p:outputLabel value="İtiraz Tipi  :" />
+									<p:selectOneMenu id="itirazTipi" styleClass="selectMenu"
+										value="#{icradosyaislemleribean.icradosyasilistesi.itirazTipi}"
+										style="width: 100%">
+										<f:selectItem itemLabel="" itemValue="" />
+										<f:selectItems
+											value="#{geneltanimbean.ListeGetir('tbl_itiraz_tipi')}"
+											var="list" itemLabel="#{list.adi}" itemValue="#{list.id}" />
+									</p:selectOneMenu>
+
+									<p:outputLabel />
+									<p:commandButton value="İtiraz Bilgisini Güncelle"
+										style="width:100%"
+										action="#{icradosyaislemleribean.guncelleItiraz()}"
+										update="icralevhalari" />
+
+								</p:panelGrid>
+							</p:panel>
+						</p:column>
+
+					</p:row>
+
+
+
+				</p:panelGrid>
+			</p:panel>
+
 
 		</h:form>
-		
-			
-	
-		
-		<h:form id="detayliArama">
-		<p:dialog header="DETAYLI ARAMA" widgetVar="dlgdetayliarama" width="90%;"  minimizable="true">
-     
-     	    <ui:include  src="../dialog/dlg_icds_detayli_arama.xhtml" />
-				</p:dialog>
-		</h:form>			
-		
-		
 
-		
-		
-</p:panel>	
+
+
+
+		<h:form id="detayliArama">
+			<p:dialog header="DETAYLI ARAMA" widgetVar="dlgdetayliarama"
+				width="90%;" minimizable="true">
+
+				<ui:include src="../dialog/dlg_icds_detayli_arama.xhtml" />
+			</p:dialog>
+		</h:form>
+
+
+
+
+
+	</p:panel>
 
 </h:body>
 

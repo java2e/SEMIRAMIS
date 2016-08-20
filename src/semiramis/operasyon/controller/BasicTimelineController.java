@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
 
 import org.primefaces.context.RequestContext;
@@ -13,7 +14,7 @@ import pelops.controller.AktifBean;
 import semiramis.operasyon.model.Chronology;
 
 @ManagedBean
-@ViewScoped
+@RequestScoped
 public class BasicTimelineController implements Serializable {
 
 	/**

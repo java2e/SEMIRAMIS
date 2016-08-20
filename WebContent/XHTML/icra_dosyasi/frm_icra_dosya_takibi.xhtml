@@ -180,20 +180,20 @@
 				</p:panelGrid>
 
 			</p:panel>
-			<p:panel id="panelPic" rendered="#{icradosyaislemleribean.showPic}"
-				style="z-index: 99; width: 95%; height: 55%; position: absolute; background-image: url(img/divBack.png); background-repeat: repeat; background-color: transparent !important;">
 
-				<center>
-					<img src="img/vefat2.png" style="margin-top: 30px;" />
-				</center>
-
-			</p:panel>
 
 
 			<p:panel id="panel" styleClass="titleColor"
 				header="#{icradosyaislemleribean.dosyaStatusu}">
 
-
+				<p:panel id="panelPic" rendered="#{icradosyaislemleribean.showPic}" 
+					style="z-index: 99; width: 95%; height: 55%; position: absolute; background-image: url(img/divBack.png); background-repeat: repeat; background-color: transparent !important;">
+					
+						<center>
+							<img src="img/vefat2.png" style="margin-top: 30px;" />
+						</center>
+					
+				</p:panel>
 
 				<p:panelGrid style=" border-style: hidden !important;">
 
@@ -693,8 +693,7 @@
 									<p:outputLabel />
 									<p:commandButton value="Genel Haciz Bilgisini Güncelle"
 										ajax="false" style="width:100%"
-										action="#{icradosyaislemleribean.guncelleHaciz()}" 
-										update=":panelPic"/>
+										action="#{icradosyaislemleribean.guncelleHaciz()}" />
 
 								</p:panelGrid>
 							</p:panel>

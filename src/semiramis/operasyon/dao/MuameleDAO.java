@@ -8,8 +8,12 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import pelops.controller.AktifBean;
 import pelops.db.DBConnection;
 import pelops.users.Util;
+import semiramis.operasyon.controller.MuameleBean;
+import semiramis.operasyon.controller.Utils;
+import semiramis.operasyon.model.ChronologyIdentifier;
 import semiramis.operasyon.model.ComboItem;
 import semiramis.operasyon.model.Muamele;
 
@@ -55,6 +59,11 @@ public class MuameleDAO extends DBConnection {
 				stmt.setString(11, muamele.getHaczeEsasMalId());
 
 				stmt.execute();
+				
+				
+				
+				
+				
 
 			} else {
 
@@ -84,6 +93,27 @@ public class MuameleDAO extends DBConnection {
 			}
 
 			disconnectDB();
+			
+			if(adet==0)
+			{
+				
+				if(MuameleBean.MUZEKKERE_MAAS==muamele.getMuzekkereId() || MuameleBean.MUZEKKERE_MAAS_TALEP==muamele.getMuzekkereId())
+				{
+				new Utils().saveChronology(AktifBean.getIcraDosyaID(), ChronologyIdentifier.ISLEM_MUAMELE,
+						new Utils().getBocluAdi() + " Maaş Müzekkeresi yazıldı. ");
+				new Utils().saveChronology(AktifBean.getIcraDosyaID(), ChronologyIdentifier.ISLEM_MUAMELE,
+						new Utils().getBocluAdi() + " Maaş Talebi yazıldı. ");
+				}
+				else if(MuameleBean.MUZEKKERE_TAPU==muamele.getMuzekkereId())
+				{
+					
+					new Utils().saveChronology(AktifBean.getIcraDosyaID(), ChronologyIdentifier.ISLEM_MUAMELE,
+							new Utils().getBocluAdi() + " Tapu Müzekkeresi yazıldı. ");
+					
+				}
+				
+				
+			}
 
 		} catch (Exception e) {
 

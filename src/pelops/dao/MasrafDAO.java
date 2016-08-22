@@ -151,11 +151,11 @@ public class MasrafDAO extends DBConnection {
 		ArrayList<MasrafBilgisi> list = new ArrayList<MasrafBilgisi>();
 
 		SQL = "SELECT m.id, m.miktar, m.aciklama, m.tarih, u.ad_soyad, "
-				+ "mt.adi as mtadi, m.uygulama_asamasi_id , m.icra_dosyasi_id, uy.adi as uyadi"
-				+ ", m.personel_id, m.masraf_tipi_id, m.uygulama_asamasi_id" + " FROM tbl_masraf_bilgisi m "
+				+ "mt.adi as mtadi, m.uygulama_asamasi_id , m.icra_dosyasi_id"
+				+ ", m.personel_id, m.masraf_tipi_id FROM tbl_masraf_bilgisi m "
 				+ "inner join tbl_kullanici u on m.personel_id=u.id "
 				+ "inner join tbl_masraf_tipi mt on m.masraf_tipi_id = mt.id "
-				+ "inner join tbl_uygulama_asamasi uy on m.uygulama_asamasi_id=uy.id where m.icra_dosyasi_id = " + id
+				+ " where m.icra_dosyasi_id = " + id
 				+ ";";
 
 		newConnectDB();
@@ -170,11 +170,9 @@ public class MasrafDAO extends DBConnection {
 			masraf.setMasrafMiktari(rs.getDouble("miktar"));
 			masraf.setMasrafTarihi(rs.getDate("tarih"));
 			masraf.setPersonelName(rs.getString("ad_soyad"));
-			masraf.setMasrafUygulamaAsamasiName(rs.getString("uyadi"));
 			masraf.setMasrafTipiName(rs.getString("mtadi"));
 			masraf.setMasrafTipiId(rs.getInt("masraf_tipi_id"));
 			masraf.setMasrafPersonel_adi_id(rs.getInt("personel_id"));
-			masraf.setMasrafUygulamaAsamasiId(rs.getInt("uygulama_asamasi_id"));
 
 			list.add(masraf);
 

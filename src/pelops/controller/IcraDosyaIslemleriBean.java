@@ -10,10 +10,12 @@ import java.util.Date;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
+
 
 import pelops.dao.AlacakliDAO;
 import pelops.dao.BaglantiDAO;
@@ -35,14 +37,18 @@ import pelops.model.HesaplarList;
 import pelops.model.IcraDosyasi;
 import pelops.model.Ilce;
 import pelops.model.LogError;
-import semiramis.operasyon.controller.Utils;
-import semiramis.operasyon.model.ChronologyIdentifier;
 
 @ManagedBean(name = "icradosyaislemleribean")
 @SessionScoped
 public class IcraDosyaIslemleriBean {
 
-	private String dosyaStatusu = "Dosya Seçilmedi!";
+	
+	private String dosyaStatusu="Dosya Seçilmedi!";
+	private String dosyaStatutDurum="";
+	
+	private boolean showPic=false;
+	
+	
 	LogErrorDAO log = new LogErrorDAO();
 	Date nowDate = new Date();
 	LogError newlog;
@@ -55,16 +61,6 @@ public class IcraDosyaIslemleriBean {
 	private int HesapTumId;
 
 	private String dialogUrl = "dlg_common";
-
-	private boolean showPic = false;
-
-	public boolean getShowPic() {
-		return showPic;
-	}
-
-	public void setShowPic(boolean showPic) {
-		this.showPic = showPic;
-	}
 
 	public boolean getIsdialogsVisible() {
 		return isdialogsVisible;
@@ -474,7 +470,7 @@ public class IcraDosyaIslemleriBean {
 		hesap = new Hesap();
 		baglanti = new Baglanti();
 		borclubilgisi = new BorcluBilgisi();
-		// plakaGetir();
+		//plakaGetir();
 		hesaplarlistesi = new ArrayList<HesaplarList>();
 		icradosyasi.setBK84("E");
 		icradosyasi.setKKDF("H");
@@ -577,9 +573,7 @@ public class IcraDosyaIslemleriBean {
 
 		BaglantiDAO daobaglanti = new BaglantiDAO();
 		daobaglanti.Kaydet(baglanti);
-		Utils utils = new Utils();
-		utils.saveChronology(icradosyaid, ChronologyIdentifier.ISLEM_TAKIP_ACILISI,
-				borclubilgisi.getAdSoyad() + " isimli borclunun icra dosyası açılmıştır.");
+	
 
 		FacesContext context = FacesContext.getCurrentInstance();
 		context.addMessage(null, new FacesMessage("Kayıt İşlemi Başarı İle Gerçekleştirildi..."));
@@ -588,7 +582,7 @@ public class IcraDosyaIslemleriBean {
 		hesap = new Hesap();
 		baglanti = new Baglanti();
 		borclubilgisi = new BorcluBilgisi();
-		// plakaGetir();
+		//plakaGetir();
 		hesaplarlistesi = new ArrayList<HesaplarList>();
 		icradosyasi.setBK84("E");
 		icradosyasi.setKKDF("H");
@@ -657,6 +651,8 @@ public class IcraDosyaIslemleriBean {
 
 		IcraDosyasiDAO icraDAO = new IcraDosyasiDAO();
 		icraDAO.GenelHacizBilgisiGuncelle(icradosyasilistesi);
+		
+		GelismisListe(AktifBean.icraDosyaID);
 
 	}
 
@@ -710,8 +706,8 @@ public class IcraDosyaIslemleriBean {
 			pelops.controller.AktifBean.setBorcluAdi(daoborclu.Liste(borclubilgisiID).getAdSoyad());
 
 			icradosyasilistesi = icradosyasidao.Listele(icradosyaID);
-
-			dosyaStatusu = icradosyasidao.getDosyaStatusu(icradosyasilistesi.getDosyaStatusuId());
+			
+			dosyaStatusu=icradosyasidao.getDosyaStatusu(icradosyasilistesi.getDosyaStatusuId());
 
 			BorcluBilgisiDAO borcludao = new BorcluBilgisiDAO();
 			borclubilgisilistesi = borcludao.Liste(borclubilgisiID);
@@ -720,7 +716,7 @@ public class IcraDosyaIslemleriBean {
 
 			AlacakliDAO alacaklidao = new AlacakliDAO();
 			alacaklilistesi = alacaklidao.ListeGetir(alacakliID);
-			// plakaGetir();
+			//plakaGetir();
 			Hesapla();
 		}
 
@@ -734,15 +730,23 @@ public class IcraDosyaIslemleriBean {
 
 	public void GelismisListe(int id) {
 		try {
-			IcraDosyaIslemleriBean dosyaIslemleriBean = new IcraDosyaIslemleriBean();
-			
+
 			gelismisgetir = id;
 			IcraDosyasiDAO icradosyasidao = new IcraDosyasiDAO();
 
 			IcraDosyasi icraDosyasi = icradosyasidao.Listele(id);
-			checkDosyaStatusu(icraDosyasi);
-
-			dosyaStatusu = icradosyasidao.getDosyaStatusu(icraDosyasi.getDosyaStatusuId());
+			
+			dosyaStatusu=icradosyasidao.getDosyaStatusu(icraDosyasi.getDosyaStatusuId());
+			
+			showPic=true;
+			
+			if(dosyaStatusu.toLowerCase().equals("derdest"))
+			{
+				showPic=false;
+			}
+			
+			
+			
 
 			String icradosyano = icraDosyasi.getIcraDosyaNo();
 
@@ -812,7 +816,7 @@ public class IcraDosyaIslemleriBean {
 
 					hesapTarihi = new Date();
 
-					// plakaGetir();
+					//plakaGetir();
 
 					Hesapla();
 					refreshPanelVisible();
@@ -1081,6 +1085,8 @@ public class IcraDosyaIslemleriBean {
 		AktifBean.hesaplistesi = hesaplistesi;
 	} // PROSEDÜR SONU
 
+	
+
 	public void itirazDurum() {
 		IcraDosyasiDAO icd = new IcraDosyasiDAO();
 
@@ -1322,88 +1328,23 @@ public class IcraDosyaIslemleriBean {
 		this.dosyaStatusu = dosyaStatusu;
 	}
 
-	public void checkDosyaStatusu(IcraDosyasi dosyasi) {
-		System.out.println("burda");
-		if (dosyasi.getDosyaStatusuId() == 7 || dosyasi.getDosyaStatusuId() == 9) {
-			showPic = true;
-		} else {
-			showPic = false;
-		}
-		System.out.println(showPic);
+	public String getDosyaStatutDurum() {
+		return dosyaStatutDurum;
 	}
 
-	// public void getirURL(int deger){
-	//
-	//
-	// switch (deger) {
-	// case 1: this.dlgURL = "dlg_icds_detayli_arama.xhtml"; break;
-	// case 2: this.dlgURL = "dlg_haciz_bilgisi_kaydi.xhtml";
-	//
-	// break;
-	// case 3: this.dlgURL = "dlg_harc_bilgisi_kaydi.xhtml"; break;
-	// case 4: this.dlgURL = "dlg_masraf_bilgisi_kaydi.xhtml"; break;
-	// case 5: this.dlgURL = "dlg_muamele_islemleri_kaydi.xhtml"; break;
-	// case 6: this.dlgURL = "dlg_odeme_emri_kaydi.xhtml"; break;
-	// case 7: this.dlgURL = "dlg_vizit_bilgisi_kaydi.xhtml"; break;
-	// case 8: this.dlgURL = "dlg_icra_borc_ses_kayit.xhtml"; break;
-	// case 9: this.dlgURL = "dlg_izleme_bilgisi_kaydi.xhtml"; break;
-	// case 10: this.dlgURL = "dlg_alacak_bilgisi_kaydi.xhtml"; break;
-	// case 11: this.dlgURL = "dlg_muamele_detay.xhtml"; break;
-	// case 12: this.dlgURL = "dlg_izleme_detay.xhtml"; break;
-	// case 13: this.dlgURL = "dlg_gonderi_takibi.xhtml"; break;
-	// case 14: this.dlgURL = "dlg_dosya_ekleme.xhtml"; break;
-	//
-	//
-	// default:
-	// break;
-	// }
-	//
-	// }
-	//
-	// public void dlgGoster(int deger){
-	//
-	// switch (deger) {
-	// case 1:
-	// RequestContext.getCurrentInstance().execute("PF('dlgPenceresi').show()");break;
-	// case 2:
-	// this.dlgURL = "dlg_harc_bilgisi_kaydi.xhtml";
-	// RequestContext.getCurrentInstance().execute("PF('dlgHacizBilgisi').show()");
-	//
-	// break;
-	// case 3:
-	// RequestContext.getCurrentInstance().execute("PF('dlgPenceresi').show()");break;
-	// case 4:
-	// RequestContext.getCurrentInstance().execute("PF('dlgPenceresi').show()");break;
-	// case 5:
-	// RequestContext.getCurrentInstance().execute("PF('dlgPenceresi').show()");break;
-	// case 6:
-	// RequestContext.getCurrentInstance().execute("PF('dlgPenceresi').show()");break;
-	// case 7:
-	// RequestContext.getCurrentInstance().execute("PF('dlgPenceresi').show()");break;
-	// case 8:
-	// RequestContext.getCurrentInstance().execute("PF('dlgPenceresi').show()");break;
-	// case 9:
-	// RequestContext.getCurrentInstance().execute("PF('dlgPenceresi').show()");break;
-	// case 10:
-	// RequestContext.getCurrentInstance().execute("PF('dlgPenceresi').show()");break;
-	// case 11:
-	// RequestContext.getCurrentInstance().execute("PF('dlgPenceresi').show()");break;
-	// case 12:
-	// RequestContext.getCurrentInstance().execute("PF('dlgPenceresi').show()");break;
-	// case 13:
-	// RequestContext.getCurrentInstance().execute("PF('dlgPenceresi').show()");break;
-	// case 14:
-	// RequestContext.getCurrentInstance().execute("PF('dlgPenceresi').show()");break;
-	//
-	//
-	//
-	//
-	// default:
-	// break;
-	// }
-	//
-	//
-	//
-	// }
+	public void setDosyaStatutDurum(String dosyaStatutDurum) {
+		this.dosyaStatutDurum = dosyaStatutDurum;
+	}
+
+	public boolean isShowPic() {
+		return showPic;
+	}
+
+	public void setShowPic(boolean showPic) {
+		this.showPic = showPic;
+	}
+	
+	
+	
 
 }

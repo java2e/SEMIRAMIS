@@ -78,7 +78,7 @@ public class ViewDAO extends DBConnection {
 			String parameter = values[0];
 			int ids = Integer.parseInt(values[1]);
 			if (parameter.equals("ki")) {
-				sql = "select * from vwkasa_izleme where id = " + ids + ";";
+				sql = "select * from vwkasa_izleme2 where id = " + ids + ";";
 
 				newConnectDB();
 				Statement stm = conn.createStatement();
@@ -94,8 +94,9 @@ public class ViewDAO extends DBConnection {
 					model.setHangiView("Izleme Bilgisi");
 					model.setIcraDosyaID(rs.getInt("icra_dosyasi_id"));
 					model.setIzleme_id(rs.getInt("id"));
-					model.setPersonelAdi(rs.getString("user"));
+					model.setPersonelAdi(rs.getString("kullanici_ad_soyad"));
 					model.setSoz_alan_personel_id(rs.getInt("personel_id"));
+					model.setIcraMudurluk(rs.getString("mudurluk_adi"));
 				}
 				disconnectDB();
 

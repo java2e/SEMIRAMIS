@@ -37,7 +37,7 @@ public class HaczeEsasMalBilgisiDAO extends DBConnection implements IDAO<HaczeEs
 					+ " muhatap_adi, muhatap_adresi, diger_bilgiler, mal_tutari, icra_dosyasi_id,  "
 					+ " mevduat_bilgisi, tapu_il_id,  "
 					+ " tapu_ilce_id, mulk_tipi_id, arac_tipi_id, mal_tipi_id, guncelleyen_kullanici_id, ekleme_tarihi, guncelleme_tarihi,haciz_durum,tapu_ada,tapu_aciklama) "
-					+ " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,  " + " ?, ?,now(),now(),1,?); ";
+					+ " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,  " + " ?, ?,now(),now(),1,?,?); ";
 
 			newConnectDB();
 
@@ -79,6 +79,7 @@ public class HaczeEsasMalBilgisiDAO extends DBConnection implements IDAO<HaczeEs
 			}
 
 			if (sonuc == 1)
+				
 				return true;
 			else
 				return false;

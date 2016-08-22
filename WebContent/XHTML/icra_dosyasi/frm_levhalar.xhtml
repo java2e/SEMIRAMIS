@@ -58,11 +58,12 @@
 								
 							    <p:graphicImage value="#{levhaBean.haciz}" height="95" width="100%" />
 								<p:graphicImage value="#{levhaBean.istahbarat}" height="95" width="100%" />
-				
-				<h:panelGrid columns="2">
-				<p:graphicImage value="/img/cagri_adet.png" height="60" width="60" />
-				<p:outputLabel value="#{levhaBean.cagriSayisi} ÇAĞRI " style="color:red;font-size:bold;"/>
+	<p:commandLink type="button"  style="text-decoration:none;">			
+				<h:panelGrid columns="1" style="text-align:center;">
+				<p:graphicImage value="/img/cagri_adet.png" height="30%" width="100%" />
+			<p:outputLabel value="#{levhaBean.cagriSayisi} ÇAĞRI " style="color:red;font-size:bold;"/>
 				</h:panelGrid>
+				</p:commandLink>
 								
 								
 						</p:panelGrid>

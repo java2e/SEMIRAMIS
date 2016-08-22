@@ -595,6 +595,7 @@ public class KasaBean {
 			bilgiTahsilat.setTahsilat_tarihi(new Date());
 			bilgiTahsilat.setKasa_islemini_yapan(usersbilgi.getUser().getUsrAdSoyad());
 			bilgiTahsilat.setSoz_alan_personel_id(tahsilat.getSoz_alan_personel_id());
+			bilgiTahsilat.setIcra_mudurlugu(tahsilat.getIcra_mudurlugu());
 
 			bilgiTahsilat.setTasilati_yapan(tahsilat.getTasilati_yapan());
 			RequestContext.getCurrentInstance().execute("PF('frmtahsilatyap').show();");

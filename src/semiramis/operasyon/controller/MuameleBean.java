@@ -306,6 +306,7 @@ public class MuameleBean {
 			
 			masraf.setMasrafMiktari(11.0);
 			masraf.setMasrafAciklama("Tapu Müzekkere Tebligat Masrafı");
+			masraf.setMasrafTipiId(4);
 			
 			
 			masrafDAO.kaydet(masraf);
@@ -314,6 +315,7 @@ public class MuameleBean {
 			
 			masraf.setMasrafMiktari(5.10);
 			masraf.setMasrafAciklama("Tapu Posta Pulu Masrafı");
+			masraf.setMasrafTipiId(4);
 			
 			
 			masrafDAO.kaydet(masraf);

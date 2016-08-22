@@ -83,6 +83,7 @@ public class KasaCtrl {
 		tahsilat.setOdemeplani_id(model.getOdemeplani_id());
 		tahsilat.setSoz_alan_personel_id(model.getSoz_alan_personel_id());
 		tahsilat.setTasilati_yapan(model.getPersonelAdi());
+		tahsilat.setIcra_mudurlugu(model.getIcraMudurluk());
 		return tahsilat;
 	}
 

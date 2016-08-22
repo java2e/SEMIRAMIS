@@ -54,7 +54,7 @@ public class UtilsDAO extends DBConnection {
 		List list = new ArrayList<Chronology>();
 		SQL = "SELECT  k.icra_dosya_id, k.departman, k.borclu, k.islem, k.aciklama, k.tarih,"
 				+ " u.ad_soyad as ad_soyad, k.userid  FROM tbl_kronoloji k inner join tbl_kullanici u on k.userid= u.id "
-				+ "where k.icra_dosya_id = " + id + ";";
+				+ "where k.icra_dosya_id = " + id + " order by k.tarih desc;";
 
 		newConnectDB();
 		try {

@@ -29,7 +29,19 @@ public class TahsilatViewModel {
 	
 	private String muvekkil_adi;
 	
+	private String icraMudurluk;
 	
+	
+	
+	
+
+	public String getIcraMudurluk() {
+		return icraMudurluk;
+	}
+
+	public void setIcraMudurluk(String icraMudurluk) {
+		this.icraMudurluk = icraMudurluk;
+	}
 
 	public String getMuvekkil_adi() {
 		return muvekkil_adi;

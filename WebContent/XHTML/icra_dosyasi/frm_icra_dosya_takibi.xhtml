@@ -10,20 +10,6 @@
 
 <h:body>
 
-	<style>
-.ui-panelgrid-cell {
-	border-width: 0px !important;
-}
-
-.titleColor>.ui-panel-titlebar {
-	background-image: url('img/panel.png');
-	background-repeat: repeat-x;
-	height: 25px;
-	text-align: center !important;
-	font-size: 20px;
-	color: white;
-}
-</style>
 
 
 
@@ -67,7 +53,7 @@
 
 				<p:commandButton style="width:100%" value="KASA DURUMU"
 					disabled="#{icradosyaislemleribean.isdialogsVisible}"
-					actionListener="#{icradosyaislemleribean.setDialogPage('dlg_odeme_emri_kaydi')}"
+					actionListener="#{icradosyaislemleribean.setDialogPage('dlg_kasa_durumu')}"
 					oncomplete="PF('dialogWidget').show();" update="dialog" />
 
 				<p:commandButton style="width:100%" value="VİZİT BİLGİSİ"
@@ -116,7 +102,7 @@
 			</p:panelGrid>
 
 			<p:dialog id="dialog" header="İŞLEM PANELİ" widgetVar="dialogWidget"
-				minHeight="340" height="768" width="1424">
+				minHeight="340" modal="true">
 				<ui:include
 					src="../dialog/#{icradosyaislemleribean.dialogUrl}.xhtml" />
 			</p:dialog>
@@ -181,19 +167,38 @@
 
 			</p:panel>
 
-
-
+									
+									
 			<p:panel id="panel" styleClass="titleColor"
 				header="#{icradosyaislemleribean.dosyaStatusu}">
+				
+			
+					<style>
+.ui-panelgrid-cell {
+	border-width: 0px !important;
+}
+
+.titleColor>.ui-panel-titlebar {
+	background-image: url('img/levha/panel_#{icradosyaislemleribean.dosyaStatusu.toLowerCase()}.png');
+	background-repeat: repeat;
+	height: 25px;
+	text-align: center !important;
+	font-size: 20px;
+	color: white;
+}
+</style>
+				
+				
 
 				<p:panel id="panelPic" rendered="#{icradosyaislemleribean.showPic}" 
-					style="z-index: 99; width: 95%; height: 55%; position: absolute; background-image: url(img/divBack.png); background-repeat: repeat; background-color: transparent !important;">
+					style="z-index: 99; width: 95%; height: 55%; position: absolute; background-image:url(img/levha/#{icradosyaislemleribean.dosyaStatusu.toLowerCase()}_back.png); background-repeat: repeat; background-color: transparent !important;">
 					
 						<center>
-							<img src="img/vefat2.png" style="margin-top: 30px;" />
+		<img src="img/levha/#{icradosyaislemleribean.dosyaStatusu.toLowerCase()}.png" style="margin-top: 30px;"/>
 						</center>
 					
 				</p:panel>
+				
 
 				<p:panelGrid style=" border-style: hidden !important;">
 

@@ -101,7 +101,10 @@
 					style="text-align:center">
 					<p:outputLabel value="#{list.mumaleTarihi}" />
 				</p:column>
-
+				
+				<f:facet name="footer">
+    					   <p:commandButton value="LİSTE TOPLU PDF"  actionListener="#{muameleBean.topluListe}" update=":#{p:component('updatePanel')}"/>
+     			</f:facet>
 			</p:dataTable>
 		</p:panelGrid>
 	</p:panel>

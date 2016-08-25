@@ -140,8 +140,8 @@ public class MuameleDAO extends DBConnection {
 					+ "  inner join tbl_icra_dosyasi icra on mb.icra_dosyasi_id=icra.id "
 					+ "  inner join tbl_icra_mudurlugu imud on icra.icra_mudurlugu_id=imud.id "
 					+ "  inner join tbl_muzekkere_tipi mtip on mb.muzekkere_talep_id=mtip.sira "
-					+ "  inner join tbl_baglanti bag on bag.\"borcluID\"=mb.borclu_id "
-					+ "  inner join tbl_hesap hesap on bag.\"hesaplamaID\"=hesap.id where mb.id=" + id;
+					+ "  inner join tbl_baglanti bag on bag.borclu_id=mb.borclu_id "
+					+ "  inner join tbl_hesap hesap on bag.hesap_id=hesap.id where mb.id=" + id;
 
 			newConnectDB();
 
@@ -204,11 +204,11 @@ public class MuameleDAO extends DBConnection {
 					+ " icra.id as icra_id,icra.icra_dosyasi_no,imud.adi as icra_mudurlugu,imud.id as icra_mudurluk_id, "
 					+ " alacak.muvekkil_adi, alacak.id as muvekkil_id,"
 					+ " hesap.asil_alacak,hesap.takip_alacagi,hesap.toplam_alacak,hesap.tahsilat_tutari,hesap.urun_adi,hesap.urun_no,hesap.masraf_tutari "
-					+ " from tbl_baglanti bag " + " inner join tbl_borclu borclu on bag.\"borcluID\"=borclu.id "
-					+ " inner join tbl_icra_dosyasi icra on bag.\"icradosyasiID\"=icra.id "
+					+ " from tbl_baglanti bag " + " inner join tbl_borclu borclu on bag.borclu_id=borclu.id "
+					+ " inner join tbl_icra_dosyasi icra on bag.icra_dosyasi_id=icra.id "
 					+ " inner join tbl_icra_mudurlugu imud on icra.icra_mudurlugu_id=imud.id "
-					+ " inner join tbl_alacakli_bilgisi alacak on bag.\"alacakliID\"=alacak.id "
-					+ " inner join tbl_hesap hesap on bag.\"hesaplamaID\"=hesap.id " + " where icra.id=" + icraDosyaID;
+					+ " inner join tbl_alacakli_bilgisi alacak on bag.alacakli_id=alacak.id "
+					+ " inner join tbl_hesap hesap on bag.hesap_id=hesap.id " + " where icra.id=" + icraDosyaID;
 
 			System.out.println(sql);
 

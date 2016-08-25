@@ -5,6 +5,19 @@ public class PairLevha {
 	private int adet;
 	
 	private int durum;
+	
+	private String durumTxt;
+	
+	
+	
+
+	public String getDurumTxt() {
+		return durumTxt;
+	}
+
+	public void setDurumTxt(String durumTxt) {
+		this.durumTxt = durumTxt;
+	}
 
 	public int getAdet() {
 		return adet;

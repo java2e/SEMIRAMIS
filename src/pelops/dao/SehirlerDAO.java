@@ -10,6 +10,7 @@ import javax.faces.event.ValueChangeEvent;
 import pelops.db.DBConnection;
 import pelops.model.Il;
 import pelops.model.Ilce;
+import semiramis.operasyon.model.ComboItem;
 
 public class SehirlerDAO extends DBConnection {
 
@@ -30,6 +31,29 @@ public class SehirlerDAO extends DBConnection {
 			il.setId(rs.getInt("id"));
 			il.setIl_adi(rs.getString("il_adi"));
 			il.setIl_kodu(rs.getInt("il_kodu"));
+
+			IllerListesi.add(il);
+
+		}
+		return IllerListesi;
+	}
+	
+	public ArrayList<ComboItem> getListIl() throws SQLException {
+
+		newConnectDB();
+		String SQL = "SELECT * FROM tbl_il ";
+		Statement stmt;
+		ResultSet rs;
+		stmt = conn.createStatement();
+		rs = stmt.executeQuery(SQL);
+		ComboItem il;
+		ArrayList<ComboItem> IllerListesi = new ArrayList<ComboItem>();
+
+		while (rs.next()) {
+
+			il = new ComboItem();
+			il.setId(rs.getInt("id"));
+			il.setAdi(rs.getString("il_adi"));
 
 			IllerListesi.add(il);
 
@@ -59,6 +83,29 @@ public class SehirlerDAO extends DBConnection {
 		return IlcelerListesi;
 
 	}
+	
+	public ArrayList<ComboItem> getListIlce(int il_kodu) throws SQLException {
+
+		newConnectDB();
+		String SQL = "SELECT * FROM tbl_ilce where il_id=" + il_kodu;
+		Statement stmt;
+		ResultSet rs;
+		stmt = conn.createStatement();
+		rs = stmt.executeQuery(SQL);
+		ComboItem ilce;
+		ArrayList<ComboItem> IlcelerListesi = new ArrayList<ComboItem>();
+
+		while (rs.next()) {
+
+			ilce = new ComboItem();
+			ilce.setId(rs.getInt("id"));
+			ilce.setAdi(rs.getString("ilce_adi"));
+			IlcelerListesi.add(ilce);
+
+		}
+		return IlcelerListesi;
+
+	}
 
 	public int getIl_KoduFromName(String name) throws Exception {
 		int il_k = 0;
@@ -68,6 +115,26 @@ public class SehirlerDAO extends DBConnection {
 		ResultSet rs = st.executeQuery(SQL);
 		while(rs.next()){
 			il_k = rs.getInt("il_kodu");
+		}
+		
+		return il_k;
+	}
+	
+	public String getIlName(int id)  {
+		String il_k = "il";
+		try {
+			
+		
+		newConnectDB();
+		String SQL ="Select * from tbl_il where id= "+id;
+		Statement st = conn.createStatement();
+		ResultSet rs = st.executeQuery(SQL);
+		while(rs.next()){
+			il_k = rs.getString("il_adi");
+		}
+		
+		} catch (Exception e) {
+			// TODO: handle exception
 		}
 		
 		return il_k;

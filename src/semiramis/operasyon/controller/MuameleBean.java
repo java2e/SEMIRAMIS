@@ -420,94 +420,95 @@ public class MuameleBean {
 	
 	
 	public void topluListe()
-	{
-		
-		List<JasperPrint> listJasperPrint = new ArrayList<JasperPrint>();
-		
-		try {
+		{
 			
+			List<JasperPrint> listJasperPrint = new ArrayList<JasperPrint>();
 			
-			for (int i = 0; i < muameleList.size(); i++) {
+			try {
 				
 				
-				muamele = muameleDAO.getMuameleDuzenle(muameleList.get(i).getId());
-				
-				
-				if (muamele.getMuzekkereId() == MUZEKKERE_MAAS) {
-
-					muzekkereTalep = "maashacizmuzekkeresigenel";
-
-				}
-
-				else if (muamele.getMuzekkereId() == MUZEKKERE_MAAS_TALEP) {
-					muzekkereTalep = "maashaciztalebigenel";
-				}
-				
-				else if(muamele.getMuzekkereId()==MUZEKKERE_TAPU)
-				{
-					muzekkereTalep="tapuhacizmuzekkeresinokta";
+				for (int i = 0; i < muameleList.size(); i++) {
 					
 					
-					muamele.setTapuMudurlugu(muamele.getTapuAciklama().split(" ")[1]);
+					muamele = muameleDAO.getMuameleDuzenle(muameleList.get(i).getId());
 					
-					List<SubReport> liste=new ArrayList<SubReport>();
 					
-					for(int j=0;j<muamele.getTapuAciklama().split("<br>").length;j++)
+					if (muamele.getMuzekkereId() == MUZEKKERE_MAAS) {
+	
+						muzekkereTalep = "maashacizmuzekkeresigenel";
+	
+					}
+	
+					else if (muamele.getMuzekkereId() == MUZEKKERE_MAAS_TALEP) {
+						muzekkereTalep = "maashaciztalebigenel";
+					}
+					
+					else if(muamele.getMuzekkereId()==MUZEKKERE_TAPU)
 					{
-						SubReport report=new SubReport();
-						report.setKayit(muamele.getTapuAciklama().split("<br>")[j]);
-						liste.add(report);
+						muzekkereTalep="tapuhacizmuzekkeresinokta";
+						
+						
+						muamele.setTapuMudurlugu(muamele.getTapuAciklama().split(" ")[1]);
+						
+						List<SubReport> liste=new ArrayList<SubReport>();
+						
+						for(int j=0;j<muamele.getTapuAciklama().split("<br>").length;j++)
+						{
+							SubReport report=new SubReport();
+							report.setKayit(muamele.getTapuAciklama().split("<br>")[j]);
+							liste.add(report);
+							
+						}
+						
+						muamele.setSubReportList(liste);
+						
+						
+						
 						
 					}
-					
-					muamele.setSubReportList(liste);
+	
+						muamele.setBarkod(new GenelYazdirBean().createBarcode(muamele.getBarkodTxt()));
+	
+						if (muamele.getMuzekkereId() > 10)
+							listJasperPrint.add(new MuzekkereJasper().getMuzekkere(muzekkereTalep, muamele));
+						else {
+							listJasperPrint.add(new MuzekkereJasper().getMuzekkere(muzekkereTalep, muamele));
+	
+							listJasperPrint.add(new MuzekkereJasper().tebligatZarfiJasper(muamele, muzekkereTalep));
+	
+							listJasperPrint.add(new MuzekkereJasper().tebligatListesiJasper(muamele, muzekkereTalep));
+						}
+	
 					
 					
 					
 					
 				}
-
-					muamele.setBarkod(new GenelYazdirBean().createBarcode(muamele.getBarkodTxt()));
-
-					if (muamele.getMuzekkereId() > 10)
-						listJasperPrint.add(new MuzekkereJasper().getMuzekkere(muzekkereTalep, muamele));
-					else {
-						listJasperPrint.add(new MuzekkereJasper().getMuzekkere(muzekkereTalep, muamele));
-
-						listJasperPrint.add(new MuzekkereJasper().tebligatZarfiJasper(muamele, muzekkereTalep));
-
-						listJasperPrint.add(new MuzekkereJasper().tebligatListesiJasper(muamele, muzekkereTalep));
-					}
-
+				
+				String path = genelPath + muzekkereTalep + ".pdf";
+	
+				JRPdfExporter exporter = new JRPdfExporter();
+				exporter.setExporterInput(SimpleExporterInput.getInstance(listJasperPrint));
+				exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(path));
+				SimplePdfExporterConfiguration config = new SimplePdfExporterConfiguration();
+				config.setCreatingBatchModeBookmarks(true);
+				exporter.exportReport();
+	
+				// Oluşturulan PDF'lerin Gösterimi Sağlanır
+	
+				pdf = path;
+	
 				
 				
 				
 				
+			} catch (Exception e) {
+				// TODO: handle exception
 			}
 			
-			String path = genelPath + muzekkereTalep + ".pdf";
-
-			JRPdfExporter exporter = new JRPdfExporter();
-			exporter.setExporterInput(SimpleExporterInput.getInstance(listJasperPrint));
-			exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(path));
-			SimplePdfExporterConfiguration config = new SimplePdfExporterConfiguration();
-			config.setCreatingBatchModeBookmarks(true);
-			exporter.exportReport();
-
-			// Oluşturulan PDF'lerin Gösterimi Sağlanır
-
-			pdf = path;
-
 			
-			
-			
-			
-		} catch (Exception e) {
-			// TODO: handle exception
 		}
-		
-		
-	}
+	
 	
 	
 	public void sil(int id)

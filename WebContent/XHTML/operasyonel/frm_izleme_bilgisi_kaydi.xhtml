@@ -7,7 +7,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 
-<h:body>
+<ui:composition>
 
 <style>
 
@@ -104,9 +104,8 @@
 					<p:selectOneMenu id="selectOneMenuIzlemePersonel" required="false"
 						style="width:260px" value="#{izlemebilgisibean.izleme.personelId}"
 						requiredMessage="Bu alanı doldurunuz">
-						<f:selectItem itemLabel="" itemValue="0" />
-						<f:selectItems value="#{userbean.ListeGetir()}" var="list"
-							itemLabel="#{list.adSoyad}" itemValue="#{list.id}"></f:selectItems>
+						<f:selectItems value="#{hesapTanimlamaBean.users}" var="list"
+							itemLabel="#{list.usrAdSoyad}" itemValue="#{list.usrId}"></f:selectItems>
 					</p:selectOneMenu>
 					
 					<p:outputLabel value="Vizit Talebi" />
@@ -130,17 +129,24 @@
 			</p:panel>
 
 
-
+  <p:toolbar id="toolbar">
+        <f:facet name="left">
 			<p:commandButton value="Yeni Kayıt" style="float:left"
 				disabled="#{izlemebilgisibean.buttonDisabled}"
 				action="#{izlemebilgisibean.PanelOpen}" update=":formIzlemeBilgisi" />
-
+				</f:facet>
+   <f:facet name="left">
 			<p:commandButton value="Listeyi Yenile" style="float:left"
 				disabled="#{izlemebilgisibean.buttonDisabled}"
 				update=":formIzlemeBilgisi" />
+				</f:facet>
+				</p:toolbar>
+
+
+<p:panel header="#{izlemebilgisibean.staticDegerler.icraDosyaNo} nolu dosyanın izleme listesi" id="panelTable">
 
 			<p:dataTable value="#{izlemebilgisibean.izlemeList}" var="list"
-				id="tblIzlemeBilgisi" update="tblIzlemeBilgisi">
+				id="tblIzlemeBilgisi" update="tblIzlemeBilgisi" paginator="true" rows="6">
 
 				<p:column headerText="Düzenle" width="145">
 
@@ -192,11 +198,13 @@
 				</p:column>
 
 			</p:dataTable>
+			
+			</p:panel>
 
 		</h:form>
 
 	</p:panel>
 
-</h:body>
+</ui:composition>
 
 </html>

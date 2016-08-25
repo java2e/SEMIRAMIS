@@ -1,0 +1,237 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	>
+
+
+<ui:composition>
+
+<style>
+#chartdiv {
+  width: 100%;
+  height: 500px;
+}												
+</style>
+
+<!-- Resources -->
+<script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
+<script src="https://www.amcharts.com/lib/3/pie.js"></script>
+<script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
+<link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
+<script src="https://www.amcharts.com/lib/3/themes/none.js"></script>
+
+<!-- Chart code -->
+<script type="text/javascript">
+			//<![CDATA[
+
+		
+var chart = AmCharts.makeChart( "chartdiv", {
+  "type": "pie",
+  "theme": "none",
+  "dataProvider": [#{vizitAnalizBean.vizitDurum}],
+  "valueField": "adet",
+  "titleField": "durum",
+   "balloon":{
+   "fixedPosition":true
+  },
+  "listeners": [{
+	    "event": "clickSlice",
+	    "method": function(event) {
+	      var chart = event.chart;
+	      
+	      document.getElementById("form:durumId").value = event.dataItem.dataContext.id;
+	      
+	      $("#form\\:hh").click();
+	      
+	     
+	    }
+	  }],
+  "export": {
+    "enabled": true
+  }
+} );
+
+
+var chart2 = AmCharts.makeChart( "chartdiv2", {
+	  "type": "pie",
+	  "theme": "none",
+	  "dataProvider": [ {
+		"id":3,  
+	    "country": "YAPILMADI",
+	    "litres": 143
+	  }, {
+		  "id":4,  
+	    "country": "YAPILDI",
+	    "litres": 175
+	  }
+	  ],
+	  "valueField": "litres",
+	  "titleField": "country",
+	   "balloon":{
+	   "fixedPosition":true
+	  },
+	  "listeners": [{
+		    "event": "clickSlice",
+		    "method": function(event) {
+		      var chart = event.chart;
+		      
+		      console.log(event.dataItem.dataContext.country)
+		       document.getElementById("form:durumId").value = event.dataItem.dataContext.id;
+		      
+		      $("#form\\:hh").click();
+		      
+		     
+		    }
+		  }],
+	  "export": {
+	    "enabled": true
+	  }
+	} );
+	           
+
+var chart3 = AmCharts.makeChart( "chartdiv3", {
+	  "type": "pie",
+	  "theme": "none",
+	  "dataProvider": [ {
+	    "country": "STATÜ 1",
+	    "litres": 128
+	  }, {
+	    "country": "STATÜ 2",
+	    "litres": 135
+	  }
+	  ],
+	  "valueField": "litres",
+	  "titleField": "country",
+	   "balloon":{
+	   "fixedPosition":true
+	  },
+	  "listeners": [{
+		    "event": "clickSlice",
+		    "method": function(event) {
+		      var chart = event.chart;
+		      
+		      console.log(event.dataItem.dataContext.country)
+		       document.getElementById("form:durumId").value = event.dataItem.dataContext.country;
+		      
+		      $("#form\\:hh").click();
+		      
+		     
+		    }
+		  }],
+	  "export": {
+	    "enabled": true
+	  }
+	} );
+	
+	
+
+
+
+
+//]]>
+
+</script>
+
+
+<h:form id="form">
+<h:inputHidden id="durumId" value="#{vizitAnalizBean.id}" />
+<p:commandButton style="display:none" id="hh" value="kaydet"  update=":form:panelTable" actionListener="#{vizitAnalizBean.getList}"/>
+
+<div style="margin: auto;width: 100%">
+
+<div style="margin: 20px 10px 0 10px; width: 100%;height:3px;background-image: url('img/chart_line.png'); background-repeat: repeat;">
+</div>
+
+<div style="margin:auto;height: 300px;width: 100%;">
+
+<div style="height: 300px; width:30%; float: left;">
+<div style="margin-top:10px;"><center>VİZİT DURUMU</center></div>
+<div id="chartdiv" style="margin: 10px 10px 0 20px; height: 300px; width:100%; float: left;">
+</div>
+</div>
+
+<div style="height: 300px; width:30%; float: left;">
+<div style="margin-top:10px;"><center>VİZİT TAHSİLAT</center></div>
+<div id="chartdiv2" style="margin: 10px 10px 0 20px; height: 300px; width:100%; float: left;">
+</div>
+</div>
+
+<div style="height: 300px; width:30%; float: left;">
+<div style="margin-top:10px;"><center>VİZİT STATÜSÜ</center></div>
+<div id="chartdiv3" style="margin: 10px 10px 0 20px; height: 300px; width:100%; float: left;">
+</div>
+</div>
+
+
+</div>
+
+
+
+<div style="margin: 20px 10px 0 10px; width: 100%;height:3px;background-image: url('img/chart_line.png');background-repeat: repeat;">
+</div>
+
+<p:panel id="panelTable" header="VİZİT BİLGİSİ LİSTESİ" style="text-align: center !important;
+	font-size: 14px;margin-top:10px;">
+<p:dataTable value="#{vizitAnalizBean.liste}" var="vb"
+				id="tblVizitBilgisi">
+
+		
+
+				<p:column headerText="BORÇLU ADI">
+					<h:outputText value="#{vb.borcluAdSoyad}" />
+				</p:column>
+
+				<p:column headerText="İCRA DOSYA NO">
+					<h:outputText value="#{vb.icraDosyaNo}" />
+				</p:column>
+
+				<p:column headerText="İZLEME TARİHİ">
+					<h:outputText value="#{vb.izlemeTarihi}" />
+				</p:column>
+				
+				<p:column headerText="İZLEME SONUCU">
+					<h:outputText value="#{vb.izlemeSonucu}" />
+				</p:column>
+				
+				<p:column headerText="VİZİT TARİHİ">
+					<h:outputText value="#{vb.vizitTarihi}" />
+				</p:column>
+
+				<p:column headerText="VİZİT STATÜSÜ">
+					<h:outputText value="#{vb.vizitStatusu}" />
+				</p:column>
+				
+					<p:column headerText="ÖDEME SÖZÜ TARİHİ">
+					<h:outputText value="#{vb.odemeSozuTarih}" />
+				</p:column>
+				
+				
+					<p:column headerText="ÖDEME SÖZÜ MİKTARI">
+					<h:outputText value="#{vb.odemeSozuMiktari}" />
+				</p:column>
+				
+					<p:column headerText="VİZİT NOTU">
+					<h:outputText value="#{vb.vizitNotu}" />
+				</p:column>
+				
+					<f:facet name="footer">
+    					   <p:commandButton value="LİSTE TOPLU PDF"  actionListener="#{muameleBean.topluListe}" />
+    					     <p:commandButton value="LİSTE TOPLU EXCEL"  actionListener="#{muameleBean.topluListe}" />
+     			</f:facet>
+				
+			</p:dataTable>
+
+</p:panel>
+
+
+</div>
+
+</h:form>
+
+</ui:composition>
+</html>

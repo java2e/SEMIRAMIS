@@ -12,6 +12,12 @@ public class Levha {
 	private int maasSayisi;
 	private int maasDurum;
 	private String maasDurumTxt;
+	
+	
+	private int vizitSayisi;
+	private int vizitDurum;
+	private String vizitDurumTxt;
+	
 
 	public int getAracSayisi() {
 		return aracSayisi;
@@ -84,6 +90,32 @@ public class Levha {
 	public void setMaasDurumTxt(String maasDurumTxt) {
 		this.maasDurumTxt = maasDurumTxt;
 	}
+
+	public int getVizitSayisi() {
+		return vizitSayisi;
+	}
+
+	public void setVizitSayisi(int vizitSayisi) {
+		this.vizitSayisi = vizitSayisi;
+	}
+
+	public int getVizitDurum() {
+		return vizitDurum;
+	}
+
+	public void setVizitDurum(int vizitDurum) {
+		this.vizitDurum = vizitDurum;
+	}
+
+	public String getVizitDurumTxt() {
+		return vizitDurumTxt;
+	}
+
+	public void setVizitDurumTxt(String vizitDurumTxt) {
+		this.vizitDurumTxt = vizitDurumTxt;
+	}
+	
+	
 	
 	
 	

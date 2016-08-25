@@ -7,6 +7,7 @@ import java.util.Date;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
 import org.primefaces.context.RequestContext;
@@ -19,7 +20,7 @@ import semiramis.operasyon.dao.IzlemeBilgisiDAO;
 import semiramis.operasyon.model.IzlemeBilgisi;
 
 @ManagedBean(name = "izlemebilgisibean")
-@SessionScoped
+@ViewScoped
 public class IzlemeBilgisiBean {
 
 	ArrayList<IzlemeBilgisi> izlemeList = new ArrayList<IzlemeBilgisi>();
@@ -31,15 +32,19 @@ public class IzlemeBilgisiBean {
 	boolean panelRender;
 	boolean buttonDisabled;
 	
-	public IzlemeBilgisiBean() {
+	public IzlemeBilgisiBean() throws Exception {
 
 		status = 0;
 		PanelClose();
 		ButtonOpen();
 		izleme = new IzlemeBilgisi();
+		izleme.setPersonelId(Util.getUser().getUsrId());
 		izleme.setCagriAdet(dao.izlemeSayisi(AktifBean.icraDosyaID));
 		izleme.setIzlemeTarihi(new Date());
 		izleme.setPersonelId(Util.getUser().getUsrId());
+		
+		izlemeList = dao.getAllListFromIcraDosyaID(AktifBean.icraDosyaID);
+		
 	}
 	
 	
@@ -64,11 +69,9 @@ public class IzlemeBilgisiBean {
 	}
 
 
-	public ArrayList<IzlemeBilgisi> getIzlemeList() throws Exception {
+	public ArrayList<IzlemeBilgisi> getIzlemeList()  {
 
-		izlemeList = dao.getAllListFromIcraDosyaID(AktifBean.getIcraDosyaID());
-
-		return izlemeList;
+		return this.izlemeList;
 
 	}
 
@@ -130,6 +133,7 @@ public class IzlemeBilgisiBean {
 		
 		izleme=new IzlemeBilgisi();
 		izleme.setIzlemeTarihi(new Date());
+		izleme.setCagriAdet(dao.izlemeSayisi(AktifBean.icraDosyaID));
 		
 		ButtonClose();
 
@@ -156,21 +160,7 @@ public class IzlemeBilgisiBean {
 
 		FacesContext context = FacesContext.getCurrentInstance();
 
-		if (izleme.getIzlemeSonucuTarihi() == null && izleme.getIzlemeSonucu() == null
-				&& izleme.getOdemeSozuTarihi() == null && izleme.getOdemeSozuMiktari() == null
-				&& izleme.getAciklama() == "" && izleme.getPersonelId() == 0 && izleme.getIzlemeTarihi() == null
-				&& izleme.getIzlemeSonucuId() == 0) {
 
-			context.addMessage(null, new FacesMessage("En az bir alan dolu olmalıdır!"));
-
-		} else {
-
-			if (izleme.getOdemeSozuMiktari() == null || izleme.getOdemeSozuTarihi() == null) {
-
-				context.addMessage(null,
-						new FacesMessage("Ödeme Sözü miktarı veya ödeme sözü tarihi ikisi de dolu olmalıdır!"));
-
-			} else {
 
 				if (status == 0) {
 
@@ -181,6 +171,7 @@ public class IzlemeBilgisiBean {
 						context.addMessage(null, new FacesMessage("Kaydedildi!"));
 						
 						izleme.setCagriAdet(izleme.getCagriAdet()+1);
+						izlemeList = dao.getAllListFromIcraDosyaID(AktifBean.icraDosyaID);
 						
 
 					} else {
@@ -211,8 +202,7 @@ public class IzlemeBilgisiBean {
 				PanelClose();
 				ButtonOpen();
 
-			}
-		}
+			
 		
 		izleme=new IzlemeBilgisi();
 		
@@ -223,6 +213,9 @@ public class IzlemeBilgisiBean {
 
 		status = 1;
 
+		
+		PanelOpen();
+		
 		ArrayList<IzlemeBilgisi> list = dao.getAllListFromIcraDosyaID(AktifBean.icraDosyaID);
 
 		int id = Integer.parseInt(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap()
@@ -236,12 +229,12 @@ public class IzlemeBilgisiBean {
 		izlemeList = dao.getAllListFromIcraDosyaID(AktifBean.icraDosyaID);
 		izleme.setCagriAdet(dao.izlemeSayisi(AktifBean.icraDosyaID));
 		
-		PanelOpen();
+		
 		ButtonClose();
 
 	}
 
-	public void Sil() {
+	public void Sil() throws Exception {
 
 		int id = Integer.parseInt(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap()
 				.get("buttonSil").toString());
@@ -249,6 +242,8 @@ public class IzlemeBilgisiBean {
 		IzlemeBilgisiDAO dao = new IzlemeBilgisiDAO();
 
 		boolean result = dao.sil(id);
+		
+		izlemeList = dao.getAllListFromIcraDosyaID(AktifBean.icraDosyaID);
 
 		FacesContext context = FacesContext.getCurrentInstance();
 

@@ -118,7 +118,7 @@ public class VizitBilgisiDAO extends DBConnection {
 	public boolean guncelle(VizitBilgisi vizitBilgisi) throws Exception {
 		boolean duzenlendi = false;
 		SQL = "UPDATE tbl_vizit_bilgisi SET  " + "borclu_id=?, vizit_tarihi=?, vizit_statusu=?, odeme_sozu_tarihi=?,"
-				+ " odeme_sozu_miktari=?, vizit_notu=?, personel_id=?, icra_dosyasi=? " + "WHERE id="
+				+ " odeme_sozu_miktari=?, vizit_notu=?, personel_id=?, icra_dosyasi=?, guncelleme_tarihi=now() " + "WHERE id="
 				+ vizitBilgisi.getId() + " ;";
 
 		newConnectDB();
@@ -157,7 +157,7 @@ public class VizitBilgisiDAO extends DBConnection {
 
 		ArrayList<User> users = new ArrayList<User>();
 
-		SQL = "SELECT id,  \"adSoyad\" FROM tbl_user;";
+		SQL = "SELECT id, ad_soyad FROM tbl_kullanici;";
 
 		newConnectDB();
 		stmt = conn.createStatement();
@@ -169,7 +169,7 @@ public class VizitBilgisiDAO extends DBConnection {
 			User user = new User();
 
 			user.setId(rs.getInt("id"));
-			user.setAdSoyad(rs.getString("adSoyad"));
+			user.setAdSoyad(rs.getString("ad_soyad"));
 
 			users.add(user);
 

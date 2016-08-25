@@ -30,6 +30,14 @@
 								<p:graphicImage value="#{levhaBean.itiraz}" height="95" width="100%" />
 								<p:graphicImage value="#{levhaBean.bila}" height="95" width="100%" />
 								<p:graphicImage value="#{levhaBean.hitam}" height="95" width="100%" />
+								
+<p:commandLink update="panelicarac" type="button" onclick="PF('gayrimenkulGoster').show();" style="text-decoration:none;">
+<h:panelGrid columns="1" style="text-align:center;"  width="100%">
+<p:outputLabel value="#{levhaBean.levhaBilgi.vizitDurumTxt}" style="color:red;font-size:bold;"/>
+<p:graphicImage value="#{levhaBean.vizit}" height="95" width="100%" />
+<p:outputLabel value="#{levhaBean.levhaBilgi.vizitSayisi} ADET" style="color:red;font-size:bold;"/>
+</h:panelGrid>
+</p:commandLink>
 								<p:graphicImage value="#{levhaBean.temlik}" height="95" width="100%" />
 	  							<p:graphicImage value="#{levhaBean.vefat}" height="95" width="100%" />
 <p:commandLink update="panelicarac" type="button" onclick="PF('gayrimenkulGoster').show();" style="text-decoration:none;">

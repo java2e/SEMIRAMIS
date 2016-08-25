@@ -39,29 +39,22 @@
     </script>
 
 
-	<h:form>
+	<h:form id="form">
 
 
 
 		<p:panel header="VİZİT TALEP LİSTESİ">
 
 			<h:panelGrid columns="2" width="300px;">
-				<p:outputLabel value="İcra Müdürlüğü" />
-				<p:selectOneMenu value="#{vizitTalepBean.icraMudId}" style="width:300px;">
-					<f:selectItem itemLabel="" itemValue="" />
-					<f:selectItems
-						value="#{geneltanimbean.ListeGetir('tbl_icra_mudurlugu')}"
-						var="list" itemLabel="#{list.adi}" itemValue="#{list.id}" />
-				</p:selectOneMenu>
-
+				
 				<p:outputLabel style="width: 150px">İl :</p:outputLabel>
 					<p:selectOneMenu id="il"
-						value="#{vizitTalepBean.il}"
+						value="#{vizitTalepBean.ilId}"
 						style="width: 260px">
-						<f:selectItem itemValue="" itemLabel=""></f:selectItem>
-						<p:ajax event="change" update="ilce" />
-						<f:selectItems value="#{genelSehirlerBean.ListeGetirForIl()}"
-							var="iller" itemLabel="#{iller.il_adi}"
+						<f:selectItem itemValue="0" itemLabel="İl Seçiniz"></f:selectItem>
+						<p:ajax event="change" update="ilce" listener="#{vizitTalepBean.changeIlIlce}"/>
+						<f:selectItems value="#{vizitTalepBean.listIl}"
+							var="iller" itemLabel="#{iller.adi}"
 							itemValue="#{iller.id}">
 						</f:selectItems>
 					</p:selectOneMenu>
@@ -71,10 +64,10 @@
 					<p:selectOneMenu id="ilce"
 						value="#{vizitTalepBean.ilce}"
 						style="width: 260px">
-
-						<f:selectItems value="#{genelSehirlerBean.handleValueChange(6)}"
-							var="ilceler" itemLabel="#{ilceler.ilce_adi}"
-							itemValue="#{ilceler.ilce_adi}"></f:selectItems>
+					<f:selectItem itemValue="ilce" itemLabel="İlçe Seçiniz"></f:selectItem>
+						<f:selectItems value="#{vizitTalepBean.listIlce}"
+							var="ilceler" itemLabel="#{ilceler.adi}"
+							itemValue="#{ilceler.adi}"></f:selectItems>
 					</p:selectOneMenu>
 
 				<p:outputLabel value="İzleme Tarihi" />
@@ -82,7 +75,7 @@
 					pattern="dd-MM-yyyy" mask="true" />
 			</h:panelGrid>
 
-<p:commandButton value="LİSTELE" update="pnlListe" actionListener="#{vizitTalepBean.getList}"/>
+<p:commandButton value="LİSTELE" update=":form:pnlListe" actionListener="#{vizitTalepBean.getList}"/>
 
 
 		</p:panel>
@@ -100,7 +93,7 @@
 		
 		<p:panel>
 <h:panelGrid columns="2">
-<h:commandButton image="/img/pdf.png"  style="width:60px;height:80px;" />
+<h:commandButton image="/img/pdf.png" actionListener="#{vizitTalepBean.getPDF}" style="width:60px;height:80px;" />
 <h:commandButton image="/img/excel.png" style="width:60px;height:80px;"  />
 </h:panelGrid>
 		</p:panel>
@@ -135,6 +128,14 @@
 				
 				<p:column headerText="Borçlu İLCE">
 					<h:outputText value="#{vizit.ilce}" />
+				</p:column>
+				
+				<p:column headerText="İzleme Statüsü">
+					<h:outputText value="#{vizit.izlemeStatusu}" />
+				</p:column>
+				
+				<p:column headerText="Toplam Alacak">
+					<h:outputText value="#{vizit.borcMiktari}" />
 				</p:column>
 
 				<p:column headerText="Açıklama">

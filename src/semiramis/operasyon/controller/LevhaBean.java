@@ -18,6 +18,8 @@ public class LevhaBean {
 
 	private int cagriSayisi=0;
 	
+	private String vizit="img/acikcagri.png";
+	
 	
 	private int AracSayisi = 0;
 	private int EvSayisi = 0;
@@ -125,7 +127,30 @@ public class LevhaBean {
 		hacizDurumAraba();
 		hacizDurumEv();
 		//hacizDurumMaas();
+		vizitDurum();
 
+	}
+	
+	
+	public void vizitDurum()
+	{
+		
+		IcraDosyasiDAO icraDao=new IcraDosyasiDAO();
+		
+		PairLevha pair=icraDao.vizitDurum(AktifBean.icraDosyaID);
+		
+		levhaBilgi.setVizitDurum(pair.getDurum());
+		levhaBilgi.setVizitDurumTxt(pair.getDurumTxt());
+		levhaBilgi.setVizitSayisi(pair.getAdet());
+		
+		
+		if(levhaBilgi.getVizitSayisi()>0)
+			vizit="img/levha/vizit.png";
+		else
+			vizit="img/levha/acikcagri.png";
+		
+		
+		
 	}
 
 	public void itirazDurum() {
@@ -532,6 +557,14 @@ public class LevhaBean {
 
 	public void setCagriSayisi(int cagriSayisi) {
 		this.cagriSayisi = cagriSayisi;
+	}
+
+	public String getVizit() {
+		return vizit;
+	}
+
+	public void setVizit(String vizit) {
+		this.vizit = vizit;
 	}
 
 	

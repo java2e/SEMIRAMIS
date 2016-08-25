@@ -823,52 +823,13 @@ public class IcraDosyaIslemleriBean {
 				}
 			}
 
-		} catch (SQLException e) {
-			String Hata = "";
-			for (int i = 0; i < e.getStackTrace().length; i++) {
-				Hata += e.getStackTrace()[i] + " : ";
+		} 
+			catch (Exception e) {
+				
+				
+				System.out.println("Hata icraDosyaIslemleri GelismisListe :"+e.getMessage());
+				
 			}
-			newlog = new LogError();
-			newlog.setHata_detay(Hata);
-			newlog.setHata_value("GelismisListele Prosedürü (SQL ERROR)");
-			newlog.setPage("IcraDosyaIslemleriBean");
-			newlog.setUser_id(99);
-
-			try {
-				log.Kaydet(newlog);
-			} catch (Exception e2) {
-				context.addMessage(null,
-						new FacesMessage("Beklenmeyen Bir Hata Gerçekleşti Lütfen Sisteme Yetkilisine Başvurunuz..."));
-
-			}
-
-			context.addMessage(null,
-					new FacesMessage("Beklenmeyen Bir Hata Gerçekleşti Lütfen Sisteme Tekrar Giriş Yapınız..."));
-
-		} catch (Exception e) {
-
-			String Hata = "";
-			for (int i = 0; i < e.getStackTrace().length; i++) {
-				Hata += e.getStackTrace()[i] + " : ";
-			}
-			newlog = new LogError();
-			newlog.setHata_detay(Hata);
-			newlog.setHata_value("GelismisListele Prosedürü  (STANDART ERROR)");
-			newlog.setPage("IcraDosyaIslemleriBean");
-			newlog.setUser_id(99);
-
-			try {
-				log.Kaydet(newlog);
-			} catch (Exception e2) {
-
-				context.addMessage(null,
-						new FacesMessage("Beklenmeyen Bir Hata Gerçekleşti Lütfen Sisteme Yetkilisine Başvurunuz..."));
-			}
-
-			context.addMessage(null,
-					new FacesMessage("Beklenmeyen Bir Hata Gerçekleşti Lütfen Sisteme Tekrar Giriş Yapınız..."));
-
-		}
 
 	}
 

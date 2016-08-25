@@ -23,11 +23,7 @@ public class IzlemeBilgisiDAO extends DBConnection {
 
 		boolean kaydedildi = false;
 
-		if (izlemeKayit.getOdemeSozuMiktari() == null && izlemeKayit.getOdemeSozuTarihi() == null) {
-
-		}
-
-		else {
+	
 
 			izlemeTarihi = convertFromJAVADateToSQLDate(izlemeKayit.getIzlemeTarihi());
 			sonOdemeSozuTarihi = convertFromJAVADateToSQLDate(izlemeKayit.getOdemeSozuTarihi());
@@ -44,7 +40,7 @@ public class IzlemeBilgisiDAO extends DBConnection {
 				pstmt.setDate(1, izlemeTarihi);
 				pstmt.setInt(2, izlemeKayit.getIzlemeSonucuId());
 				pstmt.setDate(3, sonOdemeSozuTarihi);
-				pstmt.setDouble(4, izlemeKayit.getOdemeSozuMiktari());
+				pstmt.setDouble(4, izlemeKayit.getOdemeSozuMiktari()==null ? 0 : izlemeKayit.getOdemeSozuMiktari());
 				pstmt.setString(5, izlemeKayit.getAciklama());
 				pstmt.setInt(6, izlemeKayit.getPersonelId());
 				pstmt.setInt(7, AktifBean.getIcraDosyaID());
@@ -63,7 +59,7 @@ public class IzlemeBilgisiDAO extends DBConnection {
 
 				ex.printStackTrace();
 			}
-		}
+		
 		return kaydedildi;
 
 	}
@@ -72,7 +68,7 @@ public class IzlemeBilgisiDAO extends DBConnection {
 
 		String SQL = "DELETE FROM tbl_izleme_bilgisi WHERE id = ?;";
 
-		boolean silindi = false;
+		boolean silindi = true;
 
 		try {
 			newConnectDB();
@@ -86,7 +82,7 @@ public class IzlemeBilgisiDAO extends DBConnection {
 
 			if (result == 1) {
 
-				silindi = true;
+				silindi = false;
 			}
 
 		} catch (Exception ex) {

@@ -12,7 +12,7 @@
 <body>
 
 	<p:panel id="panelPG" header="VİZİT BİLGİSİ KAYIT PANELİ"
-		style="text-align:left;min-height:500px;">
+		style="text-align:left;">
 
 		<p:ajaxStatus onstart="PF('statusDialog').show()"
 			onsuccess="PF('statusDialog').hide()" />
@@ -25,7 +25,7 @@
 
 		<h:form id="vizitForm">
 
-			<p:panel rendered="#{vizitBilgisiKaydiBean.panelRender}">
+			<p:panel id="panelForm" rendered="#{vizitBilgisiKaydiBean.panelRender}">
 				<p:panelGrid columns="2" style="margin-top:10px">
 
 					<p:outputLabel style="width: 150px">İcra Dosya No :</p:outputLabel>
@@ -107,22 +107,32 @@
 				<p:commandButton id="cmdButtonKAYDET" value="Kaydet"
 					actionListener="#{vizitBilgisiKaydiBean.Kaydet()}"
 					action="#{kasaBean.sayfaGuncelle()}"
-					update="growl,vizitForm"></p:commandButton>
+					update="growl,:vizitForm:panelTable,vizitForm:panelForm"></p:commandButton>
 
 
 
 			</p:panel>
+			
+			  <p:toolbar id="toolbar">
+        <f:facet name="left">
 
 			<p:commandButton value="Yeni Kayıt" style="float:left"
 				disabled="#{vizitBilgisiKaydiBean.buttonDisabled}"
 				action="#{vizitBilgisiKaydiBean.YeniKayit}" update=":vizitForm" />
-
+</f:facet>
+ <f:facet name="left">
 			<p:commandButton value="Listeyi Yenile" style="float:left"
 				disabled="#{vizitBilgisiKaydiBean.buttonDisabled}"
 				update=":vizitForm" />
+				</f:facet>
+				</p:toolbar>
+
+
+
+<p:panel header="#{vizitBilgisiKaydiBean.icradosyaNo} nolu dosyanın vizit listesi" id="panelTable">
 
 			<p:dataTable value="#{vizitBilgisiKaydiBean.listVizit}" var="vb"
-				id="tblVizitBilgisi" style="width:900px ">
+				id="tblVizitBilgisi" paginator="true" rows="6">
 
 				<p:column headerText="Düzenle" width="145">
 
@@ -168,11 +178,21 @@
 				<p:column headerText="Ödeme Sözü Miktarı">
 					<h:outputText value="#{vb.odemeMiktari}" />
 				</p:column>
+				
+				<p:column headerText="Vizit Notu">
+					<h:outputText value="#{vb.vizitNotu}" />
+				</p:column>
+				
+				<p:column headerText="Vizit Statüsü">
+					<h:outputText value="#{vb.vizitStatusu}" />
+				</p:column>
 
 				<p:column headerText="Personel">
 					<h:outputText value="#{vb.userName}" />
 				</p:column>
 			</p:dataTable>
+			
+			</p:panel>
 
 		</h:form>
 

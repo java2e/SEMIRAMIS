@@ -409,6 +409,45 @@ public class IcraDosyasiDAO extends DBConnection {
 		return pair;
 	}
 
+	public PairLevha vizitDurum(int icraDosyaId) {
+
+		PairLevha pair = new PairLevha();
+
+		
+		try {
+			
+		
+		newConnectDB();
+		String SQL = "SELECT vizit_statusu " + " FROM tbl_vizit_bilgisi where icra_dosyasi=" + icraDosyaId+"   order by vizit_tarihi desc";
+		Statement stmt;
+		ResultSet rs;
+		stmt = conn.createStatement();
+
+		
+		rs = stmt.executeQuery(SQL);
+		
+		int adet=0;
+		
+		while (rs.next()) {
+			
+			adet++;
+
+			pair.setDurumTxt(rs.getString("vizit_statusu"));
+		}
+
+		pair.setAdet(adet);
+		
+		disconnectDB();
+		
+		} catch (Exception e) {
+			
+
+			System.out.println("Hata icradosyasi DAO vizitdurum :"+e.getMessage());
+			
+		}
+		return pair;
+	}
+
 	public String ItirazDurumu(int id) throws Exception {
 		DBConnection DB = new DBConnection();
 		DB.newConnectDB();

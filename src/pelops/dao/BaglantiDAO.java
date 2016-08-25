@@ -13,7 +13,7 @@ public class BaglantiDAO extends DBConnection {
 	public Baglanti Listele(int icradosyaid) throws Exception {
 
 		newConnectDB();
-		String SQL = "SELECT id, \"icradosyasiID\", \"alacakliID\", \"borcluID\", \"hesaplamaID\"  FROM tbl_baglanti where \"icradosyasiID\"="
+		String SQL = "SELECT id, icra_dosyasi_id, alacakli_id,borclu_id, hesap_id  FROM tbl_baglanti where icra_dosyasi_id="
 				+ icradosyaid + ";";
 
 		Statement stmt;
@@ -24,10 +24,10 @@ public class BaglantiDAO extends DBConnection {
 
 		while (rs.next()) {
 			baglanti = new Baglanti();
-			baglanti.setAlacakliID(rs.getInt("alacakliID"));
-			baglanti.setBorcluID(rs.getInt("borcluID"));
-			baglanti.setHesaplamaID(rs.getInt("hesaplamaID"));
-			baglanti.setIcradosyasiID(rs.getInt("icradosyasiID"));
+			baglanti.setAlacakliID(rs.getInt("alacakli_id"));
+			baglanti.setBorcluID(rs.getInt("borclu_id"));
+			baglanti.setHesaplamaID(rs.getInt("hesap_id"));
+			baglanti.setIcradosyasiID(rs.getInt("icra_dosyasi_id"));
 
 		}
 		disconnectDB();
@@ -39,7 +39,7 @@ public class BaglantiDAO extends DBConnection {
 
 		DBConnection DB = new DBConnection();
 		DB.newConnectDB();
-		String SQL = "SELECT id, \"icradosyasiID\", \"alacakliID\", \"borcluID\", \"hesaplamaID\"  FROM tbl_baglanti where \"icradosyasiID\"="
+		String SQL = "SELECT id, icra_dosyasi_id, alacakli_id,borclu_id, hesap_id  FROM tbl_baglanti where icra_dosyasi_id="
 				+ icradosyaid + ";";
 		Statement stmt;
 		ResultSet rs;
@@ -50,10 +50,10 @@ public class BaglantiDAO extends DBConnection {
 
 		while (rs.next()) {
 			baglanti = new Baglanti();
-			baglanti.setAlacakliID(rs.getInt("alacakliID"));
-			baglanti.setBorcluID(rs.getInt("borcluID"));
-			baglanti.setHesaplamaID(rs.getInt("hesaplamaID"));
-			baglanti.setIcradosyasiID(rs.getInt("icradosyasiID"));
+			baglanti.setAlacakliID(rs.getInt("alacakli_id"));
+			baglanti.setBorcluID(rs.getInt("borclu_id"));
+			baglanti.setHesaplamaID(rs.getInt("hesap_id"));
+			baglanti.setIcradosyasiID(rs.getInt("icra_dosyasi_id"));
 
 			liste.add(baglanti);
 		}
@@ -66,7 +66,7 @@ public class BaglantiDAO extends DBConnection {
 
 		DBConnection DB = new DBConnection();
 		DB.newConnectDB();
-		String SQL = "SELECT id, \"icradosyasiID\", \"alacakliID\", \"borcluID\", \"hesaplamaID\"  FROM tbl_baglanti ;";
+		String SQL = "SELECT id, icra_dosyasi_id, alacakli_id,borclu_id, hesap_id  FROM tbl_baglanti ;";
 		Statement stmt;
 		ResultSet rs;
 		stmt = DB.conn.createStatement();
@@ -76,10 +76,10 @@ public class BaglantiDAO extends DBConnection {
 
 		while (rs.next()) {
 			baglanti = new Baglanti();
-			baglanti.setAlacakliID(rs.getInt("alacakliID"));
-			baglanti.setBorcluID(rs.getInt("borcluID"));
-			baglanti.setHesaplamaID(rs.getInt("hesaplamaID"));
-			baglanti.setIcradosyasiID(rs.getInt("icradosyasiID"));
+			baglanti.setAlacakliID(rs.getInt("alacakli_id"));
+			baglanti.setBorcluID(rs.getInt("borclu_id"));
+			baglanti.setHesaplamaID(rs.getInt("hesap_id"));
+			baglanti.setIcradosyasiID(rs.getInt("icra_dosyasi_id"));
 
 			liste.add(baglanti);
 		}
@@ -89,7 +89,7 @@ public class BaglantiDAO extends DBConnection {
 	}
 
 	public void Kaydet(Baglanti baglanti) throws Exception {
-		String SQL = "INSERT INTO tbl_baglanti( \"icradosyasiID\", \"alacakliID\", \"borcluID\"," + " \"hesaplamaID\")"
+		String SQL = "INSERT INTO tbl_baglanti( icra_dosyasi_id, alacakli_id,borclu_id," + " hesap_id)"
 				+ " VALUES ( ?, ?, ?, ?);";
 
 		DBConnection DB = new DBConnection();

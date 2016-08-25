@@ -1,0 +1,399 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="vizit_talep" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="88e77a93-cc15-44f1-ae8f-4180b01d2321">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="alacakliAdi" class="java.lang.String"/>
+	<field name="avukatAdi" class="java.lang.String"/>
+	<field name="borcluAdi" class="java.lang.String"/>
+	<field name="icraMudurlugu" class="java.lang.String"/>
+	<field name="icraDosyaNo" class="java.lang.String"/>
+	<field name="borcMiktari" class="java.lang.Double"/>
+	<field name="borcluAdres" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band height="118">
+			<image hAlign="Center" vAlign="Middle">
+				<reportElement positionType="Float" x="0" y="0" width="555" height="86" uuid="94ba29f6-39dd-4333-9e7d-a8714753c3dd"/>
+				<imageExpression><![CDATA["sasa.png"]]></imageExpression>
+			</image>
+			<line>
+				<reportElement x="0" y="86" width="555" height="2" uuid="592d5553-4eac-4e20-a278-b810bb5dacc7"/>
+			</line>
+			<line>
+				<reportElement x="1" y="114" width="555" height="2" uuid="46bd9cf5-3fc3-426a-b3f8-e60ddaa57f55"/>
+			</line>
+			<staticText>
+				<reportElement x="1" y="88" width="554" height="26" uuid="a3a02054-aa09-44ea-9357-79df26e817cf"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true" pdfFontName="Times-Bold" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[UZLAŞMA DAVET TUTANAĞI]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="642" splitType="Stretch">
+			<staticText>
+				<reportElement x="29" y="12" width="221" height="20" uuid="283bef5e-8728-4589-a6b9-4761bb5348c0"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true" pdfFontName="Times-Roman" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[ALACAKLI                                                      ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="29" y="45" width="221" height="20" uuid="c61f395a-18f8-44fb-95f4-05a338c13a06"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true" pdfFontName="Times-Roman" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[VEKİLİ                                                            ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="29" y="65" width="221" height="20" uuid="572da7c3-fc0f-4153-a9e0-a8ac65e5d19d"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true" pdfFontName="Times-Roman" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[BORÇLU]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="29" y="85" width="221" height="20" uuid="221ed995-4f2b-4338-9b1d-8d902caa01e9"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true" pdfFontName="Times-Roman" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[İCRA DAİ. VE DOSYA NO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="29" y="105" width="221" height="20" uuid="4e614041-dfed-4044-b9ac-4ebea9368893"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true" pdfFontName="Times-Roman" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[ALACAK MİKTARI]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="29" y="125" width="221" height="20" uuid="f7523494-377e-4312-aa20-553b3753bd51"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true" pdfFontName="Times-Roman" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[UZLAŞMA TARİH VE SAAT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="29" y="145" width="59" height="20" uuid="800e601b-27fe-4fb1-9179-2c0bd5a80c09"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true" pdfFontName="Times-Roman" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[ADRES]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="187" width="555" height="2" uuid="37edbbdd-016b-44a9-9546-c963c1d0f734"/>
+			</line>
+			<line>
+				<reportElement x="0" y="206" width="555" height="2" uuid="17dc1f1f-8560-4e0c-b94b-b2a48c6e499d"/>
+			</line>
+			<line>
+				<reportElement x="0" y="229" width="555" height="2" uuid="6eb56784-4b32-4688-adce-09038f37b55e"/>
+			</line>
+			<line>
+				<reportElement x="0" y="250" width="555" height="2" uuid="235d8c99-7e9f-4413-9b33-0a25a63844fe"/>
+			</line>
+			<line>
+				<reportElement x="0" y="273" width="555" height="2" uuid="6073d8c3-8390-45d9-9718-4c3bab18ecda"/>
+			</line>
+			<line>
+				<reportElement x="0" y="297" width="555" height="2" uuid="84ec920c-a900-4ff1-b501-f0cf672749ae"/>
+			</line>
+			<line>
+				<reportElement x="0" y="320" width="555" height="2" uuid="95981b42-a016-4244-a03e-b5120789a700"/>
+			</line>
+			<line>
+				<reportElement x="0" y="344" width="555" height="2" uuid="8f67d38f-0157-4f25-8dc0-c62040510f65"/>
+			</line>
+			<line>
+				<reportElement x="-1" y="366" width="555" height="2" uuid="0d16de4b-e20d-4e6a-a270-0d432ff4e530"/>
+			</line>
+			<line>
+				<reportElement x="-1" y="394" width="555" height="2" uuid="e6bfff5f-4b2e-486a-94c1-4a129498e374"/>
+			</line>
+			<staticText>
+				<reportElement x="0" y="189" width="191" height="15" uuid="9e0887c4-6d4d-46f2-b9ef-07416c368306"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="8" pdfFontName="Times-Roman" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[Borçlu İletişimi]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="211" width="191" height="15" uuid="54e38b45-223f-4737-9c83-584394c5a6ab"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="8" pdfFontName="Times-Roman" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[Borçluya ulaşılmaması durumunda aile yakını iletişişmi]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="231" width="191" height="15" uuid="865bb30d-60d8-4842-8360-39c612ea822d"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="8" pdfFontName="Times-Roman" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[Evin mülkiyet durumu? Ortalama kira/satış değeri?]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="253" width="191" height="15" uuid="bbe03325-ce27-4da7-95bf-9508fb66ec8b"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="8" pdfFontName="Times-Roman" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[Evde başka çalışan varmı? Aile toplam gelir durumu?]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="277" width="191" height="15" uuid="ee8bc421-fb3a-4161-a3d0-b55996fcf3b3"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="8" pdfFontName="Times-Roman" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[Daha önce menkul hacze gelinmiş mi? Tahmini borç?]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="299" width="191" height="15" uuid="a953c7bc-84a6-43b3-b1d5-b6d051b76d4a"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="8" pdfFontName="Times-Roman" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[Adres durumu]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="322" width="191" height="15" uuid="67c9a2e1-cb72-4301-93cb-8e0a5146afad"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="8" pdfFontName="Times-Roman" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[Evin hacze uygunluğu]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="346" width="191" height="15" uuid="01d12d44-b37b-4486-a955-08d2dc01fc1d"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="8" pdfFontName="Times-Roman" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[Anlaşma]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="368" width="191" height="15" uuid="5715767e-9522-45be-8732-6b2837aa8bbb"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="8" pdfFontName="Times-Roman" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[Borçlu hakkında izlenim]]></text>
+			</staticText>
+			<line>
+				<reportElement x="193" y="187" width="1" height="207" uuid="32a5eaea-1acb-48c9-b353-f4bb3f7a6294"/>
+			</line>
+			<line>
+				<reportElement x="405" y="189" width="1" height="110" uuid="414231aa-d820-4d42-ba04-8bcdea8dffc4"/>
+			</line>
+			<staticText>
+				<reportElement x="205" y="189" width="200" height="17" uuid="d0e1309b-59be-4063-b6f7-7bbafa2609d7"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Times New Roman" pdfFontName="Times-Roman" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[0 (5    ) ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="417" y="189" width="137" height="17" uuid="1b2f09e6-6af2-426b-8fac-dcce98b23966"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[0 (      ) ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="204" y="210" width="200" height="17" uuid="8e5b58d4-0d13-4f27-86ad-048794ff5339"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Times New Roman" pdfFontName="Times-Roman" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[0 (5    ) ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="418" y="212" width="137" height="17" uuid="539f38ff-3c84-4a06-9235-cc31a5b9f997"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[0 (      ) ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="204" y="232" width="200" height="17" uuid="87b8e223-8e54-4519-bb19-0c7049560b84"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Times New Roman" pdfFontName="Times-Roman" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[KİRA (  )     MÜLK (  )     ARAÇ (   )]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="410" y="233" width="137" height="17" uuid="f1f7ca9f-3fbb-45df-8fb6-c64b5d7f3dfe"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="8" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[DEĞERİ:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="204" y="254" width="200" height="17" uuid="fd0376ce-c595-45a3-94c3-2626f51ca794"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Times New Roman" pdfFontName="Times-Roman" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[VAR (    )          YOK (     )]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="410" y="254" width="137" height="17" uuid="2fa7490a-47d0-4ca6-aae2-a7e94e755a4e"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="8" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[DEĞER:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="201" y="277" width="200" height="17" uuid="b5a2a7b5-e220-4258-9422-87df3f35bbe3"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Times New Roman" pdfFontName="Times-Roman" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[EVET (    )            HAYIR (     )]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="408" y="280" width="137" height="17" uuid="eef481f9-7178-4963-a16a-713fd7c3a0f0"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="8" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[TAHMİNİ BORÇ:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="204" y="303" width="341" height="17" uuid="e72cf383-7992-4f0c-8edc-8f03d07c0ca3"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Times New Roman" pdfFontName="Times-Roman" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[GÖRÜŞÜLDÜ (  )    TELEFON (   )   EVDE YOK (   )   BOŞ (    )]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="206" y="325" width="341" height="17" uuid="9175213e-c4ed-46a0-9959-2293c8e0b865"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Times New Roman" pdfFontName="Times-Roman" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[UYGUN (    )      UYGUN DEĞİL (     )]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="202" y="347" width="341" height="17" uuid="d3688b3a-c41c-4376-9361-823fbebe23b8"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Times New Roman" pdfFontName="Times-Roman" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[VAR (   )     YOK (   )            MİKTAR :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="396" width="100" height="20" uuid="a002e675-63d1-42d9-9b66-e0d8ac164679"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="false" pdfFontName="Times-Roman" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[AÇIKLAMA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="4" y="563" width="547" height="22" uuid="1f0b9beb-1254-4602-b0fa-f24178146716"/>
+				<textElement>
+					<font fontName="Times New Roman" size="7" pdfFontName="Times-Roman" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[Avukatlık kanunun 35/A maddesi gereğince "UZLAŞMA SAĞLAMA" amacıyla SASA&SASA olarak yukardaki adresler ziyaret edilmiştir. Borçluya irtibat kurulamadığında; Borç ödemesi veya yapılandırmanın sağlanması gerektiği hususu serhli "Çağrı Notu" bırakılmıştır.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="4" y="585" width="414" height="14" uuid="95659475-2340-4e8d-9805-7f2103ecde74"/>
+				<textElement>
+					<font fontName="Times New Roman" size="7" pdfFontName="Times-Roman" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[İş bu tutanak mahalinde tanzim edilip imza altına alınmıştır.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="59" y="614" width="147" height="20" uuid="03203b69-e738-4e0b-aa46-74874f3a4e15"/>
+				<textElement>
+					<font fontName="Times New Roman" size="7" pdfFontName="Times-Roman" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[SASA UZLAŞMA DAVETÇİSİ 1]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="359" y="614" width="147" height="20" uuid="6268d883-ca68-46c9-99a3-eb4caa61933d"/>
+				<textElement>
+					<font fontName="Times New Roman" size="7" pdfFontName="Times-Roman" pdfEncoding="Cp1254"/>
+				</textElement>
+				<text><![CDATA[SASA UZLAŞMA DAVETÇİSİ 2]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="250" y="45" width="293" height="20" uuid="b58124c4-200f-4288-9d2c-2aa2fa52d480"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[:..............................................................................................]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="250" y="65" width="293" height="20" uuid="5c942f47-ed45-4fe7-9725-8464ea6ee3e0"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[:..............................................................................................]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="250" y="85" width="293" height="20" uuid="715ab113-176c-42af-a253-e009dad0faf8"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[:..............................................................................................]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="250" y="105" width="293" height="20" uuid="555f8ba7-8b69-43c4-8a71-9b9b3ea011bb"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[:..............................................................................................]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="250" y="125" width="293" height="20" uuid="1cd322e9-7ef3-4848-ae20-ddefe3a3b312"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[:..............................................................................................]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="88" y="145" width="445" height="20" uuid="9ec639f0-9a60-43af-9cf1-5c66d7fbd214"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[:.................................................................................................................................................]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="88" y="165" width="445" height="20" uuid="8e09c924-3f9d-4dcc-b07b-438f29e5616c"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[:.................................................................................................................................................]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="250" y="12" width="293" height="20" uuid="e18e7c3c-abf6-4da2-827f-4824431b62fa"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true" pdfEncoding="Cp1254"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{alacakliAdi}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="250" y="45" width="293" height="20" uuid="d4ce2702-ff89-4350-ab5c-66bd75ef957e"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true" pdfEncoding="Cp1254"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{avukatAdi}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="250" y="65" width="293" height="20" uuid="d12e7ed3-19b3-4525-b087-558a3c96740d"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true" pdfEncoding="Cp1254"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{borcluAdi}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="250" y="85" width="184" height="20" uuid="3f900de1-0f6d-4bd0-be9b-07be4aa839d3"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true" pdfEncoding="Cp1254"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{icraMudurlugu}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="433" y="85" width="110" height="20" uuid="7c6a1496-b3e7-4f47-8d1b-57319f7c26cf"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true" pdfEncoding="Cp1254"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{icraDosyaNo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="250" y="105" width="293" height="20" uuid="a7df7861-7606-4a06-89e9-5ad4d6a3f854"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true" pdfEncoding="Cp1254"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{borcMiktari}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="88" y="145" width="445" height="20" uuid="fab7d069-3060-4583-88d7-20aa01562aa0"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true" pdfEncoding="Cp1254"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{borcluAdres}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

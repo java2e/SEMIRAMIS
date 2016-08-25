@@ -1,6 +1,7 @@
 package pelops.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -14,6 +15,7 @@ import pelops.dao.VizitBilgisiDAO;
 import pelops.model.User;
 import pelops.model.VizitBilgisi;
 import pelops.model.VizitStatusu;
+import pelops.users.Util;
 
 @ManagedBean(name = "vizitBilgisiKaydiBean")
 @SessionScoped
@@ -21,6 +23,9 @@ public class VizitBilgisiKaydiBean {
 
 	public VizitBilgisiKaydiBean() {
 		// TODO Auto-generated constructor stub
+		
+		icradosyaNo=AktifBean.icraDosyaNo;
+		
 		PanelClose();
 		ButtonOpen();
 	}
@@ -37,7 +42,7 @@ public class VizitBilgisiKaydiBean {
 
 	ArrayList<User> users = new ArrayList<User>();
 
-	String icradosyaNo;
+	private String icradosyaNo;
 
 	String borcluAdi;
 
@@ -47,8 +52,12 @@ public class VizitBilgisiKaydiBean {
 
 	boolean buttonDisabled;
 
+
+	
+	
+
 	public String getIcradosyaNo() {
-		return AktifBean.icraDosyaNo;
+		return icradosyaNo;
 	}
 
 	public void setIcradosyaNo(String icradosyaNo) {
@@ -110,11 +119,10 @@ public class VizitBilgisiKaydiBean {
 			FacesContext context = FacesContext.getCurrentInstance();
 
 			vizitBilgisi.setIcraDosyaID(AktifBean.getIcraDosyaID());
-			if (vizitBilgisi.getOdemeMiktari() != Double.valueOf(0) && !vizitBilgisi.getVizitStatusu().equals("")
-					&& vizitBilgisi.getVizitPersoneliId() != 0 && !vizitBilgisi.getVizitNotu().equals("")) {
-
-				boolean kaydedildi = dao.vizitBilgisiKaydet(vizitBilgisi);
-				if (kaydedildi) {
+		
+			boolean kaydedildi = dao.vizitBilgisiKaydet(vizitBilgisi);
+			
+			if (kaydedildi) {
 					// Pop Up Çıkacak... Kaydedildiğine dair.
 					context.addMessage(null, new FacesMessage("Kaydedildi!"));
 
@@ -122,11 +130,7 @@ public class VizitBilgisiKaydiBean {
 					context.addMessage(null, new FacesMessage("Kaydet işlemi başarısız!"));
 
 				}
-				PanelClose();
-				ButtonOpen();
-			} else {
-				context.addMessage(null, new FacesMessage("Eksik bilgi doldurdunuz!"));
-			}
+		
 
 			vizitBilgisi = new VizitBilgisi();
 
@@ -147,6 +151,10 @@ public class VizitBilgisiKaydiBean {
 			listVizit = dao.getAllListFromIcraDosyaID(AktifBean.icraDosyaID);
 
 		}
+		
+
+		PanelClose();
+		ButtonOpen();
 
 	}
 
@@ -187,6 +195,8 @@ public class VizitBilgisiKaydiBean {
 
 	public void YeniKayit() {
 		vizitBilgisi = new VizitBilgisi();
+		vizitBilgisi.setVizitTarihi(new Date());
+		vizitBilgisi.setVizitPersoneliId(Util.getUser().getUsrId());
 		PanelOpen();
 
 	}
@@ -199,7 +209,7 @@ public class VizitBilgisiKaydiBean {
 
 	public void PanelClose() {
 
-		this.setPanelRender(false);
+		panelRender=false;
 
 	}
 

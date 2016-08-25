@@ -296,6 +296,10 @@ public class AnaSayfaBean {
 			case 305:
 				formPath = "/XHTML/analiz/frm_kasa_analizi.xhtml";
 				break;
+			case 306:
+				formPath = "/XHTML/analiz/frm_vizit_analizi.xhtml";
+				break;
+				
 				
 				
 				

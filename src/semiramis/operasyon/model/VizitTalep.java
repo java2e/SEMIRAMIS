@@ -13,15 +13,54 @@ public class VizitTalep
 	
 	private String icraMudurlugu;
 	
+	private String alacakliAdi;
+	
+	private String avukatAdi;
+	
 	private String il;
 	
 	private String ilce;
 	
 	private String aciklama;
 	
+	private String izlemeStatusu;
+	
+	private double borcMiktari;
+	
 	private String personelAdSoyad;
 	
 	private int cagriAdedi;
+	
+	private String borcluAdres;
+	
+	
+	
+	
+	
+
+	public String getBorcluAdres() {
+		return borcluAdres;
+	}
+
+	public void setBorcluAdres(String borcluAdres) {
+		this.borcluAdres = borcluAdres;
+	}
+
+	public String getAvukatAdi() {
+		return avukatAdi;
+	}
+
+	public void setAvukatAdi(String avukatAdi) {
+		this.avukatAdi = avukatAdi;
+	}
+
+	public String getAlacakliAdi() {
+		return alacakliAdi;
+	}
+
+	public void setAlacakliAdi(String alacakliAdi) {
+		this.alacakliAdi = alacakliAdi;
+	}
 
 	public int getId() {
 		return id;
@@ -101,6 +140,23 @@ public class VizitTalep
 
 	public void setIcraDosyaNo(String icraDosyaNo) {
 		this.icraDosyaNo = icraDosyaNo;
+	}
+
+	
+	public String getIzlemeStatusu() {
+		return izlemeStatusu;
+	}
+
+	public void setIzlemeStatusu(String izlemeStatusu) {
+		this.izlemeStatusu = izlemeStatusu;
+	}
+
+	public double getBorcMiktari() {
+		return borcMiktari;
+	}
+
+	public void setBorcMiktari(double borcMiktari) {
+		this.borcMiktari = borcMiktari;
 	}
 	
 	

@@ -2,6 +2,7 @@ package semiramis.operasyon.dao;
 
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,14 +17,21 @@ public class VizitTalepDAO extends DBConnection{
 
 		try {
 
-			String sql = "select  borclu.ad_soyad,borclu.tc_no,ib.izleme_tarihi,kul.ad_soyad as personel_adsoyad,"
-					+ " borclu.adres,icra.icra_dosyasi_no,imud.adi,ib.aciklama from tbl_izleme_bilgisi ib "
-					+ " inner join tbl_kullanici kul on ib.personel_id=kul.id "
-					+ " inner join tbl_icra_dosyasi icra on ib.icra_dosyasi_id=icra.id "
-					+ " inner join tbl_icra_mudurlugu imud on icra.icra_mudurlugu_id=imud.id "
-					+ " inner join tbl_baglanti bag on bag.\"icradosyasiID\"=icra.id "
-					+ " inner join tbl_borclu borclu on bag.\"borcluID\" = borclu.id " + " where ib.vizit_durumu="
+			String sql = "select iz.adi as izleme_statusu,hesap.toplam_alacak, borclu.ad_soyad,borclu.tc_no,ib.izleme_tarihi,kul.ad_soyad as personel_adsoyad,  "
+					+"  borclu.adres,icra.icra_dosyasi_no,imud.adi,ib.aciklama,alacakli.muvekkil_adi as alacakli_adi from tbl_izleme_bilgisi ib  " 
+					+"   inner join tbl_kullanici kul on ib.personel_id=kul.id   "
+					+"  inner join tbl_icra_dosyasi icra on ib.icra_dosyasi_id=icra.id   "
+					+"  inner join tbl_icra_mudurlugu imud on icra.icra_mudurlugu_id=imud.id   "
+					+"   inner join tbl_baglanti bag on bag.icra_dosyasi_id=icra.id  " 
+					+"   inner join tbl_alacakli_bilgisi alacakli on alacakli.id=bag.alacakli_id " 
+					+"   inner join tbl_izleme_sonucu iz on iz.id=ib.izleme_sonucu_id  "
+					+"   inner join tbl_hesap hesap on bag.hesap_id=hesap.id " 
+					+"   inner join tbl_borclu borclu on bag.borclu_id = borclu.id  where ib.vizit_durumu="
 					+ vizitDurum + " and ib.izleme_tarihi>'" + tarih + "' ";
+			
+			
+					
+			
 			
 			newConnectDB();
 			
@@ -46,6 +54,11 @@ public class VizitTalepDAO extends DBConnection{
 				vizit.setIl(set.getString("adres").split(" ")[set.getString("adres").split(" ").length-2]);
 				vizit.setIlce(set.getString("adres").split(" ")[set.getString("adres").split(" ").length-1]);
 				vizit.setPersonelAdSoyad(set.getString("personel_adsoyad"));
+				vizit.setIzlemeStatusu(set.getString("izleme_statusu"));
+				vizit.setBorcMiktari(Double.valueOf(new DecimalFormat("0.00").format(set.getDouble("toplam_alacak")).replace(",", ".")));
+				vizit.setAlacakliAdi(set.getString("alacakli_adi"));
+				vizit.setBorcluAdres(set.getString("adres"));
+				vizit.setAvukatAdi("Av. MEHMET ORUÇ SASA");
 				
 				liste.add(vizit);
 				
